@@ -6,7 +6,6 @@ Heavily WIP!
 ### Outline:
 - General layer structure - Complete!
 - Reset functionality - Complete!
-- Custom Orb Types - 0%
 
 ### Sprites:
 - Races - 50%

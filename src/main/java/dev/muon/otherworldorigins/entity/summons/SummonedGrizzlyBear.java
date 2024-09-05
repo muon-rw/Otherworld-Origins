@@ -12,6 +12,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
@@ -31,8 +32,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class SummonedGrizzlyBear extends EntityGrizzlyBear implements IFollowingSummon, ISummon {
-    /*
-     * Originally based off of Ars Nouveau, which is under the LGPL-v3.0 license
+    /** Unused
      */
     private static final EntityDataAccessor<Optional<UUID>> OWNER_UUID;
 
@@ -43,6 +43,9 @@ public class SummonedGrizzlyBear extends EntityGrizzlyBear implements IFollowing
         super(entityType, level);
     }
 
+    public static AttributeSupplier.Builder createAttributes() {
+        return EntityGrizzlyBear.bakeAttributes();
+    }
 
     private LivingEntity owner;
     @Nullable

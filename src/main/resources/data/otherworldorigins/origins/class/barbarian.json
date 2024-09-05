@@ -1,10 +1,11 @@
 {
 	"powers": [
-		"otherworldorigins:barbarian/attributes",
-		"otherworldorigins:barbarian/subclasses"
+		"otherworldorigins:class/barbarian/attributes",
+		"otherworldorigins:class/barbarian/subclasses",
+		"otherworldorigins:class/barbarian/summon_beast_test"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "alexsmobs:bison_fur"
 	},
 	"impact": 3,
 	"order": 0

@@ -1,0 +1,13 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.origins.primary_active"
+    },
+    "entity_action": {
+        "type": "otherworldorigins:summon_entity",
+        "entity_type": "alexsmobs:grizzly_bear",
+        "bientity_action": {
+            "type": "otherworldorigins:tame"
+        }
+    }
+}

@@ -1,7 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:warlock/attributes",
-		"otherworldorigins:warlock/subclasses"
+		"otherworldorigins:class/warlock/attributes",
+		"otherworldorigins:class/warlock/subclasses"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

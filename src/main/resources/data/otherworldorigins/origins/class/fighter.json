@@ -1,7 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:fighter/attributes",
-		"otherworldorigins:fighter/subclasses"
+		"otherworldorigins:class/fighter/attributes",
+		"otherworldorigins:class/fighter/subclasses"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

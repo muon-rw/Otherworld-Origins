@@ -1,5 +1,6 @@
 package dev.muon.otherworldorigins.client;
 
+import com.github.alexthe666.alexsmobs.client.render.RenderGrizzlyBear;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import net.minecraft.client.renderer.entity.*;
@@ -17,6 +18,8 @@ public class ModEventBusEventsClient {
         event.registerEntityRenderer(ModEntities.SUMMON_SKELETON.get(), SkeletonRenderer::new);
         event.registerEntityRenderer(ModEntities.SUMMON_ZOMBIE.get(), ZombieRenderer::new);
         event.registerEntityRenderer(ModEntities.SUMMON_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
+
+        event.registerEntityRenderer(ModEntities.SUMMON_GRIZZLY_BEAR.get(), RenderGrizzlyBear::new);
 
     }
 }

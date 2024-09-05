@@ -1,7 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:bard/attributes",
-		"otherworldorigins:bard/subclasses"
+		"otherworldorigins:class/bard/attributes",
+		"otherworldorigins:class/bard/subclasses"
 	],
 	"icon": {
 		"item": "minecraft:barrier"
