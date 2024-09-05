@@ -11,16 +11,25 @@ import java.util.function.BiConsumer;
 
 public class TameAction extends BiEntityAction<NoConfiguration> {
 
-    public static void customTame(Entity actor, Entity target) {
-        if (actor instanceof Player player && target instanceof TamableAnimal tamable) {
-            if (!tamable.isTame()) {
-                tamable.tame(player);
-                OtherworldOrigins.LOGGER.info("Custom tame action executed: " + tamable.getClass().getSimpleName() + " tamed by " + player.getName().getString());
-            } else {
-                OtherworldOrigins.LOGGER.info("Custom tame action failed: " + tamable.getClass().getSimpleName() + " is already tamed");
-            }
+    public static void tame(Entity actor, Entity target) {
+        if (!(target instanceof TamableAnimal)) {
+            OtherworldOrigins.LOGGER.info("Tame action failed: Target entity is not tamable - " + target.getClass().getSimpleName());
+            return;
+        }
+
+        if (!(actor instanceof Player)) {
+            OtherworldOrigins.LOGGER.info("Tame action failed: Actor cannot own entities - " + actor.getClass().getSimpleName());
+            return;
+        }
+
+        Player player = (Player) actor;
+        TamableAnimal tamable = (TamableAnimal) target;
+
+        if (tamable.isTame()) {
+            OtherworldOrigins.LOGGER.info("Tame action failed: " + tamable.getClass().getSimpleName() + " is already tamed");
         } else {
-            OtherworldOrigins.LOGGER.info("Custom tame action failed: Invalid actor or target");
+            tamable.tame(player);
+            OtherworldOrigins.LOGGER.info("Tame action executed: " + tamable.getClass().getSimpleName() + " tamed by " + player.getName().getString());
         }
     }
 

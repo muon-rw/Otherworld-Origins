@@ -21,7 +21,7 @@ public class ModActions {
     public static final RegistryObject<TransferItemAction> TRANSFER_ITEM = BIENTITY_ACTIONS.register("transfer_item",
             () -> new TransferItemAction(TransferItemAction::transferItem));
     public static final RegistryObject<TameAction> TAME = BIENTITY_ACTIONS.register("tame",
-            () -> new TameAction(TameAction::customTame));
+            () -> new TameAction(TameAction::tame));
 
     public static void register(IEventBus eventBus) {
         ENTITY_ACTIONS.register(eventBus);
