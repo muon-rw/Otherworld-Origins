@@ -1,0 +1,7 @@
+{
+	"replace": false,
+	"values": [
+                {"id": "#otherworldorigins:bosses","required":false},
+                "minecraft:blaze"
+	]
+}

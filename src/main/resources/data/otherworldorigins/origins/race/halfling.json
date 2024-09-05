@@ -1,0 +1,15 @@
+{
+	"powers": [
+                "otherworldorigins:race/halfling/attributes",
+                "otherworldorigins:race/halfling/nimbleness",
+                "otherworldorigins:race/halfling/size",
+                "otherworldorigins:race/halfling/lucky",
+                "otherworldorigins:race/halfling/brave"
+	],
+        "icon": {
+		"item": "minecraft:ink_sac",
+		"tag": "{CustomModelData:354}"
+	},
+        "impact": 1,
+        "order": 2
+}

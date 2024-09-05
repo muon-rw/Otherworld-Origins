@@ -1,0 +1,7 @@
+{
+    "replace": false,
+    "values": [
+        {"id":"otherworldorigins:ebonbreath","required":false},
+        {"id":"otherworldorigins:blazenbreath","required":false}
+    ]
+}

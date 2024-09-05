@@ -1,0 +1,14 @@
+{
+	"powers": [
+                "otherworldorigins:race/tiefling/attributes",
+                "otherworldorigins:race/tiefling/dark_vision",
+                "otherworldorigins:race/tiefling/hellish_resistance",
+                "otherworldorigins:race/tiefling/infernal_legacy"
+	],
+        "icon": {
+		"item": "minecraft:ink_sac",
+		"tag": "{CustomModelData:353}"
+	},
+	"impact": 1,
+        "order": 4
+}

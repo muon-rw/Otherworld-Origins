@@ -1,0 +1,11 @@
+{
+	"powers": [
+		"otherworldorigins:race/human/attributes",
+		"otherworldorigins:race/human/summon_test"
+	],
+	"icon": {
+		"item": "minecraft:player_head"
+	},
+	"impact": 1,
+	"order": 0
+}

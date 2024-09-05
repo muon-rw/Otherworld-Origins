@@ -1,0 +1,116 @@
+{
+    "parent": "minecraft:item/generated",
+    "textures": {
+        "layer0": "minecraft:item/ink_sac"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "custom_model_data": 352
+            },
+            "model": "otherworld:item/gorgon"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 353
+            },
+            "model": "otherworld:item/incubus"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 354
+            },
+            "model": "otherworld:item/wood_elf"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 355
+            },
+            "model": "otherworld:item/ogre"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 356
+            },
+            "model": "otherworld:item/dwarf"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 357
+            },
+            "model": "otherworld:item/pixie"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 358
+            },
+            "model": "otherworld:item/banshee"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 359
+            },
+            "model": "otherworld:item/moon_elf"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 360
+            },
+            "model": "otherworld:item/revenant"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 361
+            },
+            "model": "otherworld:item/arachnae"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 362
+            },
+            "model": "otherworld:item/goblin"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 363
+            },
+            "model": "otherworld:item/alfiq"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 364
+            },
+            "model": "otherworld:item/high_elf"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 365
+            },
+            "model": "otherworld:item/yeti"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 366
+            },
+            "model": "otherworld:item/siren"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 367
+            },
+            "model": "otherworld:item/fae"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 368
+            },
+            "model": "otherworld:item/plague_victim"
+        },
+        {
+            "predicate": {
+                "custom_model_data": 369
+            },
+            "model": "otherworld:item/valkyrie"
+        }
+    ]
+}

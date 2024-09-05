@@ -1,0 +1,209 @@
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'maven-publish'
+    id 'net.neoforged.gradle' version '[6.0.18,6.2)'
+    id 'org.spongepowered.mixin' version '0.7.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
+
+// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+
+jarJar.enable()
+
+
+minecraft {
+    mappings channel: mapping_channel, version: mapping_version
+    copyIdeResources = true
+    runs {
+        configureEach {
+            workingDirectory project.file("run/${it.name}")
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+        client {
+            property 'forge.enabledGameTestNamespaces', mod_id
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            args '--username', 'Dev#'
+        }
+
+        server {
+            property 'forge.enabledGameTestNamespaces', mod_id
+            args '--nogui'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+        }
+        gameTestServer {
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+        data {
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    maven {
+        name = "Greenhouse"
+        url = 'https://maven.greenhouseteam.dev/releases/'
+    }
+
+    maven {
+        name = "JitPack"
+        url = 'https://jitpack.io'
+        content {
+            excludeGroup "io.github.edwinmindcraft"
+        }
+    }
+
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content {
+            includeGroup "maven.modrinth"
+        }
+    }
+    maven { url 'https://maven.kosmx.dev/' }
+    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'}
+    maven { url "https://code.redspace.io/releases" }
+    maven { url "https://code.redspace.io/snapshots" }
+    maven { url "https://maven.blamejared.com" }
+    maven { url "https://maven.ladysnake.org/releases" }
+
+    maven { url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven" }
+    }
+
+    maven {
+        url = "https://jm.gserv.me/repository/maven-public/"
+    }
+    maven { url = 'https://maven.greenhouseteam.dev/releases/' }
+    maven { url = 'https://maven.theillusivec4.top' }
+    maven { url = "https://modmaven.dev"
+        content {
+            excludeGroup "com.teamresourceful.resourcefulconfig"}
+    }
+    maven { url = "https://nexus.resourcefulbees.com/repository/maven-public/" }
+
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    minecraft "net.neoforged:forge:${minecraft_version}-${neo_version}"
+
+    // Origins
+    implementation fg.deobf("io.github.edwinmindcraft:calio-forge:${minecraft_version}-${calio_version}")
+    implementation fg.deobf("io.github.edwinmindcraft:apoli-forge:${minecraft_version}-${apoli_version}")
+    implementation fg.deobf("io.github.edwinmindcraft:origins-forge:${minecraft_version}-${origins_version}")
+
+    implementation fg.deobf("com.github.Virtuoel:Pehkui:${pehkui_version}-${minecraft_version}-forge")
+    implementation fg.deobf("top.theillusivec4.caelus:caelus-forge:${caelus_version}")
+
+    implementation(fg.deobf("de.dafuqs:additionalentityattributes-forge:${aea_forge_version}") {
+        exclude group: 'net.minecraftforge'
+        exclude group: 'com.github.llamalad.mixinextras'
+    })
+
+    // QoL
+
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_id}")
+
+    // Mixin
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixin_extras_version}"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:${mixin_extras_version}")) {
+        jarJar.ranged(it, "[${mixin_extras_version},)")
+    }
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    // Iron's Spells n Spellbooks
+    implementation fg.deobf("io.redspace.ironsspellbooks:irons_spellbooks:${irons_version}:api")
+    implementation fg.deobf("io.redspace.ironsspellbooks:irons_spellbooks:${irons_version}")
+    runtimeOnly fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
+    runtimeOnly fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}")
+
+
+    // Alex's
+    implementation fg.deobf("curse.maven:alexs-mobs-426558:5160697")
+    implementation fg.deobf("curse.maven:citadel-331936:5143956")
+}
+
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
+            neo_version         : neo_version, neo_version_range: neo_version_range,
+            loader_version_range: loader_version_range,
+            mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+            mod_authors         : mod_authors, mod_description: mod_description, pack_format_number: pack_format_number,
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
+    }
+}
+
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes([
+                'Specification-Title'     : mod_id,
+                'Specification-Vendor'    : mod_authors,
+                'Specification-Version'   : '1', // We are version 1 of ourselves
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : project.jar.archiveVersion,
+                'Implementation-Vendor'   : mod_authors,
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+    finalizedBy 'reobfJar'
+}
+
+publishing {
+    publications {
+        register('mavenJava', MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file://${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+tasks.jarJar.configure {
+    archiveClassifier = ""
+    dependsOn('reobfJar')
+}
+
+reobf {
+    jarJar {}
+}
+
+jar.finalizedBy('reobfJarJar')

@@ -1,0 +1,13 @@
+{
+	"powers": [
+                "otherworldorigins:race/dwarf/attributes",
+                "otherworldorigins:race/dwarf/resilience",
+                "otherworldorigins:race/dwarf/weapon_training"
+	],
+        "icon": {
+                "item": "minecraft:ink_sac",
+                "tag": "{CustomModelData:356}"
+        },
+	"impact": 1,
+        "order": 3
+}

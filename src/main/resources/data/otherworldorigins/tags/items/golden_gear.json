@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    {"id":"#otherworldorigins:golden_tools","required":false},
+    {"id":"#otherworldorigins:golden_armor","required":false},
+    {"id":"#otherworldorigins:golden_weapons","required":false}
+  ]
+}

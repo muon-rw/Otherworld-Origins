@@ -1,0 +1,33 @@
+{
+  "origin.origins.human.description": "-§l Notable Changes§r: \n§oNone§r\n\n A human's fate is more open than most - venture forth with no benefits or drawbacks.",
+
+  "origin.medievalorigins.alfiq.name": "Alfiq",
+  "origin.medievalorigins.alfiq.description": "-§l Notable Changes§r: \n§o§2+ Unarmed Bonus§r\n§o§2+ Unique Movement§r\n§o§6• Carnivore§r\n§o§c- Defense§r\n§lAlfiq§r are a cunning species of anthropomorphic felines with sharp claws and excellent agility. Their roads often lead to warm sands.",
+  
+  "power.medievalorigins.alfiq/clawed.name": "Clawed",
+  "power.medievalorigins.alfiq/clawed.description": "Alfiq have razor sharp retractable claws; they deal extra damage with empty paws, and can climb up and cling to steep surfaces (Can be toggled)",
+
+  "enchantment.medievalorigins.featherweight": "Featherweight",
+  "enchantment.medievalorigins.featherweight.desc": "This enchantment can be applied to heavy armor to prevent slowing down Arachnae, Elves, Alfiq, or those with wings.",
+
+  "enchantment.medievalorigins.mirroring": "Mirroring",
+  "enchantment.medievalorigins.mirroring.desc": "With this enchantment applied to helmets, players are immune to a Gorgon's petrifying gaze and Dwarves can see normally in the daylight.",
+
+  "sounds.medievalorigins.banshee_cry": "Banshee Cry",
+
+  "entity.medievalorigins.summon_zombie": "Summoner's Zombie",
+  "entity.medievalorigins.summon_skeleton": "Summoner's Skeleton",
+  "entity.medievalorigins.summon_wither_skeleton": "Summoner's Wither Skeleton",
+
+  "badges.medievalorigins.pixie.jump": "Pixie jumps are 2 blocks high. They can also fly, which uses up §bFlight Power (FP)§r. \n\n §bFP§r only regenerates while on the ground.",
+
+  "medievalorigins.uncastable": "You can't use this ability right now.",
+
+  "tooltip.medievalorigins.damage_dealt": "+%s Damage Dealt",
+  "tooltip.medievalorigins.attack_damage_bonus": "+%s Attack Damage",
+
+  "layer.medievalorigins.magic_subclasses.name": "Magic Specialization",
+
+  "death.attack.smite.player": "%1$s was smeeted by %2$s",
+  "death.attack.smite.item": "%1$s was smeeted by %2$s with %3$s"
+}

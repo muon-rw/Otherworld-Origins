@@ -1,0 +1,10 @@
+{
+	"powers": [
+                "otherworldorigins:race/minecraft/attributes"
+	],
+        "icon": {
+                "item": "minecraft:grass_block"
+        },
+	"impact": 3,
+        "order": 5
+}

@@ -1,0 +1,13 @@
+{
+	"powers": [
+                "otherworldorigins:race/gnome/attributes",
+                "otherworldorigins:race/gnome/dark_vision",
+                "otherworldorigins:race/gnome/cunning"
+	],
+        "icon": {
+		"item": "minecraft:ink_sac",
+		"tag": "{CustomModelData:354}"
+	},
+        "impact": 1,
+        "order": 2
+}

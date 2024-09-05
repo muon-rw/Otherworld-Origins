@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    {"id":"epicsamurai:shuko","required":false},
+    {"id":"epicsamurai:shuko_netherite","required":false}
+  ]
+}

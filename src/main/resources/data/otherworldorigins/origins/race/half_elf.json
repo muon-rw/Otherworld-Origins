@@ -1,0 +1,13 @@
+{
+	"powers": [
+                "otherworldorigins:race/half_elf/attributes",
+                "otherworldorigins:race/half_elf/dark_vision",
+                "otherworldorigins:race/half_elf/weapon_training"
+	],
+        "icon": {
+		"item": "minecraft:ink_sac",
+		"tag": "{CustomModelData:354}"
+	},
+        "impact": 1,
+        "order": 2
+}

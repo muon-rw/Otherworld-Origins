@@ -1,0 +1,12 @@
+{
+	"powers": [
+                "otherworldorigins:race/undead/attributes",
+                "otherworldorigins:race/undead/undead"
+	],
+        "icon": {
+                "item": "minecraft:ink_sac",
+                "tag": "{CustomModelData:360}"
+        },
+	"impact": 3,
+        "order": 5
+}

@@ -1,0 +1,13 @@
+{
+	"powers": [
+                "otherworldorigins:race/dragonborn/attributes",
+                "otherworldorigins:race/dragonborn/draconic_ancestry",
+                "otherworldorigins:race/dragonborn/cunning"
+	],
+        "icon": {
+		"item": "minecraft:ink_sac",
+		"tag": "{CustomModelData:354}"
+	},
+        "impact": 1,
+        "order": 2
+}

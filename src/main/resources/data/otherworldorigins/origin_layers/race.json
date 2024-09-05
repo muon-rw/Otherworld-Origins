@@ -1,0 +1,22 @@
+{
+  "order": 0,
+  "name": "Race",
+  "gui_title": {
+    "choose_origin": "You were born a:",
+    "view_origin": "You were born a:"
+  },
+  "missing_name": "None",
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    "otherworldorigins:race/human",
+    "otherworldorigins:race/dwarf",
+    "otherworldorigins:race/elf",
+    "otherworldorigins:race/half_elf",
+    "otherworldorigins:race/gnome",
+    "otherworldorigins:race/halfling",
+    "otherworldorigins:race/tiefling",
+    "otherworldorigins:race/undead",
+    "otherworldorigins:race/dragonborn",
+    "otherworldorigins:race/minecraft"
+  ]
+}

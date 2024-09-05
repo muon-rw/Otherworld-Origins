@@ -1,0 +1,21 @@
+{
+  "order": 4,
+  "name": "Deities",
+  "gui_title": {
+    "choose_origin": "Choose a Deity:",
+    "view_origin": "Your Deity:"
+  },
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "otherworldorigins:class",
+        "origin": "otherworldorigins:class/paladin"
+      },
+      "origins": [
+        "otherworldorigins:deities/test",
+        "otherworldorigins:reset"
+      ]
+    }
+  ]
+}

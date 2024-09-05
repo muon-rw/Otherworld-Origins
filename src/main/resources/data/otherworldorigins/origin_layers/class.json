@@ -1,0 +1,25 @@
+{
+  "order": 2,
+  "name": "Class",
+  "gui_title": {
+    "choose_origin": "Choose your class:",
+    "view_origin": "Your class:"
+  },
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    "otherworldorigins:class/artificer",
+    "otherworldorigins:class/barbarian",
+    "otherworldorigins:class/bard",
+    "otherworldorigins:class/cleric",
+    "otherworldorigins:class/druid",
+    "otherworldorigins:class/fighter",
+    "otherworldorigins:class/monk",
+    "otherworldorigins:class/paladin",
+    "otherworldorigins:class/ranger",
+    "otherworldorigins:class/rogue",
+    "otherworldorigins:class/sorcerer",
+    "otherworldorigins:class/warlock",
+    "otherworldorigins:class/wizard",
+    "otherworldorigins:reset"
+  ]
+}
