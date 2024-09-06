@@ -1,0 +1,38 @@
+{
+  "order": 3,
+  "name": "Free Feat",
+  "gui_title": {
+    "choose_origin": "Choose a Free Feat:",
+    "view_origin": "Your Free Feat:"
+  },
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:subrace/human/variant"
+      },
+      "origins": [
+        "otherworldorigins:feats/chef",
+        "otherworldorigins:feats/defensive_duelist",
+        "otherworldorigins:feats/dual_wielder",
+        "otherworldorigins:feats/elemental_adept",
+        "otherworldorigins:feats/everybodys_friend",
+        "otherworldorigins:feats/lucky",
+        "otherworldorigins:feats/mage_slayer",
+        "otherworldorigins:feats/martial_adept",
+        "otherworldorigins:feats/mobile",
+        "otherworldorigins:feats/polearm_master",
+        "otherworldorigins:feats/resilient",
+        "otherworldorigins:feats/savage_attacker",
+        "otherworldorigins:feats/sharpshooter",
+        "otherworldorigins:feats/shield_master",
+        "otherworldorigins:feats/spell_sniper",
+        "otherworldorigins:feats/skilled",
+        "otherworldorigins:feats/tough",
+        "otherworldorigins:feats/weapon_master",
+        "otherworldorigins:reset"
+      ]
+    }
+  ]
+}

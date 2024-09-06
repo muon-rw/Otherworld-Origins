@@ -1,0 +1,191 @@
+{
+  "order": 3,
+  "name": "First Feat (Level 10)",
+  "gui_title": {
+    "choose_origin": "Choose a Feat:",
+    "view_origin": "Your Feat:"
+  },
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/chef",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/chef"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/defensive_duelist",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/defensive_duelist"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/dual_wielder",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/dual_wielder"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/elemental_adept",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/elemental_adept"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/everybodys_friend",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/everybodys_friend"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/lucky",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/lucky"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/mage_slayer",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/mage_slayer"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/martial_adept",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/martial_adept"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/mobile",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/mobile"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/polearm_master",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/polearm_master"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/resilient",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/resilient"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/savage_attacker",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/savage_attacker"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/sharpshooter",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/sharpshooter"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/shield_master",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/shield_master"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/spell_sniper",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/spell_sniper"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/skilled",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/skilled"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/tough",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/tough"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:feats/weapon_master",
+        "inverted": true
+      },
+      "origins": [
+        "otherworldorigins:feats/weapon_master"
+      ]
+    }
+  ]
+}
