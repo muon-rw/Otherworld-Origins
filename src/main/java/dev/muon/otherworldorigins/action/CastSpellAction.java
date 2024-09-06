@@ -27,9 +27,13 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 public class CastSpellAction extends EntityAction<CastSpellAction.Configuration> {
+    private static final Map<UUID, ContinuousCastData> CONTINUOUS_CASTS = new HashMap<>();
 
     public CastSpellAction() {
         super(Configuration.CODEC);
@@ -97,6 +101,12 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
                     magicData.setMana(magicData.getMana() - manaCost);
                 }
 
+                if (configuration.continuousCost() && manaCostOpt.isPresent()) {
+                    int manaCost = manaCostOpt.get();
+                    int costInterval = configuration.costInterval();
+                    CONTINUOUS_CASTS.put(serverPlayer.getUUID(), new ContinuousCastData(manaCost, costInterval, 0));
+                }
+
                 magicData.initiateCast(spell, powerLevel, effectiveCastTime, CastSource.COMMAND, "command");
                 magicData.setPlayerCastingItem(serverPlayer.getItemInHand(InteractionHand.MAIN_HAND));
 
@@ -112,25 +122,66 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         }
     }
 
+    public static void onSpellTick(ServerPlayer player, MagicData magicData) {
+        UUID playerId = player.getUUID();
+        ContinuousCastData data = CONTINUOUS_CASTS.get(playerId);
+        if (data != null) {
+            data.ticksElapsed++;
+            if (data.ticksElapsed >= data.costInterval) {
+                data.ticksElapsed = 0;
+                if (magicData.getMana() >= data.manaCost) {
+                    magicData.setMana(magicData.getMana() - data.manaCost);
+                    OtherworldOrigins.LOGGER.info("Draining mana: " + data.manaCost + ". Remaining mana: " + magicData.getMana());
+                } else {
+                    Utils.serverSideCancelCast(player);
+                    CONTINUOUS_CASTS.remove(playerId);
+                }
+            }
+        }
+    }
+
+    public static void onSpellEnd(ServerPlayer player) {
+        CONTINUOUS_CASTS.remove(player.getUUID());
+    }
+
+    private static class ContinuousCastData {
+        final int manaCost;
+        final int costInterval;
+        int ticksElapsed;
+
+        ContinuousCastData(int manaCost, int costInterval, int ticksElapsed) {
+            this.manaCost = manaCost;
+            this.costInterval = costInterval;
+            this.ticksElapsed = ticksElapsed;
+        }
+    }
+
     public static class Configuration implements IDynamicFeatureConfiguration {
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 SerializableDataTypes.IDENTIFIER.fieldOf("spell").forGetter(Configuration::spell),
                 Codec.INT.optionalFieldOf("power_level", 1).forGetter(Configuration::powerLevel),
                 Codec.INT.optionalFieldOf("cast_time").forGetter(Configuration::castTime),
-                Codec.INT.optionalFieldOf("mana_cost").forGetter(Configuration::manaCost)
+                Codec.INT.optionalFieldOf("mana_cost").forGetter(Configuration::manaCost),
+                Codec.BOOL.optionalFieldOf("continuous_cost", false).forGetter(Configuration::continuousCost),
+                Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval)
         ).apply(instance, Configuration::new));
 
         private final ResourceLocation spell;
         private final int powerLevel;
         private final Optional<Integer> castTime;
         private final Optional<Integer> manaCost;
+        private final boolean continuousCost;
+        private final int costInterval;
 
-        public Configuration(ResourceLocation spell, int powerLevel, Optional<Integer> castTime, Optional<Integer> manaCost) {
+        public Configuration(ResourceLocation spell, int powerLevel, Optional<Integer> castTime, Optional<Integer> manaCost, boolean continuousCost, int costInterval) {
             this.spell = spell;
             this.powerLevel = powerLevel;
             this.castTime = castTime;
             this.manaCost = manaCost;
+            this.continuousCost = continuousCost;
+            this.costInterval = costInterval;
         }
+
 
         public ResourceLocation spell() {
             return spell;
@@ -146,6 +197,14 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
 
         public Optional<Integer> manaCost() {
             return manaCost;
+        }
+
+        public boolean continuousCost() {
+            return continuousCost;
+        }
+
+        public int costInterval() {
+            return costInterval;
         }
     }
 }

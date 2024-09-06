@@ -14,13 +14,16 @@ base {
     archivesName = mod_id
 }
 
-// Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 
 jarJar.enable()
 
+mixin {
+        config "${mod_id}.mixins.json"
+        add sourceSets.main, "${mod_id}.refmap.json"
+}
 
 minecraft {
     mappings channel: mapping_channel, version: mapping_version
@@ -35,6 +38,8 @@ minecraft {
                     source sourceSets.main
                 }
             }
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
         }
         client {
             property 'forge.enabledGameTestNamespaces', mod_id

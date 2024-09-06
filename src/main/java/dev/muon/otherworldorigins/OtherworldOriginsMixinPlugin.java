@@ -1,9 +1,11 @@
 package dev.muon.otherworldorigins;
 
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.LoadingModList;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 
 import java.util.List;
 import java.util.Set;
@@ -21,14 +23,14 @@ public class OtherworldOriginsMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if (mixinClassName.equals("dev.muon.medievalorigins.mixin.client.IcarusClientMixin") ||
-                mixinClassName.equals("dev.muon.medievalorigins.mixin.IcarusHelperMixin")) {
-            return LoadingModList.get().getModFileById("icarus") != null;
-        }
-        if (mixinClassName.equals("dev.muon.medievalorigins.mixin.MermodPlatformImplMixin")) {
-            return LoadingModList.get().getModFileById("mermod") != null;
-        }
         return true;
+    }
+
+    private static boolean isModLoaded(String modId) {
+        if (ModList.get() == null) {
+            return LoadingModList.get().getMods().stream().map(ModInfo::getModId).anyMatch(modId::equals);
+        }
+        return ModList.get().isLoaded(modId);
     }
 
     @Override

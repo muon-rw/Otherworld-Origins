@@ -1,17 +1,13 @@
 {
     "required": true,
-    "minVersion": "0.8",
     "package": "dev.muon.otherworldorigins.mixin",
-    "refmap": "${mod_id}.refmap.json",
     "compatibilityLevel": "JAVA_17",
+    "refmap": "${modid}.refmap.json",
+    "plugin": "dev.muon.otherworldorigins.OtherworldOriginsMixinPlugin",
     "mixins": [
+        "compat.irons_spellbooks.AbstractSpellMixin"
     ],
     "client": [
     ],
-    "server": [
-    ],
-    "injectors": {
-        "defaultRequire": 1
-    }
+    "minVersion": "0.8"
 }
-

@@ -12,24 +12,20 @@ import java.util.function.BiConsumer;
 public class TameAction extends BiEntityAction<NoConfiguration> {
 
     public static void tame(Entity actor, Entity target) {
-        if (!(target instanceof TamableAnimal)) {
+        if (!(target instanceof TamableAnimal tamable)) {
             OtherworldOrigins.LOGGER.info("Tame action failed: Target entity is not tamable - " + target.getClass().getSimpleName());
             return;
         }
 
-        if (!(actor instanceof Player)) {
+        if (!(actor instanceof Player player)) {
             OtherworldOrigins.LOGGER.info("Tame action failed: Actor cannot own entities - " + actor.getClass().getSimpleName());
             return;
         }
-
-        Player player = (Player) actor;
-        TamableAnimal tamable = (TamableAnimal) target;
 
         if (tamable.isTame()) {
             OtherworldOrigins.LOGGER.info("Tame action failed: " + tamable.getClass().getSimpleName() + " is already tamed");
         } else {
             tamable.tame(player);
-            OtherworldOrigins.LOGGER.info("Tame action executed: " + tamable.getClass().getSimpleName() + " tamed by " + player.getName().getString());
         }
     }
 
