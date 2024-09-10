@@ -32,7 +32,7 @@ Heavily WIP!
 1. Enchantment discovery - 0%
 - Iron's Spellbooks 
 1. Origin ability casting integration logic - Complete
-2. Custom spells - 10%
+2. Custom spells - 75%
 - Otherworld mob mods - 
 Probably best to do this per-mob instead of trying to inject goals. 
 1. Summon Beast 25% (proof of concept done, need to add more mobs)
