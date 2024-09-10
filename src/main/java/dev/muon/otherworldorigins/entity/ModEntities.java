@@ -26,6 +26,17 @@ public class ModEntities {
     static <T extends Entity> RegistryObject<EntityType<T>> registerEntity(String name, EntityType.Builder<T> builder) {
         return ENTITY_TYPES.register(name, () -> builder.build(OtherworldOrigins.MODID + ":" + name));
     }
+
+    /**
+     * Non-living
+     */
+
+    // nvm l ol
+
+    /**
+     *
+     * Summons
+     */
     public static final RegistryObject<EntityType<SummonedSkeleton>> SUMMON_SKELETON = registerEntity("summon_skeleton",
             EntityType.Builder.<SummonedSkeleton>of(SummonedSkeleton::new, MobCategory.CREATURE).sized(1.0F, 1.8F).clientTrackingRange(10));
     public static final RegistryObject<EntityType<SummonedZombie>> SUMMON_ZOMBIE = registerEntity("summon_zombie",
@@ -43,7 +54,6 @@ public class ModEntities {
 
 
     public static void register(IEventBus eventBus) {
-
         ENTITY_TYPES.register(eventBus);
     }
 

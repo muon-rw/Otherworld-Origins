@@ -6,6 +6,7 @@ import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.github.apace100.calio.data.SerializableDataTypes;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
+import io.redspace.ironsspellbooks.api.events.ChangeManaEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.CastResult;
@@ -99,7 +100,7 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
                         return;
                     }
                     if (!serverPlayer.getAbilities().instabuild) {
-                        magicData.setMana(magicData.getMana() - manaCost);
+                        setManaWithEvent(serverPlayer, magicData, magicData.getMana() - manaCost);
                     }
                 }
 
@@ -133,13 +134,20 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
             if (data.ticksElapsed >= data.costInterval) {
                 data.ticksElapsed = 0;
                 if (magicData.getMana() >= data.manaCost) {
-                    magicData.setMana(magicData.getMana() - data.manaCost);
+                    setManaWithEvent(player, magicData, magicData.getMana() - data.manaCost);
                     OtherworldOrigins.LOGGER.info("Draining mana: " + data.manaCost + ". Remaining mana: " + magicData.getMana());
                 } else {
                     Utils.serverSideCancelCast(player);
                     CONTINUOUS_CASTS.remove(playerId);
                 }
             }
+        }
+    }
+
+    private static void setManaWithEvent(ServerPlayer player, MagicData magicData, float newMana) {
+        ChangeManaEvent event = new ChangeManaEvent(player, magicData, magicData.getMana(), newMana);
+        if (!MinecraftForge.EVENT_BUS.post(event)) {
+            magicData.setMana(event.getNewMana());
         }
     }
 
