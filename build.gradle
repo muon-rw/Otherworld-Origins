@@ -21,8 +21,10 @@ println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty '
 jarJar.enable()
 
 mixin {
+    if (project.mixin.toBoolean()) {
         config "${mod_id}.mixins.json"
         add sourceSets.main, "${mod_id}.refmap.json"
+    }
 }
 
 minecraft {
@@ -86,6 +88,12 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+    maven {
+        url "https://maven.shadowsoffire.dev/releases"
+        content {
+            includeGroup "dev.shadowsoffire"
+        }
+    }
     maven { url 'https://maven.kosmx.dev/' }
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'}
     maven { url "https://code.redspace.io/releases" }
@@ -120,21 +128,14 @@ dependencies {
     implementation fg.deobf("io.github.edwinmindcraft:calio-forge:${minecraft_version}-${calio_version}")
     implementation fg.deobf("io.github.edwinmindcraft:apoli-forge:${minecraft_version}-${apoli_version}")
     implementation fg.deobf("io.github.edwinmindcraft:origins-forge:${minecraft_version}-${origins_version}")
-
-    implementation fg.deobf("com.github.Virtuoel:Pehkui:${pehkui_version}-${minecraft_version}-forge")
     implementation fg.deobf("top.theillusivec4.caelus:caelus-forge:${caelus_version}")
-
     implementation(fg.deobf("de.dafuqs:additionalentityattributes-forge:${aea_forge_version}") {
         exclude group: 'net.minecraftforge'
         exclude group: 'com.github.llamalad.mixinextras'
     })
 
-    // QoL
-
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
-    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-    runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_id}")
+    // Required Deps
+    implementation fg.deobf("com.github.Virtuoel:Pehkui:${pehkui_version}-${minecraft_version}-forge")
 
     // Mixin
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixin_extras_version}"))
@@ -143,16 +144,38 @@ dependencies {
     }
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
+    // Dev Env
+    runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_id}")
+
+    // Misc Dep-deps
+    runtimeOnly fg.deobf("curse.maven:yacl-667299:5424136")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
+
     // Iron's Spells n Spellbooks
     implementation fg.deobf("io.redspace.ironsspellbooks:irons_spellbooks:${irons_version}:api")
     implementation fg.deobf("io.redspace.ironsspellbooks:irons_spellbooks:${irons_version}")
     runtimeOnly fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
     runtimeOnly fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}")
 
+    // Iron's RPG Tweaks
+    implementation fg.deobf("curse.maven:irons-rpg-tweaks-871799:5377856")
 
     // Alex's
     implementation fg.deobf("curse.maven:alexs-mobs-426558:5160697")
     implementation fg.deobf("curse.maven:citadel-331936:5143956")
+
+    // Just Leveling
+    implementation fg.deobf("curse.maven:justleveling-fork-1073400:5701084")
+
+    // Apoth
+    implementation fg.deobf("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}")
+    implementation fg.deobf("dev.shadowsoffire:ApothicAttributes:${minecraft_version}-${attributeslib_version}")
+    implementation fg.deobf("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apotheosis_version}")
+
+
+
 }
 
 tasks.withType(ProcessResources).configureEach {
