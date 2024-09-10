@@ -5,8 +5,8 @@
     },
     "entity_action": {
         "type": "otherworldorigins:cast_spell",
-        "spell": "fire_breath",
-        "power_level": 1,
+        "spell": "otherworldorigins:black_dragon_breath",
+        "power_level": 3,
         "mana_cost": 10,
         "continuous_cost": true,
         "cost_interval": 10

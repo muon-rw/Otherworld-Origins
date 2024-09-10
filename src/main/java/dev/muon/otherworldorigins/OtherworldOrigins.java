@@ -7,6 +7,7 @@ import dev.muon.otherworldorigins.enchantment.ModEnchantments;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.sounds.ModSounds;
+import dev.muon.otherworldorigins.spells.ModSpells;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -44,7 +45,9 @@ public class OtherworldOrigins
 
         ModActions.register(modEventBus);
         ModConditions.register(modEventBus);
-        ModPowers.register(modEventBus);;
+        ModPowers.register(modEventBus);
+
+        ModSpells.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
     }

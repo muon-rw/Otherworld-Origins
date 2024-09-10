@@ -1,0 +1,14 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.origins.secondary_active"
+    },
+    "entity_action": {
+        "type": "otherworldorigins:cast_spell",
+        "spell": "otherworldorigins:blue_dragon_breath",
+        "power_level": 3,
+        "mana_cost": 10,
+        "continuous_cost": true,
+        "cost_interval": 10
+    }
+}
