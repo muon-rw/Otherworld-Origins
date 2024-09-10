@@ -31,7 +31,10 @@ Heavily WIP!
 - Iron's RPG Tweaks
 1. Enchantment discovery - 0%
 - Iron's Spellbooks 
-1. Origin ability casting integration logic - being tweaked, 90%
+1. Origin ability casting integration logic - Complete
 2. Custom spells - 10%
 - Otherworld mob mods - 
-1. Summon beast. Probably best to do this per-mob instead of trying to inject goals. 
+Probably best to do this per-mob instead of trying to inject goals. 
+1. Summon Beast 25% (proof of concept done, need to add more mobs)
+2. Summon Undead 75% (complete but needs fixes)
+3. Other Summons ? 
