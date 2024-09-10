@@ -32,7 +32,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class SummonedGrizzlyBear extends EntityGrizzlyBear implements IFollowingSummon, ISummon {
-    /** Unused
+    /**
+     *
+     * * Unused
+     *
      */
     private static final EntityDataAccessor<Optional<UUID>> OWNER_UUID;
 
