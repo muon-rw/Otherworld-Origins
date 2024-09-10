@@ -94,18 +94,21 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
 
                 if (manaCostOpt.isPresent()) {
                     int manaCost = manaCostOpt.get();
-                    if (magicData.getMana() < manaCost) {
+                    if (!serverPlayer.getAbilities().instabuild && magicData.getMana() < manaCost) {
                         Messages.sendToPlayer(new ClientboundCastErrorMessage(ClientboundCastErrorMessage.ErrorType.MANA, spell), serverPlayer);
                         return;
                     }
-                    magicData.setMana(magicData.getMana() - manaCost);
+                    if (!serverPlayer.getAbilities().instabuild) {
+                        magicData.setMana(magicData.getMana() - manaCost);
+                    }
                 }
 
-                if (configuration.continuousCost() && manaCostOpt.isPresent()) {
+                if (configuration.continuousCost() && manaCostOpt.isPresent() && !serverPlayer.getAbilities().instabuild) {
                     int manaCost = manaCostOpt.get();
                     int costInterval = configuration.costInterval();
                     CONTINUOUS_CASTS.put(serverPlayer.getUUID(), new ContinuousCastData(manaCost, costInterval, 0));
                 }
+
 
                 magicData.initiateCast(spell, powerLevel, effectiveCastTime, CastSource.COMMAND, "command");
                 magicData.setPlayerCastingItem(serverPlayer.getItemInHand(InteractionHand.MAIN_HAND));
