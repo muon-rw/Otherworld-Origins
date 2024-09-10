@@ -35,6 +35,6 @@ Heavily WIP!
 2. Custom spells - 10%
 - Otherworld mob mods - 
 Probably best to do this per-mob instead of trying to inject goals. 
-1. Summon Beast 25% (outline done, need to add more mobs)
+1. Summon Beast 25% (proof of concept done, need to add more mobs)
 2. Summon Undead 75% (complete but needs fixes)
 3. Other Summons ? 
