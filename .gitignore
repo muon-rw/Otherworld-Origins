@@ -24,3 +24,5 @@ run-data
 .vscode
 .idea
 libs
+
+generate_origin_portraits.py

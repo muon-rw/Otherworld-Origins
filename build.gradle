@@ -95,6 +95,7 @@ repositories {
         }
     }
     maven { url 'https://maven.kosmx.dev/' }
+    maven { url 'https://maven.shedaniel.me/' }
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'}
     maven { url "https://code.redspace.io/releases" }
     maven { url "https://code.redspace.io/snapshots" }
@@ -147,6 +148,7 @@ dependencies {
     // Dev Env
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
     runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_id}")
+    runtimeOnly fg.deobf("me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}")
 
     // Misc Dep-deps
     runtimeOnly fg.deobf("curse.maven:yacl-667299:5424136")
@@ -167,7 +169,7 @@ dependencies {
     implementation fg.deobf("curse.maven:citadel-331936:5143956")
 
     // Just Leveling
-    implementation fg.deobf("curse.maven:justleveling-fork-1073400:5701084")
+    implementation fg.deobf("curse.maven:justleveling-fork-1073400:5744833")
 
     // Apoth
     implementation fg.deobf("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}")
@@ -175,6 +177,9 @@ dependencies {
     implementation fg.deobf("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apotheosis_version}")
 
 
+    // Medieval
+    implementation fg.deobf("curse.maven:medieval-core-mod-1055023:5753791")
+    runtimeOnly fg.deobf("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
 
 }
 

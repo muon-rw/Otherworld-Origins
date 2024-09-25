@@ -4,8 +4,7 @@
                 "otherworldorigins:race/undead/undead"
 	],
         "icon": {
-                "item": "minecraft:ink_sac",
-                "tag": "{CustomModelData:360}"
+		"item": "minecraft:zombie_head"
         },
 	"impact": 3,
         "order": 5

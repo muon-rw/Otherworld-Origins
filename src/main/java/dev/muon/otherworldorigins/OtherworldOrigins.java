@@ -5,6 +5,7 @@ import dev.muon.otherworldorigins.action.ModActions;
 import dev.muon.otherworldorigins.condition.ModConditions;
 import dev.muon.otherworldorigins.enchantment.ModEnchantments;
 import dev.muon.otherworldorigins.entity.ModEntities;
+import dev.muon.otherworldorigins.item.ModItems;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.sounds.ModSounds;
 import dev.muon.otherworldorigins.spells.ModSpells;
@@ -24,16 +25,16 @@ import org.slf4j.Logger;
 import org.spongepowered.asm.launch.MixinBootstrap;
 
 @Mod(OtherworldOrigins.MODID)
-public class OtherworldOrigins
-{
+public class OtherworldOrigins {
     public static final String MODID = "otherworldorigins";
+
     public static ResourceLocation loc(String id) {
         return new ResourceLocation(MODID, id);
     }
+
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public OtherworldOrigins()
-    {
+    public OtherworldOrigins() {
         OtherworldOrigins.LOGGER.info("Loading Otherworld Origins");
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -42,6 +43,7 @@ public class OtherworldOrigins
         ModEnchantments.register(modEventBus);
         ModEntities.register(modEventBus);
         ModSounds.register(modEventBus);
+        ModItems.register(modEventBus);
 
         ModActions.register(modEventBus);
         ModConditions.register(modEventBus);
@@ -64,6 +66,7 @@ public class OtherworldOrigins
     @OnlyIn(Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {}
+        public static void onClientSetup(FMLClientSetupEvent event) {
+        }
     }
 }

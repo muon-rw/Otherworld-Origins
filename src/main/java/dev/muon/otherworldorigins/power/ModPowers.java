@@ -17,6 +17,7 @@ public class ModPowers {
     public static final RegistryObject<PixieWingsPower> PIXIE_WINGS = POWER_FACTORIES.register("pixie_wings", PixieWingsPower::new);
     public static final RegistryObject<PowerFactory<OwnerAttributeTransferPower>> OWNER_ATTRIBUTE_TRANSFER = POWER_FACTORIES.register("owner_attribute_transfer", OwnerAttributeTransferPowerFactory::new);
 
+
     private static <T extends PowerFactory<?>> RegistryObject<T> registerConditional(String name, Supplier<T> factory, String modId) {
         if (ModList.get().isLoaded(modId)) {
             return POWER_FACTORIES.register(name, factory);

@@ -1,13 +1,12 @@
 {
-	"powers": [
+        "powers": [
                 "otherworldorigins:race/elf/attributes",
                 "otherworldorigins:race/elf/dark_vision",
-                "otherworldorigins:race/elf/weapon_training"
-	],
+                "otherworldorigins:race/elf/leveling_bonuses"
+        ],
         "icon": {
-		"item": "minecraft:ink_sac",
-		"tag": "{CustomModelData:354}"
-	},
+                "item": "otherworldorigins:portrait/elf"
+        },
         "impact": 1,
         "order": 2
 }

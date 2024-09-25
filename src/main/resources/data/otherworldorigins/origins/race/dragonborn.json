@@ -5,8 +5,7 @@
                 "otherworldorigins:race/dragonborn/cunning"
 	],
         "icon": {
-		"item": "minecraft:ink_sac",
-		"tag": "{CustomModelData:354}"
+                "item": "otherworldorigins:portrait/dragonborn"
 	},
         "impact": 1,
         "order": 2

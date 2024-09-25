@@ -7,8 +7,7 @@
                 "otherworldorigins:race/halfling/brave"
 	],
         "icon": {
-		"item": "minecraft:ink_sac",
-		"tag": "{CustomModelData:354}"
+                "item": "otherworldorigins:portrait/halfling"
 	},
         "impact": 1,
         "order": 2

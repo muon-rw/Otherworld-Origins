@@ -10,8 +10,8 @@ Heavily WIP!
 - Custom orb - todo
 
 ### Sprites/Icons:
-- Races - 50%
-- Subraces - 10%
+- Races - 80%
+- Subraces - 10% - probably also use items
 - Classes - Use items
 - Feats - Use Items
 
@@ -27,9 +27,7 @@ Heavily WIP!
 2. Stat bonus overcap capability (1 innate will let you get to 21, etc) 
 - Apotheosis
 1. Adventure reforging restrictions - 100%
-2. Enchantment access restrictions - 0%, Apoli might have something built-in for this 
-- Iron's RPG Tweaks
-1. Enchantment discovery - 0%
+2. Enchantment access restrictions - 0%, Apoli might have something built-in for this
 - Iron's Spellbooks 
 1. Origin ability casting integration logic - Complete
 2. Custom spells - 75%

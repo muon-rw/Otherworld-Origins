@@ -18,8 +18,6 @@ public class ModEventBusEventsClient {
         event.registerEntityRenderer(ModEntities.SUMMON_SKELETON.get(), SkeletonRenderer::new);
         event.registerEntityRenderer(ModEntities.SUMMON_ZOMBIE.get(), ZombieRenderer::new);
         event.registerEntityRenderer(ModEntities.SUMMON_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
-
         event.registerEntityRenderer(ModEntities.SUMMON_GRIZZLY_BEAR.get(), RenderGrizzlyBear::new);
-
     }
 }

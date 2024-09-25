@@ -1,0 +1,12 @@
+{
+    "powers": [
+            "otherworldorigins:race/elf/attributes",
+            "otherworldorigins:race/elf/dark_vision",
+            "otherworldorigins:race/elf/weapon_training"
+    ],
+    "icon": {
+        "item": "otherworldorigins:portrait/drow"
+},
+    "impact": 1,
+    "order": 2
+}
