@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.power.configuration;
+package dev.muon.otherworldorigins.action.configuration;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;

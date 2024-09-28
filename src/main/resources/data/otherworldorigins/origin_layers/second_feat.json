@@ -1,12 +1,24 @@
 {
-  "order": 3,
-  "name": "Second Feat (Level 20)",
+  "order": 11,
+  "name": "Second Feat (Level 8)",
+  "default_origin": "otherworldorigins:feats/dummy",
+  "auto_choose": true,
   "gui_title": {
     "choose_origin": "Choose a Second Feat:",
     "view_origin": "Your Second Feat:"
   },
   "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
   "origins": [
+    {
+      "condition": {
+        "type": "otherworldorigins:player_level",
+        "comparison": "<",
+        "compare_to": 8
+      },
+      "origins": [
+        "otherworldorigins:feats/dummy"
+      ]
+    },
     {
       "condition": {
         "type": "origins:origin",

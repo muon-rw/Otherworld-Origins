@@ -1,11 +1,11 @@
 {
-  "order": 12,
-  "name": "Third Feat (Level 12)",
+  "order": 14,
+  "name": "Fifth Feat (Level 20)",
   "default_origin": "otherworldorigins:feats/dummy",
   "auto_choose": true,
   "gui_title": {
-    "choose_origin": "Choose a Third Feat:",
-    "view_origin": "Your Third Feat:"
+    "choose_origin": "Choose a Fifth Feat:",
+    "view_origin": "Your Fifth Feat:"
   },
   "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
   "origins": [
@@ -13,7 +13,7 @@
       "condition": {
         "type": "otherworldorigins:player_level",
         "comparison": "<",
-        "compare_to": 12
+        "compare_to": 20
       },
       "origins": [
         "otherworldorigins:feats/dummy"

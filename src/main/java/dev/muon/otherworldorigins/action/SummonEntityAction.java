@@ -5,7 +5,7 @@ import io.github.apace100.apoli.util.MiscUtil;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredBiEntityAction;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityAction;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
-import dev.muon.otherworldorigins.power.configuration.SummonEntityConfiguration;
+import dev.muon.otherworldorigins.action.configuration.SummonEntityConfiguration;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;

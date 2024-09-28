@@ -171,7 +171,7 @@ dependencies {
     implementation fg.deobf("curse.maven:citadel-331936:5143956")
 
     // Just Leveling
-    implementation fg.deobf("curse.maven:justleveling-fork-1073400:5744833")
+    implementation fg.deobf("curse.maven:justleveling-fork-1073400:5756911")
     implementation fg.deobf("dev.isxander:yet-another-config-lib:${project.yacl_version}")
 
 

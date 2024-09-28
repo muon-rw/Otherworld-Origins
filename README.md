@@ -3,10 +3,12 @@ Otherworld Origins
 
 Todo:
 
+Feat selection:
+- Fix dummy origin not getting automatically selected on login (wtf????)
+
 Other:
 - Subraces
 - Power jsons
-- Feat selection + Medieval getLevel Condition type (already synced)
 - Lang (see notes)
 
 Lower prio:

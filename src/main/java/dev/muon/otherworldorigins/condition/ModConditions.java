@@ -38,6 +38,8 @@ public class ModConditions {
             new SimpleEntityCondition(entity ->
                     entity instanceof Player player && player.getAbilities().instabuild));
 
+    public static final RegistryObject<PlayerLevelCondition> PLAYER_LEVEL = ENTITY_CONDITIONS.register("player_level", PlayerLevelCondition::new);
+
 
     /**Bientity*/
     public static final RegistryObject<SimpleBiEntityCondition> IS_ALLIED = BIENTITY_CONDITIONS.register("allied", () ->

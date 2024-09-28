@@ -1,11 +1,11 @@
 {
-  "order": 12,
-  "name": "Third Feat (Level 12)",
+  "order": 13,
+  "name": "Fourth Feat (Level 16)",
   "default_origin": "otherworldorigins:feats/dummy",
   "auto_choose": true,
   "gui_title": {
-    "choose_origin": "Choose a Third Feat:",
-    "view_origin": "Your Third Feat:"
+    "choose_origin": "Choose a Fourth Feat:",
+    "view_origin": "Your Fourth Feat:"
   },
   "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
   "origins": [
@@ -13,7 +13,7 @@
       "condition": {
         "type": "otherworldorigins:player_level",
         "comparison": "<",
-        "compare_to": 12
+        "compare_to": 16
       },
       "origins": [
         "otherworldorigins:feats/dummy"

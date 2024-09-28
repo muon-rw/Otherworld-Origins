@@ -1,5 +1,5 @@
 {
-  "order": 3,
+  "order": 8,
   "name": "Free Feat",
   "gui_title": {
     "choose_origin": "Choose a Free Feat:",
@@ -30,8 +30,7 @@
         "otherworldorigins:feats/spell_sniper",
         "otherworldorigins:feats/skilled",
         "otherworldorigins:feats/tough",
-        "otherworldorigins:feats/weapon_master",
-        "otherworldorigins:reset"
+        "otherworldorigins:feats/weapon_master"
       ]
     }
   ]
