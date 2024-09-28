@@ -5,10 +5,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.seniors.justlevelingfork.client.screen.JustLevelingScreen;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
-import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.power.configuration.InnateAptitudeBonusConfiguration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.MutableComponent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,24 +14,45 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(value = JustLevelingScreen.class, remap = false)
 public class JustLevelingScreenMixin {
     @Unique
-    private Aptitude otherworld$currentAptitude;
+    private Aptitude otherworld$iteratingAptitude;
+
+    @Unique
+    private Aptitude otherworld$selectedAptitude;
 
     @ModifyExpressionValue(
-            method = {"drawSkills", "drawAptitudes"},
+            method = "drawAptitudes",
             at = @At(value = "FIELD",
                     target = "Lcom/seniors/justlevelingfork/handler/HandlerCommonConfig;aptitudeMaxLevel:I")
     )
-    private int modifyAptitudeMaxLevel(int originalMaxLevel) {
-        if (this.otherworld$currentAptitude == null) {
+    private int modifyMaxLevelMainPage(int originalMaxLevel) {
+        if (this.otherworld$iteratingAptitude == null) {
             return originalMaxLevel;
         }
-
-        String aptitudeName = this.otherworld$currentAptitude.getName();
-        int bonus = InnateAptitudeBonusConfiguration.getBonus(Minecraft.getInstance().player, aptitudeName);
-        //int newMaxLevel = originalMaxLevel + bonus;
-        //OtherworldOrigins.LOGGER.info("Aptitude: {}, Original max level: {}, Bonus: {}, New max level: {}", aptitudeName, originalMaxLevel, bonus, newMaxLevel);
-        return originalMaxLevel + bonus;
+        return otherworld$getModifiedMaxLevel(originalMaxLevel, this.otherworld$iteratingAptitude);
     }
+
+    @ModifyExpressionValue(
+            method = "drawSkills",
+            at = @At(value = "FIELD",
+                    target = "Lcom/seniors/justlevelingfork/handler/HandlerCommonConfig;aptitudeMaxLevel:I")
+    )
+    private int modifyMaxLevelSkillsPage(int originalMaxLevel) {
+        if (this.otherworld$selectedAptitude == null) {
+            return originalMaxLevel;
+        }
+        return otherworld$getModifiedMaxLevel(originalMaxLevel, this.otherworld$selectedAptitude);
+    }
+
+    @Unique
+    private int otherworld$getModifiedMaxLevel(int originalMaxLevel, Aptitude aptitude) {
+        String aptitudeName = aptitude.getName();
+        int bonus = InnateAptitudeBonusConfiguration.getBonus(Minecraft.getInstance().player, aptitudeName);
+        int newMaxLevel = originalMaxLevel + bonus;
+        //OtherworldOrigins.LOGGER.info("Aptitude: {}, Original max level: {}, Bonus: {}, New max level: {}", aptitudeName, originalMaxLevel, bonus, newMaxLevel);
+        return newMaxLevel;
+    }
+
+
 
     @WrapOperation(
             method = "drawAptitudes",
@@ -41,39 +60,20 @@ public class JustLevelingScreenMixin {
                     target = "Lcom/seniors/justlevelingfork/registry/aptitude/Aptitude;getKey()Ljava/lang/String;")
     )
     private String captureCurrentAptitude(Aptitude aptitude, Operation<String> original) {
-        this.otherworld$currentAptitude = aptitude;
+        this.otherworld$iteratingAptitude = aptitude;
         return original.call(aptitude);
     }
 
     @WrapOperation(
-            method = "drawAptitudes",
+            method = "drawSkills",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/network/chat/Component;translatable(Ljava/lang/String;[Ljava/lang/Object;)Lnet/minecraft/network/chat/MutableComponent;")
+                    target = "Lcom/seniors/justlevelingfork/registry/RegistryAptitudes;getAptitude(Ljava/lang/String;)Lcom/seniors/justlevelingfork/registry/aptitude/Aptitude;")
     )
-    private MutableComponent modifyExperienceText(String key, Object[] args, Operation<MutableComponent> original) {
-        if ("screen.aptitude.experience".equals(key) && args.length == 2 && this.otherworld$currentAptitude != null) {
-            Object aptitudeLevelObj = args[0];
-            Object originalMaxLevelObj = args[1];
-
-            if (aptitudeLevelObj instanceof String && originalMaxLevelObj instanceof String) {
-                String aptitudeLevelStr = (String) aptitudeLevelObj;
-                String originalMaxLevelStr = (String) originalMaxLevelObj;
-
-                try {
-                    int aptitudeLevel = Integer.parseInt(aptitudeLevelStr);
-                    int originalMaxLevel = Integer.parseInt(originalMaxLevelStr);
-
-                    int bonus = InnateAptitudeBonusConfiguration.getBonus(Minecraft.getInstance().player, this.otherworld$currentAptitude.getName());
-                    int modifiedMaxLevel = originalMaxLevel + bonus;
-
-                    // Create new args array with modified maxLevel
-                    Object[] newArgs = new Object[]{aptitudeLevelStr, String.valueOf(modifiedMaxLevel)};
-                    return original.call(key, newArgs);
-                } catch (NumberFormatException e) {
-                    OtherworldOrigins.LOGGER.error("Error parsing aptitude level or max level: {}, {}", aptitudeLevelStr, originalMaxLevelStr, e);
-                }
-            }
-        }
-        return original.call(key, args);
+    private Aptitude captureSelectedAptitude(String selectedAptitude, Operation<Aptitude> original) {
+        Aptitude aptitude = original.call(selectedAptitude);
+        this.otherworld$selectedAptitude = aptitude;
+        return aptitude;
     }
+
+
 }

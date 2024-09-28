@@ -3,6 +3,7 @@ package dev.muon.otherworldorigins.power.configuration;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
+import dev.muon.medieval.Medieval;
 import dev.muon.otherworldorigins.power.ModPowers;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
@@ -38,6 +39,7 @@ public record InnateAptitudeBonusConfiguration(Map<String, Integer> aptitudeBonu
                     .mapToInt(config -> config.aptitudeBonuses().getOrDefault(aptitudeName, 0))
                     .sum();
         }
+        Medieval.LOGGER.debug("Could not retrieve power container from" + entity.getName() + "for" + aptitudeName);
         return 0;
     }
 

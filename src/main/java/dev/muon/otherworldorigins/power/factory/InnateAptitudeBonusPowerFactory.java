@@ -4,6 +4,7 @@ import dev.muon.otherworldorigins.power.configuration.InnateAptitudeBonusConfigu
 import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.nbt.CompoundTag;
 
 public class InnateAptitudeBonusPowerFactory extends PowerFactory<InnateAptitudeBonusConfiguration> {
     public InnateAptitudeBonusPowerFactory() {
@@ -11,16 +12,17 @@ public class InnateAptitudeBonusPowerFactory extends PowerFactory<InnateAptitude
     }
 
     @Override
-    public void onAdded(InnateAptitudeBonusConfiguration configuration, Entity entity) {
+    public void onGained(InnateAptitudeBonusConfiguration configuration, Entity entity) {
         if (entity instanceof Player player) {
             configuration.applyBonuses(player);
         }
     }
 
     @Override
-    public void onRemoved(InnateAptitudeBonusConfiguration configuration, Entity entity) {
+    public void onLost(InnateAptitudeBonusConfiguration configuration, Entity entity) {
         if (entity instanceof Player player) {
             configuration.removeBonuses(player);
         }
     }
+
 }
