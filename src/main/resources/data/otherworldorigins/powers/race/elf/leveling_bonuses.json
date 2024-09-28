@@ -1,3 +1,8 @@
 {
-	"type": "otherworldorigins:innate_level_bonus"
-}
+	"type": "otherworldorigins:innate_aptitude_bonus",
+	"aptitude_bonuses": {
+	  "strength": 2,
+	  "intelligence": 3,
+	  "constitution": 1
+	}
+  }

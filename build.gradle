@@ -42,6 +42,7 @@ minecraft {
             }
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+            ideaModule "${project.name}.main"
         }
         client {
             property 'forge.enabledGameTestNamespaces', mod_id
@@ -112,6 +113,7 @@ repositories {
     }
     maven { url = 'https://maven.greenhouseteam.dev/releases/' }
     maven { url = 'https://maven.theillusivec4.top' }
+    maven { url "https://maven.isxander.dev/releases" }
     maven { url = "https://modmaven.dev"
         content {
             excludeGroup "com.teamresourceful.resourcefulconfig"}
@@ -170,6 +172,8 @@ dependencies {
 
     // Just Leveling
     implementation fg.deobf("curse.maven:justleveling-fork-1073400:5744833")
+    implementation fg.deobf("dev.isxander:yet-another-config-lib:${project.yacl_version}")
+
 
     // Apoth
     implementation fg.deobf("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}")
