@@ -6,8 +6,7 @@
     "plugin": "dev.muon.otherworldorigins.OtherworldOriginsMixinPlugin",
     "mixins": [
         "compat.irons_spellbooks.AbstractSpellMixin",
-        "compat.justlevelingfork.AptitudeCapabilityMixin",
-
+        "compat.justlevelingfork.AptitudeCapabilityMixin"
     ],
     "client": [
         "compat.justlevelingfork.client.JustLevelingScreenMixin",
