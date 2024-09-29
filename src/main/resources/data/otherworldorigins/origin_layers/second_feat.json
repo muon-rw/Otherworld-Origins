@@ -1,8 +1,8 @@
 {
   "order": 11,
   "name": "Second Feat (Level 8)",
-  "default_origin": "otherworldorigins:feats/dummy",
   "auto_choose": true,
+  "hidden": true,
   "gui_title": {
     "choose_origin": "Choose a Second Feat:",
     "view_origin": "Your Second Feat:"
@@ -11,19 +11,19 @@
   "origins": [
     {
       "condition": {
-        "type": "otherworldorigins:player_level",
-        "comparison": "<",
-        "compare_to": 8
-      },
-      "origins": [
-        "otherworldorigins:feats/dummy"
-      ]
-    },
-    {
-      "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/chef",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/chef",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/chef"
@@ -31,9 +31,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/defensive_duelist",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/defensive_duelist",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/defensive_duelist"
@@ -41,9 +51,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/dual_wielder",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/dual_wielder",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/dual_wielder"
@@ -51,9 +71,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/elemental_adept",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/elemental_adept",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/elemental_adept"
@@ -61,9 +91,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/everybodys_friend",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/everybodys_friend",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/everybodys_friend"
@@ -71,9 +111,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/lucky",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/lucky",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/lucky"
@@ -81,9 +131,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/mage_slayer",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/mage_slayer",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/mage_slayer"
@@ -91,9 +151,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/martial_adept",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/martial_adept",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/martial_adept"
@@ -101,9 +171,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/mobile",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/mobile",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/mobile"
@@ -111,9 +191,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/polearm_master",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/polearm_master",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/polearm_master"
@@ -121,9 +211,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/resilient",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/resilient",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/resilient"
@@ -131,9 +231,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/savage_attacker",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/savage_attacker",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/savage_attacker"
@@ -141,9 +251,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/sharpshooter",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/sharpshooter",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/sharpshooter"
@@ -151,9 +271,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/shield_master",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/shield_master",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/shield_master"
@@ -161,9 +291,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/spell_sniper",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/spell_sniper",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/spell_sniper"
@@ -171,9 +311,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/skilled",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/skilled",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/skilled"
@@ -181,9 +331,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/tough",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/tough",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/tough"
@@ -191,9 +351,19 @@
     },
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:feats/weapon_master",
-        "inverted": true
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/weapon_master",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:feats/weapon_master"

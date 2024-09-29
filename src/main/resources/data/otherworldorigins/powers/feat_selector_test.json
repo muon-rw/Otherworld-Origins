@@ -11,9 +11,9 @@
                     "compare_to": 4
                 },
                 {
-                    "type": "origins:origin",
+                    "type": "otherworldorigins:any_on_layer",
                     "layer": "otherworldorigins:first_feat",
-                    "origin": "otherworldorigins:feats/dummy"
+                    "inverted": true
                 }
             ]
         },
@@ -33,9 +33,9 @@
                     "compare_to": 8
                 },
                 {
-                    "type": "origins:origin",
+                    "type": "otherworldorigins:any_on_layer",
                     "layer": "otherworldorigins:second_feat",
-                    "origin": "otherworldorigins:feats/dummy"
+                    "inverted": true
                 }
             ]
         },
@@ -55,9 +55,9 @@
                     "compare_to": 12
                 },
                 {
-                    "type": "origins:origin",
+                    "type": "otherworldorigins:any_on_layer",
                     "layer": "otherworldorigins:third_feat",
-                    "origin": "otherworldorigins:feats/dummy"
+                    "inverted": true
                 }
             ]
         },
@@ -77,9 +77,9 @@
                     "compare_to": 16
                 },
                 {
-                    "type": "origins:origin",
+                    "type": "otherworldorigins:any_on_layer",
                     "layer": "otherworldorigins:fourth_feat",
-                    "origin": "otherworldorigins:feats/dummy"
+                    "inverted": true
                 }
             ]
         },
@@ -99,9 +99,9 @@
                     "compare_to": 20
                 },
                 {
-                    "type": "origins:origin",
+                    "type": "otherworldorigins:any_on_layer",
                     "layer": "otherworldorigins:fifth_feat",
-                    "origin": "otherworldorigins:feats/dummy"
+                    "inverted": true
                 }
             ]
         },

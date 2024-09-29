@@ -39,6 +39,8 @@ public class ModConditions {
                     entity instanceof Player player && player.getAbilities().instabuild));
 
     public static final RegistryObject<PlayerLevelCondition> PLAYER_LEVEL = ENTITY_CONDITIONS.register("player_level", PlayerLevelCondition::new);
+    public static final RegistryObject<AnyOnLayerCondition> ANY_ON_LAYER = ENTITY_CONDITIONS.register("any_on_layer", AnyOnLayerCondition::new);
+
 
 
     /**Bientity*/

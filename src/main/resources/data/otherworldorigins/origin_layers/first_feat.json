@@ -1,24 +1,14 @@
 {
   "order": 10,
   "name": "First Feat (Level 4)",
-  "default_origin": "otherworldorigins:feats/dummy",
   "auto_choose": true,
+  "hidden": true,
   "gui_title": {
     "choose_origin": "Choose a Feat:",
     "view_origin": "Your Feat:"
   },
   "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
   "origins": [
-    {
-      "condition": {
-        "type": "otherworldorigins:player_level",
-        "comparison": "<",
-        "compare_to": 4
-      },
-      "origins": [
-        "otherworldorigins:feats/dummy"
-      ]
-    },
     {
       "condition": {
         "type": "origins:and",

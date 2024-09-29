@@ -2,11 +2,8 @@
 Otherworld Origins
 
 Todo:
-
-Feat selection:
-- Fix dummy origin not getting automatically selected on login (wtf????)
-
-Other:
+- Feat jsons
+- Sprite selection (do in modpack)
 - Subraces
 - Power jsons
 - Lang (see notes)
