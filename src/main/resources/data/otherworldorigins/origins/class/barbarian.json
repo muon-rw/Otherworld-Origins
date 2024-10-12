@@ -5,7 +5,7 @@
 		"otherworldorigins:class/barbarian/summon_beast_test"
 	],
 	"icon": {
-		"item": "alexsmobs:bison_fur"
+		"item": "minecraft:barrier"
 	},
 	"impact": 3,
 	"order": 0

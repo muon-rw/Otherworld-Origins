@@ -1,0 +1,7 @@
+{
+	"type": "otherworldorigins:innate_aptitude_bonus",
+	"aptitude_bonuses": {
+	  "intelligence": 2,
+	  "luck": 1
+	}
+  }

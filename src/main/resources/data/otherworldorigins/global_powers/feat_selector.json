@@ -3,6 +3,6 @@
         "minecraft:player"
     ],
     "powers": [
-        "otherworldorigins:feat_selector_test"
+        "otherworldorigins:feat_selector"
     ]
 }

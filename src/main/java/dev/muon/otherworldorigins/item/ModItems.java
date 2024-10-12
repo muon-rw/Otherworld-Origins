@@ -34,7 +34,7 @@ public class ModItems {
     public static final RegistryObject<Item> HILL_PORTRAIT = ITEMS.register("portrait/hill", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> HUMAN_PORTRAIT = ITEMS.register("portrait/human", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> LIGHTFOOT_PORTRAIT = ITEMS.register("portrait/lightfoot", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> MINECRAFT_PORTRAIT = ITEMS.register("portrait/minecraft", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> OTHER_PORTRAIT = ITEMS.register("portrait/other", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MOUNTAIN_PORTRAIT = ITEMS.register("portrait/mountain", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PIGLIN_PORTRAIT = ITEMS.register("portrait/piglin", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> PILLAGER_PORTRAIT = ITEMS.register("portrait/pillager", () -> new Item(new Item.Properties()));

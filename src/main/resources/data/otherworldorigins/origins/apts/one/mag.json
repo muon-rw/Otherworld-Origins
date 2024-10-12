@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"otherworldorigins:apts/one/mag"
+	],
+	"icon": {
+		"item": "minecraft:barrier"
+	},
+	"impact": 3,
+	"order": 0
+}

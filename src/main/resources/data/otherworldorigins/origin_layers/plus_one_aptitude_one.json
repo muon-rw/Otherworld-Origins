@@ -1,0 +1,24 @@
+{
+  "order": 1,
+  "name": "First +1 Ability Score",
+  "hidden": true,
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:race/half_elf"
+      },
+      "origins": [
+        "otherworldorigins:apts/one/str",
+        "otherworldorigins:apts/one/const",
+        "otherworldorigins:apts/one/dex",
+        "otherworldorigins:apts/one/def",
+        "otherworldorigins:apts/one/int",
+        "otherworldorigins:apts/one/bld",
+        "otherworldorigins:apts/one/mag",
+        "otherworldorigins:apts/one/lck"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "order": 12,
+  "name": "Second +2 Ability Score",
+  "hidden": true,
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/two/str",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subrace/human/variant"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/two/str"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/two/dex",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subrace/human/variant"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/two/dex"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/two/const",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subrace/human/variant"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/two/const"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/two/mag",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subrace/human/variant"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/two/mag"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/two/int",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subrace/human/variant"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/two/int"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/two/bld",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subrace/human/variant"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/two/bld"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/two/luck",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subrace/human/variant"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/two/luck"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/two/def",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subrace/human/variant"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/two/def"
+      ]
+    }
+  ]
+}

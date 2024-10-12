@@ -1,5 +1,5 @@
 {
-    "order": 1,
+    "order": 10,
     "name": "Subrace",
     "gui_title": {
         "choose_origin": "Your variant:",
@@ -101,12 +101,12 @@
         {
             "condition": {
                 "type": "origins:origin",
-                "origin": "otherworldorigins:race/minecraft"
+                "origin": "otherworldorigins:race/other"
             },
             "origins": [
-                "otherworldorigins:subrace/minecraft/enderman",
-                "otherworldorigins:subrace/minecraft/piglin",
-                "otherworldorigins:subrace/minecraft/pillager"
+                "otherworldorigins:subrace/other/githyanki",
+                "otherworldorigins:subrace/other/hobgoblin",
+                "otherworldorigins:subrace/other/goblin"
             ]
         },
         {
@@ -143,7 +143,7 @@
                     },
                     {
                         "type": "origins:origin",
-                        "origin": "otherworldorigins:race/minecraft"
+                        "origin": "otherworldorigins:race/other"
                     },
                     {
                         "type": "origins:origin",

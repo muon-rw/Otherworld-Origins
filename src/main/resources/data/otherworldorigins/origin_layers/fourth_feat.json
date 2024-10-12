@@ -1,8 +1,8 @@
 {
-  "order": 13,
+  "order": 103,
   "name": "Fourth Feat (Level 16)",
   "auto_choose": true,
-  "hidden": true,
+  "hidden": false,
   "gui_title": {
     "choose_origin": "Choose a Fourth Feat:",
     "view_origin": "Your Fourth Feat:"

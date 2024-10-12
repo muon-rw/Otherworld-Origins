@@ -1,0 +1,160 @@
+{
+  "order": 2,
+  "name": "Second +1 Ability Score",
+  "hidden": true,
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/one/str",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:race/half_elf"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/one/str"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/one/dex",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:race/half_elf"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/one/dex"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/one/const",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:race/half_elf"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/one/const"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/one/mag",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:race/half_elf"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/one/mag"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/one/int",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:race/half_elf"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/one/int"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/one/bld",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:race/half_elf"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/one/bld"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/one/luck",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:race/half_elf"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/one/luck"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:apts/one/def",
+            "inverted": true
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:race/half_elf"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:apts/one/def"
+      ]
+    }
+  ]
+}

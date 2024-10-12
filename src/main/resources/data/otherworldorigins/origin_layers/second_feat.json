@@ -1,8 +1,8 @@
 {
-  "order": 11,
+  "order": 101,
   "name": "Second Feat (Level 8)",
   "auto_choose": true,
-  "hidden": true,
+  "hidden": false,
   "gui_title": {
     "choose_origin": "Choose a Second Feat:",
     "view_origin": "Your Second Feat:"

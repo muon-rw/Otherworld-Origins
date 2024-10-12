@@ -1,0 +1,7 @@
+{
+	"type": "otherworldorigins:innate_aptitude_bonus",
+	"aptitude_bonuses": {
+	  "constitution": 2,
+	  "building": 1
+	}
+  }

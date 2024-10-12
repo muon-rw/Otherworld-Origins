@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"otherworldorigins:apts/two/bld"
+	],
+	"icon": {
+		"item": "minecraft:barrier"
+	},
+	"impact": 3,
+	"order": 0
+}

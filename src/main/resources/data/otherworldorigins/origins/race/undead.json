@@ -1,11 +1,9 @@
 {
 	"powers": [
-                "otherworldorigins:race/undead/attributes",
-                "otherworldorigins:race/undead/undead"
 	],
         "icon": {
-		"item": "minecraft:zombie_head"
-        },
+                "item": "otherworldorigins:portrait/undead"
+	},
 	"impact": 3,
         "order": 8
 }

@@ -1,0 +1,24 @@
+{
+  "order": 11,
+  "name": "First +2 Ability Score",
+  "hidden": true,
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:subrace/human/variant"
+      },
+      "origins": [
+        "otherworldorigins:apts/two/str",
+        "otherworldorigins:apts/two/const",
+        "otherworldorigins:apts/two/dex",
+        "otherworldorigins:apts/two/def",
+        "otherworldorigins:apts/two/int",
+        "otherworldorigins:apts/two/bld",
+        "otherworldorigins:apts/two/mag",
+        "otherworldorigins:apts/two/lck"
+      ]
+    }
+  ]
+}

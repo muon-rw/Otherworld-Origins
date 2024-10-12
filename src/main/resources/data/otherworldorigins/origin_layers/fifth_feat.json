@@ -1,8 +1,8 @@
 {
-  "order": 120,
+  "order": 104,
   "name": "Fifth Feat (Level 20)",
   "auto_choose": true,
-  "hidden": true,
+  "hidden": false,
   "gui_title": {
     "choose_origin": "Choose a Fifth Feat:",
     "view_origin": "Your Fifth Feat:"

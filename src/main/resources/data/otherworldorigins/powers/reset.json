@@ -22,6 +22,10 @@
             },
             {
                 "type": "origins:execute_command",
+                "command": "origin set @s otherworldorigin:subclass origins:empty"
+            },
+            {
+                "type": "origins:execute_command",
                 "command": "origin set @s otherworldorigin:deities origins:empty"
             },
             {

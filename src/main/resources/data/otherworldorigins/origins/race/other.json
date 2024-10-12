@@ -1,0 +1,9 @@
+{
+	"powers": [
+	],
+        "icon": {
+                "item": "otherworldorigins:portrait/other"
+	},
+	"impact": 3,
+        "order": 9
+}

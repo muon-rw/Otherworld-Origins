@@ -1,4 +1,5 @@
 {
+	"unchoosable": true,
 	"powers": [
 		"otherworldorigins:reset"
 	],
