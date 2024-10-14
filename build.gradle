@@ -185,6 +185,9 @@ dependencies {
     implementation fg.deobf("curse.maven:medieval-core-mod-1055023:5753791")
     runtimeOnly fg.deobf("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
 
+    // Legendary Survival Overhaul
+    compileOnly fg.deobf("curse.maven:legendary-survival-overhaul-840254:5804705")
+
 }
 
 tasks.withType(ProcessResources).configureEach {

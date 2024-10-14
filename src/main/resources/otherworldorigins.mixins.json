@@ -7,7 +7,8 @@
     "mixins": [
         "VillagerMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",
-        "compat.justlevelingfork.AptitudeCapabilityMixin"
+        "compat.justlevelingfork.AptitudeCapabilityMixin",
+        "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin"
     ],
     "client": [
         "compat.justlevelingfork.client.AptitudeMixin",

@@ -1,3 +1,18 @@
 {
-    "type": "origins:simple"
+    "type": "origins:conditioned_attribute",
+    "modifier": {
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "value": 5
+    },
+    "condition": {
+        "type": "origins:equipped_item",
+        "equipment_slot": "offhand",
+        "item_condition": {
+            "type": "origins:ingredient",
+            "ingredient": {
+                "tag": "origins:shields"
+            }
+        }
+    }
 }

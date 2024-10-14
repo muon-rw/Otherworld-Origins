@@ -1,3 +1,7 @@
 {
-    "type": "origins:simple"
+    "type": "origins:modify_projectile_damage",
+    "modifier": {
+        "operation": "addition",
+        "value": 5
+    }
 }
