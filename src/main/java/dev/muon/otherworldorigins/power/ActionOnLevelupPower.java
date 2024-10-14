@@ -1,6 +1,6 @@
-package dev.muon.otherworldorigins.power.factory;
+package dev.muon.otherworldorigins.power;
 
-import dev.muon.otherworldorigins.power.ModPowers;
+import dev.muon.medieval.leveling.event.AptitudeChangedEvent;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.configuration.HolderConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityAction;
@@ -10,13 +10,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import dev.muon.medieval.leveling.event.AptitudeChangedEvent;
 
 
 @Mod.EventBusSubscriber(modid = "otherworldorigins")
-public class ActionOnLevelupPowerFactory extends PowerFactory<HolderConfiguration<ConfiguredEntityAction<?, ?>>> {
+public class ActionOnLevelupPower extends PowerFactory<HolderConfiguration<ConfiguredEntityAction<?, ?>>> {
 
-    public ActionOnLevelupPowerFactory() {
+    public ActionOnLevelupPower() {
         super(HolderConfiguration.required(ConfiguredEntityAction.required("entity_action")));
     }
 

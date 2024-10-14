@@ -26,6 +26,7 @@ public class ModItems {
     public static final RegistryObject<Item> ELF_PORTRAIT = ITEMS.register("portrait/elf", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ENDERMAN_PORTRAIT = ITEMS.register("portrait/enderman", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> FOREST_PORTRAIT = ITEMS.register("portrait/forest", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GITHYANKI_PORTRAIT = ITEMS.register("portrait/githyanki", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GNOME_PORTRAIT = ITEMS.register("portrait/gnome", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> GOLD_PORTRAIT = ITEMS.register("portrait/gold", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> HALF_ELF_PORTRAIT = ITEMS.register("portrait/half_elf", () -> new Item(new Item.Properties()));

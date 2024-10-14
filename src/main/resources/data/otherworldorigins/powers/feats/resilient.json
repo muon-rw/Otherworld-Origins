@@ -1,3 +1,4 @@
 {
-    "type": "origins:simple"
+    "type": "origins:simple",
+    "note": "feat selection handled via conditioned layers"
 }

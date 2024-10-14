@@ -5,12 +5,13 @@
     "refmap": "${mod_id}.refmap.json",
     "plugin": "dev.muon.otherworldorigins.OtherworldOriginsMixinPlugin",
     "mixins": [
+        "VillagerMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",
         "compat.justlevelingfork.AptitudeCapabilityMixin"
     ],
     "client": [
-        "compat.justlevelingfork.client.JustLevelingScreenMixin",
-        "compat.justlevelingfork.client.AptitudeMixin"
+        "compat.justlevelingfork.client.AptitudeMixin",
+        "compat.justlevelingfork.client.JustLevelingScreenMixin"
     ],
     "minVersion": "0.8"
 }

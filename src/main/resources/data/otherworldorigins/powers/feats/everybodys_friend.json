@@ -1,3 +1,4 @@
 {
-    "type": "origins:simple"
+    "type": "otherworldorigins:trade_discount",
+    "amount": 0.1
 }

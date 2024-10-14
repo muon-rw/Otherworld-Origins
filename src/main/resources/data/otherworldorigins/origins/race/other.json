@@ -1,9 +1,8 @@
 {
-	"powers": [
-	],
-        "icon": {
-                "item": "otherworldorigins:portrait/other"
+	"powers": [],
+	"icon": {
+		"item": "otherworldorigins:portrait/githyanki"
 	},
 	"impact": 3,
-        "order": 9
+	"order": 9
 }

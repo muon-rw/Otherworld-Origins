@@ -1,8 +1,20 @@
 {
-	"type": "origins:attribute",
-	"modifier": {
-		"attribute": "minecraft:generic.max_health",
-		"operation": "addition",
-		"value": 10.0
+	"type": "origins:multiple",
+	"apts": {
+		"type": "otherworldorigins:innate_aptitude_bonus",
+		"aptitude_bonuses": {
+			"dexterity": 1,
+			"intelligence": 1,
+			"magic": 1,
+			"constitution": 1,
+			"defense": 1,
+			"building": 1,
+			"strength": 1,
+			"luck": 1
+		}
+	},
+	"discount": {
+		"type": "otherworldorigins:trade_discount",
+		"amount": 0.1
 	}
 }

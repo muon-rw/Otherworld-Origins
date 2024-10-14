@@ -1,8 +1,5 @@
 {
-	"type": "origins:attribute",
-	"modifier": {
-		"attribute": "minecraft:generic.max_health",
-		"operation": "addition",
-		"value": 10.0
-	}
+	"type": "origins:simple",
+	"note": "feat and aptitude selection are handled via layer conditions",
+	"hidden": true
 }

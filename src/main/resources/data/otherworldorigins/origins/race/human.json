@@ -1,7 +1,5 @@
 {
 	"powers": [
-		"otherworldorigins:race/human/attributes",
-		"otherworldorigins:race/human/discount"
 	],
 	"icon": {
 		"item": "minecraft:player_head"

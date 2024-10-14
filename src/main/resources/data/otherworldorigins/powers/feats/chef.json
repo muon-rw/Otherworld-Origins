@@ -1,3 +1,11 @@
 {
-    "type": "origins:simple"
+    "type": "origins:multiple",
+    "hunger": {
+        "type": "origins:modify_exhaustion",
+        "modifier": {
+            "operation": "multiply_base",
+            "value": -0.1
+        }
+    },
+    "thirst": {}
 }
