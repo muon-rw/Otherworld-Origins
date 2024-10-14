@@ -2,7 +2,7 @@
 	"powers": [
                 "otherworldorigins:race/dragonborn/attributes",
                 "otherworldorigins:race/dragonborn/draconic_ancestry",
-                "otherworldorigins:race/dragonborn/cunning"
+                "otherworldorigins:race/dragonborn/resistance"
 	],
         "icon": {
                 "item": "otherworldorigins:portrait/dragonborn"

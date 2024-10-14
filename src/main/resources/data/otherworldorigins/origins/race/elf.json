@@ -1,7 +1,7 @@
 {
         "powers": [
                 "otherworldorigins:race/elf/attributes",
-                "otherworldorigins:race/elf/dark_vision"
+                "otherworldorigins:dark_vision"
         ],
         "icon": {
                 "item": "otherworldorigins:portrait/elf"

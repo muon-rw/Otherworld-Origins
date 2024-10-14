@@ -1,8 +1,10 @@
 {
 	"powers": [
                 "otherworldorigins:race/dwarf/attributes",
-                "otherworldorigins:race/dwarf/resilience",
-                "otherworldorigins:race/dwarf/weapon_training"
+                "otherworldorigins:race/dwarf/dwarven_resilience",
+                "otherworldorigins:race/dwarf/speed",
+                "otherworldorigins:race/dwarf/size",
+                "otherworldorigins:dark_vision"
 	],
         "icon": {
                 "item": "otherworldorigins:portrait/dwarf"

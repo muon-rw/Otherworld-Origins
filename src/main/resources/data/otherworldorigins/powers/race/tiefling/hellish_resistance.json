@@ -1,0 +1,10 @@
+{
+    "type": "origins:multiple",
+    "fire_immune": {
+        "type": "origins:fire_immunity"
+    },
+    "temp_immune": {
+        "type": "otherworldorigins:prevent_temperature",
+        "temp_type": "on_fire"
+    }
+}

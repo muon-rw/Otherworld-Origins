@@ -1,8 +1,7 @@
 {
 	"powers": [
                 "otherworldorigins:race/half_elf/attributes",
-                "otherworldorigins:race/half_elf/dark_vision",
-                "otherworldorigins:race/half_elf/weapon_training"
+                "otherworldorigins:dark_vision"
 	],
         "icon": {
                 "item": "otherworldorigins:portrait/half_elf"

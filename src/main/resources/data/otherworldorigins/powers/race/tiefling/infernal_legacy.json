@@ -1,0 +1,48 @@
+{
+    "type": "origins:multiple",
+    "low": {
+        "type": "origins:active_self",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+        },
+        "entity_action": {
+            "type": "medievalorigins:cast_spell",
+            "spell": "blood_slash",
+            "power_level": 1,
+            "cast_time": 0,
+            "mana_cost": 10
+        }
+    },
+    "med": {
+        "type": "origins:active_self",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+        },
+        "entity_action": {
+            "type": "medievalorigins:cast_spell",
+            "spell": "blood_slash",
+            "power_level": 4,
+            "cast_time": 0,
+            "mana_cost": 10
+        }
+    },
+    "high": {
+        "type": "origins:active_self",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+        },
+        "entity_action": {
+            "type": "medievalorigins:cast_spell",
+            "spell": "blood_slash",
+            "power_level": 7,
+            "cast_time": 0,
+            "mana_cost": 10
+        }
+    }
+}
