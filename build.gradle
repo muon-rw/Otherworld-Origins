@@ -247,3 +247,17 @@ reobf {
 }
 
 jar.finalizedBy('reobfJarJar')
+
+tasks.register('sendToModpack', Copy) {
+    group = 'publishing'
+    dependsOn 'jarJar'
+    from tasks.jarJar.archiveFile
+    into 'C:/Users/renpi/curseforge/minecraft/Instances/Otherworld/mods'
+    rename { String fileName ->
+        fileName.replace(project.version.toString(), "dev")
+    }
+    doLast {
+        println "Mod JAR sent to modpack folder: ${tasks.jarJar.archiveFileName.get()}"
+    }
+}
+
