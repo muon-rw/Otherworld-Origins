@@ -3,7 +3,7 @@
                 "otherworldorigins:race/tiefling/attributes",
                 "otherworldorigins:race/tiefling/hellish_resistance",
                 "otherworldorigins:race/tiefling/infernal_legacy",
-                "otherworldorigins:race/tiefling/dark_vision"
+                "otherworldorigins:dark_vision"
 	],
         "icon": {
                 "item": "otherworldorigins:portrait/tiefling"

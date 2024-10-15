@@ -2,14 +2,15 @@
     "type": "origins:multiple",
     "low": {
         "type": "origins:active_self",
+        "key": "key.origins.primary_active",
         "condition": {
             "type": "otherworldorigins:player_level",
-            "comparison": ">=",
-            "compare_to": 4
+            "comparison": "<=",
+            "compare_to": 5
         },
         "entity_action": {
             "type": "medievalorigins:cast_spell",
-            "spell": "blood_slash",
+            "spell": "firebolt",
             "power_level": 1,
             "cast_time": 0,
             "mana_cost": 10
@@ -17,14 +18,25 @@
     },
     "med": {
         "type": "origins:active_self",
+        "key": "key.origins.primary_active",
         "condition": {
-            "type": "otherworldorigins:player_level",
-            "comparison": ">=",
-            "compare_to": 4
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 6
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<=",
+                    "compare_to": 11
+                }
+            ]
         },
         "entity_action": {
             "type": "medievalorigins:cast_spell",
-            "spell": "blood_slash",
+            "spell": "fireball",
             "power_level": 4,
             "cast_time": 0,
             "mana_cost": 10
@@ -32,15 +44,16 @@
     },
     "high": {
         "type": "origins:active_self",
+        "key": "key.origins.primary_active",
         "condition": {
             "type": "otherworldorigins:player_level",
             "comparison": ">=",
-            "compare_to": 4
+            "compare_to": 12
         },
         "entity_action": {
             "type": "medievalorigins:cast_spell",
-            "spell": "blood_slash",
-            "power_level": 7,
+            "spell": "fireball",
+            "power_level": 1,
             "cast_time": 0,
             "mana_cost": 10
         }

@@ -1,8 +1,0 @@
-{
-    "entity_types": [
-        "minecraft:player"
-    ],
-    "powers": [
-        "otherworldorigins:feat_selector"
-    ]
-}

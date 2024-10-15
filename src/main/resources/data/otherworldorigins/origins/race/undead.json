@@ -1,5 +1,6 @@
 {
 	"powers": [
+		"otherworldorigins:race/undead/undead"
 	],
         "icon": {
                 "item": "otherworldorigins:portrait/undead"

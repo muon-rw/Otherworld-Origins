@@ -1,0 +1,9 @@
+{
+    "entity_types": [
+        "minecraft:player"
+    ],
+    "powers": [
+        "otherworldorigins:feat_selector",
+        "otherworldorigins:ancient_reforging"
+    ]
+}
