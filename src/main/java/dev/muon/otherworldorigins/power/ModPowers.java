@@ -21,7 +21,9 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<HolderConfiguration<ConfiguredEntityAction<?, ?>>>> ACTION_ON_LEVELUP = POWER_FACTORIES.register("action_on_levelup", ActionOnLevelupPower::new);
     public static final RegistryObject<PowerFactory<TradeDiscountPower.Configuration>> TRADE_DISCOUNT = POWER_FACTORIES.register("trade_discount", TradeDiscountPower::new);
     public static final RegistryObject<PowerFactory<ModifyThirstExhaustionPower.Configuration>> MODIFY_THIRST_EXHAUSTION = POWER_FACTORIES.register("modify_thirst_exhaustion", ModifyThirstExhaustionPower::new);
-    public static final RegistryObject<PowerFactory<PreventTemperaturePower.Configuration>> PREVENT_TEMPERATURE = POWER_FACTORIES.register("prevent_temperature", PreventTemperaturePower::new);
+
+    // Switched to entity attributes
+    // public static final RegistryObject<PowerFactory<PreventTemperaturePower.Configuration>> PREVENT_TEMPERATURE = POWER_FACTORIES.register("prevent_temperature", PreventTemperaturePower::new);
 
     private static <T extends PowerFactory<?>> RegistryObject<T> registerConditional(String name, Supplier<T> factory, String modId) {
         if (ModList.get().isLoaded(modId)) {

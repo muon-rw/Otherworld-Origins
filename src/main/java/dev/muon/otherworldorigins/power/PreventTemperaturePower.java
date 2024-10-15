@@ -1,17 +1,9 @@
 package dev.muon.otherworldorigins.power;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
-import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import sfiomn.legendarysurvivaloverhaul.api.temperature.TemperatureImmunityEnum;
-import sfiomn.legendarysurvivaloverhaul.api.temperature.TemperatureUtil;
-
-import java.util.Optional;
-
-
+/**
+ * Currently unused
+ */
+/*
 public class PreventTemperaturePower extends PowerFactory<PreventTemperaturePower.Configuration> {
     public PreventTemperaturePower() {
         super(PreventTemperaturePower.Configuration.CODEC);
@@ -70,3 +62,4 @@ public class PreventTemperaturePower extends PowerFactory<PreventTemperaturePowe
         }
     }
 }
+*/

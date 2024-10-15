@@ -1,3 +1,8 @@
 {
-    "type": "otherworldorigins:prevent_temperature"
+    "type": "origins:attribute",
+    "modifier": {
+        "attribute": "legendarysurvivaloverhaul:thermal_resistance",
+        "value": 100.0,
+        "operation": "addition"
+    }
 }
