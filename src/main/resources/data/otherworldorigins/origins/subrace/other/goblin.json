@@ -1,0 +1,12 @@
+{
+	"powers": [
+		"otherworldorigins:subrace/other/goblin/attributes",
+		"otherworldorigins:subrace/other/goblin/cold_resistance",
+		"otherworldorigins:subrace/other/goblin/gold_proficiency"
+	],
+	"icon": {
+		"item": "otherworldorigins:portrait/goblin"
+	},
+	"impact": 1,
+	"order": 0
+}

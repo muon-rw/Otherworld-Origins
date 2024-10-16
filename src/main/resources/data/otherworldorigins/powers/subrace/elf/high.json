@@ -1,12 +1,7 @@
 {
-    "powers": [
-            "otherworldorigins:race/elf/attributes",
-            "otherworldorigins:race/elf/dark_vision",
-            "otherworldorigins:race/elf/weapon_training"
-    ],
-    "icon": {
-        "item": "otherworldorigins:portrait/high"
-},
-    "impact": 1,
-    "order": 2
-}
+		"type": "otherworldorigins:innate_aptitude_bonus",
+		"aptitude_bonuses": {
+			"intelligence": 1,
+			"magic": 1
+		}
+	}

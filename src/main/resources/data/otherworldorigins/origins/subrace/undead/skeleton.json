@@ -1,10 +1,12 @@
 {
 	"powers": [
-		"otherworldorigins:subrace/undead/skeleton"
+		"otherworldorigins:subrace/undead/skeleton/attributes",
+		"otherworldorigins:subrace/undead/skeleton/resistance",
+		"otherworldorigins:subrace/undead/skeleton/vulnerability"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "minecraft:skeleton_skull"
 	},
-	"impact": 1,
+	"impact": 3,
 	"order": 0
 }

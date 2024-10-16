@@ -1,0 +1,13 @@
+{
+	"powers": [
+		"otherworldorigins:subrace/other/githyanki/attributes",
+		"otherworldorigins:subrace/other/githyanki/size",
+		"otherworldorigins:subrace/other/githyanki/throw_pearl",
+		"otherworldorigins:subrace/other/githyanki/water_vulnerability"
+	],
+	"icon": {
+		"item": "otherworldorigins:portrait/githyanki"
+	},
+	"impact": 1,
+	"order": 0
+}

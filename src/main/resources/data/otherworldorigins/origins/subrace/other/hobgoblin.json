@@ -1,0 +1,12 @@
+{
+	"powers": [
+		"otherworldorigins:subrace/other/hobgoblin/attributes",
+		"otherworldorigins:subrace/other/hobgoblin/heat_resistance",
+		"otherworldorigins:subrace/other/hobgoblin/gold_proficiency"
+	],
+	"icon": {
+		"item": "otherworldorigins:portrait/hobgoblin"
+	},
+	"impact": 3,
+	"order": 0
+}

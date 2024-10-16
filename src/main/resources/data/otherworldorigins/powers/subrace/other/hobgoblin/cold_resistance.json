@@ -1,0 +1,8 @@
+{
+    "type": "origins:attribute",
+    "modifier": {
+        "attribute": "legendarysurvivaloverhaul:cold_resistance",
+        "operation": "addition",
+        "value": 10.0
+    }
+}
