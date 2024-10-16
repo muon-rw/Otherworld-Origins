@@ -1,6 +1,6 @@
 {
     "type": "otherworldorigins:innate_aptitude_bonus",
     "aptitude_bonuses": {
-        "intelligence": 1
+        "defense": 1
     }
 }

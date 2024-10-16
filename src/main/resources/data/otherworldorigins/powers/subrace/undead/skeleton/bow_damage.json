@@ -1,0 +1,25 @@
+{
+    "type": "origins:modify_projectile_damage",
+    "modifier": {
+        "operation": "addition",
+        "value": 5
+    },
+    "condition": {
+        "type": "origins:equipped_item",
+        "equipment_slot": "mainhand",
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:is_bow"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "otherworldorigins:bows"
+                    }
+                }
+            ]
+        }
+    }
+}

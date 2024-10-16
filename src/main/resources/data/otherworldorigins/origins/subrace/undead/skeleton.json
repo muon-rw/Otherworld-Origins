@@ -1,7 +1,7 @@
 {
 	"powers": [
 		"otherworldorigins:subrace/undead/skeleton/attributes",
-		"otherworldorigins:subrace/undead/skeleton/resistance",
+		"otherworldorigins:subrace/undead/skeleton/bow_damage",
 		"otherworldorigins:subrace/undead/skeleton/vulnerability"
 	],
 	"icon": {

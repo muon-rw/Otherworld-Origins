@@ -1,0 +1,7 @@
+{
+    "type": "otherworldorigins:innate_aptitude_bonus",
+    "aptitude_bonuses": {
+        "strength": 1,
+        "defense": 1
+    }
+}

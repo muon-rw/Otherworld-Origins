@@ -56,6 +56,15 @@ public class ModConditions {
             new SimpleItemCondition(stack ->
                     stack.getItem() instanceof BowItem)
     );
+
+    public static final RegistryObject<SimpleItemCondition> IS_SWORD = ITEM_CONDITIONS.register("is_sword", () ->
+            new SimpleItemCondition(stack -> {
+                String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
+                return (stack.getItem() instanceof SwordItem || Enchantments.SHARPNESS.canEnchant(stack))
+                        && (itemName.contains("sword"));
+            })
+    );
+
     public static final RegistryObject<SimpleItemCondition> IS_DAGGER = ITEM_CONDITIONS.register("is_dagger", () ->
             new SimpleItemCondition(stack -> {
                 String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();

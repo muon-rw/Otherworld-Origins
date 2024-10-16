@@ -1,8 +1,9 @@
 {
 	"powers": [
 		"otherworldorigins:subrace/undead/wither_skeleton/attributes",
-		"otherworldorigins:subrace/undead/wither_skeleton/resistance",
-		"otherworldorigins:subrace/undead/wither_skeleton/vulnerability"
+		"otherworldorigins:subrace/undead/wither_skeleton/sword_damage",
+		"otherworldorigins:subrace/undead/wither_skeleton/vulnerability",
+		"otherworldorigins:subrace/undead/wither_skeleton/size"
 	],
 	"icon": {
 		"item": "minecraft:wither_skeleton_skull"

@@ -1,0 +1,19 @@
+{
+    "type": "origins:multiple",
+    "attributes": {
+        "type": "otherworldorigins:innate_aptitude_bonus",
+        "aptitude_bonuses": {
+            "": 1,
+            "defense": 1
+        }
+    },
+    "health_bonus": {
+        "type": "otherworldorigins:leveled_attribute",
+        "modifier": {
+            "attribute": "generic.max_health",
+            "operation": "addition",
+            "value_per_level": 0.5,
+            "starting_value": 0.5
+        }
+    }
+}
