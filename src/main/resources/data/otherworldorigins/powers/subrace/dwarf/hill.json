@@ -8,11 +8,9 @@
     },
     "health_bonus": {
         "type": "otherworldorigins:leveled_attribute",
-        "modifier": {
-            "attribute": "generic.max_health",
-            "operation": "addition",
-            "value_per_level": 0.5,
-            "starting_value": 0.5
-        }
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "value_per_level": 1.0,
+        "starting_value": 1.0
     }
 }

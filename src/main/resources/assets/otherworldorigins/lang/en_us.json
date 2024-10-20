@@ -1,22 +1,22 @@
 {
   "origin.origins.human.description": "-§l Notable Changes§r: \n§oNone§r\n\n A human's fate is more open than most - venture forth with no benefits or drawbacks.",
 
-  "origin.medievalorigins.alfiq.name": "Alfiq",
-  "origin.medievalorigins.alfiq.description": "-§l Notable Changes§r: \n§o§2+ Unarmed Bonus§r\n§o§2+ Unique Movement§r\n§o§6• Carnivore§r\n§o§c- Defense§r\n§lAlfiq§r are a cunning species of anthropomorphic felines with sharp claws and excellent agility. Their roads often lead to warm sands.",
+  "origin.otherworldorigins.alfiq.name": "Alfiq",
+  "origin.otherworldorigins.alfiq.description": "-§l Notable Changes§r: \n§o§2+ Unarmed Bonus§r\n§o§2+ Unique Movement§r\n§o§6• Carnivore§r\n§o§c- Defense§r\n§lAlfiq§r are a cunning species of anthropomorphic felines with sharp claws and excellent agility. Their roads often lead to warm sands.",
   
-  "power.medievalorigins.alfiq/clawed.name": "Clawed",
-  "power.medievalorigins.alfiq/clawed.description": "Alfiq have razor sharp retractable claws; they deal extra damage with empty paws, and can climb up and cling to steep surfaces (Can be toggled)",
+  "power.otherworldorigins.alfiq/clawed.name": "Clawed",
+  "power.otherworldorigins.alfiq/clawed.description": "Alfiq have razor sharp retractable claws; they deal extra damage with empty paws, and can climb up and cling to steep surfaces (Can be toggled)",
 
-  "entity.medievalorigins.summon_zombie": "Summoner's Zombie",
-  "entity.medievalorigins.summon_skeleton": "Summoner's Skeleton",
-  "entity.medievalorigins.summon_wither_skeleton": "Summoner's Wither Skeleton",
+  "entity.otherworldorigins.summon_zombie": "Summoner's Zombie",
+  "entity.otherworldorigins.summon_skeleton": "Summoner's Skeleton",
+  "entity.otherworldorigins.summon_wither_skeleton": "Summoner's Wither Skeleton",
 
-  "medievalorigins.uncastable": "You can't use this ability right now.",
+  "otherworldorigins.uncastable": "You can't use this ability right now.",
 
-  "tooltip.medievalorigins.damage_dealt": "+%s Damage Dealt",
-  "tooltip.medievalorigins.attack_damage_bonus": "+%s Attack Damage",
+  "tooltip.otherworldorigins.damage_dealt": "+%s Damage Dealt",
+  "tooltip.otherworldorigins.attack_damage_bonus": "+%s Attack Damage",
 
-  "layer.medievalorigins.magic_subclasses.name": "Magic Specialization",
+  "layer.otherworldorigins.magic_subclasses.name": "Magic Specialization",
 
   "death.attack.smite.player": "%1$s was smeeted by %2$s",
   "death.attack.smite.item": "%1$s was smeeted by %2$s with %3$s",

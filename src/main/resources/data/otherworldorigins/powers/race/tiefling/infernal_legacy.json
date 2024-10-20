@@ -6,12 +6,12 @@
         "condition": {
             "type": "otherworldorigins:player_level",
             "comparison": "<=",
-            "compare_to": 5
+            "compare_to": 6
         },
         "entity_action": {
-            "type": "medievalorigins:cast_spell",
+            "type": "otherworldorigins:cast_spell",
             "spell": "firebolt",
-            "power_level": 1,
+            "power_level": 4,
             "cast_time": 0,
             "mana_cost": 10
         }
@@ -25,19 +25,19 @@
                 {
                     "type": "otherworldorigins:player_level",
                     "comparison": ">=",
-                    "compare_to": 6
+                    "compare_to": 7
                 },
                 {
                     "type": "otherworldorigins:player_level",
                     "comparison": "<=",
-                    "compare_to": 11
+                    "compare_to": 13
                 }
             ]
         },
         "entity_action": {
-            "type": "medievalorigins:cast_spell",
+            "type": "otherworldorigins:cast_spell",
             "spell": "fireball",
-            "power_level": 4,
+            "power_level": 2,
             "cast_time": 0,
             "mana_cost": 10
         }
@@ -48,12 +48,12 @@
         "condition": {
             "type": "otherworldorigins:player_level",
             "comparison": ">=",
-            "compare_to": 12
+            "compare_to": 14
         },
         "entity_action": {
-            "type": "medievalorigins:cast_spell",
-            "spell": "fireball",
-            "power_level": 1,
+            "type": "otherworldorigins:cast_spell",
+            "spell": "magma_bomb",
+            "power_level": 6,
             "cast_time": 0,
             "mana_cost": 10
         }
