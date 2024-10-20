@@ -153,7 +153,7 @@ dependencies {
     runtimeOnly fg.deobf("me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}")
 
     // Misc Dep-deps
-    runtimeOnly fg.deobf("curse.maven:yacl-667299:5424136")
+    implementation fg.deobf("dev.isxander:yet-another-config-lib:${project.yacl_version}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
 
@@ -171,15 +171,12 @@ dependencies {
     implementation fg.deobf("curse.maven:citadel-331936:5143956")
 
     // Just Leveling
-    implementation fg.deobf("curse.maven:justleveling-fork-1073400:5756911")
-    implementation fg.deobf("dev.isxander:yet-another-config-lib:${project.yacl_version}")
-
+    implementation fg.deobf("curse.maven:justleveling-fork-1073400:5824051")
 
     // Apoth
     implementation fg.deobf("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}")
     implementation fg.deobf("dev.shadowsoffire:ApothicAttributes:${minecraft_version}-${attributeslib_version}")
     implementation fg.deobf("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apotheosis_version}")
-
 
     // Medieval
     implementation fg.deobf("curse.maven:medieval-core-mod-1055023:5753791")
@@ -187,6 +184,9 @@ dependencies {
 
     // Legendary Survival Overhaul
     compileOnly fg.deobf("curse.maven:legendary-survival-overhaul-840254:5804705")
+
+    // Monobank (Thief)
+    implementation fg.deobf("curse.maven:monobank-817257:5086245")
 
 }
 

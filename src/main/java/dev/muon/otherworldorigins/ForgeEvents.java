@@ -35,7 +35,6 @@ public class ForgeEvents {
         }
     }
 
-
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {

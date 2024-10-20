@@ -1,0 +1,9 @@
+{
+    "powers": [
+        "otherworldorigins:cantrips/icicle"
+    ],
+    "icon": {
+        "item": "apotheosis:gem",
+        "tag": "{affix_data: {rarity: \"apotheosis:rare\"}, gem: \"apotheosis_ascended:additional_attributes_iss/innate_fire\"}"
+    }
+}

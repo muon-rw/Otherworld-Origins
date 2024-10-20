@@ -1,6 +1,7 @@
 {
 	"powers": [
                 "otherworldorigins:race/half_elf/attributes",
+                "otherworldorigins:race/half_elf/charisma",
                 "otherworldorigins:dark_vision"
 	],
         "icon": {

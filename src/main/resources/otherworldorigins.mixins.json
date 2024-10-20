@@ -8,7 +8,8 @@
         "VillagerMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",
         "compat.justlevelingfork.AptitudeCapabilityMixin",
-        "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin"
+        "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
+        "compat.monobank.ThiefMixin"
     ],
     "client": [
         "compat.justlevelingfork.client.AptitudeMixin",

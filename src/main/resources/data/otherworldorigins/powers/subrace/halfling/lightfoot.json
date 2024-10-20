@@ -13,5 +13,9 @@
             "operation": "multiply_base",
             "value": 0.1
         }
+    },
+    "charisma": {
+        "type": "otherworldorigins:charisma",
+        "amount": 0.25
     }
 }

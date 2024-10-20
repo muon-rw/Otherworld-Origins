@@ -3,8 +3,7 @@
     "attributes": {
         "type": "otherworldorigins:innate_aptitude_bonus",
         "aptitude_bonuses": {
-            "": 1,
-            "defense": 1
+            "building": 1
         }
     },
     "health_bonus": {

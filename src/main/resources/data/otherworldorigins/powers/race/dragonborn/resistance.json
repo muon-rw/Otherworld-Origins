@@ -3,5 +3,10 @@
     "modifier": {
         "value": -0.1,
         "operation": "multiply_total"
+    },
+    "damage_condition": {
+        "type": "origins:in_tag",
+        "tag": "otherworldorigins:is_magic",
+        "inverted": true
     }
 }
