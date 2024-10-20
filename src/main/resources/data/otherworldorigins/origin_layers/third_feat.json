@@ -35,6 +35,26 @@
         "conditions": [
           {
             "type": "origins:origin",
+            "origin": "otherworldorigins:feats/polearm_master",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 12
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:feats/polearm_master"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
             "origin": "otherworldorigins:feats/defensive_duelist",
             "inverted": true
           },

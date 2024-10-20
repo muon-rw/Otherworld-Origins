@@ -1,7 +1,6 @@
 package dev.muon.otherworldorigins.condition;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import dev.muon.otherworldorigins.enchantment.ModEnchantments;
 import io.github.edwinmindcraft.apoli.api.power.factory.*;
 import io.github.edwinmindcraft.apoli.api.registry.ApoliRegistries;
 import io.github.edwinmindcraft.apoli.common.condition.bientity.SimpleBiEntityCondition;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -65,6 +63,10 @@ public class ModConditions {
             })
     );
 
+    public static final RegistryObject<SimpleItemCondition> IS_STAFF = ITEM_CONDITIONS.register("is_staff", () ->
+            new SimpleItemCondition(stack -> ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath().contains("staff"))
+    );
+
     public static final RegistryObject<SimpleItemCondition> IS_DAGGER = ITEM_CONDITIONS.register("is_dagger", () ->
             new SimpleItemCondition(stack -> {
                 String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
@@ -91,15 +93,6 @@ public class ModConditions {
                     stack.getItem() instanceof DiggerItem || Enchantments.BLOCK_EFFICIENCY.canEnchant(stack) )
     );
 
-    public static final RegistryObject<SimpleItemCondition> IS_HEAVY_ARMOR = ITEM_CONDITIONS.register("is_heavy_armor", () ->
-            new SimpleItemCondition(stack -> {
-                if (stack.getItem() instanceof ArmorItem armorItem) {
-                    int featherweightLevel = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.FEATHERWEIGHT.get(), stack);
-                    return armorItem.getToughness() > 0 && featherweightLevel == 0;
-                }
-                return false;
-            })
-    );
     public static final RegistryObject<SimpleItemCondition> IS_GOLDEN_ARMOR = ITEM_CONDITIONS.register("is_golden_armor", () ->
             new SimpleItemCondition(stack -> {
                 String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();

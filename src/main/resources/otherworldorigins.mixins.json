@@ -5,6 +5,7 @@
     "refmap": "${mod_id}.refmap.json",
     "plugin": "dev.muon.otherworldorigins.OtherworldOriginsMixinPlugin",
     "mixins": [
+        "ChooseOriginScreenMixin",
         "VillagerMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",
         "compat.justlevelingfork.AptitudeCapabilityMixin",

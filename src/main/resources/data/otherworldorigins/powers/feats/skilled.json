@@ -1,54 +1,7 @@
 {
-    "type": "origins:multiple",
-    "can_jump": {
-        "type": "origins:grounded",
-        "condition": {
-            "type": "origins:resource",
-            "resource": "*:*_toggle",
-            "compare_to": 1,
-            "comparison": "=="
-        }
-    },
-    "toggle": {
-        "type": "origins:resource",
-        "min": 0,
-        "max": 1,
-        "hud_render": {
-            "should_render": false
-        },
-        "start_value": 1
-    },
-    "enable": {
-        "type": "origins:action_on_land",
-        "entity_action": {
-            "type": "origins:modify_resource",
-            "resource": "*:*_toggle",
-            "modifier": {
-                "operation": "set_total",
-                "value": 1
-            }
-        }
-    },
-    "disable": {
-        "type": "origins:active_self",
-        "key": "key.jump",
-        "hud_render": {
-            "should_render": false
-        },
-        "condition": {
-            "type": "origins:on_block",
-            "block_condition": {
-                "type": "origins:movement_blocking"
-            },
-            "inverted": true
-        },
-        "entity_action": {
-            "type": "origins:modify_resource",
-            "resource": "*:*_toggle",
-            "modifier": {
-                "operation": "set_total",
-                "value": 0
-            }
-        }
+    "type": "origins:modify_jump",
+    "modifier": {
+        "operation":"addition",
+        "value": 0.2
     }
 }

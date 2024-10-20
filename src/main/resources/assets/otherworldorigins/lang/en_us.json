@@ -21,5 +21,14 @@
   "death.attack.smite.player": "%1$s was smeeted by %2$s",
   "death.attack.smite.item": "%1$s was smeeted by %2$s with %3$s",
 
-  "otherworld.message.charisma_save": "You were seen committing a crime, but spared punishment thanks to Charisma."
+  "otherworld.message.charisma_save": "You were seen committing a crime, but spared punishment thanks to Charisma.",
+"otherworldorigins.gui.start_over": "Start Over",
+"otherworldorigins.gui.current_selections": "Current Selections:",
+"otherworldorigins.gui.layer_origin": "%s: %s",
+  "otherworldorigins.gui.feats": "Feats",
+
+"key.categories.otherworldorigins": "Otherworld Origins",
+"key.otherworldorigins.cantrip_one": "Cantrip One",
+"key.otherworldorigins.cantrip_two": "Cantrip Two",
+"key.otherworldorigins.toggle_dark_vision": "Toggle Dark Vision"
 }

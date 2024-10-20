@@ -1,179 +1,22 @@
 {
-    "order": 2,
-    "name": "Second +1 Ability Score",
-    "hidden": true,
-    "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
-    "origins": [
-      {
-        "condition": {
-          "type": "origins:and",
-          "conditions": [
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:cantrips/acid_orb",
-              "inverted": true
-            },
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
-            }
-          ]
-        },
-        "origins": [
-          "otherworldorigins:cantrips/acid_orb"
-        ]
+  "order": 201,
+  "name": "Cantrip (Arcane Trickster)",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
       },
-      {
-        "condition": {
-          "type": "origins:and",
-          "conditions": [
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:cantrips/chain_lightning",
-              "inverted": true
-            },
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
-            }
-          ]
-        },
-        "origins": [
-          "otherworldorigins:cantrips/chain_lightning"
-        ]
-      },
-      {
-        "condition": {
-          "type": "origins:and",
-          "conditions": [
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:cantrips/firebolt",
-              "inverted": true
-            },
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
-            }
-          ]
-        },
-        "origins": [
-          "otherworldorigins:cantrips/firebolt"
-        ]
-      },
-      {
-        "condition": {
-          "type": "origins:and",
-          "conditions": [
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:cantrips/fortify",
-              "inverted": true
-            },
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
-            }
-          ]
-        },
-        "origins": [
-          "otherworldorigins:cantrips/fortify"
-        ]
-      },
-      {
-        "condition": {
-          "type": "origins:and",
-          "conditions": [
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:cantrips/gust",
-              "inverted": true
-            },
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
-            }
-          ]
-        },
-        "origins": [
-          "otherworldorigins:cantrips/gust"
-        ]
-      },
-      {
-        "condition": {
-          "type": "origins:and",
-          "conditions": [
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:cantrips/icicle",
-              "inverted": true
-            },
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
-            }
-          ]
-        },
-        "origins": [
-          "otherworldorigins:cantrips/icicle"
-        ]
-      },
-      {
-        "condition": {
-          "type": "origins:and",
-          "conditions": [
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:cantrips/magic_missile",
-              "inverted": true
-            },
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
-            }
-          ]
-        },
-        "origins": [
-          "otherworldorigins:cantrips/magic_missile"
-        ]
-      },
-      {
-        "condition": {
-          "type": "origins:and",
-          "conditions": [
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:cantrips/ray_of_frost",
-              "inverted": true
-            },
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
-            }
-          ]
-        },
-        "origins": [
-          "otherworldorigins:cantrips/ray_of_frost"
-        ]
-      },
-      {
-        "condition": {
-          "type": "origins:and",
-          "conditions": [
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:cantrips/scorch",
-              "inverted": true
-            },
-            {
-              "type": "origins:origin",
-              "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
-            }
-          ]
-        },
-        "origins": [
-          "otherworldorigins:cantrips/scorch"
-        ]
-      }
-    ]
-  }
+      "origins": [
+        "otherworldorigins:cantrips/two/acid_orb",
+        "otherworldorigins:cantrips/two/chain_lightning",
+        "otherworldorigins:cantrips/two/firebolt",
+        "otherworldorigins:cantrips/two/fortify",
+        "otherworldorigins:cantrips/two/gust",
+        "otherworldorigins:cantrips/two/icicle",
+        "otherworldorigins:cantrips/two/magic_missile",
+        "otherworldorigins:cantrips/two/scorch"
+      ]
+    }
+  ]
+}

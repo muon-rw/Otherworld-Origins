@@ -1,22 +1,4 @@
 {
-    "banshee_cry": {
-        "subtitles": "sounds.otherworldorigins.banshee_cry",
-        "sounds": [
-            "otherworld:banshee_cry"
-        ]
-    },
-    "channeled_wail": {
-        "subtitles": "sounds.otherworldorigins.channeled_wail",
-        "sounds": [
-            "otherworld:channeled_wail"
-        ]
-    },
-    "horrible_screech": {
-        "subtitles": "sounds.otherworldorigins.horrible_screech",
-        "sounds": [
-            "otherworld:horrible_screech"
-        ]
-    },
     "zhh_woo_voop": {
         "subtitles": "sounds.otherworldorigins.zhh_woo_voop",
         "sounds": [
@@ -35,44 +17,6 @@
             "otherworld:cronch"
         ]
     },
-    "door_knock": {
-        "subtitles": "sounds.otherworldorigins.door_knock",
-        "sounds": [
-            "otherworld:door_knock"
-        ]
-    },
-    "dash": {
-        "subtitles": "sounds.otherworldorigins.dash",
-        "sounds": [
-            "otherworld:dash",
-            "otherworld:dash_2"
-        ]
-    },
-    "boost": {
-        "subtitles": "sounds.otherworldorigins.dash",
-        "sounds": [
-            "otherworld:boost",
-            "otherworld:boost_2",
-            "otherworld:boost_3",
-            "otherworld:boost_4"
-        ]
-    },
-    "jump": {
-        "subtitles": "sounds.otherworldorigins.jump",
-        "sounds": [
-            "otherworld:jump_1",
-            "otherworld:jump_2",
-            "otherworld:jump_3",
-            "otherworld:jump_4",
-            "otherworld:jump_5"
-        ]
-    },
-    "hover": {
-        "subtitles": "sounds.otherworldorigins.hover",
-        "sounds": [
-            "otherworld:hover"
-        ]
-    },
     "valkyrie_channel": {
         "subtitles": "sounds.otherworldorigins.valkyrie_channel",
         "sounds": [
@@ -89,12 +33,6 @@
         "subtitles": "sounds.otherworldorigins.divine_smite",
         "sounds": [
             "otherworld:divine_smite"
-        ]
-    },
-    "sirens_song": {
-        "subtitles": "sounds.otherworldorigins.sirens_song",
-        "sounds": [
-            "otherworld:sirens_song"
         ]
     }
 }

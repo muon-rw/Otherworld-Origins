@@ -9,22 +9,24 @@
     "origins": [
         {
             "condition": {
-                "type": "origins:or",
-                "conditions": [
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:race/elf"
-                    },
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:race/half_elf"
-                    }
-                ]
+                "type": "origins:origin",
+                "origin": "otherworldorigins:race/elf"
             },
             "origins": [
                 "otherworldorigins:subrace/elf/high",
                 "otherworldorigins:subrace/elf/wood",
                 "otherworldorigins:subrace/elf/drow"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:origin",
+                "origin": "otherworldorigins:race/half_elf"
+            },
+            "origins": [
+                "otherworldorigins:subrace/half_elf/high",
+                "otherworldorigins:subrace/half_elf/wood",
+                "otherworldorigins:subrace/half_elf/drow"
             ]
         },
         {

@@ -1,6 +1,6 @@
 {
-    "order": 16,
-    "name": "Cantrip",
+    "order": 200,
+    "name": "Cantrip (High Half-Elf)",
     "origins": [
       {
         "condition": {

@@ -1,0 +1,12 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.otherworldorigins.cantrip_one"
+    },
+    "entity_action": {
+        "type": "otherworldorigins:cast_spell",
+        "spell": "fortify",
+        "power_level": 4,
+        "mana_cost": 10
+    }
+}
