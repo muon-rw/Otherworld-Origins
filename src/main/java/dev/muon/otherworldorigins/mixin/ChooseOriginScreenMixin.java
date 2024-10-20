@@ -92,10 +92,9 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
                 }
             }
 
-            // Render Feats
             List<Component> feats = getFeats(originContainer, layerRegistry, originRegistry);
             if (!feats.isEmpty()) {
-                y += LINE_HEIGHT; // Add some space before Feats section
+                y += LINE_HEIGHT;
                 Component featsText = Component.translatable("otherworldorigins.gui.feats").withStyle(style -> style.withBold(true));
                 graphics.drawString(screen.getMinecraft().font, featsText, x, y, 0xFFFFFF);
                 y += LINE_HEIGHT;
