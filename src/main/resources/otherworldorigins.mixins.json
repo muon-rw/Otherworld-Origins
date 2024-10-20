@@ -2,7 +2,7 @@
     "required": true,
     "package": "dev.muon.otherworldorigins.mixin",
     "compatibilityLevel": "JAVA_17",
-    "refmap": "${mod_id}.refmap.json",
+    "refmap": "otherworldorigins.refmap.json",
     "plugin": "dev.muon.otherworldorigins.OtherworldOriginsMixinPlugin",
     "mixins": [
         "ChooseOriginScreenMixin",

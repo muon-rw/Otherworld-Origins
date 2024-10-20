@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-@Mixin(value = ChooseOriginScreen.class, remap = false)
+@Mixin(value = ChooseOriginScreen.class)
 public class ChooseOriginScreenMixin extends OriginDisplayScreen {
 
     @Unique
@@ -40,16 +40,16 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
         super(title, showDirtBackground);
     }
 
-    @Inject(method = "init", at = @At("TAIL"))
+    @Inject(method = "Lio/github/apace100/origins/screen/ChooseOriginScreen;init()V", at = @At("TAIL"), require = 1)
     private void addResetButton(CallbackInfo ci) {
         ChooseOriginScreen screen = (ChooseOriginScreen) (Object) this;
-        addRenderableWidget(Button.builder(Component.translatable("otherworldorigins.gui.start_over"), (button) -> {
+        this.addRenderableWidget(Button.builder(Component.translatable("otherworldorigins.gui.start_over"), (button) -> {
             OtherworldOrigins.CHANNEL.sendToServer(new ResetOriginsMessage());
             screen.onClose();
         }).bounds(MARGIN, screen.height - BUTTON_HEIGHT - MARGIN, BUTTON_WIDTH, BUTTON_HEIGHT).build());
     }
 
-    @Inject(method = "render", at = @At("TAIL"))
+    @Inject(method = "Lio/github/apace100/origins/screen/ChooseOriginScreen;render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V", at = @At("TAIL"), require = 1)
     private void renderCurrentOrigins(GuiGraphics graphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         ChooseOriginScreen screen = (ChooseOriginScreen) (Object) this;
         int x = MARGIN;
