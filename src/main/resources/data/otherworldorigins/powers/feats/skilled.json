@@ -1,7 +1,37 @@
 {
-    "type": "origins:modify_jump",
-    "modifier": {
-        "operation":"addition",
-        "value": 0.2
+    "hidden": true,
+    "type": "origins:multiple",
+    "boost": {
+        "type": "origins:modify_jump",
+        "modifier": {
+            "operation": "addition",
+            "value": 0.2
+        }
+    },
+    "fall_dmg": {
+        "type": "origins:modify_damage_taken",
+        "damage_condition": {
+            "type": "origins:in_tag",
+            "tag": "is_fall"
+        },
+        "modifier": {
+            "operation": "multiply_total_multiplicative",
+            "value": -1
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:fall_distance",
+                    "comparison": ">=",
+                    "compare_to": 2.5
+                },
+                {
+                    "type": "origins:fall_distance",
+                    "comparison": "<=",
+                    "compare_to": 4.5
+                }
+            ]
+        }
     }
 }

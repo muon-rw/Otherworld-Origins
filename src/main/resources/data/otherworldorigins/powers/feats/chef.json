@@ -1,4 +1,5 @@
 {
+    "hidden": true,
     "type": "origins:multiple",
     "hunger": {
         "type": "origins:modify_exhaustion",

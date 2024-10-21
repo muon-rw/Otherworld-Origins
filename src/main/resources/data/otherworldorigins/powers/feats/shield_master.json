@@ -1,4 +1,5 @@
 {
+    "hidden": true,
     "type": "origins:conditioned_attribute",
     "modifier": {
         "attribute": "minecraft:generic.armor",

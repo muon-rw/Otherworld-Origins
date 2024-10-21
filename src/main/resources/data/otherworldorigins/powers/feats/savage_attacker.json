@@ -1,3 +1,9 @@
 {
-    "type": "origins:simple"
+    "hidden": true,
+    "type": "origins:conditioned_attribute",
+    "modifier": {
+        "attribute": "minecraft:generic.attack_damage",
+        "value": 5,
+        "operation": "addition"
+    }
 }

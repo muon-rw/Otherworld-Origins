@@ -9,6 +9,7 @@
         "ChooseOriginScreenMixin",
         "EnchantmentHelperMixin",
         "ExperienceOrbMixin",
+        "FishingRodItemMixin",
         "PlayerMixin",
         "VillagerMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",

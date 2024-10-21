@@ -1,5 +1,12 @@
 {
+  "type": "origins:multiple",
+  "throw": {
     "type": "origins:fire_projectile",
+    "condition": {
+      "type": "otherworldorigins:player_level",
+      "comparison": "<=",
+      "compare_to": 10
+    },
     "cooldown": 30,
     "hud_render": {
       "sprite_location": "origins:textures/gui/resource_bar.png",
@@ -13,4 +20,20 @@
       "key": "key.origins.primary_active",
       "continuous": false
     }
+  },
+  "warp": {
+    "type": "origins:active_self",
+    "condition": {
+      "type": "otherworldorigins:player_level",
+      "comparison": ">=",
+      "compare_to": 10
+    },
+    "key": {
+      "key": "key.origins.primary_active",
+      "continuous": false
+    },
+    "entity_action": {
+      "type": "origins:nothing"
+    }
   }
+}

@@ -142,8 +142,8 @@
   "power.otherworldorigins.race/tiefling/charisma.name": "Charisma",
   "power.otherworldorigins.race/tiefling/charisma.description": "§oCharisma reduces the chance you will be punished when committing a crime.",
 
-  "power.otherworldorigins.race/halfling/charisma.name": "Charisma",
-  "power.otherworldorigins.race/halfling/charisma.description": "§oCharisma reduces the chance you will be punished when committing a crime.",
+  "power.otherworldorigins.subrace/halfling/lightfoot.name": "Charisma",
+  "power.otherworldorigins.subrace/halfling/lightfoot.description": "§oCharisma reduces the chance you will be punished when committing a crime.",
 
   "power.otherworldorigins.race/dragonborn/charisma.name": "Charisma",
   "power.otherworldorigins.race/dragonborn/charisma.description": "§oCharisma reduces the chance you will be punished when committing a crime.",
@@ -159,6 +159,15 @@
 
   "power.otherworldorigins.race/dwarf/dwarven_resilience.name": "Dwarven Resilience",
   "power.otherworldorigins.race/dwarf/dwarven_resilience.description": "§oYou are resistant to poison damage",
+
+  "power.otherworldorigins.subrace/goblin/gold_proficiency.name": "Gold Proficiency",
+  "power.otherworldorigins.subrace/goblin/gold_proficiency.description": "§oYou receive 50% extra stats from gold gear, and gold gear has 50% more durability",
+
+  "power.otherworldorigins.subrace/hobgoblin/gold_proficiency.name": "Gold Proficiency",
+  "power.otherworldorigins.subrace/hobgoblin/gold_proficiency.description": "§oYou receive 50% extra stats from gold gear, and gold gear has 50% more durability",
+
+  "power.otherworldorigins.subrace/githyanki/throw_pearl.name": "Psionics",
+  "power.otherworldorigins.subrace/githyanki/throw_pearl.description": "§oYou can summon and throw an ender pearl to teleport. Once you reach level 10, you can directly teleport to a target area within 64 blocks.",
 
 
 "origin.otherworldorigins.feats/chef.name": "Chef",

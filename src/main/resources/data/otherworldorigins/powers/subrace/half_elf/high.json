@@ -1,4 +1,5 @@
 {
+    "hidden": true,
     "type": "otherworldorigins:innate_aptitude_bonus",
     "aptitude_bonuses": {
         "intelligence": 1,
