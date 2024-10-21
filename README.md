@@ -2,6 +2,5 @@
 Otherworld Origins
 
 Todo:
-- Class/Subclass jsons
+- Subclass JSONs
 - Sprite selection
-- Lang Keys
