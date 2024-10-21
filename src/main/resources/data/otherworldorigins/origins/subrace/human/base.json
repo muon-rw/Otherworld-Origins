@@ -1,6 +1,6 @@
 {
 	"powers": [
-		"otherworldorigins:subrace/human/base"
+		"otherworldorigins:race/human"
 	],
 	"icon": {
 		"item": "minecraft:player_head"

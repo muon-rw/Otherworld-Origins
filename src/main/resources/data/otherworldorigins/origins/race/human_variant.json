@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"otherworldorigins:race/human_variant/dummy"
+	],
+	"icon": {
+		"item": "minecraft:player_head"
+	},
+	"impact": 3,
+	"order": 10
+}

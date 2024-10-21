@@ -10,7 +10,7 @@
     {
       "condition": {
         "type": "origins:origin",
-        "origin": "otherworldorigins:subrace/human/variant"
+        "origin": "otherworldorigins:race/human_variant"
       },
       "origins": [
         "otherworldorigins:feats/chef",

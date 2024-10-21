@@ -19,7 +19,6 @@
     "otherworldorigins:class/rogue",
     "otherworldorigins:class/sorcerer",
     "otherworldorigins:class/warlock",
-    "otherworldorigins:class/wizard",
-    "otherworldorigins:reset"
+    "otherworldorigins:class/wizard"
   ]
 }

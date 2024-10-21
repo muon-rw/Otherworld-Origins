@@ -9,6 +9,7 @@
   "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
   "origins": [
     "otherworldorigins:race/human",
+    "otherworldorigins:race/human_variant",
     "otherworldorigins:race/dwarf",
     "otherworldorigins:race/elf",
     "otherworldorigins:race/half_elf",

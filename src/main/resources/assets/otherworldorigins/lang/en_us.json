@@ -1,8 +1,128 @@
 {
   "origin.origins.human.description": "-§l Notable Changes§r: \n§oNone§r\n\n A human's fate is more open than most - venture forth with no benefits or drawbacks.",
 
-  "origin.otherworldorigins.alfiq.name": "Alfiq",
-  "origin.otherworldorigins.alfiq.description": "-§l Notable Changes§r: \n§o§2+ Unarmed Bonus§r\n§o§2+ Unique Movement§r\n§o§6• Carnivore§r\n§o§c- Defense§r\n§lAlfiq§r are a cunning species of anthropomorphic felines with sharp claws and excellent agility. Their roads often lead to warm sands.",
+  "origin.otherworldorigins.race/human.name": "Human",
+  "origin.otherworldorigins.race/human.description": "• Medium Size \n• +1 to All Stats§r\n• 10% Discount from Villagers§r\n\nHumans are versatile and adaptable, with a balanced set of abilities that allow them to excel in various fields.",
+
+  "origin.otherworldorigins.race/human_variant.name": "Human (Variant)",
+  "origin.otherworldorigins.race/human_variant.description": "• Medium Size \n• +2 to Two Stats\n• Bonus Feat\n\nHuman variants trade their balanced abilities for specialized skills and a unique feat.",
+
+  "origin.otherworldorigins.race/elf.name": "Elf",
+  "origin.otherworldorigins.race/elf.description": "• Medium Size§r\n• +2 Dexterity§r\n• Darkvision§r\n\n§lSubraces§r:\nHigh Elf\nWood Elf\n\n§lLore:§r Elves are graceful and agile, with keen senses and a natural affinity for magic.",
+
+  "origin.otherworldorigins.subrace/elf/high.name": "High Elf",
+  "origin.otherworldorigins.subrace/elf/high.description": "• +1 Intelligence§r\n• +1 Luck§r\n\nHigh elves are known for their intellect and magical aptitude.",
+
+  "origin.otherworldorigins.subrace/elf/wood.name": "Wood Elf",
+  "origin.otherworldorigins.subrace/elf/wood.description": "• +1 Intelligence§r\n• +1 Speed§r\n\nWood elves are swift and perceptive, at home in the forests and wild lands.",
+
+  "origin.otherworldorigins.subrace/elf/drow.name": "Drow",
+  "origin.otherworldorigins.subrace/elf/drow.description": "• +1 Intelligence§r\n• Access to Ancient Reforging§r\n\nDrow, or dark elves, are known for their cunning and mastery of ancient magics.",
+
+  "origin.otherworldorigins.race/half_elf.name": "Half-Elf",
+  "origin.otherworldorigins.race/half_elf.description": "• Medium Size§r\n• +2 Charisma§r\n• Darkvision§r\n• +1 to Two Other Ability Scores§r\n\nHalf-elves combine the best traits of humans and elves, resulting in a charismatic and versatile race.\n\nAvailable Subraces:\nHigh Half-Elf\nWood Half-Elf\nDrow Half-Elf",
+
+  "origin.otherworldorigins.subrace/half_elf/high.name": "High Half-Elf",
+  "origin.otherworldorigins.subrace/half_elf/high.description": "• +1 Intelligence§r\n• +1 Cantrip§r\n\nHigh half-elves inherit the magical aptitude of their high elf parentage.",
+
+  "origin.otherworldorigins.subrace/half_elf/wood.name": "Wood Elf",
+  "origin.otherworldorigins.subrace/half_elf/wood.description": "• +1 Intelligence§r\n• +1 Speed§r\n\nWood half-elves inherit the swiftness and perception of their wood elf ancestry.",
+
+  "origin.otherworldorigins.subrace/half_elf/drow.name": "Drow Elf",
+  "origin.otherworldorigins.subrace/half_elf/drow.description": "• +1 Intelligence§r\n• Access to Ancient Reforging§r\n\nDrow half-elves inherit the cunning and magical prowess of their drow parentage.",
+
+  "origin.otherworldorigins.race/dwarf.name": "Dwarf",
+  "origin.otherworldorigins.race/dwarf.description": "• Small Size§r\n• -10% Speed§r\n• +2 Constitution§r\n• Darkvision§r\n• Dwarven Resilience (Resistance to Poison Damage)§r\n\nDwarves are sturdy and resilient, with a natural affinity for craftsmanship and mining.\n\nAvailable Subraces:\nHill Dwarf\nMountain Dwarf\nDuergar",
+
+  "origin.otherworldorigins.subrace/dwarf/hill.name": "Hill Dwarf",
+  "origin.otherworldorigins.subrace/dwarf/hill.description": "• +1 Building§r\n• +0.5 Hearths (Increases every level)§r\n\nHill dwarves are known for their resilience and skill in construction.",
+
+  "origin.otherworldorigins.subrace/dwarf/mountain.name": "Mountain Dwarf",
+  "origin.otherworldorigins.subrace/dwarf/mountain.description": "• +1 Strength§r\n• +1 Defence§r\n\nMountain dwarves are strong and hardy, excelling in combat and craftsmanship.",
+
+  "origin.otherworldorigins.subrace/dwarf/duergar.name": "Duergar",
+  "origin.otherworldorigins.subrace/dwarf/duergar.description": "• +1 Intelligence§r\n• Access to Ancient Reforging§r\n\nDuergar, or gray dwarves, are known for their cunning and mastery of ancient magics.",
+
+  "origin.otherworldorigins.race/halfling.name": "Halfling",
+  "origin.otherworldorigins.race/halfling.description": "• Small Size§r\n• -10% Speed§r\n• +2 Dexterity§r\n• +1 Luck§r\n\nHalflings are nimble and lucky, with a natural talent for stealth and precision.\n\n§lSubraces§r:\nLightfoot Halfling\nStout Halfling",
+
+  "origin.otherworldorigins.subrace/halfling/lightfoot.name": "Lightfoot",
+  "origin.otherworldorigins.subrace/halfling/lightfoot.description": "• +1 Charisma§r\n• +10% Speed§r\n\nLightfoot halflings are naturally charismatic and quicker than their kin.",
+
+  "origin.otherworldorigins.subrace/halfling/stout.name": "Stout",
+  "origin.otherworldorigins.subrace/halfling/stout.description": "• +1 Constitution§r\n• Resistance to Poison Damage§r\n\nStout halflings are hardier than most, with a natural resistance to toxins.",
+
+  "origin.otherworldorigins.race/gnome.name": "Gnome",
+  "origin.otherworldorigins.race/gnome.description": "• Small Size§r\n§l§c- 10% Speed§r\n• +2 Intelligence§r\n• Darkvision§r\n• +1 Luck§r\n\nGnomes are curious and clever, with a knack for magic and tinkering.\n\nAvailable Subraces:\nRock Gnome\nForest Gnome\nDeep Gnome",
+
+  "origin.otherworldorigins.subrace/gnome/rock.name": "Rock Gnome",
+  "origin.otherworldorigins.subrace/gnome/rock.description": "• +1 Constitution§r\n\nRock gnomes are inventive and hardy, with a talent for creating magical devices.",
+
+  "origin.otherworldorigins.subrace/gnome/forest.name": "Forest Gnome",
+  "origin.otherworldorigins.subrace/gnome/forest.description": "• +1 Strength§r\n\nForest gnomes are nimble and stealthy, with a natural affinity for illusion magic.",
+
+  "origin.otherworldorigins.subrace/gnome/deep.name": "Deep Gnome",
+  "origin.otherworldorigins.subrace/gnome/deep.description": "• Access to Ancient Reforging§r\n\nDeep gnomes, or svirfneblin, are masters of stealth and stone-craft.",
+
+  "origin.otherworldorigins.race/dragonborn.name": "Dragonborn",
+  "origin.otherworldorigins.race/dragonborn.description": "• Medium Size§r\n• +2 Strength§r\n• +1 Charisma§r\n• Draconic Ancestry§r\n• Breath Weapon§r\n• 10% Damage Resistance§r\n\nDragonborn are proud and noble, with draconic heritage granting them unique abilities.\n\nAvailable Subraces:\nBlack, Blue, Brass, Bronze, Copper, Gold, Green, Red, Silver, White",
+
+  "origin.otherworldorigins.subrace/dragonborn/black.name": "Black Dragonborn",
+  "origin.otherworldorigins.subrace/dragonborn/black.description": "• Acid Breath Attack§r\n\nBlack dragonborn possess the corrosive breath of their black dragon ancestors.",
+
+  "origin.otherworldorigins.subrace/dragonborn/blue.name": "Blue Dragonborn",
+  "origin.otherworldorigins.subrace/dragonborn/blue.description": "• Lightning Breath Attack§r\n\nBlue dragonborn channel the lightning breath of their blue dragon forebears.",
+
+  "origin.otherworldorigins.subrace/dragonborn/brass.name": "Brass Dragonborn",
+  "origin.otherworldorigins.subrace/dragonborn/brass.description": "• Fire Breath Attack§r\n\nBrass dragonborn inherit the fiery breath of their brass dragon ancestors.",
+
+  "origin.otherworldorigins.subrace/dragonborn/bronze.name": "Bronze Dragonborn",
+  "origin.otherworldorigins.subrace/dragonborn/bronze.description": "• Lightning Breath Attack§r\n\nBronze dragonborn wield the lightning breath of their bronze dragon ancestors.",
+
+  "origin.otherworldorigins.subrace/dragonborn/copper.name": "Copper Dragonborn",
+  "origin.otherworldorigins.subrace/dragonborn/copper.description": "• Acid Breath Attack§r\n\nCopper dragonborn possess the acidic breath of their copper dragon forebears.",
+
+  "origin.otherworldorigins.subrace/dragonborn/gold.name": "Gold Dragonborn",
+  "origin.otherworldorigins.subrace/dragonborn/gold.description": "• Fire Breath Attack§r\n\nGold dragonborn channel the intense fire breath of their gold dragon ancestors.",
+
+  "origin.otherworldorigins.subrace/dragonborn/green.name": "Green Dragonborn",
+  "origin.otherworldorigins.subrace/dragonborn/green.description": "• Poison Breath Attack§r\n\nGreen dragonborn inherit the poisonous breath of their green dragon forebears.",
+
+  "origin.otherworldorigins.subrace/dragonborn/red.name": "Red Dragonborn",
+  "origin.otherworldorigins.subrace/dragonborn/red.description": "• Fire Breath Attack§r\n\nRed dragonborn wield the devastating fire breath of their red dragon ancestors.",
+
+  "origin.otherworldorigins.subrace/dragonborn/silver.name": "Silver Dragonborn",
+  "origin.otherworldorigins.subrace/dragonborn/silver.description": "• Cold Breath Attack§r\n\nSilver dragonborn possess the freezing breath of their silver dragon forebears.",
+
+  "origin.otherworldorigins.subrace/dragonborn/white.name": "White Dragonborn",
+  "origin.otherworldorigins.subrace/dragonborn/white.description": "• Cold Breath Attack§r\n\nWhite dragonborn channel the icy breath of their white dragon ancestors.",
+
+  "origin.otherworldorigins.race/tiefling.name": "Tiefling",
+  "origin.otherworldorigins.race/tiefling.description": "• Medium Size§r\n• +2 Charisma§r\n• +1 Intelligence§r\n• Darkvision§r\n• Hellish Resistance§r\n• Infernal Legacy§r\n\nTieflings are beings with infernal heritage, possessing both charm and innate magical abilities.",
+
+  "origin.otherworldorigins.race/undead.name": "Undead",
+  "origin.otherworldorigins.race/undead.description": "Undead are creatures that have been reanimated after death, each with unique strengths and weaknesses.\n\nAvailable Subraces:\nZombie\nSkeleton\nWither Skeleton",
+
+  "origin.otherworldorigins.subrace/undead/zombie.name": "Zombie",
+  "origin.otherworldorigins.subrace/undead/zombie.description": "• Medium Size§r\n§l§c- Sun Resistance§r\n• Resistance to Poison§r\n• +1 Defence§r\n\nZombies are undead creatures, resilient but vulnerable to sunlight.",
+
+  "origin.otherworldorigins.subrace/undead/skeleton.name": "Skeleton",
+  "origin.otherworldorigins.subrace/undead/skeleton.description": "• Medium Size§r\n§l§c- Bow Resistance§r\n• +5 Bow Damage§r\n• +1 Dexterity§r\n\nSkeletons are agile undead, skilled with bows but vulnerable to them as well.",
+
+  "origin.otherworldorigins.subrace/undead/wither_skeleton.name": "Wither Skeleton",
+  "origin.otherworldorigins.subrace/undead/wither_skeleton.description": "• Tall Size§r\n§l§c- Sword Resistance§r\n• +5 Sword Damage§r\n• +1 Strength§r\n\nWither Skeletons are powerful undead warriors, deadly with swords but vulnerable to them.",
+
+  "origin.otherworldorigins.race/other.name": "Other",
+  "origin.otherworldorigins.race/other.description": "This category includes unique races that don't fit into the standard classifications, each with their own special abilities and traits.\n\nAvailable Subraces:\nGithyanki\nHobgoblin\nGoblin",
+
+  "origin.otherworldorigins.subrace/other/githyanki.name": "Githyanki",
+  "origin.otherworldorigins.subrace/other/githyanki.description": "• Tall Size§r\n§l§c- Water Resistance§r\n• Teleport with Ender Pearls§r\n• +1 Defence§r\n\nGithyanki are psionic warriors from the Astral Plane, with innate teleportation abilities.",
+
+  "origin.otherworldorigins.subrace/other/hobgoblin.name": "Hobgoblin",
+  "origin.otherworldorigins.subrace/other/hobgoblin.description": "• Medium Size§r\n• Gold Proficiency (x1.5 Gold Stats)§r\n• Heat Resistance§r\n• +1 Strength§r\n\nHobgoblins are disciplined and militaristic, with a natural affinity for gold and combat.",
+
+  "origin.otherworldorigins.subrace/other/goblin.name": "Goblin",
+  "origin.otherworldorigins.subrace/other/goblin.description": "• Medium Size§r\n• Gold Proficiency (x1.5 Gold Stats)§r\n• Cold Resistance§r\n• +1 Dexterity§r\n\nGoblins are small, nimble creatures with a knack for acquiring and using gold.",
   
   "power.otherworldorigins.alfiq/clawed.name": "Clawed",
   "power.otherworldorigins.alfiq/clawed.description": "Alfiq have razor sharp retractable claws; they deal extra damage with empty paws, and can climb up and cling to steep surfaces (Can be toggled)",

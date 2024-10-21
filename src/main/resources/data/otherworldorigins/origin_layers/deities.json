@@ -13,8 +13,7 @@
         "origin": "otherworldorigins:class/paladin"
       },
       "origins": [
-        "otherworldorigins:deities/test",
-        "otherworldorigins:reset"
+        "otherworldorigins:deities/test"
       ]
     }
   ]

@@ -1,22 +1,21 @@
 {
-    "order": 200,
-    "name": "Cantrip (High Half-Elf)",
-    "origins": [
-      {
-        "condition": {
-          "type": "origins:origin",
-          "origin": "otherworldorigins:subrace/half_elf/high"
-        },
-        "origins": [
-          "otherworldorigins:cantrips/acid_orb",
-          "otherworldorigins:cantrips/chain_lightning",
-          "otherworldorigins:cantrips/firebolt",
-          "otherworldorigins:cantrips/fortify",
-          "otherworldorigins:cantrips/gust",
-          "otherworldorigins:cantrips/icicle",
-          "otherworldorigins:cantrips/magic_missile",
-          "otherworldorigins:cantrips/scorch"
-        ]
-      }
-    ]
-  }
+  "order": 200,
+  "name": "Cantrip (High Half-Elf)",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:subrace/half_elf/high"
+      },
+      "origins": [
+        "otherworldorigins:cantrips/acid_orb",
+        "otherworldorigins:cantrips/chain_lightning",
+        "otherworldorigins:cantrips/firebolt",
+        "otherworldorigins:cantrips/fortify",
+        "otherworldorigins:cantrips/gust",
+        "otherworldorigins:cantrips/icicle",
+        "otherworldorigins:cantrips/magic_missile"
+      ]
+    }
+  ]
+}

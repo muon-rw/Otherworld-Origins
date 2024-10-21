@@ -64,16 +64,6 @@
         {
             "condition": {
                 "type": "origins:origin",
-                "origin": "otherworldorigins:race/human"
-            },
-            "origins": [
-                "otherworldorigins:subrace/human/base",
-                "otherworldorigins:subrace/human/variant"
-            ]
-        },
-        {
-            "condition": {
-                "type": "origins:origin",
                 "origin": "otherworldorigins:race/dragonborn"
             },
             "origins": [
@@ -109,52 +99,6 @@
                 "otherworldorigins:subrace/other/githyanki",
                 "otherworldorigins:subrace/other/hobgoblin",
                 "otherworldorigins:subrace/other/goblin"
-            ]
-        },
-        {
-            "condition": {
-                "type": "origins:or",
-                "conditions": [
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:race/dragonborn"
-                    },
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:race/dwarf"
-                    },
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:race/elf"
-                    },
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:race/gnome"
-                    },
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:race/half_elf"
-                    },
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:race/halfling"
-                    },
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:race/human"
-                    },
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:race/other"
-                    },
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:race/undead"
-                    }
-                ]
-            },
-            "origins": [
-                "otherworldorigins:reset"
             ]
         }
     ]
