@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/artificer/alchemist"
+        "otherworldorigins:subclass/artificer/alchemist"
     ],
     "icon": {
         "item": "minecraft:diamond"

@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/druid/moon"
+        "otherworldorigins:subclass/druid/moon"
     ],
     "icon": {
         "item": "minecraft:diamond"

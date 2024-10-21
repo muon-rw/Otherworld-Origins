@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/fighter/battle_master"
+        "otherworldorigins:subclass/fighter/battle_master"
     ],
     "icon": {
         "item": "minecraft:diamond"

@@ -10,6 +10,8 @@
         "EnchantmentHelperMixin",
         "ExperienceOrbMixin",
         "FishingRodItemMixin",
+        "LivingEntityMixin",
+        "MobEffectInstanceAccessor",
         "PlayerMixin",
         "VillagerMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",

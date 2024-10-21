@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/wizard/enchanting"
+        "otherworldorigins:subclass/wizard/enchanting"
     ],
     "icon": {
         "item": "minecraft:diamond"

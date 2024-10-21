@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/cleric/tempest"
+        "otherworldorigins:subclass/cleric/tempest"
     ],
     "icon": {
         "item": "minecraft:diamond"

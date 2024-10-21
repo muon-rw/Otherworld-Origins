@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/barbarian/wild_magic"
+        "otherworldorigins:subclass/barbarian/wild_magic"
     ],
     "icon": {
         "item": "minecraft:diamond"

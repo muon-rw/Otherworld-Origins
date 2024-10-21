@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/wizard/abjuration"
+        "otherworldorigins:subclass/wizard/abjuration"
     ],
     "icon": {
         "item": "minecraft:diamond"

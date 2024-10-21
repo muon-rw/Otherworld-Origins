@@ -1,7 +1,5 @@
 {
 	"powers": [
-		"otherworldorigins:class/ranger/attributes",
-		"otherworldorigins:class/ranger/subclasses"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

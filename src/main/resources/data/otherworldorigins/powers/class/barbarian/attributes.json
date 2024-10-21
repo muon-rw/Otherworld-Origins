@@ -1,4 +1,5 @@
 {
+    "hidden": true,
     "type": "origins:attribute",
     "modifier": {
         "attribute": "minecraft:generic.armor",

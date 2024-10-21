@@ -167,7 +167,10 @@
   "power.otherworldorigins.subrace/hobgoblin/gold_proficiency.description": "§oYou receive 50% extra stats from gold gear, and gold gear has 50% more durability",
 
   "power.otherworldorigins.subrace/githyanki/throw_pearl.name": "Psionics",
-  "power.otherworldorigins.subrace/githyanki/throw_pearl.description": "§oYou can summon and throw an ender pearl to teleport. Once you reach level 10, you can directly teleport to a target area within 64 blocks.",
+  "power.otherworldorigins.subrace/githyanki/throw_pearl.description": "§oYou can summon and throw an ender pearl to teleport. Once you reach level 11, you can directly teleport to a target area within 64 blocks.",
+
+  "power.otherworldorigins.subrace/githyanki/water_vulnerability.name": "Water Vulnerability",
+  "power.otherworldorigins.subrace/githyanki/water_vulnerability.description": "§oYou take damage from water and rain, but this can be offset with the Water Protection enchantment.",
 
 
 "origin.otherworldorigins.feats/chef.name": "Chef",
@@ -244,11 +247,11 @@
 
 "origin.otherworldorigins.class/rogue.description": "• Increased Bow Damage\n§oOnly Rogues can make use of the Power enchantment§r\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
 
-"origin.otherworldorigins.class/sorcerer.description": "• +40% Magic Damage\n• +1 Magic Skill\n• -5 Hearts\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
+"origin.otherworldorigins.class/sorcerer.description": "• +1 Magic\n• -5 Hearts\n• +40% Magic Damage\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
 
-"origin.otherworldorigins.class/warlock.description": "• +1 Magic Skill\n• Eldritch Blast\n§oOnly Warlocks can make use of the Flame enchantment§r\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
+"origin.otherworldorigins.class/warlock.description": "• +1 Magic\n• Eldritch Blast\n§oOnly Warlocks can make use of the Flame enchantment§r\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
 
-"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic Skill\n• -5 Hearts\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchantment\nTransmutation",
+"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic\n• -5 Hearts\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchantment\nTransmutation",
 
 "origin.otherworldorigins.class/artificer.name": "Artificer",
 "origin.otherworldorigins.subclass/artificer/alchemist.name": "Alchemist",

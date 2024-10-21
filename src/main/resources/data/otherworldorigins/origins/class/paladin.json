@@ -1,7 +1,6 @@
 {
 	"powers": [
-		"otherworldorigins:class/paladin/attributes",
-		"otherworldorigins:class/paladin/subclasses"
+		"otherworldorigins:class/paladin/attributes"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/paladin/devotion"
+        "otherworldorigins:subclass/paladin/devotion"
     ],
     "icon": {
         "item": "minecraft:diamond"

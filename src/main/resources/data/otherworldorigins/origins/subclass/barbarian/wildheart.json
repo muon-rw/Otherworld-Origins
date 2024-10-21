@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/barbarian/wildheart"
+        "otherworldorigins:subclass/barbarian/wildheart"
     ],
     "icon": {
         "item": "minecraft:diamond"

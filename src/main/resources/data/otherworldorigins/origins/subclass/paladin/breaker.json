@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/paladin/breaker"
+        "otherworldorigins:subclass/paladin/breaker"
     ],
     "icon": {
         "item": "minecraft:diamond"

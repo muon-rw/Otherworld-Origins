@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/wizard/evocation"
+        "otherworldorigins:subclass/wizard/evocation"
     ],
     "icon": {
         "item": "minecraft:diamond"

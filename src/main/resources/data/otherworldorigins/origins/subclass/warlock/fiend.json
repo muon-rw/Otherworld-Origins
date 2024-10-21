@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/warlock/fiend"
+        "otherworldorigins:subclass/warlock/fiend"
     ],
     "icon": {
         "item": "minecraft:diamond"

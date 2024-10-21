@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/ranger/beast_master"
+        "otherworldorigins:subclass/ranger/beast_master"
     ],
     "icon": {
         "item": "minecraft:diamond"

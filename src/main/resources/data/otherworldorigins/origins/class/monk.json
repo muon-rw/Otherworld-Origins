@@ -1,7 +1,6 @@
 {
 	"powers": [
-		"otherworldorigins:class/monk/attributes",
-		"otherworldorigins:class/monk/subclasses"
+		"otherworldorigins:class/monk/attributes"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

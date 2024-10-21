@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/bard/valor"
+        "otherworldorigins:subclass/bard/valor"
     ],
     "icon": {
         "item": "minecraft:diamond"

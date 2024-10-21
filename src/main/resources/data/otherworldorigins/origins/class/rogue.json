@@ -1,7 +1,6 @@
 {
 	"powers": [
-		"otherworldorigins:class/rogue/attributes",
-		"otherworldorigins:class/rogue/subclasses"
+		"otherworldorigins:class/rogue/attributes"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

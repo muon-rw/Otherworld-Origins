@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/rogue/arcane_trickster"
+        "otherworldorigins:subclass/rogue/arcane_trickster"
     ],
     "icon": {
         "item": "minecraft:diamond"

@@ -1,3 +1,41 @@
 {
-    "type": "origins:simple"
+    "type": "origins:multiple",
+    "apts": {
+        "type": "otherworldorigins:innate_aptitude_bonus",
+        "aptitude_bonuses": {
+            "magic": 1
+        }
+    },
+    "low": {
+        "type": "origins:active_self",
+        "key": "key.origins.secondary_active",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 15
+        },
+        "entity_action": {
+            "type": "otherworldorigins:cast_spell",
+            "spell": "magic_missile",
+            "power_level": 5,
+            "cast_time": 0,
+            "mana_cost": 10
+        }
+    },
+    "high": {
+        "type": "origins:active_self",
+        "key": "key.origins.secondary_active",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "entity_action": {
+            "type": "otherworldorigins:cast_spell",
+            "spell": "eldritch_blast",
+            "power_level": 2,
+            "cast_time": 0,
+            "mana_cost": 10
+        }
+    }
 }

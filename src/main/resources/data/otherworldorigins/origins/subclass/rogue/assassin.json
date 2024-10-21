@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/rogue/assassin"
+        "otherworldorigins:subclass/rogue/assassin"
     ],
     "icon": {
         "item": "minecraft:diamond"

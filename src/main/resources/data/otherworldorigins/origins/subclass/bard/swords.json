@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/bard/swords"
+        "otherworldorigins:subclass/bard/swords"
     ],
     "icon": {
         "item": "minecraft:diamond"

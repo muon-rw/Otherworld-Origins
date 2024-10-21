@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/wizard/conjuration"
+        "otherworldorigins:subclass/wizard/conjuration"
     ],
     "icon": {
         "item": "minecraft:diamond"

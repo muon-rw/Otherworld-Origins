@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/druid/land"
+        "otherworldorigins:subclass/druid/land"
     ],
     "icon": {
         "item": "minecraft:diamond"

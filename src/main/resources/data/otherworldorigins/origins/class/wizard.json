@@ -1,7 +1,6 @@
 {
 	"powers": [
-		"otherworldorigins:class/wizard/attributes",
-		"otherworldorigins:class/wizard/subclasses"
+		"otherworldorigins:class/wizard/attributes"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

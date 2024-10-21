@@ -61,6 +61,6 @@ public class ForgeEvents {
     public static void trackConeProjectile(AbstractConeProjectile coneProjectile) {
         activeCones.put(coneProjectile.getId(), 0);
     }
-
 }
+
 

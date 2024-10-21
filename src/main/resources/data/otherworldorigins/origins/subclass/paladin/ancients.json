@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/paladin/ancients"
+        "otherworldorigins:subclass/paladin/ancients"
     ],
     "icon": {
         "item": "minecraft:diamond"

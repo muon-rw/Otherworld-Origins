@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/sorcerer/draconic_bloodline"
+        "otherworldorigins:subclass/sorcerer/draconic_bloodline"
     ],
     "icon": {
         "item": "minecraft:diamond"

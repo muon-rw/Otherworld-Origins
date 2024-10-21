@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/fighter/eldritch_knight"
+        "otherworldorigins:subclass/fighter/eldritch_knight"
     ],
     "icon": {
         "item": "minecraft:diamond"

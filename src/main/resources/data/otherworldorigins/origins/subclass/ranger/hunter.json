@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/ranger/hunter"
+        "otherworldorigins:subclass/ranger/hunter"
     ],
     "icon": {
         "item": "minecraft:diamond"

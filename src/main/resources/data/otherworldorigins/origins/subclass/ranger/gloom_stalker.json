@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/ranger/gloom_stalker"
+        "otherworldorigins:subclass/ranger/gloom_stalker"
     ],
     "icon": {
         "item": "minecraft:diamond"

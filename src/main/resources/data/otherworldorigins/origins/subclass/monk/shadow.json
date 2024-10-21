@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/monk/shadow"
+        "otherworldorigins:subclass/monk/shadow"
     ],
     "icon": {
         "item": "minecraft:diamond"

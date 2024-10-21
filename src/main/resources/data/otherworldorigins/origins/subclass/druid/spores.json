@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/druid/spores"
+        "otherworldorigins:subclass/druid/spores"
     ],
     "icon": {
         "item": "minecraft:diamond"

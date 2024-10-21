@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/monk/open_hand"
+        "otherworldorigins:subclass/monk/open_hand"
     ],
     "icon": {
         "item": "minecraft:diamond"

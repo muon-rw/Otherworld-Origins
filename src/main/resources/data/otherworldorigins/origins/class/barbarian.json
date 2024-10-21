@@ -1,7 +1,6 @@
 {
 	"powers": [
-		"otherworldorigins:class/barbarian/attributes",
-		"otherworldorigins:class/barbarian/summon_beast"
+		"otherworldorigins:class/barbarian/attributes"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

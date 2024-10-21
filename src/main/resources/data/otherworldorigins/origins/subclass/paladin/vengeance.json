@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/paladin/vengeance"
+        "otherworldorigins:subclass/paladin/vengeance"
     ],
     "icon": {
         "item": "minecraft:diamond"

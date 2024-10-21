@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/artificer/battle_smith"
+        "otherworldorigins:subclass/artificer/battle_smith"
     ],
     "icon": {
         "item": "minecraft:diamond"

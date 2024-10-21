@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/wizard/transmutation"
+        "otherworldorigins:subclass/wizard/transmutation"
     ],
     "icon": {
         "item": "minecraft:diamond"

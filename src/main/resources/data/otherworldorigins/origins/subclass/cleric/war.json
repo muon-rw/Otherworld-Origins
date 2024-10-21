@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/cleric/war"
+        "otherworldorigins:subclass/cleric/war"
     ],
     "icon": {
         "item": "minecraft:diamond"

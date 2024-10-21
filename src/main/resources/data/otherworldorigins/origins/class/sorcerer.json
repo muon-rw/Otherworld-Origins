@@ -1,7 +1,6 @@
 {
 	"powers": [
-		"otherworldorigins:class/sorcerer/attributes",
-		"otherworldorigins:class/sorcerer/subclasses"
+		"otherworldorigins:class/sorcerer/attributes"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

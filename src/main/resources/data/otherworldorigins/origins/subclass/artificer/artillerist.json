@@ -1,6 +1,6 @@
 {
     "powers": [
-        "otherworldorigins:subrace/artificer/artillerist"
+        "otherworldorigins:subclass/artificer/artillerist"
     ],
     "icon": {
         "item": "minecraft:diamond"
