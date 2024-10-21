@@ -1,7 +1,7 @@
 package dev.muon.otherworldorigins.mixin.compat.justlevelingfork.client;
 
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
-import dev.muon.otherworldorigins.power.configuration.InnateAptitudeBonusConfiguration;
+import dev.muon.otherworldorigins.power.InnateAptitudeBonusPower;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +18,7 @@ public class AptitudeMixin {
         Player player = Minecraft.getInstance().player;
         if (player == null) return originalMaxLevel;
 
-        int bonus = InnateAptitudeBonusConfiguration.getBonus(player, self.getName());
+        int bonus = InnateAptitudeBonusPower.getBonus(player, self.getName());
         return originalMaxLevel + bonus;
     }
 

@@ -5,7 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.seniors.justlevelingfork.client.screen.JustLevelingScreen;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
-import dev.muon.otherworldorigins.power.configuration.InnateAptitudeBonusConfiguration;
+import dev.muon.otherworldorigins.power.InnateAptitudeBonusPower;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -46,7 +46,7 @@ public class JustLevelingScreenMixin {
     @Unique
     private int otherworld$getModifiedMaxLevel(int originalMaxLevel, Aptitude aptitude) {
         String aptitudeName = aptitude.getName();
-        int bonus = InnateAptitudeBonusConfiguration.getBonus(Minecraft.getInstance().player, aptitudeName);
+        int bonus = InnateAptitudeBonusPower.getBonus(Minecraft.getInstance().player, aptitudeName);
         int newMaxLevel = originalMaxLevel + bonus;
         //OtherworldOrigins.LOGGER.info("Aptitude: {}, Original max level: {}, Bonus: {}, New max level: {}", aptitudeName, originalMaxLevel, bonus, newMaxLevel);
         return newMaxLevel;

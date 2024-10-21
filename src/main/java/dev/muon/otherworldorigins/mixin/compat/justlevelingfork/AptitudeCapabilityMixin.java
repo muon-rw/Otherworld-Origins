@@ -3,7 +3,7 @@ package dev.muon.otherworldorigins.mixin.compat.justlevelingfork;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
-import dev.muon.otherworldorigins.power.configuration.InnateAptitudeBonusConfiguration;
+import dev.muon.otherworldorigins.power.InnateAptitudeBonusPower;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.LazyOptional;
@@ -11,8 +11,6 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-
-import java.util.Map;
 
 @Mixin(value = AptitudeCapability.class, remap = false)
 public class AptitudeCapabilityMixin {
@@ -27,7 +25,7 @@ public class AptitudeCapabilityMixin {
         Player player = otherworld$getPlayerFromCapability(self);
 
         if (player != null) {
-            int bonus = InnateAptitudeBonusConfiguration.getBonus(player, aptitude.getName());
+            int bonus = InnateAptitudeBonusPower.getBonus(player, aptitude.getName());
             return originalMaxLevel + bonus;
         }
 
