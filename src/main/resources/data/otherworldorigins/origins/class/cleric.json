@@ -1,7 +1,6 @@
 {
 	"powers": [
-		"otherworldorigins:class/cleric/attributes",
-		"otherworldorigins:class/cleric/subclasses"
+		"otherworldorigins:class/cleric/attributes"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

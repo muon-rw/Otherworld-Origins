@@ -5,7 +5,11 @@
     "refmap": "otherworldorigins.refmap.json",
     "plugin": "dev.muon.otherworldorigins.OtherworldOriginsMixinPlugin",
     "mixins": [
+        "ArrowItemMixin",
         "ChooseOriginScreenMixin",
+        "EnchantmentHelperMixin",
+        "ExperienceOrbMixin",
+        "PlayerMixin",
         "VillagerMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",
         "compat.justlevelingfork.AptitudeCapabilityMixin",

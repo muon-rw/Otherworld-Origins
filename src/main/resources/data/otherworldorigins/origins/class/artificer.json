@@ -1,7 +1,6 @@
 {
 	"powers": [
-		"otherworldorigins:class/artificer/attributes",
-		"otherworldorigins:class/artificer/subclasses"
+		"otherworldorigins:class/artificer/attributes"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

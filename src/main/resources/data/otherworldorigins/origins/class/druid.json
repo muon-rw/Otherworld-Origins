@@ -1,7 +1,6 @@
 {
 	"powers": [
-		"otherworldorigins:class/druid/attributes",
-		"otherworldorigins:class/druid/subclasses"
+		"otherworldorigins:class/druid/attributes"
 	],
 	"icon": {
 		"item": "minecraft:barrier"

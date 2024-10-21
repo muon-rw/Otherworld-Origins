@@ -41,7 +41,7 @@
   "origin.otherworldorigins.subrace/halfling/stout.description": "• +1 Constitution§r\n• Poison Resistance§r\n\n§oYou've had several lifetimes worth of stew for someone your size. This has proven to be a great asset.",
   
 "origin.otherworldorigins.race/gnome.name": "Gnome",
-"origin.otherworldorigins.race/gnome.description": "• Small Size\n• +2 Intelligence\n• +1 Luck\n• -10% Speed\n• Darkvision\n\n§oSharp minds and wit, and hearts full of wonder. Just don't expect them to reach the top shelf.§r\n\n§nSubraces§r\nRock Gnome\nForest Gnome\nDeep Gnome",
+"origin.otherworldorigins.race/gnome.description": "• Small Size\n• +2 Intelligence\n• +1 Luck\n• -10% Speed\n• Darkvision\n\n§oSharp minds and wit, and hearts full of wonder. Just don't expect to reach the top shelf.§r\n\n§nSubraces§r\nRock Gnome\nForest Gnome\nDeep Gnome",
 "origin.otherworldorigins.subrace/gnome/rock.name": "Rock Gnome",
 "origin.otherworldorigins.subrace/gnome/rock.description": "• +1 Constitution§r\n\n§oWhere others see junk, rock gnomes see possibility. Their workshops hum with the promise of the next great invention—or spectacular explosion.",
 "origin.otherworldorigins.subrace/gnome/forest.name": "Forest Gnome",
@@ -73,7 +73,7 @@
 "origin.otherworldorigins.subrace/dragonborn/white.description": "• Cold Breath Attack§r\n\n§oHardy as the frozen tundra, white dragonborn thrive where others shiver. Their frosty demeanor hides hearts as vast and deep as glaciers.",
 
 "origin.otherworldorigins.race/tiefling.name": "Tiefling",
-"origin.otherworldorigins.race/tiefling.description": "• Medium Size§r\n• +2 Charisma§r\n• +1 Intelligence§r\n• Darkvision§r\n• Hellish Resistance§r\n• Infernal Legacy§r\n\n§oWith a hint of brimstone in their wake and mischief in their eyes, tieflings walk a tightrope between two worlds. Their infernal heritage is both a curse and a gift, depending on who you ask—just don't ask them directly unless you're prepared for a devilishly clever retort.",
+"origin.otherworldorigins.race/tiefling.description": "• Medium Size§r\n• +2 Charisma§r\n• +1 Intelligence§r\n• Darkvision§r\n• Hellish Resistance§r\n• Infernal Legacy§r\n\n§oA hint of brimstone in their wake and mischief in their eyes; Tieflings are devilishly clever.",
 
 "origin.otherworldorigins.race/undead.name": "Undead",
 "origin.otherworldorigins.race/undead.description": "§oNeither alive nor dead, cursed to walk this world until their creator's purpose is served.§r\n\n§nSubraces§r\nZombie\nSkeleton\nWither Skeleton",
@@ -92,6 +92,46 @@
 "origin.otherworldorigins.subrace/other/hobgoblin.description": "• Medium Size§r\n• Gold Proficiency (x1.5 Gold Stats)§r\n• Heat Resistance§r\n• +1 Strength§r\n\n§oWhere a Goblin might steal from you to get more gold, a Hobgoblin might do it just to ruin your day.",
 "origin.otherworldorigins.subrace/other/goblin.name": "Goblin",
 "origin.otherworldorigins.subrace/other/goblin.description": "• Medium Size§r\n• Gold Proficiency (x1.5 Gold Stats)§r\n• Cold Resistance§r\n• +1 Dexterity§r\n\n§oSmall, green, and perpetually underestimated, goblins prove that big things come in tiny packages. Just keep an eye on your coin purse—and your left shoe.",
+
+"origin.otherworldorigins.apts/one/str.name": "Strength",
+"origin.otherworldorigins.apts/one/str.description": "• +1 Strength",
+"origin.otherworldorigins.apts/two/str.name": "Strength",
+"origin.otherworldorigins.apts/two/str.description": "• +2 Strength",
+
+"origin.otherworldorigins.apts/one/dex.name": "Dexterity",
+"origin.otherworldorigins.apts/one/dex.description": "• +1 Dexterity",
+"origin.otherworldorigins.apts/two/dex.name": "Dexterity",
+"origin.otherworldorigins.apts/two/dex.description": "• +2 Dexterity",
+
+"origin.otherworldorigins.apts/one/const.name": "Constitution",
+"origin.otherworldorigins.apts/one/const.description": "• +1 Constitution",
+"origin.otherworldorigins.apts/two/const.name": "Constitution",
+"origin.otherworldorigins.apts/two/const.description": "• +2 Constitution",
+
+"origin.otherworldorigins.apts/one/def.name": "Defense",
+"origin.otherworldorigins.apts/one/def.description": "• +1 Defense",
+"origin.otherworldorigins.apts/two/def.name": "Defense",
+"origin.otherworldorigins.apts/two/def.description": "• +2 Defense",
+
+"origin.otherworldorigins.apts/one/bld.name": "Building",
+"origin.otherworldorigins.apts/one/bld.description": "• +1 Building",
+"origin.otherworldorigins.apts/two/bld.name": "Building",
+"origin.otherworldorigins.apts/two/bld.description": "• +2 Building",
+
+"origin.otherworldorigins.apts/one/mag.name": "Magic",
+"origin.otherworldorigins.apts/one/mag.description": "• +1 Magic",
+"origin.otherworldorigins.apts/two/mag.name": "Magic",
+"origin.otherworldorigins.apts/two/mag.description": "• +2 Magic",
+
+"origin.otherworldorigins.apts/one/int.name": "Intelligence",
+"origin.otherworldorigins.apts/one/int.description": "• +1 Intelligence",
+"origin.otherworldorigins.apts/two/int.name": "Intelligence",
+"origin.otherworldorigins.apts/two/int.description": "• +2 Intelligence",
+
+"origin.otherworldorigins.apts/one/lck.name": "Luck",
+"origin.otherworldorigins.apts/one/lck.description": "• +1 Luck",
+"origin.otherworldorigins.apts/two/lck.name": "Luck",
+"origin.otherworldorigins.apts/two/lck.description": "• +2 Luck",
 
   "power.otherworldorigins.dark_vision.name": "Dark Vision",
   "power.otherworldorigins.dark_vision.description": "",
@@ -131,7 +171,7 @@
 "origin.otherworldorigins.feats/dual_wielder.description": "Deal 5 extra damage with a weapon in your off-hand",
 
 "origin.otherworldorigins.feats/everybodys_friend.name": "Everybody's Friend",
-"origin.otherworldorigins.feats/everybodys_friend.description": "Receive 10% discounts on Trades",
+"origin.otherworldorigins.feats/everybodys_friend.description": "Receive an extra 10% discount from Villagers",
 
 "origin.otherworldorigins.feats/savage_attacker.name": "Savage Attacker",
 "origin.otherworldorigins.feats/savage_attacker.description": "You Deal 5 extra damage with Melee attacks",
@@ -143,10 +183,10 @@
 "origin.otherworldorigins.feats/elemental_adept.description": "You are immune to Temperature effects",
 
 "origin.otherworldorigins.feats/lucky.name": "Lucky",
-"origin.otherworldorigins.feats/lucky.description": "Gain 1 free reroll on the Enchanting Table",
+"origin.otherworldorigins.feats/lucky.description": "You can reroll for free on the Enchanting Table",
 
 "origin.otherworldorigins.feats/martial_adept.name": "Martial Adept",
-"origin.otherworldorigins.feats/martial_adept.description": "Increase Attack Speed is increased by 10%",
+"origin.otherworldorigins.feats/martial_adept.description": "Your Attack Speed is increased by 10%",
 
 "origin.otherworldorigins.feats/mobile.name": "Mobile",
 "origin.otherworldorigins.feats/mobile.description": "Your Movement Speed is increased by 10%",
@@ -158,22 +198,162 @@
 "origin.otherworldorigins.feats/resilient.description": "You can select +1 to any Stat",
 
 "origin.otherworldorigins.feats/sharpshooter.name": "Sharpshooter",
-"origin.otherworldorigins.feats/sharpshooter.description": "You deal 5 extra Ranged Damage",
+"origin.otherworldorigins.feats/sharpshooter.description": "Deal 5 extra Ranged Damage",
 
 "origin.otherworldorigins.feats/shield_master.name": "Shield Master",
 "origin.otherworldorigins.feats/shield_master.description": "While wielding a shield in your off-hand, gain 5 extra armor",
 
 "origin.otherworldorigins.feats/spell_sniper.name": "Spell Sniper",
-"origin.otherworldorigins.feats/spell_sniper.description": "You deal 10% extra Magic Damage",
+"origin.otherworldorigins.feats/spell_sniper.description": "Deal 10% extra Magic Damage",
 
 "origin.otherworldorigins.feats/skilled.name": "Skilled",
 "origin.otherworldorigins.feats/skilled.description": "Your Jump Height is increased to 2 blocks.",
 
 "origin.otherworldorigins.feats/tough.name": "Tough",
-"origin.otherworldorigins.feats/tough.description": "You Gain 5 extra hearts",
+"origin.otherworldorigins.feats/tough.description": "Gain 5 extra hearts",
 
 "origin.otherworldorigins.feats/weapon_master.name": "Weapon Master",
-"origin.otherworldorigins.feats/weapon_master.description": "You deal 2 extra damage with any weapon",
+"origin.otherworldorigins.feats/weapon_master.description": "Deal 2 extra damage with any weapon",
+
+"origin.otherworldorigins.class/artificer.description": "§oOnly Artificers can make use of the Mending enchantment§r\n\n§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
+
+"origin.otherworldorigins.class/barbarian.description": "• +5 Armor\n§oOnly Barbarians can make use of the Sweeping Edge enchantment§r\n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
+
+"origin.otherworldorigins.class/bard.description": "• -2 Hearts\n§oOnly Bards can make use of the Luck of the Sea enchantment§r\n\n§nSubclasses§r\nCollege of Lore\nCollege of Valour\nCollege of Swords",
+
+"origin.otherworldorigins.class/cleric.description": "• +3 Armor\n§oOnly Clerics can make use of the Fortune enchantment§r\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
+
+"origin.otherworldorigins.class/druid.description": "§oOnly Druids can make use of the Thorns enchantment§r\n\n§nSubclasses§r\nCircle of the Land\nCircle of the Moon\nCircle of the Spores",
+
+"origin.otherworldorigins.class/fighter.description": "• +10 Hearts\n§oOnly Fighters can make use of the Sharpness enchantment§r\n\n§nSubclasses§r\nBattle Master\nEldritch Knight\nChampion",
+
+"origin.otherworldorigins.class/monk.description": "• +5 Hearts\n§oOnly Monks can make use of the Loyalty enchantment§r\n\n§nSubclasses§r\nWay of the Four Elements\nWay of the Open Hand\nWay of Shadow",
+
+"origin.otherworldorigins.class/paladin.description": "• +10 Armor\n§oOnly Paladins can make use of the Smite enchantment§r\n\n§nSubclasses§r\nOath of the Ancients\nOath of Devotion\nOath of Vengeance\nOath Breaker",
+
+"origin.otherworldorigins.class/ranger.description": "§oOnly Rangers can make use of the Infinity enchantment§r\n\n§nSubclasses§r\nBeast Master\nGloom Stalker\nHunter",
+
+"origin.otherworldorigins.class/rogue.description": "• Increased Bow Damage\n§oOnly Rogues can make use of the Power enchantment§r\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
+
+"origin.otherworldorigins.class/sorcerer.description": "• +40% Magic Damage\n• +1 Magic Skill\n• -5 Hearts\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
+
+"origin.otherworldorigins.class/warlock.description": "• +1 Magic Skill\n• Eldritch Blast\n§oOnly Warlocks can make use of the Flame enchantment§r\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
+
+"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic Skill\n• -5 Hearts\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchantment\nTransmutation",
+
+"origin.otherworldorigins.class/artificer.name": "Artificer",
+"origin.otherworldorigins.subclass/artificer/alchemist.name": "Alchemist",
+"origin.otherworldorigins.subclass/artificer/alchemist.description": "• Double potion effects",
+"origin.otherworldorigins.subclass/artificer/armourer.name": "Armourer",
+"origin.otherworldorigins.subclass/artificer/armourer.description": "• +5 Armor",
+"origin.otherworldorigins.subclass/artificer/artillerist.name": "Artillerist",
+"origin.otherworldorigins.subclass/artificer/artillerist.description": "• +5 Ranged Damage",
+"origin.otherworldorigins.subclass/artificer/battle_smith.name": "Battle Smith",
+"origin.otherworldorigins.subclass/artificer/battle_smith.description": "• +5 Melee Damage",
+
+"origin.otherworldorigins.class/barbarian.name": "Barbarian",
+"origin.otherworldorigins.subclass/barbarian/wildheart.name": "Wildheart",
+"origin.otherworldorigins.subclass/barbarian/wildheart.description": "• Ability to summon a beast",
+"origin.otherworldorigins.subclass/barbarian/berserker.name": "Berserker",
+"origin.otherworldorigins.subclass/barbarian/berserker.description": "• +5 Melee Damage",
+"origin.otherworldorigins.subclass/barbarian/wild_magic.name": "Wild Magic",
+"origin.otherworldorigins.subclass/barbarian/wild_magic.description": "• 1.5x Health Regeneration",
+
+"origin.otherworldorigins.class/bard.name": "Bard",
+"origin.otherworldorigins.subclass/bard/college_of_lore.name": "College of Lore",
+"origin.otherworldorigins.subclass/bard/college_of_lore.description": "• Push Ability",
+"origin.otherworldorigins.subclass/bard/college_of_valour.name": "College of Valour",
+"origin.otherworldorigins.subclass/bard/college_of_valour.description": "• +30% Magic Damage",
+"origin.otherworldorigins.subclass/bard/college_of_swords.name": "College of Swords",
+"origin.otherworldorigins.subclass/bard/college_of_swords.description": "• +5 Melee Damage",
+
+"origin.otherworldorigins.class/cleric.name": "Cleric",
+"origin.otherworldorigins.subclass/cleric/life_domain.name": "Life Domain",
+"origin.otherworldorigins.subclass/cleric/life_domain.description": "• Faster Health Regeneration",
+"origin.otherworldorigins.subclass/cleric/trickery_domain.name": "Trickery Domain",
+"origin.otherworldorigins.subclass/cleric/trickery_domain.description": "• +10% Magic Damage",
+"origin.otherworldorigins.subclass/cleric/knowledge_domain.name": "Knowledge Domain",
+"origin.otherworldorigins.subclass/cleric/knowledge_domain.description": "• -20% Enchantment Cost",
+"origin.otherworldorigins.subclass/cleric/tempest_domain.name": "Tempest Domain",
+"origin.otherworldorigins.subclass/cleric/tempest_domain.description": "• +50% Lightning or +50% Thunder Damage",
+"origin.otherworldorigins.subclass/cleric/war_domain.name": "War Domain",
+"origin.otherworldorigins.subclass/cleric/war_domain.description": "• +5 Melee Damage",
+
+"origin.otherworldorigins.class/druid.name": "Druid",
+"origin.otherworldorigins.subclass/druid/circle_of_the_land.name": "Circle of the Land",
+"origin.otherworldorigins.subclass/druid/circle_of_the_land.description": "• 2x Health Regeneration",
+"origin.otherworldorigins.subclass/druid/circle_of_the_moon.name": "Circle of the Moon",
+"origin.otherworldorigins.subclass/druid/circle_of_the_moon.description": "• Ability to summon a beast",
+"origin.otherworldorigins.subclass/druid/circle_of_the_spores.name": "Circle of the Spores",
+"origin.otherworldorigins.subclass/druid/circle_of_the_spores.description": "• Ability to summon undead",
+
+"origin.otherworldorigins.class/fighter.name": "Fighter",
+"origin.otherworldorigins.subclass/fighter/battle_master.name": "Battle Master",
+"origin.otherworldorigins.subclass/fighter/battle_master.description": "• +10 Attack Damage",
+"origin.otherworldorigins.subclass/fighter/eldritch_knight.name": "Eldritch Knight",
+"origin.otherworldorigins.subclass/fighter/eldritch_knight.description": "• +5 Attack Damage\n• +10% Magic Damage",
+"origin.otherworldorigins.subclass/fighter/champion.name": "Champion",
+"origin.otherworldorigins.subclass/fighter/champion.description": "• Immune to Critical Hits",
+
+"origin.otherworldorigins.class/monk.name": "Monk",
+"origin.otherworldorigins.subclass/monk/way_of_the_four_elements.name": "Way of the Four Elements",
+"origin.otherworldorigins.subclass/monk/way_of_the_four_elements.description": "• +5 Armor",
+"origin.otherworldorigins.subclass/monk/way_of_the_open_hand.name": "Way of the Open Hand",
+"origin.otherworldorigins.subclass/monk/way_of_the_open_hand.description": "• +5 Fist Damage",
+"origin.otherworldorigins.subclass/monk/way_of_shadow.name": "Way of Shadow",
+"origin.otherworldorigins.subclass/monk/way_of_shadow.description": "• +10 Nighttime Damage",
+
+"origin.otherworldorigins.class/paladin.name": "Paladin",
+"origin.otherworldorigins.subclass/paladin/oath_of_the_ancients.name": "Oath of the Ancients",
+"origin.otherworldorigins.subclass/paladin/oath_of_the_ancients.description": "• Faster Health Regeneration",
+"origin.otherworldorigins.subclass/paladin/oath_of_devotion.name": "Oath of Devotion",
+"origin.otherworldorigins.subclass/paladin/oath_of_devotion.description": "• +5 Melee Damage",
+"origin.otherworldorigins.subclass/paladin/oath_of_vengeance.name": "Oath of Vengeance",
+"origin.otherworldorigins.subclass/paladin/oath_of_vengeance.description": "• +3 All Weapon Damage",
+"origin.otherworldorigins.subclass/paladin/oath_breaker.name": "Oath Breaker",
+"origin.otherworldorigins.subclass/paladin/oath_breaker.description": "• +5 Hearts",
+
+"origin.otherworldorigins.class/ranger.name": "Ranger",
+"origin.otherworldorigins.subclass/ranger/beast_master.name": "Beast Master",
+"origin.otherworldorigins.subclass/ranger/beast_master.description": "• Ability to summon a beast",
+"origin.otherworldorigins.subclass/ranger/gloom_stalker.name": "Gloom Stalker",
+"origin.otherworldorigins.subclass/ranger/gloom_stalker.description": "• +10% Speed",
+"origin.otherworldorigins.subclass/ranger/hunter.name": "Hunter",
+"origin.otherworldorigins.subclass/ranger/hunter.description": "• +5 Ranged Damage",
+
+"origin.otherworldorigins.class/rogue.name": "Rogue",
+"origin.otherworldorigins.subclass/rogue/thief.name": "Thief",
+"origin.otherworldorigins.subclass/rogue/thief.description": "• Feather Falling",
+"origin.otherworldorigins.subclass/rogue/arcane_trickster.name": "Arcane Trickster",
+"origin.otherworldorigins.subclass/rogue/arcane_trickster.description": "• +1 Cantrip",
+"origin.otherworldorigins.subclass/rogue/assassin.name": "Assassin",
+"origin.otherworldorigins.subclass/rogue/assassin.description": "• +5 Sword Damage",
+
+"origin.otherworldorigins.class/sorcerer.name": "Sorcerer",
+"origin.otherworldorigins.subclass/sorcerer/wild_magic.name": "Wild Magic",
+"origin.otherworldorigins.subclass/sorcerer/wild_magic.description": "• +10% Magic Damage",
+"origin.otherworldorigins.subclass/sorcerer/draconic_bloodline.name": "Draconic Bloodline",
+"origin.otherworldorigins.subclass/sorcerer/draconic_bloodline.description": "• +5 Armor",
+
+"origin.otherworldorigins.class/warlock.name": "Warlock",
+"origin.otherworldorigins.subclass/warlock/the_fiend.name": "The Fiend",
+"origin.otherworldorigins.subclass/warlock/the_fiend.description": "• 1.5x Faster Health Regeneration",
+"origin.otherworldorigins.subclass/warlock/the_great_old_one.name": "The Great Old One",
+"origin.otherworldorigins.subclass/warlock/the_great_old_one.description": "• 2x Critical Hit Damage",
+
+"origin.otherworldorigins.class/wizard.name": "Wizard",
+"origin.otherworldorigins.subclass/wizard/abjuration.name": "Abjuration",
+"origin.otherworldorigins.subclass/wizard/abjuration.description": "• +3 Armor\n• +2 Hearts",
+"origin.otherworldorigins.subclass/wizard/evocation.name": "Evocation",
+"origin.otherworldorigins.subclass/wizard/evocation.description": "• Summon Evoker Ability",
+"origin.otherworldorigins.subclass/wizard/necromancy.name": "Necromancy",
+"origin.otherworldorigins.subclass/wizard/necromancy.description": "• Summon 2 Undead",
+"origin.otherworldorigins.subclass/wizard/conjuration.name": "Conjuration",
+"origin.otherworldorigins.subclass/wizard/conjuration.description": "• Summon Mythic Golem",
+"origin.otherworldorigins.subclass/wizard/enchantment.name": "Enchantment",
+"origin.otherworldorigins.subclass/wizard/enchantment.description": "• -10% Enchantment Cost",
+"origin.otherworldorigins.subclass/wizard/transmutation.name": "Transmutation",
+"origin.otherworldorigins.subclass/wizard/transmutation.description": "• Double potion effects",
 
   "entity.otherworldorigins.summon_zombie": "Summoner's Zombie",
   "entity.otherworldorigins.summon_skeleton": "Summoner's Skeleton",
