@@ -3,18 +3,153 @@
   "name": "Subclass",
   "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
   "origins": [
-    "otherworldorigins:class/artificer",
-    "otherworldorigins:class/barbarian",
-    "otherworldorigins:class/bard",
-    "otherworldorigins:class/cleric",
-    "otherworldorigins:class/druid",
-    "otherworldorigins:class/fighter",
-    "otherworldorigins:class/monk",
-    "otherworldorigins:class/paladin",
-    "otherworldorigins:class/ranger",
-    "otherworldorigins:class/rogue",
-    "otherworldorigins:class/sorcerer",
-    "otherworldorigins:class/warlock",
-    "otherworldorigins:class/wizard"
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/artificer"
+      },
+      "origins": [
+        "otherworldorigins:subclass/artificer/alchemist",
+        "otherworldorigins:subclass/artificer/armourer",
+        "otherworldorigins:subclass/artificer/artillerist",
+        "otherworldorigins:subclass/artificer/battle_smith"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/barbarian"
+      },
+      "origins": [
+        "otherworldorigins:subclass/barbarian/wildheart",
+        "otherworldorigins:subclass/barbarian/berserker",
+        "otherworldorigins:subclass/barbarian/wild_magic"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/bard"
+      },
+      "origins": [
+        "otherworldorigins:subclass/bard/lore",
+        "otherworldorigins:subclass/bard/valour",
+        "otherworldorigins:subclass/bard/swords"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/cleric"
+      },
+      "origins": [
+        "otherworldorigins:subclass/cleric/life",
+        "otherworldorigins:subclass/cleric/trickery",
+        "otherworldorigins:subclass/cleric/knowledge",
+        "otherworldorigins:subclass/cleric/tempest",
+        "otherworldorigins:subclass/cleric/war"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/druid"
+      },
+      "origins": [
+        "otherworldorigins:subclass/druid/land",
+        "otherworldorigins:subclass/druid/moon",
+        "otherworldorigins:subclass/druid/spores"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/fighter"
+      },
+      "origins": [
+        "otherworldorigins:subclass/fighter/battle_master",
+        "otherworldorigins:subclass/fighter/eldritch_knight",
+        "otherworldorigins:subclass/fighter/champion"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/monk"
+      },
+      "origins": [
+        "otherworldorigins:subclass/monk/four_elements",
+        "otherworldorigins:subclass/monk/open_hand",
+        "otherworldorigins:subclass/monk/shadow"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/paladin"
+      },
+      "origins": [
+        "otherworldorigins:subclass/paladin/ancients",
+        "otherworldorigins:subclass/paladin/devotion",
+        "otherworldorigins:subclass/paladin/vengeance",
+        "otherworldorigins:subclass/paladin/breaker"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/ranger"
+      },
+      "origins": [
+        "otherworldorigins:subclass/ranger/beast_master",
+        "otherworldorigins:subclass/ranger/gloom_stalker",
+        "otherworldorigins:subclass/ranger/hunter"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/rogue"
+      },
+      "origins": [
+        "otherworldorigins:subclass/rogue/thief",
+        "otherworldorigins:subclass/rogue/arcane_trickster",
+        "otherworldorigins:subclass/rogue/assassin"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/sorcerer"
+      },
+      "origins": [
+        "otherworldorigins:subclass/sorcerer/wild_magic",
+        "otherworldorigins:subclass/sorcerer/draconic_bloodline"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/warlock"
+      },
+      "origins": [
+        "otherworldorigins:subclass/warlock/fiend",
+        "otherworldorigins:subclass/warlock/great_old_one"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/wizard"
+      },
+      "origins": [
+        "otherworldorigins:subclass/wizard/abjuration",
+        "otherworldorigins:subclass/wizard/evocation",
+        "otherworldorigins:subclass/wizard/necromancy",
+        "otherworldorigins:subclass/wizard/conjuration",
+        "otherworldorigins:subclass/wizard/enchanting",
+        "otherworldorigins:subclass/wizard/transmutation"
+      ]
+    }
   ]
 }
