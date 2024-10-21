@@ -3,15 +3,15 @@
         "apts": {
                 "type": "otherworldorigins:innate_aptitude_bonus",
                 "aptitude_bonuses": {
-                        "intelligence": 1
+                        "dexterity": 1
                 }
         },
         "speed": {
                 "type": "origins:attribute",
                 "modifier": {
-                        "attribute": "minecraft:generic.movement_speed",
                         "operation": "multiply_base",
-                        "value": 0.1
+                        "value": 0.1,
+                        "attribute": "minecraft:generic.movement_speed"
                 }
         }
 }

@@ -1,5 +1,6 @@
 {
 	"type": "otherworldorigins:innate_aptitude_bonus",
+	"hidden": true,
 	"aptitude_bonuses": {
 		"dexterity": 1,
 		"intelligence": 1,

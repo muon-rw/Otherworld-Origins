@@ -1,7 +1,17 @@
 {
-        "type": "otherworldorigins:innate_aptitude_bonus",
-        "aptitude_bonuses": {
-                "intelligence": 1,
-                "dexterity": 1
+        "type": "origins:multiple",
+        "apts": {
+                "type": "otherworldorigins:innate_aptitude_bonus",
+                "aptitude_bonuses": {
+                        "dexterity": 1
+                }
+        },
+        "speed": {
+                "type": "origins:attribute",
+                "modifier": {
+                        "operation": "multiply_base",
+                        "value": 0.1,
+                        "attribute": "minecraft:generic.movement_speed"
+                }
         }
 }
