@@ -189,6 +189,9 @@ dependencies {
     // Monobank (Thief)
     implementation fg.deobf("curse.maven:monobank-817257:5086245")
 
+    // betta combat
+    implementation fg.deobf("curse.maven:better-combat-by-daedelus-639842:5625757")
+
 }
 
 tasks.withType(ProcessResources).configureEach {

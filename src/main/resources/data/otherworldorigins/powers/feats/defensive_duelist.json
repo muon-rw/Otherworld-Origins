@@ -1,18 +1,36 @@
 {
-    "type": "origins:modify_damage_dealt",
+    "type": "origins:modify_damage_taken",
+    "self_action": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "origins:execute_command",
+                "command": "particle minecraft:end_rod ~ ~1.5 ~ .4 .4 .4 0 15 normal"
+            },
+            {
+                "type": "origins:execute_command",
+                "command": "playsound minecraft:entity.enderman.teleport ambient @a ~ ~ ~ 1 1"
+            }
+        ]
+    },
     "modifier": {
-        "operation": "addition",
-        "value": 5
+        "operation": "multiply_total_multiplicative",
+        "value": -2.0
     },
     "condition": {
-        "type": "origins:equipped_item",
-        "equipment_slot": "offhand",
-        "item_condition": {
-            "type": "origins:ingredient",
-            "ingredient": {
-                "tag": "origins:shields"
+        "type": "origins:and",
+        "conditions": [
+            {
+                "type": "origins:predicate",
+                "predicate": "otherworldorigins:dd_dodge_chance"
+            },
+            {
+                "type": "origins:equipped_item",
+                "equipment_slot": "mainhand",
+                "item_condition": {
+                    "type": "otherworldorigins:is_one_handed"
+                }
             }
-        },
-        "inverted": true
+        ]
     }
 }

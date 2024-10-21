@@ -4,7 +4,7 @@
   "origin.otherworldorigins.race/human.name": "Human",
   "origin.otherworldorigins.race/human.description": "• Medium Size \n• +1 to All Stats§r\n• 10% Discount from Villagers§r\n\n§oVersatile and adaptable, perfectly prepared for the full spectrum of challenges one may face on an adventure.",
   "origin.otherworldorigins.race/human_variant.name": "Human (Variant)",
-  "origin.otherworldorigins.race/human_variant.description": "• Medium Size \n• +2 to Two Stats of your choice\n• +1 Free Feat of your choice\n(All races can choose a Feat every 4 levels)§r\n\n§oThere is great power in sacrifice. What you leave behind unearths who you could be.",
+  "origin.otherworldorigins.race/human_variant.description": "• Medium Size \n• +2 to Two Stats of your choice\n• +1 bonus Feat of your choice\n(All races can choose a Feat every 4 levels)§r\n\n§oThere is great power in sacrifice. What you leave behind unearths who you could be.",
   
   "origin.otherworldorigins.race/elf.name": "Elf",
   "origin.otherworldorigins.race/elf.description": "• Medium Size§r\n• +2 Dexterity§r\n• Darkvision§r\n\n§oElves are graceful and agile, with keen senses and a natural affinity for magic.§r\n\n§nSubraces§r\n• High Elf\n• Wood Elf\n• Drow",
@@ -36,12 +36,12 @@
   "origin.otherworldorigins.race/halfling.name": "Halfling",
   "origin.otherworldorigins.race/halfling.description": "• Small Size\n• +2 Dexterity§r\n• +1 Luck\n• -10% Speed\n\n§oHalflings are nimble and lucky, with a natural talent for stealth and precision.§r\n\n§nSubraces§r\nLightfoot Halfling\nStout Halfling",
   "origin.otherworldorigins.subrace/halfling/lightfoot.name": "Lightfoot",
-  "origin.otherworldorigins.subrace/halfling/lightfoot.description": "• +1 Charisma§r\n• +10% Speed§r\n\n§oThey'll never see you coming. ",
+  "origin.otherworldorigins.subrace/halfling/lightfoot.description": "• +1 Charisma§r\n• +10% Speed§r\n\n§oThey'll never know what hit them.",
   "origin.otherworldorigins.subrace/halfling/stout.name": "Stout",
   "origin.otherworldorigins.subrace/halfling/stout.description": "• +1 Constitution§r\n• Poison Resistance§r\n\n§oYou've had several lifetimes worth of stew for someone your size. This has proven to be a great asset.",
   
 "origin.otherworldorigins.race/gnome.name": "Gnome",
-"origin.otherworldorigins.race/gnome.description": "• Small Size§r\n• -10% Speed§r\n• +2 Intelligence§r\n• Darkvision§r\n• +1 Luck§r\n\n§oWith minds as sharp as their wit and hearts full of wonder, gnomes turn the ordinary into extraordinary. Just don't expect them to reach the top shelf.§r\n\n§nSubraces§r\nRock Gnome\nForest Gnome\nDeep Gnome",
+"origin.otherworldorigins.race/gnome.description": "• Small Size\n• +2 Intelligence\n• +1 Luck\n• -10% Speed\n• Darkvision\n\n§oSharp minds and wit, and hearts full of wonder. Just don't expect them to reach the top shelf.§r\n\n§nSubraces§r\nRock Gnome\nForest Gnome\nDeep Gnome",
 "origin.otherworldorigins.subrace/gnome/rock.name": "Rock Gnome",
 "origin.otherworldorigins.subrace/gnome/rock.description": "• +1 Constitution§r\n\n§oWhere others see junk, rock gnomes see possibility. Their workshops hum with the promise of the next great invention—or spectacular explosion.",
 "origin.otherworldorigins.subrace/gnome/forest.name": "Forest Gnome",
@@ -50,7 +50,7 @@
 "origin.otherworldorigins.subrace/gnome/deep.description": "• Access to Ancient Reforging§r\n\n§oSilent as stone, deep gnomes carry the weight of the earth in their eyes. Their craftsmanship whispers secrets of ages long past.",
 
 "origin.otherworldorigins.race/dragonborn.name": "Dragonborn",
-"origin.otherworldorigins.race/dragonborn.description": "• Medium Size§r\n• +2 Strength§r\n• +1 Charisma§r\n• Draconic Ancestry§r\n• Breath Weapon§r\n• 10% Physical Resistance§r\n\n§oScaled and proud, dragonborn walk the line between mortal and myth. Their very presence commands respect—or at least a second glance.§r\n\n§nSubraces§r\nBlack, Blue, Brass, Bronze, Copper, Gold, Green, Red, Silver, White",
+"origin.otherworldorigins.race/dragonborn.description": "• Medium Size§r\n• +2 Strength\n• +1 Charisma\n• Draconic Ancestry\n• 10% Physical Resistance\n\n§oScaled and proud, dragonborn walk the line between mortal and myth. Their mere presence commands respect.§r\n\n§nSubraces§r\nBlack, Blue, Brass, Bronze, Copper, Gold, Green, Red, Silver, White",
 "origin.otherworldorigins.subrace/dragonborn/black.name": "Black Dragonborn",
 "origin.otherworldorigins.subrace/dragonborn/black.description": "• Acid Breath Attack§r\n\n§oTheir words drip with sarcasm as corrosive as their breath. Swamp-dwellers beware: these dragons in mortal form feel right at home in your turf.",
 "origin.otherworldorigins.subrace/dragonborn/blue.name": "Blue Dragonborn",
@@ -76,20 +76,20 @@
 "origin.otherworldorigins.race/tiefling.description": "• Medium Size§r\n• +2 Charisma§r\n• +1 Intelligence§r\n• Darkvision§r\n• Hellish Resistance§r\n• Infernal Legacy§r\n\n§oWith a hint of brimstone in their wake and mischief in their eyes, tieflings walk a tightrope between two worlds. Their infernal heritage is both a curse and a gift, depending on who you ask—just don't ask them directly unless you're prepared for a devilishly clever retort.",
 
 "origin.otherworldorigins.race/undead.name": "Undead",
-"origin.otherworldorigins.race/undead.description": "§oNeither fully alive nor truly dead, the undead shamble through existence with a unique perspective on mortality. After all, why fear death when you've already been there and back?§r\n\n§nSubraces§r\nZombie\nSkeleton\nWither Skeleton",
+"origin.otherworldorigins.race/undead.description": "§oNeither alive nor dead, cursed to walk this world until their creator's purpose is served.§r\n\n§nSubraces§r\nZombie\nSkeleton\nWither Skeleton",
 "origin.otherworldorigins.subrace/undead/zombie.name": "Zombie",
-"origin.otherworldorigins.subrace/undead/zombie.description": "• Medium Size\n• +1 Defense\n• + Poison Resistance\n• -Sun Resistance\n\n§oSlow but steady wins the race—especially when you've got all of eternity to finish. Just mind the sun; it's murder on complexion.",
+"origin.otherworldorigins.subrace/undead/zombie.description": "• Medium Size\n• +1 Defense\n• + Poison Resistance\n• -Sun Resistance\n\n§oSlow and steady wins the race, especially when you've got all of eternity to finish. Just mind the sun; it's bad for your skin.",
 "origin.otherworldorigins.subrace/undead/skeleton.name": "Skeleton",
-"origin.otherworldorigins.subrace/undead/skeleton.description": "• Medium Size§r\n• +1 Dexterity\n• +5 Bow Damage\n• -Bow Resistance\n\n§oAll bones and no brain? Think again. These calcified archers prove that sometimes, the bare necessities are all you need to hit your mark.",
+"origin.otherworldorigins.subrace/undead/skeleton.description": "• Medium Size§r\n• +1 Dexterity\n• +5 Bow Damage\n• -Bow Resistance\n\n§oA reanimated frame of a humanoid, designed for only one purpose.",
 "origin.otherworldorigins.subrace/undead/wither_skeleton.name": "Wither Skeleton",
-"origin.otherworldorigins.subrace/undead/wither_skeleton.description": "• Tall Size§r\n• +1 Strength§r\n• +5 Sword Damage§r\n• -Sword Resistance§r\n\n§oBorn in the fires of the Nether, these ashen warriors bring a slice of hell wherever they go. Their blades may be sharp, but their wit is sharper.",
+"origin.otherworldorigins.subrace/undead/wither_skeleton.description": "• Tall Size§r\n• +1 Strength§r\n• +5 Sword Damage§r\n• -Sword Resistance§r\n\n§oBorn in the fires of the Nether, these ashen warriors emanate death wherever they walk.",
 
 "origin.otherworldorigins.race/other.name": "Other",
-"origin.otherworldorigins.race/other.description": "§oWhen the usual categories just won't do, these extraordinary beings step in to remind us that diversity is the spice of life—and sometimes, that spice can be downright bizarre.§r\n\n§nSubraces§r\nGithyanki\nHobgoblin\nGoblin",
+"origin.otherworldorigins.race/other.description": "§oRare and unusual races; less common choices for player characters.§r\n\n§nSubraces§r\nGithyanki\nHobgoblin\nGoblin",
 "origin.otherworldorigins.subrace/other/githyanki.name": "Githyanki",
-"origin.otherworldorigins.subrace/other/githyanki.description": "• Tall Size\n• Water Vulnerable\n• Teleport with Ender Pearls§r\n• +1 Defence§r\n\n§oSurfing the astral tides, githyanki laugh in the face of physics. Just don't ask them to go swimming—they prefer their adventures dry.",
+"origin.otherworldorigins.subrace/other/githyanki.description": "• Tall Size\n• Water Vulnerable\n• Teleport with Ender Pearls§r\n• +1 Defence§r\n\n§oThe Githyanki are a tall and slender race who hail from the stars, able to rip through the fabric of reality.",
 "origin.otherworldorigins.subrace/other/hobgoblin.name": "Hobgoblin",
-"origin.otherworldorigins.subrace/other/hobgoblin.description": "• Medium Size§r\n• Gold Proficiency (x1.5 Gold Stats)§r\n• Heat Resistance§r\n• +1 Strength§r\n\n§oWith military precision and an eye for bling, hobgoblins turn warfare into an art form. Their battle cries often sound suspiciously like 'cha-ching!'",
+"origin.otherworldorigins.subrace/other/hobgoblin.description": "• Medium Size§r\n• Gold Proficiency (x1.5 Gold Stats)§r\n• Heat Resistance§r\n• +1 Strength§r\n\n§oWhere a Goblin might steal from you to get more gold, a Hobgoblin might do it just to ruin your day.",
 "origin.otherworldorigins.subrace/other/goblin.name": "Goblin",
 "origin.otherworldorigins.subrace/other/goblin.description": "• Medium Size§r\n• Gold Proficiency (x1.5 Gold Stats)§r\n• Cold Resistance§r\n• +1 Dexterity§r\n\n§oSmall, green, and perpetually underestimated, goblins prove that big things come in tiny packages. Just keep an eye on your coin purse—and your left shoe.",
 
@@ -99,8 +99,81 @@
   "power.otherworldorigins.race/half_elf/charisma.name": "Charisma",
   "power.otherworldorigins.race/half_elf/charisma.description": "§oCharisma reduces the chance you will be punished when committing a crime.",
 
+  "power.otherworldorigins.race/tiefling/charisma.name": "Charisma",
+  "power.otherworldorigins.race/tiefling/charisma.description": "§oCharisma reduces the chance you will be punished when committing a crime.",
+
+  "power.otherworldorigins.race/halfling/charisma.name": "Charisma",
+  "power.otherworldorigins.race/halfling/charisma.description": "§oCharisma reduces the chance you will be punished when committing a crime.",
+
+  "power.otherworldorigins.race/dragonborn/charisma.name": "Charisma",
+  "power.otherworldorigins.race/dragonborn/charisma.description": "§oCharisma reduces the chance you will be punished when committing a crime.",
+
+  "power.otherworldorigins.race/tiefling/hellish_resistance.name": "Hellish Resistance",
+  "power.otherworldorigins.race/tiefling/hellish_resistance.description": "§oYou are resistant to fire damage.",
+
+  "power.otherworldorigins.race/tiefling/infernal_legacy.name": "Infernal Legacy",
+  "power.otherworldorigins.race/tiefling/infernal_legacy.description": "§oYou can instantly cast Firebolt for 10 mana. Once you reach level 7, this ability upgrades to Fireball. At level 14, it upgrades to Magma Bomb.",
+
   "power.otherworldorigins.race/undead/undead.name": "Undead",
   "power.otherworldorigins.race/undead/undead.description": "§oAll Undead races receive inverted Healing and Harming effects, and take extra damage from the Smite enchantment",
+
+  "power.otherworldorigins.race/dwarf/dwarven_resilience.name": "Dwarven Resilience",
+  "power.otherworldorigins.race/dwarf/dwarven_resilience.description": "§oYou are resistant to poison damage",
+
+
+"origin.otherworldorigins.feats/chef.name": "Chef",
+"origin.otherworldorigins.feats/chef.description": "Your Hunger and Thirst drain 25% slower.",
+
+"origin.otherworldorigins.feats/defensive_duelist.name": "Defensive Duelist",
+"origin.otherworldorigins.feats/defensive_duelist.description": "When wielding a one-handed weapon, you have a 10% chance to dodge an incoming attack",
+
+"origin.otherworldorigins.feats/dual_wielder.name": "Dual Wielder",
+"origin.otherworldorigins.feats/dual_wielder.description": "Deal 5 extra damage with a weapon in your off-hand",
+
+"origin.otherworldorigins.feats/everybodys_friend.name": "Everybody's Friend",
+"origin.otherworldorigins.feats/everybodys_friend.description": "Receive 10% discounts on Trades",
+
+"origin.otherworldorigins.feats/savage_attacker.name": "Savage Attacker",
+"origin.otherworldorigins.feats/savage_attacker.description": "You Deal 5 extra damage with Melee attacks",
+
+"origin.otherworldorigins.feats/mage_slayer.name": "Mage Slayer",
+"origin.otherworldorigins.feats/mage_slayer.description": "You deal 10 extra damage to Bosses",
+
+"origin.otherworldorigins.feats/elemental_adept.name": "Elemental Adept",
+"origin.otherworldorigins.feats/elemental_adept.description": "You are immune to Temperature effects",
+
+"origin.otherworldorigins.feats/lucky.name": "Lucky",
+"origin.otherworldorigins.feats/lucky.description": "Gain 1 free reroll on the Enchanting Table",
+
+"origin.otherworldorigins.feats/martial_adept.name": "Martial Adept",
+"origin.otherworldorigins.feats/martial_adept.description": "Increase Attack Speed is increased by 10%",
+
+"origin.otherworldorigins.feats/mobile.name": "Mobile",
+"origin.otherworldorigins.feats/mobile.description": "Your Movement Speed is increased by 10%",
+
+"origin.otherworldorigins.feats/polearm_master.name": "Polearm Master",
+"origin.otherworldorigins.feats/polearm_master.description": "Your melee attacks with Staffs apply a knockback effect",
+
+"origin.otherworldorigins.feats/resilient.name": "Resilient",
+"origin.otherworldorigins.feats/resilient.description": "You can select +1 to any Stat",
+
+"origin.otherworldorigins.feats/sharpshooter.name": "Sharpshooter",
+"origin.otherworldorigins.feats/sharpshooter.description": "You deal 5 extra Ranged Damage",
+
+"origin.otherworldorigins.feats/shield_master.name": "Shield Master",
+"origin.otherworldorigins.feats/shield_master.description": "While wielding a shield in your off-hand, gain 5 extra armor",
+
+"origin.otherworldorigins.feats/spell_sniper.name": "Spell Sniper",
+"origin.otherworldorigins.feats/spell_sniper.description": "You deal 10% extra Magic Damage",
+
+"origin.otherworldorigins.feats/skilled.name": "Skilled",
+"origin.otherworldorigins.feats/skilled.description": "Your Jump Height is increased to 2 blocks.",
+
+"origin.otherworldorigins.feats/tough.name": "Tough",
+"origin.otherworldorigins.feats/tough.description": "You Gain 5 extra hearts",
+
+"origin.otherworldorigins.feats/weapon_master.name": "Weapon Master",
+"origin.otherworldorigins.feats/weapon_master.description": "You deal 2 extra damage with any weapon",
 
   "entity.otherworldorigins.summon_zombie": "Summoner's Zombie",
   "entity.otherworldorigins.summon_skeleton": "Summoner's Skeleton",

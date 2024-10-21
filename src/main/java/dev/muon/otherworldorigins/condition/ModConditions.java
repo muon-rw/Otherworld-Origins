@@ -8,6 +8,8 @@ import io.github.edwinmindcraft.apoli.common.condition.block.SimpleBlockConditio
 import io.github.edwinmindcraft.apoli.common.condition.damage.InTagCondition;
 import io.github.edwinmindcraft.apoli.common.condition.entity.SimpleEntityCondition;
 import io.github.edwinmindcraft.apoli.common.condition.item.SimpleItemCondition;
+import net.bettercombat.api.WeaponAttributes;
+import net.bettercombat.logic.WeaponRegistry;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
@@ -16,6 +18,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -54,6 +57,27 @@ public class ModConditions {
             new SimpleItemCondition(stack ->
                     stack.getItem() instanceof BowItem)
     );
+
+    public static final RegistryObject<SimpleItemCondition> IS_ONE_HANDED = ITEM_CONDITIONS.register("is_one_handed", () ->
+            new SimpleItemCondition(stack -> {
+                if (ModList.get().isLoaded("bettercombat")) {
+                    WeaponAttributes weaponAttributes = WeaponRegistry.getAttributes(stack);
+                    return weaponAttributes != null && !weaponAttributes.isTwoHanded();
+                }
+                return false;
+            })
+    );
+
+    public static final RegistryObject<SimpleItemCondition> IS_TWO_HANDED = ITEM_CONDITIONS.register("is_two_handed", () ->
+            new SimpleItemCondition(stack -> {
+                if (ModList.get().isLoaded("bettercombat")) {
+                    WeaponAttributes weaponAttributes = WeaponRegistry.getAttributes(stack);
+                    return weaponAttributes != null && weaponAttributes.isTwoHanded();
+                }
+                return false;
+            })
+    );
+
 
     public static final RegistryObject<SimpleItemCondition> IS_SWORD = ITEM_CONDITIONS.register("is_sword", () ->
             new SimpleItemCondition(stack -> {
