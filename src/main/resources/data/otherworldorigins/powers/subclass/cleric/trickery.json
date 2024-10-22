@@ -1,0 +1,7 @@
+{
+    "type": "origins:modify_damage_dealt",
+    "damage_condition": {
+        "type": "origins:in_tag",
+        "tag": "otherworldorigins:is_magic"
+    }
+}

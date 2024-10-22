@@ -5,8 +5,9 @@
     },
     "entity_action": {
         "type": "otherworldorigins:cast_spell",
-        "spell": "gust",
+        "spell": "fang_strike",
         "power_level": 2,
-        "mana_cost": 0
-    }
+        "mana_cost": 10
+    },
+    "cooldown": 100
 }

@@ -1,0 +1,7 @@
+{
+    "replace": false,
+    "values": [
+        {"id":"#irons_spellbooks:lightning_magic","required":false},
+        {"id":"#minecraft:is_lightning","required":false}
+    ]
+}

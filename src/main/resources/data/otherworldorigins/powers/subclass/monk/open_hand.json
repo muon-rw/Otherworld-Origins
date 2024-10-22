@@ -1,0 +1,29 @@
+{
+    "type": "origins:attribute",
+    "modifier": {
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "value": 5
+    },
+    "condition": {
+        "type": "origins:equipped_item",
+        "equipment_slot": "mainhand",
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "origins:empty"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "otherworldorigins:fist_weapons"
+                    }
+                },
+                {
+                    "type": "otherworldorigins:is_fist_weapon"
+                }
+            ]
+        }
+    }
+}

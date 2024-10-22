@@ -1,12 +1,7 @@
 package dev.muon.otherworldorigins.entity;
 
-import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
-
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import dev.muon.otherworldorigins.entity.summons.SummonedGrizzlyBear;
-import dev.muon.otherworldorigins.entity.summons.SummonedSkeleton;
-import dev.muon.otherworldorigins.entity.summons.SummonedWitherSkeleton;
-import dev.muon.otherworldorigins.entity.summons.SummonedZombie;
+import dev.muon.otherworldorigins.entity.summons.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -28,12 +23,6 @@ public class ModEntities {
     }
 
     /**
-     * Non-living
-     */
-
-    // nvm l ol
-
-    /**
      *
      * Summons
      */
@@ -46,6 +35,9 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<SummonedGrizzlyBear>> SUMMON_GRIZZLY_BEAR = registerEntity("summon_grizzly_bear",
             EntityType.Builder.<SummonedGrizzlyBear>of(SummonedGrizzlyBear::new, MobCategory.CREATURE).sized(1.4F, 1.4F).clientTrackingRange(10));
+
+    public static final RegistryObject<EntityType<SummonedIronGolem>> SUMMON_IRON_GOLEM = registerEntity("summon_iron_golem",
+            EntityType.Builder.<SummonedIronGolem>of(SummonedIronGolem::new, MobCategory.CREATURE).sized(2.0F, 2.5F).clientTrackingRange(10));
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {

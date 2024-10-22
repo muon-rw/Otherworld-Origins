@@ -1,0 +1,13 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.otherworldorigins.secondary_active"
+    },
+    "entity_action": {
+        "type": "otherworldorigins:cast_spell",
+        "spell": "raise_dead",
+        "power_level": 2,
+        "mana_cost": 10
+    },
+    "cooldown": 600
+}

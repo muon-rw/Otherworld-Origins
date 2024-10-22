@@ -1,0 +1,14 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.origins.secondary_active"
+    },
+    "entity_action": {
+        "type": "otherworldorigins:summon_entity",
+        "entity_type": "otherworldorigins:summon_iron_golem",
+        "bientity_action": {
+            "type": "otherworldorigins:tame"
+        }
+    },
+    "cooldown": 600
+}

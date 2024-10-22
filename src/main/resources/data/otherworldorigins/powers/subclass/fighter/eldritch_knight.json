@@ -1,0 +1,22 @@
+{
+    "type": "origins:multiple",
+    "ad": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.attack_damage",
+            "value": 10,
+            "operation": "addition"
+        }
+    },
+    "mag": {
+        "type": "origins:modify_damage_dealt",
+        "damage_condition": {
+            "type": "origins:in_tag",
+            "tag": "otherworldorigins:is_magic"
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    }
+}

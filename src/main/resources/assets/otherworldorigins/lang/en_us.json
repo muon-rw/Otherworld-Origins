@@ -335,11 +335,11 @@
 
 "origin.otherworldorigins.class/rogue.name": "Rogue",
 "origin.otherworldorigins.subclass/rogue/thief.name": "Thief",
-"origin.otherworldorigins.subclass/rogue/thief.description": "• Feather Falling",
+"origin.otherworldorigins.subclass/rogue/thief.description": "• 20% Reduced Fall Damage\n• Quiet Footsteps",
 "origin.otherworldorigins.subclass/rogue/arcane_trickster.name": "Arcane Trickster",
 "origin.otherworldorigins.subclass/rogue/arcane_trickster.description": "• +1 Cantrip",
 "origin.otherworldorigins.subclass/rogue/assassin.name": "Assassin",
-"origin.otherworldorigins.subclass/rogue/assassin.description": "• +5 Sword Damage",
+"origin.otherworldorigins.subclass/rogue/assassin.description": "• +5 Dagger/Knife Damage",
 
 "origin.otherworldorigins.class/sorcerer.name": "Sorcerer",
 "origin.otherworldorigins.subclass/sorcerer/wild_magic.name": "Wild Magic",
@@ -370,6 +370,7 @@
   "entity.otherworldorigins.summon_zombie": "Summoner's Zombie",
   "entity.otherworldorigins.summon_skeleton": "Summoner's Skeleton",
   "entity.otherworldorigins.summon_wither_skeleton": "Summoner's Wither Skeleton",
+  "entity.otherworldorigins.summon_iron_golem": "Summoner's Golem",
   
   "otherworldorigins.uncastable": "You can't use this ability right now.",
   

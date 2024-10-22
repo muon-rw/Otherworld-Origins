@@ -2,15 +2,21 @@ package dev.muon.otherworldorigins;
 
 import dev.muon.otherworldorigins.entity.summons.SummonedSkeleton;
 import dev.muon.otherworldorigins.entity.summons.SummonedWitherSkeleton;
+import dev.muon.otherworldorigins.power.ModPowers;
+import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
+import io.github.edwinmindcraft.apoli.api.ApoliAPI;
+import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.redspace.ironsspellbooks.entity.spells.AbstractConeProjectile;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -60,6 +66,36 @@ public class ForgeEvents {
 
     public static void trackConeProjectile(AbstractConeProjectile coneProjectile) {
         activeCones.put(coneProjectile.getId(), 0);
+    }
+
+    @SubscribeEvent
+    public static void onCriticalHit(CriticalHitEvent event) {
+        Player player = event.getEntity();
+
+        if (event.getTarget() instanceof Player targetPlayer) {
+            IPowerContainer targetPowerContainer = ApoliAPI.getPowerContainer(targetPlayer);
+            if (targetPowerContainer != null && targetPowerContainer.hasPower(ModPowers.PREVENT_CRITICAL_HIT.get())) {
+                event.setDamageModifier(1.0f);
+                event.setResult(CriticalHitEvent.Result.DENY);
+                return;
+            }
+        }
+
+        IPowerContainer powerContainer = ApoliAPI.getPowerContainer(player);
+        if (powerContainer != null) {
+            var playerPowers = powerContainer.getPowers(ModPowers.MODIFY_CRITICAL_HIT.get());
+            float totalModifier = playerPowers.stream()
+                    .map(holder -> holder.value().getConfiguration())
+                    .map(ModifyCriticalHitPower.Configuration::amount)
+                    .reduce(0f, Float::sum);
+
+            if (totalModifier != 0) {
+                float newDamageModifier = event.getDamageModifier() * (1 + totalModifier);
+                event.setDamageModifier(newDamageModifier);
+                event.setResult(CriticalHitEvent.Result.ALLOW);
+            }
+        }
+
     }
 }
 

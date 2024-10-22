@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins;
 
 import dev.muon.otherworldorigins.entity.ModEntities;
+import dev.muon.otherworldorigins.entity.summons.SummonedIronGolem;
 import dev.muon.otherworldorigins.entity.summons.SummonedSkeleton;
 import dev.muon.otherworldorigins.entity.summons.SummonedWitherSkeleton;
 import dev.muon.otherworldorigins.entity.summons.SummonedZombie;
@@ -15,6 +16,7 @@ public class ModEvents {
         event.put(ModEntities.SUMMON_SKELETON.get(), SummonedSkeleton.createAttributes().build());
         event.put(ModEntities.SUMMON_ZOMBIE.get(), SummonedZombie.createAttributes().build());
         event.put(ModEntities.SUMMON_WITHER_SKELETON.get(), SummonedWitherSkeleton.createAttributes().build());
+        event.put(ModEntities.SUMMON_IRON_GOLEM.get(), SummonedIronGolem.createAttributes().build());
     }
 
 }
