@@ -271,7 +271,7 @@
 
 "origin.otherworldorigins.class/barbarian.name": "Barbarian",
 "origin.otherworldorigins.subclass/barbarian/wildheart.name": "Wildheart",
-"origin.otherworldorigins.subclass/barbarian/wildheart.description": "• Ability to summon a beast",
+"origin.otherworldorigins.subclass/barbarian/wildheart.description": "• Summon Beast",
 "origin.otherworldorigins.subclass/barbarian/berserker.name": "Berserker",
 "origin.otherworldorigins.subclass/barbarian/berserker.description": "• +5 Melee Damage",
 "origin.otherworldorigins.subclass/barbarian/wild_magic.name": "Wild Magic",
@@ -301,9 +301,9 @@
 "origin.otherworldorigins.subclass/druid/land.name": "Circle of the Land",
 "origin.otherworldorigins.subclass/druid/land.description": "• 2x Health Regeneration",
 "origin.otherworldorigins.subclass/druid/moon.name": "Circle of the Moon",
-"origin.otherworldorigins.subclass/druid/moon.description": "• Ability to summon a beast",
+"origin.otherworldorigins.subclass/druid/moon.description": "• Summon Beast",
 "origin.otherworldorigins.subclass/druid/spores.name": "Circle of the Spores",
-"origin.otherworldorigins.subclass/druid/spores.description": "• Ability to summon undead",
+"origin.otherworldorigins.subclass/druid/spores.description": "• Summon Undead",
 
 "origin.otherworldorigins.class/fighter.name": "Fighter",
 "origin.otherworldorigins.subclass/fighter/battle_master.name": "Battle Master",
@@ -333,7 +333,7 @@
 
 "origin.otherworldorigins.class/ranger.name": "Ranger",
 "origin.otherworldorigins.subclass/ranger/beast_master.name": "Beast Master",
-"origin.otherworldorigins.subclass/ranger/beast_master.description": "• Ability to summon a beast",
+"origin.otherworldorigins.subclass/ranger/beast_master.description": "• Summon Beast",
 "origin.otherworldorigins.subclass/ranger/gloom_stalker.name": "Gloom Stalker",
 "origin.otherworldorigins.subclass/ranger/gloom_stalker.description": "• +10% Speed",
 "origin.otherworldorigins.subclass/ranger/hunter.name": "Hunter",
