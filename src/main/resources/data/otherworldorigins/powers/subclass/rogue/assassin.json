@@ -1,4 +1,5 @@
 {
+    "hidden": true,
 	"type": "origins:multiple",
 	"dagger_bonus": {
 		"type": "origins:modify_damage_dealt",

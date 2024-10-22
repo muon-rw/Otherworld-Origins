@@ -1,4 +1,5 @@
 {
+    "hidden": true,
     "type": "origins:multiple",
     "quiet": {
         "type": "origins:prevent_game_event",
