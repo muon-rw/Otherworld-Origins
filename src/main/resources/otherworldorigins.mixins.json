@@ -14,6 +14,7 @@
         "MobEffectInstanceAccessor",
         "PlayerMixin",
         "VillagerMixin",
+        "compat.apotheosis.EnchantmentUtilsMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",
         "compat.justlevelingfork.AptitudeCapabilityMixin",
         "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",

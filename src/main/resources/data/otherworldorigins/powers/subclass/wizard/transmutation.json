@@ -1,0 +1,7 @@
+{
+    "type": "otherworldorigins:modify_status_effect_category",
+    "affect_beneficial": true,
+    "affect_harmful": false,
+    "affect_neutral": true,
+    "amount": 2.0
+}

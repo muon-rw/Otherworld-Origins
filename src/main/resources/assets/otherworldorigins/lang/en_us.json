@@ -251,7 +251,7 @@
 
 "origin.otherworldorigins.class/warlock.description": "• +1 Magic\n• Eldritch Blast\n§oOnly Warlocks can make use of the Flame enchantment§r\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
 
-"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic\n• -5 Hearts\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchantment\nTransmutation",
+"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic\n• -5 Hearts\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchanting\nTransmutation",
 
 "origin.otherworldorigins.class/artificer.name": "Artificer",
 "origin.otherworldorigins.subclass/artificer/alchemist.name": "Alchemist",
