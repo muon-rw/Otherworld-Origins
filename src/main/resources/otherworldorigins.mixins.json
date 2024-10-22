@@ -14,6 +14,7 @@
         "MobEffectInstanceAccessor",
         "PlayerMixin",
         "VillagerMixin",
+        "WaitForNextLayerScreenMixin",
         "compat.apotheosis.EnchantmentUtilsMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",
         "compat.justlevelingfork.AptitudeCapabilityMixin",

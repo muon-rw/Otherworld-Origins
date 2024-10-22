@@ -10,5 +10,6 @@
         "mana_cost": 10,
         "continuous_cost": true,
         "cost_interval": 10
-    }
+    },
+    "cooldown": 100
 }

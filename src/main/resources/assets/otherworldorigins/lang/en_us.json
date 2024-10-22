@@ -19,9 +19,9 @@
   "origin.otherworldorigins.race/half_elf.description": "• Medium Size§r\n• +2 Charisma§r\n• +1 to Two Stats\n• Darkvision§r\n\n§oThe fabled power of Elven blood and the courageous soul of Humans. High-Elves are often natural-born diplomats.§r\n\n§nSubraces§r\n• High Half-Elf\n• Wood Half-Elf\n• Drow Half-Elf",
   "origin.otherworldorigins.subrace/half_elf/high.name": "High Half-Elf",
   "origin.otherworldorigins.subrace/half_elf/high.description": "• +1 Intelligence§r\n• +1 Cantrip§r\n\n§oYour High-Elven ancestors were wise, powerful and arrogant. You inherited some of their intellect and magical aptitude.",
-  "origin.otherworldorigins.subrace/half_elf/wood.name": "Wood Elf",
+  "origin.otherworldorigins.subrace/half_elf/wood.name": "Wood Half-Elf",
   "origin.otherworldorigins.subrace/half_elf/wood.description": "• +1 Dexterity\n• +10% Speed§r\n\n§oLike your Wood-Elven elders you are swift and perceptive, at home in the forests and wild lands.",
-  "origin.otherworldorigins.subrace/half_elf/drow.name": "Drow Elf",
+  "origin.otherworldorigins.subrace/half_elf/drow.name": "Drow Half-Elf",
   "origin.otherworldorigins.subrace/half_elf/drow.description": "• +1 Intelligence§r\n• Access to Ancient Reforging§r\n\n§oYour Drow lineage has imbued your memories with some of their esoteric knowledge.",
   
   "origin.otherworldorigins.race/dwarf.name": "Dwarf",
@@ -78,9 +78,9 @@
 "origin.otherworldorigins.race/undead.name": "Undead",
 "origin.otherworldorigins.race/undead.description": "§oNeither alive nor dead, cursed to walk this world until their creator's purpose is served.§r\n\n§nSubraces§r\nZombie\nSkeleton\nWither Skeleton",
 "origin.otherworldorigins.subrace/undead/zombie.name": "Zombie",
-"origin.otherworldorigins.subrace/undead/zombie.description": "• Medium Size\n• +1 Defense\n• + Poison Resistance\n• -Sun Resistance\n\n§oSlow and steady wins the race, especially when you've got all of eternity to finish. Just mind the sun; it's bad for your skin.",
+"origin.otherworldorigins.subrace/undead/zombie.description": "• Medium Size\n• +1 Defense\n• +Poison Resistance\n• -Sun Resistance\n\n§oSlow and steady wins the race (especially when you've got eternity to finish). Mind the sun; it's bad for your skin.",
 "origin.otherworldorigins.subrace/undead/skeleton.name": "Skeleton",
-"origin.otherworldorigins.subrace/undead/skeleton.description": "• Medium Size§r\n• +1 Dexterity\n• +5 Bow Damage\n• -Bow Resistance\n\n§oA reanimated frame of a humanoid, designed for only one purpose.",
+"origin.otherworldorigins.subrace/undead/skeleton.description": "• Medium Size§r\n• +1 Dexterity\n• +5 Bow Damage\n• -Bow Resistance\n\n§oThe reanimated scaffolding of a humanoid, designed for only one purpose - shoot arrow.",
 "origin.otherworldorigins.subrace/undead/wither_skeleton.name": "Wither Skeleton",
 "origin.otherworldorigins.subrace/undead/wither_skeleton.description": "• Tall Size§r\n• +1 Strength§r\n• +5 Sword Damage§r\n• -Sword Resistance§r\n\n§oBorn in the fires of the Nether, these ashen warriors emanate death wherever they walk.",
 
@@ -154,8 +154,14 @@
   "power.otherworldorigins.race/tiefling/infernal_legacy.name": "Infernal Legacy",
   "power.otherworldorigins.race/tiefling/infernal_legacy.description": "§oYou can instantly cast Firebolt for 10 mana. Once you reach level 7, this ability upgrades to Fireball. At level 14, it upgrades to Magma Bomb.",
 
+  "power.otherworldorigins.race/dragonborn/draconic_ancestry.name": "Draconic Ancestry",
+  "power.otherworldorigins.race/dragonborn/draconic_ancestry.description": "§oYour dragon scales grant you 10% resistance to physical weapons. You can breathe a cone of magical energy based on your ancestral heritage",
+
   "power.otherworldorigins.race/undead/undead.name": "Undead",
   "power.otherworldorigins.race/undead/undead.description": "§oAll Undead races receive inverted Healing and Harming effects, and take extra damage from the Smite enchantment",
+
+  "power.otherworldorigins.subrace/undead/zombie/resistance.name": "-Sun Resistance",
+  "power.otherworldorigins.subrace/undead/zombie/resistance.description": "§oYou'll burn in daylight - this can be negated with a helmet.",
 
   "power.otherworldorigins.race/dwarf/dwarven_resilience.name": "Dwarven Resilience",
   "power.otherworldorigins.race/dwarf/dwarven_resilience.description": "§oYou are resistant to poison damage",
@@ -172,24 +178,30 @@
   "power.otherworldorigins.subrace/githyanki/water_vulnerability.name": "Water Vulnerability",
   "power.otherworldorigins.subrace/githyanki/water_vulnerability.description": "§oYou take damage from water and rain, but this can be offset with the Water Protection enchantment.",
 
+  "power.otherworldorigins.subclass/wizard/evocation.name": "",
+  "power.otherworldorigins.subclass/wizard/evocation.description": "",
+
+  "power.otherworldorigins.subclass/wizard/conjuration.name": "",
+  "power.otherworldorigins.subclass/wizard/conjuration.description": "",
+
 
 "origin.otherworldorigins.feats/chef.name": "Chef",
 "origin.otherworldorigins.feats/chef.description": "Your Hunger and Thirst drain 25% slower.",
 
 "origin.otherworldorigins.feats/defensive_duelist.name": "Defensive Duelist",
-"origin.otherworldorigins.feats/defensive_duelist.description": "When wielding a one-handed weapon, you have a 10% chance to dodge an incoming attack",
+"origin.otherworldorigins.feats/defensive_duelist.description": "When wielding a one-handed weapon, you have a 10% chance to dodge incoming attacks",
 
 "origin.otherworldorigins.feats/dual_wielder.name": "Dual Wielder",
-"origin.otherworldorigins.feats/dual_wielder.description": "Deal 5 extra damage with a weapon in your off-hand",
+"origin.otherworldorigins.feats/dual_wielder.description": "Deal 5 extra damage while holding a weapon in your off-hand",
 
 "origin.otherworldorigins.feats/everybodys_friend.name": "Everybody's Friend",
 "origin.otherworldorigins.feats/everybodys_friend.description": "Receive an extra 10% discount from Villagers",
 
 "origin.otherworldorigins.feats/savage_attacker.name": "Savage Attacker",
-"origin.otherworldorigins.feats/savage_attacker.description": "You Deal 5 extra damage with Melee attacks",
+"origin.otherworldorigins.feats/savage_attacker.description": "Deal 5 extra damage with Melee attacks",
 
 "origin.otherworldorigins.feats/mage_slayer.name": "Mage Slayer",
-"origin.otherworldorigins.feats/mage_slayer.description": "You deal 10 extra damage to Bosses",
+"origin.otherworldorigins.feats/mage_slayer.description": "Deal 10 extra damage to Bosses",
 
 "origin.otherworldorigins.feats/elemental_adept.name": "Elemental Adept",
 "origin.otherworldorigins.feats/elemental_adept.description": "You are immune to Temperature effects",
@@ -255,7 +267,7 @@
 
 "origin.otherworldorigins.class/artificer.name": "Artificer",
 "origin.otherworldorigins.subclass/artificer/alchemist.name": "Alchemist",
-"origin.otherworldorigins.subclass/artificer/alchemist.description": "• Double potion effects",
+"origin.otherworldorigins.subclass/artificer/alchemist.description": "• Receive double the duration of potion effects",
 "origin.otherworldorigins.subclass/artificer/armourer.name": "Armourer",
 "origin.otherworldorigins.subclass/artificer/armourer.description": "• +5 Armor",
 "origin.otherworldorigins.subclass/artificer/artillerist.name": "Artillerist",
@@ -357,7 +369,7 @@
 "origin.otherworldorigins.subclass/wizard/abjuration.name": "Abjuration",
 "origin.otherworldorigins.subclass/wizard/abjuration.description": "• +3 Armor\n• +2 Hearts",
 "origin.otherworldorigins.subclass/wizard/evocation.name": "Evocation",
-"origin.otherworldorigins.subclass/wizard/evocation.description": "• Summon Evoker Ability",
+"origin.otherworldorigins.subclass/wizard/evocation.description": "• Cast Evoker Fangs",
 "origin.otherworldorigins.subclass/wizard/necromancy.name": "Necromancy",
 "origin.otherworldorigins.subclass/wizard/necromancy.description": "• Summon 2 Undead",
 "origin.otherworldorigins.subclass/wizard/conjuration.name": "Conjuration",
@@ -365,7 +377,7 @@
 "origin.otherworldorigins.subclass/wizard/enchanting.name": "Enchanting",
 "origin.otherworldorigins.subclass/wizard/enchanting.description": "• -10% Enchantment Cost",
 "origin.otherworldorigins.subclass/wizard/transmutation.name": "Transmutation",
-"origin.otherworldorigins.subclass/wizard/transmutation.description": "• Double potion effects",
+"origin.otherworldorigins.subclass/wizard/transmutation.description": "• Double the duration of potion effects",
 
   "entity.otherworldorigins.summon_zombie": "Summoner's Zombie",
   "entity.otherworldorigins.summon_skeleton": "Summoner's Skeleton",

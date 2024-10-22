@@ -1,0 +1,7 @@
+{
+    "type": "origins:active_self",
+    "entity_action": {
+        "type": "origins:nothing"
+    },
+    "cooldown": 100
+}

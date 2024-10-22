@@ -1,4 +1,15 @@
 {
     "hidden": true,
-    "type": "origins:simple"
+    "type": "origins:modify_damage_dealt",
+    "bientity_condition": {
+        "type": "origins:target_condition",
+        "condition": {
+            "type": "origins:in_tag",
+            "tag": "otherworldorigins:bosses"
+        }
+    },
+    "modifier": {
+        "operation": "addition",
+        "value": 10
+    }
 }

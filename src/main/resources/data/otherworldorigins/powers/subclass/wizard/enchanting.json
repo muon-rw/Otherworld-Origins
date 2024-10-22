@@ -1,4 +1,5 @@
 {
+  "hidden": true,
     "type": "otherworldorigins:modify_enchantment_cost",
     "amount": 0.2
   }

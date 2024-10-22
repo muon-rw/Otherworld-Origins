@@ -1,7 +1,7 @@
 {
     "type": "origins:active_self",
     "key": {
-        "key": "key.otherworldorigins.secondary_active"
+        "key": "key.origins.secondary_active"
     },
     "entity_action": {
         "type": "otherworldorigins:cast_spell",

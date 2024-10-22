@@ -122,6 +122,7 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
         }
     }
 
+
     @Unique
     private boolean otherworld$shouldHideButton() {
         if (currentLayerIndex >= 0 && currentLayerIndex < layerList.size()) {
