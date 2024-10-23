@@ -2,25 +2,7 @@
     "hidden": true,
     "type": "origins:modify_projectile_damage",
     "modifier": {
-        "value": 0.1,
-        "operation": "multiply_base"
-    },
-    "condition": {
-        "type": "origins:equipped_item",
-        "equipment_slot": "mainhand",
-        "item_condition": {
-            "type": "origins:or",
-            "conditions": [
-                {
-                    "type": "otherworldorigins:is_bow"
-                },
-                {
-                    "type": "origins:ingredient",
-                    "ingredient": {
-                        "tag": "otherworldorigins:bows"
-                    }
-                }
-            ]
-        }
+        "value": 2,
+        "operation": "addition"
     }
 }

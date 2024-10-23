@@ -1,8 +1,9 @@
 {
     "hidden": true,
-    "type": "origins:modify_damage_dealt",
+    "type": "origins:attribute",
     "modifier": {
-        "value": 3,
-        "operation": "addition"
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "value": 3
     }
 }

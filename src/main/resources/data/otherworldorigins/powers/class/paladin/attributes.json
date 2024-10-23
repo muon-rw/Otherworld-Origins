@@ -3,7 +3,7 @@
     "type": "origins:attribute",
     "modifier": {
         "attribute": "minecraft:generic.armor",
-        "value": 10,
+        "value": 3,
         "operation": "addition"
     }
 }

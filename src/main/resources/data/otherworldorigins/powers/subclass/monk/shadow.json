@@ -1,10 +1,12 @@
 {
     "hidden": true,
     "type": "origins:multiple",
-    "apts": {
-        "type": "otherworldorigins:innate_aptitude_bonus",
-        "aptitude_bonuses": {
-            "dexterity": 10
+    "stats": {
+        "type": "origins:conditioned_attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.max_health",
+            "operation": "addition",
+            "value": 10
         },
         "condition": {
             "type": "origins:daytime",

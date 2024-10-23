@@ -1,78 +1,9 @@
 {
     "hidden": true,
-	"type": "origins:multiple",
-	"dagger_bonus": {
-		"type": "origins:modify_damage_dealt",
-		"modifier": {
-			"operation": "addition",
-			"value": 5.0
-		},
-		"condition": {
-			"type": "origins:or",
-			"conditions": [
-				{
-					"type": "origins:equipped_item",
-					"equipment_slot": "mainhand",
-					"item_condition": {
-						"type": "origins:or",
-						"conditions": [
-							{
-								"type": "apoli:ingredient",
-								"ingredient": {
-									"tag": "otherworldorigins:daggers"
-								}
-							},
-							{
-								"type": "otherworldorigins:is_dagger"
-							}
-						]
-					}
-				},
-				{
-					"type": "origins:equipped_item",
-					"equipment_slot": "offhand",
-					"item_condition": {
-						"type": "origins:or",
-						"conditions": [
-							{
-								"type": "apoli:ingredient",
-								"ingredient": {
-									"tag": "otherworldorigins:daggers"
-								}
-							},
-							{
-								"type": "otherworldorigins:is_dagger"
-							}
-						]
-					}
-				}
-			]
-		}
-	},
-	"tooltip": {
-		"type": "apoli:tooltip",
-		"item_condition": {
-			"type": "origins:or",
-			"conditions": [
-				{
-					"type": "apoli:ingredient",
-					"ingredient": {
-						"tag": "otherworldorigins:daggers"
-					}
-				},
-				{
-					"type": "otherworldorigins:is_dagger"
-				}
-			]
-		},
-		"texts": [
-			{
-				"translate": "tooltip.otherworldorigins.damage_dealt",
-				"with": [
-					"50%"
-				],
-				"color": "blue"
-			}
-        ]
-	}
+    "type": "origins:attribute",
+    "modifier": {
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "value": 3
+    }
 }

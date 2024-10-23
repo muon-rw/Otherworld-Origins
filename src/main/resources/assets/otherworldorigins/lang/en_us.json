@@ -235,23 +235,23 @@
 
 "origin.otherworldorigins.class/artificer.description": "§oOnly Artificers can make use of the Mending enchantment§r\n\n§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
 
-"origin.otherworldorigins.class/barbarian.description": "• +5 Armor\n§oOnly Barbarians can make use of the Sweeping Edge enchantment§r\n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
+"origin.otherworldorigins.class/barbarian.description": "• +3 Armor\n§oOnly Barbarians can make use of the Sweeping Edge enchantment§r\n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
 
 "origin.otherworldorigins.class/bard.description": "• -2 Hearts\n§oOnly Bards can make use of the Luck of the Sea enchantment§r\n\n§nSubclasses§r\nCollege of Lore\nCollege of Valour\nCollege of Swords",
 
-"origin.otherworldorigins.class/cleric.description": "• +3 Armor\n§oOnly Clerics can make use of the Fortune enchantment§r\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
+"origin.otherworldorigins.class/cleric.description": "• +2 Armor\n§oOnly Clerics can make use of the Fortune enchantment§r\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
 
 "origin.otherworldorigins.class/druid.description": "§oOnly Druids can make use of the Thorns enchantment§r\n\n§nSubclasses§r\nCircle of the Land\nCircle of the Moon\nCircle of the Spores",
 
-"origin.otherworldorigins.class/fighter.description": "• +10 Hearts\n§oOnly Fighters can make use of the Sharpness enchantment§r\n\n§nSubclasses§r\nBattle Master\nEldritch Knight\nChampion",
+"origin.otherworldorigins.class/fighter.description": "• +3 Hearts\n§oOnly Fighters can make use of the Sharpness enchantment§r\n\n§nSubclasses§r\nBattle Master\nEldritch Knight\nChampion",
 
-"origin.otherworldorigins.class/monk.description": "• +5 Hearts\n§oOnly Monks can make use of the Loyalty enchantment§r\n\n§nSubclasses§r\nWay of the Four Elements\nWay of the Open Hand\nWay of Shadow",
+"origin.otherworldorigins.class/monk.description": "• +2 Hearts\n§oOnly Monks can make use of the Loyalty enchantment§r\n\n§nSubclasses§r\nWay of the Four Elements\nWay of the Open Hand\nWay of Shadow",
 
-"origin.otherworldorigins.class/paladin.description": "• +10 Armor\n§oOnly Paladins can make use of the Smite enchantment§r\n\n§nSubclasses§r\nOath of the Ancients\nOath of Devotion\nOath of Vengeance\nOath Breaker",
+"origin.otherworldorigins.class/paladin.description": "• +3 Armor\n§oOnly Paladins can make use of the Smite enchantment§r\n\n§nSubclasses§r\nOath of the Ancients\nOath of Devotion\nOath of Vengeance\nOath Breaker",
 
 "origin.otherworldorigins.class/ranger.description": "§oOnly Rangers can make use of the Infinity enchantment§r\n\n§nSubclasses§r\nBeast Master\nGloom Stalker\nHunter",
 
-"origin.otherworldorigins.class/rogue.description": "• Increased Bow Damage\n§oOnly Rogues can make use of the Power enchantment§r\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
+"origin.otherworldorigins.class/rogue.description": "• +2 Ranged Damage\n§oOnly Rogues can make use of the Power enchantment§r\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
 
 "origin.otherworldorigins.class/sorcerer.description": "• +1 Magic\n• -5 Hearts\n• +40% Magic Damage\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
 
@@ -263,53 +263,53 @@
 "origin.otherworldorigins.subclass/artificer/alchemist.name": "Alchemist",
 "origin.otherworldorigins.subclass/artificer/alchemist.description": "• Receive double the duration of potion effects",
 "origin.otherworldorigins.subclass/artificer/armourer.name": "Armourer",
-"origin.otherworldorigins.subclass/artificer/armourer.description": "• +5 Armor",
+"origin.otherworldorigins.subclass/artificer/armourer.description": "• +3 Armor",
 "origin.otherworldorigins.subclass/artificer/artillerist.name": "Artillerist",
-"origin.otherworldorigins.subclass/artificer/artillerist.description": "• +5 Ranged Damage",
+"origin.otherworldorigins.subclass/artificer/artillerist.description": "• +4 Ranged Damage",
 "origin.otherworldorigins.subclass/artificer/battle_smith.name": "Battle Smith",
-"origin.otherworldorigins.subclass/artificer/battle_smith.description": "• +5 Melee Damage",
+"origin.otherworldorigins.subclass/artificer/battle_smith.description": "• +3 Melee Damage",
 
 "origin.otherworldorigins.class/barbarian.name": "Barbarian",
 "origin.otherworldorigins.subclass/barbarian/wildheart.name": "Wildheart",
 "origin.otherworldorigins.subclass/barbarian/wildheart.description": "• Summon Beast",
 "origin.otherworldorigins.subclass/barbarian/berserker.name": "Berserker",
-"origin.otherworldorigins.subclass/barbarian/berserker.description": "• +5 Melee Damage",
+"origin.otherworldorigins.subclass/barbarian/berserker.description": "• +3 Melee Damage",
 "origin.otherworldorigins.subclass/barbarian/wild_magic.name": "Wild Magic",
 "origin.otherworldorigins.subclass/barbarian/wild_magic.description": "• 1.5x Health Regeneration",
 
 "origin.otherworldorigins.class/bard.name": "Bard",
 "origin.otherworldorigins.subclass/bard/lore.name": "College of Lore",
-"origin.otherworldorigins.subclass/bard/lore.description": "• Push Ability",
+"origin.otherworldorigins.subclass/bard/lore.description": "• Push Ability\n• Negative Effect Resistance",
 "origin.otherworldorigins.subclass/bard/valour.name": "College of Valour",
 "origin.otherworldorigins.subclass/bard/valour.description": "• +30% Magic Damage",
 "origin.otherworldorigins.subclass/bard/swords.name": "College of Swords",
-"origin.otherworldorigins.subclass/bard/swords.description": "• +5 Melee Damage",
+"origin.otherworldorigins.subclass/bard/swords.description": "• +4 Melee Damage",
 
 "origin.otherworldorigins.class/cleric.name": "Cleric",
 "origin.otherworldorigins.subclass/cleric/life.name": "Life Domain",
-"origin.otherworldorigins.subclass/cleric/life.description": "• Faster Health Regeneration",
+"origin.otherworldorigins.subclass/cleric/life.description": "• 1.5x Health Regeneration",
 "origin.otherworldorigins.subclass/cleric/trickery.name": "Trickery Domain",
-"origin.otherworldorigins.subclass/cleric/trickery.description": "• +10% Magic Damage",
+"origin.otherworldorigins.subclass/cleric/trickery.description": "• +20% Magic Damage",
 "origin.otherworldorigins.subclass/cleric/knowledge.name": "Knowledge Domain",
 "origin.otherworldorigins.subclass/cleric/knowledge.description": "• -20% Enchantment Cost",
 "origin.otherworldorigins.subclass/cleric/tempest.name": "Tempest Domain",
 "origin.otherworldorigins.subclass/cleric/tempest.description": "• +50% Lightning or +50% Thunder Damage",
 "origin.otherworldorigins.subclass/cleric/war.name": "War Domain",
-"origin.otherworldorigins.subclass/cleric/war.description": "• +5 Melee Damage",
+"origin.otherworldorigins.subclass/cleric/war.description": "• +3 Melee Damage",
 
 "origin.otherworldorigins.class/druid.name": "Druid",
 "origin.otherworldorigins.subclass/druid/land.name": "Circle of the Land",
 "origin.otherworldorigins.subclass/druid/land.description": "• 2x Health Regeneration",
 "origin.otherworldorigins.subclass/druid/moon.name": "Circle of the Moon",
-"origin.otherworldorigins.subclass/druid/moon.description": "• Summon Beast",
+"origin.otherworldorigins.subclass/druid/moon.description": "• Summon Beast\n• Resistance+Damage at Night",
 "origin.otherworldorigins.subclass/druid/spores.name": "Circle of the Spores",
-"origin.otherworldorigins.subclass/druid/spores.description": "• Summon Undead",
+"origin.otherworldorigins.subclass/druid/spores.description": "• Summon Undead\n• Resistance+Damage Below y=0",
 
 "origin.otherworldorigins.class/fighter.name": "Fighter",
 "origin.otherworldorigins.subclass/fighter/battle_master.name": "Battle Master",
-"origin.otherworldorigins.subclass/fighter/battle_master.description": "• +10 Attack Damage",
+"origin.otherworldorigins.subclass/fighter/battle_master.description": "• +3 Attack Damage",
 "origin.otherworldorigins.subclass/fighter/eldritch_knight.name": "Eldritch Knight",
-"origin.otherworldorigins.subclass/fighter/eldritch_knight.description": "• +5 Attack Damage\n• +10% Magic Damage",
+"origin.otherworldorigins.subclass/fighter/eldritch_knight.description": "• +2 Attack Damage\n• +10% Magic Damage",
 "origin.otherworldorigins.subclass/fighter/champion.name": "Champion",
 "origin.otherworldorigins.subclass/fighter/champion.description": "• Immune to Critical Hits",
 
@@ -323,13 +323,13 @@
 
 "origin.otherworldorigins.class/paladin.name": "Paladin",
 "origin.otherworldorigins.subclass/paladin/ancients.name": "Oath of the Ancients",
-"origin.otherworldorigins.subclass/paladin/ancients.description": "• Faster Health Regeneration",
+"origin.otherworldorigins.subclass/paladin/ancients.description": "• 1.5x Health Regeneration",
 "origin.otherworldorigins.subclass/paladin/devotion.name": "Oath of Devotion",
-"origin.otherworldorigins.subclass/paladin/devotion.description": "• +5 Melee Damage",
+"origin.otherworldorigins.subclass/paladin/devotion.description": "• +2 Armor",
 "origin.otherworldorigins.subclass/paladin/vengeance.name": "Oath of Vengeance",
-"origin.otherworldorigins.subclass/paladin/vengeance.description": "• +3 All Weapon Damage",
+"origin.otherworldorigins.subclass/paladin/vengeance.description": "• +3 Melee Damage",
 "origin.otherworldorigins.subclass/paladin/breaker.name": "Oath Breaker",
-"origin.otherworldorigins.subclass/paladin/breaker.description": "• +5 Hearts",
+"origin.otherworldorigins.subclass/paladin/breaker.description": "• +3 Hearts",
 
 "origin.otherworldorigins.class/ranger.name": "Ranger",
 "origin.otherworldorigins.subclass/ranger/beast_master.name": "Beast Master",
@@ -337,7 +337,7 @@
 "origin.otherworldorigins.subclass/ranger/gloom_stalker.name": "Gloom Stalker",
 "origin.otherworldorigins.subclass/ranger/gloom_stalker.description": "• +10% Speed",
 "origin.otherworldorigins.subclass/ranger/hunter.name": "Hunter",
-"origin.otherworldorigins.subclass/ranger/hunter.description": "• +5 Ranged Damage",
+"origin.otherworldorigins.subclass/ranger/hunter.description": "• +3 Ranged Damage",
 
 "origin.otherworldorigins.class/rogue.name": "Rogue",
 "origin.otherworldorigins.subclass/rogue/thief.name": "Thief",
@@ -345,7 +345,7 @@
 "origin.otherworldorigins.subclass/rogue/arcane_trickster.name": "Arcane Trickster",
 "origin.otherworldorigins.subclass/rogue/arcane_trickster.description": "• +1 Cantrip",
 "origin.otherworldorigins.subclass/rogue/assassin.name": "Assassin",
-"origin.otherworldorigins.subclass/rogue/assassin.description": "• +5 Dagger/Knife Damage",
+"origin.otherworldorigins.subclass/rogue/assassin.description": "• +2 Melee Damage",
 
 "origin.otherworldorigins.class/sorcerer.name": "Sorcerer",
 "origin.otherworldorigins.subclass/sorcerer/wild_magic.name": "Wild Magic",

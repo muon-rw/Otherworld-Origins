@@ -4,6 +4,6 @@
     "modifier": {
         "attribute": "minecraft:generic.max_health",
         "operation": "addition",
-        "value": 5
+        "value": 6
     }
 }
