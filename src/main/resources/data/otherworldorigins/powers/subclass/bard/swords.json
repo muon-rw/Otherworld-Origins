@@ -4,6 +4,6 @@
     "modifier": {
         "attribute": "minecraft:generic.attack_damage",
         "operation": "addition",
-        "value": 5
+        "value": 4
     }
 }

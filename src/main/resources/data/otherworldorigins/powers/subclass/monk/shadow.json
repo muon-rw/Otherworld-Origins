@@ -1,12 +1,25 @@
 {
     "hidden": true,
-    "type": "origins:modify_damage_dealt",
-    "modifier": {
-        "value": 10,
-        "operation": "addition"
+    "type": "origins:multiple",
+    "apts": {
+        "type": "otherworldorigins:innate_aptitude_bonus",
+        "aptitude_bonuses": {
+            "dexterity": 10
+        },
+        "condition": {
+            "type": "origins:daytime",
+            "inverted": true
+        }
     },
-    "condition": {
-        "type": "origins:daytime",
-        "inverted": true
+    "dmg": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "value": 10,
+            "operation": "addition"
+        },
+        "condition": {
+            "type": "origins:daytime",
+            "inverted": true
+        }
     }
 }

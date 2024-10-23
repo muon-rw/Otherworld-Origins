@@ -6,6 +6,7 @@ import dev.muon.otherworldorigins.action.ModActions;
 import dev.muon.otherworldorigins.condition.ModConditions;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.item.ModItems;
+import dev.muon.otherworldorigins.network.CheckFeatScreenMessage;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.network.ResetOriginsMessage;
 import dev.muon.otherworldorigins.power.ModPowers;
@@ -112,8 +113,13 @@ public class OtherworldOrigins {
                 .decoder(ResetOriginsMessage::decode)
                 .consumerMainThread(ResetOriginsMessage::handle)
                 .add();
-    }
 
+        CHANNEL.messageBuilder(CheckFeatScreenMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(CheckFeatScreenMessage::encode)
+                .decoder(CheckFeatScreenMessage::decode)
+                .consumerMainThread(CheckFeatScreenMessage::handle)
+                .add();
+    }
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     @OnlyIn(Dist.CLIENT)
     public static class ClientModEvents {

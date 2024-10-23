@@ -2,8 +2,8 @@
     "hidden": true,
     "type": "origins:attribute",
     "modifier": {
-        "attribute": "generic.armor",
+        "attribute": "minecraft:generic.attack_damage",
         "operation": "addition",
-        "value": 5
+        "value": 3
     }
 }

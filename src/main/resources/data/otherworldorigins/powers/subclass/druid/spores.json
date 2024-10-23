@@ -1,13 +1,56 @@
 {
-    "type": "origins:active_self",
-    "key": {
-        "key": "key.origins.secondary_active"
+    "type": "origins:multiple",
+    "summon": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.origins.secondary_active"
+        },
+        "entity_action": {
+            "type": "otherworldorigins:cast_spell",
+            "spell": "raise_dead",
+            "power_level": 2,
+            "mana_cost": 0
+        },
+        "cooldown": 600
     },
-    "entity_action": {
-        "type": "otherworldorigins:cast_spell",
-        "spell": "raise_dead",
-        "power_level": 2,
-        "mana_cost": 0
+    "cave_res": {
+        "type": "origins:modify_damage_taken",
+        "condition": {
+            "type": "origins:distance_from_coordinates",
+            "offset": {
+                "x": 0,
+                "y": -32,
+                "z": 0
+            },
+            "ignore_x": true,
+            "ignore_z": true,
+            "shape": "cube",
+            "comparison": "<=",
+            "compare_to": 32
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -0.1
+        }
     },
-    "cooldown": 600
+    "cave_dmg": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "origins:distance_from_coordinates",
+            "offset": {
+                "x": 0,
+                "y": -32,
+                "z": 0
+            },
+            "ignore_x": true,
+            "ignore_z": true,
+            "shape": "cube",
+            "comparison": "<=",
+            "compare_to": 32
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    }
 }

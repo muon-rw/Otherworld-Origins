@@ -1,28 +1,12 @@
 package dev.muon.otherworldorigins;
 
-import dev.muon.medieval.leveling.LevelingUtils;
-import dev.muon.medieval.leveling.event.AptitudeChangedEvent;
 import dev.muon.otherworldorigins.entity.summons.SummonedSkeleton;
 import dev.muon.otherworldorigins.entity.summons.SummonedWitherSkeleton;
-import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
-import io.github.edwinmindcraft.origins.api.origin.Origin;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
-import io.github.edwinmindcraft.origins.common.OriginsCommon;
-import io.github.edwinmindcraft.origins.common.network.S2COpenOriginScreen;
 import io.redspace.ironsspellbooks.entity.spells.AbstractConeProjectile;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -35,7 +19,6 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -115,6 +98,7 @@ public class ForgeEvents {
 
     }
 
+/*
     @SubscribeEvent
     public static void onAptitudeChanged(AptitudeChangedEvent event) {
         if (event.getPlayer() instanceof ServerPlayer serverPlayer) {
@@ -159,6 +143,8 @@ public class ForgeEvents {
             }
         }
     }
+
+ */
 }
 
 

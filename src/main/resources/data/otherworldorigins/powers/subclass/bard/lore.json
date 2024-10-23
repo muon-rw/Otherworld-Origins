@@ -1,12 +1,22 @@
 {
-    "type": "origins:active_self",
-    "key": {
-        "key": "key.origins.secondary_active"
+    "type": "origins:multiple",
+    "push": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.origins.secondary_active"
+        },
+        "entity_action": {
+            "type": "otherworldorigins:cast_spell",
+            "spell": "gust",
+            "power_level": 2,
+            "mana_cost": 0
+        }
     },
-    "entity_action": {
-        "type": "otherworldorigins:cast_spell",
-        "spell": "gust",
-        "power_level": 2,
-        "mana_cost": 0
+    "effects": {
+        "type": "otherworldorigins:modify_status_effect_category",
+        "affect_beneficial": false,
+        "affect_harmful": true,
+        "affect_neutral": true,
+        "amount": -0.5
     }
 }

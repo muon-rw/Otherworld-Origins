@@ -1,13 +1,38 @@
 {
-    "type": "origins:active_self",
-    "key": {
-        "key": "key.origins.secondary_active"
+    "type": "origins:multiple",
+    "summon": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.origins.secondary_active"
+        },
+        "entity_action": {
+            "type": "otherworldorigins:cast_spell",
+            "spell": "summon_polar_bear",
+            "power_level": 2,
+            "mana_cost": 0
+        },
+        "cooldown": 600
     },
-    "entity_action": {
-        "type": "otherworldorigins:cast_spell",
-        "spell": "summon_polar_bear",
-        "power_level": 2,
-        "mana_cost": 0
+    "night_res": {
+        "type": "origins:modify_damage_taken",
+        "condition": {
+            "type": "origins:daytime",
+            "inverted": true
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -0.1
+        }
     },
-    "cooldown": 600
+    "night_dmg": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "origins:daytime",
+            "inverted": true
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    }
 }

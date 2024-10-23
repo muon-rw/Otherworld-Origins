@@ -4,6 +4,6 @@
     "modifier": {
         "attribute": "generic.armor",
         "operation": "addition",
-        "value": 5
+        "value": 3
     }
 }

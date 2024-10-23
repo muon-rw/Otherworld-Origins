@@ -4,5 +4,9 @@
     "damage_condition": {
         "type": "origins:in_tag",
         "tag": "otherworldorigins:is_magic"
+    },
+    "modifier": {
+        "operation": "multiply_base",
+        "value": 0.2
     }
 }
