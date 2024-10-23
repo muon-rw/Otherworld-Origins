@@ -6,7 +6,6 @@
     "plugin": "dev.muon.otherworldorigins.OtherworldOriginsMixinPlugin",
     "mixins": [
         "ArrowItemMixin",
-        "ChooseOriginScreenMixin",
         "EnchantmentHelperMixin",
         "ExperienceOrbMixin",
         "FishingRodItemMixin",
@@ -14,13 +13,14 @@
         "MobEffectInstanceAccessor",
         "PlayerMixin",
         "VillagerMixin",
-        "WaitForNextLayerScreenMixin",
         "compat.apotheosis.EnchantmentUtilsMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",
         "compat.justlevelingfork.AptitudeCapabilityMixin",
         "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
         "compat.medieval.LevelingUtilsMixin",
-        "compat.monobank.ThiefMixin"
+        "compat.monobank.ThiefMixin",
+        "compat.origins.ChooseOriginScreenMixin",
+        "compat.origins.WaitForNextLayerScreenMixin"
     ],
     "client": [
         "compat.justlevelingfork.client.AptitudeMixin",

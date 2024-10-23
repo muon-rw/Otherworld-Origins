@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.mixin;
+package dev.muon.otherworldorigins.mixin.compat.origins;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.network.ResetOriginsMessage;
