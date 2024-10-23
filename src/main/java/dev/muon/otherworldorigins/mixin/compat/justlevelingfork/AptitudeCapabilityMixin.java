@@ -20,7 +20,7 @@ public class AptitudeCapabilityMixin {
             method = "addAptitudeLevel",
             at = @At(value = "FIELD", target = "Lcom/seniors/justlevelingfork/handler/HandlerCommonConfig;aptitudeMaxLevel:I")
     )
-    private int modifyAptitudeMaxLevel(int originalMaxLevel, Aptitude aptitude, int addLvl) {
+    private int increaseMaxByOriginBonus(int originalMaxLevel, Aptitude aptitude, int addLvl) {
         AptitudeCapability self = (AptitudeCapability) (Object) this;
         Player player = otherworld$getPlayerFromCapability(self);
 
@@ -31,6 +31,8 @@ public class AptitudeCapabilityMixin {
 
         return originalMaxLevel;
     }
+
+
     @Unique
     private Player otherworld$getPlayerFromCapability(AptitudeCapability capability) {
         if (ServerLifecycleHooks.getCurrentServer() != null) {

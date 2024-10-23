@@ -124,7 +124,7 @@
         "conditions": [
           {
             "type": "origins:origin",
-            "origin": "otherworldorigins:apts/one/luck",
+            "origin": "otherworldorigins:apts/one/lck",
             "inverted": true
           },
           {
@@ -134,7 +134,7 @@
         ]
       },
       "origins": [
-        "otherworldorigins:apts/one/luck"
+        "otherworldorigins:apts/one/lck"
       ]
     },
     {

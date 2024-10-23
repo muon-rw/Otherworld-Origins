@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class AptitudeMixin {
 
     @ModifyVariable(method = "getLockedTexture()Lnet/minecraft/resources/ResourceLocation;", at = @At("STORE"), ordinal = 0)
-    private int modifyAptitudeMaxLevel(int originalMaxLevel) {
+    private int increaseMaxByOriginBonus(int originalMaxLevel) {
         Aptitude self = (Aptitude) (Object) this;
         Player player = Minecraft.getInstance().player;
         if (player == null) return originalMaxLevel;

@@ -3,7 +3,7 @@
         "minecraft:player"
     ],
     "powers": [
-        "otherworldorigins:feat_selector",
+        "otherworldorigins:enchantment_restrictions",
         "otherworldorigins:ancient_reforging"
     ]
 }

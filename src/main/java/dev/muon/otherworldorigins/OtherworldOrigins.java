@@ -6,6 +6,7 @@ import dev.muon.otherworldorigins.action.ModActions;
 import dev.muon.otherworldorigins.condition.ModConditions;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.item.ModItems;
+import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.network.ResetOriginsMessage;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.sounds.ModSounds;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.lwjgl.glfw.GLFW;
@@ -92,9 +94,24 @@ public class OtherworldOrigins {
     private void commonSetup(final FMLCommonSetupEvent event) {
     }
 
-    private void registerMessages() {
-        int id = 0;
-        CHANNEL.registerMessage(id++, ResetOriginsMessage.class, ResetOriginsMessage::toBytes, ResetOriginsMessage::new, ResetOriginsMessage::handle);
+    private static int packetId = 0;
+
+    private static int nextPacketId() {
+        return packetId++;
+    }
+
+    public static void registerMessages() {
+        CHANNEL.messageBuilder(CloseCurrentScreenMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder((msg, buf) -> {})
+                .decoder(buf -> new CloseCurrentScreenMessage())
+                .consumerMainThread(CloseCurrentScreenMessage::handle)
+                .add();
+
+        CHANNEL.messageBuilder(ResetOriginsMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(ResetOriginsMessage::encode)
+                .decoder(ResetOriginsMessage::decode)
+                .consumerMainThread(ResetOriginsMessage::handle)
+                .add();
     }
 
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

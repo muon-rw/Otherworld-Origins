@@ -20,24 +20,53 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Mixin(WaitForNextLayerScreen.class)
 public class WaitForNextLayerScreenMixin {
-
     @Shadow @Final private List<Holder<OriginLayer>> layerList;
     @Shadow @Final private boolean showDirtBackground;
+
+    @Unique
+    private static final Set<ResourceLocation> otherworld$excludedLayers = Set.of(
+            OtherworldOrigins.loc("first_feat"),
+            OtherworldOrigins.loc("second_feat"),
+            OtherworldOrigins.loc("third_feat"),
+            OtherworldOrigins.loc("fourth_feat"),
+            OtherworldOrigins.loc("fifth_feat")
+    );
+
+    @Unique
+    private static final Map<ResourceLocation, Long> otherworld$recentlySelectedLayers = new HashMap<>();
+
+    @Unique
+    private static final long COOLDOWN_TICKS = 100; // before reprompting a layer which was just selected
+
+    @Unique
+    private static int otherworld$checkAttempts = 0;
+
+    @Unique
+    private static final int MAX_CHECK_ATTEMPTS = 2;
 
     @Inject(method = "openSelection", at = @At(value = "RETURN", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V", ordinal= 2))
     private void onOpenSelectionEnd(CallbackInfo ci) {
         OtherworldOrigins.LOGGER.debug("WaitForNextLayerScreen is about to close");
-        otherworld$checkAndOpenMissingOriginScreen();
+        Minecraft minecraft = Minecraft.getInstance();
+        minecraft.tell(() -> {
+            minecraft.execute(this::otherworld$checkAndOpenMissingOriginScreen);
+        });
     }
 
     @Unique
     private void otherworld$checkAndOpenMissingOriginScreen() {
+        if (otherworld$checkAttempts >= MAX_CHECK_ATTEMPTS) {
+            OtherworldOrigins.LOGGER.warn("Maximum check attempts reached. Stopping fallback reselector.");
+            otherworld$checkAttempts = 0;
+            return;
+        }
+
+        otherworld$checkAttempts++;
+
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null || minecraft.level == null) {
             return;
@@ -49,10 +78,20 @@ public class WaitForNextLayerScreenMixin {
         }
 
         Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
-
         List<Holder<OriginLayer>> missingOriginLayers = new ArrayList<>();
+        long currentTime = minecraft.level.getGameTime();
 
         for (OriginLayer layer : layerRegistry) {
+            ResourceLocation layerId = layerRegistry.getKey(layer);
+            if (layerId == null || otherworld$excludedLayers.contains(layerId)) {
+                continue;
+            }
+
+            if (otherworld$recentlySelectedLayers.containsKey(layerId) &&
+                    (currentTime - otherworld$recentlySelectedLayers.get(layerId) < COOLDOWN_TICKS)) {
+                continue;
+            }
+
             Holder<OriginLayer> layerHolder = layerRegistry.getHolderOrThrow(layerRegistry.getResourceKey(layer).orElseThrow());
             ResourceKey<Origin> originKey = originContainer.getOrigin(layerHolder);
 
@@ -61,6 +100,7 @@ public class WaitForNextLayerScreenMixin {
 
                 if (!availableOrigins.isEmpty()) {
                     missingOriginLayers.add(layerHolder);
+                    otherworld$recentlySelectedLayers.put(layerId, currentTime);
                 }
             }
         }
@@ -74,6 +114,8 @@ public class WaitForNextLayerScreenMixin {
                 ChooseOriginScreen newScreen = new ChooseOriginScreen(missingOriginLayers, 0, this.showDirtBackground);
                 minecraft.setScreen(newScreen);
             });
+        } else {
+            otherworld$checkAttempts = 0;
         }
     }
 }

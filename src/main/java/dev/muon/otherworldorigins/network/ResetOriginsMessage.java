@@ -18,11 +18,13 @@ public class ResetOriginsMessage {
 
     public ResetOriginsMessage() {}
 
-    public ResetOriginsMessage(FriendlyByteBuf buf) {}
+    public static ResetOriginsMessage decode(FriendlyByteBuf buf) {
+        return new ResetOriginsMessage();
+    }
 
-    public void toBytes(FriendlyByteBuf buf) {}
+    public void encode(FriendlyByteBuf buf) {}
 
-    public void handle(Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(ResetOriginsMessage message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             ServerPlayer player = ctx.get().getSender();
             if (player != null) {
@@ -38,6 +40,5 @@ public class ResetOriginsMessage {
                 });
             }
         });
-        ctx.get().setPacketHandled(true);
     }
 }

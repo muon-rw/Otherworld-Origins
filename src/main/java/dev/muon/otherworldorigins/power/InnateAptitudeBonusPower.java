@@ -3,15 +3,20 @@ package dev.muon.otherworldorigins.power;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
+import com.seniors.justlevelingfork.network.packet.client.SyncAptitudeCapabilityCP;
 import com.seniors.justlevelingfork.registry.RegistryAptitudes;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
 import dev.muon.medieval.Medieval;
+import dev.muon.medieval.leveling.LevelSyncHandler;
+import dev.muon.medieval.leveling.LevelingUtils;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Map;
 
@@ -56,20 +61,45 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
                     cap.addAptitudeLevel(aptitude, bonus);
                 }
             });
+            if (player instanceof ServerPlayer serverPlayer) {
+
+                int newPlayerLevel = LevelingUtils.getPlayerLevel(player);
+                LevelSyncHandler.INSTANCE.send(
+                        PacketDistributor.PLAYER.with(() -> serverPlayer),
+                        new LevelSyncHandler.SyncPlayerLevelPacket(player.getUUID(), newPlayerLevel)
+                );
+            }
         }
     }
-
     private void removeBonuses(Player player, Map<String, Integer> aptitudeBonuses) {
         AptitudeCapability cap = AptitudeCapability.get(player);
         if (cap != null) {
             aptitudeBonuses.forEach((aptitudeName, bonus) -> {
                 Aptitude aptitude = RegistryAptitudes.getAptitude(aptitudeName);
                 if (aptitude != null) {
-                    cap.addAptitudeLevel(aptitude, -bonus);
+                    int currentLevel = cap.getAptitudeLevel(aptitude);
+                    int revertedLevel = Math.max(currentLevel - bonus, 1);
+                    cap.setAptitudeLevel(aptitude, revertedLevel);
+                    Medieval.LOGGER.debug("Removed bonus for " + aptitudeName + ": " + currentLevel + " -> " + revertedLevel);
+                } else {
+                    Medieval.LOGGER.warn("Aptitude not found: " + aptitudeName);
                 }
             });
+
+            if (player instanceof ServerPlayer serverPlayer) {
+                SyncAptitudeCapabilityCP.send(serverPlayer);
+                int newPlayerLevel = LevelingUtils.getPlayerLevel(player);
+                LevelSyncHandler.INSTANCE.send(
+                        PacketDistributor.PLAYER.with(() -> serverPlayer),
+                        new LevelSyncHandler.SyncPlayerLevelPacket(player.getUUID(), newPlayerLevel)
+                );
+            }
+
+        } else {
+            Medieval.LOGGER.warn("AptitudeCapability not found for player: " + player.getName().getString());
         }
     }
+
 
     public record Configuration(
             Map<String, Integer> aptitudeBonuses) implements IDynamicFeatureConfiguration {

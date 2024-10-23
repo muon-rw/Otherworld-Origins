@@ -19,6 +19,7 @@
         "compat.irons_spellbooks.AbstractSpellMixin",
         "compat.justlevelingfork.AptitudeCapabilityMixin",
         "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
+        "compat.medieval.LevelingUtilsMixin",
         "compat.monobank.ThiefMixin"
     ],
     "client": [
