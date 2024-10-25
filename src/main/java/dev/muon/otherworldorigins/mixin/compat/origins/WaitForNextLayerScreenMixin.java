@@ -26,17 +26,15 @@ import java.util.*;
 public class WaitForNextLayerScreenMixin {
     /**
      * Origins Forge frequently skips layer selections.
-     *
-     * This is especially problematic since it also applies
-     * invulnerability to players without an origin on layers where they can have one.
-     *
-     * Since we have so many layers, we need to catch these and reprompt.
-     *
+     * This is especially problematic since it also applies invulnerability to
+     * players, if they're missing an origin on layers where they can have one.
+     * Since we have so many layers, this happens a lot.
+     * We need to catch these and reprompt.
+     * <p></p>
      * Due to delays in sync and these tasks not blocking each other,
      * this fix could sometimes re-prompt for a layer that was just selected,
-     * so there are a few fallbacks in place to prevent this.
-     *
-     * It's not perfect, but it's a huge improvement.
+     * so there are a few sanity checks in place to prevent this.
+     * It's not perfect, but it works!
      */
     @Shadow @Final private List<Holder<OriginLayer>> layerList;
     @Shadow @Final private boolean showDirtBackground;
@@ -54,13 +52,11 @@ public class WaitForNextLayerScreenMixin {
     private static final Map<ResourceLocation, Long> otherworld$recentlySelectedLayers = new HashMap<>();
 
     @Unique
-    private static final long COOLDOWN_TICKS = 20; // before reprompting a layer which was just selected
-
+    private static final long DELAY_BEFORE_REPROMPT = 20;
     @Unique
-    private int otherworld$checkAttempts = 0;
-
+    private static final int MAX_REPROMPTS = 2;
     @Unique
-    private static final int MAX_CHECK_ATTEMPTS = 2;
+    private int otherworld$repromptAttempts = 0;
 
     @Inject(method = "openSelection", at = @At(value = "RETURN", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V", ordinal= 2))
     private void onOpenSelectionEnd(CallbackInfo ci) {
@@ -73,13 +69,13 @@ public class WaitForNextLayerScreenMixin {
 
     @Unique
     private void otherworld$checkAndReselectMissingOrigins() {
-        if (otherworld$checkAttempts >= MAX_CHECK_ATTEMPTS) {
+        if (otherworld$repromptAttempts >= MAX_REPROMPTS) {
             OtherworldOrigins.LOGGER.warn("Maximum check attempts reached. Stopping fallback reselector.");
-            otherworld$checkAttempts = 0;
+            otherworld$repromptAttempts = 0;
             return;
         }
 
-        otherworld$checkAttempts++;
+        otherworld$repromptAttempts++;
 
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null || minecraft.level == null) {
@@ -102,7 +98,7 @@ public class WaitForNextLayerScreenMixin {
             }
 
             if (otherworld$recentlySelectedLayers.containsKey(layerId) &&
-                    (currentTime - otherworld$recentlySelectedLayers.get(layerId) < COOLDOWN_TICKS)) {
+                    (currentTime - otherworld$recentlySelectedLayers.get(layerId) < DELAY_BEFORE_REPROMPT)) {
                 continue;
             }
 
@@ -129,7 +125,7 @@ public class WaitForNextLayerScreenMixin {
                 minecraft.setScreen(newScreen);
             });
         } else {
-            otherworld$checkAttempts = 0;
+            otherworld$repromptAttempts = 0;
         }
     }
 }
