@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/ranger/gloom_stalker"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "fantasy_armor:thief_helmet"
     }
 }

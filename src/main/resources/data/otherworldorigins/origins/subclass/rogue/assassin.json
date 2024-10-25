@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/rogue/assassin"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "alexscaves:desolate_dagger"
     }
 }

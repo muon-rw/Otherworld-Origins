@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/weapon_master"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "minecraft:golden_sword"
 	},
 	"impact": 1,
 	"order": 0

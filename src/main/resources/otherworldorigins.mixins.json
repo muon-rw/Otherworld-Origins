@@ -4,6 +4,9 @@
     "compatibilityLevel": "JAVA_17",
     "refmap": "otherworldorigins.refmap.json",
     "plugin": "dev.muon.otherworldorigins.OtherworldOriginsMixinPlugin",
+    "injectors": {
+        "defaultRequire": 1
+    },
     "mixins": [
         "ArrowItemMixin",
         "EnchantmentHelperMixin",

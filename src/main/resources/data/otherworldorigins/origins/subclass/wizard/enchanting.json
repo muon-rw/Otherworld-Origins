@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/wizard/enchanting"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "minecraft:enchanting_table"
     }
 }

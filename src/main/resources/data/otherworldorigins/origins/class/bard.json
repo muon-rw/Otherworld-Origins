@@ -3,7 +3,7 @@
 		"otherworldorigins:class/bard/attributes"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "immersive_melodies:lute"
 	},
 	"impact": 3,
 	"order": 0

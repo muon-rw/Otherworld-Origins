@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/spell_sniper"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "irons_spellbooks:hither_thither_wand"
 	},
 	"impact": 1,
 	"order": 0

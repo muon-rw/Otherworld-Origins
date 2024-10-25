@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/druid/land"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "valoria:dirt_geode"
     }
 }

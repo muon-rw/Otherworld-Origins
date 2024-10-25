@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/dual_wielder"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "iceandfire:hippogryph_hook"
 	},
 	"impact": 1,
 	"order": 0

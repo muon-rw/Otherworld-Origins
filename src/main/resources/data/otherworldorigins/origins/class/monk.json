@@ -3,7 +3,7 @@
 		"otherworldorigins:class/monk/attributes"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "valoria:leather_gloves"
 	},
 	"impact": 3,
 	"order": 0

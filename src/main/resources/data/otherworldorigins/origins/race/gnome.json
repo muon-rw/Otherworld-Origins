@@ -2,6 +2,7 @@
 	"powers": [
                 "otherworldorigins:race/gnome/attributes",
                 "otherworldorigins:race/gnome/speed",
+                "otherworldorigins:race/gnome/size",
                 "otherworldorigins:dark_vision"
 	],
         "icon": {

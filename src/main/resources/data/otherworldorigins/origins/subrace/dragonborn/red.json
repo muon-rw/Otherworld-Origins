@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/dragonborn/red"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "otherworldorigins:portrait/red"
 	},
 	"impact": 1,
 	"order": 0

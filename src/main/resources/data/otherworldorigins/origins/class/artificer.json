@@ -3,7 +3,7 @@
 		"otherworldorigins:class/artificer/attributes"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "create:goggles"
 	},
 	"impact": 3,
 	"order": 0

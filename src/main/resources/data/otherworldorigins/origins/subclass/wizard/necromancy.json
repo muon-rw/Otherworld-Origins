@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/wizard/necromancy"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "eeeabsmobs:soul_summoning_necklace"
     }
 }

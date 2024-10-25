@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/dwarf/mountain"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "otherworldorigins:portrait/dwarf"
 	},
 	"impact": 1,
 	"order": 0

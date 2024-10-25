@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/bard/lore"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "irons_spellbooks:scroll"
     }
 }

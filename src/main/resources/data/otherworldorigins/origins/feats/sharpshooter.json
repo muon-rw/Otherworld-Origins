@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/sharpshooter"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "apotheosis:diamond_mining_arrow"
 	},
 	"impact": 1,
 	"order": 0

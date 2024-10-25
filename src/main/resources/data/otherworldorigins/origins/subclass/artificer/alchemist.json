@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/artificer/alchemist"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "fantasyfurniture:decorations/potion_bottles"
     }
 }

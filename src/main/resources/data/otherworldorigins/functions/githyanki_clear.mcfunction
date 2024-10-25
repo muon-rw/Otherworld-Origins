@@ -1,2 +1,2 @@
 scale reset pehkui:height
-scale persist reset pehkui:height true
+scale persist reset pehkui:height @s

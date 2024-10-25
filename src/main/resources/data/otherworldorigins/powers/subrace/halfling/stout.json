@@ -1,7 +1,7 @@
 {
     "hidden": true,
     "type": "origins:multiple",
-    "aptitudes": {
+    "apts": {
         "type": "otherworldorigins:innate_aptitude_bonus",
         "aptitude_bonuses": {
             "constitution": 1

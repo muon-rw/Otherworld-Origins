@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/warlock/great_old_one"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "bosses_of_mass_destruction:ancient_anima"
     }
 }

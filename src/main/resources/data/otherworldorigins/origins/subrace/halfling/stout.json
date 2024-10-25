@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/gnome/stout"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "drinkbeer:beer_mug_blaze_stout"
 	},
 	"impact": 1,
 	"order": 0

@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/wizard/transmutation"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "fantasyfurniture:decorations/potion_bottles"
     }
 }

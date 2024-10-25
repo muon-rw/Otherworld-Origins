@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/barbarian/wild_magic"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "relics:magic_mirror"
     }
 }

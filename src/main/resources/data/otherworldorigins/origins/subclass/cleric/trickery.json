@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/cleric/trickery"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "alexscaves:desolate_dagger"
     }
 }

@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/rogue/arcane_trickster"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "eidolon:shadow_gem"
     }
 }

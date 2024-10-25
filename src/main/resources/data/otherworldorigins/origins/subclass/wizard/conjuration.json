@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/wizard/conjuration"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "aquamirae:dead_sea_scroll"
     }
 }

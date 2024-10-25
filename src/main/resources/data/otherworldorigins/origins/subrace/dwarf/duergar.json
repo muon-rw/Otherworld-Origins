@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/dwarf/duergar"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "otherworldorigins:portrait/duergar"
 	},
 	"impact": 1,
 	"order": 0

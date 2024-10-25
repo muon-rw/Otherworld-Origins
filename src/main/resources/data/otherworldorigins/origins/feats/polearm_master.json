@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/polearm_master"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "soulsweapons:dragon_staff"
 	},
 	"impact": 1,
 	"order": 0

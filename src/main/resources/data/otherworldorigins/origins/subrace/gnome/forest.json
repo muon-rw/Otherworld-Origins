@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/gnome/forest"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "irons_spellbooks:nature_upgrade_orb"
 	},
 	"impact": 1,
 	"order": 0

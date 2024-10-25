@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/two/mag"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "irons_spellbooks:pyromancer_hat"
 	},
 	"impact": 3,
 	"order": 0

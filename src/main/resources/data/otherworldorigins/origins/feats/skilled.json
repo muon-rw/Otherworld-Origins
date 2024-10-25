@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/skilled"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "minecells:phaser"
 	},
 	"impact": 1,
 	"order": 0

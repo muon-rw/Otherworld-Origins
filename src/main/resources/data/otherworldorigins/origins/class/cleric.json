@@ -3,7 +3,7 @@
 		"otherworldorigins:class/cleric/attributes"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "irons_spellbooks:priest_helmet"
 	},
 	"impact": 3,
 	"order": 0

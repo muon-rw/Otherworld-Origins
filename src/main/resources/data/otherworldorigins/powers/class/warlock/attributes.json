@@ -32,10 +32,10 @@
         },
         "entity_action": {
             "type": "otherworldorigins:cast_spell",
-            "spell": "eldritch_blast",
-            "power_level": 2,
+            "spell": "void_eruption",
+            "power_level": 1,
             "cast_time": 0,
-            "mana_cost": 10
+            "mana_cost": 20
         }
     }
 }

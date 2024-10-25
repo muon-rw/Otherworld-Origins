@@ -1,4 +1,5 @@
 {
+    "hidden": true,
     "type": "origins:modify_damage_dealt",
     "damage_condition": {
         "type": "origins:in_tag",

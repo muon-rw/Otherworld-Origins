@@ -2,6 +2,6 @@
     "hidden": true,
     "type": "otherworldorigins:innate_aptitude_bonus",
     "aptitude_bonuses": {
-        "strength": 1
+        "dexterity": 1
     }
 }

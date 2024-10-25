@@ -24,6 +24,20 @@ import java.util.*;
 
 @Mixin(WaitForNextLayerScreen.class)
 public class WaitForNextLayerScreenMixin {
+    /**
+     * Origins Forge frequently skips layer selections.
+     *
+     * This is especially problematic since it also applies
+     * invulnerability to players without an origin on layers where they can have one.
+     *
+     * Since we have so many layers, we need to catch these and reprompt.
+     *
+     * Due to delays in sync and these tasks not blocking each other,
+     * this fix could sometimes re-prompt for a layer that was just selected,
+     * so there are a few fallbacks in place to prevent this.
+     *
+     * It's not perfect, but it's a huge improvement.
+     */
     @Shadow @Final private List<Holder<OriginLayer>> layerList;
     @Shadow @Final private boolean showDirtBackground;
 
@@ -40,10 +54,10 @@ public class WaitForNextLayerScreenMixin {
     private static final Map<ResourceLocation, Long> otherworld$recentlySelectedLayers = new HashMap<>();
 
     @Unique
-    private static final long COOLDOWN_TICKS = 100; // before reprompting a layer which was just selected
+    private static final long COOLDOWN_TICKS = 20; // before reprompting a layer which was just selected
 
     @Unique
-    private static int otherworld$checkAttempts = 0;
+    private int otherworld$checkAttempts = 0;
 
     @Unique
     private static final int MAX_CHECK_ATTEMPTS = 2;
@@ -53,12 +67,12 @@ public class WaitForNextLayerScreenMixin {
         OtherworldOrigins.LOGGER.debug("WaitForNextLayerScreen is about to close");
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.tell(() -> {
-            minecraft.execute(this::otherworld$checkAndOpenMissingOriginScreen);
+            minecraft.execute(this::otherworld$checkAndReselectMissingOrigins);
         });
     }
 
     @Unique
-    private void otherworld$checkAndOpenMissingOriginScreen() {
+    private void otherworld$checkAndReselectMissingOrigins() {
         if (otherworld$checkAttempts >= MAX_CHECK_ATTEMPTS) {
             OtherworldOrigins.LOGGER.warn("Maximum check attempts reached. Stopping fallback reselector.");
             otherworld$checkAttempts = 0;

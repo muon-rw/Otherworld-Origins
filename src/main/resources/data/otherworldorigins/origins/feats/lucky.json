@@ -1,9 +1,10 @@
 {
+	"unchoosable": true,
 	"powers": [
 		"otherworldorigins:feats/lucky"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "biomeswevegone:clover_patch"
 	},
 	"impact": 1,
 	"order": 0

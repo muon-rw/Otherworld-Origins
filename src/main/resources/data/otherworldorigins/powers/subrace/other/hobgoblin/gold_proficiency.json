@@ -7,16 +7,6 @@
 				"attribute": "minecraft:generic.attack_damage",
 				"operation": "multiply_base",
 				"value": 0.5
-			},
-			{
-				"attribute": "additionalentityattributes:bonus_loot_count_rolls",
-				"operation": "addition",
-				"value": 1.0
-			},
-			{
-				"attribute": "additionalentityattributes:bonus_rare_loot_rolls",
-				"operation": "addition",
-				"value": 1.0
 			}
 		],
 		"condition": {
@@ -45,16 +35,6 @@
 				"attribute": "minecraft:generic.attack_damage",
 				"operation": "multiply_base",
 				"value": 0.35
-			},
-			{
-				"attribute": "additionalentityattributes:bonus_loot_count_rolls",
-				"operation": "addition",
-				"value": 1.0
-			},
-			{
-				"attribute": "additionalentityattributes:bonus_rare_loot_rolls",
-				"operation": "addition",
-				"value": 1.0
 			}
 		],
 		"condition": {
@@ -165,11 +145,6 @@
 		"modifiers": [
 			{
 				"attribute": "reach-entity-attributes:reach",
-				"operation": "addition",
-				"value": 1.0
-			},
-			{
-				"attribute": "additionalentityattributes:generic.dig_speed",
 				"operation": "addition",
 				"value": 1.0
 			}
@@ -412,10 +387,6 @@
 			},
 			{
 				"text": "+50% Attack Damage",
-				"color": "yellow"
-			},
-			{
-				"translate": "tooltip.otherworldorigins.looting_bonus",
 				"color": "yellow"
 			}
 		]

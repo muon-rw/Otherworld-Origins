@@ -9,30 +9,33 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class EnchantmentRestrictions {
-    private static final Map<Enchantment, String> ENCHANTMENT_CLASS_MAP = new HashMap<>();
+    private static final Map<ResourceLocation, String> ENCHANTMENT_CLASS_MAP = new HashMap<>();
 
     static {
-        ENCHANTMENT_CLASS_MAP.put(Enchantments.MENDING, "artificer");
-        ENCHANTMENT_CLASS_MAP.put(Enchantments.SWEEPING_EDGE, "barbarian");
-        ENCHANTMENT_CLASS_MAP.put(Enchantments.FISHING_LUCK, "bard");
-        ENCHANTMENT_CLASS_MAP.put(Enchantments.BLOCK_FORTUNE, "cleric");
-        ENCHANTMENT_CLASS_MAP.put(Enchantments.THORNS, "druid");
-        ENCHANTMENT_CLASS_MAP.put(Enchantments.SHARPNESS, "fighter");
-        ENCHANTMENT_CLASS_MAP.put(Enchantments.LOYALTY, "monk");
-        ENCHANTMENT_CLASS_MAP.put(Enchantments.SMITE, "paladin");
-        ENCHANTMENT_CLASS_MAP.put(Enchantments.INFINITY_ARROWS, "ranger");
-        ENCHANTMENT_CLASS_MAP.put(Enchantments.POWER_ARROWS, "rogue");
-        ENCHANTMENT_CLASS_MAP.put(Enchantments.FIRE_ASPECT, "warlock");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:mending"), "artificer");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:sweeping"), "barbarian");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:luck_of_the_sea"), "bard");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:fortune"), "cleric");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:thorns"), "druid");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:sharpness"), "fighter");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:loyalty"), "monk");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:smite"), "paladin");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:infinity"), "ranger");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:power"), "rogue");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:flame"), "warlock");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:bane_of_arthropods"), "fighter");
     }
 
     public static boolean isEnchantmentAllowed(Player player, Enchantment enchantment) {
-        String requiredClass = ENCHANTMENT_CLASS_MAP.get(enchantment);
+        ResourceLocation enchantmentId = ForgeRegistries.ENCHANTMENTS.getKey(enchantment);
+        if (enchantmentId == null) return true;
+
+        String requiredClass = ENCHANTMENT_CLASS_MAP.get(enchantmentId);
         if (requiredClass == null) {
             return true;
         }

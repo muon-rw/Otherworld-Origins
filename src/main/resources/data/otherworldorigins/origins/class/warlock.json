@@ -3,7 +3,7 @@
 		"otherworldorigins:class/warlock/attributes"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "eidolon:warlock_cloak"
 	},
 	"impact": 3,
 	"order": 0

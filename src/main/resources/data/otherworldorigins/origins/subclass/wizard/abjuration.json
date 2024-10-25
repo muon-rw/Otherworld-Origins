@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/wizard/abjuration"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "endrem:evil_eye"
     }
 }

@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/everybodys_friend"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "minecraft:emerald"
 	},
 	"impact": 1,
 	"order": 0

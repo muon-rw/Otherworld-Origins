@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/tough"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "butcher:frog_heart"
 	},
 	"impact": 1,
 	"order": 0

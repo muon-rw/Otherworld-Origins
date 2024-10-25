@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/cleric/knowledge"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "minecraft:writable_book"
     }
 }

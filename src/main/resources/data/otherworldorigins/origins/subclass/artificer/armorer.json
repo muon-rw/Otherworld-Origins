@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/artificer/armorer"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "minecraft:iron_chestplate"
     }
 }

@@ -3,7 +3,7 @@
 		"otherworldorigins:class/paladin/attributes"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "eidolon:holy_symbol"
 	},
 	"impact": 3,
 	"order": 0

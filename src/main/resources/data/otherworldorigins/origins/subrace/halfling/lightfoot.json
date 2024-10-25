@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/gnome/lightfoot"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "minecraft:leather_boots"
 	},
 	"impact": 1,
 	"order": 0

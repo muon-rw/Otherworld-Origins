@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/dwarf/hill"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "otherworldorigins:portrait/hill"
 	},
 	"impact": 1,
 	"order": 0

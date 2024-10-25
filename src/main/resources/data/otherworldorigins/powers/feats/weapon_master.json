@@ -1,8 +1,18 @@
 {
     "hidden": true,
-    "type": "origins:modify_damage_dealt",
-    "modifier": {
-        "operation": "addition",
-        "value": 2
+    "type": "origins:multiple",
+    "melee": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "operation": "addition",
+            "value": 1
+        }
+    },
+    "proj": {
+        "type": "origins:modify_projectile_damage",
+        "modifier": {
+            "operation": "addition",
+            "value": 1
+        }
     }
 }

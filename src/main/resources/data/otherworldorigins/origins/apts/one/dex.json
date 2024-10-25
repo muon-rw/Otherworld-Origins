@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/one/dex"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "minecraft:bow"
 	},
 	"impact": 3,
 	"order": 0

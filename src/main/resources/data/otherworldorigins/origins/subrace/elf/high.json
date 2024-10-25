@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/elf/high"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "otherworldorigins:portrait/high"
 	},
 	"impact": 1,
 	"order": 0

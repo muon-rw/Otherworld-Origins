@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/resilient"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "eidolon:basic_ring"
 	},
 	"impact": 1,
 	"order": 0

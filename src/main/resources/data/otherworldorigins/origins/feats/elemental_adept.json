@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/elemental_adept"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "valoria:infernal_core"
 	},
 	"impact": 1,
 	"order": 0

@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/one/int"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "quark:ancient_tome"
 	},
 	"impact": 3,
 	"order": 0

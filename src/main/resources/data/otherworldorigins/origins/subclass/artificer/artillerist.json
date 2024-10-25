@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/artificer/artillerist"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "minecraft:crossbow"
     }
 }

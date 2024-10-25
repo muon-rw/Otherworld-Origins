@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/dragonborn/brass"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "otherworldorigins:portrait/brass"
 	},
 	"impact": 1,
 	"order": 0

@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/monk/four_elements"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "soulsweapons:chaos_orb"
     }
 }

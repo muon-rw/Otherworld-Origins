@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/fighter/eldritch_knight"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "valoria:spectral_blade"
     }
 }

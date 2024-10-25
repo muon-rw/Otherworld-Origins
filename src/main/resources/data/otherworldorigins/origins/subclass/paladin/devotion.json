@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/paladin/devotion"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "fantasy_armor:hero_helmet"
     }
 }

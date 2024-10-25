@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/monk/shadow"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "irons_spellbooks:shadowwalker_helmet"
     }
 }

@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/druid/moon"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "soulsweapons:moonstone"
     }
 }

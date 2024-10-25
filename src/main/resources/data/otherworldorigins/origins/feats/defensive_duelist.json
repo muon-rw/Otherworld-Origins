@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/defensive_duelist"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "eidolon:warded_mail"
 	},
 	"impact": 1,
 	"order": 0

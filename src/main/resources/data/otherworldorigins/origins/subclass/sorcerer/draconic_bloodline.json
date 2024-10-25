@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/sorcerer/draconic_bloodline"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "iceandfire:dragon_skull_lightning"
     }
 }

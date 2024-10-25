@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/fighter/champion"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "eidolon:warded_mail"
     }
 }

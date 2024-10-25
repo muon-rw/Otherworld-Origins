@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/savage_attacker"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "eidolon:cleaving_axe"
 	},
 	"impact": 1,
 	"order": 0

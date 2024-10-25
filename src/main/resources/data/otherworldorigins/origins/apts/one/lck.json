@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/one/lck"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "biomeswevegone:clover_patch"
 	},
 	"impact": 3,
 	"order": 0

@@ -3,7 +3,7 @@
 		"otherworldorigins:class/druid/attributes"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "valoria:nature_gift"
 	},
 	"impact": 3,
 	"order": 0

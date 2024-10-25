@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/warlock/fiend"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "traveloptics:augment_riftcore_wild"
     }
 }

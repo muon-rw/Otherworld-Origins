@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/bard/valor"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "fantasy_armor:chess_board_knight_helmet"
     }
 }

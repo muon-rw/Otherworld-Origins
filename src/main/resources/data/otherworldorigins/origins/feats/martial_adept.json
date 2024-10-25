@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/martial_adept"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "valoria:golden_katana"
 	},
 	"impact": 1,
 	"order": 0

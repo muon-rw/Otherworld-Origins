@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/dragonborn/copper"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "otherworldorigins:portrait/copper"
 	},
 	"impact": 1,
 	"order": 0

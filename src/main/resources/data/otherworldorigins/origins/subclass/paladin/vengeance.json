@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/paladin/vengeance"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "fantasy_armor:dragonslayer_helmet"
     }
 }

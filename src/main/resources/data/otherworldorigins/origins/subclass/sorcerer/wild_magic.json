@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/sorcerer/wild_magic"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "irons_spellbooks:lightning_upgrade_orb"
     }
 }

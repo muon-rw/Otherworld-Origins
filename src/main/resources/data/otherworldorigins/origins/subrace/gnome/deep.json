@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/gnome/deep"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "betterend:netherite_hammer"
 	},
 	"impact": 1,
 	"order": 0

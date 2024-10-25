@@ -3,7 +3,7 @@
 		"otherworldorigins:class/wizard/attributes"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "irons_spellbooks:graybeard_staff"
 	},
 	"impact": 3,
 	"order": 0

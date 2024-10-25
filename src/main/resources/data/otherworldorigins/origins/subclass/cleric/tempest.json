@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/cleric/tempest"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "minecells:lightning_bolt"
     }
 }

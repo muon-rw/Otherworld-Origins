@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/two/def"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "minecells:greed_shield"
 	},
 	"impact": 3,
 	"order": 0

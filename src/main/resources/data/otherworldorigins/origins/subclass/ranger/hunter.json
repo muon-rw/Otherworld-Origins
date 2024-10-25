@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/ranger/hunter"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "fantasy_armor:thief_chestplate"
     }
 }

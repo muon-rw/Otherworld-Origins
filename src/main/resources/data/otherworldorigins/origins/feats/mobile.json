@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/mobile"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "eidolon:warlock_boots"
 	},
 	"impact": 1,
 	"order": 0

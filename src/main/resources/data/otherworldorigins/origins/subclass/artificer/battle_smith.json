@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/artificer/battle_smith"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "handcrafted:hammer"
     }
 }

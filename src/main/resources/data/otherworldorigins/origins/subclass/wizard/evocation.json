@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/wizard/evocation"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "takesapillage:ravager_horn"
     }
 }

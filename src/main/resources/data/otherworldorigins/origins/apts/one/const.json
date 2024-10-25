@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/one/const"
 	],
 	"icon": {
-		"item": "minecraft:barrier"
+		"item": "butcher:frog_heart"
 	},
 	"impact": 3,
 	"order": 0

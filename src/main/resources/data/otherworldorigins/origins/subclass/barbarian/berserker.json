@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/barbarian/berserker"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "minecraft:iron_axe"
     }
 }

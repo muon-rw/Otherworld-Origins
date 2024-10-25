@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/fighter/battle_master"
     ],
     "icon": {
-        "item": "minecraft:diamond"
+        "item": "minecells:spite_sword"
     }
 }
