@@ -1,4 +1,34 @@
 {
+  "button.otherworldorigins.respec": "Respec",
+  "button.otherworldorigins.confirm_respec": "Click to Confirm",
+  "tooltip.otherworldorigins.respec_cost": "XP Cost: %s levels",
+    "tooltip.otherworldorigins.not_enough_xp": "Not Enough XP. Required: %s Levels",
+
+  "entity.otherworldorigins.summon_zombie": "Summoner's Zombie",
+  "entity.otherworldorigins.summon_skeleton": "Summoner's Skeleton",
+  "entity.otherworldorigins.summon_wither_skeleton": "Summoner's Wither Skeleton",
+  "entity.otherworldorigins.summon_iron_golem": "Summoner's Golem",
+  
+  "otherworldorigins.uncastable": "You can't use this ability right now.",
+  
+  "tooltip.otherworldorigins.damage_dealt": "+%s Damage Dealt",
+  "tooltip.otherworldorigins.attack_damage_bonus": "+%s Attack Damage",
+  
+  "death.attack.smite.player": "%1$s was smeeted by %2$s",
+  "death.attack.smite.item": "%1$s was smeeted by %2$s with %3$s",
+  
+  "otherworld.message.charisma_save": "You were seen committing a crime, but spared punishment thanks to Charisma.",
+  
+  "otherworldorigins.gui.start_over": "Start Over",
+  "otherworldorigins.gui.current_selections": "Current Selections:",
+  "otherworldorigins.gui.layer_origin": "%s: %s",
+  "otherworldorigins.gui.feats": "Feats",
+  
+  "key.categories.otherworldorigins": "Otherworld Origins",
+  "key.otherworldorigins.cantrip_one": "Cantrip One",
+  "key.otherworldorigins.cantrip_two": "Cantrip Two",
+  "key.otherworldorigins.toggle_dark_vision": "Toggle Dark Vision",
+
   "origin.origins.human.description": "-§l Notable Changes§r: \n§oNone§r\n\n A human's fate is more open than most - venture forth with no benefits or drawbacks.",
   
   "origin.otherworldorigins.race/human.name": "Human",
@@ -509,30 +539,5 @@
 "power.otherworldorigins.cantrips/two/magic_missile.name": "",
 "power.otherworldorigins.cantrips/two/magic_missile.description": "",
 "power.otherworldorigins.cantrips/two/gust.name": "",
-"power.otherworldorigins.cantrips/two/gust.description": "",
-
-  "entity.otherworldorigins.summon_zombie": "Summoner's Zombie",
-  "entity.otherworldorigins.summon_skeleton": "Summoner's Skeleton",
-  "entity.otherworldorigins.summon_wither_skeleton": "Summoner's Wither Skeleton",
-  "entity.otherworldorigins.summon_iron_golem": "Summoner's Golem",
-  
-  "otherworldorigins.uncastable": "You can't use this ability right now.",
-  
-  "tooltip.otherworldorigins.damage_dealt": "+%s Damage Dealt",
-  "tooltip.otherworldorigins.attack_damage_bonus": "+%s Attack Damage",
-  
-  "death.attack.smite.player": "%1$s was smeeted by %2$s",
-  "death.attack.smite.item": "%1$s was smeeted by %2$s with %3$s",
-  
-  "otherworld.message.charisma_save": "You were seen committing a crime, but spared punishment thanks to Charisma.",
-  
-  "otherworldorigins.gui.start_over": "Start Over",
-  "otherworldorigins.gui.current_selections": "Current Selections:",
-  "otherworldorigins.gui.layer_origin": "%s: %s",
-  "otherworldorigins.gui.feats": "Feats",
-  
-  "key.categories.otherworldorigins": "Otherworld Origins",
-  "key.otherworldorigins.cantrip_one": "Cantrip One",
-  "key.otherworldorigins.cantrip_two": "Cantrip Two",
-  "key.otherworldorigins.toggle_dark_vision": "Toggle Dark Vision"
+"power.otherworldorigins.cantrips/two/gust.description": ""
 }

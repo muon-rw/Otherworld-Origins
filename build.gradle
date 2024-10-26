@@ -5,6 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.spongepowered.mixin' version '0.7.+'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id "net.darkhax.curseforgegradle" version "1.0.7"
 }
 
 version = mod_version
@@ -256,6 +257,7 @@ tasks.register('sendToModpack', Copy) {
     group = 'publishing'
     dependsOn 'jarJar'
     from tasks.jarJar.archiveFile
+    //wtf is a renpi
     into 'C:/Users/renpi/curseforge/minecraft/Instances/Otherworld/mods'
     rename { String fileName ->
         fileName.replace(project.version.toString(), "dev")
@@ -263,4 +265,16 @@ tasks.register('sendToModpack', Copy) {
     doLast {
         println "Mod JAR sent to modpack folder: ${tasks.jarJar.archiveFileName.get()}"
     }
+}
+
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    group = 'publishing'
+    apiToken = System.getenv("CF_TOKEN")
+    def mainFile = upload(1127963, jar)
+    mainFile.displayName = "v${rootProject.version}-beta"
+    mainFile.releaseType = "beta"
+    mainFile.changelog = new File("$project.rootDir/CHANGELOG.md").getText('UTF-8')
+    mainFile.changelogType = "markdown"
+    mainFile.addModLoader("Forge")
+    mainFile.addGameVersion("1.20.1")
 }

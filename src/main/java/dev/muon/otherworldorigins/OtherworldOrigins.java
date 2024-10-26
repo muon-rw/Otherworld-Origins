@@ -9,6 +9,7 @@ import dev.muon.otherworldorigins.item.ModItems;
 import dev.muon.otherworldorigins.network.CheckFeatScreenMessage;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.network.ResetOriginsMessage;
+import dev.muon.otherworldorigins.network.RespecAptitudesMessage;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.sounds.ModSounds;
 import dev.muon.otherworldorigins.spells.ModSpells;
@@ -94,6 +95,11 @@ public class OtherworldOrigins {
                 .encoder(CheckFeatScreenMessage::encode)
                 .decoder(CheckFeatScreenMessage::decode)
                 .consumerMainThread(CheckFeatScreenMessage::handle)
+                .add();
+        CHANNEL.messageBuilder(RespecAptitudesMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(RespecAptitudesMessage::encode)
+                .decoder(RespecAptitudesMessage::decode)
+                .consumerMainThread(RespecAptitudesMessage::handle)
                 .add();
     }
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
