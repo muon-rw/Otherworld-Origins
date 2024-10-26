@@ -1,3 +1,6 @@
+## 0.3.1
+- Automate CF Dependencies
+
 ## 0.3.0
 - Added Respec button
 
