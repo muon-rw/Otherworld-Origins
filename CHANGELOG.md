@@ -1,3 +1,6 @@
+## 0.3.2
+- Fix startup crash caused by remap issue 
+
 ## 0.3.1
 - Automate CF Dependencies
 

@@ -107,7 +107,7 @@ public class JustLevelingScreenMixin {
     @Unique
     private boolean otherworld$respecButtonHovered = false;
 
-    @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true, remap = true /* ?????? */)
     private void handleRespecButtonClick(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         if (button == 0 && otherworld$respecButtonHovered) {
             LocalPlayer player = Minecraft.getInstance().player;
