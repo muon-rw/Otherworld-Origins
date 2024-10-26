@@ -1,4 +1,5 @@
 
-Otherworld Origins
+Otherworld Origin
 
-Beta (See Issue Tracker)
+Releases:
+https://www.curseforge.com/minecraft/mc-mods/otherworld-origins
