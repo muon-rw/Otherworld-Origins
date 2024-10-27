@@ -11,6 +11,7 @@ import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.network.CheckFeatScreenMessage;
 import dev.muon.otherworldorigins.network.RespecAptitudesMessage;
 import dev.muon.otherworldorigins.power.InnateAptitudeBonusPower;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
@@ -22,6 +23,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mixin(value = JustLevelingScreen.class, remap = false)
 public class JustLevelingScreenMixin {
@@ -65,7 +69,6 @@ public class JustLevelingScreenMixin {
     }
 
 
-
     @WrapOperation(
             method = "drawAptitudes",
             at = @At(value = "INVOKE",
@@ -97,7 +100,10 @@ public class JustLevelingScreenMixin {
     }
 
 
-
+    @Unique
+    private static final int RESPEC_COST = 10;
+    @Unique
+    private static final int REFUND_PERCENT = 50;
     @Unique
     private boolean otherworld$confirmRespec = false;
 
@@ -129,18 +135,18 @@ public class JustLevelingScreenMixin {
         int buttonY = y + 166 - buttonHeight + 24;
 
         Component buttonText = otherworld$confirmRespec
-                ? Component.translatable("button.otherworldorigins.confirm_respec")
-                : Component.translatable("button.otherworldorigins.respec");
+                ? Component.translatable("button.otherworldorigins.respec_button_confirm")
+                : Component.translatable("button.otherworldorigins.respec_button");
 
         LocalPlayer player = Minecraft.getInstance().player;
-        boolean canAffordRespec = player != null && player.experienceLevel >= 10;
+        boolean canAffordRespec = player != null && player.experienceLevel >= RESPEC_COST;
 
         int textureY = 0;
         otherworld$respecButtonHovered = Utils.checkMouse(buttonX, buttonY, mouseX, mouseY, buttonWidth, buttonHeight);
         if (!canAffordRespec) {
-            textureY = 40; // Disabled state
+            textureY = 40;
         } else if (otherworld$respecButtonHovered) {
-            textureY = 20; // Hover state
+            textureY = 20;
         }
 
         RenderSystem.setShaderTexture(0, RESPEC_BUTTON_TEXTURE);
@@ -152,10 +158,17 @@ public class JustLevelingScreenMixin {
         matrixStack.drawString(screen.getMinecraft().font, buttonText, textX, textY, textColor);
 
         if (otherworld$respecButtonHovered) {
-            Component hoverText = canAffordRespec
-                    ? Component.translatable("tooltip.otherworldorigins.respec_cost", 10)
-                    : Component.translatable("tooltip.otherworldorigins.not_enough_xp", 10);
-            Utils.drawToolTip(matrixStack, hoverText, mouseX, mouseY);
+            List<Component> tooltipLines = new ArrayList<>();
+            if (!canAffordRespec) {
+                tooltipLines.add(Component.translatable("tooltip.otherworldorigins.hover_not_enough_xp", RESPEC_COST));
+            } else {
+                if (otherworld$confirmRespec) {
+                    tooltipLines.add(Component.translatable("tooltip.otherworldorigins.hover_confirm").withStyle(ChatFormatting.BOLD));
+                }
+                tooltipLines.add(Component.translatable("tooltip.otherworldorigins.hover_cost", RESPEC_COST));
+                tooltipLines.add(Component.translatable("tooltip.otherworldorigins.hover_refund", REFUND_PERCENT));
+            }
+            Utils.drawToolTipList(matrixStack, tooltipLines, mouseX, mouseY);
         }
 
         if (otherworld$respecButtonHovered) {

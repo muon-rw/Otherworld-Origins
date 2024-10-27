@@ -1,8 +1,10 @@
 {
-  "button.otherworldorigins.respec": "Respec",
-  "button.otherworldorigins.confirm_respec": "Click to Confirm",
-  "tooltip.otherworldorigins.respec_cost": "XP Cost: %s levels",
-    "tooltip.otherworldorigins.not_enough_xp": "Not Enough XP. Required: %s Levels",
+  "button.otherworldorigins.respec_button": "Respec",
+  "button.otherworldorigins.respec_button_confirm": "Are you sure?",
+  "tooltip.otherworldorigins.hover_cost": "Spend %s levels to reset all stats.",
+  "tooltip.otherworldorigins.hover_refund": "%s%% of XP spent on stats will be refunded.",
+  "tooltip.otherworldorigins.hover_not_enough_xp": "Not Enough XP. Required: %s Levels",
+  "tooltip.otherworldorigins.hover_confirm": "Click to Confirm.",
 
   "entity.otherworldorigins.summon_zombie": "Summoner's Zombie",
   "entity.otherworldorigins.summon_skeleton": "Summoner's Skeleton",
