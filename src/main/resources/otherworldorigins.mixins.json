@@ -9,6 +9,7 @@
     },
     "mixins": [
         "ArrowItemMixin",
+        "BlockMixin",
         "BowItemMixin",
         "EnchantmentHelperMixin",
         "ExperienceOrbMixin",
@@ -17,6 +18,7 @@
         "MobEffectInstanceAccessor",
         "PlayerMixin",
         "ThornsEnchantmentMixin",
+        "ThrownTridentMixin",
         "VillagerMixin",
         "compat.apotheosis.EnchantmentUtilsMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",
