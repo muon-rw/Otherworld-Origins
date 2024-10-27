@@ -13,7 +13,7 @@
         "type": "origins:execute_command",
         "command": "function otherworldorigins:gnome_set"
     },
-    "entity_action_removed": {
+    "entity_action_lost": {
         "type": "origins:execute_command",
         "command": "function otherworldorigins:gnome_clear"
     },
