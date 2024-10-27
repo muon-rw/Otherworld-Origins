@@ -52,4 +52,10 @@ public class EnchantmentRestrictions {
             return playerOrigin.location().equals(requiredOriginLoc);
         }).orElse(true);
     }
+
+    public static String getRequiredClass(Enchantment enchantment) {
+        ResourceLocation enchantmentId = ForgeRegistries.ENCHANTMENTS.getKey(enchantment);
+        if (enchantmentId == null) return null;
+        return ENCHANTMENT_CLASS_MAP.get(enchantmentId);
+    }
 }
