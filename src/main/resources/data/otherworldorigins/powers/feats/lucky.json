@@ -1,9 +1,13 @@
 {
-    "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "minecraft:generic.luck",
-        "operation": "addition",
-        "value": 1
+    "type": "origins:active_self",
+    "key": "key.origins.secondary_active",
+    "entity_action": {
+        "type": "otherworldorigins:reset_enchantment_seed"
+    },
+    "cooldown": 12000,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+        "bar_index": 1
     }
 }

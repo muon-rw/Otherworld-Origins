@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import dev.muon.otherworldorigins.util.EnchantmentRestrictions;
+import dev.muon.otherworldorigins.util.IEnchantmentSeedResettable;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
@@ -11,12 +12,13 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 
 @Mixin(Player.class)
-public class PlayerMixin {
+public class PlayerMixin implements IEnchantmentSeedResettable {
 
     @ModifyExpressionValue(
             method = "attack",
@@ -48,7 +50,7 @@ public class PlayerMixin {
 
     @Unique
     private float otherworld$calculateDamageBonus(ItemStack weapon, Enchantment enchantment, MobType mobType) {
-        int level = EnchantmentHelper.getItemEnchantmentLevel(enchantment, weapon);
+        int level = EnchantmentHelper.getTagEnchantmentLevel(enchantment, weapon);
         if (level > 0) {
             if (mobType == MobType.UNDEFINED) {
                 return 1 + level * 0.5F;
@@ -58,4 +60,14 @@ public class PlayerMixin {
         }
         return 0;
     }
+
+
+    @Shadow
+    protected int enchantmentSeed;
+
+    @Override
+    public void otherworld$resetEnchantmentSeed() {
+        this.enchantmentSeed = ((Player) (Object) this).getRandom().nextInt();
+    }
+
 }

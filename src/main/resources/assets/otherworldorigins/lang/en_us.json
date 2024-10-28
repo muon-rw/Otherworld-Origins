@@ -240,6 +240,9 @@
 
 "origin.otherworldorigins.feats/lucky.name": "Lucky",
 "origin.otherworldorigins.feats/lucky.description": "Once per day, reroll your Enchanting seed for free.",
+"power.otherworldorigins.feats/lucky.name": "",
+"power.otherworldorigins.feats/lucky.description": "",
+  
 
 "origin.otherworldorigins.feats/martial_adept.name": "Martial Adept",
 "origin.otherworldorigins.feats/martial_adept.description": "Your Attack Speed is increased by 10%",
