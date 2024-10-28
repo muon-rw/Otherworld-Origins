@@ -1,4 +1,5 @@
 {
 	"hidden": true,
-	"type": "otherworldorigins:gold_durability"
+	"type": "otherworldorigins:gold_durability",
+	"amount": 3
 }

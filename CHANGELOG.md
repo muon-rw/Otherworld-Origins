@@ -1,3 +1,15 @@
+## 0.3.4
+- Fix Tiefling, Half Elf, and Dragonborn mistakenly having boosts to Magic
+- Fixed Magic stat bonus not being selectable
+- Fixed Dual Wielder feat not being selectable
+- Remove Relics dependency
+- Add sound feedback to Lucky feat 
+- Fix gold durability powers 
+- Balance gold proficiency bonuses
+- Add missing hobgoblin icon texture
+- Remove unused sound files
+- Bulletproofed fallback origin selection reprompting + added warning log if a layer proceeds uncaught
+
 ## 0.3.3
 - Fixed sizes resetting on logout/death (sizes will still adjust once after updating)
 - Finalize all enchantment restrictions

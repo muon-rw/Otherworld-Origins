@@ -39,6 +39,7 @@ public class WaitForNextLayerScreenMixin {
     @Shadow @Final private List<Holder<OriginLayer>> layerList;
     @Shadow @Final private boolean showDirtBackground;
 
+    /*
     @Unique
     private static final Set<ResourceLocation> otherworld$excludedLayers = Set.of(
             OtherworldOrigins.loc("first_feat"),
@@ -47,7 +48,7 @@ public class WaitForNextLayerScreenMixin {
             OtherworldOrigins.loc("fourth_feat"),
             OtherworldOrigins.loc("fifth_feat")
     );
-
+*/
     @Unique
     private static final Map<ResourceLocation, Long> otherworld$recentlySelectedLayers = new HashMap<>();
 
@@ -69,14 +70,6 @@ public class WaitForNextLayerScreenMixin {
 
     @Unique
     private void otherworld$checkAndReselectMissingOrigins() {
-        if (otherworld$repromptAttempts >= MAX_REPROMPTS) {
-            OtherworldOrigins.LOGGER.warn("Maximum check attempts reached. Stopping fallback reselector.");
-            otherworld$repromptAttempts = 0;
-            return;
-        }
-
-        otherworld$repromptAttempts++;
-
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player == null || minecraft.level == null) {
             return;
@@ -89,11 +82,12 @@ public class WaitForNextLayerScreenMixin {
 
         Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
         List<Holder<OriginLayer>> missingOriginLayers = new ArrayList<>();
+        List<String> skippedLayers = new ArrayList<>();
         long currentTime = minecraft.level.getGameTime();
 
         for (OriginLayer layer : layerRegistry) {
             ResourceLocation layerId = layerRegistry.getKey(layer);
-            if (layerId == null || otherworld$excludedLayers.contains(layerId)) {
+            if (layerId == null) {
                 continue;
             }
 
@@ -109,8 +103,12 @@ public class WaitForNextLayerScreenMixin {
                 Set<Holder<Origin>> availableOrigins = layer.origins(minecraft.player);
 
                 if (!availableOrigins.isEmpty()) {
-                    missingOriginLayers.add(layerHolder);
-                    otherworld$recentlySelectedLayers.put(layerId, currentTime);
+                    if (otherworld$repromptAttempts < MAX_REPROMPTS) {
+                        missingOriginLayers.add(layerHolder);
+                        otherworld$recentlySelectedLayers.put(layerId, currentTime);
+                    } else {
+                        skippedLayers.add(layerHolder.value().name().getString());
+                    }
                 }
             }
         }
@@ -124,8 +122,16 @@ public class WaitForNextLayerScreenMixin {
                 ChooseOriginScreen newScreen = new ChooseOriginScreen(missingOriginLayers, 0, this.showDirtBackground);
                 minecraft.setScreen(newScreen);
             });
+            otherworld$repromptAttempts++;
         } else {
             otherworld$repromptAttempts = 0;
+        }
+
+        // there is some serious fucky wuckery going on
+        if (!skippedLayers.isEmpty()) {
+            String playerName = minecraft.player.getName().getString();
+            String layerNames = String.join(", ", skippedLayers);
+            OtherworldOrigins.LOGGER.warn("Tried too many times to reprompt {} for layers: {}. Something is wrong - THIS PLAYER COULD BE INVULNERABLE, THEY SHOULD RECONNECT!", playerName, layerNames);
         }
     }
 }

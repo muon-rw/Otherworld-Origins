@@ -11,7 +11,6 @@ import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.network.ResetOriginsMessage;
 import dev.muon.otherworldorigins.network.RespecAptitudesMessage;
 import dev.muon.otherworldorigins.power.ModPowers;
-import dev.muon.otherworldorigins.sounds.ModSounds;
 import dev.muon.otherworldorigins.spells.ModSpells;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -55,7 +54,6 @@ public class OtherworldOrigins {
         modEventBus.addListener(this::commonSetup);
 
         ModEntities.register(modEventBus);
-        ModSounds.register(modEventBus);
         ModItems.register(modEventBus);
 
         ModActions.register(modEventBus);

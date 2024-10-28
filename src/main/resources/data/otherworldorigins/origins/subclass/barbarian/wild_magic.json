@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/barbarian/wild_magic"
     ],
     "icon": {
-        "item": "relics:magic_mirror"
+        "item": "valoria:bloodsight_monocle"
     }
 }

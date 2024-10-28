@@ -1,7 +1,4 @@
 {
 	"hidden": true,
-	"type": "otherworldorigins:innate_aptitude_bonus",
-	"aptitude_bonuses": {
-	  "magic": 2
-	}
+	"type": "origins:simple"
   }

@@ -3,7 +3,8 @@
 		"otherworldorigins:subrace/other/goblin/attributes",
 		"otherworldorigins:subrace/other/goblin/size",
 		"otherworldorigins:subrace/other/goblin/cold_resistance",
-		"otherworldorigins:subrace/other/goblin/gold_proficiency"
+		"otherworldorigins:subrace/other/goblin/gold_proficiency",
+		"otherworldorigins:subrace/other/goblin/gold_durability"
 	],
 	"icon": {
 		"item": "otherworldorigins:portrait/goblin"

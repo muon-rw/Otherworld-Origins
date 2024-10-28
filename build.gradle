@@ -165,8 +165,6 @@ dependencies {
     runtimeOnly fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
     runtimeOnly fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}")
 
-    // Iron's RPG Tweaks
-    implementation fg.deobf("curse.maven:irons-rpg-tweaks-871799:5377856")
 
     // Alex's
     implementation fg.deobf("curse.maven:alexs-mobs-426558:5160697")
@@ -280,12 +278,17 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     // Hard integrations
     mainFile.addRequirement("origins-forge")
     mainFile.addRequirement("pehkui")
-    mainFile.addRequirement("apotheosis")
+    mainFile.addRequirement("medieval-core-mod")
+    mainFile.addRequirement("ydms-mobhealthbar-mod")
+    mainFile.addRequirement("justleveling-fork")
+    mainFile.addRequirement("irons-spells-n-spellbooks")
+
+    // Could be made optional
+    mainFile.addRequirement("legendary-survival-overhaul")
+    mainFile.addRequirement("monobank")
     mainFile.addRequirement("alexs-caves")
     mainFile.addRequirement("alexs-mobs")
-    mainFile.addRequirement("medieval-core-mod")
-    mainFile.addRequirement("legendary-survival-overhaul")
-    mainFile.addRequirement("justleveling-fork")
+    mainFile.addRequirement("apotheosis")
 
     // Icons only. lol. it is what it is
     mainFile.addRequirement("create")
@@ -304,16 +307,12 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addRequirement("fantasys-furniture")
     mainFile.addRequirement("farmers-delight")
     mainFile.addRequirement("ice-and-fire-dragons")
-    mainFile.addRequirement("irons-spells-n-spellbooks")
     mainFile.addRequirement("it-takes-a-pillage")
     mainFile.addRequirement("lendercataclysm")
     mainFile.addRequirement("mariums-soulslike-weaponry")
     mainFile.addRequirement("minecells")
-    mainFile.addRequirement("monobank")
     mainFile.addRequirement("oh-the-biomes-weve-gone")
-    mainFile.addRequirement("relics-mod")
     mainFile.addRequirement("the-awakening-of-the-elder-souls")
     mainFile.addRequirement("to-tweaks-irons-spells")
     mainFile.addRequirement("valoria")
-    mainFile.addRequirement("ydms-mobhealthbar-mod")
 }
