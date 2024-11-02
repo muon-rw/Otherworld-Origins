@@ -1,3 +1,7 @@
+## 0.3.5
+- Add more fallback checks to attempt to work around Origins Forge race conditions
+- 
+
 ## 0.3.4
 - Fix Tiefling, Half Elf, and Dragonborn mistakenly having boosts to Magic
 - Fixed Magic stat bonus not being selectable

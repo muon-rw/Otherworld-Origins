@@ -36,36 +36,46 @@ public class WaitForNextLayerScreenMixin {
      * so there are a few sanity checks in place to prevent this.
      * It's not perfect, but it works!
      */
-    @Shadow @Final private List<Holder<OriginLayer>> layerList;
-    @Shadow @Final private boolean showDirtBackground;
+    @Shadow
+    @Final
+    private List<Holder<OriginLayer>> layerList;
+    @Shadow
+    @Final
+    private boolean showDirtBackground;
 
-    /*
-    @Unique
-    private static final Set<ResourceLocation> otherworld$excludedLayers = Set.of(
-            OtherworldOrigins.loc("first_feat"),
-            OtherworldOrigins.loc("second_feat"),
-            OtherworldOrigins.loc("third_feat"),
-            OtherworldOrigins.loc("fourth_feat"),
-            OtherworldOrigins.loc("fifth_feat")
-    );
-*/
     @Unique
     private static final Map<ResourceLocation, Long> otherworld$recentlySelectedLayers = new HashMap<>();
 
     @Unique
-    private static final long DELAY_BEFORE_REPROMPT = 20;
+    private static final long DELAY_BEFORE_REPROMPT = 40;
     @Unique
     private static final int MAX_REPROMPTS = 2;
     @Unique
     private int otherworld$repromptAttempts = 0;
+    @Unique
+    private static final Set<ResourceLocation> otherworld$pendingSelections = new HashSet<>();
+    @Unique
+    private static final long PENDING_TIMEOUT = 100;
+    @Unique
+    private static final Map<ResourceLocation, Long> otherworld$pendingTimeouts = new HashMap<>();
 
-    @Inject(method = "openSelection", at = @At(value = "RETURN", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V", ordinal= 2))
+
+    @Inject(method = "openSelection", at = @At(value = "RETURN", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V", ordinal = 2))
     private void onOpenSelectionEnd(CallbackInfo ci) {
         OtherworldOrigins.LOGGER.debug("WaitForNextLayerScreen is about to close");
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.tell(() -> {
             minecraft.execute(this::otherworld$checkAndReselectMissingOrigins);
         });
+        if (this.layerList != null && !this.layerList.isEmpty()) {
+            ResourceLocation layerId = this.layerList.get(0).unwrapKey().get().location();
+            otherworld$pendingSelections.add(layerId);
+            if (Minecraft.getInstance().level != null) {
+                long timeout = Minecraft.getInstance().level.getGameTime() + PENDING_TIMEOUT;
+                otherworld$pendingTimeouts.put(layerId, timeout);
+                OtherworldOrigins.LOGGER.debug("Added pending selection for {} until tick {}", layerId, timeout);
+            }
+        }
     }
 
     @Unique
@@ -83,11 +93,21 @@ public class WaitForNextLayerScreenMixin {
         Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
         List<Holder<OriginLayer>> missingOriginLayers = new ArrayList<>();
         List<String> skippedLayers = new ArrayList<>();
+
         long currentTime = minecraft.level.getGameTime();
+        otherworld$pendingTimeouts.entrySet().removeIf(entry -> {
+            if (currentTime > entry.getValue()) {
+                ResourceLocation layerId = entry.getKey();
+                OtherworldOrigins.LOGGER.debug("Removing expired pending selection for {} at tick {}", layerId, currentTime);
+                otherworld$pendingSelections.remove(layerId);
+                return true;
+            }
+            return false;
+        });
 
         for (OriginLayer layer : layerRegistry) {
             ResourceLocation layerId = layerRegistry.getKey(layer);
-            if (layerId == null) {
+            if (layerId == null || otherworld$pendingSelections.contains(layerId)) {
                 continue;
             }
 

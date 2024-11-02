@@ -26,7 +26,7 @@ public class PlayerMixin implements IEnchantmentSeedResettable {
             require = 1
     )
     private boolean otherworldorigins$restrictDamageEnchantments(boolean original, Entity pTarget) {
-        Player self = (Player) (Object) this;
+        Player self = (Player) (Object) this;;
         if (pTarget instanceof LivingEntity livingTarget) {
             ItemStack weapon = self.getMainHandItem();
             float damageReduction = 0;
