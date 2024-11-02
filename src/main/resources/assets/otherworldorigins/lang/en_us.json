@@ -422,7 +422,10 @@
 "power.otherworldorigins.subclass/barbarian/wildheart.name": "",
 "power.otherworldorigins.subclass/barbarian/wildheart.description": "",
 
-"power.otherworldorigins.subclass/bard/lore.name": "",
+  "power.otherworldorigins.subclass/ranger/beast_master.name": "",
+  "power.otherworldorigins.subclass/ranger/beast_master.description": "",
+
+  "power.otherworldorigins.subclass/bard/lore.name": "",
 "power.otherworldorigins.subclass/bard/lore.description": "",
 
 "power.otherworldorigins.subclass/druid/spores.name": "",
