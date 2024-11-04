@@ -26,6 +26,7 @@ public class EnchantmentRestrictions {
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:loyalty"), "monk");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:smite"), "paladin");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:infinity"), "ranger");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("apotheosis:endless_quiver"), "ranger");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:power"), "rogue");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:flame"), "warlock");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:bane_of_arthropods"), "fighter");
@@ -33,7 +34,9 @@ public class EnchantmentRestrictions {
 
     public static boolean isEnchantmentAllowed(Player player, Enchantment enchantment) {
         ResourceLocation enchantmentId = ForgeRegistries.ENCHANTMENTS.getKey(enchantment);
-        if (enchantmentId == null) return true;
+        if (enchantmentId == null) {
+            return true;
+        }
 
         String requiredClass = ENCHANTMENT_CLASS_MAP.get(enchantmentId);
         if (requiredClass == null) {

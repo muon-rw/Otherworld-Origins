@@ -22,6 +22,7 @@
         "ThrownTridentMixin",
         "VillagerMixin",
         "compat.apotheosis.EnchantmentUtilsMixin",
+        "compat.apotheosis.EndlessQuiverEnchantMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",
         "compat.justlevelingfork.AptitudeCapabilityMixin",
         "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
