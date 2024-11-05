@@ -3,6 +3,7 @@
 - Made origin fallback checks only run on the logical server (should finally *actually* prevent layers being reselected)
 - Locked Endless Quiver enchant behind Ranger class
 Todo:
+- Fixed the Fifth Feat (Level 20) being impossible to obtain in most cases
 - Locked casting implement usage behind Wizard/Warlock/Sorcerer classes
 - Scrolls can be used by non-magic classes for reduced effectiveness
 - Locked Repairman enchant behind Artificer class 
