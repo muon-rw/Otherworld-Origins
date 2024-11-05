@@ -1,6 +1,5 @@
 package dev.muon.otherworldorigins.action;
 
-import dev.muon.otherworldorigins.entity.ISummon;
 import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.factory.BiEntityAction;
 import net.minecraft.world.InteractionHand;
@@ -21,19 +20,8 @@ public class TransferItemAction extends BiEntityAction<NoConfiguration> {
             ItemStack targetItem = livingTarget.getMainHandItem().copy();
 
             if (!actorItem.isEmpty() || !targetItem.isEmpty()) {
-                boolean shouldTransfer;
-
-                if (target instanceof ISummon summon) {
-                    shouldTransfer = player.getUUID().equals(summon.getOwnerUUID());
-                    if (shouldTransfer) summon.setWeapon(actorItem);
-                } else {
                     livingTarget.setItemInHand(InteractionHand.MAIN_HAND, actorItem);
-                    shouldTransfer = true;
-                }
-
-                if (shouldTransfer) {
                     player.getInventory().setItem(player.getInventory().selected, targetItem);
-                }
             }
         }
     }

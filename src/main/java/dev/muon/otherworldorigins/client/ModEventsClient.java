@@ -18,10 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ModEventsClient {
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntities.SUMMON_SKELETON.get(), SkeletonRenderer::new);
-        event.registerEntityRenderer(ModEntities.SUMMON_ZOMBIE.get(), ZombieRenderer::new);
-        event.registerEntityRenderer(ModEntities.SUMMON_IRON_GOLEM.get(), IronGolemRenderer::new);
-        event.registerEntityRenderer(ModEntities.SUMMON_WITHER_SKELETON.get(), WitherSkeletonRenderer::new);
-        event.registerEntityRenderer(ModEntities.SUMMON_GRIZZLY_BEAR.get(), RenderGrizzlyBear::new);
+        event.registerEntityRenderer(ModEntities.SUMMONED_IRON_GOLEM.get(), IronGolemRenderer::new);
+        //event.registerEntityRenderer(ModEntities.SUMMONED_GRIZZLY_BEAR.get(), RenderGrizzlyBear::new);
     }
 }

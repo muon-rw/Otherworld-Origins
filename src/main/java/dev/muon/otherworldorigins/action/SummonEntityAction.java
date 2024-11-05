@@ -1,6 +1,5 @@
 package dev.muon.otherworldorigins.action;
 
-import dev.muon.otherworldorigins.entity.ISummon;
 import io.github.apace100.apoli.util.MiscUtil;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredBiEntityAction;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityAction;
@@ -21,9 +20,8 @@ public class SummonEntityAction extends EntityAction<SummonEntityConfiguration> 
     }
     @Override
     public void execute(SummonEntityConfiguration configuration, Entity caster) {
-        if (caster.level().isClientSide())
+        if (!(caster.level() instanceof ServerLevel serverWorld))
             return;
-        ServerLevel serverWorld = (ServerLevel) caster.level();
 
         Optional<Entity> opt$entityToSpawn = MiscUtil.getEntityWithPassengers(
                 serverWorld,
@@ -49,29 +47,11 @@ public class SummonEntityAction extends EntityAction<SummonEntityConfiguration> 
         serverWorld.tryAddFreshEntityWithPassengers(entityToSpawn);
         ConfiguredEntityAction.execute(configuration.action(), entityToSpawn);
 
-        if (entityToSpawn instanceof ISummon summon) {
-;
-            if (caster instanceof LivingEntity livingCaster) {
-                configuration.duration().ifPresent(duration -> {
-                    summon.setLifeTicks(duration);
-                    summon.setIsLimitedLife(true);
-                });
-
-                if (configuration.duration().isEmpty()) {
-                    summon.setIsLimitedLife(false);
-                }
-
-                summon.setOwner(livingCaster);
-                summon.setOwnerID(livingCaster.getUUID());
-            }
-        }
 
         ConfiguredBiEntityAction.execute(configuration.biEntityAction(), caster, entityToSpawn);
 
         configuration.weapon().ifPresent(weapon -> {
-            if (entityToSpawn instanceof ISummon summon) {
-                summon.setWeapon(weapon);
-            }
+            entityToSpawn.setItemSlot(EquipmentSlot.MAINHAND, weapon);
         });
     }
 }

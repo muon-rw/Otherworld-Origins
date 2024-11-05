@@ -1,7 +1,5 @@
 package dev.muon.otherworldorigins;
 
-import dev.muon.otherworldorigins.entity.summons.SummonedSkeleton;
-import dev.muon.otherworldorigins.entity.summons.SummonedWitherSkeleton;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
@@ -19,8 +17,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -43,19 +39,6 @@ import java.util.*;
 public class ForgeEvents {
     private static final int CONE_DURATION_TICKS = 10;
     private static final Map<Integer, Integer> activeCones = new HashMap<>();
-
-
-    @SubscribeEvent
-    public static void onLivingDrops(LivingDropsEvent event) {
-        LivingEntity entity = event.getEntity();
-        if (entity instanceof SummonedSkeleton || entity instanceof SummonedWitherSkeleton) {
-            ItemStack itemstack = entity.getItemInHand(InteractionHand.MAIN_HAND);
-            if (!itemstack.isEmpty()) {
-                event.getDrops().add(new ItemEntity(entity.level(), entity.getX(), entity.getY(), entity.getZ(), itemstack));
-                entity.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
-            }
-        }
-    }
 
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent event) {

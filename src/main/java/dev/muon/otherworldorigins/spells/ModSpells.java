@@ -19,6 +19,8 @@ public class ModSpells {
         return SPELLS.register(spell.getSpellName(), () -> spell);
     }
 
+    public static final RegistryObject<AbstractSpell> SUMMON_IRON_GOLEM = registerSpell(new SummonGolemSpell());
+
     public static final RegistryObject<AbstractSpell> BLACK_DRAGON_BREATH = registerSpell(new DragonBreathSpells.BlackDragonBreathSpell());
     public static final RegistryObject<AbstractSpell> BLUE_DRAGON_BREATH = registerSpell(new DragonBreathSpells.BlueDragonBreathSpell());
     public static final RegistryObject<AbstractSpell> BRASS_DRAGON_BREATH = registerSpell(new DragonBreathSpells.BrassDragonBreathSpell());
