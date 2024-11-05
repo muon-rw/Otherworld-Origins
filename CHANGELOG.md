@@ -6,7 +6,8 @@ Todo:
 - Fixed the Fifth Feat (Level 20) being impossible to obtain in most cases
 - Locked casting implement usage behind Wizard/Warlock/Sorcerer classes
 - Scrolls can be used by non-magic classes for reduced effectiveness
-- Locked Repairman enchant behind Artificer class 
+- Locked Repairman enchant behind Artificer class
+- Fixed the Artificer:Armorer subclass being untranslated
 - Rebalanced summons/summoning powers. All summons now have a time limit and entity cap
 
 
