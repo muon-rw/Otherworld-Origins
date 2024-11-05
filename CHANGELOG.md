@@ -1,3 +1,14 @@
+## 0.4.0
+- Fixed Origin stat bonuses counting toward the maximum selectable stats
+- Made origin fallback checks only run on the logical server (should finally *actually* prevent layers being reselected)
+- Locked Endless Quiver enchant behind Ranger class
+Todo:
+- Locked casting implement usage behind Wizard/Warlock/Sorcerer classes
+- Scrolls can be used by non-magic classes for reduced effectiveness
+- Locked Repairman enchant behind Artificer class 
+- Rebalanced summons/summoning powers. All summons now have a time limit and entity cap
+
+
 ## 0.3.5
 - Add more fallback checks to attempt to work around Origins Forge race conditions
 - Fixed XP pickup being blocked for all players
