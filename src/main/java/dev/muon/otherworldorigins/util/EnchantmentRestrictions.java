@@ -18,6 +18,7 @@ public class EnchantmentRestrictions {
 
     static {
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:mending"), "artificer");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("backpacked:repairman"), "artificer");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:sweeping"), "barbarian");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:luck_of_the_sea"), "bard");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:fortune"), "cleric");
