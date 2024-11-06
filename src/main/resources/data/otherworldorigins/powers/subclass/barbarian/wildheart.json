@@ -6,8 +6,13 @@
     "entity_action": {
         "type": "otherworldorigins:cast_spell",
         "spell": "summon_polar_bear",
-        "power_level": 2,
-        "mana_cost": 0
+        "power_level": 5,
+        "mana_cost": 50
     },
-    "cooldown": 600
+    "cooldown": 6000,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+        "bar_index": 7
+    }
 }

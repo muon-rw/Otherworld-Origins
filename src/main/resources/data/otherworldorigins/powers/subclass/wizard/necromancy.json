@@ -7,7 +7,12 @@
         "type": "otherworldorigins:cast_spell",
         "spell": "raise_dead",
         "power_level": 2,
-        "mana_cost": 10
+        "mana_cost": 50
     },
-    "cooldown": 600
+    "cooldown": 6000,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "origins:textures/gui/community/huang/resource_bar_01.png",
+        "bar_index": 5
+    }
 }

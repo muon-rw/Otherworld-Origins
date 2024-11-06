@@ -4,6 +4,7 @@ import com.mojang.logging.LogUtils;
 import dev.muon.otherworldorigins.action.ModActions;
 import dev.muon.otherworldorigins.client.OtherworldOriginsClient;
 import dev.muon.otherworldorigins.condition.ModConditions;
+import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.item.ModItems;
 import dev.muon.otherworldorigins.network.*;
@@ -52,6 +53,7 @@ public class OtherworldOrigins {
 
         ModEntities.register(modEventBus);
         ModItems.register(modEventBus);
+        ModEffects.register(modEventBus);
 
         ModActions.register(modEventBus);
         ModConditions.register(modEventBus);

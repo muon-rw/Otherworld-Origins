@@ -6,10 +6,7 @@
   "tooltip.otherworldorigins.hover_not_enough_xp": "Not Enough XP. Required: %s Levels",
   "tooltip.otherworldorigins.hover_confirm": "Click to Confirm.",
 
-  "entity.otherworldorigins.summon_zombie": "Summoner's Zombie",
-  "entity.otherworldorigins.summon_skeleton": "Summoner's Skeleton",
-  "entity.otherworldorigins.summon_wither_skeleton": "Summoner's Wither Skeleton",
-  "entity.otherworldorigins.summon_iron_golem": "Summoner's Golem",
+  "entity.otherworldorigins.summoned_iron_golem": "Summoner's Golem",
   
   "otherworldorigins.uncastable": "You can't use this ability right now.",
   

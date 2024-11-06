@@ -7,7 +7,6 @@ import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.spells.*;
-import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +22,7 @@ import java.util.Optional;
 
 @AutoSpellConfig
 public class SummonGolemSpell extends AbstractSpell {
-    private final ResourceLocation spellId = OtherworldOrigins.loc("summon_iron_golem");
+    private final ResourceLocation spellId = OtherworldOrigins.loc("summon_golem");
     private final DefaultConfig defaultConfig;
 
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
@@ -57,6 +56,16 @@ public class SummonGolemSpell extends AbstractSpell {
 
     public void onCast(Level world, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
         int summonTime = 12000;
+
+        if (entity.hasEffect(ModEffects.GOLEM_TIMER.get())) {
+            world.getEntitiesOfClass(SummonedIronGolem.class, entity.getBoundingBox().inflate(32.0D))
+                    .stream()
+                    .filter(golem -> golem.getSummoner() == entity)
+                    .findFirst()
+                    .ifPresent(SummonedIronGolem::onUnSummon);
+            entity.removeEffect(ModEffects.GOLEM_TIMER.get());
+        }
+
         SummonedIronGolem summon = new SummonedIronGolem(world, entity);
         summon.setPos(entity.position());
         summon.getAttributes().getInstance(Attributes.ATTACK_DAMAGE).setBaseValue(this.getDamage(spellLevel, entity));
@@ -64,21 +73,17 @@ public class SummonGolemSpell extends AbstractSpell {
         summon.setHealth(summon.getMaxHealth());
         world.addFreshEntity(summon);
         summon.addEffect(new MobEffectInstance(ModEffects.GOLEM_TIMER.get(), summonTime, 0, false, false, false));
-        int effectAmplifier = 0;
-        if (entity.hasEffect(ModEffects.GOLEM_TIMER.get())) {
-            effectAmplifier += entity.getEffect(ModEffects.GOLEM_TIMER.get()).getAmplifier() + 1;
-        }
+        entity.addEffect(new MobEffectInstance(ModEffects.GOLEM_TIMER.get(), summonTime, 0, false, false, true));
 
-        entity.addEffect(new MobEffectInstance(MobEffectRegistry.POLAR_BEAR_TIMER.get(), summonTime, effectAmplifier, false, false, true));
         super.onCast(world, spellLevel, entity, castSource, playerMagicData);
     }
 
     private float getHealth(int spellLevel, LivingEntity caster) {
-        return (float)(20 + spellLevel * 4);
+        return (float)(20 + spellLevel * 5);
     }
 
     private float getDamage(int spellLevel, LivingEntity caster) {
-        return this.getSpellPower(spellLevel, caster);
+        return 1 + this.getSpellPower(spellLevel, caster);
     }
 }
 
