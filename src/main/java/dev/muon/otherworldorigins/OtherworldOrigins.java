@@ -6,10 +6,7 @@ import dev.muon.otherworldorigins.client.OtherworldOriginsClient;
 import dev.muon.otherworldorigins.condition.ModConditions;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.item.ModItems;
-import dev.muon.otherworldorigins.network.CheckFeatScreenMessage;
-import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
-import dev.muon.otherworldorigins.network.ResetOriginsMessage;
-import dev.muon.otherworldorigins.network.RespecAptitudesMessage;
+import dev.muon.otherworldorigins.network.*;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.spells.ModSpells;
 import net.minecraft.resources.ResourceLocation;
@@ -98,6 +95,17 @@ public class OtherworldOrigins {
                 .encoder(RespecAptitudesMessage::encode)
                 .decoder(RespecAptitudesMessage::decode)
                 .consumerMainThread(RespecAptitudesMessage::handle)
+                .add();
+        CHANNEL.messageBuilder(RequestLayerValidationMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(RequestLayerValidationMessage::encode)
+                .decoder(RequestLayerValidationMessage::decode)
+                .consumerMainThread(RequestLayerValidationMessage::handle)
+                .add();
+
+        CHANNEL.messageBuilder(SendValidatedLayersMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(SendValidatedLayersMessage::encode)
+                .decoder(SendValidatedLayersMessage::decode)
+                .consumerMainThread(SendValidatedLayersMessage::handle)
                 .add();
     }
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
