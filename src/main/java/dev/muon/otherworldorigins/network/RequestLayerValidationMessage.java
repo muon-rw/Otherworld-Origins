@@ -53,7 +53,7 @@ public class RequestLayerValidationMessage {
                     }
 
                     if (!missingOriginLayers.isEmpty()) {
-                        OtherworldOrigins.LOGGER.info("Missing layers for player {}: {}", player.getName().getString(), missingOriginLayers);
+                        OtherworldOrigins.LOGGER.warn("Missing layers for player {}: {}", player.getName().getString(), missingOriginLayers);
                     }
 
                     OtherworldOrigins.CHANNEL.send(
@@ -61,10 +61,10 @@ public class RequestLayerValidationMessage {
                             new SendValidatedLayersMessage(missingOriginLayers)
                     );
                 } else {
-                    OtherworldOrigins.LOGGER.warn("Unable to get origin container for player: {}", player.getName().getString());
+                    OtherworldOrigins.LOGGER.error("Unable to get origin container for player: {}", player.getName().getString());
                 }
             } else {
-                OtherworldOrigins.LOGGER.warn("Received layer validation request from null player");
+                OtherworldOrigins.LOGGER.error("Received layer validation request from null player");
             }
         });
         ctx.get().setPacketHandled(true);

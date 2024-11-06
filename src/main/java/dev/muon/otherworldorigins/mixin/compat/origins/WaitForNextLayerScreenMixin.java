@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class WaitForNextLayerScreenMixin {
     @Inject(method = "openSelection", at = @At(value = "RETURN", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V", ordinal = 2))
     private void onOpenSelectionEnd(CallbackInfo ci) {
-        OtherworldOrigins.LOGGER.debug("WaitForNextLayerScreen is about to close, sending validation request to server");
+        OtherworldOrigins.LOGGER.info("Origin Selection is about to close, sending validation request to server");
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.tell(() -> {
             OtherworldOrigins.CHANNEL.sendToServer(new RequestLayerValidationMessage());
