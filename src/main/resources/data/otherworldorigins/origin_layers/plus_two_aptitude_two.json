@@ -1,7 +1,7 @@
 {
   "order": 12,
   "name": "Second +2 Ability Score (Variant Human)",
-  "hidden": true,
+  "hidden": false,
   "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
   "origins": [
     {

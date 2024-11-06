@@ -1,7 +1,7 @@
 {
   "order": 150,
   "name": "+1 Ability Score (Resilient)",
-  "hidden": true,
+  "hidden": false,
   "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
   "origins": [
     {
