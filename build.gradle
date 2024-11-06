@@ -191,6 +191,9 @@ dependencies {
     // betta combat
     implementation fg.deobf("curse.maven:better-combat-by-daedelus-639842:5625757")
 
+    // Backpacked
+    implementation fg.deobf("curse.maven:backpacked-352835:5813547")
+    runtimeOnly fg.deobf("curse.maven:framework-549225:5811593")
 }
 
 tasks.withType(ProcessResources).configureEach {
@@ -289,6 +292,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addRequirement("alexs-caves")
     mainFile.addRequirement("alexs-mobs")
     mainFile.addRequirement("apotheosis")
+    mainFile.addRequirement("backpacked")
 
     // Icons only. lol. it is what it is
     mainFile.addRequirement("create")
