@@ -62,7 +62,7 @@ public class PlayerMixin implements IEnchantmentSeedResettable {
     }
 
 
-    @Shadow
+    @Shadow(remap = true)
     protected int enchantmentSeed;
 
     @Override
