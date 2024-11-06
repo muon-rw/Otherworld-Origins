@@ -7,6 +7,13 @@
         "type": "otherworldorigins:cast_spell",
         "spell": "gust",
         "power_level": 1,
-        "mana_cost": 10
+        "mana_cost": 10,
+        "cast_time": 0
+    },
+    "cooldown": 20,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+        "bar_index": 0
     }
 }
