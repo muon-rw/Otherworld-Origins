@@ -70,16 +70,9 @@ public class JustLevelingScreenMixin {
         Player player = Minecraft.getInstance().player;
         if (player == null) return originalMaxLevel;
 
-        //todo: lol
-        int totalBonus = 0;
-        totalBonus += InnateAptitudeBonusPower.getBonus(player, RegistryAptitudes.STRENGTH.get().getName());
-        totalBonus += InnateAptitudeBonusPower.getBonus(player, RegistryAptitudes.CONSTITUTION.get().getName());
-        totalBonus += InnateAptitudeBonusPower.getBonus(player, RegistryAptitudes.DEXTERITY.get().getName());
-        totalBonus += InnateAptitudeBonusPower.getBonus(player, RegistryAptitudes.DEFENSE.get().getName());
-        totalBonus += InnateAptitudeBonusPower.getBonus(player, RegistryAptitudes.INTELLIGENCE.get().getName());
-        totalBonus += InnateAptitudeBonusPower.getBonus(player, RegistryAptitudes.BUILDING.get().getName());
-        totalBonus += InnateAptitudeBonusPower.getBonus(player, RegistryAptitudes.MAGIC.get().getName());
-        totalBonus += InnateAptitudeBonusPower.getBonus(player, RegistryAptitudes.LUCK.get().getName());
+        int totalBonus = RegistryAptitudes.APTITUDES_REGISTRY.get().getValues().stream()
+                .mapToInt(aptitude -> InnateAptitudeBonusPower.getBonus(player, aptitude.getName()))
+                .sum();
 
         return originalMaxLevel + totalBonus;
     }
