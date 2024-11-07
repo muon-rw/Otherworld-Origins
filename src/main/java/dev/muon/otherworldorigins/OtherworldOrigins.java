@@ -60,6 +60,7 @@ public class OtherworldOrigins {
         ModPowers.register(modEventBus);
 
         ModSpells.register(modEventBus);
+        //ModPassives.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
 

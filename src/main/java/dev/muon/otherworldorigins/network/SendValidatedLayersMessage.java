@@ -1,14 +1,13 @@
 package dev.muon.otherworldorigins.network;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import io.github.apace100.origins.screen.ChooseOriginScreen;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.ArrayList;
@@ -40,28 +39,23 @@ public class SendValidatedLayersMessage {
 
     public static void handle(SendValidatedLayersMessage message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            Minecraft minecraft = Minecraft.getInstance();
-            if (minecraft.player != null) {
-                Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
-                List<Holder<OriginLayer>> missingOriginLayers = new ArrayList<>();
+            Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
+            List<ResourceLocation> validMissingLayers = new ArrayList<>();
 
-                for (ResourceLocation layerId : message.missingLayers) {
-                    OriginLayer layer = layerRegistry.get(layerId);
-                    if (layer != null) {
-                        missingOriginLayers.add(layerRegistry.getHolderOrThrow(layerRegistry.getResourceKey(layer).orElseThrow()));
-                    }
+            for (ResourceLocation layerId : message.missingLayers) {
+                OriginLayer layer = layerRegistry.get(layerId);
+                if (layer != null) {
+                    validMissingLayers.add(layerId);
+                }
+            }
+
+            if (!validMissingLayers.isEmpty()) {
+                OtherworldOrigins.LOGGER.info("Server detected unpicked origins. Layers:");
+                for (ResourceLocation layerId : validMissingLayers) {
+                    OtherworldOrigins.LOGGER.info("- " + layerId);
                 }
 
-                if (!missingOriginLayers.isEmpty()) {
-                    OtherworldOrigins.LOGGER.info("Server detected unpicked origins. Reopening selection screen for layers:");
-                    for (Holder<OriginLayer> layerHolder : missingOriginLayers) {
-                        OtherworldOrigins.LOGGER.info("- " + layerHolder.value().name().getString());
-                    }
-                    minecraft.execute(() -> {
-                        ChooseOriginScreen newScreen = new ChooseOriginScreen(missingOriginLayers, 0, false);
-                        minecraft.setScreen(newScreen);
-                    });
-                }
+                DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHandler.handleValidatedLayers(validMissingLayers));
             }
         });
         ctx.get().setPacketHandled(true);

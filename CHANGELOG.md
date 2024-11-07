@@ -1,3 +1,6 @@
+## 0.4.2
+- Fix crash on dedicated servers
+
 ## 0.4.1
 - Fix summon powers going on cooldown if attempted to cast with insufficient mana
 - Fix missing icon and translation for Golem timer effect
