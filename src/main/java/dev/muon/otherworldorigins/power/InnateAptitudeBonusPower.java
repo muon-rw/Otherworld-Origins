@@ -55,7 +55,8 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
 
     private void applyBonuses(Player player, Map<String, Integer> aptitudeBonuses) {
         AptitudeCapability cap = AptitudeCapability.get(player);
-        if (cap != null) {
+        if (cap != null && (player instanceof ServerPlayer serverPlayer)) {
+
             aptitudeBonuses.forEach((aptitudeName, bonus) -> {
                 Aptitude aptitude = RegistryAptitudes.getAptitude(aptitudeName);
                 if (aptitude != null) {
@@ -63,20 +64,21 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
                     cap.setAptitudeLevel(aptitude, currentLevel + bonus);
                 }
             });
-            if (player instanceof ServerPlayer serverPlayer) {
-                SyncAptitudeCapabilityCP.send(serverPlayer);
-                int newPlayerLevel = LevelingUtils.getPlayerLevel(player);
-                LevelSyncHandler.INSTANCE.send(
-                        PacketDistributor.PLAYER.with(() -> serverPlayer),
-                        new LevelSyncHandler.SyncPlayerLevelPacket(player.getUUID(), newPlayerLevel)
-                );
-            }
+
+            SyncAptitudeCapabilityCP.send(serverPlayer);
+            int newPlayerLevel = LevelingUtils.getPlayerLevel(player);
+            LevelSyncHandler.INSTANCE.send(
+                    PacketDistributor.PLAYER.with(() -> serverPlayer),
+                    new LevelSyncHandler.SyncPlayerLevelPacket(player.getUUID(), newPlayerLevel)
+            );
+
         }
     }
 
     private void removeBonuses(Player player, Map<String, Integer> aptitudeBonuses) {
         AptitudeCapability cap = AptitudeCapability.get(player);
-        if (cap != null) {
+        if (cap != null && player instanceof ServerPlayer serverPlayer) {
+
             aptitudeBonuses.forEach((aptitudeName, bonus) -> {
                 Aptitude aptitude = RegistryAptitudes.getAptitude(aptitudeName);
                 if (aptitude != null) {
@@ -89,14 +91,12 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
                 }
             });
 
-            if (player instanceof ServerPlayer serverPlayer) {
-                SyncAptitudeCapabilityCP.send(serverPlayer);
-                int newPlayerLevel = LevelingUtils.getPlayerLevel(player);
-                LevelSyncHandler.INSTANCE.send(
-                        PacketDistributor.PLAYER.with(() -> serverPlayer),
-                        new LevelSyncHandler.SyncPlayerLevelPacket(player.getUUID(), newPlayerLevel)
-                );
-            }
+            SyncAptitudeCapabilityCP.send(serverPlayer);
+            int newPlayerLevel = LevelingUtils.getPlayerLevel(player);
+            LevelSyncHandler.INSTANCE.send(
+                    PacketDistributor.PLAYER.with(() -> serverPlayer),
+                    new LevelSyncHandler.SyncPlayerLevelPacket(player.getUUID(), newPlayerLevel)
+            );
 
         } else {
             Medieval.LOGGER.warn("AptitudeCapability not found for player: " + player.getName().getString());
