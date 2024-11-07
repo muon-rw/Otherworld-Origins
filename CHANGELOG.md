@@ -3,12 +3,12 @@
 - Fix missing icon and translation for Golem timer effect
 
 ## 0.4.0
-- Fixed Origin stat bonuses counting toward the maximum selectable stats, making level 20 impossible to obtain for most players
 - Greatly improved Origin fallback checks. You should now only be asked to reselect an origin layer if there is an error
-- Fixed the Fifth Feat (Level 20) selection only occurring after reconnecting
 - Rebalanced Summons/Summoning powers. All summons now have a 5 minute cooldown, 10 minute time limit, and golems have a cap of 1
 - Locked Endless Quiver enchant behind Ranger class
 - Locked Repairman enchant behind Artificer class
+- Fixed the Fifth Feat (Level 20) selection only occurring after reconnecting
+- Fixed Origin stat bonuses counting toward the maximum selectable stats, making level 20 impossible to obtain for most players
 - Fixed Cantrip casts not being instant, added a short cooldown
 - Fixed the Artificer:Armorer subclass being untranslated
 - Fixed the Ranger:Hunter subclass having a missing translation
