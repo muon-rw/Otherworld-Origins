@@ -8,6 +8,7 @@ import io.github.edwinmindcraft.apoli.common.condition.block.SimpleBlockConditio
 import io.github.edwinmindcraft.apoli.common.condition.damage.InTagCondition;
 import io.github.edwinmindcraft.apoli.common.condition.entity.SimpleEntityCondition;
 import io.github.edwinmindcraft.apoli.common.condition.item.SimpleItemCondition;
+import io.redspace.ironsspellbooks.item.CastingItem;
 import net.bettercombat.api.WeaponAttributes;
 import net.bettercombat.logic.WeaponRegistry;
 import net.minecraft.world.entity.player.Player;
@@ -80,6 +81,11 @@ public class ModConditions {
             })
     );
 
+    public static final RegistryObject<SimpleItemCondition> CAN_CAST = ITEM_CONDITIONS.register("can_cast", () ->
+            new SimpleItemCondition(stack ->
+               stack.getItem() instanceof CastingItem
+            )
+    );
 
     public static final RegistryObject<SimpleItemCondition> IS_SWORD = ITEM_CONDITIONS.register("is_sword", () ->
             new SimpleItemCondition(stack -> {
