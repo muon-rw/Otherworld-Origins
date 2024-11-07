@@ -54,12 +54,14 @@ public class RequestLayerValidationMessage {
 
                     if (!missingOriginLayers.isEmpty()) {
                         OtherworldOrigins.LOGGER.warn("Missing layers for player {}: {}", player.getName().getString(), missingOriginLayers);
-                    }
 
-                    OtherworldOrigins.CHANNEL.send(
-                            PacketDistributor.PLAYER.with(() -> player),
-                            new SendValidatedLayersMessage(missingOriginLayers)
-                    );
+                        OtherworldOrigins.CHANNEL.send(
+                                PacketDistributor.PLAYER.with(() -> player),
+                                new SendValidatedLayersMessage(missingOriginLayers)
+                        );
+                    } else {
+                        OtherworldOrigins.LOGGER.info("Layer validation successful for player {}. All origins are properly selected.", player.getName().getString());
+                    }
                 } else {
                     OtherworldOrigins.LOGGER.error("Unable to get origin container for player: {}", player.getName().getString());
                 }

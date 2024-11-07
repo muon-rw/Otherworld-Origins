@@ -9,7 +9,6 @@ import com.seniors.justlevelingfork.client.screen.JustLevelingScreen;
 import com.seniors.justlevelingfork.registry.RegistryAptitudes;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import dev.muon.otherworldorigins.network.CheckFeatScreenMessage;
 import dev.muon.otherworldorigins.network.RespecAptitudesMessage;
 import dev.muon.otherworldorigins.power.InnateAptitudeBonusPower;
 import net.minecraft.ChatFormatting;
@@ -108,14 +107,6 @@ public class JustLevelingScreenMixin {
         return aptitude;
     }
 
-    @Inject(method = "drawSkills", at = @At(value = "INVOKE", target = "Lcom/seniors/justlevelingfork/network/packet/common/AptitudeLevelUpSP;send(Lcom/seniors/justlevelingfork/registry/aptitude/Aptitude;)V"))
-    private void onAptitudeLevelUp(GuiGraphics matrixStack, int x, int y, int mouseX, int mouseY, CallbackInfo ci) {
-        LocalPlayer player = ((JustLevelingScreen) (Object) this).getMinecraft().player;
-        if (player != null) {
-            OtherworldOrigins.CHANNEL.sendToServer(new CheckFeatScreenMessage());
-        }
-
-    }
 
 
     @Unique

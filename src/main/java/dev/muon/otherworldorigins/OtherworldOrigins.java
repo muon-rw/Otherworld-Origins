@@ -109,6 +109,11 @@ public class OtherworldOrigins {
                 .decoder(SendValidatedLayersMessage::decode)
                 .consumerMainThread(SendValidatedLayersMessage::handle)
                 .add();
+        CHANNEL.messageBuilder(SendFeatLayersMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(SendFeatLayersMessage::encode)
+                .decoder(SendFeatLayersMessage::decode)
+                .consumerMainThread(SendFeatLayersMessage::handle)
+                .add();
     }
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     @OnlyIn(Dist.CLIENT)

@@ -52,17 +52,19 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
         return 0;
     }
 
+
     private void applyBonuses(Player player, Map<String, Integer> aptitudeBonuses) {
         AptitudeCapability cap = AptitudeCapability.get(player);
         if (cap != null) {
             aptitudeBonuses.forEach((aptitudeName, bonus) -> {
                 Aptitude aptitude = RegistryAptitudes.getAptitude(aptitudeName);
                 if (aptitude != null) {
-                    cap.addAptitudeLevel(aptitude, bonus);
+                    int currentLevel = cap.getAptitudeLevel(aptitude);
+                    cap.setAptitudeLevel(aptitude, currentLevel + bonus);
                 }
             });
             if (player instanceof ServerPlayer serverPlayer) {
-
+                SyncAptitudeCapabilityCP.send(serverPlayer);
                 int newPlayerLevel = LevelingUtils.getPlayerLevel(player);
                 LevelSyncHandler.INSTANCE.send(
                         PacketDistributor.PLAYER.with(() -> serverPlayer),
@@ -71,6 +73,7 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
             }
         }
     }
+
     private void removeBonuses(Player player, Map<String, Integer> aptitudeBonuses) {
         AptitudeCapability cap = AptitudeCapability.get(player);
         if (cap != null) {

@@ -1,15 +1,12 @@
 ## 0.4.0
-- Fixed Origin stat bonuses counting toward the maximum selectable stats
-- Made origin fallback checks only run on the logical server (should finally *actually* prevent layers being reselected)
+- Fixed Origin stat bonuses counting toward the maximum selectable stats, making level 20 impossible to obtain for most players
+- Greatly improved Origin fallback checks. You should now only be asked to reselect an origin layer if there was an error  
+- Fixed Cantrip casts not being instant, added a short cooldown
+- Rebalanced Summons/Summoning powers. All summons now have a 5 minute cooldown, 10 minute time limit, and golems have a cap of 1
 - Locked Endless Quiver enchant behind Ranger class
-Todo:
-- Fixed the Fifth Feat (Level 20) being impossible to obtain in most cases
-- Locked casting implement usage behind Wizard/Warlock/Sorcerer classes
-- Scrolls can be used by non-magic classes for reduced effectiveness
 - Locked Repairman enchant behind Artificer class
 - Fixed the Artificer:Armorer subclass being untranslated
-- Rebalanced summons/summoning powers. All summons now have a time limit and entity cap
-
+- Fixed the Fifth Feat (Level 20) selection only occurring after reconnecting
 
 ## 0.3.5
 - Add more fallback checks to attempt to work around Origins Forge race conditions

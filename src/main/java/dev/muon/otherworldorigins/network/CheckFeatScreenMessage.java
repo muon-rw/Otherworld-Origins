@@ -22,7 +22,7 @@ public class CheckFeatScreenMessage {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player != null) {
-                Utils.checkAndOpenFeatScreen(player);
+                Utils.checkForFeats(player);
             }
         });
         context.setPacketHandled(true);
