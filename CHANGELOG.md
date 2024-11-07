@@ -1,3 +1,7 @@
+## 0.4.1
+- Fix summon powers going on cooldown if attempted to cast with insufficient mana
+- Fix missing icon and translation for Golem timer effect
+
 ## 0.4.0
 - Fixed Origin stat bonuses counting toward the maximum selectable stats, making level 20 impossible to obtain for most players
 - Greatly improved Origin fallback checks. You should now only be asked to reselect an origin layer if there is an error

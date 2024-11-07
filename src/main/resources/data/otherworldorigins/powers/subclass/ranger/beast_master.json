@@ -12,5 +12,10 @@
     "cooldown": 6000,
     "hud_render": {
         "should_render": true
+    },
+    "condition": {
+        "type": "otherworldorigins:player_mana",
+        "comparison": ">=",
+        "compare_to": 50
     }
 }

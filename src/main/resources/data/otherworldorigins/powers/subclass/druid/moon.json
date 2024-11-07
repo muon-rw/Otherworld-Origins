@@ -16,6 +16,11 @@
             "should_render": true,
             "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
             "bar_index": 7
+        },
+        "condition": {
+            "type": "otherworldorigins:player_mana",
+            "comparison": ">=",
+            "compare_to": 50
         }
     },
     "night_res": {

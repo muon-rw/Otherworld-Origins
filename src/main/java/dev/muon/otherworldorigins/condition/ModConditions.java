@@ -41,6 +41,8 @@ public class ModConditions {
 
     public static final RegistryObject<PlayerLevelCondition> PLAYER_LEVEL = ENTITY_CONDITIONS.register("player_level", PlayerLevelCondition::new);
     public static final RegistryObject<AnyOnLayerCondition> ANY_ON_LAYER = ENTITY_CONDITIONS.register("any_on_layer", AnyOnLayerCondition::new);
+    public static final RegistryObject<ManaCondition> PLAYER_MANA = ENTITY_CONDITIONS.register("player_mana", ManaCondition::new);
+
 
 
 

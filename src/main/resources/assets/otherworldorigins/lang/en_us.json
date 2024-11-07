@@ -28,6 +28,10 @@
   "key.otherworldorigins.cantrip_two": "Cantrip Two",
   "key.otherworldorigins.toggle_dark_vision": "Toggle Dark Vision",
 
+
+  "effect.otherworldorigins.golem_timer": "Summoned Golem",
+  "effect.otherworldorigins.golem_timer.description": "Displays the duration remaining on your summons, and their count",
+
   "origin.origins.human.description": "-§l Notable Changes§r: \n§oNone§r\n\n A human's fate is more open than most - venture forth with no benefits or drawbacks.",
   
   "origin.otherworldorigins.race/human.name": "Human",
@@ -309,7 +313,7 @@
 
 "origin.otherworldorigins.class/barbarian.name": "Barbarian",
 "origin.otherworldorigins.subclass/barbarian/wildheart.name": "Wildheart",
-"origin.otherworldorigins.subclass/barbarian/wildheart.description": "• Summon Beast",
+"origin.otherworldorigins.subclass/barbarian/wildheart.description": "• Summon a Beast for 50 mana, lasting 10 minutes. 5 minute cooldown.",
 "origin.otherworldorigins.subclass/barbarian/berserker.name": "Berserker",
 "origin.otherworldorigins.subclass/barbarian/berserker.description": "• +3 Melee Damage",
 "origin.otherworldorigins.subclass/barbarian/wild_magic.name": "Wild Magic",
@@ -339,9 +343,9 @@
 "origin.otherworldorigins.subclass/druid/land.name": "Circle of the Land",
 "origin.otherworldorigins.subclass/druid/land.description": "• 2x Health Regeneration",
 "origin.otherworldorigins.subclass/druid/moon.name": "Circle of the Moon",
-"origin.otherworldorigins.subclass/druid/moon.description": "• Bonus Stats at Night\n• Summon Beast",
+"origin.otherworldorigins.subclass/druid/moon.description": "• Bonus Stats at Night\n• Summon a Beast for 50 mana, lasting 10 minutes. 5 minute cooldown.",
 "origin.otherworldorigins.subclass/druid/spores.name": "Circle of the Spores",
-"origin.otherworldorigins.subclass/druid/spores.description": "• Bonus Stats while below y=0\n• Summon Undead",
+"origin.otherworldorigins.subclass/druid/spores.description": "• Bonus Stats while below y=0\n• Summon 2 Undead for 50 mana, lasting 10 minutes. 5 minute cooldown.",
 
 "origin.otherworldorigins.class/fighter.name": "Fighter",
 "origin.otherworldorigins.subclass/fighter/battle_master.name": "Battle Master",
@@ -371,7 +375,7 @@
 
 "origin.otherworldorigins.class/ranger.name": "Ranger",
 "origin.otherworldorigins.subclass/ranger/beast_master.name": "Beast Master",
-"origin.otherworldorigins.subclass/ranger/beast_master.description": "• Summon Beast",
+"origin.otherworldorigins.subclass/ranger/beast_master.description": "• Summon a Beast for 50 mana, lasting 10 minutes. 5 minute cooldown.",
 "origin.otherworldorigins.subclass/ranger/gloom_stalker.name": "Gloom Stalker",
 "origin.otherworldorigins.subclass/ranger/gloom_stalker.description": "• +10% Speed",
 "origin.otherworldorigins.subclass/ranger/hunter.name": "Hunter",
@@ -403,9 +407,9 @@
 "origin.otherworldorigins.subclass/wizard/evocation.name": "Evocation",
 "origin.otherworldorigins.subclass/wizard/evocation.description": "• Cast Evoker Fangs",
 "origin.otherworldorigins.subclass/wizard/necromancy.name": "Necromancy",
-"origin.otherworldorigins.subclass/wizard/necromancy.description": "• Summon 2 Undead",
+"origin.otherworldorigins.subclass/wizard/necromancy.description": "• Summon 2 Undead for 50 mana, lasting 10 minutes. 5 minute cooldown.",
 "origin.otherworldorigins.subclass/wizard/conjuration.name": "Conjuration",
-"origin.otherworldorigins.subclass/wizard/conjuration.description": "• Summon Mythic Golem",
+"origin.otherworldorigins.subclass/wizard/conjuration.description": "• Summon a Mythic Golem for 50 mana, lasting 10 minutes. 5 minute cooldown. Only 1 Golem may be active at a time.",
 "origin.otherworldorigins.subclass/wizard/enchanting.name": "Enchanting",
 "origin.otherworldorigins.subclass/wizard/enchanting.description": "• -10% Enchantment Cost",
 "origin.otherworldorigins.subclass/wizard/transmutation.name": "Transmutation",
