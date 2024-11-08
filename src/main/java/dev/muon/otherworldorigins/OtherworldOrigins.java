@@ -9,6 +9,7 @@ import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.item.ModItems;
 import dev.muon.otherworldorigins.network.*;
 import dev.muon.otherworldorigins.power.ModPowers;
+import dev.muon.otherworldorigins.skills.ModPassives;
 import dev.muon.otherworldorigins.spells.ModSpells;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -60,7 +61,7 @@ public class OtherworldOrigins {
         ModPowers.register(modEventBus);
 
         ModSpells.register(modEventBus);
-        //ModPassives.register(modEventBus);
+        ModPassives.register(modEventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
 

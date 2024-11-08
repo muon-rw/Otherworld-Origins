@@ -1,3 +1,9 @@
+## 0.5.0
+Todo: 
+- Casting Impl restrictions
+- Magic/Int Passive bonuses
+- Magic/Int Skills
+
 ## 0.4.2
 - Fix crash on dedicated servers
 
