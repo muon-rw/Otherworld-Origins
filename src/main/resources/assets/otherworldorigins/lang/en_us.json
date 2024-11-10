@@ -6,6 +6,9 @@
   "tooltip.otherworldorigins.hover_not_enough_xp": "Not Enough XP. Required: %s Levels",
   "tooltip.otherworldorigins.hover_confirm": "Click to Confirm.",
 
+  "passive.otherworldorigins.magic_mana": "Mana Spring",
+  "passive.otherworldorigins.int_spell_power": "Spell Power",
+
   "entity.otherworldorigins.summoned_iron_golem": "Summoner's Golem",
   
   "otherworldorigins.uncastable": "You can't use this ability right now.",

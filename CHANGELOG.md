@@ -1,9 +1,8 @@
 ## 0.5.0
 - Fix Respec not resetting passives or titles
-Todo: 
-- Casting Impl restrictions
-- Magic/Int Passive bonuses
-- Magic/Int Skills
+- Added Mana bonus passive to Magic 
+- Added Spell Power bonus passive to Intelligence
+- Restricted spell casting implement usage to Sorcerers, Warlocks, and Wizards TODO: Test on dedicated servers
 
 ## 0.4.2
 - Fix crash on dedicated servers

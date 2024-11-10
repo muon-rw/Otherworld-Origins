@@ -25,6 +25,7 @@
         "compat.apotheosis.EndlessQuiverEnchantMixin",
         "compat.backpacked.RepairmanEnchantmentMixin",
         "compat.irons_spellbooks.AbstractSpellMixin",
+        "compat.irons_spellbooks.CastingItemMixin",
         "compat.justlevelingfork.AptitudeCapabilityMixin",
         "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
         "compat.medieval.LevelingUtilsMixin",
