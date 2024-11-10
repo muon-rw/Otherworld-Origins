@@ -1,4 +1,5 @@
 ## 0.5.0
+- Fix Respec not resetting passives or titles
 Todo: 
 - Casting Impl restrictions
 - Magic/Int Passive bonuses
