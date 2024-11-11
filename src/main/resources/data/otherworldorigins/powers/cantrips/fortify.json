@@ -10,6 +10,11 @@
         "mana_cost": 10,
         "cast_time": 0
     },
+    "condition": {
+        "type": "otherworldorigins:player_mana",
+        "comparison": ">=",
+        "compare_to": 10
+    },
     "cooldown": 20,
     "hud_render": {
         "should_render": true,
