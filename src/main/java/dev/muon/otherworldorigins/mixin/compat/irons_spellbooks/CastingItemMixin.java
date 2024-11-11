@@ -34,10 +34,4 @@ public class CastingItemMixin {
         }
     }
 
-    @Inject(method = "appendHoverText", at = @At("HEAD"))
-    private void otherworldorigins$addCastingRestrictionTooltip(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag flag, CallbackInfo ci) {
-        MutableComponent restrictionText = Component.literal("Only " + CastingRestrictions.getRequiredClassesText() + " can use this item")
-                .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC);
-        tooltip.add(restrictionText);
-    }
 }

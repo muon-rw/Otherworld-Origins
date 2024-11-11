@@ -11,15 +11,17 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModEffects {
     public ModEffects() {
     }
-    public static final RegistryObject<SummonTimer> GOLEM_TIMER;
     public static final DeferredRegister<MobEffect> MOB_EFFECTS;
-
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);
     }
 
+    public static final RegistryObject<SummonTimer> GOLEM_TIMER;
+    public static final RegistryObject<SummonTimer> BEAST_TIMER;
+
     static {
         MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, "otherworldorigins");
         GOLEM_TIMER = MOB_EFFECTS.register("golem_timer", () -> new SummonTimer(MobEffectCategory.BENEFICIAL, 12495141));
+        BEAST_TIMER = MOB_EFFECTS.register("beast_timer", () -> new SummonTimer(MobEffectCategory.BENEFICIAL, 12495141));
     }
 }

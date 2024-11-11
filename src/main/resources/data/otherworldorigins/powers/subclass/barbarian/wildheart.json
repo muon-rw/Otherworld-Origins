@@ -5,7 +5,7 @@
     },
     "entity_action": {
         "type": "otherworldorigins:cast_spell",
-        "spell": "summon_polar_bear",
+        "spell": "otherworldorigins:summon_grizzly_bear",
         "power_level": 5,
         "mana_cost": 50
     },

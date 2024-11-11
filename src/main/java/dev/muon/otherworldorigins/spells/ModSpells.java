@@ -3,13 +3,15 @@ package dev.muon.otherworldorigins.spells;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModSpells {
-    private static final DeferredRegister<AbstractSpell> SPELLS = DeferredRegister.create(SpellRegistry.SPELL_REGISTRY_KEY, OtherworldOrigins.MODID);
+    public static final DeferredRegister<AbstractSpell> SPELLS = DeferredRegister.create(SpellRegistry.SPELL_REGISTRY_KEY, OtherworldOrigins.MODID);
 
     public static void register(IEventBus eventBus) {
         SPELLS.register(eventBus);
@@ -20,6 +22,7 @@ public class ModSpells {
     }
 
     public static final RegistryObject<AbstractSpell> SUMMON_IRON_GOLEM = registerSpell(new SummonGolemSpell());
+    public static final RegistryObject<AbstractSpell> SUMMON_GRIZZLY_BEAR = registerSpell(new SummonGrizzlyBearSpell());
 
     public static final RegistryObject<AbstractSpell> BLACK_DRAGON_BREATH = registerSpell(new DragonBreathSpells.BlackDragonBreathSpell());
     public static final RegistryObject<AbstractSpell> BLUE_DRAGON_BREATH = registerSpell(new DragonBreathSpells.BlueDragonBreathSpell());

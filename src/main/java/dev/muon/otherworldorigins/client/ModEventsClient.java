@@ -19,6 +19,6 @@ public class ModEventsClient {
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.SUMMONED_IRON_GOLEM.get(), IronGolemRenderer::new);
-        //event.registerEntityRenderer(ModEntities.SUMMONED_GRIZZLY_BEAR.get(), RenderGrizzlyBear::new);
+        event.registerEntityRenderer(ModEntities.SUMMONED_GRIZZLY_BEAR.get(), RenderGrizzlyBear::new);
     }
 }

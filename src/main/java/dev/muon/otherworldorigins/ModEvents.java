@@ -11,6 +11,7 @@ public class ModEvents {
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntities.SUMMONED_IRON_GOLEM.get(), SummonedIronGolem.createAttributes().build());
+        event.put(ModEntities.SUMMONED_GRIZZLY_BEAR.get(), SummonedGrizzlyBear.createAttributes().build());
     }
 
 }

@@ -1,8 +1,12 @@
 ## 0.5.0
-- Fix Respec not resetting passives or titles
+- Fixed Respec not resetting passive levels or titles
 - Added Mana bonus passive to Magic 
 - Added Spell Power bonus passive to Intelligence
-- Restricted spell casting implement usage to Sorcerers, Warlocks, and Wizards TODO: Test on dedicated servers
+- Restricted spell casting implement usage to Sorcerers, Warlocks, and Wizards
+- Changed "Summon Beast" spell from Polar Bears to Grizzly Bears. Capped at 1 bear. 
+TODO:
+- Create bear icon
+- Check how often we run $getPlayerFromCapability - performance concern 
 
 ## 0.4.2
 - Fix crash on dedicated servers

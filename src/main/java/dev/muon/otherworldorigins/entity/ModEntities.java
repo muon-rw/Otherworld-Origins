@@ -22,6 +22,8 @@ public class ModEntities {
 
     public static final RegistryObject<EntityType<SummonedIronGolem>> SUMMONED_IRON_GOLEM = registerEntity("summoned_iron_golem",
             EntityType.Builder.<SummonedIronGolem>of(SummonedIronGolem::new, MobCategory.CREATURE).sized(2.0F, 2.5F).clientTrackingRange(10));
+    public static final RegistryObject<EntityType<SummonedGrizzlyBear>> SUMMONED_GRIZZLY_BEAR = registerEntity("summoned_grizzly_bear",
+            EntityType.Builder.<SummonedGrizzlyBear>of(SummonedGrizzlyBear::new, MobCategory.CREATURE).sized(2.0F, 2.5F).clientTrackingRange(10));
 
 
     public static void register(IEventBus eventBus) {

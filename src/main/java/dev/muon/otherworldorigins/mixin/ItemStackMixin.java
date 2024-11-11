@@ -7,10 +7,12 @@ import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.condition.ModConditions;
 import dev.muon.otherworldorigins.power.GoldDurabilityPower;
 import dev.muon.otherworldorigins.power.ModPowers;
+import dev.muon.otherworldorigins.util.CastingRestrictions;
 import dev.muon.otherworldorigins.util.EnchantmentRestrictions;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;
+import io.redspace.ironsspellbooks.item.CastingItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -35,13 +37,17 @@ import java.util.Map;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
+    @Unique
+    private ItemStack ths() {
+        return (ItemStack) (Object) this;
+    }
 
     @ModifyReturnValue(method = "getTooltipLines", at = @At("RETURN"))
     private List<Component> modifyEnchantmentTooltips(List<Component> original, Player player, TooltipFlag isAdvanced) {
         ItemStack stack = (ItemStack) (Object) this;
-        Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
         List<Component> modifiedTooltips = new ArrayList<>(original);
 
+        Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
         for (int i = 0; i < modifiedTooltips.size(); i++) {
             Component line = modifiedTooltips.get(i);
             for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
@@ -65,8 +71,17 @@ public class ItemStackMixin {
             }
         }
 
+        if (ths().getItem() instanceof CastingItem && !CastingRestrictions.isCastingAllowed(player)) {
+            MutableComponent disabledTitle = Component.literal("").append(modifiedTooltips.get(0)).withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.STRIKETHROUGH);
+            modifiedTooltips.set(0, disabledTitle);
+            MutableComponent restrictionText = Component.literal("Only " + CastingRestrictions.getRequiredClassesText() + " can use this item")
+                    .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC);
+            modifiedTooltips.add(1, restrictionText);
+        }
+
         return modifiedTooltips;
     }
+
 
 
     @WrapOperation(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getItemEnchantmentLevel(Lnet/minecraft/world/item/enchantment/Enchantment;Lnet/minecraft/world/item/ItemStack;)I"))

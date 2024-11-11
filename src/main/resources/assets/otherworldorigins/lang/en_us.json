@@ -10,6 +10,7 @@
   "passive.otherworldorigins.int_spell_power": "Spell Power",
 
   "entity.otherworldorigins.summoned_iron_golem": "Summoner's Golem",
+  "entity.otherworldorigins.summoned_grizzly_bear": "Summoner's Grizzly Bear",
   
   "otherworldorigins.uncastable": "You can't use this ability right now.",
   
@@ -19,7 +20,7 @@
   "death.attack.smite.player": "%1$s was smeeted by %2$s",
   "death.attack.smite.item": "%1$s was smeeted by %2$s with %3$s",
   
-  "otherworld.message.charisma_save": "You were seen committing a crime, but spared punishment thanks to Charisma.",
+  "otherworld.message.charisma_save": "You were seen committing a crime, but spared punishment thanks to your Charisma.",
   
   "otherworldorigins.gui.start_over": "Start Over",
   "otherworldorigins.gui.current_selections": "Current Selections:",
@@ -34,6 +35,10 @@
 
   "effect.otherworldorigins.golem_timer": "Summoned Golem",
   "effect.otherworldorigins.golem_timer.description": "Displays the duration remaining on your summons, and their count",
+
+  "effect.otherworldorigins.beast_timer": "Summoned Beast",
+  "effect.otherworldorigins.beast_timer.description": "Displays the duration remaining on your summons, and their count",
+
 
   "origin.origins.human.description": "-§l Notable Changes§r: \n§oNone§r\n\n A human's fate is more open than most - venture forth with no benefits or drawbacks.",
   
@@ -298,11 +303,11 @@
 
 "origin.otherworldorigins.class/rogue.description": "• +2 Ranged Damage\n§oOnly Rogues can make use of the Power enchantment§r\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
 
-"origin.otherworldorigins.class/sorcerer.description": "• +1 Magic\n• -5 Hearts\n• +40% Magic Damage\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
+"origin.otherworldorigins.class/sorcerer.description": "• +1 Magic\n• -5 Hearts\n• +40% Magic Damage\n§oOnly Sorcerers, Warlocks, or Wizards can cast spells without scrolls§r\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
 
-"origin.otherworldorigins.class/warlock.description": "• +1 Magic\n• Eldritch Blast\n§oOnly Warlocks can make use of the Flame enchantment§r\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
+"origin.otherworldorigins.class/warlock.description": "• +1 Magic\n• Eldritch Blast\n§oOnly Warlocks can make use of the Flame enchantment§r\n§oOnly Sorcerers, Warlocks, or Wizards can cast spells without scrolls§r\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
 
-"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic\n• -5 Hearts\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchanting\nTransmutation",
+"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic\n• -5 Hearts\n§oOnly Sorcerers, Warlocks, or Wizards can cast spells without scrolls§r\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchanting\nTransmutation",
 
 "origin.otherworldorigins.class/artificer.name": "Artificer",
 "origin.otherworldorigins.subclass/artificer/alchemist.name": "Alchemist",
