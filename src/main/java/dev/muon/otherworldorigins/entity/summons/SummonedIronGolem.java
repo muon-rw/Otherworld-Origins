@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins.entity.summons;
 
 import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.entity.ModEntities;
+import dev.muon.otherworldorigins.spells.ModSpells;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
@@ -127,7 +128,7 @@ public class SummonedIronGolem extends IronGolem implements MagicSummon {
     }
 
     public boolean doHurtTarget(Entity pEntity) {
-        return Utils.doMeleeAttack(this, pEntity, (SpellRegistry.SUMMON_POLAR_BEAR_SPELL.get()).getDamageSource(this, this.getSummoner()));
+        return Utils.doMeleeAttack(this, pEntity, (ModSpells.SUMMON_IRON_GOLEM.get().getDamageSource(this, this.getSummoner())));
     }
 
     public boolean isAlliedTo(Entity pEntity) {
