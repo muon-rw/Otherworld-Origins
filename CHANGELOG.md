@@ -4,6 +4,7 @@
 - Added Spell Power bonus passive to Intelligence
 - Restricted spell casting implement usage to Sorcerers, Warlocks, and Wizards
 - Changed "Summon Beast" spell from Polar Bears to Grizzly Bears. Capped at 1 bear.
+- Fix untranslated/unobtainable spells showing up in JEI
 
 ## 0.4.2
 - Fix crash on dedicated servers

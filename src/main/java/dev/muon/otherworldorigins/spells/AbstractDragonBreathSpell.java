@@ -44,6 +44,21 @@ public abstract class AbstractDragonBreathSpell extends AbstractSpell {
     }
 
     @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    @Override
+    public boolean allowCrafting() {
+        return false;
+    }
+
+    @Override
+    public boolean allowLooting() {
+        return false;
+    }
+
+    @Override
     public CastType getCastType() {
         return CastType.INSTANT;
     }
@@ -113,16 +128,6 @@ public abstract class AbstractDragonBreathSpell extends AbstractSpell {
     @Override
     public boolean shouldAIStopCasting(int spellLevel, Mob mob, LivingEntity target) {
         return mob.distanceToSqr(target) > (10 * 10) * 1.2;
-    }
-
-    @Override
-    public boolean allowCrafting() {
-        return false;
-    }
-
-    @Override
-    public boolean allowLooting() {
-        return false;
     }
 
     public abstract SchoolType getSchoolType();

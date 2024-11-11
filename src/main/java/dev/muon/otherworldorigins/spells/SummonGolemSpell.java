@@ -38,6 +38,21 @@ public class SummonGolemSpell extends AbstractSpell {
         this.baseManaCost = 50;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+    @Override
+    public boolean allowCrafting() {
+        return false;
+    }
+
+    @Override
+    public boolean allowLooting() {
+        return false;
+    }
+
     public CastType getCastType() {
         return CastType.LONG;
     }
