@@ -8,6 +8,8 @@
 
   "passive.otherworldorigins.magic_mana": "Mana Spring",
   "passive.otherworldorigins.int_spell_power": "Spell Power",
+  "passive.otherworldorigins.magic_mana.description": "Increases the amount of mana available for casting.",
+  "passive.otherworldorigins.int_spell_power.description": "Increases the average damage done by your spells.",
 
   "entity.otherworldorigins.summoned_iron_golem": "Summoner's Golem",
   "entity.otherworldorigins.summoned_grizzly_bear": "Summoner's Grizzly Bear",

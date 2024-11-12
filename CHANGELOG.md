@@ -1,3 +1,7 @@
+## 0.5.1
+- Nerfed Spell Power passive ability
+- Fixed missing descriptions for Spell Power / Mana Spring passives
+
 ## 0.5.0
 - Fixed Respec not resetting passive levels or titles
 - Added Mana bonus passive to Magic 
