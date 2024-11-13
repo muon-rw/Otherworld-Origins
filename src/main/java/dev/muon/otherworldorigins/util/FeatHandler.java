@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Utils {
+public class FeatHandler {
 
     private static final List<ResourceLocation> FEAT_LAYERS = Arrays.asList(
             OtherworldOrigins.loc("first_feat"),

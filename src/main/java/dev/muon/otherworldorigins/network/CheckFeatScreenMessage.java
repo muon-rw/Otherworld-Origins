@@ -1,6 +1,6 @@
 package dev.muon.otherworldorigins.network;
 
-import dev.muon.otherworldorigins.util.Utils;
+import dev.muon.otherworldorigins.util.FeatHandler;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -22,7 +22,7 @@ public class CheckFeatScreenMessage {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             if (player != null) {
-                Utils.checkForFeats(player);
+                FeatHandler.checkForFeats(player);
             }
         });
         context.setPacketHandled(true);

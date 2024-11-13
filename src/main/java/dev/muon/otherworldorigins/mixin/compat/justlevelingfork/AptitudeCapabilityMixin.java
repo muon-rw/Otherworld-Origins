@@ -2,9 +2,10 @@ package dev.muon.otherworldorigins.mixin.compat.justlevelingfork;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
+import com.seniors.justlevelingfork.registry.RegistryCapabilities;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
 import dev.muon.otherworldorigins.power.InnateAptitudeBonusPower;
-import dev.muon.otherworldorigins.util.Utils;
+import dev.muon.otherworldorigins.util.FeatHandler;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -43,7 +44,7 @@ public class AptitudeCapabilityMixin {
     @Inject(method = "addAptitudeLevel", at = @At("RETURN"))
     private void onAddAptitudeLevelEnd(Aptitude aptitude, int addLvl, CallbackInfo ci) {
         if (otherworld$player instanceof ServerPlayer serverPlayer) {
-            Utils.checkForFeats(serverPlayer);
+            FeatHandler.checkForFeats(serverPlayer);
         }
     }
 
@@ -52,7 +53,7 @@ public class AptitudeCapabilityMixin {
         if (ServerLifecycleHooks.getCurrentServer() != null) {
             for (ServerLevel level : ServerLifecycleHooks.getCurrentServer().getAllLevels()) {
                 for (Player player : level.players()) {
-                    LazyOptional<AptitudeCapability> cap = player.getCapability(com.seniors.justlevelingfork.registry.RegistryCapabilities.APTITUDE);
+                    LazyOptional<AptitudeCapability> cap = player.getCapability(RegistryCapabilities.APTITUDE);
                     if (cap.isPresent() && cap.resolve().get() == capability) {
                         return player;
                     }
