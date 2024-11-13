@@ -1,5 +1,7 @@
 ## 0.5.2 
 - Refactored Casting restrictions. Check the otherworldorigins-common config. 
+- TODO: Make sure casting restrictions don't restrict summons
+- TODO: Add spell restriction descriptions to class/subclass
 
 ## 0.5.1
 - Nerfed Spell Power passive ability
