@@ -1,4 +1,6 @@
 {
+  "otherworldorigins.restrictions.school_type": "%s %ss are not attuned to %s magic",
+
   "button.otherworldorigins.respec_button": "Respec",
   "button.otherworldorigins.respec_button_confirm": "Are you sure?",
   "tooltip.otherworldorigins.hover_cost": "Spend %s levels to reset all stats.",

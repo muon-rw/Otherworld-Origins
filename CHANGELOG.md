@@ -1,3 +1,6 @@
+## 0.5.2 
+- Refactored Casting restrictions. Check the otherworldorigins-common config. 
+
 ## 0.5.1
 - Nerfed Spell Power passive ability
 - Fixed missing descriptions for Spell Power / Mana Spring passives

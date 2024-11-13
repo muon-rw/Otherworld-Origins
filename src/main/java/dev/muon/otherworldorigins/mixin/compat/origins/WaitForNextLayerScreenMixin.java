@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins.mixin.compat.origins;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.network.RequestLayerValidationMessage;
+import dev.muon.otherworldorigins.util.SpellRestrictions;
 import io.github.apace100.origins.screen.WaitForNextLayerScreen;
 import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,5 +19,8 @@ public class WaitForNextLayerScreenMixin {
         minecraft.tell(() -> {
             OtherworldOrigins.CHANNEL.sendToServer(new RequestLayerValidationMessage());
         });
+        if (minecraft.player != null) {
+            SpellRestrictions.clearCache(minecraft.player);
+        }
     }
 }

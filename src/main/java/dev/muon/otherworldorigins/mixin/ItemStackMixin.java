@@ -7,12 +7,14 @@ import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.condition.ModConditions;
 import dev.muon.otherworldorigins.power.GoldDurabilityPower;
 import dev.muon.otherworldorigins.power.ModPowers;
-import dev.muon.otherworldorigins.util.CastingRestrictions;
 import dev.muon.otherworldorigins.util.EnchantmentRestrictions;
+import dev.muon.otherworldorigins.util.SpellRestrictions;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;
-import io.redspace.ironsspellbooks.item.CastingItem;
+import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
+import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
+import io.redspace.ironsspellbooks.item.Scroll;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -37,13 +39,18 @@ import java.util.Map;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
+
     @Unique
-    private ItemStack ths() {
-        return (ItemStack) (Object) this;
+    private AbstractSpell otherworld$getSpellFromStack(ItemStack itemStack) {
+        return ISpellContainer.get(itemStack).getSpellAtIndex(0).getSpell();
     }
 
     @ModifyReturnValue(method = "getTooltipLines", at = @At("RETURN"))
     private List<Component> modifyEnchantmentTooltips(List<Component> original, Player player, TooltipFlag isAdvanced) {
+        if (player == null) {
+            return original;
+        }
+
         ItemStack stack = (ItemStack) (Object) this;
         List<Component> modifiedTooltips = new ArrayList<>(original);
 
@@ -71,12 +78,21 @@ public class ItemStackMixin {
             }
         }
 
-        if (ths().getItem() instanceof CastingItem && !CastingRestrictions.isCastingAllowed(player)) {
-            MutableComponent disabledTitle = Component.literal("").append(modifiedTooltips.get(0)).withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.STRIKETHROUGH);
-            modifiedTooltips.set(0, disabledTitle);
-            MutableComponent restrictionText = Component.literal("Only " + CastingRestrictions.getRequiredClassesText() + " can use this item")
-                    .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC);
-            modifiedTooltips.add(1, restrictionText);
+
+        if (stack.getItem() instanceof Scroll) {
+            AbstractSpell spell = otherworld$getSpellFromStack(stack);
+            if (spell != null) {
+                if (!SpellRestrictions.isSpellAllowed(player, spell)) {
+                    MutableComponent disabledTitle = Component.literal("").append(modifiedTooltips.get(0)).withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.STRIKETHROUGH);
+                    modifiedTooltips.set(0, disabledTitle);
+
+                    Component restrictionMessage = SpellRestrictions.getRestrictionMessage(player, spell);
+                    MutableComponent restrictionText = Component.literal("")
+                            .append(restrictionMessage)
+                            .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC);
+                    modifiedTooltips.add(1, restrictionText);
+                }
+            }
         }
 
         return modifiedTooltips;

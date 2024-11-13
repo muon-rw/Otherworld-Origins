@@ -3,6 +3,7 @@ package dev.muon.otherworldorigins;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
+import dev.muon.otherworldorigins.util.SpellRestrictions;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
@@ -11,21 +12,19 @@ import io.github.edwinmindcraft.origins.api.origin.Origin;
 import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
 import io.github.edwinmindcraft.origins.common.OriginsCommon;
 import io.github.edwinmindcraft.origins.common.network.S2COpenOriginScreen;
+import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
+import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.entity.spells.AbstractConeProjectile;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -60,6 +59,18 @@ public class ForgeEvents {
                     return false;
                 }
             });
+        }
+    }
+
+    @SubscribeEvent
+    public static void onSpellPreCast(SpellPreCastEvent event) {
+        if (!SpellRestrictions.isSpellAllowed(event.getEntity(), SpellRegistry.getSpell(event.getSpellId()))) {
+            event.setCanceled(true);
+            event.getEntity().displayClientMessage(
+                    Component.literal("You are not attuned to this type of magic!")
+                            .withStyle(ChatFormatting.RED),
+                    true
+            );
         }
     }
 

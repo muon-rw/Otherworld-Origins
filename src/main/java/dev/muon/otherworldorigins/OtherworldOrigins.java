@@ -1,9 +1,12 @@
 package dev.muon.otherworldorigins;
 
 import com.mojang.logging.LogUtils;
+import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
+import com.seniors.justlevelingfork.registry.RegistryCapabilities;
 import dev.muon.otherworldorigins.action.ModActions;
 import dev.muon.otherworldorigins.client.OtherworldOriginsClient;
 import dev.muon.otherworldorigins.condition.ModConditions;
+import dev.muon.otherworldorigins.config.SpellCategoryConfig;
 import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.item.ModItems;
@@ -11,6 +14,10 @@ import dev.muon.otherworldorigins.network.*;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.skills.ModPassives;
 import dev.muon.otherworldorigins.spells.ModSpells;
+import dev.muon.otherworldorigins.util.SpellCategoryMapper;
+import dev.muon.otherworldorigins.util.SpellRestrictions;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -19,6 +26,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -26,6 +35,8 @@ import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.slf4j.Logger;
+
+import javax.annotation.Nullable;
 
 @Mod(OtherworldOrigins.MODID)
 public class OtherworldOrigins {
@@ -45,11 +56,14 @@ public class OtherworldOrigins {
             PROTOCOL_VERSION::equals
     );
 
+    public OtherworldOrigins(FMLJavaModLoadingContext context) {
 
-    public OtherworldOrigins() {
         OtherworldOrigins.LOGGER.info("Loading Otherworld Origins");
+        context.registerConfig(ModConfig.Type.COMMON, SpellCategoryConfig.SPEC);
 
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        IEventBus modEventBus = context.getModEventBus();
+        modEventBus.addListener(this::onConfigLoad);
+        modEventBus.addListener(this::onConfigReload);
         modEventBus.addListener(this::commonSetup);
 
         ModEntities.register(modEventBus);
@@ -68,7 +82,20 @@ public class OtherworldOrigins {
         registerMessages();
     }
 
+    private void onConfigLoad(final ModConfigEvent.Loading event) {
+        if (event.getConfig().getSpec() == SpellCategoryConfig.SPEC) {
+            SpellRestrictions.initializeFromConfig();
+        }
+    }
+    private void onConfigReload(final ModConfigEvent.Reloading event) {
+        if (event.getConfig().getSpec() == SpellCategoryConfig.SPEC) {
+            SpellRestrictions.initializeFromConfig();
+            SpellCategoryMapper.initialize();
+        }
+    }
+
     private void commonSetup(final FMLCommonSetupEvent event) {
+        SpellCategoryMapper.initialize();
     }
 
     private static int packetId = 0;

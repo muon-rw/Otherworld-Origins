@@ -1,41 +1,40 @@
 {
-    "required": true,
-    "package": "dev.muon.otherworldorigins.mixin",
-    "compatibilityLevel": "JAVA_17",
-    "refmap": "otherworldorigins.refmap.json",
-    "plugin": "dev.muon.otherworldorigins.OtherworldOriginsMixinPlugin",
-    "injectors": {
-        "defaultRequire": 1
-    },
-    "mixins": [
-        "ArrowItemMixin",
-        "BlockMixin",
-        "BowItemMixin",
-        "EnchantmentHelperMixin",
-        "ExperienceOrbMixin",
-        "FishingRodItemMixin",
-        "ItemStackMixin",
-        "LivingEntityMixin",
-        "MobEffectInstanceAccessor",
-        "PlayerMixin",
-        "ThornsEnchantmentMixin",
-        "ThrownTridentMixin",
-        "VillagerMixin",
-        "compat.apotheosis.EnchantmentUtilsMixin",
-        "compat.apotheosis.EndlessQuiverEnchantMixin",
-        "compat.backpacked.RepairmanEnchantmentMixin",
-        "compat.irons_spellbooks.AbstractSpellMixin",
-        "compat.irons_spellbooks.CastingItemMixin",
-        "compat.justlevelingfork.AptitudeCapabilityMixin",
-        "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
-        "compat.medieval.LevelingUtilsMixin",
-        "compat.monobank.ThiefMixin",
-        "compat.origins.ChooseOriginScreenMixin",
-        "compat.origins.WaitForNextLayerScreenMixin"
-    ],
-    "client": [
-        "compat.justlevelingfork.client.AptitudeMixin",
-        "compat.justlevelingfork.client.JustLevelingScreenMixin"
-    ],
-    "minVersion": "0.8"
+  "required": true,
+  "package": "dev.muon.otherworldorigins.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "otherworldorigins.refmap.json",
+  "plugin": "dev.muon.otherworldorigins.OtherworldOriginsMixinPlugin",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "ArrowItemMixin",
+    "BlockMixin",
+    "BowItemMixin",
+    "EnchantmentHelperMixin",
+    "ExperienceOrbMixin",
+    "FishingRodItemMixin",
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "MobEffectInstanceAccessor",
+    "PlayerMixin",
+    "ThornsEnchantmentMixin",
+    "ThrownTridentMixin",
+    "VillagerMixin",
+    "compat.apotheosis.EnchantmentUtilsMixin",
+    "compat.apotheosis.EndlessQuiverEnchantMixin",
+    "compat.backpacked.RepairmanEnchantmentMixin",
+    "compat.irons_spellbooks.AbstractSpellMixin",
+    "compat.justlevelingfork.AptitudeCapabilityMixin",
+    "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
+    "compat.medieval.LevelingUtilsMixin",
+    "compat.monobank.ThiefMixin",
+    "compat.origins.ChooseOriginScreenMixin",
+    "compat.origins.WaitForNextLayerScreenMixin"
+  ],
+  "client": [
+    "compat.justlevelingfork.client.AptitudeMixin",
+    "compat.justlevelingfork.client.JustLevelingScreenMixin"
+  ],
+  "minVersion": "0.8"
 }
