@@ -34,7 +34,8 @@
   ],
   "client": [
     "compat.justlevelingfork.client.AptitudeMixin",
-    "compat.justlevelingfork.client.JustLevelingScreenMixin"
+    "compat.justlevelingfork.client.JustLevelingScreenMixin",
+    "compat.origins.OriginDisplayScreenMixin"
   ],
   "minVersion": "0.8"
 }

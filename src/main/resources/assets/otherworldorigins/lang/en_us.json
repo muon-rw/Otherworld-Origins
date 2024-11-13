@@ -560,5 +560,9 @@
 "power.otherworldorigins.cantrips/two/magic_missile.name": "",
 "power.otherworldorigins.cantrips/two/magic_missile.description": "",
 "power.otherworldorigins.cantrips/two/gust.name": "",
-"power.otherworldorigins.cantrips/two/gust.description": ""
+"power.otherworldorigins.cantrips/two/gust.description": "",
+  "otherworldorigins.gui.spell_access": "Spell Access:",
+  "otherworldorigins.gui.all_spells": "All spells",
+  "otherworldorigins.gui.no_spells": "No spells",
+  "otherworldorigins.gui.varies": "Varies"
 }
