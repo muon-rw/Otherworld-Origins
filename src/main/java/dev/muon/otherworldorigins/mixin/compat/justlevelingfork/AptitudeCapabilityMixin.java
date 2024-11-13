@@ -24,7 +24,7 @@ public class AptitudeCapabilityMixin {
     @Unique private Player otherworld$player;
 
     @Inject(method = "addAptitudeLevel", at = @At("HEAD"))
-    private void onAddAptitudeLevelStart(Aptitude aptitude, int addLvl, CallbackInfo ci) {
+    private void capturePlayer(Aptitude aptitude, int addLvl, CallbackInfo ci) {
         AptitudeCapability self = (AptitudeCapability) (Object) this;
         otherworld$player = otherworld$getPlayerFromCapability(self);
     }
@@ -42,7 +42,7 @@ public class AptitudeCapabilityMixin {
     }
 
     @Inject(method = "addAptitudeLevel", at = @At("RETURN"))
-    private void onAddAptitudeLevelEnd(Aptitude aptitude, int addLvl, CallbackInfo ci) {
+    private void checkFeatEligibility(Aptitude aptitude, int addLvl, CallbackInfo ci) {
         if (otherworld$player instanceof ServerPlayer serverPlayer) {
             FeatHandler.checkForFeats(serverPlayer);
         }
@@ -54,7 +54,7 @@ public class AptitudeCapabilityMixin {
             for (ServerLevel level : ServerLifecycleHooks.getCurrentServer().getAllLevels()) {
                 for (Player player : level.players()) {
                     LazyOptional<AptitudeCapability> cap = player.getCapability(RegistryCapabilities.APTITUDE);
-                    if (cap.isPresent() && cap.resolve().get() == capability) {
+                    if (cap != null && cap.resolve().isPresent() && cap.resolve().get() == capability) {
                         return player;
                     }
                 }
