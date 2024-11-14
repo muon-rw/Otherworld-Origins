@@ -307,11 +307,11 @@
 
 "origin.otherworldorigins.class/rogue.description": "• +2 Ranged Damage\n§oOnly Rogues can make use of the Power enchantment§r\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
 
-"origin.otherworldorigins.class/sorcerer.description": "• +1 Magic\n• -5 Hearts\n• +40% Magic Damage\n§oOnly Sorcerers, Warlocks, or Wizards can cast spells without scrolls§r\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
+"origin.otherworldorigins.class/sorcerer.description": "• +1 Magic\n• -5 Hearts\n• +40% Magic Damage\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
 
-"origin.otherworldorigins.class/warlock.description": "• +1 Magic\n• Eldritch Blast\n§oOnly Warlocks can make use of the Flame enchantment§r\n§oOnly Sorcerers, Warlocks, or Wizards can cast spells without scrolls§r\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
+"origin.otherworldorigins.class/warlock.description": "• +1 Magic\n• Eldritch Blast\n§oOnly Warlocks can make use of the Flame enchantment§r\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
 
-"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic\n• -5 Hearts\n§oOnly Sorcerers, Warlocks, or Wizards can cast spells without scrolls§r\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchanting\nTransmutation",
+"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic\n• -5 Hearts\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchanting\nTransmutation",
 
 "origin.otherworldorigins.class/artificer.name": "Artificer",
 "origin.otherworldorigins.subclass/artificer/alchemist.name": "Alchemist",

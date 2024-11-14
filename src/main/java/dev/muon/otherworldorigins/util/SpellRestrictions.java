@@ -125,7 +125,8 @@ public class SpellRestrictions {
                     .withStyle(ChatFormatting.RED);
         }
 
-        SpellCategory category = SpellCategoryMapper.getCategory(spell);
+        String fullSubclassKey = classInfo.className + "/" + classInfo.subclassName;
+        Set<SpellCategory> allowedCategories = SUBCLASS_SPELL_RESTRICTIONS.get(fullSubclassKey);
 
         String formattedSubclass = Arrays.stream(classInfo.subclassName.split("_"))
                 .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase())
@@ -134,12 +135,26 @@ public class SpellRestrictions {
         String formattedClass = classInfo.className.substring(0, 1).toUpperCase() +
                 classInfo.className.substring(1).toLowerCase() + "s";
 
-        String formattedCategory = category.toString().toLowerCase();
+        if (allowedCategories == null || allowedCategories.isEmpty()) {
+            return Component.literal(String.format("%s %s cannot cast any spells",
+                            formattedSubclass, formattedClass))
+                    .withStyle(ChatFormatting.RED);
+        }
 
-        return Component.literal(String.format("%s %s cannot use %s spells",
-                        formattedSubclass,
-                        formattedClass,
-                        formattedCategory))
+        if (allowedCategories.size() == 1) {
+            String category = allowedCategories.iterator().next().toString().toLowerCase();
+            return Component.literal(String.format("%s %s can only cast %s spells",
+                            formattedSubclass, formattedClass, category))
+                    .withStyle(ChatFormatting.RED);
+        }
+
+        // todo: Formatting in case we want to have more than 2 categories
+        String categories = allowedCategories.stream()
+                .map(cat -> cat.toString().toLowerCase())
+                .collect(Collectors.joining(" and "));
+
+        return Component.literal(String.format("%s %s can only cast %s spells",
+                        formattedSubclass, formattedClass, categories))
                 .withStyle(ChatFormatting.RED);
     }
 
