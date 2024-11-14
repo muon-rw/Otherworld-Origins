@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.config;
 
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
+import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -16,7 +17,22 @@ public class SpellCategoryConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> OFFENSIVE_SPELLS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SUPPORT_SPELLS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> DEFENSIVE_SPELLS;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> UNRESTRICTED_SPELLS;
     private static final Map<String, List<String>> DEFAULT_CLASS_RESTRICTIONS = createDefaultRestrictions();
+
+    private static final List<String> DEFAULT_UNRESTRICTED_SPELLS = Arrays.asList(
+            "otherworldorigins:summon_golem",
+            "otherworldorigins:summon_grizzly_bear",
+            "otherworldorigins:black_dragon_breath",
+            "otherworldorigins:blue_dragon_breath",
+            "otherworldorigins:brass_dragon_breath",
+            "otherworldorigins:bronze_dragon_breath",
+            "otherworldorigins:copper_dragon_breath",
+            "otherworldorigins:gold_dragon_breath",
+            "otherworldorigins:red_dragon_breath",
+            "otherworldorigins:silver_dragon_breath",
+            "otherworldorigins:white_dragon_breath"
+    );
 
     private static Map<String, List<String>> createDefaultRestrictions() {
         Map<String, List<String>> restrictions = new TreeMap<>(); // Uses natural (alphabetical) ordering
@@ -126,7 +142,6 @@ public class SpellCategoryConfig {
 
     static {
         BUILDER.push("Spell Configuration");
-
         BUILDER.comment(
                 " Valid spell categories are: OFFENSIVE, SUPPORT, DEFENSIVE",
                 " Any spells not listed in any category will default to OFFENSIVE",
@@ -138,14 +153,18 @@ public class SpellCategoryConfig {
         OFFENSIVE_SPELLS = BUILDER
                 .comment(" List of spells that deal damage or have harmful effects")
                 .defineList("offensive_spells", DEFAULT_OFFENSIVE_SPELLS, SpellCategoryConfig::isValidSpellId);
-
         SUPPORT_SPELLS = BUILDER
                 .comment(" List of spells that heal, buff, or otherwise aid allies")
                 .defineList("support_spells", DEFAULT_SUPPORT_SPELLS, SpellCategoryConfig::isValidSpellId);
-
         DEFENSIVE_SPELLS = BUILDER
                 .comment(" List of spells that provide protection, mobility, or control effects")
                 .defineList("defensive_spells", DEFAULT_DEFENSIVE_SPELLS, SpellCategoryConfig::isValidSpellId);
+        UNRESTRICTED_SPELLS = BUILDER
+                .comment(" List of spells that bypass all casting restrictions",
+                        " The default list contains Origin spells, but spells will always be",
+                        " castable if they are innate Origin abilities, even if they are not on this list.",
+                        " These are just here for an example.")
+                .defineList("unrestricted_spells", DEFAULT_UNRESTRICTED_SPELLS, SpellCategoryConfig::isValidSpellId);
         BUILDER.pop();
 
         BUILDER.push("Allowed Spells");
@@ -206,5 +225,16 @@ public class SpellCategoryConfig {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static boolean isSpellUnrestricted(AbstractSpell spell) {
+        if (!SPEC.isLoaded()) return false;
+
+        String spellId = spell.getSpellId();
+        String spellName = spell.getSpellName();
+
+        List<? extends String> unrestrictedSpells = UNRESTRICTED_SPELLS.get();
+
+        return unrestrictedSpells.contains(spellId) || unrestrictedSpells.contains(spellName);
     }
 }

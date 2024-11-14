@@ -14,6 +14,7 @@ import io.github.edwinmindcraft.origins.common.OriginsCommon;
 import io.github.edwinmindcraft.origins.common.network.S2COpenOriginScreen;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
+import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.entity.spells.AbstractConeProjectile;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -64,6 +65,9 @@ public class ForgeEvents {
 
     @SubscribeEvent
     public static void onSpellPreCast(SpellPreCastEvent event) {
+        if (event.getCastSource() == CastSource.COMMAND) {
+            return;
+        }
         if (!SpellRestrictions.isSpellAllowed(event.getEntity(), SpellRegistry.getSpell(event.getSpellId()))) {
             event.setCanceled(true);
             event.getEntity().displayClientMessage(

@@ -97,6 +97,9 @@ public class SpellRestrictions {
     }
 
     public static boolean isSpellAllowed(Player player, AbstractSpell spell) {
+        if (SpellCategoryConfig.isSpellUnrestricted(spell)) {
+            return true;
+        }
         PlayerClassInfo classInfo = getPlayerClassInfo(player);
         if (classInfo == null) {
             return true;
