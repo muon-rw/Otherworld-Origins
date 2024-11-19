@@ -4,11 +4,18 @@
         "key": "key.origins.secondary_active"
     },
     "entity_action": {
-        "type": "otherworldorigins:summon_entity",
-        "entity_type": "otherworldorigins:summon_iron_golem",
-        "bientity_action": {
-            "type": "otherworldorigins:tame"
-        }
+        "type": "otherworldorigins:cast_spell",
+        "spell": "otherworldorigins:summon_golem",
+        "power_level": 5,
+        "mana_cost": 50
     },
-    "cooldown": 600
+    "cooldown": 6000,
+    "hud_render": {
+        "should_render": true
+    },
+    "condition": {
+        "type": "otherworldorigins:player_mana",
+        "comparison": ">=",
+        "compare_to": 50
+    }
 }
