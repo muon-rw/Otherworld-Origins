@@ -32,7 +32,7 @@
         },
         "entity_action": {
             "type": "otherworldorigins:cast_spell",
-            "spell": "void_eruption",
+            "spell": "traveloptics:void_eruption",
             "power_level": 1,
             "cast_time": 0,
             "mana_cost": 20
