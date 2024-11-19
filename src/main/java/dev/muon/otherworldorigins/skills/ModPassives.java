@@ -32,7 +32,7 @@ public class ModPassives {
                     new ResourceLocation(JustLevelingFork.MOD_ID,"textures/skill/intelligence/locked_16.png"),
                     AttributeRegistry.SPELL_POWER.get(),
                     "C1CF34A5-DC32-B815-81C3-01AB00612506",
-                    5.0,
+                    1.0,
                     2, 4, 6, 8, 10, 12, 14, 16, 18, 20
             ));
 
