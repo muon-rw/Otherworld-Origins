@@ -1,3 +1,12 @@
+## 0.7.0
+- Lowered Intelligence's Spell Power passive from 0.5 per point to 0.1
+- Fixed Warlock's Eldritch Blast ability not upgrading at level 15
+- Fixed Conjuration subclass' Golem not being summonable
+TODO: 
+- **Scrolls** of restricted spells are now usable at 50% effectiveness (the restriction applies fully to inscribed spells)
+- Fixed a softlock where the server repeatedly tried to prompt clients to select an Origin, while the client thought none were available
+- Restricted *all* Apotheosis reforging to specific origins. 
+
 ## 0.6.0
 - Refactored Casting restrictions. Check the otherworldorigins-common config for more info
 
