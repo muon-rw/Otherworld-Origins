@@ -128,8 +128,9 @@ public class SpellCategoryConfig {
     private static final List<String> DEFAULT_SUPPORT_SPELLS = Arrays.asList(
             "blessing_of_life", "cloud_of_regeneration", "greater_heal",
             "healing_circle", "heal", "gluttony", "angel_wings", "spectral_hammer",
-            "summon_horse", "slow", "heat_surge", "summon_vex", "summon_polar_bear",
-            "raise_dead", "portal", "gust", "firefly_swarm", "wololo"
+            "slow", "heat_surge",
+            "raise_dead", "portal", "gust", "firefly_swarm", "wololo", "charge", "traveloptics:em_pulse", "blight",
+            "acid_spit", "haste", "slow", "gust"
     );
 
     private static final List<String> DEFAULT_DEFENSIVE_SPELLS = Arrays.asList(
