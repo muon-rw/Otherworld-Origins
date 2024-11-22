@@ -1,8 +1,6 @@
 package dev.muon.otherworldorigins;
 
 import com.mojang.logging.LogUtils;
-import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
-import com.seniors.justlevelingfork.registry.RegistryCapabilities;
 import dev.muon.otherworldorigins.action.ModActions;
 import dev.muon.otherworldorigins.client.OtherworldOriginsClient;
 import dev.muon.otherworldorigins.condition.ModConditions;
@@ -16,8 +14,6 @@ import dev.muon.otherworldorigins.skills.ModPassives;
 import dev.muon.otherworldorigins.spells.ModSpells;
 import dev.muon.otherworldorigins.util.SpellCategoryMapper;
 import dev.muon.otherworldorigins.util.SpellRestrictions;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -35,8 +31,6 @@ import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.slf4j.Logger;
-
-import javax.annotation.Nullable;
 
 @Mod(OtherworldOrigins.MODID)
 public class OtherworldOrigins {
@@ -142,6 +136,11 @@ public class OtherworldOrigins {
                 .encoder(SendFeatLayersMessage::encode)
                 .decoder(SendFeatLayersMessage::decode)
                 .consumerMainThread(SendFeatLayersMessage::handle)
+                .add();
+        CHANNEL.messageBuilder(ResetValidationAttemptsMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(ResetValidationAttemptsMessage::encode)
+                .decoder(ResetValidationAttemptsMessage::decode)
+                .consumerMainThread(ResetValidationAttemptsMessage::handle)
                 .add();
     }
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
