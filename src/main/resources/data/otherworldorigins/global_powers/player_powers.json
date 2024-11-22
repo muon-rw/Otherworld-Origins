@@ -3,8 +3,6 @@
         "minecraft:player"
     ],
     "powers": [
-        "otherworldorigins:enchantment_restrictions",
-        "otherworldorigins:enchantment_tooltips",
-        "otherworldorigins:ancient_reforging"
+        "otherworldorigins:reforging_restrictions"
     ]
 }
