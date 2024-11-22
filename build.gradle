@@ -259,7 +259,7 @@ tasks.register('sendToModpack', Copy) {
     dependsOn 'jarJar'
     from tasks.jarJar.archiveFile
     //wtf is a renpi
-    into 'C:/Users/renpi/curseforge/minecraft/Instances/Otherworld Early Beta/mods'
+    into 'C:/Users/renpi/curseforge/minecraft/Instances/Otherworld Beta/mods'
     rename { String fileName ->
         fileName.replace(project.version.toString(), "dev")
     }

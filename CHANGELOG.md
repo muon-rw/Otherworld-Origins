@@ -1,3 +1,10 @@
+## 0.8.0
+- Fixed reforge restrictions occasionally not working
+- Also restricted Augmenting and Gem Cutting
+- Added a new skill, Legendary Smith (Level 20 Building) to access Gem Cutting and Reforging
+- Underdark subraces can learn Legendary Smith to access Ancient Reforging and Augmenting 
+- Made Dark Vision end immediately when disabled
+
 ## 0.7.0
 - Nerfed Spell Power passive from 0.5 per point to 0.1
 - Spell Restrictions now apply only to inscribed spells, not scrolls

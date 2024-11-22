@@ -15,11 +15,17 @@
   "passive.otherworldorigins.magic_mana.description": "Increases the amount of mana available for casting.",
   "passive.otherworldorigins.int_spell_power.description": "Increases the average damage done by your spells.",
 
+  "otherworldorigins.tooltip.advanced_table_restricted": "Requires the Legendary Smith Skill and an Underdark subrace",
+  "otherworldorigins.tooltip.basic_table_restricted": "Requires an Underdark subrace, or the Legendary Smith skill",
+
+  "skill.otherworldorigins.reforging": "Legendary Smith",
+  "skill.otherworldorigins.reforging.description": "Grants access to Reforging and Gem Cutting. Underdark races can learn this skill to gain access to Augmenting and Ancient Reforging.",
+
   "entity.otherworldorigins.summoned_iron_golem": "Summoner's Golem",
   "entity.otherworldorigins.summoned_grizzly_bear": "Summoner's Grizzly Bear",
   
   "otherworldorigins.uncastable": "You can't use this ability right now.",
-  "otherworldorigins.reforge_restricted": "Your subrace lacks the inherited skills needed to Reforge...",
+  "otherworldorigins.reforge_restricted": "Your lack the knowledge needed to use this table...",
   
   "tooltip.otherworldorigins.damage_dealt": "+%s Damage Dealt",
   "tooltip.otherworldorigins.attack_damage_bonus": "+%s Attack Damage",

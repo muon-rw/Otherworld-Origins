@@ -1,0 +1,8 @@
+{
+    "replace": false,
+    "values": [
+      {"id":"ancientreforging:ancient_reforging_table","required":false},
+      {"id":"apotheosis:augmenting_table","required":false}
+    ]
+  }
+  

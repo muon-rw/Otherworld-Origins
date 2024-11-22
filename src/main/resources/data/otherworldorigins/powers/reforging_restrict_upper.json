@@ -1,0 +1,38 @@
+{
+    "type": "origins:prevent_block_use",
+    "block_condition": {
+        "type": "origins:in_tag",
+        "tag": "otherworldorigins:advanced_tables"
+    },
+    "condition": {
+        "inverted": true,
+        "type": "origins:and",
+        "conditions": [
+            {
+                "type": "otherworldorigins:has_skill",
+                "skill": "otherworldorigins:reforging"
+            },
+            {
+                "type": "origins:or",
+                "conditions": [
+                    {
+                        "type": "origins:origin",
+                        "origin": "otherworldorigins:subrace/gnome/deep"
+                    },
+                    {
+                        "type": "origins:origin",
+                        "origin": "otherworldorigins:subrace/dwarf/duergar"
+                    },
+                    {
+                        "type": "origins:origin",
+                        "origin": "otherworldorigins:subrace/half_elf/drow"
+                    },
+                    {
+                        "type": "origins:origin",
+                        "origin": "otherworldorigins:subrace/elf/drow"
+                    }
+                ]
+            }
+        ]
+    }
+}

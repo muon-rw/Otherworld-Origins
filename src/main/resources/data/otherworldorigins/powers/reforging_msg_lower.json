@@ -1,17 +1,8 @@
 {
     "type": "origins:action_on_block_use",
     "block_condition": {
-        "type": "origins:or",
-        "conditions": [
-            {
-                "type": "origins:block",
-                "block": "ancientreforging:ancient_reforging_table"
-            },
-            {
-                "type": "origins:block",
-                "block": "apotheosis:reforging_table"
-            }
-        ]
+        "type": "origins:in_tag",
+        "tag": "otherworldorigins:basic_tables"
     },
     "entity_action": {
         "type": "origins:execute_command",
@@ -35,6 +26,10 @@
             {
                 "type": "origins:origin",
                 "origin": "otherworldorigins:subrace/elf/drow"
+            },
+            {
+                "type": "otherworldorigins:has_skill",
+                "skill": "otherworldorigins:reforging"
             }
         ],
         "inverted": true
