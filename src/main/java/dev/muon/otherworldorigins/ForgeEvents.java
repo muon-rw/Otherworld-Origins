@@ -65,7 +65,7 @@ public class ForgeEvents {
 
     @SubscribeEvent
     public static void onSpellPreCast(SpellPreCastEvent event) {
-        if (event.getCastSource() == CastSource.COMMAND) {
+        if (event.getCastSource() == CastSource.COMMAND || event.getCastSource() == CastSource.SCROLL) {
             return;
         }
         if (!SpellRestrictions.isSpellAllowed(event.getEntity(), SpellRegistry.getSpell(event.getSpellId()))) {

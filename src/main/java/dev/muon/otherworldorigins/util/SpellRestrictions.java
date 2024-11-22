@@ -122,7 +122,7 @@ public class SpellRestrictions {
         PlayerClassInfo classInfo = getPlayerClassInfo(player);
         if (classInfo == null) {
             return Component.literal("Unable to determine class restrictions")
-                    .withStyle(ChatFormatting.RED);
+                    .withStyle(ChatFormatting.DARK_GRAY);
         }
 
         String fullSubclassKey = classInfo.className + "/" + classInfo.subclassName;
@@ -138,24 +138,24 @@ public class SpellRestrictions {
         if (allowedCategories == null || allowedCategories.isEmpty()) {
             return Component.literal(String.format("%s %s cannot cast any spells",
                             formattedSubclass, formattedClass))
-                    .withStyle(ChatFormatting.RED);
+                    .withStyle(ChatFormatting.DARK_GRAY);
         }
 
         if (allowedCategories.size() == 1) {
             String category = allowedCategories.iterator().next().toString().toLowerCase();
             return Component.literal(String.format("%s %s can only cast %s spells",
                             formattedSubclass, formattedClass, category))
-                    .withStyle(ChatFormatting.RED);
+                    .withStyle(ChatFormatting.DARK_GRAY);
         }
 
-        // todo: Formatting in case we want to have more than 2 categories
+        // TODO: Formatting in case we want to have more than 2 categories
         String categories = allowedCategories.stream()
                 .map(cat -> cat.toString().toLowerCase())
                 .collect(Collectors.joining(" and "));
 
         return Component.literal(String.format("%s %s can only cast %s spells",
                         formattedSubclass, formattedClass, categories))
-                .withStyle(ChatFormatting.RED);
+                .withStyle(ChatFormatting.DARK_GRAY);
     }
 
     public static void clearCache(Player player) {

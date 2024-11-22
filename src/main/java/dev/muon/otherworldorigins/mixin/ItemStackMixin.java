@@ -15,6 +15,7 @@ import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import io.redspace.ironsspellbooks.item.Scroll;
+import io.redspace.ironsspellbooks.item.SpellBook;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -41,7 +42,7 @@ import java.util.Map;
 public class ItemStackMixin {
 
     @Unique
-    private AbstractSpell otherworld$getSpellFromStack(ItemStack itemStack) {
+    private AbstractSpell otherworld$getSpellFromScroll(ItemStack itemStack) {
         return ISpellContainer.get(itemStack).getSpellAtIndex(0).getSpell();
     }
 
@@ -80,17 +81,35 @@ public class ItemStackMixin {
 
 
         if (stack.getItem() instanceof Scroll) {
-            AbstractSpell spell = otherworld$getSpellFromStack(stack);
-            if (spell != null) {
-                if (!SpellRestrictions.isSpellAllowed(player, spell)) {
-                    MutableComponent disabledTitle = Component.literal("").append(modifiedTooltips.get(0)).withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.STRIKETHROUGH);
-                    modifiedTooltips.set(0, disabledTitle);
+            AbstractSpell spell = otherworld$getSpellFromScroll(stack);
+            if (spell != null && !SpellRestrictions.isSpellAllowed(player, spell)) {
 
-                    Component restrictionMessage = SpellRestrictions.getRestrictionMessage(player, spell);
-                    MutableComponent restrictionText = Component.literal("")
-                            .append(restrictionMessage)
-                            .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC);
-                    modifiedTooltips.add(1, restrictionText);
+                MutableComponent warningText = Component.literal("Can only be cast using a Scroll - ")
+                        .append(SpellRestrictions.getRestrictionMessage(player, spell))
+                        .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC);
+                modifiedTooltips.add(1, warningText);
+            }
+        } else if (stack.getItem() instanceof SpellBook && ISpellContainer.isSpellContainer(stack)) {
+            var spellContainer = ISpellContainer.get(stack);
+            for (int i = 0; i < modifiedTooltips.size(); i++) {
+                Component line = modifiedTooltips.get(i);
+                for (var spellData : spellContainer.getActiveSpells()) {
+                    AbstractSpell spell = spellData.getSpell();
+                    String spellName = spell.getDisplayName(null).getString();
+                    if (line.getString().contains(spellName)) {
+                        if (!SpellRestrictions.isSpellAllowed(player, spell)) {
+                            MutableComponent disabledLine = Component.literal("").append(line)
+                                    .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.STRIKETHROUGH);
+                            modifiedTooltips.set(i, disabledLine);
+
+                            Component restrictionMessage = SpellRestrictions.getRestrictionMessage(player, spell);
+                            MutableComponent restrictionText = Component.literal(" ")
+                                    .append(restrictionMessage)
+                                    .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC);
+                            modifiedTooltips.add(i + 1, restrictionText);
+                            break;
+                        }
+                    }
                 }
             }
         }
