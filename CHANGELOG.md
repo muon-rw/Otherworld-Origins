@@ -1,10 +1,10 @@
 ## 0.7.0
 - Nerfed Spell Power passive from 0.5 per point to 0.1
-- Fixed Warlock's Eldritch Blast ability not upgrading at level 15
-- Fixed Conjuration subclass' Golem not being summonable
 - Spell Restrictions now apply only to inscribed spells, not scrolls
 - Restricted *all* Apotheosis reforging to specific origins.
 - Fixed a softlock where the server repeatedly tried to prompt clients to select an Origin, while the client thought none were available
+- Fixed Warlock's Eldritch Blast ability not upgrading at level 15
+- Fixed Conjuration subclass' Golem not being summonable
 - Added a few default spell categorizations (regenerating the otherworldorigins-commmon config is recommended)
 
 
