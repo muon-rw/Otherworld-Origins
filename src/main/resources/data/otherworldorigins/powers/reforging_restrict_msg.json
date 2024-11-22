@@ -1,0 +1,42 @@
+{
+    "type": "origins:action_on_block_use",
+    "block_condition": {
+        "type": "origins:or",
+        "conditions": [
+            {
+                "type": "origins:block",
+                "block": "ancientreforging:ancient_reforging_table"
+            },
+            {
+                "type": "origins:block",
+                "block": "apotheosis:reforging_table"
+            }
+        ]
+    },
+    "entity_action": {
+        "type": "origins:execute_command",
+        "command": "title @s actionbar {\"translate\": \"otherworldorigins.reforge_restricted\", \"color\": \"red\"}"
+    },
+    "condition": {
+        "type": "origins:or",
+        "conditions": [
+            {
+                "type": "origins:origin",
+                "origin": "otherworldorigins:subrace/gnome/deep"
+            },
+            {
+                "type": "origins:origin",
+                "origin": "otherworldorigins:subrace/dwarf/duergar"
+            },
+            {
+                "type": "origins:origin",
+                "origin": "otherworldorigins:subrace/half_elf/drow"
+            },
+            {
+                "type": "origins:origin",
+                "origin": "otherworldorigins:subrace/elf/drow"
+            }
+        ],
+        "inverted": true
+    }
+}

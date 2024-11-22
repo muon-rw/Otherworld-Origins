@@ -3,6 +3,7 @@
         "minecraft:player"
     ],
     "powers": [
-        "otherworldorigins:reforging_restrictions"
+        "otherworldorigins:reforging_restrictions",
+        "otherworldorigins:reforging_restrict_msg"
     ]
 }

@@ -1,8 +1,17 @@
 {
     "type": "origins:prevent_block_use",
     "block_condition": {
-        "type": "origins:block",
-        "block": "ancientreforging:ancient_reforging_table"
+        "type": "origins:or",
+        "conditions": [
+            {
+                "type": "origins:block",
+                "block": "ancientreforging:ancient_reforging_table"
+            },
+            {
+                "type": "origins:block",
+                "block": "apotheosis:reforging_table"
+            }
+        ]
     },
     "condition": {
         "type": "origins:or",
@@ -13,7 +22,7 @@
             },
             {
                 "type": "origins:origin",
-                "origin": "otherworldorigins:race/dwarf/duergar"
+                "origin": "otherworldorigins:subrace/dwarf/duergar"
             },
             {
                 "type": "origins:origin",

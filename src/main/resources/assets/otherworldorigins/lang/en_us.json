@@ -1,6 +1,8 @@
 {
   "otherworldorigins.restrictions.school_type": "%s %ss are not attuned to %s magic",
 
+  "otherworldorigins.disconnect.validation_failed": "Failed to validate origin layers after multiple attempts. Please try reconnecting. If this happens repeatedly, please check your network connection.",
+
   "button.otherworldorigins.respec_button": "Respec",
   "button.otherworldorigins.respec_button_confirm": "Are you sure?",
   "tooltip.otherworldorigins.hover_cost": "Spend %s levels to reset all stats.",
@@ -17,10 +19,11 @@
   "entity.otherworldorigins.summoned_grizzly_bear": "Summoner's Grizzly Bear",
   
   "otherworldorigins.uncastable": "You can't use this ability right now.",
+  "otherworldorigins.reforge_restricted": "Your subrace lacks the inherited skills needed to Reforge...",
   
   "tooltip.otherworldorigins.damage_dealt": "+%s Damage Dealt",
   "tooltip.otherworldorigins.attack_damage_bonus": "+%s Attack Damage",
-  
+
   "death.attack.smite.player": "%1$s was smeeted by %2$s",
   "death.attack.smite.item": "%1$s was smeeted by %2$s with %3$s",
   
@@ -58,7 +61,7 @@
   "origin.otherworldorigins.subrace/elf/wood.name": "Wood Elf",
   "origin.otherworldorigins.subrace/elf/wood.description": "• +1 Dexterity\n• +1 Speed§r\n\n§oWood elves are swift and perceptive, at home in the forests and wild lands.",
   "origin.otherworldorigins.subrace/elf/drow.name": "Drow",
-  "origin.otherworldorigins.subrace/elf/drow.description": "• +1 Intelligence§r\n• Access to Ancient Reforging§r\n\n§oDrow, or dark elves, are known for their cunning and mastery of ancient magics.",
+  "origin.otherworldorigins.subrace/elf/drow.description": "• +1 Intelligence§r\n• Access to Reforging§r\n\n§oDrow, or dark elves, are known for their cunning and mastery of ancient magics.",
   
   "origin.otherworldorigins.race/half_elf.name": "Half-Elf",
   "origin.otherworldorigins.race/half_elf.description": "• Medium Size§r\n• +2 Charisma§r\n• +1 to Two Stats\n• Darkvision§r\n\n§oThe fabled power of Elven blood and the courageous soul of Humans. High-Elves are often natural-born diplomats.§r\n\n§nSubraces§r\n• High Half-Elf\n• Wood Half-Elf\n• Drow Half-Elf",
@@ -67,7 +70,7 @@
   "origin.otherworldorigins.subrace/half_elf/wood.name": "Wood Half-Elf",
   "origin.otherworldorigins.subrace/half_elf/wood.description": "• +1 Dexterity\n• +10% Speed§r\n\n§oLike your Wood-Elven elders you are swift and perceptive, at home in the forests and wild lands.",
   "origin.otherworldorigins.subrace/half_elf/drow.name": "Drow Half-Elf",
-  "origin.otherworldorigins.subrace/half_elf/drow.description": "• +1 Intelligence§r\n• Access to Ancient Reforging§r\n\n§oYour Drow lineage has imbued your memories with some of their esoteric knowledge.",
+  "origin.otherworldorigins.subrace/half_elf/drow.description": "• +1 Intelligence§r\n• Access to Reforging§r\n\n§oYour Drow lineage has imbued your memories with some of their esoteric knowledge.",
   
   "origin.otherworldorigins.race/dwarf.name": "Dwarf",
   "origin.otherworldorigins.race/dwarf.description": "• Small Size\n• +2 Constitution\n• -10% Speed\n• Darkvision\n• Dwarven Resilience\n\n§oA tough and stocky race, often accompanied by the clamoring of pickaxes. §r\n\n§nSubraces§r\n• Hill Dwarf\n• Mountain Dwarf\n• Duergar",
@@ -76,7 +79,7 @@
   "origin.otherworldorigins.subrace/dwarf/mountain.name": "Mountain Dwarf",
   "origin.otherworldorigins.subrace/dwarf/mountain.description": "• +1 Strength§r\n• +1 Defence§r\n\n§oMountain dwarves are resilient and sturdy, conditioned by the rugged unforgiving snowy peaks they call home.",
   "origin.otherworldorigins.subrace/dwarf/duergar.name": "Duergar",
-  "origin.otherworldorigins.subrace/dwarf/duergar.description": "• +1 Intelligence§r\n• Access to Ancient Reforging§r\n\n§oDuergar, or gray dwarves, hail from deep in the underdark - a Duergar rarely ever sees the light of day.",
+  "origin.otherworldorigins.subrace/dwarf/duergar.description": "• +1 Intelligence§r\n• Access to Reforging§r\n\n§oDuergar, or gray dwarves, hail from deep in the underdark - a Duergar rarely ever sees the light of day.",
 
   "origin.otherworldorigins.race/halfling.name": "Halfling",
   "origin.otherworldorigins.race/halfling.description": "• Small Size\n• +2 Dexterity§r\n• +1 Luck\n• -10% Speed\n\n§oHalflings are nimble and lucky, with a natural talent for stealth and precision.§r\n\n§nSubraces§r\nLightfoot Halfling\nStout Halfling",
@@ -92,7 +95,7 @@
 "origin.otherworldorigins.subrace/gnome/forest.name": "Forest Gnome",
 "origin.otherworldorigins.subrace/gnome/forest.description": "• +1 Dexterity§r\n\n§oMasters of misdirection, forest gnomes dance through dappled shadows, their laughter echoing like wind chimes in a summer breeze.",
 "origin.otherworldorigins.subrace/gnome/deep.name": "Deep Gnome",
-"origin.otherworldorigins.subrace/gnome/deep.description": "• Access to Ancient Reforging§r\n\n§oSilent as stone, deep gnomes carry the weight of the earth in their eyes. Their craftsmanship whispers secrets of ages long past.",
+"origin.otherworldorigins.subrace/gnome/deep.description": "• Access to Reforging§r\n\n§oSilent as stone, deep gnomes carry the weight of the earth in their eyes. Their craftsmanship whispers secrets of ages long past.",
 
 "origin.otherworldorigins.race/dragonborn.name": "Dragonborn",
 "origin.otherworldorigins.race/dragonborn.description": "• Medium Size§r\n• +2 Strength\n• +1 Charisma\n• Draconic Ancestry\n• 10% Physical Resistance\n\n§oScaled and proud, dragonborn walk the line between mortal and myth. Their mere presence commands respect.§r\n\n§nSubraces§r\nBlack, Blue, Brass, Bronze, Copper, Gold, Green, Red, Silver, White",
