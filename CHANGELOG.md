@@ -1,3 +1,6 @@
+## 0.8.1
+- Minor changes to Reforging restriction logic
+
 ## 0.8.0
 - Fixed reforge restrictions occasionally not working
 - Also restricted Augmenting and Gem Cutting
