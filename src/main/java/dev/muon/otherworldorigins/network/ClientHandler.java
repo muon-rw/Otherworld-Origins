@@ -18,7 +18,7 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class ClientHandler {
     private static int validationAttempts = 0;
-    private static final int MAX_VALIDATION_ATTEMPTS = 3;
+    private static final int MAX_VALIDATION_ATTEMPTS = 20;
 
     @OnlyIn(Dist.CLIENT)
     public static void handleValidatedLayers(List<ResourceLocation> validMissingLayers) {
