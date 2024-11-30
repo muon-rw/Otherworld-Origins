@@ -2,7 +2,7 @@ package dev.muon.otherworldorigins.mixin.compat.apotheosis;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.muon.otherworldorigins.util.EnchantmentRestrictions;
+import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.shadowsoffire.apotheosis.ench.Ench;
 import dev.shadowsoffire.apotheosis.ench.enchantments.masterwork.EndlessQuiverEnchant;
 import net.minecraft.world.entity.player.Player;

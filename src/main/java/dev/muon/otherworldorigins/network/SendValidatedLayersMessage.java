@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.network;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.util.ClientLayerScreenHelper;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
 import net.minecraft.core.Registry;
@@ -55,7 +56,7 @@ public class SendValidatedLayersMessage {
                     OtherworldOrigins.LOGGER.info("- " + layerId);
                 }
 
-                DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientHandler.handleValidatedLayers(validMissingLayers));
+                DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientLayerScreenHelper.handleValidatedLayers(validMissingLayers));
             }
         });
         ctx.get().setPacketHandled(true);

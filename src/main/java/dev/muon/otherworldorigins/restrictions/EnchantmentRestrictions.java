@@ -1,6 +1,7 @@
-package dev.muon.otherworldorigins.util;
+package dev.muon.otherworldorigins.restrictions;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
 import io.github.edwinmindcraft.origins.api.origin.Origin;
@@ -34,11 +35,13 @@ public class EnchantmentRestrictions {
     }
 
     public static boolean isEnchantmentAllowed(Player player, Enchantment enchantment) {
+        if (!OtherworldOriginsConfig.ENABLE_ENCHANTMENT_RESTRICTIONS.get()) {
+            return true;
+        }
         ResourceLocation enchantmentId = ForgeRegistries.ENCHANTMENTS.getKey(enchantment);
         if (enchantmentId == null) {
             return true;
         }
-
         String requiredClass = ENCHANTMENT_CLASS_MAP.get(enchantmentId);
         if (requiredClass == null) {
             return true;

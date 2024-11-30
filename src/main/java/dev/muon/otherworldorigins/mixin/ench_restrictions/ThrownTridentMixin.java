@@ -1,8 +1,8 @@
-package dev.muon.otherworldorigins.mixin;
+package dev.muon.otherworldorigins.mixin.ench_restrictions;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import dev.muon.otherworldorigins.util.EnchantmentRestrictions;
+import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownTrident;
 import net.minecraft.world.item.ItemStack;

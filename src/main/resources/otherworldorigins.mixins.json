@@ -8,18 +8,10 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "ArrowItemMixin",
-    "BlockMixin",
-    "BowItemMixin",
-    "EnchantmentHelperMixin",
-    "ExperienceOrbMixin",
-    "FishingRodItemMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "MobEffectInstanceAccessor",
     "PlayerMixin",
-    "ThornsEnchantmentMixin",
-    "ThrownTridentMixin",
     "VillagerMixin",
     "compat.apotheosis.EnchantmentUtilsMixin",
     "compat.apotheosis.EndlessQuiverEnchantMixin",
@@ -30,7 +22,16 @@
     "compat.medieval.LevelingUtilsMixin",
     "compat.monobank.ThiefMixin",
     "compat.origins.ChooseOriginScreenMixin",
-    "compat.origins.WaitForNextLayerScreenMixin"
+    "compat.origins.WaitForNextLayerScreenMixin",
+    "ench_restrictions.ArrowItemMixin",
+    "ench_restrictions.BlockMixin",
+    "ench_restrictions.BowItemMixin",
+    "ench_restrictions.EnchantmentHelperMixin",
+    "ench_restrictions.ExperienceOrbMixin",
+    "ench_restrictions.FishingRodItemMixin",
+    "ench_restrictions.PlayerMixin",
+    "ench_restrictions.ThornsEnchantmentMixin",
+    "ench_restrictions.ThrownTridentMixin"
   ],
   "client": [
     "compat.justlevelingfork.client.AptitudeMixin",

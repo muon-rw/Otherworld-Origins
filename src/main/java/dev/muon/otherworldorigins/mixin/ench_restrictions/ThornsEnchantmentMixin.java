@@ -1,6 +1,6 @@
-package dev.muon.otherworldorigins.mixin;
+package dev.muon.otherworldorigins.mixin.ench_restrictions;
 
-import dev.muon.otherworldorigins.util.EnchantmentRestrictions;
+import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;

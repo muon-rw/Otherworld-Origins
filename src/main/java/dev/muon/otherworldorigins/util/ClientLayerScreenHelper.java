@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.network;
+package dev.muon.otherworldorigins.util;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.github.apace100.origins.screen.ChooseOriginScreen;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
-public class ClientHandler {
+public class ClientLayerScreenHelper {
     private static int validationAttempts = 0;
     private static final int MAX_VALIDATION_ATTEMPTS = 20;
 

@@ -1,7 +1,7 @@
-package dev.muon.otherworldorigins.util;
+package dev.muon.otherworldorigins.restrictions;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import dev.muon.otherworldorigins.config.SpellCategoryConfig;
+import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.minecraft.resources.ResourceLocation;
@@ -22,9 +22,9 @@ public class SpellCategoryMapper {
         Map<ResourceLocation, SpellCategory> tempMap = new HashMap<>();
         Set<ResourceLocation> duplicates = new java.util.HashSet<>();
 
-        processSpellList(SpellCategoryConfig.OFFENSIVE_SPELLS.get(), SpellCategory.OFFENSIVE, tempMap, duplicates);
-        processSpellList(SpellCategoryConfig.SUPPORT_SPELLS.get(), SpellCategory.SUPPORT, tempMap, duplicates);
-        processSpellList(SpellCategoryConfig.DEFENSIVE_SPELLS.get(), SpellCategory.DEFENSIVE, tempMap, duplicates);
+        processSpellList(OtherworldOriginsConfig.OFFENSIVE_SPELLS.get(), SpellCategory.OFFENSIVE, tempMap, duplicates);
+        processSpellList(OtherworldOriginsConfig.SUPPORT_SPELLS.get(), SpellCategory.SUPPORT, tempMap, duplicates);
+        processSpellList(OtherworldOriginsConfig.DEFENSIVE_SPELLS.get(), SpellCategory.DEFENSIVE, tempMap, duplicates);
 
         if (!duplicates.isEmpty()) {
             OtherworldOrigins.LOGGER.warn("The following spells were assigned to multiple categories:");

@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.util;
+package dev.muon.otherworldorigins.restrictions;
 
 public enum SpellCategory {
     OFFENSIVE,

@@ -1,7 +1,7 @@
-package dev.muon.otherworldorigins.util;
+package dev.muon.otherworldorigins.restrictions;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import dev.muon.otherworldorigins.config.SpellCategoryConfig;
+import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
 import io.github.edwinmindcraft.origins.api.origin.Origin;
@@ -26,7 +26,7 @@ public class SpellRestrictions {
     public static void initializeFromConfig() {
         Map<String, Set<SpellCategory>> newRestrictions = new HashMap<>();
 
-        SpellCategoryConfig.getClassRestrictions().forEach((classPath, categories) -> {
+        OtherworldOriginsConfig.getClassRestrictions().forEach((classPath, categories) -> {
             Set<SpellCategory> allowedCategories = categories.stream()
                     .map(cat -> SpellCategory.valueOf(cat.toUpperCase()))
                     .collect(Collectors.toSet());
@@ -97,7 +97,7 @@ public class SpellRestrictions {
     }
 
     public static boolean isSpellAllowed(Player player, AbstractSpell spell) {
-        if (SpellCategoryConfig.isSpellUnrestricted(spell)) {
+        if (OtherworldOriginsConfig.isSpellUnrestricted(spell)) {
             return true;
         }
         PlayerClassInfo classInfo = getPlayerClassInfo(player);

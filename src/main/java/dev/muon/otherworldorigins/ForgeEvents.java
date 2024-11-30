@@ -3,7 +3,7 @@ package dev.muon.otherworldorigins;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
-import dev.muon.otherworldorigins.util.SpellRestrictions;
+import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;

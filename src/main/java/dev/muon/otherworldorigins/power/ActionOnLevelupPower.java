@@ -1,8 +1,7 @@
 package dev.muon.otherworldorigins.power;
 
-/*
+
 import dev.muon.medieval.leveling.event.AptitudeChangedEvent;
-import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.configuration.HolderConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityAction;
@@ -32,7 +31,6 @@ public class ActionOnLevelupPower extends PowerFactory<HolderConfiguration<Confi
 
     @SubscribeEvent
     public static void onAptitudeChanged(AptitudeChangedEvent event) {
-        OtherworldOrigins.LOGGER.info("Aptitude Changed Event Fired");
         if (event.getNewLevel() > event.getOldLevel()) {
             Entity entity = event.getPlayer();
             if (entity instanceof ServerPlayer serverPlayer) {
@@ -42,4 +40,4 @@ public class ActionOnLevelupPower extends PowerFactory<HolderConfiguration<Confi
             }
         }
     }
-}*/
+}

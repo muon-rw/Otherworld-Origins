@@ -2,10 +2,10 @@ package dev.muon.otherworldorigins.action;
 
 import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.effect.MobEffectInstance;
-
+@Deprecated(forRemoval = true)
 public class ClearNegativeEffectsAction extends EntityAction<NoConfiguration> {
 
     public ClearNegativeEffectsAction() {

@@ -1,7 +1,7 @@
 package dev.muon.otherworldorigins.mixin.compat.backpacked;
 
 import com.mrcrayfish.backpacked.enchantment.RepairmanEnchantment;
-import dev.muon.otherworldorigins.util.EnchantmentRestrictions;
+import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantments;

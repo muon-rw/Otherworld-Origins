@@ -8,7 +8,7 @@ import net.minecraftforge.client.settings.KeyConflictContext;
 import org.lwjgl.glfw.GLFW;
 
 @OnlyIn(Dist.CLIENT)
-public class OtherworldOriginsClient {
+public class ModKeybinds {
 
     public static final KeyMapping CANTRIP_ONE_KEY = new KeyMapping(
             "key.otherworldorigins.cantrip_one",

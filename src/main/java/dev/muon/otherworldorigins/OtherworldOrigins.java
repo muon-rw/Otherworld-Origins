@@ -2,30 +2,24 @@ package dev.muon.otherworldorigins;
 
 import com.mojang.logging.LogUtils;
 import dev.muon.otherworldorigins.action.ModActions;
-import dev.muon.otherworldorigins.client.OtherworldOriginsClient;
 import dev.muon.otherworldorigins.condition.ModConditions;
-import dev.muon.otherworldorigins.config.SpellCategoryConfig;
+import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.item.ModItems;
 import dev.muon.otherworldorigins.network.*;
 import dev.muon.otherworldorigins.power.ModPowers;
+import dev.muon.otherworldorigins.restrictions.SpellCategoryMapper;
+import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import dev.muon.otherworldorigins.skills.ModPassives;
 import dev.muon.otherworldorigins.skills.ModSkills;
 import dev.muon.otherworldorigins.spells.ModSpells;
-import dev.muon.otherworldorigins.util.SpellCategoryMapper;
-import dev.muon.otherworldorigins.util.SpellRestrictions;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkDirection;
@@ -54,7 +48,7 @@ public class OtherworldOrigins {
     public OtherworldOrigins(FMLJavaModLoadingContext context) {
 
         OtherworldOrigins.LOGGER.info("Loading Otherworld Origins");
-        context.registerConfig(ModConfig.Type.COMMON, SpellCategoryConfig.SPEC);
+        context.registerConfig(ModConfig.Type.COMMON, OtherworldOriginsConfig.SPEC);
 
         IEventBus modEventBus = context.getModEventBus();
         modEventBus.addListener(this::onConfigLoad);
@@ -79,12 +73,12 @@ public class OtherworldOrigins {
     }
 
     private void onConfigLoad(final ModConfigEvent.Loading event) {
-        if (event.getConfig().getSpec() == SpellCategoryConfig.SPEC) {
+        if (event.getConfig().getSpec() == OtherworldOriginsConfig.SPEC) {
             SpellRestrictions.initializeFromConfig();
         }
     }
     private void onConfigReload(final ModConfigEvent.Reloading event) {
-        if (event.getConfig().getSpec() == SpellCategoryConfig.SPEC) {
+        if (event.getConfig().getSpec() == OtherworldOriginsConfig.SPEC) {
             SpellRestrictions.initializeFromConfig();
             SpellCategoryMapper.initialize();
         }
@@ -144,19 +138,5 @@ public class OtherworldOrigins {
                 .decoder(ResetValidationAttemptsMessage::decode)
                 .consumerMainThread(ResetValidationAttemptsMessage::handle)
                 .add();
-    }
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    @OnlyIn(Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
-        }
-
-        @SubscribeEvent
-        public static void registerKeyBindings(RegisterKeyMappingsEvent event) {
-            event.register(OtherworldOriginsClient.CANTRIP_ONE_KEY);
-            event.register(OtherworldOriginsClient.CANTRIP_TWO_KEY);
-            event.register(OtherworldOriginsClient.TOGGLE_DARK_VISION_KEY);
-        }
     }
 }

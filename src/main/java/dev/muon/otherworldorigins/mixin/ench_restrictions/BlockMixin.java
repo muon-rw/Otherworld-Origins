@@ -1,6 +1,6 @@
-package dev.muon.otherworldorigins.mixin;
+package dev.muon.otherworldorigins.mixin.ench_restrictions;
 
-import dev.muon.otherworldorigins.util.EnchantmentRestrictions;
+import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;

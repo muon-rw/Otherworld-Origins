@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class SpellCategoryConfig {
+public class OtherworldOriginsConfig {
     public static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
     public static final ForgeConfigSpec SPEC;
 
@@ -18,6 +18,7 @@ public class SpellCategoryConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SUPPORT_SPELLS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> DEFENSIVE_SPELLS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> UNRESTRICTED_SPELLS;
+    public static final ForgeConfigSpec.BooleanValue ENABLE_ENCHANTMENT_RESTRICTIONS;
     private static final Map<String, List<String>> DEFAULT_CLASS_RESTRICTIONS = createDefaultRestrictions();
 
     private static final List<String> DEFAULT_UNRESTRICTED_SPELLS = Arrays.asList(
@@ -142,33 +143,39 @@ public class SpellCategoryConfig {
     );
 
     static {
-        BUILDER.push("Spell Configuration");
+        BUILDER.push("Otherworld Origins Config");
+        BUILDER.push("Enchantment Restrictions");
+        ENABLE_ENCHANTMENT_RESTRICTIONS = BUILDER
+                .comment(" Enable class-based enchantment restrictions",
+                        " Disbaling this will not remove the restriction text from class descriptions.")
+                .define("enableEnchantmentRestrictions", true);
+        BUILDER.pop();
+        BUILDER.push("Spell Restrictions");
         BUILDER.comment(
                 " Valid spell categories are: OFFENSIVE, SUPPORT, DEFENSIVE",
                 " Any spells not listed in any category will default to OFFENSIVE",
                 " Spells can be assigned to multiple categories",
                 " Spells from Iron's Spellbooks can omit the 'irons_spellbooks:' namespace prefix"
         );
-
-        BUILDER.push("Spell Categories");
+        BUILDER.pop();
+        BUILDER.push("Spell Classification");
         OFFENSIVE_SPELLS = BUILDER
                 .comment(" List of spells that deal damage or have harmful effects")
-                .defineList("offensive_spells", DEFAULT_OFFENSIVE_SPELLS, SpellCategoryConfig::isValidSpellId);
+                .defineList("offensive_spells", DEFAULT_OFFENSIVE_SPELLS, OtherworldOriginsConfig::isValidSpellId);
         SUPPORT_SPELLS = BUILDER
                 .comment(" List of spells that heal, buff, or otherwise aid allies")
-                .defineList("support_spells", DEFAULT_SUPPORT_SPELLS, SpellCategoryConfig::isValidSpellId);
+                .defineList("support_spells", DEFAULT_SUPPORT_SPELLS, OtherworldOriginsConfig::isValidSpellId);
         DEFENSIVE_SPELLS = BUILDER
                 .comment(" List of spells that provide protection, mobility, or control effects")
-                .defineList("defensive_spells", DEFAULT_DEFENSIVE_SPELLS, SpellCategoryConfig::isValidSpellId);
+                .defineList("defensive_spells", DEFAULT_DEFENSIVE_SPELLS, OtherworldOriginsConfig::isValidSpellId);
         UNRESTRICTED_SPELLS = BUILDER
                 .comment(" List of spells that bypass all casting restrictions",
-                        " The default list contains Origin spells, but spells will always be",
-                        " castable if they are innate Origin abilities, even if they are not on this list.",
-                        " These are just here for an example.")
-                .defineList("unrestricted_spells", DEFAULT_UNRESTRICTED_SPELLS, SpellCategoryConfig::isValidSpellId);
+                        " The default list contains Origin spells, but this is just an example - ",
+                        " Spells will always be castable if they are innate Origin abilities, even if they are not on this list.")
+                .defineList("unrestricted_spells", DEFAULT_UNRESTRICTED_SPELLS, OtherworldOriginsConfig::isValidSpellId);
         BUILDER.pop();
 
-        BUILDER.push("Allowed Spells");
+        BUILDER.push("Allowed Spells per Class");
         BUILDER.comment(
                 " Only edit values inside of the square brackets []",
                 " To remove restrictions, add all 3 categories (OFFENSIVE, DEFENSIVE, SUPPORT) to the array for the listed subclass.",
@@ -184,10 +191,10 @@ public class SpellCategoryConfig {
                                         .contains(((String) item).toUpperCase()));
             });
         }
+        BUILDER.pop();
 
-        BUILDER.pop();
-        BUILDER.pop();
         SPEC = BUILDER.build();
+        BUILDER.pop();
     }
 
     public static Map<String, List<String>> getClassRestrictions() {

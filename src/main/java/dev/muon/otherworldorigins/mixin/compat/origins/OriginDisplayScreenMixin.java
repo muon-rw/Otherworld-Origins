@@ -1,6 +1,6 @@
 package dev.muon.otherworldorigins.mixin.compat.origins;
 
-import dev.muon.otherworldorigins.config.SpellCategoryConfig;
+import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import io.github.apace100.origins.screen.OriginDisplayScreen;
 import io.github.edwinmindcraft.origins.api.origin.Origin;
 import net.minecraft.client.gui.GuiGraphics;
@@ -41,7 +41,7 @@ public class OriginDisplayScreenMixin {
     }
 
     private void renderSubclassSpellAccess(GuiGraphics graphics, OriginDisplayScreen screen, String path, int x, int y) {
-        Map<String, List<String>> restrictions = SpellCategoryConfig.getClassRestrictions();
+        Map<String, List<String>> restrictions = OtherworldOriginsConfig.getClassRestrictions();
         List<String> categories = restrictions.get(path);
 
         graphics.drawString(screen.getMinecraft().font,
@@ -75,7 +75,7 @@ public class OriginDisplayScreenMixin {
     }
 
     private void renderClassSpellAccess(GuiGraphics graphics, OriginDisplayScreen screen, String className, int x, int y) {
-        Map<String, List<String>> restrictions = SpellCategoryConfig.getClassRestrictions();
+        Map<String, List<String>> restrictions = OtherworldOriginsConfig.getClassRestrictions();
 
         Set<List<String>> subclassRestrictions = restrictions.entrySet().stream()
                 .filter(entry -> entry.getKey().startsWith(className + "/"))
