@@ -183,7 +183,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
 
     // Legendary Survival Overhaul
-    compileOnly fg.deobf("curse.maven:legendary-survival-overhaul-840254:5804705")
+    implementation fg.deobf("curse.maven:legendary-survival-overhaul-840254:5921074")
 
     // Monobank (Thief)
     implementation fg.deobf("curse.maven:monobank-817257:5086245")
