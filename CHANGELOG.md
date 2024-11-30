@@ -1,3 +1,9 @@
+## 0.9.0
+- Enchantment restrictions can now be disabled in the config
+- Cleaned up internal project structure
+- Mark Origins, Iron's, Apotheosis, Medieval, and JustLevelingFork as required in mods.toml (for user clarity)
+- Conditionally load mixins into other mods. 
+
 ## 0.8.1
 - Minor changes to Reforging restriction logic
 
@@ -16,7 +22,6 @@
 - Fixed Warlock's Eldritch Blast ability not upgrading at level 15
 - Fixed Conjuration subclass' Golem not being summonable
 - Added a few default spell categorizations (regenerating the otherworldorigins-commmon config is recommended)
-
 
 ## 0.6.0
 - Refactored Casting restrictions. Check the otherworldorigins-common config for more info
