@@ -5,7 +5,7 @@ import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-@Deprecated(forRemoval = true)
+
 public class ClearNegativeEffectsAction extends EntityAction<NoConfiguration> {
 
     public ClearNegativeEffectsAction() {

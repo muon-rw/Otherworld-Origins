@@ -9,7 +9,6 @@ import net.minecraft.world.entity.player.Player;
 
 import java.util.function.BiConsumer;
 
-@Deprecated(forRemoval = true)
 public class TameAction extends BiEntityAction<NoConfiguration> {
 
     public static void tame(Entity actor, Entity target) {
