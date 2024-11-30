@@ -2,10 +2,10 @@ package dev.muon.otherworldorigins;
 
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.LoadingModList;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
-import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 
 import java.util.List;
 import java.util.Set;
@@ -21,10 +21,19 @@ public class OtherworldOriginsMixinPlugin implements IMixinConfigPlugin {
     }
 
 
+
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        if (mixinClassName.contains("mixin.compat.")) {
+            String[] parts = mixinClassName.split("mixin\\.compat\\.");
+            if (parts.length > 1) {
+                String modId = parts[1].split("\\.")[0];
+                return isModLoaded(modId);
+            }
+        }
         return true;
     }
+
 
     private static boolean isModLoaded(String modId) {
         if (ModList.get() == null) {

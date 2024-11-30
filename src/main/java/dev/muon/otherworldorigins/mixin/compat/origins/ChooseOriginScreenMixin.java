@@ -39,10 +39,10 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
     private static final int BUTTON_HEIGHT = 20;
 
     @Final
-    @Shadow
+    @Shadow(remap = false)
     private List<Holder<OriginLayer>> layerList;
     @Final
-    @Shadow
+    @Shadow(remap = false)
     private int currentLayerIndex;
 
     @Unique
