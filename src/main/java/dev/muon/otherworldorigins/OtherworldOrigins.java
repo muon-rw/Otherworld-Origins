@@ -45,6 +45,11 @@ public class OtherworldOrigins {
             PROTOCOL_VERSION::equals
     );
 
+    // Note to lurkers:
+    // Passing context in the constructor's parameter like this
+    // breaks on Forge 47.3.0, the latest stable Forge release.
+    // You should probably just stick to the parameterless constructor,
+    // and calling FMLJavaModLoadingContext.get()
     public OtherworldOrigins(FMLJavaModLoadingContext context) {
 
         OtherworldOrigins.LOGGER.info("Loading Otherworld Origins");
