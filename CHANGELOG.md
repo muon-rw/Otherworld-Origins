@@ -1,8 +1,9 @@
 ## 0.9.0
 - Enchantment restrictions can now be disabled in the config
 - Cleaned up internal project structure
+- Conditionally load mixins into other mods (most mods are still required to see all origins - working on it!)
 - Mark Origins, Iron's, Apotheosis, Medieval, and JustLevelingFork as required in mods.toml (for user clarity)
-- Conditionally load mixins into other mods. 
+- Mark Forge 47.3.12 or newer as required in mods.toml
 
 ## 0.8.1
 - Minor changes to Reforging restriction logic
