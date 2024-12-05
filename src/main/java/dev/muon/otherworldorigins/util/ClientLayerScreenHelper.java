@@ -27,6 +27,7 @@ public class ClientLayerScreenHelper {
             validationAttempts++;
 
             if (validationAttempts >= MAX_VALIDATION_ATTEMPTS) {
+                resetValidationAttempts();
                 minecraft.execute(() -> {
                     minecraft.player.connection.getConnection().disconnect(
                             Component.translatable("otherworldorigins.disconnect.validation_failed")
