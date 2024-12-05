@@ -13,7 +13,11 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 public class EnchantmentRestrictions {
     private static final Map<ResourceLocation, String> ENCHANTMENT_CLASS_MAP = new HashMap<>();
 
@@ -31,7 +35,6 @@ public class EnchantmentRestrictions {
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("apotheosis:endless_quiver"), "ranger");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:power"), "rogue");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:flame"), "warlock");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:bane_of_arthropods"), "fighter");
     }
 
     public static boolean isEnchantmentAllowed(Player player, Enchantment enchantment) {
@@ -65,4 +68,14 @@ public class EnchantmentRestrictions {
         if (enchantmentId == null) return null;
         return ENCHANTMENT_CLASS_MAP.get(enchantmentId);
     }
+
+    public static List<Enchantment> getEnchantmentTextForClass(String className) {
+        return ENCHANTMENT_CLASS_MAP.entrySet().stream()
+                .filter(entry -> entry.getValue().equals(className))
+                .filter(entry -> entry.getKey().getNamespace().equals("minecraft"))   // Only minecraft enchantments, because this is just for text
+                .map(entry -> ForgeRegistries.ENCHANTMENTS.getValue(entry.getKey()))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
 }

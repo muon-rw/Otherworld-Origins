@@ -1,5 +1,6 @@
 ## 0.9.0
 - Enchantment restrictions can now be disabled in the config
+- Moved the enchantment text restriction rendering so it will be hidden if restrictions are disabled
 - Cleaned up internal project structure
 - Conditionally load mixins into other mods (most mods are still required to see all origins - working on it!)
 - Mark Origins, Iron's, Apotheosis, Medieval, and JustLevelingFork as required in mods.toml (for user clarity)

@@ -146,8 +146,7 @@ public class OtherworldOriginsConfig {
         BUILDER.push("Otherworld Origins Config");
         BUILDER.push("Enchantment Restrictions");
         ENABLE_ENCHANTMENT_RESTRICTIONS = BUILDER
-                .comment(" Enable class-based enchantment restrictions",
-                        " Disbaling this will not remove the restriction text from class descriptions.")
+                .comment(" Enable class-based enchantment restrictions")
                 .define("enableEnchantmentRestrictions", true);
         BUILDER.pop();
         BUILDER.push("Spell Restrictions");

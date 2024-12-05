@@ -3,6 +3,9 @@
 
   "otherworldorigins.disconnect.validation_failed": "Failed to validate origin layers after multiple attempts. Please try reconnecting. If this happens repeatedly, please check your network connection.",
 
+  "otherworldorigins.gui.enchantment_access": "Enchantments:",
+  "otherworldorigins.gui.enchantment_restriction": "Only %s can make use of the %s enchantment",
+
   "button.otherworldorigins.respec_button": "Respec",
   "button.otherworldorigins.respec_button_confirm": "Are you sure?",
   "tooltip.otherworldorigins.hover_cost": "Spend %s levels to reset all stats.",
@@ -294,29 +297,29 @@
 "origin.otherworldorigins.feats/weapon_master.name": "Weapon Master",
 "origin.otherworldorigins.feats/weapon_master.description": "Deal 1 extra damage with any weapon",
 
-"origin.otherworldorigins.class/artificer.description": "§oOnly Artificers can make use of the Mending enchantment§r\n\n§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
+"origin.otherworldorigins.class/artificer.description": "§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
 
-"origin.otherworldorigins.class/barbarian.description": "• +3 Armor\n§oOnly Barbarians can make use of the Sweeping Edge enchantment§r\n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
+"origin.otherworldorigins.class/barbarian.description": "• +3 Armor\n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
 
-"origin.otherworldorigins.class/bard.description": "• -2 Hearts\n§oOnly Bards can make use of the Luck of the Sea enchantment§r\n\n§nSubclasses§r\nCollege of Lore\nCollege of Valor\nCollege of Swords",
+"origin.otherworldorigins.class/bard.description": "• -2 Hearts\n\n§nSubclasses§r\nCollege of Lore\nCollege of Valor\nCollege of Swords",
 
-"origin.otherworldorigins.class/cleric.description": "• +2 Armor\n§oOnly Clerics can make use of the Fortune enchantment§r\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
+"origin.otherworldorigins.class/cleric.description": "• +2 Armor\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
 
-"origin.otherworldorigins.class/druid.description": "§oOnly Druids can make use of the Thorns enchantment§r\n\n§nSubclasses§r\nCircle of the Land\nCircle of the Moon\nCircle of the Spores",
+"origin.otherworldorigins.class/druid.description": "§nSubclasses§r\nCircle of the Land\nCircle of the Moon\nCircle of the Spores",
 
-"origin.otherworldorigins.class/fighter.description": "• +3 Hearts\n§oOnly Fighters can make use of the Sharpness enchantment§r\n\n§nSubclasses§r\nBattle Master\nEldritch Knight\nChampion",
+"origin.otherworldorigins.class/fighter.description": "• +3 Hearts\n\n§nSubclasses§r\nBattle Master\nEldritch Knight\nChampion",
 
-"origin.otherworldorigins.class/monk.description": "• +2 Hearts\n§oOnly Monks can make use of the Loyalty enchantment§r\n\n§nSubclasses§r\nWay of the Four Elements\nWay of the Open Hand\nWay of Shadow",
+"origin.otherworldorigins.class/monk.description": "• +2 Hearts\n\n§nSubclasses§r\nWay of the Four Elements\nWay of the Open Hand\nWay of Shadow",
 
-"origin.otherworldorigins.class/paladin.description": "• +3 Armor\n§oOnly Paladins can make use of the Smite enchantment§r\n\n§nSubclasses§r\nOath of the Ancients\nOath of Devotion\nOath of Vengeance\nOath Breaker",
+"origin.otherworldorigins.class/paladin.description": "• +3 Armor\n\n§nSubclasses§r\nOath of the Ancients\nOath of Devotion\nOath of Vengeance\nOath Breaker",
 
-"origin.otherworldorigins.class/ranger.description": "§oOnly Rangers can make use of the Infinity enchantment§r\n\n§nSubclasses§r\nBeast Master\nGloom Stalker\nHunter",
+"origin.otherworldorigins.class/ranger.description": "§nSubclasses§r\nBeast Master\nGloom Stalker\nHunter",
 
-"origin.otherworldorigins.class/rogue.description": "• +2 Ranged Damage\n§oOnly Rogues can make use of the Power enchantment§r\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
+"origin.otherworldorigins.class/rogue.description": "• +2 Ranged Damage\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
 
 "origin.otherworldorigins.class/sorcerer.description": "• +1 Magic\n• -5 Hearts\n• +40% Magic Damage\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
 
-"origin.otherworldorigins.class/warlock.description": "• +1 Magic\n• Eldritch Blast\n§oOnly Warlocks can make use of the Flame enchantment§r\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
+"origin.otherworldorigins.class/warlock.description": "• +1 Magic\n• Eldritch Blast\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
 
 "origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic\n• -5 Hearts\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchanting\nTransmutation",
 
