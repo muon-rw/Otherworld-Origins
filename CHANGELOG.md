@@ -1,3 +1,6 @@
+## 0.9.1
+- Removed hard dependency on many mods
+
 ## 0.9.0
 - Enchantment restrictions can now be disabled in the config
 - Moved the enchantment text restriction rendering so it will be hidden if restrictions are disabled
