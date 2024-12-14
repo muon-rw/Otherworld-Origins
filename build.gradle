@@ -165,6 +165,8 @@ dependencies {
     runtimeOnly fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
     runtimeOnly fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}")
 
+    // TravelOptics
+    implementation fg.deobf("curse.maven:to-tweaks-irons-spells-1046916:5921936")
 
     // Alex's
     implementation fg.deobf("curse.maven:alexs-mobs-426558:5160697")
@@ -285,6 +287,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addRequirement("ydms-mobhealthbar-mod")
     mainFile.addRequirement("justleveling-fork")
     mainFile.addRequirement("irons-spells-n-spellbooks")
+    mainFile.addRequirement("to-tweaks-irons-spells")
 
     // Could be made optional
     mainFile.addRequirement("legendary-survival-overhaul")
@@ -315,6 +318,5 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addRequirement("mariums-soulslike-weaponry")
     mainFile.addRequirement("minecells")
     mainFile.addRequirement("oh-the-biomes-weve-gone")
-    mainFile.addRequirement("to-tweaks-irons-spells")
     mainFile.addRequirement("valoria")
 }
