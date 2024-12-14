@@ -4,8 +4,6 @@ import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.github.edwinmindcraft.apoli.api.power.factory.*;
 import io.github.edwinmindcraft.apoli.api.registry.ApoliRegistries;
 import io.github.edwinmindcraft.apoli.common.condition.bientity.SimpleBiEntityCondition;
-import io.github.edwinmindcraft.apoli.common.condition.block.SimpleBlockCondition;
-import io.github.edwinmindcraft.apoli.common.condition.damage.InTagCondition;
 import io.github.edwinmindcraft.apoli.common.condition.entity.SimpleEntityCondition;
 import io.github.edwinmindcraft.apoli.common.condition.item.SimpleItemCondition;
 import io.redspace.ironsspellbooks.item.CastingItem;
@@ -16,8 +14,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.DeferredRegister;
@@ -29,7 +25,6 @@ public class ModConditions {
     public static final DeferredRegister<EntityCondition<?>> ENTITY_CONDITIONS = DeferredRegister.create(ApoliRegistries.ENTITY_CONDITION_KEY, OtherworldOrigins.MODID);
     public static final DeferredRegister<BiEntityCondition<?>> BIENTITY_CONDITIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_CONDITION_KEY, OtherworldOrigins.MODID);
     public static final DeferredRegister<BlockCondition<?>> BLOCK_CONDITIONS = DeferredRegister.create(ApoliRegistries.BLOCK_CONDITION_KEY, OtherworldOrigins.MODID);
-    public static final DeferredRegister<DamageCondition<?>> DAMAGE_CONDITIONS = DeferredRegister.create(ApoliRegistries.DAMAGE_CONDITION_KEY, OtherworldOrigins.MODID);
     public static final DeferredRegister<ItemCondition<?>> ITEM_CONDITIONS = DeferredRegister.create(ApoliRegistries.ITEM_CONDITION_KEY, OtherworldOrigins.MODID);
 
     /**Entity*/
@@ -150,10 +145,6 @@ public class ModConditions {
                 return (stack.getItem() instanceof DiggerItem && (itemName.contains("gold") || itemName.contains("gilded")));
             })
     );
-    public static final RegistryObject<SimpleItemCondition> IS_SUMMON_WEAPON = ITEM_CONDITIONS.register("is_summon_weapon", () ->
-            new SimpleItemCondition(stack ->
-                    stack.getItem() == Items.BOW || stack.getItem() instanceof DiggerItem || stack.getItem() instanceof SwordItem)
-    );
     public static final RegistryObject<SimpleItemCondition> IS_AXE = ITEM_CONDITIONS.register("is_axe", () ->
             new SimpleItemCondition(stack -> {
                 String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
@@ -183,21 +174,10 @@ public class ModConditions {
             })
     );
 
-    /**Block*/
-    public static final RegistryObject<SimpleBlockCondition> HARVESTABLE_CROPS = BLOCK_CONDITIONS.register("harvestable_crops", () ->
-            new SimpleBlockCondition((level, pos, stateSuppplier) -> {
-                BlockState state = stateSuppplier.get();
-                if(state.getBlock() instanceof CropBlock crop) return crop.isMaxAge(state);
-                return false;
-            }));
-
-    /**Damage*/
-    public static final RegistryObject<DamageCondition> IN_TAG = DAMAGE_CONDITIONS.register("in_tag", InTagCondition::new);
     public static void register(IEventBus eventBus) {
         ENTITY_CONDITIONS.register(eventBus);
         BIENTITY_CONDITIONS.register(eventBus);
         BLOCK_CONDITIONS.register(eventBus);
-        DAMAGE_CONDITIONS.register(eventBus);
         ITEM_CONDITIONS.register(eventBus);
     }
 }
