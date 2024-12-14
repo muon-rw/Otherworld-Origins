@@ -26,3 +26,4 @@ run-data
 libs
 
 generate_origin_portraits.py
+generate_models.py

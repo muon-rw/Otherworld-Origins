@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/two/lck"
 	],
 	"icon": {
-		"item": "biomeswevegone:clover_patch"
+		"item": "otherworldorigins:apts/lck"
 	},
 	"impact": 3,
 	"order": 0

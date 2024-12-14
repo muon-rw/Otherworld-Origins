@@ -3,7 +3,7 @@
 		"otherworldorigins:class/rogue/attributes"
 	],
 	"icon": {
-		"item": "mowziesmobs:naga_fang_dagger"
+		"item": "otherworldorigins:class/rogue"
 	},
 	"impact": 3,
 	"order": 0

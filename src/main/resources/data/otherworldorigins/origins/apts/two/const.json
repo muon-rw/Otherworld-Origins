@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/two/const"
 	],
 	"icon": {
-		"item": "butcher:frog_heart"
+		"item": "otherworldorigins:apts/const"
 	},
 	"impact": 3,
 	"order": 0

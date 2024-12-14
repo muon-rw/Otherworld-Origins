@@ -3,7 +3,7 @@
 		"otherworldorigins:class/bard/attributes"
 	],
 	"icon": {
-		"item": "immersive_melodies:lute"
+		"item": "otherworldorigins:class/bard"
 	},
 	"impact": 3,
 	"order": 0

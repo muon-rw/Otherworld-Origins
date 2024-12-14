@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/gnome/stout"
 	],
 	"icon": {
-		"item": "drinkbeer:beer_mug_blaze_stout"
+		"item": "otherworldorigins:portrait/stout"
 	},
 	"impact": 1,
 	"order": 0

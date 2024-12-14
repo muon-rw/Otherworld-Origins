@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/chef"
 	],
 	"icon": {
-		"item": "farmersdelight:cooking_pot"
+		"item": "otherworldorigins:feats/chef"
 	},
 	"impact": 1,
 	"order": 0

@@ -3,7 +3,7 @@
 		"otherworldorigins:class/sorcerer/attributes"
 	],
 	"icon": {
-		"item": "endrem:magical_eye"
+		"item": "otherworldorigins:class/sorcerer"
 	},
 	"impact": 3,
 	"order": 0

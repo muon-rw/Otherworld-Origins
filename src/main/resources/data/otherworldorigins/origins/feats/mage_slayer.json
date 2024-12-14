@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/mage_slayer"
 	],
 	"icon": {
-		"item": "cataclysm:ignitium_helmet"
+		"item": "otherworldorigins:feats/mage_slayer"
 	},
 	"impact": 1,
 	"order": 0

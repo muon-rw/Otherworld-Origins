@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/one/str"
 	],
 	"icon": {
-		"item": "mowziesmobs:earthbore_gauntlet"
+		"item": "otherworldorigins:apts/str"
 	},
 	"impact": 3,
 	"order": 0

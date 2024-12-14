@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/polearm_master"
 	],
 	"icon": {
-		"item": "soulsweapons:dragon_staff"
+		"item": "otherworldorigins:feats/polearm_master"
 	},
 	"impact": 1,
 	"order": 0

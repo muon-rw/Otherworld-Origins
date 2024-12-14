@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/one/int"
 	],
 	"icon": {
-		"item": "quark:ancient_tome"
+		"item": "otherworldorigins:apts/int"
 	},
 	"impact": 3,
 	"order": 0

@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/two/bld"
 	],
 	"icon": {
-		"item": "betterend:netherite_hammer"
+		"item": "otherworldorigins:apts/bld"
 	},
 	"impact": 3,
 	"order": 0

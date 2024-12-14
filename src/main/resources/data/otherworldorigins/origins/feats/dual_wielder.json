@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/dual_wielder"
 	],
 	"icon": {
-		"item": "iceandfire:hippogryph_sword"
+		"item": "otherworldorigins:feats/dual_wielder"
 	},
 	"impact": 1,
 	"order": 0

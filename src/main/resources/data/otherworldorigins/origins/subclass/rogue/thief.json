@@ -3,6 +3,6 @@
         "otherworldorigins:subclass/rogue/thief"
     ],
     "icon": {
-        "item": "fantasy_armor:thief_helmet"
+        "item": "otherworldorigins:subclass/rogue/thief"
     }
 }
