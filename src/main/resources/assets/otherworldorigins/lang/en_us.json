@@ -439,7 +439,7 @@
 
 
 "power.otherworldorigins.class/warlock/attributes.name": "Eldritch Blast",
-"power.otherworldorigins.class/warlock/attributes.description": "Instantly cast Magic Missile (Level 5) for 10 Mana. Once you reach level 15, instead cast Void Eruption (Level 1) for 20 Mana",
+"power.otherworldorigins.class/warlock/attributes.description": "Instantly cast Magic Missile (Level 5) for 10 Mana. Once you reach level 15, cast 3 missiles in sequence for no extra cost.",
 
 
 "power.otherworldorigins.subclass/barbarian/wildheart.name": "",
