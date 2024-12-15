@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/shield_master"
 	],
 	"icon": {
-		"item": "minecells:greed_shield"
+		"item": "otherworldorigins:feats/shield_master"
 	},
 	"impact": 1,
 	"order": 0

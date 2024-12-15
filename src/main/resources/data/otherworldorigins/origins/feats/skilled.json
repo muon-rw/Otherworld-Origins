@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/skilled"
 	],
 	"icon": {
-		"item": "minecells:phaser"
+		"item": "otherworldorigins:feats/skilled"
 	},
 	"impact": 1,
 	"order": 0

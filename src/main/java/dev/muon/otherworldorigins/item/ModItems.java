@@ -70,10 +70,14 @@ public class ModItems {
     public static final RegistryObject<Item> VALOR = ITEMS.register("subclass/bard/valor", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> LIFE = ITEMS.register("subclass/cleric/life", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> TEMPEST = ITEMS.register("subclass/cleric/tempest", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TRICKERY = ITEMS.register("subclass/cleric/trickery", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> WAR = ITEMS.register("subclass/cleric/war", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> MOON = ITEMS.register("subclass/druid/moon", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SPORES = ITEMS.register("subclass/druid/spores", () -> new Item(new Item.Properties()));
+
+    public static final RegistryObject<Item> BATTLE_MASTER = ITEMS.register("subclass/fighter/battle_master", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> FOUR_ELEMENTS = ITEMS.register("subclass/monk/four_elements", () -> new Item(new Item.Properties()));
 
@@ -90,6 +94,7 @@ public class ModItems {
     public static final RegistryObject<Item> DRACONIC_BLOODLINE = ITEMS.register("subclass/sorcerer/draconic_bloodline", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> GREAT_OLD_ONE = ITEMS.register("subclass/warlock/great_old_one", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FIEND = ITEMS.register("subclass/warlock/fiend", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> ABJURATION = ITEMS.register("subclass/wizard/abjuration", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CONJURATION = ITEMS.register("subclass/wizard/conjuration", () -> new Item(new Item.Properties()));
@@ -103,6 +108,7 @@ public class ModItems {
     public static final RegistryObject<Item> LUCKY = ITEMS.register("feats/lucky", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MAGE_SLAYER = ITEMS.register("feats/mage_slayer", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> POLEARM_MASTER = ITEMS.register("feats/polearm_master", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SHIELD_MASTER = ITEMS.register("feats/shield_master", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TOUGH = ITEMS.register("feats/tough", () -> new Item(new Item.Properties()));
 
     /** Cantrips */
