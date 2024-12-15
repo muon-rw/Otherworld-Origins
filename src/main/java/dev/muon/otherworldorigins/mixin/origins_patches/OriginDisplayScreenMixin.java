@@ -10,6 +10,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -155,6 +156,7 @@ public class OriginDisplayScreenMixin {
         }
     }
 
+    @Unique
     private List<Component> wrapText(Font font, Component text, int maxWidth) {
         List<Component> lines = new ArrayList<>();
         String[] words = text.getString().split(" ");
