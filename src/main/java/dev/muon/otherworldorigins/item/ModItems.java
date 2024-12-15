@@ -110,6 +110,7 @@ public class ModItems {
     public static final RegistryObject<Item> POLEARM_MASTER = ITEMS.register("feats/polearm_master", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SHIELD_MASTER = ITEMS.register("feats/shield_master", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TOUGH = ITEMS.register("feats/tough", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SKILLED = ITEMS.register("feats/skilled", () -> new Item(new Item.Properties()));
 
     /** Cantrips */
     public static final RegistryObject<Item> GUST = ITEMS.register("cantrips/gust", () -> new Item(new Item.Properties()));

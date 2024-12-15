@@ -1,0 +1,100 @@
+{
+  "type": "origins:multiple",
+  "low": {
+    "type": "origins:active_self",
+    "key": "key.origins.secondary_active",
+    "condition": {
+      "type": "origins:and",
+      "conditions": [
+        {
+          "type": "otherworldorigins:player_level",
+          "comparison": "<",
+          "compare_to": 15
+        },
+        {
+          "type": "otherworldorigins:player_mana",
+          "comparison": ">=",
+          "compare_to": 10
+        }
+      ]
+    },
+    "cooldown": 20,
+    "hud_render": {
+      "should_render": true,
+      "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+      "bar_index": 0
+    },
+    "entity_action": {
+      "type": "otherworldorigins:cast_spell",
+      "spell": "magic_missile",
+      "power_level": 5,
+      "cast_time": 0,
+      "mana_cost": 10
+    }
+  },
+  "high": {
+    "type": "origins:active_self",
+    "key": "key.origins.secondary_active",
+    "condition": {
+      "type": "origins:and",
+      "conditions": [
+        {
+          "type": "otherworldorigins:player_level",
+          "comparison": ">=",
+          "compare_to": 15
+        },
+        {
+          "type": "otherworldorigins:player_mana",
+          "comparison": ">=",
+          "compare_to": 10
+        }
+      ]
+    },
+    "cooldown": 20,
+    "hud_render": {
+      "should_render": true,
+      "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+      "bar_index": 0
+    },
+    "entity_action": {
+      "type": "origins:and",
+      "actions": [
+        {
+          "type": "otherworldorigins:cast_spell",
+          "spell": "magic_missile",
+          "power_level": 5,
+          "cast_time": 0,
+          "mana_cost": 10
+        },
+        {
+          "type": "origins:delay",
+          "ticks": 2,
+          "action": {
+            "type": "origins:nothing"
+          }
+        },
+        {
+          "type": "otherworldorigins:cast_spell",
+          "spell": "magic_missile",
+          "power_level": 5,
+          "cast_time": 0,
+          "mana_cost": 0
+        },
+        {
+          "type": "origins:delay",
+          "ticks": 2,
+          "action": {
+            "type": "origins:nothing"
+          }
+        },
+        {
+          "type": "otherworldorigins:cast_spell",
+          "spell": "magic_missile",
+          "power_level": 5,
+          "cast_time": 0,
+          "mana_cost": 0
+        }
+      ]
+    }
+  }
+}

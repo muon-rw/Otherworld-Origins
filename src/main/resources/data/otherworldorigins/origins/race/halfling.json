@@ -1,7 +1,7 @@
 {
 	"powers": [
                 "otherworldorigins:race/halfling/attributes",
-                "otherworldorigins:race/halfling/nimbleness",
+                "otherworldorigins:race/halfling/speed",
                 "otherworldorigins:race/halfling/size"
 	],
         "icon": {
