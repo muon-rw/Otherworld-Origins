@@ -2,6 +2,7 @@
 - Updated many selection icons
 - Reworked Warlock's Eldritch Blast upgrade 
 - Githyanki can now be protected from water by wearing a full set of Ice and Fire Tide gear or Alex's Cave Diving gear
+- Fixed College of Lore Bard's passive reducing neutral effects, instead of only negative effects
 - Removed a number of required dependencies
 - Cleaned up unused files
 
