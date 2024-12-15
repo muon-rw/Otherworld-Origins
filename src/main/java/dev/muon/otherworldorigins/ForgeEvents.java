@@ -4,6 +4,7 @@ import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
+import dev.shadowsoffire.apotheosis.Apotheosis;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
@@ -88,6 +89,14 @@ public class ForgeEvents {
     public static void onLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         Player player = event.getEntity();
         if (!(player instanceof ServerPlayer serverPlayer)) return;
+
+        if (!Apotheosis.enableAdventure){
+            serverPlayer.sendSystemMessage(
+                    Component.literal("Otherworld Origins requires the Apotheosis " +
+                            "Adventure Module enabled to work correctly. Please enable it " +
+                            "in /config/apotheosis/apotheosis.cfg, or you will be missing origins!"),
+                    true);
+        }
 
         Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(player.level().getServer());
         if (layerRegistry == null) return;

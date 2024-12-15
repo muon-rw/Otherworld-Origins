@@ -5,6 +5,7 @@
 - Fixed College of Lore Bard's passive reducing neutral effects, instead of only negative effects
 - Fixed Defensive Duelist not working
 - Fixed Dragonborn breath abilities showing 2 cooldown bars
+- Add a warning if the Apotheosis Adventure Module is disabled
 - Removed a number of required dependencies
 - Cleaned up unused files
 
