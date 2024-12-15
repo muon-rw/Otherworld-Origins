@@ -1,6 +1,9 @@
-## 0.9.1
+## 1.0.0
 - Updated many selection icons
+- Reworked Warlock's Eldritch Blast upgrade 
+- Githyanki can now be protected from water with a full set of Ice and Fire Tide gear or Alex's Cave Diving gear
 - Removed a number of required dependencies
+- Cleaned up unused files
 
 ## 0.9.0
 - Enchantment restrictions can now be disabled in the config

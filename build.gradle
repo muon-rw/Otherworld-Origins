@@ -279,7 +279,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     apiToken = System.getenv("CF_TOKEN")
     def mainFile = upload(1127963, jar)
     mainFile.displayName = "v${rootProject.version}-beta"
-    mainFile.releaseType = "beta"
+    mainFile.releaseType = "release"
     mainFile.changelog = new File("$project.rootDir/CHANGELOG.md").getText('UTF-8')
     mainFile.changelogType = "markdown"
     mainFile.addModLoader("Forge")
