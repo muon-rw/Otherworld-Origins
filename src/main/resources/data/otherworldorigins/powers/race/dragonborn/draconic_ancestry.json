@@ -3,5 +3,11 @@
     "entity_action": {
         "type": "origins:nothing"
     },
-    "cooldown": 100
+    "key": {
+        "key": "key.origins.primary_active"
+    },
+    "cooldown": 100,
+    "hud_render": {
+        "should_render": false
+    }
 }

@@ -4,6 +4,7 @@
 - Githyanki can now be protected from water by wearing a full set of Ice and Fire Tide gear or Alex's Cave Diving gear
 - Fixed College of Lore Bard's passive reducing neutral effects, instead of only negative effects
 - Fixed Defensive Duelist not working
+- Fixed Dragonborn breath abilities showing 2 cooldown bars
 - Removed a number of required dependencies
 - Cleaned up unused files
 
