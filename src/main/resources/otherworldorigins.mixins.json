@@ -21,8 +21,8 @@
     "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
     "compat.medieval.LevelingUtilsMixin",
     "compat.monobank.ThiefMixin",
-    "compat.origins.ChooseOriginScreenMixin",
-    "compat.origins.WaitForNextLayerScreenMixin",
+    "origins_patches.ChooseOriginScreenMixin",
+    "origins_patches.WaitForNextLayerScreenMixin",
     "ench_restrictions.ArrowItemMixin",
     "ench_restrictions.BlockMixin",
     "ench_restrictions.BowItemMixin",
@@ -36,7 +36,7 @@
   "client": [
     "compat.justlevelingfork.client.AptitudeMixin",
     "compat.justlevelingfork.client.JustLevelingScreenMixin",
-    "compat.origins.OriginDisplayScreenMixin"
+    "origins_patches.OriginDisplayScreenMixin"
   ],
   "minVersion": "0.8"
 }

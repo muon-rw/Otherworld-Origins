@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.mixin.compat.origins;
+package dev.muon.otherworldorigins.mixin.origins_patches;
 
 import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
