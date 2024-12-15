@@ -95,20 +95,6 @@ public class ModConditions {
             new SimpleItemCondition(stack -> ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath().contains("staff"))
     );
 
-    public static final RegistryObject<SimpleItemCondition> IS_DAGGER = ITEM_CONDITIONS.register("is_dagger", () ->
-            new SimpleItemCondition(stack -> {
-                String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
-                return (stack.getItem() instanceof SwordItem || Enchantments.SHARPNESS.canEnchant(stack))
-                        && (itemName.contains("dagger") || itemName.contains("knife") || itemName.contains("sai") || itemName.contains("athame"));
-            })
-    );
-    public static final RegistryObject<SimpleItemCondition> IS_LANCE = ITEM_CONDITIONS.register("is_lance", () ->
-            new SimpleItemCondition(stack -> {
-                String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
-                return (stack.getItem() instanceof SwordItem || stack.getItem() instanceof TridentItem || Enchantments.SHARPNESS.canEnchant(stack) || Enchantments.PIERCING.canEnchant(stack))
-                        && (itemName.contains("glaive") || itemName.contains("spear") || itemName.contains("lance") || itemName.contains("halberd"));
-            })
-    );
     public static final RegistryObject<SimpleItemCondition> IS_FIST_WEAPON = ITEM_CONDITIONS.register("is_fist_weapon", () ->
             new SimpleItemCondition(stack -> {
                 String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
@@ -127,12 +113,6 @@ public class ModConditions {
                 return (stack.getItem() instanceof ArmorItem && (itemName.contains("gold") || itemName.contains("gilded")));
             })
     );
-    public static final RegistryObject<SimpleItemCondition> IS_SILVER_ARMOR = ITEM_CONDITIONS.register("is_silver_armor", () ->
-            new SimpleItemCondition(stack -> {
-                String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
-                return (stack.getItem() instanceof ArmorItem && (itemName.contains("silver") || itemName.contains("iron")));
-            })
-    );
     public static final RegistryObject<SimpleItemCondition> IS_GOLDEN_WEAPON = ITEM_CONDITIONS.register("is_golden_weapon", () ->
             new SimpleItemCondition(stack -> {
                 String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
@@ -143,34 +123,6 @@ public class ModConditions {
             new SimpleItemCondition(stack -> {
                 String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
                 return (stack.getItem() instanceof DiggerItem && (itemName.contains("gold") || itemName.contains("gilded")));
-            })
-    );
-    public static final RegistryObject<SimpleItemCondition> IS_AXE = ITEM_CONDITIONS.register("is_axe", () ->
-            new SimpleItemCondition(stack -> {
-                String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
-                return stack.getItem() instanceof AxeItem || (stack.getItem() instanceof TieredItem && itemName.contains("axe") && !itemName.contains("pickaxe"));
-            })
-    );
-    public static final RegistryObject<SimpleItemCondition> IS_SILVER_WEAPON = ITEM_CONDITIONS.register("is_silver_weapon", () ->
-            new SimpleItemCondition(stack -> {
-                String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
-                return (Enchantments.SHARPNESS.canEnchant(stack) && (itemName.contains("silver") || itemName.contains("iron")));
-            })
-    );
-    public static final RegistryObject<SimpleItemCondition> IS_SILVER_TOOL = ITEM_CONDITIONS.register("is_silver_tool", () ->
-            new SimpleItemCondition(stack -> {
-                String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath();
-                return (stack.getItem() instanceof DiggerItem && (itemName.contains("silver") || itemName.contains("iron")));
-            })
-    );
-    public static final RegistryObject<SimpleItemCondition> IS_CURSED = ITEM_CONDITIONS.register("is_cursed", () ->
-            new SimpleItemCondition(stack -> {
-                for (Enchantment enchantment : stack.getEnchantmentTags().stream().map(tag -> Enchantment.byId(tag.getId())).toList()) {
-                    if (enchantment != null && enchantment.isCurse()) {
-                        return true;
-                    }
-                }
-                return false;
             })
     );
 
