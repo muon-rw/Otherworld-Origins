@@ -63,7 +63,7 @@ public class ModConditions {
                     WeaponAttributes weaponAttributes = WeaponRegistry.getAttributes(stack);
                     return weaponAttributes != null && !weaponAttributes.isTwoHanded();
                 }
-                return false;
+                return true;
             })
     );
 
