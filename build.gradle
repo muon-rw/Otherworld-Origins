@@ -166,7 +166,20 @@ dependencies {
     runtimeOnly fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}")
 
     // TravelOptics
-    implementation fg.deobf("curse.maven:to-tweaks-irons-spells-1046916:5921936")
+    //implementation fg.deobf("curse.maven:to-tweaks-irons-spells-1046916:5921936")
+
+    // Eidolon
+    implementation fg.deobf("curse.maven:eidolon-repraised-870250:5877358")
+
+    // Valoria
+    implementation fg.deobf("curse.maven:valoria-698244:5947069")
+    runtimeOnly fg.deobf("curse.maven:fluffy-fur-1097456:5939755")
+
+    // Mine Cells
+    runtimeOnly "curse.maven:minecells-618790:5909435"
+    runtimeOnly "curse.maven:owo-lib-532610:4749199"
+    runtimeOnly fg.deobf("curse.maven:sinytra-connector-890127:5605667")
+    runtimeOnly fg.deobf("curse.maven:forgified-fabric-api-889079:5990306")
 
     // Alex's
     implementation fg.deobf("curse.maven:alexs-mobs-426558:5160697")
@@ -280,6 +293,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.changelogType = "markdown"
     mainFile.addModLoader("Forge")
     mainFile.addGameVersion("1.20.1")
+
     // Hard integrations
     mainFile.addRequirement("origins-forge")
     mainFile.addRequirement("pehkui")
@@ -287,10 +301,11 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addRequirement("ydms-mobhealthbar-mod")
     mainFile.addRequirement("justleveling-fork")
     mainFile.addRequirement("irons-spells-n-spellbooks")
-    mainFile.addRequirement("to-tweaks-irons-spells")
     mainFile.addRequirement("alexs-mobs")
 
+
     // Could be made optional
+    mainFile.addRequirement("to-tweaks-irons-spells")
     mainFile.addRequirement("legendary-survival-overhaul")
     mainFile.addRequirement("monobank")
     mainFile.addRequirement("alexs-caves")
