@@ -139,7 +139,7 @@ dependencies {
         exclude group: 'com.github.llamalad.mixinextras'
     })
 
-    // Required Deps
+    // Pehkui
     implementation fg.deobf("com.github.Virtuoel:Pehkui:${pehkui_version}-${minecraft_version}-forge")
 
     // Mixin
@@ -154,7 +154,7 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_id}")
     runtimeOnly fg.deobf("me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}")
 
-    // Misc Dep-deps
+    // Common Shared Deps
     implementation fg.deobf("dev.isxander:yet-another-config-lib:${project.yacl_version}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api")
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}")
@@ -165,21 +165,12 @@ dependencies {
     runtimeOnly fg.deobf("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
     runtimeOnly fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}")
 
-    // TravelOptics
-    //implementation fg.deobf("curse.maven:to-tweaks-irons-spells-1046916:5921936")
-
     // Eidolon
     implementation fg.deobf("curse.maven:eidolon-repraised-870250:5877358")
 
     // Valoria
     implementation fg.deobf("curse.maven:valoria-698244:5947069")
     runtimeOnly fg.deobf("curse.maven:fluffy-fur-1097456:5939755")
-
-    // Mine Cells
-    runtimeOnly "curse.maven:minecells-618790:5909435"
-    runtimeOnly "curse.maven:owo-lib-532610:4749199"
-    runtimeOnly fg.deobf("curse.maven:sinytra-connector-890127:5605667")
-    runtimeOnly fg.deobf("curse.maven:forgified-fabric-api-889079:5990306")
 
     // Alex's
     implementation fg.deobf("curse.maven:alexs-mobs-426558:5160697")
@@ -301,18 +292,14 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addRequirement("ydms-mobhealthbar-mod")
     mainFile.addRequirement("justleveling-fork")
     mainFile.addRequirement("irons-spells-n-spellbooks")
-    mainFile.addRequirement("alexs-mobs")
 
-
-    // Could be made optional
-    mainFile.addRequirement("to-tweaks-irons-spells")
+    // Could maybe be made optional
     mainFile.addRequirement("legendary-survival-overhaul")
     mainFile.addRequirement("monobank")
-    mainFile.addRequirement("alexs-caves")
     mainFile.addRequirement("apotheosis")
     mainFile.addRequirement("backpacked")
+    mainFile.addRequirement("alexs-mobs")
 
     mainFile.addRequirement("eidolon-repraised")
     mainFile.addRequirement("valoria")
-    mainFile.addRequirement("minecells")
 }
