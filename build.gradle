@@ -289,15 +289,14 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addRequirement("origins-forge")
     mainFile.addRequirement("pehkui")
     mainFile.addRequirement("medieval-core-mod")
-    mainFile.addRequirement("ydms-mobhealthbar-mod")
     mainFile.addRequirement("justleveling-fork")
     mainFile.addRequirement("irons-spells-n-spellbooks")
 
     // Could maybe be made optional
     mainFile.addRequirement("legendary-survival-overhaul")
+    mainFile.addRequirement("ydms-mobhealthbar-mod")
     mainFile.addRequirement("monobank")
     mainFile.addRequirement("apotheosis")
-    mainFile.addRequirement("backpacked")
     mainFile.addRequirement("alexs-mobs")
 
     mainFile.addRequirement("eidolon-repraised")
