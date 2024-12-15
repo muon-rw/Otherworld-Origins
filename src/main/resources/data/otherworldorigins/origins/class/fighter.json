@@ -3,7 +3,7 @@
 		"otherworldorigins:class/fighter/attributes"
 	],
 	"icon": {
-		"item": "minecraft:iron_sword"
+		"item": "otherworldorigins:class/fighter"
 	},
 	"impact": 3,
 	"order": 0

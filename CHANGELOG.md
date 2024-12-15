@@ -1,5 +1,6 @@
 ## 0.9.1
-- Removed hard dependency on many mods
+- Updated many selection icons
+- Removed a number of required dependencies
 
 ## 0.9.0
 - Enchantment restrictions can now be disabled in the config

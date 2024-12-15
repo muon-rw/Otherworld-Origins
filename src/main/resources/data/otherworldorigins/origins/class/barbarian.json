@@ -3,7 +3,7 @@
 		"otherworldorigins:class/barbarian/attributes"
 	],
 	"icon": {
-		"item": "minecraft:stone_sword"
+		"item": "otherworldorigins:class/barbarian"
 	},
 	"impact": 3,
 	"order": 0

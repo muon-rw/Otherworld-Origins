@@ -3,7 +3,7 @@
 		"otherworldorigins:apts/two/def"
 	],
 	"icon": {
-		"item": "minecells:greed_shield"
+		"item": "otherworldorigins:apts/def"
 	},
 	"impact": 3,
 	"order": 0

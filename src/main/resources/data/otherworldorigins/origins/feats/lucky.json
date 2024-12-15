@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/lucky"
 	],
 	"icon": {
-		"item": "minecraft:diamond"
+		"item": "otherworldorigins:feats/lucky"
 	},
 	"impact": 1,
 	"order": 0

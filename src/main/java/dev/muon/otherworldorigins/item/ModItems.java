@@ -55,7 +55,10 @@ public class ModItems {
 
     /** Classes */
     public static final RegistryObject<Item> ARTIFICER = ITEMS.register("class/artificer", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> BARBARIAN = ITEMS.register("class/barbarian", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> BARD = ITEMS.register("class/bard", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FIGHTER = ITEMS.register("class/fighter", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RANGER = ITEMS.register("class/ranger", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ROGUE = ITEMS.register("class/rogue", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SORCERER = ITEMS.register("class/sorcerer", () -> new Item(new Item.Properties()));
 
@@ -97,6 +100,7 @@ public class ModItems {
     /** Feats */
     public static final RegistryObject<Item> CHEF = ITEMS.register("feats/chef", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> DUAL_WIELDER = ITEMS.register("feats/dual_wielder", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> LUCKY = ITEMS.register("feats/lucky", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> MAGE_SLAYER = ITEMS.register("feats/mage_slayer", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> POLEARM_MASTER = ITEMS.register("feats/polearm_master", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TOUGH = ITEMS.register("feats/tough", () -> new Item(new Item.Properties()));
@@ -107,6 +111,8 @@ public class ModItems {
     /** Apts */
     public static final RegistryObject<Item> BLD = ITEMS.register("apts/bld", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> STR = ITEMS.register("apts/str", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DEF = ITEMS.register("apts/def", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DEX = ITEMS.register("apts/dex", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> INT = ITEMS.register("apts/int", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CONST = ITEMS.register("apts/const", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> LCK = ITEMS.register("apts/lck", () -> new Item(new Item.Properties()));

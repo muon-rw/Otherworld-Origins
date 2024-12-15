@@ -2,7 +2,7 @@
 	"powers": [
 	],
 	"icon": {
-		"item": "minecraft:bow"
+		"item": "otherworldorigins:class/ranger"
 	},
 	"impact": 3,
 	"order": 0
