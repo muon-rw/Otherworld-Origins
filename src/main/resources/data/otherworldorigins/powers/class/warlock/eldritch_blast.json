@@ -68,31 +68,25 @@
         },
         {
           "type": "origins:delay",
-          "ticks": 2,
+          "ticks": 5,
           "action": {
-            "type": "origins:nothing"
+            "type": "otherworldorigins:cast_spell",
+            "spell": "magic_missile",
+            "power_level": 5,
+            "cast_time": 0,
+            "mana_cost": 0
           }
-        },
-        {
-          "type": "otherworldorigins:cast_spell",
-          "spell": "magic_missile",
-          "power_level": 5,
-          "cast_time": 0,
-          "mana_cost": 0
         },
         {
           "type": "origins:delay",
-          "ticks": 2,
+          "ticks": 5,
           "action": {
-            "type": "origins:nothing"
+            "type": "otherworldorigins:cast_spell",
+            "spell": "magic_missile",
+            "power_level": 5,
+            "cast_time": 0,
+            "mana_cost": 0
           }
-        },
-        {
-          "type": "otherworldorigins:cast_spell",
-          "spell": "magic_missile",
-          "power_level": 5,
-          "cast_time": 0,
-          "mana_cost": 0
         }
       ]
     }

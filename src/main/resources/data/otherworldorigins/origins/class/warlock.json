@@ -1,6 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:class/warlock/attributes"
+		"otherworldorigins:class/warlock/attributes",
+		"otherworldorigins:class/warlock/eldritch_blast"
 	],
 	"icon": {
 		"item": "eidolon:warlock_cloak"
