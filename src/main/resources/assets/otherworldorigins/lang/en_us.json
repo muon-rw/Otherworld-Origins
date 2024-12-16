@@ -221,7 +221,7 @@
   "power.otherworldorigins.subrace/undead/skeleton/vulnerability.name": "-Bow Resistance",
   "power.otherworldorigins.subrace/undead/skeleton/vulnerability.description": "§oYou take 25% extra damage from bows",
 
-  "power.otherworldorigins.subrace/undead/wither_skeleton/vulnerability.name": "-Sun Resistance",
+  "power.otherworldorigins.subrace/undead/wither_skeleton/vulnerability.name": "-Sword Resistance",
   "power.otherworldorigins.subrace/undead/wither_skeleton/vulnerability.description": "§oYou take 25% extra damage from swords",
 
   "power.otherworldorigins.race/dwarf/dwarven_resilience.name": "Dwarven Resilience",

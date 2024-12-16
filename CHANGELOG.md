@@ -8,7 +8,7 @@
 - Fixed Halfling's Subraces not receiving their subrace bonuses
 - Fixed Halfling not receiving their small-size speed debuff
 - Fixed Goblin/Hobgoblin not receiving their cold/heat resistance
-- 
+- Fixed a typo in Wither Skeleton's weakness description
 - Add a warning if the Apotheosis Adventure Module is disabled
 - Removed a number of required dependencies
 - Cleaned up unused files
