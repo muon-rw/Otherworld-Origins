@@ -1,3 +1,6 @@
+## 1.0.1
+- Improve logic for damage enchantment restrictions
+
 ## 1.0.0
 - Updated many selection icons
 - Reworked Warlock's Eldritch Blast upgrade 

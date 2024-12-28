@@ -3,6 +3,7 @@ package dev.muon.otherworldorigins;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
+import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import dev.shadowsoffire.apotheosis.Apotheosis;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
@@ -24,9 +25,18 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.common.extensions.IForgeItemStack;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -156,7 +166,45 @@ public class ForgeEvents {
                 event.setResult(CriticalHitEvent.Result.ALLOW);
             }
         }
+    }
 
+    @SubscribeEvent
+    public static void onLivingHurt(LivingHurtEvent event) {
+        DamageSource source = event.getSource();
+        Entity attacker = source.getEntity();
+
+        if (!(attacker instanceof Player player)) {
+            return;
+        }
+
+        ItemStack weapon = player.getMainHandItem();
+        float damageReduction = 0;
+
+        if (!EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.SHARPNESS)) {
+            damageReduction += calculateDamageBonus(weapon, Enchantments.SHARPNESS, MobType.UNDEFINED);
+        }
+        if (!EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.SMITE)) {
+            damageReduction += calculateDamageBonus(weapon, Enchantments.SMITE, MobType.UNDEAD);
+        }
+        if (!EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.BANE_OF_ARTHROPODS)) {
+            damageReduction += calculateDamageBonus(weapon, Enchantments.BANE_OF_ARTHROPODS, MobType.ARTHROPOD);
+        }
+
+        if (damageReduction > 0) {
+            event.setAmount(Math.max(0, event.getAmount() - damageReduction));
+        }
+    }
+
+    private static float calculateDamageBonus(ItemStack weapon, Enchantment enchantment, MobType mobType) {
+        int level = weapon.getEnchantmentLevel(enchantment);
+        if (level > 0) {
+            if (mobType == MobType.UNDEFINED) {
+                return 1 + level * 0.5F;
+            } else {
+                return level * 1.5F;
+            }
+        }
+        return 0;
     }
 }
 

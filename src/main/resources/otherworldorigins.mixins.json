@@ -29,7 +29,6 @@
     "ench_restrictions.EnchantmentHelperMixin",
     "ench_restrictions.ExperienceOrbMixin",
     "ench_restrictions.FishingRodItemMixin",
-    "ench_restrictions.PlayerMixin",
     "ench_restrictions.ThornsEnchantmentMixin",
     "ench_restrictions.ThrownTridentMixin"
   ],
