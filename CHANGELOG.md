@@ -1,3 +1,6 @@
+## 1.0.2
+- Migrate from Medieval to Otherworld Core (uninstall "Medieval" from your mods!)
+
 ## 1.0.1
 - Improve logic for damage enchantment restrictions
 

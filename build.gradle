@@ -149,6 +149,10 @@ dependencies {
     }
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
+    // Core
+    implementation fg.deobf("dev.muon:otherworld-${minecraft_version}:${otherworld_core_version}")
+    runtimeOnly fg.deobf("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
+
     // Dev Env
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
     runtimeOnly fg.deobf("curse.maven:jade-324717:${jade_id}")
@@ -169,8 +173,8 @@ dependencies {
     implementation fg.deobf("curse.maven:eidolon-repraised-870250:5877358")
 
     // Valoria
-    implementation fg.deobf("curse.maven:valoria-698244:5947069")
-    runtimeOnly fg.deobf("curse.maven:fluffy-fur-1097456:5939755")
+    implementation fg.deobf("maven.modrinth:valoria:0.6.4.35")
+    runtimeOnly fg.deobf("curse.maven:fluffy-fur-1097456:6392791")
 
     // Alex's
     implementation fg.deobf("curse.maven:alexs-mobs-426558:5160697")
@@ -182,11 +186,8 @@ dependencies {
     // Apoth
     implementation fg.deobf("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}")
     implementation fg.deobf("dev.shadowsoffire:ApothicAttributes:${minecraft_version}-${attributeslib_version}")
-    implementation fg.deobf("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apotheosis_version}")
-
-    // Medieval
-    implementation fg.deobf("curse.maven:medieval-core-mod-1055023:5753791")
-    runtimeOnly fg.deobf("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
+    //implementation fg.deobf("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apotheosis_version}")
+    implementation fg.deobf("curse.maven:apotheosis-313970:6147871")
 
     // Legendary Survival Overhaul
     implementation fg.deobf("curse.maven:legendary-survival-overhaul-840254:5921074")

@@ -1,7 +1,7 @@
 package dev.muon.otherworldorigins.power;
 
 
-import dev.muon.medieval.leveling.event.AptitudeChangedEvent;
+import dev.muon.otherworld.leveling.event.AptitudeChangedEvent;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.configuration.HolderConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityAction;

@@ -2,8 +2,8 @@ package dev.muon.otherworldorigins.power;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.muon.medieval.leveling.LevelingUtils;
-import dev.muon.medieval.leveling.event.AptitudeChangedEvent;
+import dev.muon.otherworld.leveling.LevelingUtils;
+import dev.muon.otherworld.leveling.event.AptitudeChangedEvent;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;

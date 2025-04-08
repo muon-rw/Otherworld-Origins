@@ -19,7 +19,7 @@
     "compat.irons_spellbooks.AbstractSpellMixin",
     "compat.justlevelingfork.AptitudeCapabilityMixin",
     "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
-    "compat.medieval.LevelingUtilsMixin",
+    "compat.otherworld.LevelingUtilsMixin",
     "compat.monobank.ThiefMixin",
     "origins_patches.ChooseOriginScreenMixin",
     "origins_patches.WaitForNextLayerScreenMixin",

@@ -1,6 +1,6 @@
 package dev.muon.otherworldorigins.condition;
 
-import dev.muon.medieval.leveling.LevelingUtils;
+import dev.muon.otherworld.leveling.LevelingUtils;
 import io.github.edwinmindcraft.apoli.common.condition.entity.IntComparingEntityCondition;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;

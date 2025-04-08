@@ -1,8 +1,8 @@
-package dev.muon.otherworldorigins.mixin.compat.medieval;
+package dev.muon.otherworldorigins.mixin.compat.otherworld;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
-import dev.muon.medieval.leveling.LevelingUtils;
+import dev.muon.otherworld.leveling.LevelingUtils;
 import dev.muon.otherworldorigins.power.InnateAptitudeBonusPower;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.LazyOptional;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.At;
 public class LevelingUtilsMixin {
 
     @ModifyExpressionValue(
-            method = "Ldev/muon/medieval/leveling/LevelingUtils;getPlayerLevel(Lnet/minecraft/world/entity/player/Player;)I",
+            method = "Ldev/muon/otherworld/leveling/LevelingUtils;getPlayerLevel(Lnet/minecraft/world/entity/player/Player;)I",
             at = @At(value = "INVOKE", target = "Lcom/seniors/justlevelingfork/common/capability/AptitudeCapability;getGlobalLevel()I"),
             require = 1
     )
@@ -30,7 +30,7 @@ public class LevelingUtilsMixin {
     }
 
     @ModifyExpressionValue(
-            method = "Ldev/muon/medieval/leveling/LevelingUtils;getPlayerLevelProgress(Lnet/minecraft/world/entity/player/Player;)D",
+            method = "Ldev/muon/otherworld/leveling/LevelingUtils;getPlayerLevelProgress(Lnet/minecraft/world/entity/player/Player;)D",
             at = @At(value = "INVOKE", target = "Lcom/seniors/justlevelingfork/common/capability/AptitudeCapability;getGlobalLevel()I"),
             require = 1
     )

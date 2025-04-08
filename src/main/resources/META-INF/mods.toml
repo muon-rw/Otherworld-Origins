@@ -71,7 +71,7 @@ ordering="AFTER"
 side="BOTH"
 
 [[dependencies.${mod_id}]]
-modId="medieval"
+modId="otherworld"
 mandatory=true
 versionRange="*"
 ordering="AFTER"
