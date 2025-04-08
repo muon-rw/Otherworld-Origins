@@ -289,7 +289,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     // Hard integrations
     mainFile.addRequirement("origins-forge")
     mainFile.addRequirement("pehkui")
-    mainFile.addRequirement("medieval-core-mod")
+    mainFile.addRequirement("otherworld-core")
     mainFile.addRequirement("justleveling-fork")
     mainFile.addRequirement("irons-spells-n-spellbooks")
 
