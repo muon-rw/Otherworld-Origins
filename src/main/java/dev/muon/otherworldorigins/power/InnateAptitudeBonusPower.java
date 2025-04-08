@@ -6,9 +6,10 @@ import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
 import com.seniors.justlevelingfork.network.packet.client.SyncAptitudeCapabilityCP;
 import com.seniors.justlevelingfork.registry.RegistryAptitudes;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
-import dev.muon.medieval.Medieval;
-import dev.muon.medieval.leveling.LevelSyncHandler;
-import dev.muon.medieval.leveling.LevelingUtils;
+import dev.muon.otherworld.Otherworld;
+import dev.muon.otherworld.leveling.LevelSyncHandler;
+import dev.muon.otherworld.leveling.LevelingUtils;
+import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
@@ -48,7 +49,6 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
                     .mapToInt(config -> config.aptitudeBonuses().getOrDefault(aptitudeName, 0))
                     .sum();
         }
-        Medieval.LOGGER.debug("Could not retrieve power container from " + entity.getName() + " for " + aptitudeName);
         return 0;
     }
 
@@ -85,9 +85,8 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
                     int currentLevel = cap.getAptitudeLevel(aptitude);
                     int revertedLevel = Math.max(currentLevel - bonus, 1);
                     cap.setAptitudeLevel(aptitude, revertedLevel);
-                    Medieval.LOGGER.debug("Removed bonus for " + aptitudeName + ": " + currentLevel + " -> " + revertedLevel);
                 } else {
-                    Medieval.LOGGER.warn("Aptitude not found: " + aptitudeName);
+                    OtherworldOrigins.LOGGER.warn("Aptitude not found: " + aptitudeName);
                 }
             });
 
@@ -99,7 +98,7 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
             );
 
         } else {
-            Medieval.LOGGER.warn("AptitudeCapability not found for player: " + player.getName().getString());
+            OtherworldOrigins.LOGGER.warn("AptitudeCapability not found for player: " + player.getName().getString());
         }
     }
 
