@@ -3,8 +3,18 @@
 	"night_vision": {
 		"type": "origins:action_over_time",
 		"condition": {
-			"type": "origins:power_active",
-			"power": "*:*_toggle"
+			"type": "origins:and",
+			"conditions": [
+				{
+					"type": "origins:power_active",
+					"power": "*:*_toggle"
+				},
+				{
+					"type": "origins:dimension",
+					"dimension": "otherworld:elemental_nexus",
+					"inverted": true
+				}
+			]
 		},
 		"entity_action": {
 			"type": "origins:apply_effect",

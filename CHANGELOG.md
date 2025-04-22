@@ -1,5 +1,6 @@
 ## 1.0.2
 - Migrate from Medieval to Otherworld Core (uninstall "Medieval" from your mods!)
+- Disable Dark Vision in Otherworld's Elemental Nexus
 
 ## 1.0.1
 - Improve logic for damage enchantment restrictions
