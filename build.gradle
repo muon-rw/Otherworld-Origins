@@ -150,7 +150,7 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     // Core
-    implementation fg.deobf("dev.muon:otherworld-${minecraft_version}:${otherworld_core_version}")
+    compileOnly fg.deobf("dev.muon:otherworld-${minecraft_version}:${otherworld_core_version}")
     runtimeOnly fg.deobf("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
 
     // Dev Env
@@ -190,10 +190,10 @@ dependencies {
     implementation fg.deobf("curse.maven:apotheosis-313970:6147871")
 
     // Legendary Survival Overhaul
-    implementation fg.deobf("curse.maven:legendary-survival-overhaul-840254:5921074")
+    implementation fg.deobf("curse.maven:legendary-survival-overhaul-840254:6867014")
 
     // Monobank (Thief)
-    implementation fg.deobf("curse.maven:monobank-817257:5086245")
+    implementation fg.deobf("curse.maven:thief-839159:6845226")
 
     // betta combat
     implementation fg.deobf("curse.maven:better-combat-by-daedelus-639842:5625757")
@@ -266,7 +266,7 @@ tasks.register('sendToModpack', Copy) {
     dependsOn 'jarJar'
     from tasks.jarJar.archiveFile
     //wtf is a renpi
-    into 'C:/Users/renpi/curseforge/minecraft/Instances/Otherworld/mods'
+    into 'C:\\Users\\renpi\\curseforge\\minecraft\\Instances\\Otherworld\\mods'
     rename { String fileName ->
         fileName.replace(project.version.toString(), "dev")
     }
@@ -292,14 +292,14 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.addRequirement("otherworld-core")
     mainFile.addRequirement("justleveling-fork")
     mainFile.addRequirement("irons-spells-n-spellbooks")
+    mainFile.addRequirement("altorigingui")
 
     // Could maybe be made optional
     mainFile.addRequirement("legendary-survival-overhaul")
     mainFile.addRequirement("ydms-mobhealthbar-mod")
-    mainFile.addRequirement("monobank")
+    mainFile.addRequirement("thief")
     mainFile.addRequirement("apotheosis")
     mainFile.addRequirement("alexs-mobs")
 
-    mainFile.addRequirement("eidolon-repraised")
     mainFile.addRequirement("valoria")
 }

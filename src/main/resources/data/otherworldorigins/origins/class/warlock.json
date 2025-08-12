@@ -4,7 +4,7 @@
 		"otherworldorigins:class/warlock/eldritch_blast"
 	],
 	"icon": {
-		"item": "eidolon:warlock_cloak"
+		"item": "otherworldorigins:class/warlock"
 	},
 	"impact": 3,
 	"order": 0

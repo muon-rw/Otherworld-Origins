@@ -1,0 +1,34 @@
+{
+	"replace": false,
+	"values": [
+		"minecraft:ender_dragon",
+		"minecraft:wither",
+		{"id":"#c:bosses","required":false},
+		{"id":"#forge:bosses","required":false},
+		{"id":"legendary_monsters:posessed_paladin","required":false},
+		{"id":"legendary_monsters:mossy_golem","required":false},
+		{"id":"legendary_monsters:overgown_colossus","required":false},
+		{"id":"legendary_monsters:frostbitten_golem","required":false},
+		{"id":"legendary_monsters:ancient_guardian","required":false},
+		{"id":"legendary_monsters:withered_abomination","required":false},
+		{"id":"soulsweapons:forlorn","required":false},
+		{"id":"soulsweapons:soulmass","required":false},
+		{"id":"soulsweapons:ghost_warrior","required":false},
+		{"id":"soulsweapons:evil_forlorn","required":false},
+		{"id":"soulsweapons:chaos_monarch","required":false},
+		{"id":"soulsweapons:dark_sorcerer","required":false},
+		{"id":"soulsweapons:draugr_boss","required":false},
+		{"id":"soulsweapons:night_prowler","required":false},
+		{"id":"soulsweapons:night_shade","required":false},
+		{"id":"soulsweapons:moonknight","required":false},
+		{"id":"soulsweapons:returning_knight","required":false},
+		{"id":"soulsweapons:withered_demon","required":false},
+		{"id":"soulsweapons:accursed_lord_boss","required":false},
+		{"id":"bosses_of_mass_destruction:gauntlet","required":false},
+		{"id":"bosses_of_mass_destruction:obsidilith","required":false},
+		{"id":"bosses_of_mass_destruction:void_blossom","required":false},
+		{"id":"bosses_of_mass_destruction:lich","required":false}
+	]
+}
+
+  

@@ -61,6 +61,7 @@ public class ModItems {
     public static final RegistryObject<Item> RANGER = ITEMS.register("class/ranger", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ROGUE = ITEMS.register("class/rogue", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SORCERER = ITEMS.register("class/sorcerer", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> WARLOCK = ITEMS.register("class/warlock", () -> new Item(new Item.Properties()));
 
 
     /** Subclasses */
@@ -78,6 +79,7 @@ public class ModItems {
     public static final RegistryObject<Item> SPORES = ITEMS.register("subclass/druid/spores", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> BATTLE_MASTER = ITEMS.register("subclass/fighter/battle_master", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CHAMPION = ITEMS.register("subclass/fighter/champion", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> FOUR_ELEMENTS = ITEMS.register("subclass/monk/four_elements", () -> new Item(new Item.Properties()));
 
@@ -90,6 +92,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> ASSASSIN = ITEMS.register("subclass/rogue/assassin", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> THIEF = ITEMS.register("subclass/rogue/thief", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ARCANE_TRICKSTER = ITEMS.register("subclass/rogue/arcane_trickster", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> DRACONIC_BLOODLINE = ITEMS.register("subclass/sorcerer/draconic_bloodline", () -> new Item(new Item.Properties()));
 
@@ -111,6 +114,10 @@ public class ModItems {
     public static final RegistryObject<Item> SHIELD_MASTER = ITEMS.register("feats/shield_master", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TOUGH = ITEMS.register("feats/tough", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SKILLED = ITEMS.register("feats/skilled", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> MOBILE = ITEMS.register("feats/mobile", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DEFENSIVE_DUELIST = ITEMS.register("feats/defensive_duelist", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SAVAGE_ATTACKER = ITEMS.register("feats/savage_attacker", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> RESILIENT = ITEMS.register("feats/resilient", () -> new Item(new Item.Properties()));
 
     /** Cantrips */
     public static final RegistryObject<Item> GUST = ITEMS.register("cantrips/gust", () -> new Item(new Item.Properties()));

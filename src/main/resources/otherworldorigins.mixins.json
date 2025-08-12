@@ -20,7 +20,7 @@
     "compat.justlevelingfork.AptitudeCapabilityMixin",
     "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
     "compat.otherworld.LevelingUtilsMixin",
-    "compat.monobank.ThiefMixin",
+    "compat.thief.CrimeMixin",
     "origins_patches.ChooseOriginScreenMixin",
     "origins_patches.WaitForNextLayerScreenMixin",
     "ench_restrictions.ArrowItemMixin",

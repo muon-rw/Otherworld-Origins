@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.condition;
+package dev.muon.otherworldorigins.condition.entity;
 
 import io.github.edwinmindcraft.apoli.common.condition.entity.IntComparingEntityCondition;
 import io.redspace.ironsspellbooks.api.magic.MagicData;

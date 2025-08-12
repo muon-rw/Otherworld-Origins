@@ -14,11 +14,14 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 @OnlyIn(Dist.CLIENT)
 public class ClientLayerScreenHelper {
     private static int validationAttempts = 0;
     private static final int MAX_VALIDATION_ATTEMPTS = 20;
+    private static Set<ResourceLocation> lastSelectedLayers = new HashSet<>();
 
     @OnlyIn(Dist.CLIENT)
     public static void handleValidatedLayers(List<ResourceLocation> validMissingLayers) {
@@ -87,5 +90,41 @@ public class ClientLayerScreenHelper {
                 });
             }
         }
+    }
+    
+    public static void addToSelectedLayers(Set<ResourceLocation> layers) {
+        lastSelectedLayers.addAll(layers);
+        OtherworldOrigins.LOGGER.debug("Added layers to tracking: {}. Total tracked: {}", layers, lastSelectedLayers);
+    }
+    
+    public static void clearSelectedLayers() {
+        OtherworldOrigins.LOGGER.debug("Clearing tracked layers. Previous: {}", lastSelectedLayers);
+        lastSelectedLayers.clear();
+    }
+    
+    public static boolean wasOnlyFeatLayersSelected() {
+        if (lastSelectedLayers.isEmpty()) {
+            OtherworldOrigins.LOGGER.debug("wasOnlyFeatLayersSelected: false (no layers tracked)");
+            return false;
+        }
+        
+        Set<ResourceLocation> featLayerIds = new HashSet<>();
+        featLayerIds.add(OtherworldOrigins.loc("first_feat"));
+        featLayerIds.add(OtherworldOrigins.loc("second_feat"));
+        featLayerIds.add(OtherworldOrigins.loc("third_feat"));
+        featLayerIds.add(OtherworldOrigins.loc("fourth_feat"));
+        featLayerIds.add(OtherworldOrigins.loc("fifth_feat"));
+        featLayerIds.add(OtherworldOrigins.loc("plus_one_aptitude_resilient"));
+        
+        // Check if all selected layers were feat layers
+        for (ResourceLocation layerId : lastSelectedLayers) {
+            if (!featLayerIds.contains(layerId)) {
+                OtherworldOrigins.LOGGER.debug("wasOnlyFeatLayersSelected: false (found non-feat layer: {})", layerId);
+                return false;
+            }
+        }
+        
+        OtherworldOrigins.LOGGER.debug("wasOnlyFeatLayersSelected: true. All {} tracked layers are feat layers", lastSelectedLayers.size());
+        return true;
     }
 }

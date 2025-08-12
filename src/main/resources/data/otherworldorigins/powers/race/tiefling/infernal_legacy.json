@@ -3,6 +3,7 @@
     "low": {
         "type": "origins:active_self",
         "key": "key.origins.primary_active",
+        "cooldown": 20,
         "condition": {
             "type": "otherworldorigins:player_level",
             "comparison": "<=",
@@ -19,6 +20,7 @@
     "med": {
         "type": "origins:active_self",
         "key": "key.origins.primary_active",
+        "cooldown": 20,
         "condition": {
             "type": "origins:and",
             "conditions": [
@@ -45,6 +47,7 @@
     "high": {
         "type": "origins:active_self",
         "key": "key.origins.primary_active",
+        "cooldown": 20,
         "condition": {
             "type": "otherworldorigins:player_level",
             "comparison": ">=",
@@ -55,7 +58,7 @@
             "spell": "magma_bomb",
             "power_level": 6,
             "cast_time": 0,
-            "mana_cost": 10
+            "mana_cost": 20
         }
     }
 }

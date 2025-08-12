@@ -3,7 +3,7 @@
 		"otherworldorigins:class/paladin/attributes"
 	],
 	"icon": {
-		"item": "eidolon:holy_symbol"
+		"item": "irons_spellbooks:priest_helmet"
 	},
 	"impact": 3,
 	"order": 0

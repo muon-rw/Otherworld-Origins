@@ -45,11 +45,6 @@ public class OtherworldOrigins {
             PROTOCOL_VERSION::equals
     );
 
-    // Note to lurkers:
-    // Passing context in the constructor's parameter like this
-    // breaks on Forge 47.3.0, the latest stable Forge release.
-    // You should probably just stick to the parameterless constructor,
-    // and calling FMLJavaModLoadingContext.get()
     public OtherworldOrigins(FMLJavaModLoadingContext context) {
 
         OtherworldOrigins.LOGGER.info("Loading Otherworld Origins");
@@ -142,6 +137,12 @@ public class OtherworldOrigins {
                 .encoder(ResetValidationAttemptsMessage::encode)
                 .decoder(ResetValidationAttemptsMessage::decode)
                 .consumerMainThread(ResetValidationAttemptsMessage::handle)
+                .add();
+        
+        CHANNEL.messageBuilder(OpenFinalConfirmScreenMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(OpenFinalConfirmScreenMessage::encode)
+                .decoder(OpenFinalConfirmScreenMessage::decode)
+                .consumerMainThread(OpenFinalConfirmScreenMessage::handle)
                 .add();
     }
 }

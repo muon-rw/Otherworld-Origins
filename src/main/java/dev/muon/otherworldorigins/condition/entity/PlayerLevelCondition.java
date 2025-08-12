@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.condition;
+package dev.muon.otherworldorigins.condition.entity;
 
 import dev.muon.otherworld.leveling.LevelingUtils;
 import io.github.edwinmindcraft.apoli.common.condition.entity.IntComparingEntityCondition;

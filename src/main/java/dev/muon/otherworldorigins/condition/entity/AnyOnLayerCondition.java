@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.condition;
+package dev.muon.otherworldorigins.condition.entity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

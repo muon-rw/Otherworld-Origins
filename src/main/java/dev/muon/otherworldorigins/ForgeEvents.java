@@ -109,7 +109,6 @@ public class ForgeEvents {
         }
 
         Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(player.level().getServer());
-        if (layerRegistry == null) return;
 
         IOriginContainer originContainer = IOriginContainer.get(player).resolve().orElse(null);
         if (originContainer == null) return;
@@ -122,7 +121,7 @@ public class ForgeEvents {
             );
 
             ResourceKey<Origin> currentOrigin = originContainer.getOrigin(layerHolder);
-            if (currentOrigin == null || currentOrigin.location().equals(new ResourceLocation("origins", "empty"))) {
+            if (currentOrigin.location().equals(new ResourceLocation("origins", "empty"))) {
                 Set<Holder<Origin>> availableOrigins = layer.origins(player);
                 if (!availableOrigins.isEmpty()) {
                     missingOriginLayers.add(layerHolder);

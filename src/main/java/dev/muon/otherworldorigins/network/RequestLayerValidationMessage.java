@@ -61,9 +61,17 @@ public class RequestLayerValidationMessage {
                         );
                     } else {
                         OtherworldOrigins.LOGGER.info("Layer validation successful for player {}. All origins are properly selected.", player.getName().getString());
+                        
+                        // Always reset validation attempts
                         OtherworldOrigins.CHANNEL.send(
                                 PacketDistributor.PLAYER.with(() -> player),
                                 new ResetValidationAttemptsMessage()
+                        );
+                        
+                        // Always send the open confirm screen message - client will decide whether to show it
+                        OtherworldOrigins.CHANNEL.send(
+                                PacketDistributor.PLAYER.with(() -> player),
+                                new OpenFinalConfirmScreenMessage()
                         );
                     }
                 } else {

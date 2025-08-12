@@ -1,0 +1,6 @@
+{
+    "type": "origins:starting_equipment",
+    "stack": {
+        "item": "immersive_melodies:lute"
+    }
+}

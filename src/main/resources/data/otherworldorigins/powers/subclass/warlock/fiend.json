@@ -1,8 +1,9 @@
 {
     "hidden": true,
-    "type": "origins:modify_healing",
+    "type": "origins:attribute",
     "modifier": {
-        "operation": "multiply_total",
-        "value": 0.5
+        "attribute": "irons_spellbooks:cast_time_reduction",
+        "operation": "multiply_base",
+        "value": 0.15
     }
 }

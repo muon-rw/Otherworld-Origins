@@ -1,6 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:class/bard/attributes"
+		"otherworldorigins:class/bard/attributes",
+		"otherworldorigins:class/bard/starter_item"
 	],
 	"icon": {
 		"item": "otherworldorigins:class/bard"

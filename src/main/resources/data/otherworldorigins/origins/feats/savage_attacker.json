@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/savage_attacker"
 	],
 	"icon": {
-		"item": "eidolon:cleaving_axe"
+		"item": "otherworldorigins:feats/savage_attacker"
 	},
 	"impact": 1,
 	"order": 0

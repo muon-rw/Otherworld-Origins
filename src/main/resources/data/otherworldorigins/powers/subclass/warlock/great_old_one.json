@@ -1,5 +1,9 @@
 {
     "hidden": true,
-    "type": "otherworldorigins:modify_critical_hit",
-    "amount": 1.0
+    "type": "origins:attribute",
+    "modifier": {
+        "attribute": "irons_spellbooks:mana_regen",
+        "operation": "multiply_base",
+        "value": 0.25
+    }
 }

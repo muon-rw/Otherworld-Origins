@@ -1,6 +1,10 @@
 package dev.muon.otherworldorigins.condition;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.condition.entity.AnyOnLayerCondition;
+import dev.muon.otherworldorigins.condition.entity.HasSkillCondition;
+import dev.muon.otherworldorigins.condition.entity.ManaCondition;
+import dev.muon.otherworldorigins.condition.entity.PlayerLevelCondition;
 import io.github.edwinmindcraft.apoli.api.power.factory.*;
 import io.github.edwinmindcraft.apoli.api.registry.ApoliRegistries;
 import io.github.edwinmindcraft.apoli.common.condition.bientity.SimpleBiEntityCondition;
@@ -12,7 +16,6 @@ import net.bettercombat.logic.WeaponRegistry;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModList;

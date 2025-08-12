@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/defensive_duelist"
 	],
 	"icon": {
-		"item": "eidolon:warded_mail"
+		"item": "otherworldorigins:feats/defensive_duelist"
 	},
 	"impact": 1,
 	"order": 0

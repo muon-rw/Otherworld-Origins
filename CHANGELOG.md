@@ -1,5 +1,15 @@
-## 1.0.2
+## 1.1.0
 - Migrate from Medieval to Otherworld Core (uninstall "Medieval" from your mods!)
+- Updated charisma to work with new versions of Thief
+- Changed a few origin bonuses that were health regeneration
+- Added thematic confirm screen
+- Small internal refactors
+- Fixed a couple origin proportions
+- Change layout to Alternate Origin GUI, now required
+- Other improvements to the selection screen
+- Removed dependency on Eidolon
+- New icons for some selections
+- Added a cooldown to Tiefling's infernal legacy active, increased the mana cost at max rank
 - Disable Dark Vision in Otherworld's Elemental Nexus
 
 ## 1.0.1

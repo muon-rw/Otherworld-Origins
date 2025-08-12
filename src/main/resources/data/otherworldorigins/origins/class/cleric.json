@@ -3,7 +3,7 @@
 		"otherworldorigins:class/cleric/attributes"
 	],
 	"icon": {
-		"item": "irons_spellbooks:priest_helmet"
+		"item": "irons_spellbooks:villager_spell_book"
 	},
 	"impact": 3,
 	"order": 0

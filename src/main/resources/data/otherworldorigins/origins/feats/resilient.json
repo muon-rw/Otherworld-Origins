@@ -3,7 +3,7 @@
 		"otherworldorigins:feats/resilient"
 	],
 	"icon": {
-		"item": "eidolon:basic_ring"
+		"item": "otherworldorigins:feats/resilient"
 	},
 	"impact": 1,
 	"order": 0
