@@ -121,6 +121,7 @@ public class ModItems {
 
     /** Cantrips */
     public static final RegistryObject<Item> GUST = ITEMS.register("cantrips/gust", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ICICLE = ITEMS.register("cantrips/icicle", () -> new Item(new Item.Properties()));
 
     /** Apts */
     public static final RegistryObject<Item> BLD = ITEMS.register("apts/bld", () -> new Item(new Item.Properties()));

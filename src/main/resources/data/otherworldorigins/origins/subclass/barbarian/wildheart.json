@@ -3,7 +3,6 @@
         "otherworldorigins:subclass/barbarian/wildheart"
     ],
     "icon": {
-        "item": "apotheosis:gem",
-        "tag": "{affix_data: {rarity: \"apotheosis:rare\"}, gem: \"apotheosis_ascended:additional_attributes_iss/innate_nature\"}"
+        "item": "valoria:devil_heart"
     }
 }
