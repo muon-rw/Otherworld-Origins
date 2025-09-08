@@ -29,8 +29,12 @@ public class OpenFinalConfirmScreenMessage {
                     ClientLayerScreenHelper.clearSelectedLayers();
                     
                     if (shouldShowConfirm) {
+                        ClientLayerScreenHelper.setFinalConfirmScreen();
+                        /*
                         Minecraft minecraft = Minecraft.getInstance();
                         minecraft.execute(() -> minecraft.setScreen(new FinalConfirmScreen()));
+
+                         */
                     }
                 })
         );

@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.util;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.client.screen.FinalConfirmScreen;
 import io.github.apace100.origins.screen.ChooseOriginScreen;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
@@ -63,6 +64,12 @@ public class ClientLayerScreenHelper {
     }
     public static void resetValidationAttempts() {
         validationAttempts = 0;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public static void setFinalConfirmScreen() {
+        Minecraft minecraft = Minecraft.getInstance();
+        minecraft.setScreen(new FinalConfirmScreen());
     }
 
     @OnlyIn(Dist.CLIENT)

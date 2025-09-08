@@ -150,7 +150,7 @@ dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     // Core
-    compileOnly fg.deobf("dev.muon:otherworld-${minecraft_version}:${otherworld_core_version}")
+    implementation fg.deobf("dev.muon:otherworld-${minecraft_version}:${otherworld_core_version}")
     runtimeOnly fg.deobf("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
 
     // Dev Env
