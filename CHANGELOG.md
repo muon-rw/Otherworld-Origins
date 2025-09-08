@@ -9,6 +9,7 @@
 - Other improvements to the selection screen
 - Removed dependency on Eidolon
 - New icons for some selections
+- Buffed Magic tree
 - Added a cooldown to Tiefling's infernal legacy active, increased the mana cost at max rank
 - Disable Dark Vision in Otherworld's Elemental Nexus
 

@@ -24,6 +24,9 @@
   "skill.otherworldorigins.reforging": "Legendary Smith",
   "skill.otherworldorigins.reforging.description": "Grants access to Reforging and Gem Cutting Tables. Underdark races can learn this skill to gain access to Augmenting and Ancient Reforging.",
 
+  "skill.otherworldorigins.wisdom": "Ancient Wisdom",
+  "skill.otherworldorigins.wisdom.description": "All spells you cast will be 1 level higher.",
+
   "entity.otherworldorigins.summoned_iron_golem": "Summoner's Golem",
   "entity.otherworldorigins.summoned_grizzly_bear": "Summoner's Grizzly Bear",
   

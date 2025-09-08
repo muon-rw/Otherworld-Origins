@@ -73,16 +73,20 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 repositories {
     maven {
         name = "Greenhouse"
-        url = 'https://maven.greenhouseteam.dev/releases/'
-    }
-
-    maven {
-        name = "JitPack"
-        url = 'https://jitpack.io'
+        url = 'https://maven.greenhouse.lgbt/releases/'
         content {
-            excludeGroup "io.github.edwinmindcraft"
+            includeGroup "io.github.edwinmindcraft"
+            includeGroup "de.dafuqs"
         }
     }
+
+    // maven {
+    //    name = "JitPack"
+    //    url = 'https://jitpack.io'
+     //   content {
+      //      excludeGroup "io.github.edwinmindcraft"
+      //  }
+    // }
 
     maven {
         name = "Modrinth"
@@ -113,7 +117,6 @@ repositories {
     maven {
         url = "https://jm.gserv.me/repository/maven-public/"
     }
-    maven { url = 'https://maven.greenhouseteam.dev/releases/' }
     maven { url = 'https://maven.theillusivec4.top' }
     maven { url "https://maven.isxander.dev/releases" }
     maven { url = "https://modmaven.dev"
@@ -186,7 +189,7 @@ dependencies {
     // Apoth
     implementation fg.deobf("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}")
     implementation fg.deobf("dev.shadowsoffire:ApothicAttributes:${minecraft_version}-${attributeslib_version}")
-    //implementation fg.deobf("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apotheosis_version}")
+    implementation fg.deobf("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apotheosis_version}")
     implementation fg.deobf("curse.maven:apotheosis-313970:6147871")
 
     // Legendary Survival Overhaul

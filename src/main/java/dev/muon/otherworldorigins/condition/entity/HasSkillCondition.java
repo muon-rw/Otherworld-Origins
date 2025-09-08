@@ -19,7 +19,7 @@ public class HasSkillCondition extends EntityCondition<HasSkillCondition.Configu
     @Override
     public boolean check(@NotNull Configuration configuration, @NotNull Entity entity) {
         if (entity instanceof Player player) {
-            Skill skill = RegistrySkills.getSkill(configuration.skill().getPath());
+            Skill skill = RegistrySkills.SKILLS_REGISTRY.get().getValue(configuration.skill());
             return skill != null && skill.isEnabled(player);
         }
         return false;

@@ -21,6 +21,15 @@ public class ModSkills {
                     new ResourceLocation(JustLevelingFork.MOD_ID,"textures/skill/building/locked_24.png")
             ));
 
+    public static final RegistryObject<Skill> WISDOM = SKILLS.register("wisdom", () ->
+            new Skill(
+                    OtherworldOrigins.loc("wisdom"),
+                    RegistryAptitudes.MAGIC.get(),
+                    20,
+                    new ResourceLocation(JustLevelingFork.MOD_ID,"textures/skill/intelligence/locked_24.png")
+                    ));
+
+
     public static void register(IEventBus eventBus) {
         SKILLS.register(eventBus);
     }

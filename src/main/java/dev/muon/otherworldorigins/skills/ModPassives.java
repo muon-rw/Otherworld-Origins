@@ -21,8 +21,8 @@ public class ModPassives {
                     new ResourceLocation(JustLevelingFork.MOD_ID,"textures/skill/magic/locked_0.png"),
                     AttributeRegistry.MAX_MANA.get(),
                     "A361E604-9547-E8AB-E743-62273EF1DFCA",
-                    200.0,
-                    2, 4, 6, 8, 10, 12, 14, 16, 18, 20
+                    400.0,
+                    2, 6, 10, 14, 18
             ));
 
     public static final RegistryObject<Passive> INT_SPELL_POWER = PASSIVES.register("int_spell_power", () ->

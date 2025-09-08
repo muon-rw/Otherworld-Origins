@@ -1,5 +1,7 @@
 package dev.muon.otherworldorigins;
 
+import com.seniors.justlevelingfork.registry.RegistrySkills;
+import com.seniors.justlevelingfork.registry.skills.Skill;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
@@ -14,6 +16,7 @@ import io.github.edwinmindcraft.origins.api.origin.Origin;
 import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
 import io.github.edwinmindcraft.origins.common.OriginsCommon;
 import io.github.edwinmindcraft.origins.common.network.S2COpenOriginScreen;
+import io.redspace.ironsspellbooks.api.events.ModifySpellLevelEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
@@ -86,6 +89,17 @@ public class ForgeEvents {
                             .withStyle(ChatFormatting.RED),
                     true
             );
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void modifySpellLevels(ModifySpellLevelEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            Skill skill = RegistrySkills.SKILLS_REGISTRY.get().getValue(new ResourceLocation("otherworldorigins", "wisdom"));
+            if (skill != null && skill.isEnabled(player)) {
+                event.addLevels(1);
+            }
         }
     }
 
