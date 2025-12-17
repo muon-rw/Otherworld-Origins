@@ -23,7 +23,6 @@ run
 run-data
 .vscode
 .idea
-libs
 
 generate_origin_portraits.py
 generate_models.py

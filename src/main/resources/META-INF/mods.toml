@@ -85,11 +85,11 @@ ordering="AFTER"
 side="BOTH"
 
 [[dependencies.${mod_id}]]
-modId="origins"
-mandatory=true
-versionRange="*"
-ordering="AFTER"
-side="BOTH"
+modId = "origins"
+mandatory = true
+versionRange = "[1.10.2,)"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId="irons_spellbooks"
