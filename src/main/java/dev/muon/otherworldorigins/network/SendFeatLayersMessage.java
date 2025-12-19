@@ -2,9 +2,8 @@ package dev.muon.otherworldorigins.network;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.util.ClientLayerScreenHelper;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
-import net.minecraft.core.Registry;
+import io.github.apace100.origins.origin.OriginLayer;
+import io.github.apace100.origins.origin.OriginLayers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -43,13 +42,16 @@ public class SendFeatLayersMessage {
 
     public static void handle(SendFeatLayersMessage message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
-            Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
             List<ResourceLocation> validLayerIds = new ArrayList<>();
 
             for (ResourceLocation layerId : message.featLayers) {
-                OriginLayer layer = layerRegistry.get(layerId);
-                if (layer != null) {
-                    validLayerIds.add(layerId);
+                try {
+                    OriginLayer layer = OriginLayers.getLayer(layerId);
+                    if (layer != null) {
+                        validLayerIds.add(layerId);
+                    }
+                } catch (IllegalArgumentException e) {
+                    // Layer doesn't exist, skip it
                 }
             }
 

@@ -10,6 +10,9 @@
     },
     "thirst": {
         "type": "otherworldorigins:modify_thirst_exhaustion",
-        "amount": -0.25
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.75
+        }
     }
 }

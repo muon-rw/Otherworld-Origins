@@ -1,30 +1,41 @@
 package dev.muon.otherworldorigins.condition.entity;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
-import io.github.edwinmindcraft.apoli.api.power.factory.EntityCondition;
-import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
-import net.minecraft.core.Holder;
+import dev.muon.otherworldorigins.OtherworldOrigins;
+import io.github.apace100.apoli.power.factory.condition.ConditionFactory;
+import io.github.apace100.calio.data.SerializableData;
+import io.github.apace100.calio.data.SerializableDataTypes;
+import io.github.apace100.origins.registry.ModComponents;
+import io.github.apace100.origins.component.OriginComponent;
+import io.github.apace100.origins.origin.OriginLayer;
+import io.github.apace100.origins.origin.OriginLayers;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.entity.player.Player;
 
-public class AnyOnLayerCondition extends EntityCondition<AnyOnLayerCondition.Configuration> {
-    public AnyOnLayerCondition() {
-        super(Configuration.CODEC);
+public class AnyOnLayerCondition {
+
+    public static boolean condition(SerializableData.Instance data, Entity entity) {
+        if (!(entity instanceof Player player)) {
+            return false;
+        }
+        
+        ResourceLocation layerId = data.getId("layer");
+        OriginLayer layer = OriginLayers.getLayer(layerId);
+        
+        OriginComponent originComponent = ModComponents.ORIGIN.maybeGet(player).orElse(null);
+        if (originComponent == null) {
+            return false;
+        }
+        
+        return originComponent.hasOrigin(layer);
     }
 
-    @Override
-    public boolean check(@NotNull Configuration configuration, @NotNull Entity entity) {
-        return IOriginContainer.get(entity).resolve().map(container ->
-                container.hasOrigin(configuration.layer())
-        ).orElse(false);
-    }
-
-    public record Configuration(Holder<OriginLayer> layer) implements IDynamicFeatureConfiguration {
-        public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                OriginLayer.HOLDER_REFERENCE.fieldOf("layer").forGetter(Configuration::layer)
-        ).apply(instance, Configuration::new));
+    public static ConditionFactory<Entity> getFactory() {
+        return new ConditionFactory<>(
+                OtherworldOrigins.loc("any_on_layer"),
+                new SerializableData()
+                        .add("layer", SerializableDataTypes.IDENTIFIER),
+                AnyOnLayerCondition::condition
+        );
     }
 }

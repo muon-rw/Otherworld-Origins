@@ -1,52 +1,62 @@
 package dev.muon.otherworldorigins.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import dev.muon.otherworldorigins.condition.ModConditions;
-import dev.muon.otherworldorigins.power.GoldDurabilityPower;
-import dev.muon.otherworldorigins.power.ModPowers;
+import dev.muon.otherworldorigins.power.ModifyDurabilityChangePower;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import dev.muon.otherworldorigins.skills.ModSkills;
-import io.github.edwinmindcraft.apoli.api.ApoliAPI;
-import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
-import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
-import io.github.edwinmindcraft.origins.api.origin.Origin;
+import io.github.apace100.apoli.access.EntityLinkedItemStack;
+import io.github.apace100.apoli.component.PowerHolderComponent;
+import io.github.apace100.origins.component.OriginComponent;
+import io.github.apace100.origins.origin.Origin;
+import io.github.apace100.origins.origin.OriginLayer;
+import io.github.apace100.origins.origin.OriginLayers;
+import io.github.apace100.origins.registry.ModComponents;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import io.redspace.ironsspellbooks.item.Scroll;
 import io.redspace.ironsspellbooks.item.SpellBook;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Mixin(ItemStack.class)
+@Mixin(value = ItemStack.class, priority = 1500)
 public class ItemStackMixin {
+
+    @Unique
+    @SuppressWarnings("all")
+    private static Entity otherworld$getEntityFromItemStack(ItemStack stack) {
+        EntityLinkedItemStack heldStack = (EntityLinkedItemStack) (Object) stack;
+        return heldStack.getEntity();
+    }
+
+    @Unique
+    private ItemStack otherworld$getSelf() {
+        return (ItemStack) (Object) this;
+    }
 
     @Unique
     private AbstractSpell otherworld$getSpellFromScroll(ItemStack itemStack) {
@@ -158,40 +168,48 @@ public class ItemStackMixin {
 
     @Unique
     private boolean otherworld$isUnderdarkRace(Player player) {
-        return IOriginContainer.get(player).resolve().map(container -> {
-            ResourceLocation subraceLayerLoc = OtherworldOrigins.loc("subrace");
-            ResourceKey<Origin> playerOrigin = container.getOrigin(ResourceKey.create(OriginsAPI.getLayersRegistry().key(), subraceLayerLoc));
-            if (playerOrigin == null) return false;
-
-            String path = playerOrigin.location().getPath();
-            return path.contains("drow") || path.contains("deep") || path.contains("duergar");
-        }).orElse(false);
-    }
-
-    @WrapOperation(method = "hurt", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getItemEnchantmentLevel(Lnet/minecraft/world/item/enchantment/Enchantment;Lnet/minecraft/world/item/ItemStack;)I"))
-    private int otherworldorigins$addUnbreaking(Enchantment enchantment, ItemStack stack, Operation<Integer> original, int pAmount, net.minecraft.util.RandomSource pRandom, ServerPlayer pUser) {
-        int level = original.call(enchantment, stack);
-        if (enchantment == Enchantments.UNBREAKING && pUser != null && otherworld$isGoldenGear(pUser.level(), stack)) {
-            IPowerContainer powerContainer = ApoliAPI.getPowerContainer(pUser);
-            if (powerContainer != null) {
-                var playerPowers = powerContainer.getPowers(ModPowers.GOLD_DURABILITY.get());
-                int totalUnbreaking = playerPowers.stream()
-                        .map(holder -> holder.value().getConfiguration())
-                        .mapToInt(GoldDurabilityPower.Configuration::amount)
-                        .sum();
-                level += totalUnbreaking;
-            }
+        OriginComponent originComponent = io.github.apace100.origins.registry.ModComponents.ORIGIN.maybeGet(player).orElse(null);
+        if (originComponent == null) {
+            return false;
         }
-        return level;
-    }
-    @Unique
-    private static final TagKey<Item> GOLDEN_GEAR = TagKey.create(Registries.ITEM, OtherworldOrigins.loc("golden_gear"));
 
-    @Unique
-    private boolean otherworld$isGoldenGear(Level level, ItemStack stack) {
-        return stack.is(GOLDEN_GEAR) ||
-                ModConditions.IS_GOLDEN_WEAPON.get().check(NoConfiguration.INSTANCE, level, stack) ||
-                ModConditions.IS_GOLDEN_TOOL.get().check(NoConfiguration.INSTANCE, level, stack) ||
-                ModConditions.IS_GOLDEN_ARMOR.get().check(NoConfiguration.INSTANCE, level, stack);
+        ResourceLocation subraceLayerLoc = OtherworldOrigins.loc("subrace");
+        OriginLayer layer = null; // OriginLayers.getLayer(subraceLayerLoc);
+        Origin playerOrigin = originComponent.getOrigin(layer);
+        
+        if (playerOrigin == null) {
+            return false;
+        }
+
+        String path = playerOrigin.getIdentifier().getPath();
+        return path.contains("drow") || path.contains("deep") || path.contains("duergar");
+    }
+
+    @ModifyVariable(method = "setDamageValue", at = @At(value = "HEAD"), argsOnly = true)
+    private int otherworld$modifyDurabilityChange(int damage) {
+        ItemStack self = otherworld$getSelf();
+        if (self == null) return damage;
+        Entity entity = otherworld$getEntityFromItemStack(self);
+        if (entity instanceof LivingEntity living) {
+            CompoundTag tag = self.getOrCreateTag();
+            int previousDamage = tag.contains("Damage", Tag.TAG_INT) ? tag.getInt("Damage") : 0;
+            final int originalDurabilityChange = damage - previousDamage;
+
+            // Apply modifiers from powers that match the conditions
+            float modifiedValue = PowerHolderComponent.modify(living, ModifyDurabilityChangePower.class, (float) originalDurabilityChange,
+                    p -> p.doesApply(living.level(), self, originalDurabilityChange));
+
+            // Apply post-function from the first matching power (if any)
+            int finalDurabilityChange = originalDurabilityChange;
+            for (ModifyDurabilityChangePower power : PowerHolderComponent.getPowers(living, ModifyDurabilityChangePower.class)) {
+                if (power.doesApply(living.level(), self, originalDurabilityChange)) {
+                    finalDurabilityChange = power.postFunction(modifiedValue);
+                    break;
+                }
+            }
+
+            return previousDamage + finalDurabilityChange;
+        }
+        return damage;
     }
 }

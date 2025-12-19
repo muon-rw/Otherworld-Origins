@@ -2,12 +2,11 @@ package dev.muon.otherworldorigins.util;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.client.screen.FinalConfirmScreen;
+import io.github.apace100.origins.origin.OriginLayer;
+import io.github.apace100.origins.origin.OriginLayers;
 import io.github.apace100.origins.screen.ChooseOriginScreen;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -40,20 +39,25 @@ public class ClientLayerScreenHelper {
                 return;
             }
 
-            Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
-            List<Holder<OriginLayer>> missingOriginLayers = new ArrayList<>();
+            // Note: ChooseOriginScreen from native Origins may need List<OriginLayer> instead of List<Holder<OriginLayer>>
+            // This conversion may need adjustment based on actual native Origins screen API
+            ArrayList<OriginLayer> missingOriginLayers = new ArrayList<>();
 
             for (ResourceLocation layerId : validMissingLayers) {
-                OriginLayer layer = layerRegistry.get(layerId);
-                if (layer != null) {
-                    missingOriginLayers.add(layerRegistry.getHolderOrThrow(layerRegistry.getResourceKey(layer).orElseThrow()));
+                try {
+                    OriginLayer layer = OriginLayers.getLayer(layerId);
+                    if (layer != null) {
+                        missingOriginLayers.add(layer);
+                    }
+                } catch (IllegalArgumentException e) {
+                    // Layer doesn't exist, skip it
                 }
             }
 
             if (!missingOriginLayers.isEmpty()) {
                 OtherworldOrigins.LOGGER.info("Reopening selection screen for validated layers:");
-                for (Holder<OriginLayer> layerHolder : missingOriginLayers) {
-                    OtherworldOrigins.LOGGER.info("- " + layerHolder.value().name().getString());
+                for (OriginLayer layer : missingOriginLayers) {
+                    OtherworldOrigins.LOGGER.info("- {}", layer.getTranslationKey());
                 }
                 minecraft.execute(() -> {
                     ChooseOriginScreen newScreen = new ChooseOriginScreen(missingOriginLayers, 0, false);
@@ -76,20 +80,23 @@ public class ClientLayerScreenHelper {
     public static void handleFeatLayers(List<ResourceLocation> validLayerIds) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player != null) {
-            Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
-            List<Holder<OriginLayer>> featOriginLayers = new ArrayList<>();
+            ArrayList<OriginLayer> featOriginLayers = new ArrayList<>();
 
             for (ResourceLocation layerId : validLayerIds) {
-                OriginLayer layer = layerRegistry.get(layerId);
-                if (layer != null) {
-                    featOriginLayers.add(layerRegistry.getHolderOrThrow(layerRegistry.getResourceKey(layer).orElseThrow()));
+                try {
+                    OriginLayer layer = OriginLayers.getLayer(layerId);
+                    if (layer != null) {
+                        featOriginLayers.add(layer);
+                    }
+                } catch (IllegalArgumentException e) {
+                    // Layer doesn't exist, skip it
                 }
             }
 
             if (!featOriginLayers.isEmpty()) {
                 OtherworldOrigins.LOGGER.debug("Opening selection screen for feat layers:");
-                for (Holder<OriginLayer> layerHolder : featOriginLayers) {
-                    OtherworldOrigins.LOGGER.debug("- " + layerHolder.value().name().getString());
+                for (OriginLayer layer : featOriginLayers) {
+                    OtherworldOrigins.LOGGER.debug("- " + layer.getTranslationKey());
                 }
                 minecraft.execute(() -> {
                     ChooseOriginScreen newScreen = new ChooseOriginScreen(featOriginLayers, 0, false);

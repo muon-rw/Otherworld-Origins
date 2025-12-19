@@ -1,23 +1,38 @@
 package dev.muon.otherworldorigins.power;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
-import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
+import dev.muon.otherworldorigins.OtherworldOrigins;
+import io.github.apace100.apoli.power.PowerType;
+import io.github.apace100.apoli.power.ValueModifyingPower;
+import io.github.apace100.apoli.power.factory.PowerFactory;
+import io.github.apace100.apoli.util.modifier.Modifier;
+import io.github.apace100.calio.data.SerializableData;
+import net.minecraft.world.entity.LivingEntity;
 
-public class ModifyEnchantmentCostPower extends PowerFactory<ModifyEnchantmentCostPower.Configuration> {
-    public ModifyEnchantmentCostPower() {
-        super(Configuration.CODEC);
+import java.util.List;
+import java.util.Objects;
+
+public class ModifyEnchantmentCostPower extends ValueModifyingPower {
+
+    public ModifyEnchantmentCostPower(PowerType<?> type, LivingEntity entity) {
+        super(type, entity);
     }
 
-    public record Configuration(float amount) implements IDynamicFeatureConfiguration {
-        public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.FLOAT.fieldOf("amount").forGetter(Configuration::amount)
-        ).apply(instance, Configuration::new));
-
-        @Override
-        public boolean isConfigurationValid() {
-            return true;
-        }
+    public static PowerFactory<?> createFactory() {
+        return new PowerFactory<>(
+                OtherworldOrigins.loc("modify_enchantment_cost"),
+                new SerializableData()
+                        .add("modifier", Modifier.DATA_TYPE, null)
+                        .add("modifiers", Modifier.LIST_TYPE, null),
+                data -> (type, entity) -> {
+                    ModifyEnchantmentCostPower power = new ModifyEnchantmentCostPower(type, entity);
+                    Objects.requireNonNull(power);
+                    data.ifPresent("modifier", power::addModifier);
+                    data.ifPresent("modifiers", (List<Modifier> mods) -> {
+                        Objects.requireNonNull(power);
+                        mods.forEach(power::addModifier);
+                    });
+                    return power;
+                }
+        ).allowCondition();
     }
 }

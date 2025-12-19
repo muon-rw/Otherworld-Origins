@@ -3,19 +3,17 @@ package dev.muon.otherworldorigins;
 import com.seniors.justlevelingfork.registry.RegistrySkills;
 import com.seniors.justlevelingfork.registry.skills.Skill;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
-import dev.muon.otherworldorigins.power.ModPowers;
+import dev.muon.otherworldorigins.network.OpenOriginScreenMessage;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import dev.shadowsoffire.apotheosis.Apotheosis;
-import io.github.edwinmindcraft.apoli.api.ApoliAPI;
-import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
-import io.github.edwinmindcraft.origins.api.origin.Origin;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
-import io.github.edwinmindcraft.origins.common.OriginsCommon;
-import io.github.edwinmindcraft.origins.common.network.S2COpenOriginScreen;
+import io.github.apace100.apoli.util.modifier.ModifierUtil;
+import io.github.apace100.origins.component.OriginComponent;
+import io.github.apace100.origins.origin.Origin;
+import io.github.apace100.origins.origin.OriginLayer;
+import io.github.apace100.origins.origin.OriginLayers;
+import io.github.apace100.origins.registry.ModComponents;
 import io.redspace.ironsspellbooks.api.events.ModifySpellLevelEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
@@ -122,23 +120,19 @@ public class ForgeEvents {
                     true);
         }
 
-        Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(player.level().getServer());
+        OriginComponent originComponent = io.github.apace100.origins.registry.ModComponents.ORIGIN.maybeGet(player).orElse(null);
+        if (originComponent == null) return;
 
-        IOriginContainer originContainer = IOriginContainer.get(player).resolve().orElse(null);
-        if (originContainer == null) return;
+        List<OriginLayer> missingOriginLayers = new ArrayList<>();
 
-        List<Holder<OriginLayer>> missingOriginLayers = new ArrayList<>();
+        for (OriginLayer layer : OriginLayers.getLayers()) {
+            if (!layer.isEnabled()) continue;
 
-        for (OriginLayer layer : layerRegistry) {
-            Holder<OriginLayer> layerHolder = layerRegistry.getHolderOrThrow(
-                    layerRegistry.getResourceKey(layer).orElseThrow()
-            );
-
-            ResourceKey<Origin> currentOrigin = originContainer.getOrigin(layerHolder);
-            if (currentOrigin.location().equals(new ResourceLocation("origins", "empty"))) {
-                Set<Holder<Origin>> availableOrigins = layer.origins(player);
+            Origin currentOrigin = originComponent.getOrigin(layer);
+            if (currentOrigin == null || currentOrigin == Origin.EMPTY) {
+                List<ResourceLocation> availableOrigins = layer.getOrigins(player);
                 if (!availableOrigins.isEmpty()) {
-                    missingOriginLayers.add(layerHolder);
+                    missingOriginLayers.add(layer);
                 }
             }
         }
@@ -146,9 +140,8 @@ public class ForgeEvents {
         if (!missingOriginLayers.isEmpty()) {
             PacketDistributor.PacketTarget target = PacketDistributor.PLAYER.with(() -> serverPlayer);
             OtherworldOrigins.CHANNEL.send(target, new CloseCurrentScreenMessage());
-            OriginsCommon.CHANNEL.send(target, originContainer.getSynchronizationPacket());
-            OriginsCommon.CHANNEL.send(target, new S2COpenOriginScreen(false));
-            originContainer.synchronize();
+            originComponent.sync();
+            OtherworldOrigins.CHANNEL.send(target, new OpenOriginScreenMessage(false));
         }
     }
 
@@ -157,27 +150,22 @@ public class ForgeEvents {
         Player player = event.getEntity();
 
         if (event.getTarget() instanceof Player targetPlayer) {
-            IPowerContainer targetPowerContainer = ApoliAPI.getPowerContainer(targetPlayer);
-            if (targetPowerContainer != null && targetPowerContainer.hasPower(ModPowers.PREVENT_CRITICAL_HIT.get())) {
+            if (io.github.apace100.apoli.component.PowerHolderComponent.hasPower(targetPlayer, dev.muon.otherworldorigins.power.PreventCriticalHitPower.class)) {
                 event.setDamageModifier(1.0f);
                 event.setResult(CriticalHitEvent.Result.DENY);
                 return;
             }
         }
 
-        IPowerContainer powerContainer = ApoliAPI.getPowerContainer(player);
-        if (powerContainer != null) {
-            var playerPowers = powerContainer.getPowers(ModPowers.MODIFY_CRITICAL_HIT.get());
-            float totalModifier = playerPowers.stream()
-                    .map(holder -> holder.value().getConfiguration())
-                    .map(ModifyCriticalHitPower.Configuration::amount)
-                    .reduce(0f, Float::sum);
+        double totalModifier = io.github.apace100.apoli.component.PowerHolderComponent.getPowers(player, ModifyCriticalHitPower.class).stream()
+                .filter(ModifyCriticalHitPower::isActive)
+                .mapToDouble(powerType -> ModifierUtil.applyModifiers(player, powerType.getModifiers(), 0.0))
+                .sum();
 
-            if (totalModifier != 0) {
-                float newDamageModifier = event.getDamageModifier() * (1 + totalModifier);
-                event.setDamageModifier(newDamageModifier);
-                event.setResult(CriticalHitEvent.Result.ALLOW);
-            }
+        if (totalModifier != 0) {
+            float newDamageModifier = event.getDamageModifier() * (1 + (float) totalModifier);
+            event.setDamageModifier(newDamageModifier);
+            event.setResult(CriticalHitEvent.Result.ALLOW);
         }
     }
 

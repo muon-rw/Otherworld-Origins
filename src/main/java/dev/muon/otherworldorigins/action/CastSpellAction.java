@@ -1,11 +1,9 @@
 package dev.muon.otherworldorigins.action;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import io.github.apace100.apoli.power.factory.action.ActionFactory;
+import io.github.apace100.calio.data.SerializableData;
 import io.github.apace100.calio.data.SerializableDataTypes;
-import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
-import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
 import io.redspace.ironsspellbooks.api.events.ChangeManaEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -27,28 +25,21 @@ import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public class CastSpellAction extends EntityAction<CastSpellAction.Configuration> {
+public class CastSpellAction {
     private static final Map<UUID, ContinuousCastData> CONTINUOUS_CASTS = new HashMap<>();
 
-    public CastSpellAction() {
-        super(Configuration.CODEC);
-    }
-
-    @Override
-    public void execute(Configuration configuration, Entity entity) {
+    public static void action(SerializableData.Instance data, Entity entity) {
         if (!(entity instanceof LivingEntity)) {
             OtherworldOrigins.LOGGER.info("Entity is not a LivingEntity: " + entity);
             return;
         }
 
-        String spellStr = configuration.spell().toString();
-        ResourceLocation spellResourceLocation = new ResourceLocation(spellStr);
+        ResourceLocation spellResourceLocation = data.getId("spell");
         // No one should be using the minecraft namespace anyway, and this is simpler
         if ("minecraft".equals(spellResourceLocation.getNamespace())) {
             spellResourceLocation = new ResourceLocation("irons_spellbooks", spellResourceLocation.getPath());
@@ -65,10 +56,11 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
             return;
         }
 
-        int powerLevel = configuration.powerLevel();
-
-        Optional<Integer> castTimeOpt = configuration.castTime();
-        Optional<Integer> manaCostOpt = configuration.manaCost();
+        int powerLevel = data.getInt("power_level");
+        Optional<Integer> castTimeOpt = data.isPresent("cast_time") ? Optional.of(data.getInt("cast_time")) : Optional.empty();
+        Optional<Integer> manaCostOpt = data.isPresent("mana_cost") ? Optional.of(data.getInt("mana_cost")) : Optional.empty();
+        boolean continuousCost = data.getBoolean("continuous_cost");
+        int costInterval = data.getInt("cost_interval");
 
         if (entity instanceof ServerPlayer serverPlayer) {
             MagicData magicData = MagicData.getPlayerMagicData(serverPlayer);
@@ -85,7 +77,6 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
                 if (serverPlayer.isUsingItem()) {
                     serverPlayer.stopUsingItem();
                 }
-
 
                 int effectiveCastTime = spell.getEffectiveCastTime(powerLevel, serverPlayer);
                 if (castTimeOpt.isPresent()) {
@@ -104,12 +95,10 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
                     }
                 }
 
-                if (configuration.continuousCost() && manaCostOpt.isPresent() && !serverPlayer.getAbilities().instabuild) {
+                if (continuousCost && manaCostOpt.isPresent() && !serverPlayer.getAbilities().instabuild) {
                     int manaCost = manaCostOpt.get();
-                    int costInterval = configuration.costInterval();
                     CONTINUOUS_CASTS.put(serverPlayer.getUUID(), new ContinuousCastData(manaCost, costInterval, 0));
                 }
-
 
                 magicData.initiateCast(spell, powerLevel, effectiveCastTime, CastSource.COMMAND, "command");
                 magicData.setPlayerCastingItem(serverPlayer.getItemInHand(InteractionHand.MAIN_HAND));
@@ -167,55 +156,17 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         }
     }
 
-    public static class Configuration implements IDynamicFeatureConfiguration {
-        public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                SerializableDataTypes.IDENTIFIER.fieldOf("spell").forGetter(Configuration::spell),
-                Codec.INT.optionalFieldOf("power_level", 1).forGetter(Configuration::powerLevel),
-                Codec.INT.optionalFieldOf("cast_time").forGetter(Configuration::castTime),
-                Codec.INT.optionalFieldOf("mana_cost").forGetter(Configuration::manaCost),
-                Codec.BOOL.optionalFieldOf("continuous_cost", false).forGetter(Configuration::continuousCost),
-                Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval)
-        ).apply(instance, Configuration::new));
-
-        private final ResourceLocation spell;
-        private final int powerLevel;
-        private final Optional<Integer> castTime;
-        private final Optional<Integer> manaCost;
-        private final boolean continuousCost;
-        private final int costInterval;
-
-        public Configuration(ResourceLocation spell, int powerLevel, Optional<Integer> castTime, Optional<Integer> manaCost, boolean continuousCost, int costInterval) {
-            this.spell = spell;
-            this.powerLevel = powerLevel;
-            this.castTime = castTime;
-            this.manaCost = manaCost;
-            this.continuousCost = continuousCost;
-            this.costInterval = costInterval;
-        }
-
-
-        public ResourceLocation spell() {
-            return spell;
-        }
-
-        public int powerLevel() {
-            return powerLevel;
-        }
-
-        public Optional<Integer> castTime() {
-            return castTime;
-        }
-
-        public Optional<Integer> manaCost() {
-            return manaCost;
-        }
-
-        public boolean continuousCost() {
-            return continuousCost;
-        }
-
-        public int costInterval() {
-            return costInterval;
-        }
+    public static ActionFactory<Entity> getFactory() {
+        return new ActionFactory<>(
+                OtherworldOrigins.loc("cast_spell"),
+                new SerializableData()
+                        .add("spell", SerializableDataTypes.IDENTIFIER)
+                        .add("power_level", SerializableDataTypes.INT, 1)
+                        .add("cast_time", SerializableDataTypes.INT)
+                        .add("mana_cost", SerializableDataTypes.INT)
+                        .add("continuous_cost", SerializableDataTypes.BOOLEAN, false)
+                        .add("cost_interval", SerializableDataTypes.INT, 20),
+                CastSpellAction::action
+        );
     }
 }

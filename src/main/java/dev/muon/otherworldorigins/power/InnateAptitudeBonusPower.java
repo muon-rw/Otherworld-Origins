@@ -1,62 +1,62 @@
 package dev.muon.otherworldorigins.power;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
 import com.seniors.justlevelingfork.network.packet.client.SyncAptitudeCapabilityCP;
 import com.seniors.justlevelingfork.registry.RegistryAptitudes;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
-import dev.muon.otherworld.Otherworld;
 import dev.muon.otherworld.leveling.LevelSyncHandler;
 import dev.muon.otherworld.leveling.LevelingUtils;
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import io.github.edwinmindcraft.apoli.api.ApoliAPI;
-import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
-import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
-import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
+import io.github.apace100.apoli.component.PowerHolderComponent;
+import io.github.apace100.apoli.power.Power;
+import io.github.apace100.apoli.power.PowerType;
+import io.github.apace100.apoli.power.factory.PowerFactory;
+import io.github.apace100.calio.data.SerializableData;
+import io.github.apace100.calio.data.SerializableDataType;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.PacketDistributor;
 
+import java.util.HashMap;
 import java.util.Map;
 
-public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPower.Configuration> {
-    public InnateAptitudeBonusPower() {
-        super(Configuration.CODEC);
+public class InnateAptitudeBonusPower extends Power {
+    private final Map<String, Integer> aptitudeBonuses;
+
+    public InnateAptitudeBonusPower(PowerType<?> type, LivingEntity entity, Map<String, Integer> aptitudeBonuses) {
+        super(type, entity);
+        this.aptitudeBonuses = aptitudeBonuses;
     }
 
     @Override
-    public void onGained(Configuration configuration, Entity entity) {
+    public void onAdded() {
         if (entity instanceof Player player) {
-            applyBonuses(player, configuration.aptitudeBonuses());
+            applyBonuses(player);
         }
     }
 
     @Override
-    public void onLost(Configuration configuration, Entity entity) {
+    public void onRemoved() {
         if (entity instanceof Player player) {
-            removeBonuses(player, configuration.aptitudeBonuses());
+            removeBonuses(player);
         }
     }
 
     public static int getBonus(Entity entity, String aptitudeName) {
-        IPowerContainer powerContainer = ApoliAPI.getPowerContainer(entity);
-        if (powerContainer != null) {
-            var playerPowers = powerContainer.getPowers(ModPowers.INNATE_APTITUDE_BONUS.get());
-            return playerPowers.stream()
-                    .map(holder -> holder.value().getConfiguration())
-                    .mapToInt(config -> config.aptitudeBonuses().getOrDefault(aptitudeName, 0))
-                    .sum();
-        }
-        return 0;
+        return PowerHolderComponent.getPowers(entity, InnateAptitudeBonusPower.class).stream()
+                .mapToInt(power -> power.aptitudeBonuses.getOrDefault(aptitudeName, 0))
+                .sum();
     }
 
-
-    private void applyBonuses(Player player, Map<String, Integer> aptitudeBonuses) {
+    private void applyBonuses(Player player) {
         AptitudeCapability cap = AptitudeCapability.get(player);
         if (cap != null && (player instanceof ServerPlayer serverPlayer)) {
-
             aptitudeBonuses.forEach((aptitudeName, bonus) -> {
                 Aptitude aptitude = RegistryAptitudes.getAptitude(aptitudeName);
                 if (aptitude != null) {
@@ -71,14 +71,12 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
                     PacketDistributor.PLAYER.with(() -> serverPlayer),
                     new LevelSyncHandler.SyncPlayerLevelPacket(player.getUUID(), newPlayerLevel)
             );
-
         }
     }
 
-    private void removeBonuses(Player player, Map<String, Integer> aptitudeBonuses) {
+    private void removeBonuses(Player player) {
         AptitudeCapability cap = AptitudeCapability.get(player);
         if (cap != null && player instanceof ServerPlayer serverPlayer) {
-
             aptitudeBonuses.forEach((aptitudeName, bonus) -> {
                 Aptitude aptitude = RegistryAptitudes.getAptitude(aptitudeName);
                 if (aptitude != null) {
@@ -96,22 +94,62 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
                     PacketDistributor.PLAYER.with(() -> serverPlayer),
                     new LevelSyncHandler.SyncPlayerLevelPacket(player.getUUID(), newPlayerLevel)
             );
-
         } else {
             OtherworldOrigins.LOGGER.warn("AptitudeCapability not found for player: " + player.getName().getString());
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private static final SerializableDataType<Map<String, Integer>> STRING_INT_MAP = new SerializableDataType<>(
+            (Class<Map<String, Integer>>) (Class<?>) Map.class,
+            (buf, map) -> {
+                buf.writeInt(map.size());
+                map.forEach((key, value) -> {
+                    buf.writeUtf(key);
+                    buf.writeInt(value);
+                });
+            },
+            buf -> {
+                int size = buf.readInt();
+                Map<String, Integer> map = new HashMap<>();
+                for (int i = 0; i < size; i++) {
+                    String key = buf.readUtf(32767);
+                    int value = buf.readInt();
+                    map.put(key, value);
+                }
+                return map;
+            },
+            json -> {
+                if (!json.isJsonObject()) {
+                    throw new com.google.gson.JsonParseException("Expected a JSON object for map");
+                }
+                JsonObject jsonObject = json.getAsJsonObject();
+                Map<String, Integer> map = new HashMap<>();
+                for (Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+                    String key = entry.getKey();
+                    int value = GsonHelper.getAsInt(jsonObject, key);
+                    map.put(key, value);
+                }
+                return map;
+            }
+    );
 
-    public record Configuration(
-            Map<String, Integer> aptitudeBonuses) implements IDynamicFeatureConfiguration {
-        public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.unboundedMap(Codec.STRING, Codec.INT).fieldOf("aptitude_bonuses").forGetter(Configuration::aptitudeBonuses)
-        ).apply(instance, Configuration::new));
-
-        @Override
-        public boolean isConfigurationValid() {
-            return !aptitudeBonuses.isEmpty();
-        }
+    public static PowerFactory<?> createFactory() {
+        return new PowerFactory<>(
+                OtherworldOrigins.loc("innate_aptitude_bonus"),
+                new SerializableData()
+                        .add("aptitude_bonuses", STRING_INT_MAP),
+                data -> {
+                    Map<String, Integer> bonuses = data.get("aptitude_bonuses");
+                    if (bonuses == null || bonuses.isEmpty()) {
+                        throw new IllegalArgumentException("aptitude_bonuses cannot be empty");
+                    }
+                    return (type, entity) -> new InnateAptitudeBonusPower(
+                            type,
+                            entity,
+                            bonuses
+                    );
+                }
+        ).allowCondition();
     }
 }

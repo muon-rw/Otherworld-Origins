@@ -1,33 +1,32 @@
 package dev.muon.otherworldorigins.condition.entity;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.seniors.justlevelingfork.registry.RegistrySkills;
 import com.seniors.justlevelingfork.registry.skills.Skill;
-import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
-import io.github.edwinmindcraft.apoli.api.power.factory.EntityCondition;
+import dev.muon.otherworldorigins.OtherworldOrigins;
+import io.github.apace100.apoli.power.factory.condition.ConditionFactory;
+import io.github.apace100.calio.data.SerializableData;
+import io.github.apace100.calio.data.SerializableDataTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import org.jetbrains.annotations.NotNull;
 
-public class HasSkillCondition extends EntityCondition<HasSkillCondition.Configuration> {
-    public HasSkillCondition() {
-        super(Configuration.CODEC);
-    }
+public class HasSkillCondition {
 
-    @Override
-    public boolean check(@NotNull Configuration configuration, @NotNull Entity entity) {
+    public static boolean condition(SerializableData.Instance data, Entity entity) {
         if (entity instanceof Player player) {
-            Skill skill = RegistrySkills.SKILLS_REGISTRY.get().getValue(configuration.skill());
+            ResourceLocation skillId = data.getId("skill");
+            Skill skill = RegistrySkills.SKILLS_REGISTRY.get().getValue(skillId);
             return skill != null && skill.isEnabled(player);
         }
         return false;
     }
 
-    public record Configuration(ResourceLocation skill) implements IDynamicFeatureConfiguration {
-        public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                ResourceLocation.CODEC.fieldOf("skill").forGetter(Configuration::skill)
-        ).apply(instance, Configuration::new));
+    public static ConditionFactory<Entity> getFactory() {
+        return new ConditionFactory<>(
+                OtherworldOrigins.loc("has_skill"),
+                new SerializableData()
+                        .add("skill", SerializableDataTypes.IDENTIFIER),
+                HasSkillCondition::condition
+        );
     }
 }

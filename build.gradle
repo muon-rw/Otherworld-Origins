@@ -100,7 +100,7 @@ repositories {
     maven { url "https://code.redspace.io/snapshots" }
     maven { url "https://maven.blamejared.com" }
     maven { url "https://maven.ladysnake.org/releases" }
-
+    maven { url "https://maven.su5ed.dev/releases" }
     maven { url "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven" }
@@ -140,17 +140,25 @@ dependencies {
     modImplementation ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$PlayerAbilityLib-1.8.0_mapped_srg_1.20.1")
     modImplementation ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$AdditionalEntityAttributes-1.7.4+1.20.0_mapped_srg_1.20.1")
 
+    // Access issues...?
+    // modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}") {exclude(group: "net.fabricmc.fabric-api") transitive false}
+    // modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}") {exclude(group: "net.fabricmc.fabric-api") transitive false}
+
 
     // Required for Origins-Fabric
-    modRuntimeOnly ("curse.maven:connector-extras-913445:5490637")
-    modRuntimeOnly ("curse.maven:forgified-fabric-api-889079:6885853")
+    // Only goes up to 43 on maven?
+    // modImplementation ("dev.su5ed.sinytra:Connector:1.0.0-beta.43+1.20.1")
+    modImplementation("curse.maven:sinytra-connector-890127:5761411")
+    modImplementation("curse.maven:connector-extras-913445:5490637")
+    compileOnly("dev.su5ed.sinytra.fabric-api:fabric-api:${fabric_api_version}")
+    modRuntimeOnly("dev.su5ed.sinytra.fabric-api:fabric-api:${fabric_api_version}")
 
 
     // Origins Forge - deprecated
     // modImplementation("io.github.edwinmindcraft:calio-forge:${minecraft_version}-${calio_version}")
     // modImplementation("io.github.edwinmindcraft:apoli-forge:${minecraft_version}-${apoli_version}")
     // modImplementation("io.github.edwinmindcraft:origins-forge:${minecraft_version}-${origins_version}")
-    // modImplementation("top.theillusivec4.caelus:caelus-forge:${caelus_version}")
+    modImplementation("top.theillusivec4.caelus:caelus-forge:${caelus_version}")
     // modImplementation("de.dafuqs:additionalentityattributes-forge:${aea_forge_version}") {
     //    exclude group: 'net.minecraftforge'
     //    exclude group: 'com.github.llamalad.mixinextras'

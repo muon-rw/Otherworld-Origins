@@ -1,12 +1,11 @@
 package dev.muon.otherworldorigins.network;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
-import io.github.edwinmindcraft.origins.api.origin.Origin;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
-import io.github.edwinmindcraft.origins.common.OriginsCommon;
-import net.minecraft.core.Holder;
+import io.github.apace100.origins.registry.ModComponents;
+import io.github.apace100.origins.component.OriginComponent;
+import io.github.apace100.origins.origin.Origin;
+import io.github.apace100.origins.origin.OriginLayer;
+import io.github.apace100.origins.origin.OriginLayers;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,18 +37,18 @@ public class ResetFeatsMessage {
         ctx.get().enqueueWork(() -> {
             ServerPlayer player = ctx.get().getSender();
             if (player != null) {
-                IOriginContainer.get(player).ifPresent(container -> {
-                    for (Holder.Reference<OriginLayer> layerRef : OriginsAPI.getActiveLayers()) {
-                        layerRef.unwrapKey().ifPresent(key -> {
-                            if (FEAT_LAYERS.contains(key.location())) {
-                                container.setOrigin(layerRef.get(), Origin.EMPTY);
-                            }
-                        });
+                OriginComponent originComponent = ModComponents.ORIGIN.maybeGet(player).orElse(null);
+                if (originComponent != null) {
+                    for (OriginLayer layer : OriginLayers.getLayers()) {
+                        if (!layer.isEnabled()) continue;
+                        ResourceLocation layerId = layer.getIdentifier();
+                        if (FEAT_LAYERS.contains(layerId)) {
+                            originComponent.setOrigin(layer, Origin.EMPTY);
+                        }
                     }
-                    PacketDistributor.PacketTarget target = PacketDistributor.PLAYER.with(() -> player);
-                    OriginsCommon.CHANNEL.send(target, container.getSynchronizationPacket());
-                    container.synchronize();
-                });
+                    // Note: sync() handles synchronization in native Origins
+                    originComponent.sync();
+                }
             }
         });
         ctx.get().setPacketHandled(true);

@@ -3,9 +3,8 @@ package dev.muon.otherworldorigins.mixin.origins_patches;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
+import io.github.apace100.origins.origin.Origin;
 import io.github.apace100.origins.screen.OriginDisplayScreen;
-import io.github.edwinmindcraft.origins.api.origin.Origin;
-import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -20,19 +19,17 @@ import java.util.stream.Collectors;
 @Mixin(value = OriginDisplayScreen.class, remap = false)
 public abstract class OriginDisplayScreenMixin {
     
-    @Shadow public abstract Holder<Origin> getCurrentOrigin();
+    @Shadow public abstract Origin getCurrentOrigin();
     
-    @ModifyExpressionValue(method = "renderOriginContent", at = @At(value = "INVOKE", ordinal = 0, target = "Lio/github/edwinmindcraft/origins/api/origin/Origin;getDescription()Lnet/minecraft/network/chat/Component;"))
-    private Component appendSpellAndEnchantmentInfo(Component orgDesc) {
-        Holder<Origin> currentOrigin = this.getCurrentOrigin();
+    @ModifyExpressionValue(method = "renderOriginContent", at = @At(value = "INVOKE", ordinal = 0, target = "Lio/github/apace100/origins/origin/Origin;getDescription()Lnet/minecraft/network/chat/MutableComponent;"))
+    private MutableComponent appendSpellAndEnchantmentInfo(MutableComponent original) {
+        Origin currentOrigin = this.getCurrentOrigin();
         
-        if (!currentOrigin.isBound()) return orgDesc;
+        if (currentOrigin == null) return original;
         
-        String originPath = currentOrigin.unwrapKey()
-                .map(key -> key.location().getPath())
-                .orElse("");
+        String originPath = currentOrigin.getIdentifier().getPath();
         
-        MutableComponent modifiedDesc = orgDesc.copy();
+        MutableComponent modifiedDesc = original.copy();
         
         if (originPath.startsWith("subclass/")) {
             modifiedDesc = appendSubclassSpellAccess(modifiedDesc, originPath.substring("subclass/".length()));

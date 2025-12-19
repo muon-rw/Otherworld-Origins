@@ -1,14 +1,12 @@
 package dev.muon.otherworldorigins.network;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
-import io.github.edwinmindcraft.origins.api.origin.Origin;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import io.github.apace100.origins.registry.ModComponents;
+import io.github.apace100.origins.component.OriginComponent;
+import io.github.apace100.origins.origin.Origin;
+import io.github.apace100.origins.origin.OriginLayer;
+import io.github.apace100.origins.origin.OriginLayers;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
@@ -33,20 +31,19 @@ public class RequestLayerValidationMessage {
             if (player != null) {
                 OtherworldOrigins.LOGGER.info("Received layer validation request from player: {}", player.getName().getString());
 
-                IOriginContainer originContainer = IOriginContainer.get(player).resolve().orElse(null);
-                if (originContainer != null) {
-                    Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
+                OriginComponent originComponent = ModComponents.ORIGIN.maybeGet(player).orElse(null);
+                if (originComponent != null) {
                     List<ResourceLocation> missingOriginLayers = new ArrayList<>();
 
-                    for (OriginLayer layer : layerRegistry) {
-                        ResourceLocation layerId = layerRegistry.getKey(layer);
-                        if (layerId == null) continue;
+                    for (OriginLayer layer : OriginLayers.getLayers()) {
+                        if (!layer.isEnabled()) continue;
 
-                        Holder<OriginLayer> layerHolder = layerRegistry.getHolderOrThrow(layerRegistry.getResourceKey(layer).orElseThrow());
-                        ResourceKey<Origin> originKey = originContainer.getOrigin(layerHolder);
+                        ResourceLocation layerId = layer.getIdentifier();
+                        Origin currentOrigin = originComponent.getOrigin(layer);
 
-                        if (originKey == null || originKey.location().equals(new ResourceLocation("origins", "empty"))) {
-                            if (!layer.origins(player).isEmpty()) {
+                        if (currentOrigin == null || currentOrigin == Origin.EMPTY) {
+                            List<ResourceLocation> availableOrigins = layer.getOrigins(player);
+                            if (!availableOrigins.isEmpty()) {
                                 missingOriginLayers.add(layerId);
                             }
                         }

@@ -1,10 +1,9 @@
 package dev.muon.otherworldorigins.mixin.compat.legendarysurvivaloverhaul;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyThirstExhaustionPower;
-import io.github.edwinmindcraft.apoli.api.ApoliAPI;
-import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
+import io.github.apace100.apoli.component.PowerHolderComponent;
+import io.github.apace100.apoli.util.modifier.ModifierUtil;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,20 +17,15 @@ public class ThirstUtilInternalMixin {
             at = @At(value = "INVOKE", target = "Lsfiomn/legendarysurvivaloverhaul/common/capabilities/thirst/ThirstCapability;addThirstExhaustion(F)V"),
             argsOnly = true)
     private float modifyExhaustion(float exhaustion, @Local(argsOnly = true) Player player) {
-        IPowerContainer powerContainer = ApoliAPI.getPowerContainer(player);
-        if (powerContainer != null) {
-            var playerPowers = powerContainer.getPowers(ModPowers.MODIFY_THIRST_EXHAUSTION.get());
-            float totalModifier = playerPowers.stream()
-                    .map(holder -> holder.value().getConfiguration())
-                    .map(ModifyThirstExhaustionPower.Configuration::amount)
-                    .reduce(0f, Float::sum);
-            if (totalModifier != 0) {
-                return exhaustion * totalModifier;
-            }
+        double totalModifier = PowerHolderComponent.getPowers(player, ModifyThirstExhaustionPower.class).stream()
+                .filter(ModifyThirstExhaustionPower::isActive)
+                .mapToDouble(powerType -> ModifierUtil.applyModifiers(player, powerType.getModifiers(), 1.0))
+                .reduce(1.0, (a, b) -> a * b);
+        
+        if (totalModifier != 1.0) {
+            return (float) (exhaustion * totalModifier);
         }
 
         return exhaustion;
     }
-
-
 }

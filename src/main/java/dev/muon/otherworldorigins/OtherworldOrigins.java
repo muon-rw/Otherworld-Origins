@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins;
 
 import com.mojang.logging.LogUtils;
 import dev.muon.otherworldorigins.action.ModActions;
+import dev.muon.otherworldorigins.action.ModBientityActions;
 import dev.muon.otherworldorigins.condition.ModConditions;
 import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import dev.muon.otherworldorigins.effect.ModEffects;
@@ -59,9 +60,11 @@ public class OtherworldOrigins {
         ModItems.register(modEventBus);
         ModEffects.register(modEventBus);
 
-        ModActions.register(modEventBus);
-        ModConditions.register(modEventBus);
-        ModPowers.register(modEventBus);
+        ModActions.register();
+        ModBientityActions.register();
+
+        ModConditions.register();
+        ModPowers.register();
 
         ModSpells.register(modEventBus);
         ModPassives.register(modEventBus);
@@ -143,6 +146,12 @@ public class OtherworldOrigins {
                 .encoder(OpenFinalConfirmScreenMessage::encode)
                 .decoder(OpenFinalConfirmScreenMessage::decode)
                 .consumerMainThread(OpenFinalConfirmScreenMessage::handle)
+                .add();
+        
+        CHANNEL.messageBuilder(OpenOriginScreenMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(OpenOriginScreenMessage::encode)
+                .decoder(OpenOriginScreenMessage::decode)
+                .consumerMainThread(OpenOriginScreenMessage::handle)
                 .add();
     }
 }

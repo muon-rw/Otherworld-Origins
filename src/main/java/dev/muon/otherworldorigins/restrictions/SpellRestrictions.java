@@ -2,16 +2,14 @@ package dev.muon.otherworldorigins.restrictions;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
-import io.github.edwinmindcraft.origins.api.origin.Origin;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
+import io.github.apace100.origins.registry.ModComponents;
+import io.github.apace100.origins.component.OriginComponent;
+import io.github.apace100.origins.origin.Origin;
+import io.github.apace100.origins.origin.OriginLayer;
+import io.github.apace100.origins.origin.OriginLayers;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
@@ -63,37 +61,36 @@ public class SpellRestrictions {
             return cachedInfo;
         }
 
-        return IOriginContainer.get(player).resolve().map(container -> {
-            Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(player.level().getServer());
-            ResourceLocation classLayerLoc = OtherworldOrigins.loc("class");
-            ResourceLocation subclassLayerLoc = OtherworldOrigins.loc("subclass");
+        OriginComponent originComponent = ModComponents.ORIGIN.maybeGet(player).orElse(null);
+        if (originComponent == null) {
+            return null;
+        }
 
-            ResourceKey<OriginLayer> classLayerKey = ResourceKey.create(layerRegistry.key(), classLayerLoc);
-            ResourceKey<OriginLayer> subclassLayerKey = ResourceKey.create(layerRegistry.key(), subclassLayerLoc);
+        ResourceLocation classLayerLoc = OtherworldOrigins.loc("class");
+        ResourceLocation subclassLayerLoc = OtherworldOrigins.loc("subclass");
 
-            Holder<OriginLayer> classLayerHolder = layerRegistry.getHolder(classLayerKey).orElse(null);
-            Holder<OriginLayer> subclassLayerHolder = layerRegistry.getHolder(subclassLayerKey).orElse(null);
+        OriginLayer classLayer = OriginLayers.getLayer(classLayerLoc);
+        OriginLayer subclassLayer = OriginLayers.getLayer(subclassLayerLoc);
 
-            if (classLayerHolder == null || subclassLayerHolder == null) {
-                OtherworldOrigins.LOGGER.warn("Class or subclass layer not found");
-                return null;
-            }
+        if (classLayer == null || subclassLayer == null) {
+            OtherworldOrigins.LOGGER.warn("Class or subclass layer not found");
+            return null;
+        }
 
-            ResourceKey<Origin> playerClassKey = container.getOrigin(classLayerHolder);
-            ResourceKey<Origin> playerSubclassKey = container.getOrigin(subclassLayerHolder);
+        Origin playerClass = originComponent.getOrigin(classLayer);
+        Origin playerSubclass = originComponent.getOrigin(subclassLayer);
 
-            if (playerClassKey == null || playerSubclassKey == null) {
-                OtherworldOrigins.LOGGER.warn("Player class or subclass not found");
-                return null;
-            }
+        if (playerClass == null || playerClass == Origin.EMPTY || playerSubclass == null || playerSubclass == Origin.EMPTY) {
+            OtherworldOrigins.LOGGER.warn("Player class or subclass not found");
+            return null;
+        }
 
-            String className = playerClassKey.location().getPath().replace("class/", "");
-            String subclassName = playerSubclassKey.location().getPath().substring(playerSubclassKey.location().getPath().lastIndexOf('/') + 1);
+        String className = playerClass.getIdentifier().getPath().replace("class/", "");
+        String subclassName = playerSubclass.getIdentifier().getPath().substring(playerSubclass.getIdentifier().getPath().lastIndexOf('/') + 1);
 
-            PlayerClassInfo newInfo = new PlayerClassInfo(className, subclassName);
-            playerClassCache.put(playerUUID, newInfo);
-            return newInfo;
-        }).orElse(null);
+        PlayerClassInfo newInfo = new PlayerClassInfo(className, subclassName);
+        playerClassCache.put(playerUUID, newInfo);
+        return newInfo;
     }
 
     public static boolean isSpellAllowed(Player player, AbstractSpell spell) {

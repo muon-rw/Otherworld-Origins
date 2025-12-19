@@ -2,11 +2,11 @@ package dev.muon.otherworldorigins.restrictions;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
-import io.github.edwinmindcraft.origins.api.origin.Origin;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
-import net.minecraft.resources.ResourceKey;
+import io.github.apace100.origins.registry.ModComponents;
+import io.github.apace100.origins.component.OriginComponent;
+import io.github.apace100.origins.origin.Origin;
+import io.github.apace100.origins.origin.OriginLayer;
+import io.github.apace100.origins.origin.OriginLayers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -50,17 +50,24 @@ public class EnchantmentRestrictions {
             return true;
         }
 
-        return IOriginContainer.get(player).resolve().map(container -> {
-            ResourceLocation classLayerLoc = OtherworldOrigins.loc("class");
-            OriginLayer classLayer = OriginsAPI.getLayersRegistry().get(classLayerLoc);
-            if (classLayer == null) {
-                return true;
-            }
+        OriginComponent originComponent = ModComponents.ORIGIN.maybeGet(player).orElse(null);
+        if (originComponent == null) {
+            return true;
+        }
 
-            ResourceKey<Origin> playerOrigin = container.getOrigin(ResourceKey.create(OriginsAPI.getLayersRegistry().key(), classLayerLoc));
-            ResourceLocation requiredOriginLoc = OtherworldOrigins.loc("class/" + requiredClass);
-            return playerOrigin.location().equals(requiredOriginLoc);
-        }).orElse(true);
+        ResourceLocation classLayerLoc = OtherworldOrigins.loc("class");
+        OriginLayer classLayer = OriginLayers.getLayer(classLayerLoc);
+        if (classLayer == null) {
+            return true;
+        }
+
+        Origin playerOrigin = originComponent.getOrigin(classLayer);
+        if (playerOrigin == null || playerOrigin == Origin.EMPTY) {
+            return true;
+        }
+
+        ResourceLocation requiredOriginLoc = OtherworldOrigins.loc("class/" + requiredClass);
+        return playerOrigin.getIdentifier().equals(requiredOriginLoc);
     }
 
     public static String getRequiredClass(Enchantment enchantment) {

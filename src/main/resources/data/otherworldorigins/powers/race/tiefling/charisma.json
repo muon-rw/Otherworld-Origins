@@ -1,4 +1,7 @@
 {
     "type": "otherworldorigins:charisma",
-    "amount": 0.5
+    "modifier": {
+        "operation": "add_base_multiplicative",
+        "value": 0.5
+    }
 }

@@ -1,9 +1,7 @@
 package dev.muon.otherworldorigins.mixin;
 
-import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyStatusEffectCategoryPower;
-import io.github.edwinmindcraft.apoli.api.ApoliAPI;
-import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
+import io.github.apace100.apoli.component.PowerHolderComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,7 +28,6 @@ public abstract class LivingEntityMixin {
     private void otherworld$modifyEffectDuration(MobEffectInstance effect, Entity source) {
         LivingEntity self = (LivingEntity) (Object) this;
 
-
         float multiplier = otherworld$getEffectMultiplier(self, effect);
         if (multiplier != 1.0f) {
             int newDuration = Math.round(effect.getDuration() * multiplier);
@@ -40,13 +37,10 @@ public abstract class LivingEntityMixin {
 
     @Unique
     private static float otherworld$getEffectMultiplier(LivingEntity entity, MobEffectInstance effect) {
-        IPowerContainer powerContainer = ApoliAPI.getPowerContainer(entity);
-        if (powerContainer != null) {
-            return powerContainer.getPowers(ModPowers.MODIFY_STATUS_EFFECT_CATEGORY.get()).stream()
-                    .filter(holder -> ModifyStatusEffectCategoryPower.doesApply(holder.value().getConfiguration(), effect.getEffect()))
-                    .map(holder -> holder.value().getConfiguration().amount())
-                    .reduce(1.0f, (a, b) -> a * b);
-        }
-        return 1.0f;
+        return (float) PowerHolderComponent.getPowers(entity, ModifyStatusEffectCategoryPower.class).stream()
+                .filter(ModifyStatusEffectCategoryPower::isActive)
+                .filter(powerType -> powerType.doesApply(effect.getEffect()))
+                .mapToDouble(ModifyStatusEffectCategoryPower::getAmount)
+                .reduce(1.0f, (a, b) -> (float) (a * b));
     }
 }

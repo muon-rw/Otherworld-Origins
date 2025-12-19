@@ -1,24 +1,38 @@
 package dev.muon.otherworldorigins.power;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
-import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
+import dev.muon.otherworldorigins.OtherworldOrigins;
+import io.github.apace100.apoli.power.PowerType;
+import io.github.apace100.apoli.power.ValueModifyingPower;
+import io.github.apace100.apoli.power.factory.PowerFactory;
+import io.github.apace100.apoli.util.modifier.Modifier;
+import io.github.apace100.calio.data.SerializableData;
+import net.minecraft.world.entity.LivingEntity;
 
-public class ModifyThirstExhaustionPower extends PowerFactory<ModifyThirstExhaustionPower.Configuration> {
-    public ModifyThirstExhaustionPower() {
-        super(ModifyThirstExhaustionPower.Configuration.CODEC);
+import java.util.List;
+import java.util.Objects;
+
+public class ModifyThirstExhaustionPower extends ValueModifyingPower {
+
+    public ModifyThirstExhaustionPower(PowerType<?> type, LivingEntity entity) {
+        super(type, entity);
     }
 
-
-    public record Configuration(float amount) implements IDynamicFeatureConfiguration {
-        public static final Codec<ModifyThirstExhaustionPower.Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.FLOAT.fieldOf("amount").forGetter(ModifyThirstExhaustionPower.Configuration::amount)
-        ).apply(instance, ModifyThirstExhaustionPower.Configuration::new));
-
-        @Override
-        public boolean isConfigurationValid() {
-            return true;
-        }
+    public static PowerFactory<?> createFactory() {
+        return new PowerFactory<>(
+                OtherworldOrigins.loc("modify_thirst_exhaustion"),
+                new SerializableData()
+                        .add("modifier", Modifier.DATA_TYPE, null)
+                        .add("modifiers", Modifier.LIST_TYPE, null),
+                data -> (type, entity) -> {
+                    ModifyThirstExhaustionPower power = new ModifyThirstExhaustionPower(type, entity);
+                    Objects.requireNonNull(power);
+                    data.ifPresent("modifier", power::addModifier);
+                    data.ifPresent("modifiers", (List<Modifier> mods) -> {
+                        Objects.requireNonNull(power);
+                        mods.forEach(power::addModifier);
+                    });
+                    return power;
+                }
+        ).allowCondition();
     }
 }

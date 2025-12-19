@@ -3,17 +3,16 @@ package dev.muon.otherworldorigins.client.screen;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.network.ResetOriginsMessage;
 import dev.muon.otherworldorigins.util.ClientLayerScreenHelper;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
-import io.github.edwinmindcraft.origins.api.origin.Origin;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
+import io.github.apace100.origins.component.OriginComponent;
+import io.github.apace100.origins.content.OrbOfOriginItem;
+import io.github.apace100.origins.origin.Origin;
+import io.github.apace100.origins.origin.OriginLayer;
+import io.github.apace100.origins.origin.OriginLayers;
+import io.github.apace100.origins.registry.ModComponents;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -95,19 +94,16 @@ public class FinalConfirmScreen extends Screen {
         displayLines.clear();
         headerLineIndices.clear();
         
-        IOriginContainer originContainer = IOriginContainer.get(minecraft.player).resolve().orElse(null);
-        if (originContainer == null) return;
-        
-        Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
-        Registry<Origin> originRegistry = OriginsAPI.getOriginsRegistry(null);
+        OriginComponent originComponent = ModComponents.ORIGIN.maybeGet(minecraft.player).orElse(null);
+        if (originComponent == null) return;
         
         Component playerName = minecraft.player.getName().copy().withStyle(ChatFormatting.ITALIC);
         
         // Get main selections
-        String race = getOriginDisplayName(originContainer, layerRegistry, originRegistry, OtherworldOrigins.loc("race"));
-        String subrace = getOriginDisplayName(originContainer, layerRegistry, originRegistry, OtherworldOrigins.loc("subrace"));
-        String className = getOriginDisplayName(originContainer, layerRegistry, originRegistry, OtherworldOrigins.loc("class"));
-        String subclassName = getOriginDisplayName(originContainer, layerRegistry, originRegistry, OtherworldOrigins.loc("subclass"));
+        String race = getOriginDisplayName(originComponent, OtherworldOrigins.loc("race"));
+        String subrace = getOriginDisplayName(originComponent, OtherworldOrigins.loc("subrace"));
+        String className = getOriginDisplayName(originComponent, OtherworldOrigins.loc("class"));
+        String subclassName = getOriginDisplayName(originComponent, OtherworldOrigins.loc("subclass"));
         
         // Deduplicate race/subrace combinations
         if (subrace != null && race != null && subrace.endsWith(" " + race)) {
@@ -166,7 +162,7 @@ public class FinalConfirmScreen extends Screen {
         }
         
         // Feats
-        List<String> featNames = getFeats(originContainer, layerRegistry, originRegistry);
+        List<String> featNames = getFeats(originComponent);
         if (!featNames.isEmpty()) {
             // Add "Feats" header
             Component featsHeader = Component.translatable("otherworldorigins.gui.final_confirm.feats_header")
@@ -179,7 +175,7 @@ public class FinalConfirmScreen extends Screen {
         }
         
         // Cantrips
-        List<String> cantrips = getCantrips(originContainer, layerRegistry, originRegistry);
+        List<String> cantrips = getCantrips(originComponent);
         if (!cantrips.isEmpty()) {
             // Add "Cantrips" header
             Component cantripsHeader = Component.translatable("otherworldorigins.gui.final_confirm.cantrips_header")
@@ -192,7 +188,7 @@ public class FinalConfirmScreen extends Screen {
         }
         
         // Aptitude bonuses
-        List<Component> aptitudes = getAptitudeBonuses(originContainer, layerRegistry, originRegistry);
+        List<Component> aptitudes = getAptitudeBonuses(originComponent);
         if (!aptitudes.isEmpty()) {
             // Add "Aptitude Bonuses" header
             Component aptitudesHeader = Component.translatable("otherworldorigins.gui.final_confirm.aptitudes_header")
@@ -219,27 +215,22 @@ public class FinalConfirmScreen extends Screen {
             headerLineIndices.add(i);
         }
     }
-    
-    private String getOriginDisplayName(IOriginContainer container, Registry<OriginLayer> layerRegistry,
-                                       Registry<Origin> originRegistry, ResourceLocation layerId) {
-        ResourceKey<OriginLayer> layerKey = ResourceKey.create(layerRegistry.key(), layerId);
-        Holder<OriginLayer> layer = layerRegistry.getHolder(layerKey).orElse(null);
-        
-        if (layer != null) {
-            ResourceKey<Origin> originKey = container.getOrigin(layer);
-            if (originKey != null && !originKey.location().equals(new ResourceLocation("origins", "empty"))) {
-                Holder<Origin> origin = originRegistry.getHolder(originKey).orElse(null);
-                if (origin != null) {
-                    // Use the origin's actual display name
-                    return origin.value().getName().getString();
-                }
+
+    private String getOriginDisplayName(OriginComponent originComponent, ResourceLocation layerId) {
+        try {
+            OriginLayer layer = null;//OriginLayers.getLayer(layerId);
+            Origin origin = originComponent.getOrigin(layer);
+
+            if (origin != null && origin != Origin.EMPTY) {
+                return origin.getName().getString();
             }
+        } catch (IllegalArgumentException e) {
+            // Layer doesn't exist
         }
         return null;
     }
     
-    private List<String> getFeats(IOriginContainer container, Registry<OriginLayer> layerRegistry,
-                                 Registry<Origin> originRegistry) {
+    private List<String> getFeats(OriginComponent originComponent) {
         List<String> feats = new ArrayList<>();
         ResourceLocation[] featLayerIds = {
                 OtherworldOrigins.loc("free_feat"),
@@ -251,7 +242,7 @@ public class FinalConfirmScreen extends Screen {
         };
         
         for (ResourceLocation layerId : featLayerIds) {
-            String featName = getOriginDisplayName(container, layerRegistry, originRegistry, layerId);
+            String featName = getOriginDisplayName(originComponent, layerId);
             if (featName != null) {
                 feats.add(featName);
             }
@@ -274,12 +265,11 @@ public class FinalConfirmScreen extends Screen {
         }
     }
     
-    private List<String> getCantrips(IOriginContainer container, Registry<OriginLayer> layerRegistry,
-                                    Registry<Origin> originRegistry) {
+    private List<String> getCantrips(OriginComponent originComponent) {
         List<String> cantrips = new ArrayList<>();
         
-        String cantrip1 = getOriginDisplayName(container, layerRegistry, originRegistry, OtherworldOrigins.loc("cantrip_one"));
-        String cantrip2 = getOriginDisplayName(container, layerRegistry, originRegistry, OtherworldOrigins.loc("cantrip_two"));
+        String cantrip1 = getOriginDisplayName(originComponent, OtherworldOrigins.loc("cantrip_one"));
+        String cantrip2 = getOriginDisplayName(originComponent, OtherworldOrigins.loc("cantrip_two"));
         
         if (cantrip1 != null) cantrips.add(cantrip1);
         if (cantrip2 != null) cantrips.add(cantrip2);
@@ -297,18 +287,17 @@ public class FinalConfirmScreen extends Screen {
         }
     }
     
-    private List<Component> getAptitudeBonuses(IOriginContainer container, Registry<OriginLayer> layerRegistry,
-                                              Registry<Origin> originRegistry) {
+    private List<Component> getAptitudeBonuses(OriginComponent originComponent) {
         List<Component> aptitudes = new ArrayList<>();
         
         // Check for +1 aptitudes
-        String plusOne1 = getOriginDisplayName(container, layerRegistry, originRegistry, OtherworldOrigins.loc("plus_one_aptitude_one"));
-        String plusOne2 = getOriginDisplayName(container, layerRegistry, originRegistry, OtherworldOrigins.loc("plus_one_aptitude_two"));
-        String plusOneResilient = getOriginDisplayName(container, layerRegistry, originRegistry, OtherworldOrigins.loc("plus_one_aptitude_resilient"));
+        String plusOne1 = getOriginDisplayName(originComponent, OtherworldOrigins.loc("plus_one_aptitude_one"));
+        String plusOne2 = getOriginDisplayName(originComponent, OtherworldOrigins.loc("plus_one_aptitude_two"));
+        String plusOneResilient = getOriginDisplayName(originComponent, OtherworldOrigins.loc("plus_one_aptitude_resilient"));
         
         // Check for +2 aptitudes
-        String plusTwo1 = getOriginDisplayName(container, layerRegistry, originRegistry, OtherworldOrigins.loc("plus_two_aptitude_one"));
-        String plusTwo2 = getOriginDisplayName(container, layerRegistry, originRegistry, OtherworldOrigins.loc("plus_two_aptitude_two"));
+        String plusTwo1 = getOriginDisplayName(originComponent, OtherworldOrigins.loc("plus_two_aptitude_one"));
+        String plusTwo2 = getOriginDisplayName(originComponent, OtherworldOrigins.loc("plus_two_aptitude_two"));
         
         List<String> plusOnes = new ArrayList<>();
         List<String> plusTwos = new ArrayList<>();

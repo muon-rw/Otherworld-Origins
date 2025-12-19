@@ -1,5 +1,66 @@
 {
 	"hidden": true,
-	"type": "otherworldorigins:gold_durability",
-	"amount": 3
+	"type": "origins:multiple",
+	"soft_cap": {
+		"type": "otherworldorigins:modify_durability_change",
+		"comparison": ">=",
+		"compare_to": 5,
+		"modifier": {
+			"operation": "multiply_base_multiplicative",
+			"value": -0.8
+		},
+		"item_condition": {
+			"type": "origins:or",
+			"conditions": [
+				{
+					"type": "apoli:ingredient",
+					"ingredient": {
+						"tag": "otherworldorigins:golden_gear"
+					}
+				},
+				{
+					"type": "otherworldorigins:is_golden_weapon"
+				},
+				{
+					"type": "otherworldorigins:is_golden_tool"
+				},
+				{
+					"type": "otherworldorigins:is_golden_armor"
+				}
+			]
+		}
+	},
+	"chance_clear": {
+		"type": "otherworldorigins:modify_durability_change",
+		"comparison": ">",
+		"compare_to": 0,
+		"condition": {
+			"type": "origins:chance",
+			"chance": 0.5
+		},
+		"modifier": {
+			"operation": "set_total",
+			"value": 0
+		},
+		"item_condition": {
+			"type": "origins:or",
+			"conditions": [
+				{
+					"type": "apoli:ingredient",
+					"ingredient": {
+						"tag": "otherworldorigins:golden_gear"
+					}
+				},
+				{
+					"type": "otherworldorigins:is_golden_weapon"
+				},
+				{
+					"type": "otherworldorigins:is_golden_tool"
+				},
+				{
+					"type": "otherworldorigins:is_golden_armor"
+				}
+			]
+		}
+	}
 }

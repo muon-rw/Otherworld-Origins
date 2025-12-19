@@ -3,9 +3,8 @@ package dev.muon.otherworldorigins.mixin.compat.thief;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.muon.otherworldorigins.power.CharismaPower;
-import dev.muon.otherworldorigins.power.ModPowers;
-import io.github.edwinmindcraft.apoli.api.ApoliAPI;
-import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
+import io.github.apace100.apoli.component.PowerHolderComponent;
+import io.github.apace100.apoli.util.modifier.ModifierUtil;
 import io.github.mortuusars.thief.world.Crime;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,23 +23,20 @@ public class CrimeMixin {
 
     @ModifyReturnValue(method = "commit", at = @At("RETURN"))
     private Crime.Outcome onDeclareThief(Crime.Outcome original, @Local(argsOnly = true) LivingEntity criminal) {
-        IPowerContainer powerContainer = ApoliAPI.getPowerContainer(criminal);
         if (!original.punished()) return original;
-        if (powerContainer != null) {
-            var playerPowers = powerContainer.getPowers(ModPowers.CHARISMA.get());
-            float totalCharisma = playerPowers.stream()
-                    .map(holder -> holder.value().getConfiguration())
-                    .map(CharismaPower.Configuration::amount)
-                    .reduce(0f, Float::sum);
+        
+        double totalCharisma = PowerHolderComponent.getPowers(criminal, CharismaPower.class).stream()
+                .filter(CharismaPower::isActive)
+                .mapToDouble(powerType -> ModifierUtil.applyModifiers(criminal, powerType.getModifiers(), 0.0))
+                .sum();
 
-            if (totalCharisma > 0) {
-                float chanceToAvoid = Math.min(totalCharisma, 1.0f);
-                if (RANDOM.nextFloat() < chanceToAvoid) {
-                    if (criminal instanceof Player player) {
-                        player.displayClientMessage(Component.translatable("otherworld.message.charisma_save"), true);
-                    }
-                    return Crime.Outcome.NONE;
+        if (totalCharisma > 0) {
+            float chanceToAvoid = Math.min((float) totalCharisma, 1.0f);
+            if (RANDOM.nextFloat() < chanceToAvoid) {
+                if (criminal instanceof Player player) {
+                    player.displayClientMessage(Component.translatable("otherworld.message.charisma_save"), true);
                 }
+                return Crime.Outcome.NONE;
             }
         }
         return original;

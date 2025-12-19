@@ -1,5 +1,8 @@
 {
     "hidden": true,
     "type": "otherworldorigins:trade_discount",
-    "amount": 0.1
+    "modifier": {
+        "operation": "add_base_multiplicative",
+        "value": 0.1
+    }
 }

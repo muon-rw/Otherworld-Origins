@@ -1,13 +1,14 @@
 package dev.muon.otherworldorigins.power;
 
-import com.mojang.serialization.Codec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworld.leveling.LevelingUtils;
 import dev.muon.otherworld.leveling.event.AptitudeChangedEvent;
-import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
-import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
-import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
-import io.github.edwinmindcraft.calio.api.network.CalioCodecHelper;
+import dev.muon.otherworldorigins.OtherworldOrigins;
+import io.github.apace100.apoli.component.PowerHolderComponent;
+import io.github.apace100.apoli.power.Power;
+import io.github.apace100.apoli.power.PowerType;
+import io.github.apace100.apoli.power.factory.PowerFactory;
+import io.github.apace100.calio.data.SerializableData;
+import io.github.apace100.calio.data.SerializableDataTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -20,50 +21,65 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = "otherworldorigins")
-public class LeveledAttributePower extends PowerFactory<LeveledAttributePower.Configuration> {
+public class LeveledAttributePower extends Power {
     private static final UUID MODIFIER_UUID = UUID.fromString("d7184d84-7a7e-4eae-8e1a-8c5f7c2e7e3a");
 
-    public LeveledAttributePower() {
-        super(Configuration.CODEC);
+    private final Attribute attribute;
+    private final AttributeModifier.Operation operation;
+    private final double valuePerLevel;
+    private final double startingValue;
+    private final boolean updateHealth;
+
+    public LeveledAttributePower(PowerType<?> type, LivingEntity entity,
+                                 Attribute attribute,
+                                 AttributeModifier.Operation operation,
+                                 double valuePerLevel,
+                                 double startingValue,
+                                 boolean updateHealth) {
+        super(type, entity);
+        this.attribute = attribute;
+        this.operation = operation;
+        this.valuePerLevel = valuePerLevel;
+        this.startingValue = startingValue;
+        this.updateHealth = updateHealth;
     }
 
     @Override
-    public void onAdded(Configuration configuration, Entity entity) {
+    public void onAdded() {
         if (entity instanceof Player player) {
-            applyModifier(configuration, player);
+            applyModifier(player);
         }
     }
 
     @Override
-
-    public void onRemoved(Configuration configuration, Entity entity) {
+    public void onRemoved() {
         if (entity instanceof Player player) {
-            removeModifier(configuration, player);
+            removeModifier(player);
         }
     }
 
-    private void applyModifier(Configuration configuration, Player player) {
-        AttributeInstance attributeInstance = player.getAttribute(configuration.attribute);
+    public void applyModifier(Player player) {
+        AttributeInstance attributeInstance = player.getAttribute(attribute);
         if (attributeInstance != null) {
-            removeModifier(configuration, player); // Remove existing modifier if any
+            removeModifier(player); // Remove existing modifier if any
             int level = LevelingUtils.getPlayerLevel(player);
-            double value = configuration.startingValue + (level * configuration.valuePerLevel);
+            double value = startingValue + (level * valuePerLevel);
             AttributeModifier modifier = new AttributeModifier(
                     MODIFIER_UUID,
                     "Leveled Attribute Bonus",
                     value,
-                    configuration.operation
+                    operation
             );
             attributeInstance.addTransientModifier(modifier);
-            updateHealth(player, configuration.updateHealth);
+            updateHealth(player, updateHealth);
         }
     }
 
-    private void removeModifier(Configuration configuration, Player player) {
-        AttributeInstance attributeInstance = player.getAttribute(configuration.attribute);
+    private void removeModifier(Player player) {
+        AttributeInstance attributeInstance = player.getAttribute(attribute);
         if (attributeInstance != null) {
             attributeInstance.removeModifier(MODIFIER_UUID);
-            updateHealth(player, configuration.updateHealth);
+            updateHealth(player, updateHealth);
         }
     }
 
@@ -83,34 +99,31 @@ public class LeveledAttributePower extends PowerFactory<LeveledAttributePower.Co
         if (event.getNewLevel() > event.getOldLevel()) {
             Entity entity = event.getPlayer();
             if (entity instanceof Player player) {
-                IPowerContainer.get(player).ifPresent(container -> {
-                    container.getPowers(ModPowers.LEVELED_ATTRIBUTE.get()).forEach(powerHolder -> {
-                        Configuration config = powerHolder.value().getConfiguration();
-                        ((LeveledAttributePower) ModPowers.LEVELED_ATTRIBUTE.get()).applyModifier(config, player);
-                    });
+                PowerHolderComponent.getPowers(player, LeveledAttributePower.class).forEach(power -> {
+                    power.applyModifier(player);
                 });
             }
         }
     }
 
-    public record Configuration(
-            Attribute attribute,
-            AttributeModifier.Operation operation,
-            double valuePerLevel,
-            double startingValue,
-            boolean updateHealth
-    ) implements IDynamicFeatureConfiguration {
-        public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                io.github.apace100.calio.data.SerializableDataTypes.ATTRIBUTE.fieldOf("attribute").forGetter(Configuration::attribute),
-                io.github.apace100.calio.data.SerializableDataTypes.MODIFIER_OPERATION.fieldOf("operation").forGetter(Configuration::operation),
-                Codec.DOUBLE.fieldOf("value_per_level").forGetter(Configuration::valuePerLevel),
-                Codec.DOUBLE.fieldOf("starting_value").forGetter(Configuration::startingValue),
-                CalioCodecHelper.optionalField(CalioCodecHelper.BOOL, "update_health", true).forGetter(Configuration::updateHealth)
-        ).apply(instance, Configuration::new));
-
-        @Override
-        public boolean isConfigurationValid() {
-            return true;
-        }
+    public static PowerFactory<?> createFactory() {
+        return new PowerFactory<>(
+                OtherworldOrigins.loc("leveled_attribute"),
+                new SerializableData()
+                        .add("attribute", SerializableDataTypes.ATTRIBUTE)
+                        .add("operation", SerializableDataTypes.MODIFIER_OPERATION)
+                        .add("value_per_level", SerializableDataTypes.DOUBLE)
+                        .add("starting_value", SerializableDataTypes.DOUBLE)
+                        .add("update_health", SerializableDataTypes.BOOLEAN, true),
+                data -> (type, entity) -> new LeveledAttributePower(
+                        type,
+                        entity,
+                        data.get("attribute"),
+                        data.get("operation"),
+                        data.getDouble("value_per_level"),
+                        data.getDouble("starting_value"),
+                        data.getBoolean("update_health")
+                )
+        ).allowCondition();
     }
 }
