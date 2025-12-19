@@ -131,14 +131,18 @@ dependencies {
 
     // Origins (from local libs/ directory)
     // This is a modified version of the Origins jar, with Reach Entity Attributes removed manually, since gradle was failing to exclude it
-    modImplementation ("io.github:Origins-1.10.2+mc.1.20.x_mapped_srg_1.20.1")
+    compileOnly ("io.github:Origins-1.10.2+mc.1.20.x_mapped_srg_1.20.1")
+    // runtimeOnly ("io.github:Origins-1.10.2+mc.1.20.x_mapped_srg_1.20.1")
     // Remapped versions of Origins' bundled jars
-    modImplementation ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x_mapped_srg_1.20.1")
-    modImplementation ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$calio-1.11.2+mc.1.20.x_mapped_srg_1.20.1")
-    modImplementation ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$cardinal-components-base-5.2.1_mapped_srg_1.20.1")
-    modImplementation ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$cardinal-components-entity-5.2.1_mapped_srg_1.20.1")
-    modImplementation ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$PlayerAbilityLib-1.8.0_mapped_srg_1.20.1")
-    modImplementation ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$AdditionalEntityAttributes-1.7.4+1.20.0_mapped_srg_1.20.1")
+    compileOnly ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x_mapped_srg_1.20.1")
+    compileOnly ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$calio-1.11.2+mc.1.20.x_mapped_srg_1.20.1")
+    compileOnly ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$cardinal-components-base-5.2.1_mapped_srg_1.20.1")
+    compileOnly ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$cardinal-components-entity-5.2.1_mapped_srg_1.20.1")
+    compileOnly ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$PlayerAbilityLib-1.8.0_mapped_srg_1.20.1")
+    compileOnly ("io.github:Origins-1.10.2+mc.1.20.x\$apoli-2.9.2+mc.1.20.x\$AdditionalEntityAttributes-1.7.4+1.20.0_mapped_srg_1.20.1")
+    modRuntimeOnly("io.github.apace100:calio-1.11.2+mc.1.20.x")
+    modRuntimeOnly("io.github.apace100:apoli-2.9.2+mc.1.20.x")
+    modRuntimeOnly("io.github.apace100:Origins-1.10.2-mod-+mc.1.20.x")
 
     // Access issues...?
     // modImplementation("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}") {exclude(group: "net.fabricmc.fabric-api") transitive false}
