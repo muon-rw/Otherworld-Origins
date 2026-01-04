@@ -5,11 +5,13 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.github.apace100.calio.data.SerializableDataTypes;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
-import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
+import io.github.edwinmindcraft.apoli.api.power.factory.BiEntityAction;
 import io.redspace.ironsspellbooks.api.entity.IMagicEntity;
 import io.redspace.ironsspellbooks.api.events.ChangeManaEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
+import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.CastResult;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.api.spells.CastType;
@@ -29,86 +31,79 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
-import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.EntityHitResult;
-import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.entity.PartEntity;
 
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.Predicate;
 
-public class CastSpellAction extends EntityAction<CastSpellAction.Configuration> {
-    private static final Map<UUID, ContinuousCastData> CONTINUOUS_CASTS = new HashMap<>();
-    private static final double DEFAULT_RAYCAST_DISTANCE = 64.0;
+/**
+ * A bi-entity action that casts a spell from the actor towards the target.
+ * Unlike CastSpellAction, this does not raycast - the target is provided directly.
+ */
+public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAction.Configuration> {
 
-    public CastSpellAction() {
+    public CastSpellBientityAction() {
         super(Configuration.CODEC);
     }
 
     @Override
-    public void execute(Configuration configuration, Entity entity) {
-        if (!(entity instanceof LivingEntity livingEntity)) {
-            OtherworldOrigins.LOGGER.debug("Entity is not a LivingEntity: {}", entity);
+    public void execute(Configuration configuration, Entity actor, Entity target) {
+        if (!(actor instanceof LivingEntity caster)) {
+            OtherworldOrigins.LOGGER.debug("CastSpellBientityAction: Actor is not a LivingEntity: {}", actor);
+            return;
+        }
+
+        if (!(target instanceof LivingEntity livingTarget)) {
+            OtherworldOrigins.LOGGER.debug("CastSpellBientityAction: Target is not a LivingEntity: {}", target);
             return;
         }
 
         String spellStr = configuration.spell().toString();
         ResourceLocation spellResourceLocation = ResourceLocation.tryParse(spellStr);
-        // No one should be using the minecraft namespace anyway, and this is simpler
         if (spellResourceLocation != null && spellResourceLocation.getNamespace().equals("minecraft")) {
             spellResourceLocation = ResourceLocation.fromNamespaceAndPath("irons_spellbooks", spellResourceLocation.getPath());
         }
 
         AbstractSpell spell = SpellRegistry.getSpell(spellResourceLocation);
         if (spell == null || "none".equals(spell.getSpellName())) {
-            OtherworldOrigins.LOGGER.debug("No valid spell found for resource location {}", spellResourceLocation);
+            OtherworldOrigins.LOGGER.debug("CastSpellBientityAction: No valid spell found for resource location {}", spellResourceLocation);
             return;
         }
 
-        Level world = entity.level();
+        Level world = actor.level();
         if (world.isClientSide) {
             return;
         }
 
         int powerLevel = configuration.powerLevel();
-        MagicData magicData = MagicData.getPlayerMagicData(livingEntity);
+        MagicData magicData = MagicData.getPlayerMagicData(caster);
 
         // Handle case where entity is already casting - force completion of previous spell
         if (magicData.isCasting()) {
-            OtherworldOrigins.LOGGER.debug("CastSpellAction: Entity is still casting {}, forcing spell completion", magicData.getCastingSpellId());
+            OtherworldOrigins.LOGGER.debug("CastSpellBientityAction: Entity is still casting {}, forcing spell completion", magicData.getCastingSpellId());
             AbstractSpell oldSpell = magicData.getCastingSpell().getSpell();
-            oldSpell.onCast(world, magicData.getCastingSpellLevel(), livingEntity, magicData.getCastSource(), magicData);
-            oldSpell.onServerCastComplete(world, magicData.getCastingSpellLevel(), livingEntity, magicData, false);
+            oldSpell.onCast(world, magicData.getCastingSpellLevel(), caster, magicData.getCastSource(), magicData);
+            oldSpell.onServerCastComplete(world, magicData.getCastingSpellLevel(), caster, magicData, false);
             magicData.resetCastingState();
-            magicData = MagicData.getPlayerMagicData(livingEntity);
+            magicData = MagicData.getPlayerMagicData(caster);
         }
 
-        // Raycast to find target and set up targeting data
-        LivingEntity target = findTarget(livingEntity, configuration.raycastDistance().orElse(DEFAULT_RAYCAST_DISTANCE));
-        if (target != null) {
-            updateTargetData(livingEntity, target, magicData, spell, e -> true);
-        }
+        // Set up targeting data with the provided target
+        OtherworldOrigins.LOGGER.debug("CastSpellBientityAction: Setting target to {}", livingTarget.getName().getString());
+        updateTargetData(caster, livingTarget, magicData, spell, e -> true);
 
-        if (livingEntity instanceof ServerPlayer serverPlayer) {
+        if (caster instanceof ServerPlayer serverPlayer) {
             castSpellForPlayer(configuration, spell, powerLevel, serverPlayer, magicData, world);
-        } else if (livingEntity instanceof IMagicEntity magicEntity) {
+        } else if (caster instanceof IMagicEntity magicEntity) {
             magicEntity.initiateCastSpell(spell, powerLevel);
         } else {
             // Non-player LivingEntity casting
-            if (spell.checkPreCastConditions(world, powerLevel, livingEntity, magicData)) {
-                spell.onCast(world, powerLevel, livingEntity, CastSource.COMMAND, magicData);
-                spell.onServerCastComplete(world, powerLevel, livingEntity, magicData, false);
+            if (spell.checkPreCastConditions(world, powerLevel, caster, magicData)) {
+                spell.onCast(world, powerLevel, caster, CastSource.COMMAND, magicData);
+                spell.onServerCastComplete(world, powerLevel, caster, magicData, false);
             }
         }
     }
@@ -125,8 +120,8 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         }
 
         if (!castResult.isSuccess() ||
-            !spell.checkPreCastConditions(world, powerLevel, serverPlayer, magicData) ||
-            MinecraftForge.EVENT_BUS.post(new SpellPreCastEvent(serverPlayer, spell.getSpellId(), powerLevel, spell.getSchoolType(), CastSource.COMMAND))) {
+                !spell.checkPreCastConditions(world, powerLevel, serverPlayer, magicData) ||
+                MinecraftForge.EVENT_BUS.post(new SpellPreCastEvent(serverPlayer, spell.getSpellId(), powerLevel, spell.getSchoolType(), CastSource.COMMAND))) {
             return;
         }
 
@@ -162,7 +157,7 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         if (configuration.continuousCost() && manaCostOpt.isPresent() && !serverPlayer.getAbilities().instabuild) {
             int manaCost = manaCostOpt.get();
             int costInterval = configuration.costInterval();
-            CONTINUOUS_CASTS.put(serverPlayer.getUUID(), new ContinuousCastData(manaCost, costInterval, 0));
+            CastSpellAction.registerContinuousCast(serverPlayer.getUUID(), manaCost, costInterval);
         }
 
         // Initiate the cast
@@ -179,7 +174,7 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         if (magicData.getAdditionalCastData() instanceof TargetEntityCastData targetingData) {
             LivingEntity target = targetingData.getTarget((ServerLevel) serverPlayer.level());
             if (target != null) {
-                OtherworldOrigins.LOGGER.debug("Casting Spell {} with target {}", magicData.getCastingSpellId(), target.getName().getString());
+                OtherworldOrigins.LOGGER.debug("CastSpellBientityAction: Casting Spell {} with target {}", magicData.getCastingSpellId(), target.getName().getString());
             }
         }
 
@@ -191,77 +186,17 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
     }
 
     /**
-     * Raycast from the caster's eyes to find a target entity.
-     */
-    @Nullable
-    private LivingEntity findTarget(LivingEntity caster, double distance) {
-        Vec3 eyePos = caster.getEyePosition();
-        Vec3 lookVec = caster.getLookAngle();
-        Vec3 endPos = eyePos.add(lookVec.scale(distance));
-
-        // First check for block hit to limit our search
-        HitResult blockHit = caster.level().clip(new ClipContext(
-                eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, caster));
-
-        double searchDist = blockHit.getType() != HitResult.Type.MISS
-                ? blockHit.getLocation().distanceTo(eyePos)
-                : distance;
-
-        Vec3 searchEnd = eyePos.add(lookVec.scale(searchDist));
-
-        AABB searchBox = caster.getBoundingBox()
-                .expandTowards(lookVec.scale(searchDist))
-                .inflate(1.0);
-
-        EntityHitResult entityHit = raycastForEntity(caster, eyePos, searchEnd, searchBox,
-                e -> !e.isSpectator() && e.isPickable() && e instanceof LivingEntity, searchDist);
-
-        if (entityHit != null && entityHit.getEntity() instanceof LivingEntity target) {
-            return target;
-        }
-
-        return null;
-    }
-
-    /**
-     * Raycast to find an entity within the given bounds.
-     */
-    @Nullable
-    private EntityHitResult raycastForEntity(Entity caster, Vec3 start, Vec3 end, AABB bounds,
-                                              Predicate<Entity> filter, double maxDistance) {
-        double closestDist = maxDistance;
-        Entity closestEntity = null;
-        Vec3 hitPos = null;
-
-        for (Entity entity : caster.level().getEntities(caster, bounds, filter)) {
-            AABB entityBounds = entity.getBoundingBox().inflate(entity.getPickRadius());
-            Optional<Vec3> optional = entityBounds.clip(start, end);
-
-            if (optional.isPresent()) {
-                double dist = start.distanceTo(optional.get());
-                if (dist < closestDist) {
-                    closestEntity = entity;
-                    hitPos = optional.get();
-                    closestDist = dist;
-                }
-            }
-        }
-
-        return closestEntity != null ? new EntityHitResult(closestEntity, hitPos) : null;
-    }
-
-    /**
      * Update the magic data with target information and sync to client.
      */
-    public static void updateTargetData(LivingEntity caster, Entity entityHit, MagicData playerMagicData,
-                                         AbstractSpell spell, Predicate<LivingEntity> filter) {
+    private static void updateTargetData(LivingEntity caster, Entity entityHit, MagicData playerMagicData,
+                                          AbstractSpell spell, Predicate<LivingEntity> filter) {
         LivingEntity livingTarget = null;
 
         if (entityHit instanceof LivingEntity livingEntity && filter.test(livingEntity)) {
             livingTarget = livingEntity;
         } else if (entityHit instanceof PartEntity<?> partEntity &&
-                   partEntity.getParent() instanceof LivingEntity livingParent &&
-                   filter.test(livingParent)) {
+                partEntity.getParent() instanceof LivingEntity livingParent &&
+                filter.test(livingParent)) {
             livingTarget = livingParent;
         }
 
@@ -269,38 +204,17 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
             playerMagicData.setAdditionalCastData(new TargetEntityCastData(livingTarget));
 
             if (caster instanceof ServerPlayer serverPlayer) {
-                // if (spell.getCastType() != CastType.INSTANT) {
+                if (spell.getCastType() != CastType.INSTANT) {
                     PacketDistributor.sendToPlayer(serverPlayer, new SyncTargetingDataPacket(livingTarget, spell));
-                // }
-//                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
-//                        Component.translatable("ui.irons_spellbooks.spell_target_success",
-//                                livingTarget.getDisplayName().getString(),
-//                                spell.getDisplayName(serverPlayer)).withStyle(ChatFormatting.GREEN)));
+                }
+                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
+                        Component.translatable("ui.irons_spellbooks.spell_target_success",
+                                livingTarget.getDisplayName().getString(),
+                                spell.getDisplayName(serverPlayer)).withStyle(ChatFormatting.GREEN)));
             }
 
             if (livingTarget instanceof ServerPlayer targetPlayer) {
                 Utils.sendTargetedNotification(targetPlayer, caster, spell);
-            }
-        } else if (caster instanceof ServerPlayer serverPlayer) {
-//            serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
-//                    Component.translatable("ui.irons_spellbooks.cast_error_target").withStyle(ChatFormatting.RED)));
-        }
-    }
-
-    public static void onSpellTick(ServerPlayer player, MagicData magicData) {
-        UUID playerId = player.getUUID();
-        ContinuousCastData data = CONTINUOUS_CASTS.get(playerId);
-        if (data != null) {
-            data.ticksElapsed++;
-            if (data.ticksElapsed >= data.costInterval) {
-                data.ticksElapsed = 0;
-                if (magicData.getMana() >= data.manaCost) {
-                    setManaWithEvent(player, magicData, magicData.getMana() - data.manaCost);
-                    OtherworldOrigins.LOGGER.debug("Draining mana: {}. Remaining mana: {}", data.manaCost, magicData.getMana());
-                } else {
-                    Utils.serverSideCancelCast(player);
-                    CONTINUOUS_CASTS.remove(playerId);
-                }
             }
         }
     }
@@ -312,29 +226,6 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         }
     }
 
-    public static void onSpellEnd(ServerPlayer player) {
-        CONTINUOUS_CASTS.remove(player.getUUID());
-    }
-
-    /**
-     * Register a continuous mana cost for a player. Used by both CastSpellAction and CastSpellBientityAction.
-     */
-    public static void registerContinuousCast(UUID playerId, int manaCost, int costInterval) {
-        CONTINUOUS_CASTS.put(playerId, new ContinuousCastData(manaCost, costInterval, 0));
-    }
-
-    private static class ContinuousCastData {
-        final int manaCost;
-        final int costInterval;
-        int ticksElapsed;
-
-        ContinuousCastData(int manaCost, int costInterval, int ticksElapsed) {
-            this.manaCost = manaCost;
-            this.costInterval = costInterval;
-            this.ticksElapsed = ticksElapsed;
-        }
-    }
-
     public static class Configuration implements IDynamicFeatureConfiguration {
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 SerializableDataTypes.IDENTIFIER.fieldOf("spell").forGetter(Configuration::spell),
@@ -342,8 +233,7 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
                 Codec.INT.optionalFieldOf("cast_time").forGetter(Configuration::castTime),
                 Codec.INT.optionalFieldOf("mana_cost").forGetter(Configuration::manaCost),
                 Codec.BOOL.optionalFieldOf("continuous_cost", false).forGetter(Configuration::continuousCost),
-                Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval),
-                Codec.DOUBLE.optionalFieldOf("raycast_distance").forGetter(Configuration::raycastDistance)
+                Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval)
         ).apply(instance, Configuration::new));
 
         private final ResourceLocation spell;
@@ -352,18 +242,15 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         private final Optional<Integer> manaCost;
         private final boolean continuousCost;
         private final int costInterval;
-        private final Optional<Double> raycastDistance;
 
         public Configuration(ResourceLocation spell, int powerLevel, Optional<Integer> castTime,
-                           Optional<Integer> manaCost, boolean continuousCost, int costInterval,
-                           Optional<Double> raycastDistance) {
+                             Optional<Integer> manaCost, boolean continuousCost, int costInterval) {
             this.spell = spell;
             this.powerLevel = powerLevel;
             this.castTime = castTime;
             this.manaCost = manaCost;
             this.continuousCost = continuousCost;
             this.costInterval = costInterval;
-            this.raycastDistance = raycastDistance;
         }
 
         public ResourceLocation spell() {
@@ -388,10 +275,6 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
 
         public int costInterval() {
             return costInterval;
-        }
-
-        public Optional<Double> raycastDistance() {
-            return raycastDistance;
         }
     }
 }

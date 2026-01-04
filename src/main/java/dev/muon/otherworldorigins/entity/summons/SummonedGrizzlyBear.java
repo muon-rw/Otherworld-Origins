@@ -2,18 +2,12 @@ package dev.muon.otherworldorigins.entity.summons;
 
 
 import com.github.alexthe666.alexsmobs.entity.EntityGrizzlyBear;
-import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.spells.ModSpells;
-import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
-import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
-import io.redspace.ironsspellbooks.effect.SummonTimer;
-import io.redspace.ironsspellbooks.entity.mobs.MagicSummon;
+import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.entity.mobs.goals.*;
-import io.redspace.ironsspellbooks.registries.EntityRegistry;
-import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
 import io.redspace.ironsspellbooks.util.OwnerHelper;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -38,7 +32,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class SummonedGrizzlyBear extends EntityGrizzlyBear implements MagicSummon {
+public class SummonedGrizzlyBear extends EntityGrizzlyBear implements IMagicSummon {
     protected LivingEntity cachedSummoner;
     protected UUID summonerUUID;
     private final Level level = this.level();
@@ -67,9 +61,8 @@ public class SummonedGrizzlyBear extends EntityGrizzlyBear implements MagicSummo
         this.targetSelector.addGoal(1, new GenericOwnerHurtByTargetGoal(this, this::getSummoner));
         this.targetSelector.addGoal(2, new GenericOwnerHurtTargetGoal(this, this::getSummoner));
         this.targetSelector.addGoal(3, new GenericCopyOwnerTargetGoal(this, this::getSummoner));
-        this.targetSelector.addGoal(4, (new GenericHurtByTargetGoal(this, (entity) -> {
-            return entity == this.getSummoner();
-        })).setAlertOthers(new Class[0]));
+        this.targetSelector.addGoal(4, (new GenericHurtByTargetGoal(this, (entity) -> entity == getSummoner())).setAlertOthers());
+        this.targetSelector.addGoal(5, new GenericProtectOwnerTargetGoal(this, this::getSummoner));
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
@@ -111,33 +104,38 @@ public class SummonedGrizzlyBear extends EntityGrizzlyBear implements MagicSummo
         super.die(pDamageSource);
     }
 
+    @Override
     public void onRemovedFromWorld() {
-        this.onRemovedHelper(this, ModEffects.BEAST_TIMER.get());
+        this.onRemovedHelper(this);
         super.onRemovedFromWorld();
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.summonerUUID = OwnerHelper.deserializeOwner(compoundTag);
     }
 
+
+    @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        OwnerHelper.serializeOwner(compoundTag, this.summonerUUID);
     }
 
+    @Override
     public boolean doHurtTarget(Entity pEntity) {
         return Utils.doMeleeAttack(this, pEntity, (ModSpells.SUMMON_GRIZZLY_BEAR.get()).getDamageSource(this, this.getSummoner()));
     }
 
+    @Override
     public boolean isAlliedTo(Entity pEntity) {
         return super.isAlliedTo(pEntity) || this.isAlliedHelper(pEntity);
     }
 
+    @Override
     public void onUnSummon() {
         if (!this.level.isClientSide) {
             MagicManager.spawnParticles(this.level, ParticleTypes.POOF, this.getX(), this.getY(), this.getZ(), 25, 0.4, 0.8, 0.4, 0.03, false);
-            this.discard();
+            setRemoved(RemovalReason.DISCARDED);
         }
 
     }
@@ -147,7 +145,11 @@ public class SummonedGrizzlyBear extends EntityGrizzlyBear implements MagicSummo
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 30.0).add(Attributes.FOLLOW_RANGE, 20.0).add(Attributes.MOVEMENT_SPEED, 0.3).add(Attributes.ATTACK_DAMAGE, 6.0);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 30.0)
+                .add(Attributes.FOLLOW_RANGE, 20.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.3)
+                .add(Attributes.ATTACK_DAMAGE, 6.0);
     }
 
     @Nullable

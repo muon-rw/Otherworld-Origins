@@ -1,19 +1,19 @@
 package dev.muon.otherworldorigins.spells;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.entity.summons.SummonedGrizzlyBear;
-import dev.muon.otherworldorigins.entity.summons.SummonedIronGolem;
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.capabilities.magic.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
@@ -21,13 +21,16 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 import java.util.Optional;
 
-@AutoSpellConfig
 public class SummonGrizzlyBearSpell extends AbstractSpell {
     private final ResourceLocation spellId = OtherworldOrigins.loc("summon_grizzly_bear");
     private final DefaultConfig defaultConfig;
 
+    @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
-        return List.of(Component.translatable("ui.irons_spellbooks.hp", new Object[]{this.getHealth(spellLevel, (LivingEntity)null)}), Component.translatable("ui.irons_spellbooks.damage", new Object[]{this.getDamage(spellLevel, (LivingEntity)null)}));
+        return List.of(
+                Component.translatable("ui.irons_spellbooks.hp", Utils.stringTruncation(this.getHealth(spellLevel, caster), 1)),
+                Component.translatable("ui.irons_spellbooks.damage", Utils.stringTruncation(this.getDamage(spellLevel, caster), 1))
+        );
     }
 
     public SummonGrizzlyBearSpell() {
@@ -70,26 +73,43 @@ public class SummonGrizzlyBearSpell extends AbstractSpell {
         return Optional.of(SoundEvents.EVOKER_PREPARE_SUMMON);
     }
 
-    public void onCast(Level world, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
-        int summonTime = 12000;
+    @Override
+    public int getRecastCount(int spellLevel, LivingEntity entity) {
+        return 2;
+    }
 
-        if (entity.hasEffect(ModEffects.BEAST_TIMER.get())) {
-            world.getEntitiesOfClass(SummonedGrizzlyBear.class, entity.getBoundingBox().inflate(32.0D))
-                    .stream()
-                    .filter(bear -> bear.getSummoner() == entity)
-                    .findFirst()
-                    .ifPresent(SummonedGrizzlyBear::onUnSummon);
-            entity.removeEffect(ModEffects.BEAST_TIMER.get());
+    @Override
+    public void onRecastFinished(ServerPlayer serverPlayer, RecastInstance recastInstance, RecastResult recastResult, ICastDataSerializable castDataSerializable) {
+        if (SummonManager.recastFinishedHelper(serverPlayer, recastInstance, recastResult, castDataSerializable)) {
+            super.onRecastFinished(serverPlayer, recastInstance, recastResult, castDataSerializable);
         }
+    }
 
-        SummonedGrizzlyBear summon = new SummonedGrizzlyBear(world, entity);
-        summon.setPos(entity.position());
-        summon.getAttributes().getInstance(Attributes.ATTACK_DAMAGE).setBaseValue(this.getDamage(spellLevel, entity));
-        summon.getAttributes().getInstance(Attributes.MAX_HEALTH).setBaseValue(this.getHealth(spellLevel, entity));
-        summon.setHealth(summon.getMaxHealth());
-        world.addFreshEntity(summon);
-        summon.addEffect(new MobEffectInstance(ModEffects.BEAST_TIMER.get(), summonTime, 0, false, false, false));
-        entity.addEffect(new MobEffectInstance(ModEffects.BEAST_TIMER.get(), summonTime, 0, false, false, true));
+    @Override
+    public ICastDataSerializable getEmptyCastData() {
+        return new SummonedEntitiesCastData();
+    }
+
+    @Override
+    public void onCast(Level world, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
+        int summonTime = 20 * 60 * 10;
+
+        PlayerRecasts recasts = playerMagicData.getPlayerRecasts();
+        if (!recasts.hasRecastForSpell(this)) {
+            SummonedEntitiesCastData summonedEntitiesCastData = new SummonedEntitiesCastData();
+
+            SummonedGrizzlyBear grizzlyBear = new SummonedGrizzlyBear(world, entity);
+            grizzlyBear.setPos(entity.position());
+
+            grizzlyBear.getAttributes().getInstance(Attributes.ATTACK_DAMAGE).setBaseValue(getDamage(spellLevel, entity));
+            grizzlyBear.getAttributes().getInstance(Attributes.MAX_HEALTH).setBaseValue(getHealth(spellLevel, entity));
+            grizzlyBear.setHealth(grizzlyBear.getMaxHealth());
+            world.addFreshEntity(grizzlyBear);
+            SummonManager.initSummon(entity, grizzlyBear, summonTime, summonedEntitiesCastData);
+
+            RecastInstance recastInstance = new RecastInstance(getSpellId(), spellLevel, getRecastCount(spellLevel, entity), summonTime, castSource, summonedEntitiesCastData);
+            recasts.addRecast(recastInstance, playerMagicData);
+        }
 
         super.onCast(world, spellLevel, entity, castSource, playerMagicData);
     }

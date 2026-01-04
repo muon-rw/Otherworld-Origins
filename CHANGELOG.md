@@ -1,3 +1,6 @@
+## 1.1.1
+- Update to Iron's Spellbooks 3.15.0
+
 ## 1.1.0
 - Migrate from Medieval to Otherworld Core (uninstall "Medieval" from your mods!)
 - Updated charisma to work with new versions of Thief

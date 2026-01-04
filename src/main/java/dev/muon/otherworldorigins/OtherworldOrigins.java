@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import dev.muon.otherworldorigins.action.ModActions;
 import dev.muon.otherworldorigins.condition.ModConditions;
 import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
-import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.item.ModItems;
 import dev.muon.otherworldorigins.network.*;
@@ -32,14 +31,14 @@ public class OtherworldOrigins {
     public static final String MODID = "otherworldorigins";
 
     public static ResourceLocation loc(String id) {
-        return new ResourceLocation(MODID, id);
+        return ResourceLocation.fromNamespaceAndPath(MODID, id);
     }
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(MODID, "main"),
+            loc("main"),
             () -> PROTOCOL_VERSION,
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals
@@ -57,7 +56,6 @@ public class OtherworldOrigins {
 
         ModEntities.register(modEventBus);
         ModItems.register(modEventBus);
-        ModEffects.register(modEventBus);
 
         ModActions.register(modEventBus);
         ModConditions.register(modEventBus);

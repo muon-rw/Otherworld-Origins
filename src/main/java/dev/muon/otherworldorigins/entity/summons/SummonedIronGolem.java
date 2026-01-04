@@ -1,12 +1,10 @@
 package dev.muon.otherworldorigins.entity.summons;
 
-import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.spells.ModSpells;
-import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
-import io.redspace.ironsspellbooks.entity.mobs.MagicSummon;
+import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
 import io.redspace.ironsspellbooks.entity.mobs.goals.*;
 import io.redspace.ironsspellbooks.util.OwnerHelper;
 import net.minecraft.core.particles.ParticleTypes;
@@ -33,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
-public class SummonedIronGolem extends IronGolem implements MagicSummon {
+public class SummonedIronGolem extends IronGolem implements IMagicSummon {
     protected LivingEntity cachedSummoner;
     protected UUID summonerUUID;
     private final Level level = this.level();
@@ -68,9 +66,8 @@ public class SummonedIronGolem extends IronGolem implements MagicSummon {
         this.targetSelector.addGoal(1, new GenericOwnerHurtByTargetGoal(this, this::getSummoner));
         this.targetSelector.addGoal(2, new GenericOwnerHurtTargetGoal(this, this::getSummoner));
         this.targetSelector.addGoal(3, new GenericCopyOwnerTargetGoal(this, this::getSummoner));
-        this.targetSelector.addGoal(4, (new GenericHurtByTargetGoal(this, (entity) -> {
-            return entity == this.getSummoner();
-        })).setAlertOthers(new Class[0]));
+        this.targetSelector.addGoal(4, (new GenericHurtByTargetGoal(this, (entity) -> entity == getSummoner())).setAlertOthers());
+        this.targetSelector.addGoal(5, new GenericProtectOwnerTargetGoal(this, this::getSummoner));
     }
 
     public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
@@ -113,18 +110,16 @@ public class SummonedIronGolem extends IronGolem implements MagicSummon {
     }
 
     public void onRemovedFromWorld() {
-        this.onRemovedHelper(this, ModEffects.GOLEM_TIMER.get());
+        this.onRemovedHelper(this);
         super.onRemovedFromWorld();
     }
 
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.summonerUUID = OwnerHelper.deserializeOwner(compoundTag);
     }
 
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        OwnerHelper.serializeOwner(compoundTag, this.summonerUUID);
     }
 
     public boolean doHurtTarget(Entity pEntity) {
@@ -138,17 +133,25 @@ public class SummonedIronGolem extends IronGolem implements MagicSummon {
     public void onUnSummon() {
         if (!this.level.isClientSide) {
             MagicManager.spawnParticles(this.level, ParticleTypes.POOF, this.getX(), this.getY(), this.getZ(), 25, 0.4, 0.8, 0.4, 0.03, false);
-            this.discard();
+            setRemoved(RemovalReason.DISCARDED);
         }
 
     }
 
+    @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
-        return this.shouldIgnoreDamage(pSource) ? false : super.hurt(pSource, pAmount);
+        if (shouldIgnoreDamage(pSource)) {
+            return false;
+            }
+        return super.hurt(pSource, pAmount);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 50.0).add(Attributes.FOLLOW_RANGE, 20.0).add(Attributes.MOVEMENT_SPEED, 0.3).add(Attributes.ATTACK_DAMAGE, 8.0);
+        return Mob.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 50.0)
+                .add(Attributes.FOLLOW_RANGE, 20.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.3)
+                .add(Attributes.ATTACK_DAMAGE, 8.0);
     }
 
     @Nullable
@@ -158,9 +161,14 @@ public class SummonedIronGolem extends IronGolem implements MagicSummon {
             return (Mob) entity;
         } else {
             entity = this.getFirstPassenger();
-            return entity instanceof Player ? (Player) entity : null;
+            if (entity instanceof Player) {
+                return (Player) entity;
+            }
+
+            return null;
         }
     }
+
 
     protected void tickRidden(Player player, Vec3 vec3) {
         super.tickRidden(player, vec3);

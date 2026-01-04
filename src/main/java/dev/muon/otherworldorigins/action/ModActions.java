@@ -21,6 +21,8 @@ public class ModActions {
     public static final DeferredRegister<BiEntityAction<?>> BIENTITY_ACTIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_ACTION_KEY, OtherworldOrigins.MODID);
     public static final RegistryObject<TameAction> TAME = BIENTITY_ACTIONS.register("tame",
             () -> new TameAction(TameAction::tame));
+    public static final RegistryObject<CastSpellBientityAction> CAST_SPELL_BIENTITY = ModList.get().isLoaded("irons_spellbooks") ?
+            BIENTITY_ACTIONS.register("cast_spell", CastSpellBientityAction::new) : null;
 
     public static void register(IEventBus eventBus) {
         ENTITY_ACTIONS.register(eventBus);
