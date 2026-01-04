@@ -67,8 +67,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
 
-    flatDir { dir ("${rootProject.rootDir}/libs/") }
-
     maven {
         name = "Greenhouse"
         url = 'https://maven.greenhouse.lgbt/releases/'
