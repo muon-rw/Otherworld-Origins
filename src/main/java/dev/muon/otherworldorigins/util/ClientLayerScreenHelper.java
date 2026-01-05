@@ -22,7 +22,7 @@ import java.util.HashSet;
 public class ClientLayerScreenHelper {
     private static int validationAttempts = 0;
     private static final int MAX_VALIDATION_ATTEMPTS = 20;
-    private static Set<ResourceLocation> lastSelectedLayers = new HashSet<>();
+    private static final Set<ResourceLocation> lastSelectedLayers = new HashSet<>();
 
     @OnlyIn(Dist.CLIENT)
     public static void handleValidatedLayers(List<ResourceLocation> validMissingLayers) {

@@ -142,5 +142,11 @@ public class OtherworldOrigins {
                 .decoder(OpenFinalConfirmScreenMessage::decode)
                 .consumerMainThread(OpenFinalConfirmScreenMessage::handle)
                 .add();
+        
+        CHANNEL.messageBuilder(GiveStarterKitMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(GiveStarterKitMessage::encode)
+                .decoder(GiveStarterKitMessage::decode)
+                .consumerMainThread(GiveStarterKitMessage::handle)
+                .add();
     }
 }

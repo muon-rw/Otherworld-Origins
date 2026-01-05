@@ -19,6 +19,7 @@ public class OtherworldOriginsConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> DEFENSIVE_SPELLS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> UNRESTRICTED_SPELLS;
     public static final ForgeConfigSpec.BooleanValue ENABLE_ENCHANTMENT_RESTRICTIONS;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> STARTER_KIT_ITEMS;
     private static final Map<String, List<String>> DEFAULT_CLASS_RESTRICTIONS = createDefaultRestrictions();
 
     private static final List<String> DEFAULT_UNRESTRICTED_SPELLS = Arrays.asList(
@@ -190,6 +191,28 @@ public class OtherworldOriginsConfig {
                                         .contains(((String) item).toUpperCase()));
             });
         }
+        BUILDER.pop();
+
+        BUILDER.push("Starter Kit");
+        BUILDER.comment(
+                " Items given to players when they confirm their character creation.",
+                " Format: \"item_id|count|nbt\" where:",
+                "   - item_id: The item resource location (e.g., minecraft:iron_sword)",
+                "   - count: The number of items (e.g., 1)",
+                "   - nbt: Optional NBT data as JSON string (can be empty, e.g., {} or leave empty)",
+                " Example: \"minecraft:iron_sword|1|\" or \"minecraft:enchanted_book|1|{\\\"StoredEnchantments\\\":[{\\\"id\\\":\\\"minecraft:sharpness\\\",\\\"lvl\\\":1}]}\""
+        );
+        STARTER_KIT_ITEMS = BUILDER
+                .comment(" List of starter kit items in format: item_id|count|nbt")
+                .defineList("starter_kit_items", Arrays.asList(
+                        "ftbquests:book|1|",
+                        "minecraft:torch|4|",
+                        "legendarysurvivaloverhaul:bandage|6|"
+                ), value -> {
+                    if (!(value instanceof String str)) return false;
+                    String[] parts = str.split("\\|", 3);
+                    return parts.length >= 2; // At least item_id and count
+                });
         BUILDER.pop();
 
         SPEC = BUILDER.build();

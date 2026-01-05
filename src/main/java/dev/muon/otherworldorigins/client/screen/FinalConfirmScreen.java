@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.client.screen;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.network.GiveStarterKitMessage;
 import dev.muon.otherworldorigins.network.ResetOriginsMessage;
 import dev.muon.otherworldorigins.util.ClientLayerScreenHelper;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
@@ -72,6 +73,8 @@ public class FinalConfirmScreen extends Screen {
         this.addRenderableWidget(Button.builder(
                 Component.translatable("otherworldorigins.gui.final_confirm.confirm"),
                 button -> {
+                    // Send message to server to give starter kit
+                    OtherworldOrigins.CHANNEL.sendToServer(new GiveStarterKitMessage());
                     // Clear tracked layers when confirming
                     ClientLayerScreenHelper.clearSelectedLayers();
                     this.onClose();

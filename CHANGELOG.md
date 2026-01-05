@@ -1,3 +1,6 @@
+## 1.1.2
+- Starterkit
+
 ## 1.1.1
 - Update to Iron's Spellbooks 3.15.0
 
