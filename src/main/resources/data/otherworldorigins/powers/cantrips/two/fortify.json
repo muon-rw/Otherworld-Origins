@@ -15,7 +15,7 @@
         "comparison": ">=",
         "compare_to": 10
     },
-    "cooldown": 20,
+    "cooldown": 50,
     "hud_render": {
         "should_render": true,
         "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",

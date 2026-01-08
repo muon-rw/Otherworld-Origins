@@ -1,3 +1,6 @@
+## 1.2.1
+- Fortify Cantrip 1 second cooldown -> 2.5 second cooldown
+
 ## 1.2.0
 - Fix lightning/magic damage modifiers
 - Buff dragonborn breath spells
