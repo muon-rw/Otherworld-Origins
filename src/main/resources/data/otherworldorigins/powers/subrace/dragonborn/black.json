@@ -1,15 +1,102 @@
 {
-    "type": "origins:active_self",
-    "key": {
-        "key": "key.origins.primary_active"
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": {
+                "translate": "origins.gui.badge.active",
+                "with": [
+                    {
+                        "keybind": "key.origins.primary_active"
+                    }
+                ]
+            }
+        }
+    ],
+    "low": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.origins.primary_active"
+        },
+        "cooldown": 100,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_02.png",
+            "bar_index": 10
+        },
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<=",
+            "compare_to": 6
+        },
+        "entity_action": {
+            "type": "otherworldorigins:cast_spell",
+            "spell": "otherworldorigins:black_dragon_breath",
+            "power_level": 5,
+            "mana_cost": 10,
+            "continuous_cost": true,
+            "cost_interval": 10
+        }
     },
-    "entity_action": {
-        "type": "otherworldorigins:cast_spell",
-        "spell": "otherworldorigins:black_dragon_breath",
-        "power_level": 3,
-        "mana_cost": 10,
-        "continuous_cost": true,
-        "cost_interval": 10
+    "med": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.origins.primary_active"
+        },
+        "cooldown": 100,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_02.png",
+            "bar_index": 10
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 7
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<=",
+                    "compare_to": 13
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "otherworldorigins:cast_spell",
+            "spell": "otherworldorigins:black_dragon_breath",
+            "power_level": 8,
+            "mana_cost": 10,
+            "continuous_cost": true,
+            "cost_interval": 10
+        }
     },
-    "cooldown": 100
+    "high": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.origins.primary_active"
+        },
+        "cooldown": 100,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_02.png",
+            "bar_index": 10
+        },
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 14
+        },
+        "entity_action": {
+            "type": "otherworldorigins:cast_spell",
+            "spell": "otherworldorigins:black_dragon_breath",
+            "power_level": 11,
+            "mana_cost": 10,
+            "continuous_cost": true,
+            "cost_interval": 10
+        }
+    }
 }

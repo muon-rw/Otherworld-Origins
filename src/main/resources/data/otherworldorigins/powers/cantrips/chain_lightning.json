@@ -18,7 +18,7 @@
     "cooldown": 20,
     "hud_render": {
         "should_render": true,
-        "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
-        "bar_index": 0
+        "sprite_location": "origins:textures/gui/resource_bar.png",
+        "bar_index": 2
     }
 }

@@ -1,9 +1,28 @@
 {
     "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": {
+                "translate": "origins.gui.badge.active",
+                "with": [
+                    {
+                        "keybind": "key.origins.primary_active"
+                    }
+                ]
+            }
+        }
+    ],
     "low": {
         "type": "origins:active_self",
         "key": "key.origins.primary_active",
         "cooldown": 20,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 15
+        },
         "condition": {
             "type": "otherworldorigins:player_level",
             "comparison": "<=",
@@ -21,6 +40,11 @@
         "type": "origins:active_self",
         "key": "key.origins.primary_active",
         "cooldown": 20,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 15
+        },
         "condition": {
             "type": "origins:and",
             "conditions": [
@@ -48,6 +72,11 @@
         "type": "origins:active_self",
         "key": "key.origins.primary_active",
         "cooldown": 20,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 15
+        },
         "condition": {
             "type": "otherworldorigins:player_level",
             "comparison": ">=",

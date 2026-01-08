@@ -1,3 +1,10 @@
+## 1.2.0
+- Fix lightning/magic damage modifiers
+- Buff dragonborn breath spells
+- Resource Bar/Cooldown indicator changes
+- Magic classes Wizard, Sorcerer, Bard, Cleric, Druid, High Elves, Eldritch knight now have a cantrip
+- Small compensation nerfs to Eldritch Knight/High Elf
+
 ## 1.1.2
 - Starterkit
 

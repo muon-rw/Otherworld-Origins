@@ -1,11 +1,40 @@
 {
   "order": 201,
-  "name": "Cantrip (Arcane Trickster)",
+  "name": "Cantrip (Class)",
   "origins": [
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
+          },
+                    {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/fighter/eldritch_knight"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:class/wizard"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:class/sorcerer"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:class/bard"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:class/cleric"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:class/druid"
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:cantrips/two/acid_orb",

@@ -33,7 +33,7 @@ public abstract class AbstractDragonBreathSpell extends AbstractSpell {
     public AbstractDragonBreathSpell(String spellName) {
         this.spellId = new ResourceLocation(OtherworldOrigins.MODID, spellName);
         this.manaCostPerLevel = 1;
-        this.baseSpellPower = 1;
+        this.baseSpellPower = 3;
         this.spellPowerPerLevel = 1;
         this.castTime = 100;
         this.baseManaCost = 5;

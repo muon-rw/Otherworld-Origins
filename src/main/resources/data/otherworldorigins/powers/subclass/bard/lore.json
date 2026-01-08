@@ -10,6 +10,11 @@
             "spell": "gust",
             "power_level": 3,
             "mana_cost": 0
+        },
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_01.png",
+            "bar_index": 8
         }
     },
     "effects": {

@@ -1,11 +1,20 @@
 {
   "order": 200,
-  "name": "Cantrip (High Half-Elf)",
+  "name": "Cantrip (Race)",
   "origins": [
     {
       "condition": {
-        "type": "origins:origin",
-        "origin": "otherworldorigins:subrace/half_elf/high"
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subrace/half_elf/high"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subrace/elf/high"
+          }
+        ]
       },
       "origins": [
         "otherworldorigins:cantrips/acid_orb",

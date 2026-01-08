@@ -47,8 +47,8 @@
   "otherworldorigins.gui.feats": "Feats:",
   
   "key.categories.otherworldorigins": "Otherworld Origins",
-  "key.otherworldorigins.cantrip_one": "Cantrip One",
-  "key.otherworldorigins.cantrip_two": "Cantrip Two",
+  "key.otherworldorigins.cantrip_one": "Cantrip (Race)",
+  "key.otherworldorigins.cantrip_two": "Cantrip (Class)",
   "key.otherworldorigins.toggle_dark_vision": "Toggle Dark Vision",
 
 
@@ -69,7 +69,7 @@
   "origin.otherworldorigins.race/elf.name": "Elf",
   "origin.otherworldorigins.race/elf.description": "• Medium Size§r\n• +2 Dexterity§r\n• Darkvision§r\n\n§oElves are graceful and agile, with keen senses and a natural affinity for magic.§r\n\n§nSubraces§r\n• High Elf\n• Wood Elf\n• Drow",
   "origin.otherworldorigins.subrace/elf/high.name": "High Elf",
-  "origin.otherworldorigins.subrace/elf/high.description": "• +1 Intelligence§r\n• +1 Magic§r\n\n§oHigh elves are wise and powerful. They are known for their intellect and magical aptitude.",
+  "origin.otherworldorigins.subrace/elf/high.description": "• +1 Intelligence§r\n• +1 Cantrip§r\n\n§oHigh elves are wise and powerful. They are known for their intellect and magical aptitude.",
   "origin.otherworldorigins.subrace/elf/wood.name": "Wood Elf",
   "origin.otherworldorigins.subrace/elf/wood.description": "• +1 Dexterity\n• +1 Speed§r\n\n§oWood elves are swift and perceptive, at home in the forests and wild lands.",
   "origin.otherworldorigins.subrace/elf/drow.name": "Drow",
@@ -307,11 +307,11 @@
 
 "origin.otherworldorigins.class/barbarian.description": "• +3 Armor\n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
 
-"origin.otherworldorigins.class/bard.description": "• -2 Hearts\n\n§nSubclasses§r\nCollege of Lore\nCollege of Valor\nCollege of Swords",
+"origin.otherworldorigins.class/bard.description": "• -2 Hearts\n• +1 Cantrip\n\n§nSubclasses§r\nCollege of Lore\nCollege of Valor\nCollege of Swords",
 
-"origin.otherworldorigins.class/cleric.description": "• +2 Armor\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
+"origin.otherworldorigins.class/cleric.description": "• +2 Armor\n• +1 Cantrip\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
 
-"origin.otherworldorigins.class/druid.description": "§nSubclasses§r\nCircle of the Land\nCircle of the Moon\nCircle of the Spores",
+"origin.otherworldorigins.class/druid.description": "• +1 Cantrip\n\n§nSubclasses§r\nCircle of the Land\nCircle of the Moon\nCircle of the Spores",
 
 "origin.otherworldorigins.class/fighter.description": "• +3 Hearts\n\n§nSubclasses§r\nBattle Master\nEldritch Knight\nChampion",
 
@@ -323,11 +323,11 @@
 
 "origin.otherworldorigins.class/rogue.description": "• +2 Ranged Damage\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
 
-"origin.otherworldorigins.class/sorcerer.description": "• +1 Magic\n• -5 Hearts\n• +40% Magic Damage\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
+"origin.otherworldorigins.class/sorcerer.description": "• +1 Magic\n• -5 Hearts\n• +40% Magic Damage\n• +1 Cantrip\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
 
 "origin.otherworldorigins.class/warlock.description": "• +1 Magic\n• Eldritch Blast\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
 
-"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic\n• -5 Hearts\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchanting\nTransmutation",
+"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic\n• -5 Hearts\n• +1 Cantrip\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchanting\nTransmutation",
 
 "origin.otherworldorigins.class/artificer.name": "Artificer",
 "origin.otherworldorigins.subclass/artificer/alchemist.name": "Alchemist",
@@ -379,7 +379,7 @@
 "origin.otherworldorigins.subclass/fighter/battle_master.name": "Battle Master",
 "origin.otherworldorigins.subclass/fighter/battle_master.description": "• +3 Attack Damage",
 "origin.otherworldorigins.subclass/fighter/eldritch_knight.name": "Eldritch Knight",
-"origin.otherworldorigins.subclass/fighter/eldritch_knight.description": "• +2 Attack Damage\n• +10% Magic Damage",
+"origin.otherworldorigins.subclass/fighter/eldritch_knight.description": "• +1 Attack Damage\n• +10% Magic Damage\n• +1 Cantrip",
 "origin.otherworldorigins.subclass/fighter/champion.name": "Champion",
 "origin.otherworldorigins.subclass/fighter/champion.description": "• Immune to Critical Hits",
 
