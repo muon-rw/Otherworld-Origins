@@ -1,3 +1,6 @@
+## 1.3.0
+- Add shoulder surfing integration - turn camera on active power usage. Has blacklist (default `dark_vision`)
+
 ## 1.2.1
 - Fortify Cantrip 1 second cooldown -> 2.5 second cooldown
 

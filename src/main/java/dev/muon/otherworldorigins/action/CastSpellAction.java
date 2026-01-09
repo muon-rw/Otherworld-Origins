@@ -21,8 +21,6 @@ import io.redspace.ironsspellbooks.network.casting.OnClientCastPacket;
 import io.redspace.ironsspellbooks.network.casting.SyncTargetingDataPacket;
 import io.redspace.ironsspellbooks.network.casting.UpdateCastingStatePacket;
 import io.redspace.ironsspellbooks.setup.PacketDistributor;
-import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -186,6 +184,7 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         // For instant cast spells (effectiveCastTime == 0), execute immediately
         if (effectiveCastTime == 0) {
             spell.onCast(world, powerLevel, serverPlayer, CastSource.COMMAND, magicData);
+            spell.onServerCastComplete(world, powerLevel, serverPlayer, magicData, false);
             PacketDistributor.sendToPlayer(serverPlayer, new OnClientCastPacket(spell.getSpellId(), powerLevel, CastSource.COMMAND, magicData.getAdditionalCastData()));
         }
     }

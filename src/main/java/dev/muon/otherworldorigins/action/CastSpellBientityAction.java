@@ -181,6 +181,7 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
         // For instant cast spells (effectiveCastTime == 0), execute immediately
         if (effectiveCastTime == 0) {
             spell.onCast(world, powerLevel, serverPlayer, CastSource.COMMAND, magicData);
+            spell.onServerCastComplete(world, powerLevel, serverPlayer, magicData, false);
             PacketDistributor.sendToPlayer(serverPlayer, new OnClientCastPacket(spell.getSpellId(), powerLevel, CastSource.COMMAND, magicData.getAdditionalCastData()));
         }
     }

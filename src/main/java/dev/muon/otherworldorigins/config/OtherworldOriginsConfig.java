@@ -20,6 +20,7 @@ public class OtherworldOriginsConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> UNRESTRICTED_SPELLS;
     public static final ForgeConfigSpec.BooleanValue ENABLE_ENCHANTMENT_RESTRICTIONS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> STARTER_KIT_ITEMS;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SHOULDER_SURFING_ROTATION_BLACKLIST;
     private static final Map<String, List<String>> DEFAULT_CLASS_RESTRICTIONS = createDefaultRestrictions();
 
     private static final List<String> DEFAULT_UNRESTRICTED_SPELLS = Arrays.asList(
@@ -215,6 +216,23 @@ public class OtherworldOriginsConfig {
                 });
         BUILDER.pop();
 
+        BUILDER.push("Shoulder Surfing Integration");
+        BUILDER.comment(
+                " Powers that should NOT trigger player rotation toward the crosshair when activated.",
+                " If ALL powers being activated match the blacklist, rotation is skipped.",
+                " Supports wildcards: * matches any characters.",
+                " Examples:",
+                "   - \"origins:*\" matches all powers from the origins namespace",
+                "   - \"*toggle*\" matches any power containing 'toggle'",
+                "   - \"otherworldorigins:some_power\" matches exactly that power"
+        );
+        SHOULDER_SURFING_ROTATION_BLACKLIST = BUILDER
+                .comment(" List of power patterns to exclude from shoulder surfing rotation")
+                .defineList("rotation_blacklist", Arrays.asList(
+                        "otherworldorigins:dark_vision_toggle"
+                ), value -> value instanceof String);
+        BUILDER.pop();
+
         SPEC = BUILDER.build();
         BUILDER.pop();
     }
@@ -266,5 +284,54 @@ public class OtherworldOriginsConfig {
         List<? extends String> unrestrictedSpells = UNRESTRICTED_SPELLS.get();
 
         return unrestrictedSpells.contains(spellId) || unrestrictedSpells.contains(spellName);
+    }
+
+    /**
+     * Checks if a power ID matches any pattern in the shoulder surfing rotation blacklist.
+     * @param powerId The power resource location string (e.g., "otherworldorigins:some_power")
+     * @return true if the power matches a blacklist pattern
+     */
+    public static boolean isPowerRotationBlacklisted(String powerId) {
+        if (!SPEC.isLoaded()) return false;
+
+        List<? extends String> blacklist = SHOULDER_SURFING_ROTATION_BLACKLIST.get();
+        for (String pattern : blacklist) {
+            if (matchesWildcard(powerId, pattern)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if all powers in a set are blacklisted from rotation.
+     * @param powerIds Set of power resource location strings
+     * @return true if ALL powers match blacklist patterns (rotation should be skipped)
+     */
+    public static boolean areAllPowersRotationBlacklisted(java.util.Set<ResourceLocation> powerIds) {
+        if (!SPEC.isLoaded()) return false;
+        if (powerIds.isEmpty()) return true;
+
+        for (ResourceLocation powerId : powerIds) {
+            if (!isPowerRotationBlacklisted(powerId.toString())) {
+                return false; // At least one power is not blacklisted
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Simple wildcard matching where * matches any sequence of characters.
+     */
+    private static boolean matchesWildcard(String text, String pattern) {
+        // Convert wildcard pattern to regex
+        String regex = pattern
+                .replace(".", "\\.")
+                .replace("*", ".*");
+        try {
+            return text.matches(regex);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

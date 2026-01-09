@@ -208,7 +208,9 @@ dependencies {
     // Backpacked
     modImplementation("curse.maven:backpacked-352835:5813547")
     modRuntimeOnly("curse.maven:framework-549225:5811593")
-    
+
+    // Shoulder Surfing
+    modImplementation("curse.maven:shoulder-surfing-reloaded-243190:7392767")
     
     
     // OW CORE ONLY, CAN REMOVE AFTER JL FORK:
