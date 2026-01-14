@@ -1,9 +1,12 @@
 package dev.muon.otherworldorigins;
 
+import dev.muon.otherworldorigins.attribute.ModAttributes;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.entity.summons.SummonedGrizzlyBear;
 import dev.muon.otherworldorigins.entity.summons.SummonedIronGolem;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -15,5 +18,8 @@ public class ModEvents {
         event.put(ModEntities.SUMMONED_GRIZZLY_BEAR.get(), SummonedGrizzlyBear.createAttributes().build());
     }
 
-
+    @SubscribeEvent
+    public static void modifyEntityAttributes(EntityAttributeModificationEvent event) {
+        event.add(EntityType.PLAYER, ModAttributes.HEALTH_PER_LEVEL.get());
+    }
 }

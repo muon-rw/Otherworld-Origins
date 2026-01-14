@@ -12,15 +12,15 @@ import org.spongepowered.asm.mixin.injection.At;
 @Mixin(FishingRodItem.class)
 public class FishingRodItemMixin {
 
-    @ModifyExpressionValue(
-            method = "use",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getFishingLuckBonus(Lnet/minecraft/world/item/ItemStack;)I"),
-            require = 1
-    )
-    private int otherworldorigins$restrictLuckOfTheSea(int original, @Local Player player) {
-        if (!EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.FISHING_LUCK)) {
-            return 0;
-        }
-        return original;
-    }
+//    @ModifyExpressionValue(
+//            method = "use",
+//            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getFishingLuckBonus(Lnet/minecraft/world/item/ItemStack;)I"),
+//            require = 1
+//    )
+//    private int otherworldorigins$restrictLuckOfTheSea(int original, @Local Player player) {
+//        if (!EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.FISHING_LUCK)) {
+//            return 0;
+//        }
+//        return original;
+//    }
 }

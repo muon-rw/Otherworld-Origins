@@ -9,7 +9,7 @@
         "power_level": 5,
         "mana_cost": 50
     },
-    "cooldown": 6000,
+    "cooldown": 600,
     "hud_render": {
         "should_render": true,
         "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",

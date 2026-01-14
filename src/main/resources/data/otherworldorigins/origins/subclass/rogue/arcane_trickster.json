@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/rogue/arcane_trickster"
+        "otherworldorigins:subclass/rogue/arcane_trickster",
+        "otherworldorigins:cantrip_desc"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/rogue/arcane_trickster"

@@ -5,6 +5,6 @@
 	"icon": {
 		"item": "minecraft:player_head"
 	},
-	"impact": 3,
+	"impact": 1,
 	"order": 10
 }

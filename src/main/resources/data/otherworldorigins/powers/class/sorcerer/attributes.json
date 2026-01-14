@@ -15,15 +15,14 @@
         },
         "modifier": {
             "operation": "multiply_base",
-            "value": 0.4
+            "value": 0.2
         }
     },
     "health": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "minecraft:generic.max_health",
-            "operation": "addition",
-            "value": -5
-        }
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "value_per_level": 4.0,
+        "starting_value": -12.0
     }
 }

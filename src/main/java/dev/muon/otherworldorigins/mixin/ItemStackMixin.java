@@ -130,7 +130,7 @@ public class ItemStackMixin {
                         .withStyle(ChatFormatting.RED, ChatFormatting.ITALIC);
                 tooltips.add(1, warningText);
             }
-        } else if (stack.getItem() instanceof SpellBook && ISpellContainer.isSpellContainer(stack)) {
+        } else if (ISpellContainer.isSpellContainer(stack)) {
             var spellContainer = ISpellContainer.get(stack);
             for (int i = 0; i < tooltips.size(); i++) {
                 Component line = tooltips.get(i);

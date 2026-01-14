@@ -25,16 +25,13 @@ public class EnchantmentRestrictions {
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:mending"), "artificer");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("backpacked:repairman"), "artificer");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:sweeping"), "barbarian");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:luck_of_the_sea"), "bard");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:fortune"), "cleric");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:thorns"), "druid");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:sharpness"), "fighter");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:loyalty"), "monk");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:feather_falling"), "monk");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:smite"), "paladin");
+        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:power"), "rogue");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:infinity"), "ranger");
         ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("apotheosis:endless_quiver"), "ranger");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:power"), "rogue");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:flame"), "warlock");
     }
 
     public static boolean isEnchantmentAllowed(Player player, Enchantment enchantment) {

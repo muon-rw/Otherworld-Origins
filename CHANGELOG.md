@@ -1,3 +1,12 @@
+## 1.4.0
+- Chain Lightning cantrip and now be cast on multi-part entities like dragons
+- Ability-cast shoulder surfing auto-rotate now works through grass/plants
+- "Fortify" abilities no longer rotate the player
+- Ensure the player has turned fully before attempting an ability cast
+- Change ench restrictions
+- Balancing stuff, health rework
+- Fix enchantment cost power
+
 ## 1.3.0
 - Add shoulder surfing integration - turn camera on active power usage. Has blacklist (default `dark_vision`)
 

@@ -6,78 +6,64 @@ import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.minecraft.resources.ResourceLocation;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
+/**
+ * Maps spells to their categories. Handles loading from config and provides category lookups.
+ */
 public class SpellCategoryMapper {
-    private static final Map<ResourceLocation, SpellCategory> spellCategoryMap = new HashMap<>();
-    private static boolean initialized = false;
-
+    private static final Map<ResourceLocation, Set<SpellCategory>> spellCategoryMap = new HashMap<>();
+    
+    /**
+     * Initializes the mapper from config. Can be called multiple times to reload.
+     */
     public static void initialize() {
-        if (initialized) return;
-        initialized = true;
-
-        Map<ResourceLocation, SpellCategory> tempMap = new HashMap<>();
-        Set<ResourceLocation> duplicates = new java.util.HashSet<>();
-
-        processSpellList(OtherworldOriginsConfig.OFFENSIVE_SPELLS.get(), SpellCategory.OFFENSIVE, tempMap, duplicates);
-        processSpellList(OtherworldOriginsConfig.SUPPORT_SPELLS.get(), SpellCategory.SUPPORT, tempMap, duplicates);
-        processSpellList(OtherworldOriginsConfig.DEFENSIVE_SPELLS.get(), SpellCategory.DEFENSIVE, tempMap, duplicates);
-
-        if (!duplicates.isEmpty()) {
-            OtherworldOrigins.LOGGER.warn("The following spells were assigned to multiple categories:");
-            for (ResourceLocation spell : duplicates) {
-                OtherworldOrigins.LOGGER.warn("  - {} was assigned to multiple categories", spell);
-            }
-        }
-
-        spellCategoryMap.putAll(tempMap);
+        spellCategoryMap.clear();
+        
+        processSpellList(OtherworldOriginsConfig.OFFENSIVE_SPELLS.get(), SpellCategory.OFFENSIVE);
+        processSpellList(OtherworldOriginsConfig.SUPPORT_SPELLS.get(), SpellCategory.SUPPORT);
+        processSpellList(OtherworldOriginsConfig.DEFENSIVE_SPELLS.get(), SpellCategory.DEFENSIVE);
     }
-
-    private static void processSpellList(List<? extends String> spellList, SpellCategory category,
-                                         Map<ResourceLocation, SpellCategory> tempMap,
-                                         Set<ResourceLocation> duplicates) {
+    
+    private static void processSpellList(List<? extends String> spellList, SpellCategory category) {
         for (String spellId : spellList) {
             try {
-                ResourceLocation resourceLocation;
-                if (!spellId.contains(":")) {
-                    resourceLocation = new ResourceLocation("irons_spellbooks", spellId);
-                } else {
-                    resourceLocation = new ResourceLocation(spellId);
-                }
-
+                ResourceLocation resourceLocation = parseResourceLocation(spellId);
+                
                 if (SpellRegistry.getSpell(resourceLocation) == SpellRegistry.none()) {
                     OtherworldOrigins.LOGGER.warn("Spell {} not found in SpellRegistry", spellId);
                     continue;
                 }
-
-                if (tempMap.containsKey(resourceLocation)) {
-                    duplicates.add(resourceLocation);
-                    continue;
-                }
-
-                tempMap.put(resourceLocation, category);
+                
+                spellCategoryMap.computeIfAbsent(resourceLocation, k -> new HashSet<>()).add(category);
             } catch (Exception e) {
                 OtherworldOrigins.LOGGER.error("Invalid spell ID in config: {}", spellId, e);
             }
         }
     }
-
-    public static SpellCategory getCategory(AbstractSpell spell) {
-        if (!initialized) {
-            initialize();
-        }
-
+    
+    /**
+     * Gets all categories for a spell. Returns a set containing OFFENSIVE if no mapping exists.
+     */
+    public static Set<SpellCategory> getCategories(AbstractSpell spell) {
         ResourceLocation spellId = spell.getSpellResource();
-        SpellCategory category = spellCategoryMap.get(spellId);
-
-        if (category == null) {
+        Set<SpellCategory> categories = spellCategoryMap.get(spellId);
+        
+        if (categories == null || categories.isEmpty()) {
             OtherworldOrigins.LOGGER.warn("No category mapping found for spell: {}, assuming it's a Damaging spell. Update the otherworldorigins-common config!", spellId);
-            return SpellCategory.OFFENSIVE; // Default category
+            return Set.of(SpellCategory.OFFENSIVE);
         }
-
-        return category;
+        
+        return Collections.unmodifiableSet(categories);
+    }
+    
+    /**
+     * Parses a resource location string, defaulting to "irons_spellbooks" namespace if not specified.
+     */
+    private static ResourceLocation parseResourceLocation(String id) {
+        if (!id.contains(":")) {
+            return ResourceLocation.fromNamespaceAndPath("irons_spellbooks", id);
+        }
+        return ResourceLocation.parse(id);
     }
 }

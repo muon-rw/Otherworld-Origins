@@ -1,0 +1,12 @@
+{
+    "type": "origins:simple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.cantrip"
+            }
+        }
+    ]
+}

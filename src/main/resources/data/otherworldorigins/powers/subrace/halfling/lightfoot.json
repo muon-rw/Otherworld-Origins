@@ -17,5 +17,9 @@
     "charisma": {
         "type": "otherworldorigins:charisma",
         "amount": 0.25
+    },
+    "trade_discount": {
+        "type": "otherworldorigins:trade_discount",
+        "amount": 0.05
     }
 }

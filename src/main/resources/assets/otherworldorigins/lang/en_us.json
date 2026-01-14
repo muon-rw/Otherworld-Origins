@@ -1,10 +1,19 @@
 {
   "otherworldorigins.restrictions.school_type": "%s %ss are not attuned to %s magic",
+  
+  "otherworldorigins.restriction.unknown": "Unable to determine class restrictions",
+  "otherworldorigins.restriction.no_spells": "%s cannot cast any spells",
+  "otherworldorigins.restriction.can_only_cast": "%s can only cast %s spells",
+  "otherworldorigins.restriction.list.two": "%s or %s",
+  "otherworldorigins.restriction.list.separator": ", ",
+  "otherworldorigins.restriction.list.last_separator": ", or ",
 
   "otherworldorigins.disconnect.validation_failed": "Failed to validate origin layers after multiple attempts. Please try reconnecting. If this happens repeatedly, please check your network connection.",
 
   "otherworldorigins.gui.enchantment_access": "Enchantments:",
   "otherworldorigins.gui.enchantment_restriction": "Only %s can make use of the %s enchantment",
+
+  "otherworldorigins.gui.badge.cantrip": "Cantrips are low-level spells that have a short cooldown and low mana cost. \n\nThey have a separate keybind, bypass class restrictions, and do not use up a spell slot.",
 
   "button.otherworldorigins.respec_button": "Respec",
   "button.otherworldorigins.respec_button_confirm": "Are you sure?",
@@ -13,16 +22,22 @@
   "tooltip.otherworldorigins.hover_not_enough_xp": "Not Enough XP. Required: %s Levels",
   "tooltip.otherworldorigins.hover_confirm": "Click to Confirm.",
 
+  "attribute.otherworldorigins.health_per_level": "Health per Character Level",
+
   "passive.otherworldorigins.magic_mana": "Mana Spring",
-  "passive.otherworldorigins.int_spell_power": "Spell Power",
   "passive.otherworldorigins.magic_mana.description": "Increases the amount of mana available for casting.",
-  "passive.otherworldorigins.int_spell_power.description": "Increases the average damage done by your spells.",
+  "passive.otherworldorigins.int_spell_power": "Spell Power",
+  "passive.otherworldorigins.int_spell_power.description": "Increase the potency of all spells you cast.",
+  "passive.otherworldorigins.int_cooldown_reduction": "Cooldown Reduction",
+  "passive.otherworldorigins.int_cooldown_reduction.description": "Reduces the time between spell casts.",
+  "passive.otherworldorigins.health_per_level": "Constitution Modifier",
+  "passive.otherworldorigins.health_per_level.description": "Gain an additional heart per Character Level.",
 
   "otherworldorigins.tooltip.advanced_table_restricted": "Requires the Legendary Smith Skill and an Underdark subrace",
   "otherworldorigins.tooltip.basic_table_restricted": "Requires an Underdark subrace, or the Legendary Smith skill",
 
   "skill.otherworldorigins.reforging": "Legendary Smith",
-  "skill.otherworldorigins.reforging.description": "Grants access to Reforging and Gem Cutting Tables. Underdark races can learn this skill to gain access to Augmenting and Ancient Reforging.",
+  "skill.otherworldorigins.reforging.description": "Gain knowledge of Gem Cutting and Epic-Mythic Reforging.  Underdark races who learn this skill can understand Augmenting and Ancient Reforging.",
 
   "skill.otherworldorigins.wisdom": "Ancient Wisdom",
   "skill.otherworldorigins.wisdom.description": "All spells you cast will be 1 level higher.",
@@ -87,7 +102,7 @@
   "origin.otherworldorigins.race/dwarf.name": "Dwarf",
   "origin.otherworldorigins.race/dwarf.description": "• Small Size\n• +2 Constitution\n• -10% Speed\n• Darkvision\n• Dwarven Resilience\n\n§oA tough and stocky race, often accompanied by the clamoring of pickaxes. §r\n\n§nSubraces§r\n• Hill Dwarf\n• Mountain Dwarf\n• Duergar",
   "origin.otherworldorigins.subrace/dwarf/hill.name": "Hill Dwarf",
-  "origin.otherworldorigins.subrace/dwarf/hill.description": "• +1 Building\n• +0.5 Hearts per Level\n\n§oHill dwarves are the most adventurous of the dwarven races - they often live above ground, and are well adapted to settling new lands.",
+  "origin.otherworldorigins.subrace/dwarf/hill.description": "• +1 Building\n• +1 Heart per Level\n\n§oHill dwarves are the most adventurous of the dwarven races - they often live above ground, and are well adapted to settling new lands.",
   "origin.otherworldorigins.subrace/dwarf/mountain.name": "Mountain Dwarf",
   "origin.otherworldorigins.subrace/dwarf/mountain.description": "• +1 Strength§r\n• +1 Defence§r\n\n§oMountain dwarves are resilient and sturdy, conditioned by the rugged unforgiving snowy peaks they call home.",
   "origin.otherworldorigins.subrace/dwarf/duergar.name": "Duergar",
@@ -193,6 +208,9 @@
 
   "power.otherworldorigins.dark_vision.name": "Dark Vision",
   "power.otherworldorigins.dark_vision.description": "",
+
+  "power.otherworldorigins.cantrip_desc.name": "Cantrip",
+  "power.otherworldorigins.cantrip_desc.description": "",
 
   "power.otherworldorigins.class/bard/starter_item.name": "Musical",
   "power.otherworldorigins.class/bard/starter_item.description": "You'll begin your adventure with a lute, for serenading purposes.",
@@ -303,31 +321,31 @@
 "origin.otherworldorigins.feats/weapon_master.name": "Weapon Master",
 "origin.otherworldorigins.feats/weapon_master.description": "Deal 1 extra damage with any weapon",
 
-"origin.otherworldorigins.class/artificer.description": "§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
+"origin.otherworldorigins.class/artificer.description": "• 8 Hearts + 3/Level\n\n§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
 
-"origin.otherworldorigins.class/barbarian.description": "• +3 Armor\n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
+"origin.otherworldorigins.class/barbarian.description": "• 12 Hearts + 5/Level\n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
 
-"origin.otherworldorigins.class/bard.description": "• -2 Hearts\n• +1 Cantrip\n\n§nSubclasses§r\nCollege of Lore\nCollege of Valor\nCollege of Swords",
+"origin.otherworldorigins.class/bard.description": "• 8 Hearts + 3/Level\n• +1 Cantrip\n\n§nSubclasses§r\nCollege of Lore\nCollege of Valor\nCollege of Swords",
 
-"origin.otherworldorigins.class/cleric.description": "• +2 Armor\n• +1 Cantrip\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
+"origin.otherworldorigins.class/cleric.description": "• 8 Hearts + 3/Level\n• +1 Cantrip\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
 
-"origin.otherworldorigins.class/druid.description": "• +1 Cantrip\n\n§nSubclasses§r\nCircle of the Land\nCircle of the Moon\nCircle of the Spores",
+"origin.otherworldorigins.class/druid.description": "• 8 Hearts + 3/Level\n• +1 Cantrip\n\n§nSubclasses§r\nCircle of the Land\nCircle of the Moon\nCircle of the Spores",
 
-"origin.otherworldorigins.class/fighter.description": "• +3 Hearts\n\n§nSubclasses§r\nBattle Master\nEldritch Knight\nChampion",
+"origin.otherworldorigins.class/fighter.description": "• 10 Hearts + 4/Level\n\n§nSubclasses§r\nBattle Master\nEldritch Knight\nChampion",
 
-"origin.otherworldorigins.class/monk.description": "• +2 Hearts\n\n§nSubclasses§r\nWay of the Four Elements\nWay of the Open Hand\nWay of Shadow",
+"origin.otherworldorigins.class/monk.description": "• 8 Hearts + 3/Level\n\n§nSubclasses§r\nWay of the Four Elements\nWay of the Open Hand\nWay of Shadow",
 
-"origin.otherworldorigins.class/paladin.description": "• +3 Armor\n\n§nSubclasses§r\nOath of the Ancients\nOath of Devotion\nOath of Vengeance\nOath Breaker",
+"origin.otherworldorigins.class/paladin.description": "• 10 Hearts + 4/Level\n\n§nSubclasses§r\nOath of the Ancients\nOath of Devotion\nOath of Vengeance\nOath Breaker",
 
-"origin.otherworldorigins.class/ranger.description": "§nSubclasses§r\nBeast Master\nGloom Stalker\nHunter",
+"origin.otherworldorigins.class/ranger.description": "• 10 Hearts + 4/Level\n\n§nSubclasses§r\nBeast Master\nGloom Stalker\nHunter",
 
-"origin.otherworldorigins.class/rogue.description": "• +2 Ranged Damage\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
+"origin.otherworldorigins.class/rogue.description": "• 8 Hearts + 3/Level\n• +2 Ranged Damage\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
 
-"origin.otherworldorigins.class/sorcerer.description": "• +1 Magic\n• -5 Hearts\n• +40% Magic Damage\n• +1 Cantrip\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
+"origin.otherworldorigins.class/sorcerer.description": "• 6 Hearts + 2/Level\n• +1 Magic\n• +40% Magic Damage\n• +1 Cantrip\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
 
-"origin.otherworldorigins.class/warlock.description": "• +1 Magic\n• Eldritch Blast\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
+"origin.otherworldorigins.class/warlock.description": "• 8 Hearts + 3/Level\n• +1 Magic\n• Eldritch Blast\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
 
-"origin.otherworldorigins.class/wizard.description": "• +40% Magic Damage\n• +1 Magic\n• -5 Hearts\n• +1 Cantrip\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchanting\nTransmutation",
+"origin.otherworldorigins.class/wizard.description": "• 6 Hearts + 2/Level\n• +40% Magic Damage\n• +1 Magic\n• +1 Cantrip\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchanting\nTransmutation",
 
 "origin.otherworldorigins.class/artificer.name": "Artificer",
 "origin.otherworldorigins.subclass/artificer/alchemist.name": "Alchemist",
@@ -387,7 +405,7 @@
 "origin.otherworldorigins.subclass/monk/four_elements.name": "Way of the Four Elements",
 "origin.otherworldorigins.subclass/monk/four_elements.description": "• +5 Armor",
 "origin.otherworldorigins.subclass/monk/open_hand.name": "Way of the Open Hand",
-"origin.otherworldorigins.subclass/monk/open_hand.description": "• +5 Fist Damage",
+"origin.otherworldorigins.subclass/monk/open_hand.description": "• +5 Damage with Fists or Gauntlets",
 "origin.otherworldorigins.subclass/monk/shadow.name": "Way of Shadow",
 "origin.otherworldorigins.subclass/monk/shadow.description": "• +10 Nighttime Damage",
 
@@ -573,6 +591,10 @@
   "otherworldorigins.gui.all_spells": "All spells",
   "otherworldorigins.gui.no_spells": "No spells",
   "otherworldorigins.gui.varies": "Varies",
+  "otherworldorigins.gui.all_category_spells": "• %s spells",
+  "otherworldorigins.gui.all_two_category_spells": "• %s, %s spells",
+  "otherworldorigins.gui.all_school_spells": "+ All %s spells",
+  "otherworldorigins.gui.all_two_school_spells": "+ All %s and %s spells",
   "tooltip.otherworldorigins.set_bonus": "Set Bonus:",
   "tooltip.otherworldorigins.water_protection": "Water Protection",
   

@@ -158,7 +158,7 @@ dependencies {
     annotationProcessor ("org.spongepowered:mixin:${mixin_version}:processor")
 
     // Core
-    modImplementation("curse.maven:otherworld-core-1351232:7329769")
+    modImplementation("dev.muon:otherworld-1.20.1:${otherworld_core_version}")
     modRuntimeOnly("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
 
     // Dev Env
@@ -194,7 +194,6 @@ dependencies {
     modImplementation("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}")
     modImplementation("dev.shadowsoffire:ApothicAttributes:${minecraft_version}-${attributeslib_version}")
     modImplementation("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apotheosis_version}")
-    modImplementation("curse.maven:apotheosis-313970:6147871")
 
     // Legendary Survival Overhaul
     modImplementation("curse.maven:legendary-survival-overhaul-840254:6867014")
@@ -245,8 +244,8 @@ dependencies {
     modRuntimeOnly("curse.maven:auto-leveling-616126:4899526")
 
     // Traveloptics
-    modRuntimeOnly("curse.maven:to-tweaks-irons-spells-1046916:7413341")
-    modRuntimeOnly("curse.maven:alexs-caves-924854:5848216")
+    modRuntimeOnly("curse.maven:to-tweaks-irons-spells-1046916:7424522")
+    modImplementation("curse.maven:alexs-caves-924854:5848216")
     modRuntimeOnly("curse.maven:lendercataclysm-551586:6906993")
     modRuntimeOnly("curse.maven:lionfish-api-1001614:5922047")
 

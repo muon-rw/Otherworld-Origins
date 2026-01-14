@@ -1,4 +1,8 @@
 {
     "hidden": true,
-    "type": "origins:simple"
+    "type": "otherworldorigins:leveled_attribute",
+    "attribute": "minecraft:generic.max_health",
+    "operation": "addition",
+    "value_per_level": 6.0,
+    "starting_value": -10.0
 }

@@ -21,6 +21,8 @@ import io.redspace.ironsspellbooks.network.casting.OnClientCastPacket;
 import io.redspace.ironsspellbooks.network.casting.SyncTargetingDataPacket;
 import io.redspace.ironsspellbooks.network.casting.UpdateCastingStatePacket;
 import io.redspace.ironsspellbooks.setup.PacketDistributor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -30,12 +32,15 @@ import net.minecraft.world.entity.LivingEntity;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.entity.PartEntity;
 
@@ -82,12 +87,19 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         int powerLevel = configuration.powerLevel();
         MagicData magicData = MagicData.getPlayerMagicData(livingEntity);
 
-        // Handle case where entity is already casting - force completion of previous spell
+        // Handle case where entity is already casting - varies.
+        // TODO: Make this a configurable action json field instead of hardcoded behavior by entity type
+        // Requires own impl for cancel, Iron's only has logic for cancelling Player casting
         if (magicData.isCasting()) {
-            OtherworldOrigins.LOGGER.debug("CastSpellAction: Entity is still casting {}, forcing spell completion", magicData.getCastingSpellId());
-            AbstractSpell oldSpell = magicData.getCastingSpell().getSpell();
-            oldSpell.onCast(world, magicData.getCastingSpellLevel(), livingEntity, magicData.getCastSource(), magicData);
-            oldSpell.onServerCastComplete(world, magicData.getCastingSpellLevel(), livingEntity, magicData, false);
+            if (livingEntity instanceof ServerPlayer serverPlayer) {
+                OtherworldOrigins.LOGGER.debug("CastSpellAction: Player is still casting {}, cancelling previous cast", magicData.getCastingSpellId());
+                Utils.serverSideCancelCast(serverPlayer);
+            } else {
+                OtherworldOrigins.LOGGER.debug("CastSpellAction: Entity is still casting {}, force-completing old cast", magicData.getCastingSpellId());
+                AbstractSpell oldSpell = magicData.getCastingSpell().getSpell();
+                oldSpell.onCast(world, magicData.getCastingSpellLevel(), livingEntity, magicData.getCastSource(), magicData);
+                oldSpell.onServerCastComplete(world, magicData.getCastingSpellLevel(), livingEntity, magicData, false);
+            }
             magicData.resetCastingState();
             magicData = MagicData.getPlayerMagicData(livingEntity);
         }
@@ -112,7 +124,7 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
     }
 
     private void castSpellForPlayer(Configuration configuration, AbstractSpell spell, int powerLevel,
-                                     ServerPlayer serverPlayer, MagicData magicData, Level world) {
+                                    ServerPlayer serverPlayer, MagicData magicData, Level world) {
         Optional<Integer> castTimeOpt = configuration.castTime();
         Optional<Integer> manaCostOpt = configuration.manaCost();
 
@@ -123,8 +135,8 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         }
 
         if (!castResult.isSuccess() ||
-            !spell.checkPreCastConditions(world, powerLevel, serverPlayer, magicData) ||
-            MinecraftForge.EVENT_BUS.post(new SpellPreCastEvent(serverPlayer, spell.getSpellId(), powerLevel, spell.getSchoolType(), CastSource.COMMAND))) {
+                !spell.checkPreCastConditions(world, powerLevel, serverPlayer, magicData) ||
+                MinecraftForge.EVENT_BUS.post(new SpellPreCastEvent(serverPlayer, spell.getSpellId(), powerLevel, spell.getSchoolType(), CastSource.COMMAND))) {
             return;
         }
 
@@ -191,6 +203,8 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
 
     /**
      * Raycast from the caster's eyes to find a target entity.
+     * Uses a custom block raycast that ignores passable blocks (like grass, flowers)
+     * to match the client-side ShoulderSurfing behavior.
      */
     @Nullable
     private LivingEntity findTarget(LivingEntity caster, double distance) {
@@ -198,9 +212,8 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         Vec3 lookVec = caster.getLookAngle();
         Vec3 endPos = eyePos.add(lookVec.scale(distance));
 
-        // First check for block hit to limit our search
-        HitResult blockHit = caster.level().clip(new ClipContext(
-                eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, caster));
+        // Use custom block raycast that ignores passable blocks (grass, flowers, etc.)
+        HitResult blockHit = clipIgnoringPassableBlocks(caster.level(), eyePos, endPos, caster);
 
         double searchDist = blockHit.getType() != HitResult.Type.MISS
                 ? blockHit.getLocation().distanceTo(eyePos)
@@ -212,14 +225,73 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
                 .expandTowards(lookVec.scale(searchDist))
                 .inflate(1.0);
 
+        // Also accept PartEntity instances whose parent is a LivingEntity
         EntityHitResult entityHit = raycastForEntity(caster, eyePos, searchEnd, searchBox,
-                e -> !e.isSpectator() && e.isPickable() && e instanceof LivingEntity, searchDist);
+                e -> !e.isSpectator() && e.isPickable() &&
+                        (e instanceof LivingEntity ||
+                                (e instanceof PartEntity<?> part && part.getParent() instanceof LivingEntity)),
+                searchDist);
 
-        if (entityHit != null && entityHit.getEntity() instanceof LivingEntity target) {
-            return target;
+        if (entityHit != null) {
+            Entity hitEntity = entityHit.getEntity();
+            if (hitEntity instanceof LivingEntity target) {
+                return target;
+            } else if (hitEntity instanceof PartEntity<?> part && part.getParent() instanceof LivingEntity target) {
+                return target;
+            }
         }
 
         return null;
+    }
+
+    /**
+     * Performs a block raycast that ignores "passable" blocks.
+     * A block is considered passable if:
+     * - Its collision shape is empty, OR
+     * - Its hardness is 0 (instantly breakable, like grass)
+     * <p>
+     * This matches Better Combat's "swing thru grass" behavior and ensures
+     * consistency with the client-side ShoulderSurfing raycast.
+     */
+    private static HitResult clipIgnoringPassableBlocks(BlockGetter level, Vec3 start, Vec3 end, Entity entity) {
+        return BlockGetter.traverseBlocks(start, end, level, (blockGetter, blockPos) -> {
+            BlockState blockState = blockGetter.getBlockState(blockPos);
+
+            // Check if this block should be ignored (passable)
+            if (isPassableBlock(blockGetter, blockPos, blockState)) {
+                return null; // Continue through this block
+            }
+
+            // Check for actual collision
+            VoxelShape shape = blockState.getCollisionShape(blockGetter, blockPos);
+            if (shape.isEmpty()) {
+                return null; // No collision shape to hit
+            }
+
+            return shape.clip(start, end, blockPos);
+        }, (blockGetter) -> {
+            // Miss - return end position
+            Vec3 direction = start.subtract(end);
+            return BlockHitResult.miss(end,
+                    Direction.getNearest(direction.x, direction.y, direction.z),
+                    BlockPos.containing(end));
+        });
+    }
+
+    /**
+     * Determines if a block should be considered "passable" for raycast purposes.
+     * Matches Better Combat's logic for swing-through-grass.
+     */
+    private static boolean isPassableBlock(BlockGetter level, BlockPos pos, BlockState state) {
+        // Empty collision shape = passable (like flowers, small grass, etc.)
+        if (state.getCollisionShape(level, pos).isEmpty()) {
+            return true;
+        }
+        // Zero hardness = instantly breakable = passable (like tall grass)
+        if (state.getDestroySpeed(level, pos) == 0.0F) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -227,7 +299,7 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
      */
     @Nullable
     private EntityHitResult raycastForEntity(Entity caster, Vec3 start, Vec3 end, AABB bounds,
-                                              Predicate<Entity> filter, double maxDistance) {
+                                             Predicate<Entity> filter, double maxDistance) {
         double closestDist = maxDistance;
         Entity closestEntity = null;
         Vec3 hitPos = null;
@@ -253,14 +325,14 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
      * Update the magic data with target information and sync to client.
      */
     public static void updateTargetData(LivingEntity caster, Entity entityHit, MagicData playerMagicData,
-                                         AbstractSpell spell, Predicate<LivingEntity> filter) {
+                                        AbstractSpell spell, Predicate<LivingEntity> filter) {
         LivingEntity livingTarget = null;
 
         if (entityHit instanceof LivingEntity livingEntity && filter.test(livingEntity)) {
             livingTarget = livingEntity;
         } else if (entityHit instanceof PartEntity<?> partEntity &&
-                   partEntity.getParent() instanceof LivingEntity livingParent &&
-                   filter.test(livingParent)) {
+                partEntity.getParent() instanceof LivingEntity livingParent &&
+                filter.test(livingParent)) {
             livingTarget = livingParent;
         }
 
@@ -269,7 +341,7 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
 
             if (caster instanceof ServerPlayer serverPlayer) {
                 // if (spell.getCastType() != CastType.INSTANT) {
-                    PacketDistributor.sendToPlayer(serverPlayer, new SyncTargetingDataPacket(livingTarget, spell));
+                PacketDistributor.sendToPlayer(serverPlayer, new SyncTargetingDataPacket(livingTarget, spell));
                 // }
 //                serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
 //                        Component.translatable("ui.irons_spellbooks.spell_target_success",
@@ -354,8 +426,8 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         private final Optional<Double> raycastDistance;
 
         public Configuration(ResourceLocation spell, int powerLevel, Optional<Integer> castTime,
-                           Optional<Integer> manaCost, boolean continuousCost, int costInterval,
-                           Optional<Double> raycastDistance) {
+                             Optional<Integer> manaCost, boolean continuousCost, int costInterval,
+                             Optional<Double> raycastDistance) {
             this.spell = spell;
             this.powerLevel = powerLevel;
             this.castTime = castTime;

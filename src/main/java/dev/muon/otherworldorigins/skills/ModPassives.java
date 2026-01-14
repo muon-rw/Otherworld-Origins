@@ -18,7 +18,7 @@ public class ModPassives {
             new Passive(
                     OtherworldOrigins.loc("magic_mana"),
                     RegistryAptitudes.MAGIC.get(),
-                    new ResourceLocation(JustLevelingFork.MOD_ID,"textures/skill/magic/locked_0.png"),
+                    ResourceLocation.fromNamespaceAndPath(JustLevelingFork.MOD_ID, "textures/skill/magic/locked_0.png"),
                     AttributeRegistry.MAX_MANA.get(),
                     "A361E604-9547-E8AB-E743-62273EF1DFCA",
                     400.0,
@@ -29,11 +29,22 @@ public class ModPassives {
             new Passive(
                     OtherworldOrigins.loc("int_spell_power"),
                     RegistryAptitudes.INTELLIGENCE.get(),
-                    new ResourceLocation(JustLevelingFork.MOD_ID,"textures/skill/intelligence/locked_16.png"),
+                    ResourceLocation.fromNamespaceAndPath(JustLevelingFork.MOD_ID, "textures/skill/intelligence/locked_16.png"),
                     AttributeRegistry.SPELL_POWER.get(),
                     "C1CF34A5-DC32-B815-81C3-01AB00612506",
                     1.0,
-                    2, 4, 6, 8, 10, 12, 14, 16, 18, 20
+                    4, 8, 12, 16, 20
+            ));
+
+    public static final RegistryObject<Passive> INT_COOLDOWN_REDUCTION = PASSIVES.register("int_cooldown_reduction", () ->
+            new Passive(
+                    OtherworldOrigins.loc("int_cooldown_reduction"),
+                    RegistryAptitudes.INTELLIGENCE.get(),
+                    ResourceLocation.fromNamespaceAndPath(JustLevelingFork.MOD_ID, "textures/skill/intelligence/passive_attack_speed.png"),
+                    AttributeRegistry.COOLDOWN_REDUCTION.get(),
+                    "96a891fe-5919-418d-8205-f50464391509",
+                    0.2,
+                    2, 6, 10, 14, 18
             ));
 
     public static void register(IEventBus eventBus) {

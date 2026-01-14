@@ -9,7 +9,8 @@
             "type": "otherworldorigins:cast_spell",
             "spell": "gust",
             "power_level": 3,
-            "mana_cost": 0
+            "mana_cost": 0,
+            "cast_time": 0
         },
         "hud_render": {
             "should_render": true,

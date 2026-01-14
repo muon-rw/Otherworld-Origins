@@ -1,4 +1,11 @@
 {
-    "type": "otherworldorigins:charisma",
-    "amount": 0.5
+    "type": "origins:multiple",
+    "charisma": {
+        "type": "otherworldorigins:charisma",
+        "amount": 0.5
+    },
+    "trade_discount": {
+        "type": "otherworldorigins:trade_discount",
+        "amount": 0.1
+    }
 }

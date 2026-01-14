@@ -47,7 +47,7 @@ public class LeveledAttributePower extends PowerFactory<LeveledAttributePower.Co
         if (attributeInstance != null) {
             removeModifier(configuration, player); // Remove existing modifier if any
             int level = LevelingUtils.getPlayerLevel(player);
-            double value = configuration.startingValue + (level * configuration.valuePerLevel);
+            double value = configuration.startingValue + ((level - 1) * configuration.valuePerLevel);
             AttributeModifier modifier = new AttributeModifier(
                     MODIFIER_UUID,
                     "Leveled Attribute Bonus",

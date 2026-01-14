@@ -1,7 +1,17 @@
 {
-  "type": "otherworldorigins:innate_aptitude_bonus",
-  "aptitude_bonuses": {
-    "magic": 1
+  "hidden": true,
+  "type": "origins:multiple",
+  "apt": {
+    "type": "otherworldorigins:innate_aptitude_bonus",
+    "aptitude_bonuses": {
+      "magic": 1
+    }
   },
-  "hidden": true
+  "health": {
+    "type": "otherworldorigins:leveled_attribute",
+    "attribute": "minecraft:generic.max_health",
+    "operation": "addition",
+    "value_per_level": 6.0,
+    "starting_value": -10.0
+  }
 }

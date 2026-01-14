@@ -29,12 +29,12 @@ public class BowItemMixin {
             abstractarrow.setBaseDamage(abstractarrow.getBaseDamage() - damageReduction);
         }
 
-        if (!EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.PUNCH_ARROWS)) {
-            abstractarrow.setKnockback(0);
-        }
+//        if (!EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.PUNCH_ARROWS)) {
+//            abstractarrow.setKnockback(0);
+//        }
 
-        if (!EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.FLAMING_ARROWS)) {
-            abstractarrow.clearFire();
-        }
+//        if (!EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.FLAMING_ARROWS)) {
+//            abstractarrow.clearFire();
+//        }
     }
 }

@@ -1,6 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:class/druid/attributes"
+		"otherworldorigins:class/druid/attributes",
+		"otherworldorigins:cantrip_desc"
 	],
 	"icon": {
 		"item": "valoria:nature_gift"
