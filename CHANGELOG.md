@@ -1,3 +1,6 @@
+## 1.4.2
+- Hid druid attributes
+
 ## 1.4.1
 - Fix leveled health resetting on death
 - Fix rangers not actually receiving leveled health

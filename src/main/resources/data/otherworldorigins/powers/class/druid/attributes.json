@@ -1,4 +1,5 @@
 {
+    "hidden": true,
     "type": "otherworldorigins:leveled_attribute",
     "attribute": "minecraft:generic.max_health",
     "operation": "addition",
