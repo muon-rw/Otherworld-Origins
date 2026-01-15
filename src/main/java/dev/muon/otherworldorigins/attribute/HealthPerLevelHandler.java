@@ -91,10 +91,9 @@ public class HealthPerLevelHandler {
             return;
         }
 
-        // Store previous health state for proportional healing
+        // Store previous health state for percentage-based health preservation
         float previousMaxHealth = player.getMaxHealth();
-        float previousHealth = player.getHealth();
-        float missingHealth = previousMaxHealth - previousHealth;
+        float previousHealthPercent = previousMaxHealth > 0 ? player.getHealth() / previousMaxHealth : 1.0f;
 
         // Remove existing modifier
         maxHealthAttr.removeModifier(HEALTH_PER_LEVEL_MODIFIER_UUID);
@@ -109,21 +108,21 @@ public class HealthPerLevelHandler {
         lastKnownAttributeValues.put(player, healthPerLevelValue);
 
         if (modifierValue > 0) {
-            // Apply new modifier
+            // Apply new modifier using transient modifier for consistency with LeveledAttributePower
+            // (transient modifiers are automatically cleaned up on death/relog, preventing orphans)
             AttributeModifier modifier = new AttributeModifier(
                     HEALTH_PER_LEVEL_MODIFIER_UUID,
                     "Health per Character Level",
                     modifierValue,
                     AttributeModifier.Operation.ADDITION
             );
-            maxHealthAttr.addPermanentModifier(modifier);
+            maxHealthAttr.addTransientModifier(modifier);
 
-            // Proportionally heal the player: maintain equivalent missing health
-            // Example: 5/8 health (missing 3) -> add 3 max -> 8/11 health (still missing 3)
+            // Preserve health percentage: if you were at 50% health, stay at 50%
+            // This is neutral (no free healing) and consistent with LeveledAttributePower
             float newMaxHealth = player.getMaxHealth();
             if (newMaxHealth != previousMaxHealth && newMaxHealth > 0) {
-                float newHealth = Math.max(previousHealth, newMaxHealth - missingHealth);
-                player.setHealth(newHealth);
+                player.setHealth(newMaxHealth * previousHealthPercent);
             }
         }
     }

@@ -1,5 +1,6 @@
 {
 	"powers": [
+		"otherworldorigins:class/ranger/attributes"
 	],
 	"icon": {
 		"item": "otherworldorigins:class/ranger"

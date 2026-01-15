@@ -31,7 +31,7 @@
   "passive.otherworldorigins.int_cooldown_reduction": "Cooldown Reduction",
   "passive.otherworldorigins.int_cooldown_reduction.description": "Reduces the time between spell casts.",
   "passive.otherworldorigins.health_per_level": "Constitution Modifier",
-  "passive.otherworldorigins.health_per_level.description": "Gain an additional heart per Character Level.",
+  "passive.otherworldorigins.health_per_level.description": "Gain an additional 1/2 heart per Character Level.",
 
   "otherworldorigins.tooltip.advanced_table_restricted": "Requires the Legendary Smith Skill and an Underdark subrace",
   "otherworldorigins.tooltip.basic_table_restricted": "Requires an Underdark subrace, or the Legendary Smith skill",

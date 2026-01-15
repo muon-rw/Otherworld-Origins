@@ -1,3 +1,7 @@
+## 1.4.1
+- Fix leveled health resetting on death
+- Fix rangers not actually receiving leveled health
+
 ## 1.4.0
 - Chain Lightning cantrip and now be cast on multi-part entities like dragons
 - Ability-cast shoulder surfing auto-rotate now works through grass/plants
