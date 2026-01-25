@@ -11,6 +11,7 @@ import dev.muon.otherworldorigins.network.*;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.restrictions.SpellCategoryMapper;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
+import dev.muon.otherworldorigins.school.ModSchools;
 import dev.muon.otherworldorigins.skills.ModPassives;
 import dev.muon.otherworldorigins.skills.ModSkills;
 import dev.muon.otherworldorigins.spells.ModSpells;
@@ -63,9 +64,12 @@ public class OtherworldOrigins {
         ModConditions.register(modEventBus);
         ModPowers.register(modEventBus);
 
+        ModSchools.register(modEventBus);
         ModSpells.register(modEventBus);
+
         ModPassives.register(modEventBus);
         ModSkills.register(modEventBus);
+
 
         MinecraftForge.EVENT_BUS.register(this);
 
