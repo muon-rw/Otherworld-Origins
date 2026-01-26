@@ -25,7 +25,9 @@ public class ApothEnchantmentMenuMixin {
 
     /**
      * Modifies the enchantment cost after it's calculated.
+     * // TODO:
      * This reduces both the level requirement and affects enchantment quality proportionally.
+     * Needs to affect only requirement
      */
     @ModifyExpressionValue(
             method = "lambda$slotsChanged$1",
