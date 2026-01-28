@@ -139,7 +139,7 @@ public class OtherworldOriginsConfig {
         // Cleric
         restrictions.put("cleric/knowledge", Arrays.asList("irons_spellbooks:holy", "irons_spellbooks:ender"));
         restrictions.put("cleric/life", Arrays.asList("irons_spellbooks:holy"));
-        restrictions.put("cleric/tempest", Arrays.asList("irons_spellbooks:holy", "irons_spellbooks:lightning", "irons_spellbooks:aqua"));
+        restrictions.put("cleric/tempest", Arrays.asList("irons_spellbooks:holy", "irons_spellbooks:lightning", "traveloptics:aqua"));
         restrictions.put("cleric/trickery", Arrays.asList("irons_spellbooks:holy", "irons_spellbooks:ender"));
         restrictions.put("cleric/war", Arrays.asList("irons_spellbooks:holy"));
 
