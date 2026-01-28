@@ -77,7 +77,7 @@ repositories {
     }
 
     maven { url = "https://maven.bawnorton.com/releases" }
-
+    maven { url = "https://maven.muon.rip/releases"}
     maven {
         name = "Modrinth"
         url = "https://api.modrinth.com/maven"
@@ -158,7 +158,8 @@ dependencies {
     annotationProcessor ("org.spongepowered:mixin:${mixin_version}:processor")
 
     // Core
-    modImplementation("dev.muon:otherworld-1.20.1:${otherworld_core_version}")
+
+    modImplementation("dev.muon:otherworld-1.20.1:${otherworld_core_version}+1.20.1")
     modRuntimeOnly("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
 
     // Dev Env

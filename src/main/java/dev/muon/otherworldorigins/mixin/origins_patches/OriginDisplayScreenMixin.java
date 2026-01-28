@@ -5,13 +5,18 @@ import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import io.github.apace100.origins.screen.OriginDisplayScreen;
 import io.github.edwinmindcraft.origins.api.origin.Origin;
+import io.redspace.ironsspellbooks.IronsSpellbooks;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
+import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
+import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.SchoolType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,28 +28,33 @@ import java.util.stream.Collectors;
 
 @Mixin(value = OriginDisplayScreen.class, remap = false)
 public abstract class OriginDisplayScreenMixin {
-    
-    @Shadow public abstract Holder<Origin> getCurrentOrigin();
-    
+
+    @Shadow
+    public abstract Holder<Origin> getCurrentOrigin();
+
     @ModifyExpressionValue(method = "renderOriginContent", at = @At(value = "INVOKE", ordinal = 0, target = "Lio/github/edwinmindcraft/origins/api/origin/Origin;getDescription()Lnet/minecraft/network/chat/Component;"))
     private Component appendSpellAndEnchantmentInfo(Component orgDesc) {
         Holder<Origin> currentOrigin = this.getCurrentOrigin();
-        
+
         if (!currentOrigin.isBound()) return orgDesc;
-        
+
         String originPath = currentOrigin.unwrapKey()
                 .map(key -> key.location().getPath())
                 .orElse("");
-        
+
         MutableComponent modifiedDesc = orgDesc.copy();
-        
+
         if (originPath.startsWith("subclass/")) {
             modifiedDesc = appendSubclassSpellAccess(modifiedDesc, originPath.substring("subclass/".length()));
         } else if (originPath.startsWith("class/")) {
             modifiedDesc = appendClassSpellAccess(modifiedDesc, originPath.substring("class/".length()));
             modifiedDesc = appendEnchantmentAccess(modifiedDesc, originPath.substring("class/".length()));
+        } else if (originPath.startsWith("cantrips/two/")) {
+            modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/two/".length()));
+        } else if (originPath.startsWith("cantrips/")) {
+            modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/".length()));
         }
-        
+
         return modifiedDesc;
     }
 
@@ -52,15 +62,15 @@ public abstract class OriginDisplayScreenMixin {
     private MutableComponent appendSubclassSpellAccess(MutableComponent desc, String path) {
         Map<String, List<String>> categoryRestrictions = OtherworldOriginsConfig.getClassRestrictions();
         Map<String, List<String>> schoolRestrictions = OtherworldOriginsConfig.getSchoolRestrictions();
-        
+
         List<String> categories = categoryRestrictions.get(path);
         List<String> schools = schoolRestrictions.get(path);
-        
-        boolean hasAllCategories = categories != null && 
+
+        boolean hasAllCategories = categories != null &&
                 new HashSet<>(categories).containsAll(Arrays.asList("OFFENSIVE", "SUPPORT", "DEFENSIVE"));
         boolean hasCategories = categories != null && !categories.isEmpty();
         boolean hasSchools = schools != null && !schools.isEmpty();
-        
+
         // If has all 3 categories, just show "All spells" (schools are redundant)
         if (hasAllCategories) {
             desc.append("\n\n").append(
@@ -70,7 +80,7 @@ public abstract class OriginDisplayScreenMixin {
             desc.append("\n").append(Component.translatable("otherworldorigins.gui.all_spells"));
             return desc;
         }
-        
+
         // If neither categories nor schools, show "No spells"
         if (!hasCategories && !hasSchools) {
             desc.append("\n\n").append(
@@ -91,15 +101,15 @@ public abstract class OriginDisplayScreenMixin {
         if (hasCategories) {
             desc.append("\n").append(otherworld$formatCategoryAccess(categories));
         }
-        
+
         // Display school access (colored by school type)
         if (hasSchools) {
             desc.append("\n").append(otherworld$formatSchoolAccess(schools));
         }
-        
+
         return desc;
     }
-    
+
     @Unique
     private Component otherworld$formatCategoryAccess(List<String> categories) {
         if (categories.size() == 1) {
@@ -118,24 +128,24 @@ public abstract class OriginDisplayScreenMixin {
             return Component.translatable("otherworldorigins.gui.all_category_spells", formatted);
         }
     }
-    
+
     @Unique
     private Component otherworld$formatSchoolAccess(List<String> schoolIds) {
         List<SchoolType> schoolTypes = new ArrayList<>();
         for (String schoolId : schoolIds) {
-            ResourceLocation loc = schoolId.contains(":") 
-                    ? new ResourceLocation(schoolId) 
-                    : new ResourceLocation("irons_spellbooks", schoolId);
+            ResourceLocation loc = schoolId.contains(":")
+                    ? ResourceLocation.tryParse(schoolId)
+                    : ResourceLocation.fromNamespaceAndPath(IronsSpellbooks.MODID, schoolId);
             SchoolType schoolType = otherworld$getSchoolType(loc);
             if (schoolType != null) {
                 schoolTypes.add(schoolType);
             }
         }
-        
+
         if (schoolTypes.isEmpty()) {
             return Component.empty();
         }
-        
+
         if (schoolTypes.size() == 1) {
             Component schoolName = otherworld$getStyledSchoolName(schoolTypes.get(0));
             return Component.translatable("otherworldorigins.gui.all_school_spells", schoolName);
@@ -159,19 +169,19 @@ public abstract class OriginDisplayScreenMixin {
             return Component.translatable("otherworldorigins.gui.all_school_spells", schoolList);
         }
     }
-    
+
     @Unique
     private Component otherworld$getStyledSchoolName(SchoolType school) {
         Style schoolStyle = school.getDisplayName().getStyle();
         return Component.literal(otherworld$formatSchoolName(school)).withStyle(schoolStyle);
     }
-    
+
     @Unique
     private String otherworld$formatSchoolName(SchoolType school) {
         String name = school.getId().getPath();
         return name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     }
-    
+
     @Unique
     private SchoolType otherworld$getSchoolType(ResourceLocation id) {
         if (SchoolRegistry.REGISTRY.get() == null) return null;
@@ -187,7 +197,7 @@ public abstract class OriginDisplayScreenMixin {
                 .filter(entry -> entry.getKey().startsWith(className + "/"))
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toSet());
-        
+
         Set<List<String>> subclassSchoolRestrictions = schoolRestrictions.entrySet().stream()
                 .filter(entry -> entry.getKey().startsWith(className + "/"))
                 .map(Map.Entry::getValue)
@@ -205,7 +215,7 @@ public abstract class OriginDisplayScreenMixin {
         boolean allNoSpells = subclassCategoryRestrictions.stream()
                 .allMatch(list -> list == null || list.isEmpty()) &&
                 subclassSchoolRestrictions.stream()
-                .allMatch(list -> list == null || list.isEmpty());
+                        .allMatch(list -> list == null || list.isEmpty());
 
         // Check if all subclasses have all 3 categories (schools don't matter then)
         boolean allAllSpells = subclassCategoryRestrictions.stream()
@@ -249,10 +259,26 @@ public abstract class OriginDisplayScreenMixin {
             Component enchantmentName = Component.translatable(enchantment.getDescriptionId());
             Component fullMessage = Component.translatable("otherworldorigins.gui.enchantment_restriction",
                     formattedClass,
-                    enchantmentName).withStyle(style -> style.withColor(16738047));;
+                    enchantmentName).withStyle(style -> style.withColor(16738047));
+            ;
             desc.append("\n").append(Component.literal("• ")).append(fullMessage);
         }
-        
+
+        return desc;
+    }
+
+    @Unique
+    private MutableComponent appendCantripDesc(MutableComponent desc, String className) {
+
+        // TODO: Implement support for other namespaces, will need to add to codec and parse power data
+        ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(IronsSpellbooks.MODID, className);
+        AbstractSpell spell = SpellRegistry.getSpell(spellId);
+
+        Component spellDesc = Component.translatable("spell." + spellId.getNamespace() + "." + spellId.getPath() + ".guide")
+                .withStyle(style -> style.withItalic(true));
+
+        desc.append("\n\n").append(spellDesc);
+
         return desc;
     }
 
