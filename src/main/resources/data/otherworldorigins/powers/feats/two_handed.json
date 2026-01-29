@@ -1,0 +1,18 @@
+{
+    "hidden": true,
+    "type": "origins:conditioned_attribute",
+    "modifiers": [
+        {
+            "operation": "multiply_base",
+            "value": 0.1,
+            "attribute": "minecraft:generic.attack_damage"
+        }
+    ],
+    "condition": {
+        "type": "origins:equipped_item",
+        "equipment_slot": "mainhand",
+        "item_condition": {
+            "type": "otherworldorigins:is_two_handed"
+        }
+    }
+}

@@ -1,8 +1,9 @@
 {
     "hidden": true,
-    "type": "origins:modify_projectile_damage",
+    "type": "origins:conditioned_attribute",
     "modifier": {
-        "operation": "addition",
-        "value": 2
+        "attribute": "attributeslib:arrow_velocity",
+        "operation": "multiply_total",
+        "value": 0.1
     }
 }

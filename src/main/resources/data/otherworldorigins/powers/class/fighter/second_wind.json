@@ -1,0 +1,23 @@
+{
+    "type": "origins:active_self",
+    "key": "key.origins.secondary_active",
+    "cooldown": 600,
+    "entity_action": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "otherworldorigins:leveled_restore",
+                "base": 4,
+                "per_level": 2
+            },
+            {
+                "type": "origins:exhaust",
+                "amount": 8
+            },
+            {
+                "type": "origins:execute_command",
+                "command": "particle minecraft:heart ^ ^1 ^ 0.3 0.3 0.3 1 10 force"
+            }
+        ]
+    }
+}

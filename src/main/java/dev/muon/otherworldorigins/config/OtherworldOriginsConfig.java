@@ -1,5 +1,6 @@
 package dev.muon.otherworldorigins.config;
 
+import io.redspace.ironsspellbooks.IronsSpellbooks;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.minecraft.resources.ResourceLocation;
@@ -16,6 +17,7 @@ public class OtherworldOriginsConfig {
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> DEFENSIVE_SPELLS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> UNRESTRICTED_SPELLS;
     public static final ForgeConfigSpec.BooleanValue ENABLE_ENCHANTMENT_RESTRICTIONS;
+    public static final ForgeConfigSpec.BooleanValue ENABLE_DURABILITY_REWORK;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> STARTER_KIT_ITEMS;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SHOULDER_SURFING_ROTATION_BLACKLIST;
     private static final Map<String, List<String>> DEFAULT_CLASS_RESTRICTIONS = createDefaultRestrictions();
@@ -241,6 +243,10 @@ public class OtherworldOriginsConfig {
                 .comment(" Enable class-based enchantment restrictions")
                 .define("enableEnchantmentRestrictions", true);
         BUILDER.pop();
+        BUILDER.push("Durability Rework");
+        ENABLE_DURABILITY_REWORK = BUILDER
+                .comment("Enable Durability Reowrk")
+                .define("enableDurabilityRework", true);
         BUILDER.push("Spell Restrictions");
         BUILDER.comment(
                 " Valid spell categories are: OFFENSIVE, SUPPORT, DEFENSIVE",
@@ -395,9 +401,9 @@ public class OtherworldOriginsConfig {
         try {
             ResourceLocation loc;
             if (str.contains(":")) {
-                loc = new ResourceLocation(str);
+                loc = ResourceLocation.tryParse(str);
             } else {
-                loc = new ResourceLocation("irons_spellbooks", str);
+                loc = ResourceLocation.fromNamespaceAndPath(IronsSpellbooks.MODID, str);
             }
             return SpellRegistry.getSpell(loc) != SpellRegistry.none();
         } catch (Exception e) {

@@ -4,15 +4,22 @@
     "melee": {
         "type": "origins:modify_damage_dealt",
         "modifier": {
-            "operation": "addition",
-            "value": 1
+            "operation": "multiply_base",
+            "value": 0.1
+        },
+        "condition": {
+            "type": "origins:equipped_item",
+            "item_condition": {
+                "type": "otherworldorigins:is_melee_weapon"
+            },
+            "equipment_slot": "mainhand"
         }
     },
     "proj": {
         "type": "origins:modify_projectile_damage",
         "modifier": {
-            "operation": "addition",
-            "value": 1
+            "operation": "multiply_base",
+            "value": 0.1
         }
     }
 }

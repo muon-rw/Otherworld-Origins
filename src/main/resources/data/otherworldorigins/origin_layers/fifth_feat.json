@@ -368,6 +368,26 @@
       "origins": [
         "otherworldorigins:feats/weapon_master"
       ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/two_handed",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:feats/two_handed"
+      ]
     }
   ]
 }

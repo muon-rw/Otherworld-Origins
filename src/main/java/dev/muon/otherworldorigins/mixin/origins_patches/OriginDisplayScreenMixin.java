@@ -270,9 +270,10 @@ public abstract class OriginDisplayScreenMixin {
     @Unique
     private MutableComponent appendCantripDesc(MutableComponent desc, String className) {
 
-        // TODO: Implement support for other namespaces, will need to add to codec and parse power data
+        // TODO: Implement support for other namespaces, just add fallback chain of namespace parsing
+        // Then verify retrieved spell is not none spell
         ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(IronsSpellbooks.MODID, className);
-        AbstractSpell spell = SpellRegistry.getSpell(spellId);
+        // AbstractSpell spell = SpellRegistry.getSpell(spellId);
 
         Component spellDesc = Component.translatable("spell." + spellId.getNamespace() + "." + spellId.getPath() + ".guide")
                 .withStyle(style -> style.withItalic(true));

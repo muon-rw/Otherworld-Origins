@@ -1,6 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:class/fighter/attributes"
+		"otherworldorigins:class/fighter/attributes",
+		"otherworldorigins:class/fighter/second_wind"
 	],
 	"icon": {
 		"item": "otherworldorigins:class/fighter"

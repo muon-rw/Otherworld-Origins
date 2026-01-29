@@ -1,10 +1,9 @@
 {
     "hidden": true,
-    "type": "origins:conditioned_attribute",
+    "type": "origins:modify_damage_taken",
     "modifier": {
-        "attribute": "minecraft:generic.armor",
-        "operation": "addition",
-        "value": 2
+        "operation": "multiply_total",
+        "value": -0.1
     },
     "condition": {
         "type": "origins:equipped_item",

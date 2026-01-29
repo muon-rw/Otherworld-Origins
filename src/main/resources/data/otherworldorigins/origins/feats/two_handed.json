@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"otherworldorigins:feats/two_handed"
+	],
+	"icon": {
+		"item": "otherworldorigins:feats/two_handed"
+	},
+	"impact": 1,
+	"order": 0
+}

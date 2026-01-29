@@ -9,7 +9,7 @@
         }
     },
     "modifier": {
-        "operation": "addition",
-        "value": 5
+        "operation": "multiply_base",
+        "value": 0.3
     }
 }
