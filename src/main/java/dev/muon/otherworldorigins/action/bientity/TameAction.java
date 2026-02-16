@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.action;
+package dev.muon.otherworldorigins.action.bientity;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;

@@ -6,7 +6,7 @@
         "type": "origins:and",
         "actions": [
             {
-                "type": "otherworldorigins:leveled_restore",
+                "type": "otherworldorigins:leveled_heal",
                 "base": 4,
                 "per_level": 2
             },

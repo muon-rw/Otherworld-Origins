@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.action;
+package dev.muon.otherworldorigins.action.entity;
 
 import dev.muon.otherworldorigins.util.IEnchantmentSeedResettable;
 import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;

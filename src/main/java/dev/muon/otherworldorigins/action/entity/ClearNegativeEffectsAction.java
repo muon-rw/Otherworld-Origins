@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.action;
+package dev.muon.otherworldorigins.action.entity;
 
 import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;

@@ -337,7 +337,7 @@
 
 "origin.otherworldorigins.class/monk.description": "• 8 Hearts + 3/Level\n\n§nSubclasses§r\nWay of the Four Elements\nWay of the Open Hand\nWay of Shadow",
 
-"origin.otherworldorigins.class/paladin.description": "• 10 Hearts + 4/Level\n\n§nSubclasses§r\nOath of the Ancients\nOath of Devotion\nOath of Vengeance\nOath Breaker",
+"origin.otherworldorigins.class/paladin.description": "• 10 Hearts + 4/Level\n• Lay on Hands\n\n§nSubclasses§r\nOath of the Ancients\nOath of Devotion\nOath of Vengeance\nOath Breaker",
 
 "origin.otherworldorigins.class/ranger.description": "• 10 Hearts + 4/Level\n\n§nSubclasses§r\nBeast Master\nGloom Stalker\nHunter",
 
@@ -469,6 +469,9 @@
 
 "power.otherworldorigins.class/fighter/second_wind.name": "Second Wind",
 "power.otherworldorigins.class/fighter/second_wind.description": "Heal yourself for 4 Hearts + 1/Level, at the cost of hunger. 1 minute cooldown.",
+
+"power.otherworldorigins.class/paladin/lay_on_hands.name": "Lay on Hands",
+"power.otherworldorigins.class/paladin/lay_on_hands.description": "You have a healing pool equal to your level × 5 hearts. Aim at a living target within 4 blocks to heal them, or heal yourself if no target is hit, drawing from your remaining pool. Refill your pool by sleeping.",
 
 "power.otherworldorigins.subclass/barbarian/wildheart.name": "Key Info:",
 "power.otherworldorigins.subclass/barbarian/wildheart.description": "",

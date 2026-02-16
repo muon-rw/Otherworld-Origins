@@ -1,0 +1,142 @@
+{
+    "type": "origins:multiple",
+    "pool": {
+        "type": "otherworldorigins:leveled_resource",
+        "min": 0,
+        "max_base": 0,
+        "max_per_level": 10,
+        "start_value": 200,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 20
+        }
+    },
+    "sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_pool",
+            "modifier": {
+                "operation": "set_total",
+                "value": 200
+            }
+        }
+    },
+    "level": {
+        "type": "otherworldorigins:action_on_levelup",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_pool",
+            "modifier": {
+                "operation": "set_total",
+                "value": 200
+            }
+        }
+    },
+    "heal": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.origins.secondary_active",
+            "continuous": true
+        },
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_pool",
+            "compare_to": 0,
+            "comparison": ">"
+        },
+        "entity_action": {
+            "type": "origins:raycast",
+            "entity": true,
+            "block": false,
+            "fluid_handling": "none",
+            "distance": 4,
+            "bientity_condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "origins:living"
+                        }
+                    },
+                    {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "origins:relative_health",
+                            "compare_to": 1,
+                            "comparison": "<"
+                        }
+                    }
+                ]
+            },
+            "bientity_action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "otherworldorigins:raycast_between",
+                        "particle": {
+                            "type": "minecraft:composter"
+                        },
+                        "spacing": 0.3
+                    },
+                    {
+                        "type": "origins:actor_action",
+                        "action": {
+                            "type": "origins:modify_resource",
+                            "resource": "*:*_pool",
+                            "modifier": {
+                                "operation": "add_base_early",
+                                "value": -1
+                            }
+                        }
+                    },
+                    {
+                        "type": "origins:target_action",
+                        "action": {
+                            "type": "origins:heal",
+                            "amount": 1
+                        }
+                    },
+                    {
+                        "type": "origins:target_action",
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "particle minecraft:heart ^ ^1 ^ 0.3 0.3 0.3 1 1 force"
+                        }
+                    }
+                ]
+            },
+            "miss_action": {
+                "type": "origins:if_else",
+                "condition": {
+                    "type": "origins:relative_health",
+                    "compare_to": 1,
+                    "comparison": "<"
+                },
+                "if_action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:modify_resource",
+                            "resource": "*:*_pool",
+                            "modifier": {
+                                "operation": "add_base_early",
+                                "value": -1
+                            }
+                        },
+                        {
+                            "type": "origins:heal",
+                            "amount": 1
+                        },
+                        {
+                            "type": "origins:execute_command",
+                            "command": "particle minecraft:heart ^ ^1 ^ 0.3 0.3 0.3 1 1 force"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

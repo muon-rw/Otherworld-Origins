@@ -118,6 +118,7 @@ public class ModItems {
     public static final RegistryObject<Item> DEFENSIVE_DUELIST = ITEMS.register("feats/defensive_duelist", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SAVAGE_ATTACKER = ITEMS.register("feats/savage_attacker", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> RESILIENT = ITEMS.register("feats/resilient", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> TWO_HANDED = ITEMS.register("feats/two_handed", () -> new Item(new Item.Properties()));
 
     /** Cantrips */
     public static final RegistryObject<Item> GUST = ITEMS.register("cantrips/gust", () -> new Item(new Item.Properties()));

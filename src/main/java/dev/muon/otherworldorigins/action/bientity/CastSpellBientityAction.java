@@ -1,8 +1,9 @@
-package dev.muon.otherworldorigins.action;
+package dev.muon.otherworldorigins.action.bientity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.action.entity.CastSpellAction;
 import io.github.apace100.calio.data.SerializableDataTypes;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.factory.BiEntityAction;

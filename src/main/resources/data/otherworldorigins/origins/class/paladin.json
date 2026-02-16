@@ -1,6 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:class/paladin/attributes"
+		"otherworldorigins:class/paladin/attributes",
+		"otherworldorigins:class/paladin/lay_on_hands"
 	],
 	"icon": {
 		"item": "irons_spellbooks:priest_helmet"

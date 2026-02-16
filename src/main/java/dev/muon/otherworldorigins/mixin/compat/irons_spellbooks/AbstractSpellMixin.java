@@ -1,7 +1,6 @@
 package dev.muon.otherworldorigins.mixin.compat.irons_spellbooks;
 
-import dev.muon.otherworldorigins.OtherworldOrigins;
-import dev.muon.otherworldorigins.action.CastSpellAction;
+import dev.muon.otherworldorigins.action.entity.CastSpellAction;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.minecraft.server.level.ServerPlayer;

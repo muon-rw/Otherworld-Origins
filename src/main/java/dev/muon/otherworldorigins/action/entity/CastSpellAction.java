@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.action;
+package dev.muon.otherworldorigins.action.entity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

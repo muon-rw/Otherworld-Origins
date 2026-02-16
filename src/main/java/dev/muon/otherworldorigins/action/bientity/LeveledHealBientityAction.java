@@ -1,30 +1,30 @@
-package dev.muon.otherworldorigins.action;
+package dev.muon.otherworldorigins.action.bientity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworld.leveling.LevelingUtils;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
-import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
+import io.github.edwinmindcraft.apoli.api.power.factory.BiEntityAction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 
-public class LeveledRestoreAction extends EntityAction<LeveledRestoreAction.Configuration> {
+public class LeveledHealBientityAction extends BiEntityAction<LeveledHealBientityAction.Configuration> {
 
-    public LeveledRestoreAction() {
+    public LeveledHealBientityAction() {
         super(Configuration.CODEC);
     }
 
     @Override
-    public void execute(Configuration configuration, Entity entity) {
-        if (!(entity instanceof LivingEntity livingEntity) || entity.level().isClientSide()) {
+    public void execute(Configuration configuration, Entity actor, Entity target) {
+        if (!(target instanceof LivingEntity livingTarget) || actor.level().isClientSide()) {
             return;
         }
 
-        int level = livingEntity instanceof Player player ? LevelingUtils.getPlayerLevel(player) : 1;
+        int level = actor instanceof Player player ? LevelingUtils.getPlayerLevel(player) : 1;
         float healAmount = configuration.base() + (configuration.perLevel() * level);
-        
-        livingEntity.heal(healAmount);
+
+        livingTarget.heal(healAmount);
     }
 
     public record Configuration(
@@ -42,4 +42,3 @@ public class LeveledRestoreAction extends EntityAction<LeveledRestoreAction.Conf
         }
     }
 }
-
