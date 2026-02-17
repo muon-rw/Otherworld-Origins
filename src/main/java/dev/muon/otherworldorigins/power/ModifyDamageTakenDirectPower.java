@@ -26,8 +26,8 @@ public class ModifyDamageTakenDirectPower extends ValueModifyingPowerFactory<Mod
 
     public static float modify(Entity entity, DamageSource source, float amount) {
         return IPowerContainer.modify(entity, ModPowers.MODIFY_DAMAGE_TAKEN.get(), amount,
-                holder -> ((ModifyDamageTakenDirectPower) holder.value().getFactory()).check(holder.value(), entity, source, amount),
-                holder -> ((ModifyDamageTakenDirectPower) holder.value().getFactory()).execute(holder.value(), entity, source));
+                holder -> holder.value().getFactory().check(holder.value(), entity, source, amount),
+                holder -> holder.value().getFactory().execute(holder.value(), entity, source));
     }
 
     /**
