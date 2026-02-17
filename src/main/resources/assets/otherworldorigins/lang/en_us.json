@@ -42,6 +42,9 @@
   "skill.otherworldorigins.wisdom": "Ancient Wisdom",
   "skill.otherworldorigins.wisdom.description": "All spells you cast will be 1 level higher.",
 
+  "skill.otherworldorigins.diamond_skin": "Diamond Skin",
+  "skill.otherworldorigins.diamond_skin.description": "Gain %s resistance to all damage, increased to %s while sneaking.",
+
   "entity.otherworldorigins.summoned_iron_golem": "Summoner's Golem",
   "entity.otherworldorigins.summoned_grizzly_bear": "Summoner's Grizzly Bear",
   

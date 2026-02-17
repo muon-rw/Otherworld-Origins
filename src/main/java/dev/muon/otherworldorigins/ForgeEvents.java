@@ -190,7 +190,14 @@ public class ForgeEvents {
 
     @SubscribeEvent
     public static void modifyDamageTakenDirect(LivingDamageEvent event) {
-        event.setAmount(ModifyDamageTakenDirectPower.modify(event.getEntity(), event.getSource(), event.getAmount()));
+        float amount = ModifyDamageTakenDirectPower.modify(event.getEntity(), event.getSource(), event.getAmount());
+        if (event.getEntity() instanceof Player player) {
+            Skill diamondSkin = RegistrySkills.SKILLS_REGISTRY.get().getValue(new ResourceLocation("justlevelingfork", "diamond_skin"));
+            if (diamondSkin != null && diamondSkin.isEnabled(player)) {
+                amount *= player.isCrouching() ? 0.7f : 0.85f;
+            }
+        }
+        event.setAmount(amount);
     }
 
     /**
