@@ -31,6 +31,7 @@
     "ench_restrictions.ThornsEnchantmentMixin",
     "ench_restrictions.ThrownTridentMixin",
     "origins_patches.ChooseOriginScreenMixin",
+    "origins_patches.PowerContainerMixin",
     "origins_patches.WaitForNextLayerScreenMixin"
   ],
   "client": [

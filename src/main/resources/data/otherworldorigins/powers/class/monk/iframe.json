@@ -1,0 +1,53 @@
+{
+    "hidden": true,
+    "type": "origins:multiple",
+    "tracker": {
+        "type": "origins:resource",
+        "start_value": 0,
+        "max": 6,
+        "min": 0,
+        "max_action": {
+            "type": "origins:and",
+            "actions": [
+              {
+                "type": "origins:modify_resource",
+                "resource": "*:*_tracker",
+                "modifier": {
+                  "operation": "set_total",
+                  "value": 0
+                }
+              },
+                {
+                    "type": "origins:revoke_power",
+                    "power": "*:*",
+                    "source": "*:class/monk/step"
+                }
+            ]
+        }
+    },
+    "tick": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_tracker",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": 1
+            }
+        }
+    },
+    "invuln": {
+        "type": "origins:modify_damage_taken",
+        "modifier": {
+            "operation": "set_total",
+            "value": 0
+        },
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_tracker",
+            "compare_to": 6,
+            "comparison": "<"
+        }
+    }
+}
