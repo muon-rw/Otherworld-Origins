@@ -1,0 +1,38 @@
+{
+    "type": "origins:active_self",
+    "key": "key.origins.secondary_active",
+    "condition": {
+        "type": "origins:resource",
+        "resource": "*:class/monk/ki_pool",
+        "comparison": ">",
+        "compare_to": 0
+    },
+    "entity_action": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "otherworldorigins:play_player_animation",
+                "animation": "otherworldorigins:dash"
+            },
+            {
+                "type": "origins:add_velocity",
+                "y": 0.1,
+                "z": 2.4,
+                "space": "local_horizontal_normalized"
+            },
+            {
+                "type": "origins:modify_resource",
+                "resource": "*:class/monk/ki_pool",
+                "modifier": {
+                    "operation": "add_base_early",
+                    "value": -1
+                }
+            },
+            {
+                "type": "origins:grant_power",
+                "power": "*:class/monk/jump",
+                "source": "*:*"
+            }
+        ]
+    }
+}

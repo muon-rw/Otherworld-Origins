@@ -3,8 +3,10 @@ package dev.muon.otherworldorigins;
 import com.seniors.justlevelingfork.registry.RegistrySkills;
 import com.seniors.justlevelingfork.registry.skills.Skill;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
+import dev.muon.otherworldorigins.power.DeflectProjectilePower;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
+import dev.muon.otherworldorigins.power.ModifyDamageTakenDirectPower;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import dev.shadowsoffire.apotheosis.Apotheosis;
@@ -30,6 +32,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -37,8 +40,12 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.extensions.IForgeItemStack;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -178,6 +185,31 @@ public class ForgeEvents {
                 event.setDamageModifier(newDamageModifier);
                 event.setResult(CriticalHitEvent.Result.ALLOW);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void modifyDamageTakenDirect(LivingDamageEvent event) {
+        event.setAmount(ModifyDamageTakenDirectPower.modify(event.getEntity(), event.getSource(), event.getAmount()));
+    }
+
+    /**
+     * Deflect projectiles before impact when the power applies. Cancelling prevents the hit
+     * so the projectile continues flying (after we redirect it). Deflecting bypasses the
+     * damage pipeline entirely.
+     */
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void onProjectileImpact(ProjectileImpactEvent event) {
+        if (event.getRayTraceResult().getType() != HitResult.Type.ENTITY) return;
+        Entity hitEntity = ((EntityHitResult) event.getRayTraceResult()).getEntity();
+        if (!(hitEntity instanceof LivingEntity living)) return;
+        if (living.level().isClientSide()) return;
+
+        var projectile = event.getProjectile();
+        var deflectPower = DeflectProjectilePower.tryDeflect(living, projectile);
+        if (deflectPower.isPresent()) {
+            event.setCanceled(true);
+            DeflectProjectilePower.executeDeflect(deflectPower.get(), living, projectile);
         }
     }
 

@@ -1,0 +1,12 @@
+{
+  "type": "otherworldorigins:deflect_projectile",
+  "bientity_condition": {
+    "type": "origins:actor_condition",
+    "condition": {
+      "type": "otherworldorigins:leveled_chance",
+      "base": 0.01,
+      "per_level": 0.01,
+      "aptitude": "justlevelingfork:dexterity"
+    }
+  }
+}

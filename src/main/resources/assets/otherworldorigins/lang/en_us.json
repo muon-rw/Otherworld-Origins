@@ -335,7 +335,7 @@
 
 "origin.otherworldorigins.class/fighter.description": "• 10 Hearts + 4/Level\n• Second Wind\n\n§nSubclasses§r\nBattle Master\nEldritch Knight\nChampion",
 
-"origin.otherworldorigins.class/monk.description": "• 8 Hearts + 3/Level\n\n§nSubclasses§r\nWay of the Four Elements\nWay of the Open Hand\nWay of Shadow",
+"origin.otherworldorigins.class/monk.description": "• 8 Hearts + 3/Level\n• Ki Pool\n• Step of the Wind\n• Deflect Missiles\n\n§nSubclasses§r\nWay of the Four Elements\nWay of the Open Hand\nWay of Shadow",
 
 "origin.otherworldorigins.class/paladin.description": "• 10 Hearts + 4/Level\n• Lay on Hands\n\n§nSubclasses§r\nOath of the Ancients\nOath of Devotion\nOath of Vengeance\nOath Breaker",
 
@@ -472,6 +472,15 @@
 
 "power.otherworldorigins.class/paladin/lay_on_hands.name": "Lay on Hands",
 "power.otherworldorigins.class/paladin/lay_on_hands.description": "You have a healing pool equal to your level × 5 hearts. Aim at a living target within 4 blocks to heal them, or heal yourself if no target is hit, drawing from your remaining pool. Refill your pool by sleeping.",
+
+"power.otherworldorigins.class/monk/ki.name": "Ki Pool",
+"power.otherworldorigins.class/monk/ki.description": "You have a Ki pool that scales with your level, restored when sleeping.",
+
+"power.otherworldorigins.class/monk/step.name": "Step of the Wind",
+"power.otherworldorigins.class/monk/step.description": "Dash forward for 1 Ki and enhance your next jump, granting extra height.",
+
+"power.otherworldorigins.class/monk/deflect_missiles.name": "Deflect Missiles",
+"power.otherworldorigins.class/monk/deflect_missiles.description": "You have a percent chance equal to your Dexterity to dodge incoming projectiles.",
 
 "power.otherworldorigins.subclass/barbarian/wildheart.name": "Key Info:",
 "power.otherworldorigins.subclass/barbarian/wildheart.description": "",

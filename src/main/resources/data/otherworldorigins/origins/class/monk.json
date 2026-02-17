@@ -1,6 +1,9 @@
 {
 	"powers": [
-		"otherworldorigins:class/monk/attributes"
+		"otherworldorigins:class/monk/attributes",
+		"otherworldorigins:class/monk/ki",
+		"otherworldorigins:class/monk/step",
+		"otherworldorigins:class/monk/deflect_missiles"
 	],
 	"icon": {
 		"item": "valoria:leather_gloves"

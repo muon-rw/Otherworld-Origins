@@ -175,7 +175,7 @@ dependencies {
     // Iron's Spells n Spellbooks
     modImplementation("io.redspace:irons_spellbooks:${irons_version}")
     modRuntimeOnly("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
-    modRuntimeOnly("dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}")
+    modImplementation("dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}")
 
     // Eidolon
     modImplementation("curse.maven:eidolon-repraised-870250:5877358")

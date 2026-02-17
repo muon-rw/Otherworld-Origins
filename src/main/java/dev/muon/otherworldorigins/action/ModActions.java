@@ -24,7 +24,7 @@ public class ModActions {
     public static final RegistryObject<ResetEnchantmentSeedAction> RESET_ENCHANTMENT_SEED = ENTITY_ACTIONS.register("reset_enchantment_seed", ResetEnchantmentSeedAction::new);
     public static final RegistryObject<LeveledHealAction> LEVELED_HEAL = ENTITY_ACTIONS.register("leveled_heal", LeveledHealAction::new);
     public static final RegistryObject<ResourceHealAction> RESOURCE_HEAL = ENTITY_ACTIONS.register("resource_heal", ResourceHealAction::new);
-
+    public static final RegistryObject<PlayPlayerAnimationAction> PLAY_PLAYER_ANIMATION = ENTITY_ACTIONS.register("play_player_animation", PlayPlayerAnimationAction::new);
 
 
     public static final DeferredRegister<BiEntityAction<?>> BIENTITY_ACTIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_ACTION_KEY, OtherworldOrigins.MODID);

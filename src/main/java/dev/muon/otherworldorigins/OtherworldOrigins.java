@@ -154,5 +154,10 @@ public class OtherworldOrigins {
                 .decoder(GiveStarterKitMessage::decode)
                 .consumerMainThread(GiveStarterKitMessage::handle)
                 .add();
+        CHANNEL.messageBuilder(PlayPlayerAnimationPacket.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(PlayPlayerAnimationPacket::encode)
+                .decoder(PlayPlayerAnimationPacket::decode)
+                .consumerMainThread(PlayPlayerAnimationPacket::handle)
+                .add();
     }
 }

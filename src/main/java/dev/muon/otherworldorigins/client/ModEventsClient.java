@@ -1,6 +1,9 @@
 package dev.muon.otherworldorigins.client;
 
 import com.github.alexthe666.alexsmobs.client.render.RenderGrizzlyBear;
+import dev.kosmx.playerAnim.api.layered.IAnimation;
+import dev.kosmx.playerAnim.api.layered.ModifierLayer;
+import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import net.minecraft.client.renderer.entity.IronGolemRenderer;
@@ -23,6 +26,12 @@ public class ModEventsClient {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        // Register our animation layer for player-animator. Priority 100 to avoid conflicts with Iron's (spell casting).
+        PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
+                PlayerAnimationHandler.ANIMATION_LAYER_ID,
+                100,
+                player -> new ModifierLayer<IAnimation>()
+        );
     }
 
     @SubscribeEvent

@@ -1,0 +1,37 @@
+{
+    "type": "origins:multiple",
+    "pool": {
+        "type": "otherworldorigins:leveled_resource",
+        "min": 0,
+        "max_base": 0,
+        "max_per_level": 1,
+        "start_value": 20,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 20
+        }
+    },
+    "sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_pool",
+            "modifier": {
+                "operation": "set_total",
+                "value": 20
+            }
+        }
+    },
+    "level": {
+        "type": "otherworldorigins:action_on_levelup",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_pool",
+            "modifier": {
+                "operation": "set_total",
+                "value": 20
+            }
+        }
+    }
+}

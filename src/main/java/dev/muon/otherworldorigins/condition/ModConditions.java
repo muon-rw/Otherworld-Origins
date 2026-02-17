@@ -3,6 +3,7 @@ package dev.muon.otherworldorigins.condition;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.condition.entity.AnyOnLayerCondition;
 import dev.muon.otherworldorigins.condition.entity.HasSkillCondition;
+import dev.muon.otherworldorigins.condition.entity.LeveledChanceCondition;
 import dev.muon.otherworldorigins.condition.entity.ManaCondition;
 import dev.muon.otherworldorigins.condition.entity.PlayerLevelCondition;
 import io.github.edwinmindcraft.apoli.api.power.factory.*;
@@ -42,6 +43,7 @@ public class ModConditions {
     public static final RegistryObject<AnyOnLayerCondition> ANY_ON_LAYER = ENTITY_CONDITIONS.register("any_on_layer", AnyOnLayerCondition::new);
     public static final RegistryObject<ManaCondition> PLAYER_MANA = ENTITY_CONDITIONS.register("player_mana", ManaCondition::new);
     public static final RegistryObject<HasSkillCondition> HAS_SKILL = ENTITY_CONDITIONS.register("has_skill", HasSkillCondition::new);
+    public static final RegistryObject<LeveledChanceCondition> LEVELED_CHANCE = ENTITY_CONDITIONS.register("leveled_chance", LeveledChanceCondition::new);
 
 
 

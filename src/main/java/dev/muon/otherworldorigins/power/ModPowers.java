@@ -29,6 +29,8 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<ModifyCriticalHitPower.Configuration>> MODIFY_CRITICAL_HIT = POWER_FACTORIES.register("modify_critical_hit", ModifyCriticalHitPower::new);
     public static final RegistryObject<PowerFactory<GoldDurabilityPower.Configuration>> GOLD_DURABILITY = POWER_FACTORIES.register("gold_durability", GoldDurabilityPower::new);
     public static final RegistryObject<LeveledResourcePower> LEVELED_RESOURCE = POWER_FACTORIES.register("leveled_resource", LeveledResourcePower::new);
+    public static final RegistryObject<ModifyDamageTakenDirectPower> MODIFY_DAMAGE_TAKEN = POWER_FACTORIES.register("modify_damage_taken", ModifyDamageTakenDirectPower::new);
+    public static final RegistryObject<DeflectProjectilePower> DEFLECT_PROJECTILE = POWER_FACTORIES.register("deflect_projectile", DeflectProjectilePower::new);
 
     private static <T extends PowerFactory<?>> RegistryObject<T> registerConditional(String name, Supplier<T> factory, String modId) {
         if (ModList.get().isLoaded(modId)) {
