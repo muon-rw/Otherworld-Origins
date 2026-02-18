@@ -291,15 +291,45 @@ tasks.named('jar', Jar).configure {
     finalizedBy 'reobfJar'
 }
 
+// Create sources jar task
+tasks.register('sourcesJar', Jar) {
+    from sourceSets.main.allSource
+    archiveClassifier = 'sources'
+}
+
+// Create javadoc jar task
+tasks.register('javadocJar', Jar) {
+    from tasks.javadoc
+    archiveClassifier = 'javadoc'
+    dependsOn tasks.javadoc
+}
+
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
-            artifact jar
+            artifactId = base.archivesName.get()
+            // Use reobfJar as the main artifact (reobfuscated jar)
+            artifact(tasks.named('reobfJar', Jar))
+            // Include sources and javadoc jars
+            artifact(tasks.named('sourcesJar', Jar))
+            artifact(tasks.named('javadocJar', Jar))
         }
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+            name = "Muon"
+            url = uri("https://maven.muon.rip/releases")
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
+            authentication {
+                create(BasicAuthentication.class)
+            }
+        }
+        maven {
+            name = 'localMaven'
+            url = uri(System.getProperty("user.home") + "/.m2/repository")
         }
     }
 }
