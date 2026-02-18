@@ -346,9 +346,9 @@
 
 "origin.otherworldorigins.class/paladin.description": "• 10 Hearts + 4/Level\n• Lay on Hands\n\n§nSubclasses§r\nOath of the Ancients\nOath of Devotion\nOath of Vengeance\nOath Breaker",
 
-"origin.otherworldorigins.class/ranger.description": "• 10 Hearts + 4/Level\n\n§nSubclasses§r\nBeast Master\nGloom Stalker\nHunter",
+"origin.otherworldorigins.class/ranger.description": "• 10 Hearts + 4/Level\n• Land's Stride\n• Goodberry\n• Favored Foe\n\n§nSubclasses§r\nBeast Master\nGloom Stalker\nHunter",
 
-"origin.otherworldorigins.class/rogue.description": "• 8 Hearts + 3/Level\n• +2 Ranged Damage\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
+"origin.otherworldorigins.class/rogue.description": "• 8 Hearts + 3/Level\n• +2 Ranged Damage\n• Sneak Attack\n• Uncanny Dodge\n\n§nSubclasses§r\nThief\nArcane Trickster\nAssassin",
 
 "origin.otherworldorigins.class/sorcerer.description": "• 6 Hearts + 2/Level\n• +1 Magic\n• +20% Magic Damage\n• +1 Cantrip\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
 
