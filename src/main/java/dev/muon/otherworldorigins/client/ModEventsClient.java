@@ -6,10 +6,12 @@ import dev.kosmx.playerAnim.api.layered.ModifierLayer;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.entity.ModEntities;
+import dev.muon.otherworldorigins.item.HeartsTooltipComponent;
 import net.minecraft.client.renderer.entity.IronGolemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -39,5 +41,10 @@ public class ModEventsClient {
         event.register(ModKeybinds.CANTRIP_ONE_KEY);
         event.register(ModKeybinds.CANTRIP_TWO_KEY);
         event.register(ModKeybinds.TOGGLE_DARK_VISION_KEY);
+    }
+
+    @SubscribeEvent
+    public static void registerTooltipComponents(RegisterClientTooltipComponentFactoriesEvent event) {
+        event.register(HeartsTooltipComponent.class, HeartsTooltipRenderer::new);
     }
 }

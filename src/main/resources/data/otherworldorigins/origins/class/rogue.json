@@ -1,6 +1,8 @@
 {
 	"powers": [
-		"otherworldorigins:class/rogue/attributes"
+		"otherworldorigins:class/rogue/attributes",
+		"otherworldorigins:class/rogue/sneak_attack",
+		"otherworldorigins:class/rogue/uncanny_dodge"
 	],
 	"icon": {
 		"item": "otherworldorigins:class/rogue"

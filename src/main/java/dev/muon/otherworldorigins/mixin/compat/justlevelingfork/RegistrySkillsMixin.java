@@ -16,7 +16,7 @@ public class RegistrySkillsMixin {
 
     /**
      * @author OtherworldOrigins
-     * @reason Replace Diamond Skin with 15% resistance (30% while sneaking); use our own key for reliable lang
+     * @reason Replace Diamond Skin with fixed 15% resistance (30% while sneaking)
      */
     @Overwrite
     private static Skill lambda$static$12() {
@@ -26,7 +26,7 @@ public class RegistrySkillsMixin {
                 HandlerCommonConfig.HANDLER.instance().diamondSkinRequiredLevel,
                 HandlerResources.DIAMOND_SKIN_SKILL,
                 new Value(ValueType.PERCENT, 15),
-                new Value(ValueType.AMPLIFIER, 0),
+                new Value(ValueType.AMPLIFIER, 0), // JL checks this for diamond skin's armor; we want 0
                 new Value(ValueType.PERCENT, 30)
         );
     }

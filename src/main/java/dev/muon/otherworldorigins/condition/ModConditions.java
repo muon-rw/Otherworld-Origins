@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.condition;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.condition.block.PlantableBlockCondition;
 import dev.muon.otherworldorigins.condition.entity.AnyOnLayerCondition;
 import dev.muon.otherworldorigins.condition.entity.HasSkillCondition;
 import dev.muon.otherworldorigins.condition.entity.LeveledChanceCondition;
@@ -30,6 +31,10 @@ public class ModConditions {
     public static final DeferredRegister<BiEntityCondition<?>> BIENTITY_CONDITIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_CONDITION_KEY, OtherworldOrigins.MODID);
     public static final DeferredRegister<BlockCondition<?>> BLOCK_CONDITIONS = DeferredRegister.create(ApoliRegistries.BLOCK_CONDITION_KEY, OtherworldOrigins.MODID);
     public static final DeferredRegister<ItemCondition<?>> ITEM_CONDITIONS = DeferredRegister.create(ApoliRegistries.ITEM_CONDITION_KEY, OtherworldOrigins.MODID);
+
+
+    /**Block*/
+    public static final RegistryObject<PlantableBlockCondition> PLANTABLE = BLOCK_CONDITIONS.register("plantable", PlantableBlockCondition::new);
 
     /**Entity*/
     public static final RegistryObject<SimpleEntityCondition> IS_ARROW = ENTITY_CONDITIONS.register("is_arrow", () ->

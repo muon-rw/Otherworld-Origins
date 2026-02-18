@@ -1,6 +1,9 @@
 {
 	"powers": [
-		"otherworldorigins:class/ranger/attributes"
+		"otherworldorigins:class/ranger/attributes",
+		"otherworldorigins:class/ranger/goodberry",
+		"otherworldorigins:class/ranger/favored_foe",
+		"otherworldorigins:class/ranger/landstride"
 	],
 	"icon": {
 		"item": "otherworldorigins:class/ranger"

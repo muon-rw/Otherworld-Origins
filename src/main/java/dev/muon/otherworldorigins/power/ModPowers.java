@@ -3,6 +3,7 @@ package dev.muon.otherworldorigins.power;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.github.edwinmindcraft.apoli.api.configuration.HolderConfiguration;
 import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;
+import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredBlockCondition;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityAction;
 import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
 import io.github.edwinmindcraft.apoli.api.registry.ApoliRegistries;
@@ -32,6 +33,8 @@ public class ModPowers {
     public static final RegistryObject<ModifyDamageTakenDirectPower> MODIFY_DAMAGE_TAKEN = POWER_FACTORIES.register("modify_damage_taken", ModifyDamageTakenDirectPower::new);
     public static final RegistryObject<DeflectProjectilePower> DEFLECT_PROJECTILE = POWER_FACTORIES.register("deflect_projectile", DeflectProjectilePower::new);
     public static final RegistryObject<PlayerLevelPower> PLAYER_LEVEL = POWER_FACTORIES.register("player_level", PlayerLevelPower::new);
+    public static final RegistryObject<PowerFactory<SpellImmunityPower.Configuration>> SPELL_IMMUNITY = POWER_FACTORIES.register("spell_immunity", SpellImmunityPower::new);
+    public static final RegistryObject<PowerFactory<HolderConfiguration<ConfiguredBlockCondition<?, ?>>>> PREVENT_BLOCK_SLOWDOWN = POWER_FACTORIES.register("prevent_block_slowdown", PreventBlockSlowdownPower::new);
 
 
     private static <T extends PowerFactory<?>> RegistryObject<T> registerConditional(String name, Supplier<T> factory, String modId) {

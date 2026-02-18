@@ -1,0 +1,26 @@
+{
+    "type": "origins:multiple",
+    "effect": {
+        "type": "origins:effect_immunity",
+        "effect": "minecraft:slowness"
+    },
+    "entangling_roots": {
+        "type": "otherworldorigins:spell_immunity",
+        "spell": "root"
+    },
+    "bush_slowness": {
+        "type": "otherworldorigins:prevent_block_slowdown",
+        "block_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:plantable"
+                },
+                {
+                    "type": "origins:in_tag",
+                    "block": "minecraft:leaves"
+                }
+            ]
+        }
+    }
+}

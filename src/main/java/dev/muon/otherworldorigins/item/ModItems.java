@@ -120,6 +120,9 @@ public class ModItems {
     public static final RegistryObject<Item> RESILIENT = ITEMS.register("feats/resilient", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TWO_HANDED = ITEMS.register("feats/two_handed", () -> new Item(new Item.Properties()));
 
+    /** Consumables */
+    public static final RegistryObject<Item> GOODBERRY = ITEMS.register("goodberry", () -> new GoodberryItem(new Item.Properties()));
+
     /** Cantrips */
     public static final RegistryObject<Item> GUST = ITEMS.register("cantrips/gust", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ICICLE = ITEMS.register("cantrips/icicle", () -> new Item(new Item.Properties()));

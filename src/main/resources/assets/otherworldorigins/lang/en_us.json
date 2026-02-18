@@ -47,6 +47,10 @@
 
   "entity.otherworldorigins.summoned_iron_golem": "Summoner's Golem",
   "entity.otherworldorigins.summoned_grizzly_bear": "Summoner's Grizzly Bear",
+
+  "item.otherworldorigins.goodberry": "Goodberry",
+  "item.otherworldorigins.goodberry.tooltip.decays_in": "Decays in: %s",
+  "item.otherworldorigins.goodberry.tooltip.ordinary": "Ordinary",
   
   "otherworldorigins.uncastable": "You can't use this ability right now.",
   "otherworldorigins.reforge_restricted": "Your lack the knowledge needed to use this table...",
@@ -487,6 +491,21 @@
 
 "power.otherworldorigins.class/monk/deflect_missiles.name": "Deflect Missiles",
 "power.otherworldorigins.class/monk/deflect_missiles.description": "You have a percent chance equal to your Dexterity to dodge incoming projectiles.",
+
+"power.otherworldorigins.class/rogue/sneak_attack.name": "Sneak Attack",
+"power.otherworldorigins.class/rogue/sneak_attack.description": "Deal bonus damage on your first hit against an enemy, scaling with your level. Sneak Attack deals extra damage if you are sneaking or the target is facing away from you.",
+
+"power.otherworldorigins.class/rogue/uncanny_dodge.name": "Uncanny Dodge",
+"power.otherworldorigins.class/rogue/uncanny_dodge.description": "Once per minute, take half damage from your next attack, with a chance equal to your character level to take no damage at all. ",
+
+"power.otherworldorigins.class/ranger/favored_foe.name": "Favored Foe",
+"power.otherworldorigins.class/ranger/favored_foe.description": "Damaging an enemy marks them, increasing all damage they take by a percent equal to your Character Level. Lasts 5 seconds, refreshed on hit.",
+
+"power.otherworldorigins.class/ranger/goodberry.name": "Goodberry",
+"power.otherworldorigins.class/ranger/goodberry.description": "Conjure up to 10 magic berries (based on level) that each restore 4 hearts when eaten. Berries lose their magic after one day and no longer heal. Recharges on sleep.",
+
+"power.otherworldorigins.class/ranger/landstride.name": "Land's Stride",
+"power.otherworldorigins.class/ranger/landstride.description": "You are resistant to the Slowness effect and are not slowed by dense foliage or the Root spell.",
 
 "power.otherworldorigins.subclass/barbarian/wildheart.name": "Key Info:",
 "power.otherworldorigins.subclass/barbarian/wildheart.description": "",

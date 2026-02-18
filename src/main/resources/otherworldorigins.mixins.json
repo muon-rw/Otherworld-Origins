@@ -8,6 +8,7 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "EntityMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
     "MobEffectInstanceAccessor",
@@ -17,6 +18,7 @@
     "compat.apotheosis.EndlessQuiverEnchantMixin",
     "compat.backpacked.RepairmanEnchantmentMixin",
     "compat.irons_spellbooks.AbstractSpellMixin",
+    "compat.irons_spellbooks.UtilsMixin",
     "compat.justlevelingfork.AptitudeCapabilityMixin",
     "compat.justlevelingfork.RegistryCommonEventsMixin",
     "compat.justlevelingfork.RegistryPassivesMixin",

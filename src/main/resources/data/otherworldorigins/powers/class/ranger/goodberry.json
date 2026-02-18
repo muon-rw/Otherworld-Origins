@@ -1,0 +1,139 @@
+{
+    "type": "origins:multiple",
+    "give": {
+        "type": "origins:active_self",
+        "key": "key.origins.secondary_active",
+        "entity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 13
+                    },
+                    "action": {
+                        "type": "origins:give",
+                        "stack": {
+                            "amount": 10,
+                            "item": "otherworldorigins:goodberry"
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 11
+                    },
+                    "action": {
+                        "type": "origins:give",
+                        "stack": {
+                            "amount": 9,
+                            "item": "otherworldorigins:goodberry"
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 9
+                    },
+                    "action": {
+                        "type": "origins:give",
+                        "stack": {
+                            "amount": 8,
+                            "item": "otherworldorigins:goodberry"
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 7
+                    },
+                    "action": {
+                        "type": "origins:give",
+                        "stack": {
+                            "amount": 7,
+                            "item": "otherworldorigins:goodberry"
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 5
+                    },
+                    "action": {
+                        "type": "origins:give",
+                        "stack": {
+                            "amount": 6,
+                            "item": "otherworldorigins:goodberry"
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 3
+                    },
+                    "action": {
+                        "type": "origins:give",
+                        "stack": {
+                            "amount": 5,
+                            "item": "otherworldorigins:goodberry"
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 2
+                    },
+                    "action": {
+                        "type": "origins:give",
+                        "stack": {
+                            "amount": 5,
+                            "item": "otherworldorigins:goodberry"
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 1
+                    },
+                    "action": {
+                        "type": "origins:give",
+                        "stack": {
+                            "amount": 4,
+                            "item": "otherworldorigins:goodberry"
+                        }
+                    }
+                }
+            ]
+        },
+        "cooldown": 24000,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_give",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
+            }
+        }
+    }
+}
