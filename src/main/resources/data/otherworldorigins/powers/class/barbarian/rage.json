@@ -1,0 +1,196 @@
+{
+    "type": "origins:multiple",
+    "casts": {
+        "type": "otherworldorigins:leveled_resource",
+        "min": 0,
+        "max_base": 2,
+        "max_per_level": 0.25,
+        "start_value": 20,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 20
+        }
+    },
+    "cooldown": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 60,
+        "hud_render": {
+            "should_render": true,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_cooldown",
+                "compare_to": 0,
+                "comparison": ">"
+            },
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 20
+        }
+    },
+    "timer": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 20,
+        "min_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_cooldown",
+            "modifier": {
+                "operation": "set_total",
+                "value": 60
+            }
+        },
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 20
+        }
+    },
+    "levelup": {
+        "type": "otherworldorigins:action_on_levelup",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_casts",
+            "modifier": {
+                "operation": "set_total",
+                "value": 20
+            }
+        }
+    },
+    "sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_casts",
+            "modifier": {
+                "operation": "set_total",
+                "value": 20
+            }
+        }
+    },
+    "active": {
+        "type": "origins:active_self",
+        "key": "key.origins.secondary_active",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_casts",
+                    "compare_to": 0,
+                    "comparison": ">"
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_cooldown",
+                    "compare_to": 0,
+                    "comparison": "=="
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_timer",
+                    "compare_to": 0,
+                    "comparison": "=="
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_timer",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 20
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_casts",
+                    "modifier": {
+                        "operation": "add_base_early",
+                        "value": -1
+                    }
+                }
+            ]
+        }
+    },
+    "tick_timer": {
+        "type": "origins:action_over_time",
+        "interval": 5,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_timer",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -1
+            }
+        }
+    },
+    "tick_cooldown": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_cooldown",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -1
+            }
+        }
+    },
+    "refresh_timer": {
+        "type": "origins:self_action_on_hit",
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_timer",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": 8
+            }
+        }
+    },
+    "rage_dmg": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "resource": "*:level",
+            "operation": "multiply_base",
+            "value": 1,
+            "modifier": {
+                "operation": "multiply_base",
+                "value": -0.95
+            }
+        },
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        }
+    },
+    "rage_def": {
+        "type": "origins:modify_damage_taken",
+        "modifier": {
+            "resource": "*:level",
+            "operation": "multiply_base",
+            "value": 1,
+            "modifier": {
+                "operation": "multiply_base",
+                "value": -0.98
+            }
+        },
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        }
+    }
+}

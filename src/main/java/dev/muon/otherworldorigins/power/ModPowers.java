@@ -31,6 +31,8 @@ public class ModPowers {
     public static final RegistryObject<LeveledResourcePower> LEVELED_RESOURCE = POWER_FACTORIES.register("leveled_resource", LeveledResourcePower::new);
     public static final RegistryObject<ModifyDamageTakenDirectPower> MODIFY_DAMAGE_TAKEN = POWER_FACTORIES.register("modify_damage_taken", ModifyDamageTakenDirectPower::new);
     public static final RegistryObject<DeflectProjectilePower> DEFLECT_PROJECTILE = POWER_FACTORIES.register("deflect_projectile", DeflectProjectilePower::new);
+    public static final RegistryObject<PlayerLevelPower> PLAYER_LEVEL = POWER_FACTORIES.register("player_level", PlayerLevelPower::new);
+
 
     private static <T extends PowerFactory<?>> RegistryObject<T> registerConditional(String name, Supplier<T> factory, String modId) {
         if (ModList.get().isLoaded(modId)) {

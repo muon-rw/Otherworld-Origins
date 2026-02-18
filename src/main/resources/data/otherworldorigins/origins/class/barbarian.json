@@ -1,6 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:class/barbarian/attributes"
+		"otherworldorigins:class/barbarian/attributes",
+		"otherworldorigins:class/barbarian/rage"
 	],
 	"icon": {
 		"item": "otherworldorigins:class/barbarian"

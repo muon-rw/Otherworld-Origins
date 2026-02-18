@@ -6,6 +6,7 @@
         "otherworldorigins:reforging_restrict_lower",
         "otherworldorigins:reforging_restrict_upper",
         "otherworldorigins:reforging_msg_lower",
-        "otherworldorigins:reforging_msg_upper"
+        "otherworldorigins:reforging_msg_upper",
+        "otherworldorigins:level"
     ]
 }
