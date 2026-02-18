@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins;
 
 import com.seniors.justlevelingfork.registry.RegistrySkills;
 import com.seniors.justlevelingfork.registry.skills.Skill;
+import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.power.DeflectProjectilePower;
 import dev.muon.otherworldorigins.power.ModPowers;
@@ -191,6 +192,13 @@ public class ForgeEvents {
     @SubscribeEvent
     public static void modifyDamageTakenDirect(LivingDamageEvent event) {
         float amount = ModifyDamageTakenDirectPower.modify(event.getEntity(), event.getSource(), event.getAmount());
+        // Favored Foe: +2% damage per effect level (level 10 = +20%)
+        var favoredFoe = event.getEntity().getEffect(ModEffects.FAVORED_FOE.get());
+        if (favoredFoe != null) {
+            int level = favoredFoe.getAmplifier() + 1;
+            float multiplier = 1 + 0.02f * level;
+            amount *= multiplier;
+        }
         if (event.getEntity() instanceof Player player) {
             Skill diamondSkin = RegistrySkills.SKILLS_REGISTRY.get().getValue(new ResourceLocation("justlevelingfork", "diamond_skin"));
             if (diamondSkin != null && diamondSkin.isEnabled(player)) {

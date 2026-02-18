@@ -77,6 +77,8 @@
   "effect.otherworldorigins.golem_timer": "Summoned Golem",
   "effect.otherworldorigins.golem_timer.description": "Displays the duration remaining on your summons, and their count",
 
+  "effect.otherworldorigins.favored_foe": "Favored Foe",
+  "effect.otherworldorigins.favored_foe.description": "Marked as a ranger's quarry. Takes increased damage and is outlined.",
   "effect.otherworldorigins.beast_timer": "Summoned Beast",
   "effect.otherworldorigins.beast_timer.description": "Displays the duration remaining on your summons, and their count",
 
@@ -499,7 +501,7 @@
 "power.otherworldorigins.class/rogue/uncanny_dodge.description": "Once per minute, take half damage from your next attack, with a chance equal to your character level to take no damage at all. ",
 
 "power.otherworldorigins.class/ranger/favored_foe.name": "Favored Foe",
-"power.otherworldorigins.class/ranger/favored_foe.description": "Damaging an enemy marks them, increasing all damage they take by a percent equal to your Character Level. Lasts 5 seconds, refreshed on hit.",
+"power.otherworldorigins.class/ranger/favored_foe.description": "Damaging an enemy marks them for 5 seconds, increasing all damage they take by a percent equal to your Character Level.",
 
 "power.otherworldorigins.class/ranger/goodberry.name": "Goodberry",
 "power.otherworldorigins.class/ranger/goodberry.description": "Conjure up to 10 magic berries (based on level) that each restore 4 hearts when eaten. Berries lose their magic after one day and no longer heal. Recharges on sleep.",

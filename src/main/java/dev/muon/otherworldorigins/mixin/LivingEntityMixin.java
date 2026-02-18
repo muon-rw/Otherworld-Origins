@@ -1,5 +1,7 @@
 package dev.muon.otherworldorigins.mixin;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyStatusEffectCategoryPower;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
@@ -15,6 +17,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
+
+    @ModifyReturnValue(method = "isCurrentlyGlowing", at = @At("RETURN"))
+    private boolean otherworld$favoredFoeGlowing(boolean original) {
+        if (original) return true;
+        LivingEntity self = (LivingEntity) (Object) this;
+        return self.hasEffect(ModEffects.FAVORED_FOE.get());
+    }
 
     @Inject(method = "addEffect(Lnet/minecraft/world/effect/MobEffectInstance;)Z", at = @At("HEAD"))
     private void onAddEffectNoEntity(MobEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {

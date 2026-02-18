@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins;
 
 import com.mojang.logging.LogUtils;
 import dev.muon.otherworldorigins.action.ModActions;
+import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.condition.ModConditions;
 import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import dev.muon.otherworldorigins.attribute.ModAttributes;
@@ -58,6 +59,7 @@ public class OtherworldOrigins {
 
         ModAttributes.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModEffects.register(modEventBus);
         ModItems.register(modEventBus);
 
         ModActions.register(modEventBus);
