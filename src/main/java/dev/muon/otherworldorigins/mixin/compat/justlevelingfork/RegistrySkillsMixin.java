@@ -26,6 +26,7 @@ public class RegistrySkillsMixin {
                 HandlerCommonConfig.HANDLER.instance().diamondSkinRequiredLevel,
                 HandlerResources.DIAMOND_SKIN_SKILL,
                 new Value(ValueType.PERCENT, 15),
+                new Value(ValueType.AMPLIFIER, 0),
                 new Value(ValueType.PERCENT, 30)
         );
     }

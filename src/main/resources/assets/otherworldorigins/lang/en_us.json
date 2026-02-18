@@ -43,7 +43,7 @@
   "skill.otherworldorigins.wisdom.description": "All spells you cast will be 1 level higher.",
 
   "skill.otherworldorigins.diamond_skin": "Diamond Skin",
-  "skill.otherworldorigins.diamond_skin.description": "Gain %s resistance to all damage, increased to %s while sneaking.",
+  "skill.otherworldorigins.diamond_skin.description": "Gain %1$s resistance to all damage, increased to %3$s while sneaking.",
 
   "entity.otherworldorigins.summoned_iron_golem": "Summoner's Golem",
   "entity.otherworldorigins.summoned_grizzly_bear": "Summoner's Grizzly Bear",
@@ -328,7 +328,7 @@
 
 "origin.otherworldorigins.class/artificer.description": "• 8 Hearts + 3/Level\n\n§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
 
-"origin.otherworldorigins.class/barbarian.description": "• 12 Hearts + 5/Level\n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
+"origin.otherworldorigins.class/barbarian.description": "• 12 Hearts + 5/Level\n• Rage \n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
 
 "origin.otherworldorigins.class/bard.description": "• 8 Hearts + 3/Level\n• +1 Cantrip\n\n§nSubclasses§r\nCollege of Lore\nCollege of Valor\nCollege of Swords",
 
@@ -472,6 +472,9 @@
 
 "power.otherworldorigins.class/fighter/second_wind.name": "Second Wind",
 "power.otherworldorigins.class/fighter/second_wind.description": "Heal yourself for 4 Hearts + 1/Level, at the cost of hunger. 1 minute cooldown.",
+
+"power.otherworldorigins.class/barbarian/rage.name": "Rage",
+"power.otherworldorigins.class/barbarian/rage.description": "Enter a furious state to empower yourself in combat. While enraged, deal bonus damage and take reduced damage based on your level. Hitting enemies extends the duration. After the effect ends, you must wait before raging again. Charges replenish on sleep.",
 
 "power.otherworldorigins.class/paladin/lay_on_hands.name": "Lay on Hands",
 "power.otherworldorigins.class/paladin/lay_on_hands.description": "You have a healing pool equal to your level × 5 hearts. Aim at a living target within 4 blocks to heal them, or heal yourself if no target is hit, drawing from your remaining pool. Refill your pool by sleeping.",
