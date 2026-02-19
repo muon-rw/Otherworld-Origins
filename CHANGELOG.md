@@ -1,3 +1,6 @@
+## 1.5.0
+- Class balancing
+
 ## 1.4.2
 - Hid druid attributes
 

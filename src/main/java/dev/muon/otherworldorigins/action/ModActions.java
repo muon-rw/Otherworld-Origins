@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.action;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.action.bientity.ApplyFavoredFoeAction;
 import dev.muon.otherworldorigins.action.bientity.CastSpellBientityAction;
 import dev.muon.otherworldorigins.action.bientity.LeveledHealBientityAction;
 import dev.muon.otherworldorigins.action.bientity.RaycastBetweenAction;
@@ -33,6 +34,7 @@ public class ModActions {
     public static final RegistryObject<LeveledHealBientityAction> LEVELED_HEAL_BIENTITY = BIENTITY_ACTIONS.register("leveled_heal", LeveledHealBientityAction::new);
     public static final RegistryObject<ResourceHealBientityAction> RESOURCE_HEAL_BIENTITY = BIENTITY_ACTIONS.register("resource_heal", ResourceHealBientityAction::new);
     public static final RegistryObject<RaycastBetweenAction> RAYCAST_BETWEEN = BIENTITY_ACTIONS.register("raycast_between", RaycastBetweenAction::new);
+    public static final RegistryObject<ApplyFavoredFoeAction> APPLY_FAVORED_FOE = BIENTITY_ACTIONS.register("apply_favored_foe", ApplyFavoredFoeAction::new);
     public static final RegistryObject<CastSpellBientityAction> CAST_SPELL_BIENTITY = ModList.get().isLoaded("irons_spellbooks") ?
             BIENTITY_ACTIONS.register("cast_spell", CastSpellBientityAction::new) : null;
 

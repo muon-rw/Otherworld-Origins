@@ -495,10 +495,10 @@
 "power.otherworldorigins.class/monk/deflect_missiles.description": "You have a percent chance equal to your Dexterity to dodge incoming projectiles.",
 
 "power.otherworldorigins.class/rogue/sneak_attack.name": "Sneak Attack",
-"power.otherworldorigins.class/rogue/sneak_attack.description": "Deal bonus damage on your first hit against an enemy, scaling with your level. Sneak Attack deals extra damage if you are sneaking or the target is facing away from you.",
+"power.otherworldorigins.class/rogue/sneak_attack.description": "Deal bonus damage on your first hit against an enemy, scaling with your level. Sneak Attack deals extra damage if you are sneaking and the target is facing away from you.",
 
 "power.otherworldorigins.class/rogue/uncanny_dodge.name": "Uncanny Dodge",
-"power.otherworldorigins.class/rogue/uncanny_dodge.description": "Once per minute, take half damage from your next attack, with a chance equal to your character level to take no damage at all. ",
+"power.otherworldorigins.class/rogue/uncanny_dodge.description": "Take half damage from your next attack, with a chance equal to your twice your dexterity to take no damage at all. You must wait 1 minute to use this ability after dodging.",
 
 "power.otherworldorigins.class/ranger/favored_foe.name": "Favored Foe",
 "power.otherworldorigins.class/ranger/favored_foe.description": "Damaging an enemy marks them for 5 seconds, increasing all damage they take by a percent equal to your Character Level.",

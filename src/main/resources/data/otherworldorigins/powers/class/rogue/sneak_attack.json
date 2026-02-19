@@ -1,0 +1,48 @@
+{
+    "type": "origins:multiple",
+    "base": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "resource": "*:level",
+            "value": 0,
+            "operation": "multiply_base",
+            "modifier": {
+                "operation": "multiply_base",
+                "value": -0.9
+            }
+        },
+        "bientity_condition": {
+            "type": "origins:attacker",
+            "inverted": true
+        }
+    },
+    "facing": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "value": 0.5,
+            "operation": "multiply_base"
+        },
+        "bientity_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:attacker",
+                    "inverted": true
+                },
+                {
+                    "type": "origins:relative_rotation",
+                    "actor_rotation": "head",
+                    "target_rotation": "head",
+                    "comparison": ">=",
+                    "compare_to": 0.4
+                },
+                {
+                    "type": "origins:actor_condition",
+                    "condition": {
+                        "type": "origins:sneaking"
+                    }
+                }
+            ]
+        }
+    }
+}
