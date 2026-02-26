@@ -1,6 +1,7 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
+        mavenLocal()
         maven {
             name = 'MinecraftForge'
             url = 'https://maven.minecraftforge.net'

@@ -1,0 +1,91 @@
+---
+alwaysApply: true
+---
+This is a Minecraft mod project using [Fabric/NeoForge/Forge] with extensive
+mixin usage and many dependencies.
+
+You have access to MixinMCP tools via the IntelliJ MCP server. **Prefer these
+over grep, read_file, or jar extraction** when working with mod/dependency code.
+They search and read inside dependency jars natively; grep cannot see jar contents.
+Dependencies without published sources are decompiled via the MixinMCP Gradle
+plugin (Vineflower) so every library on the classpath is searchable. Native
+sources are always preferred — decompiled output lacks comments and meaningful
+variable names. Run `./gradlew mixinDecompile` after adding new dependencies.
+
+## Invoking Tools
+
+MixinMCP tools are on the **user-jetbrains** MCP server. Use CallMcpTool:
+
+    CallMcpTool(server="user-jetbrains", toolName="<tool>", arguments={...})
+
+Example — look up a class:
+
+    CallMcpTool(
+      server="user-jetbrains",
+      toolName="mixin_find_class",
+      arguments={"className": "net.minecraft.world.level.Level", "includeMembers": true}
+    )
+
+Example — search dependency sources:
+
+    CallMcpTool(
+      server="user-jetbrains",
+      toolName="mixin_search_in_deps",
+      arguments={"regexPattern": "destroyBlock", "fileMask": "*minecraft*"}
+    )
+
+Example — read source at a URL returned by search:
+
+    CallMcpTool(
+      server="user-jetbrains",
+      toolName="mixin_get_dep_source",
+      arguments={"url": "<url from mixin_search_in_deps>", "lineNumber": 42, "linesBefore": 10, "linesAfter": 20}
+    )
+
+If `mixin_*` tools are not found, the MixinMCP IntelliJ plugin may not be
+installed or the MCP Server plugin may not be connected. Check IntelliJ:
+Settings → Plugins → verify both "MCP Server" and "MixinMCP" are enabled.
+
+## When to Reach for MixinMCP First
+- **Finding usages** (e.g. setBlock, destroyBlock, BreakEvent) across mods → mixin_search_in_deps
+- **Reading mod source** (Iron's Spellbooks, Traveloptics, etc.) → mixin_search_in_deps first, then mixin_get_dep_source with the `url` from results (or pass `path` directly)
+- **Looking up a class** in any dependency (including compiled-only mods) → mixin_find_class
+- **Understanding mixin target logic** when the mod has no sources → mixin_method_bytecode
+- **Checking inheritance** before writing a mixin → mixin_type_hierarchy
+
+## Dependency Navigation
+- mixin_find_class: Look up any class by FQCN (Minecraft, mods, Java stdlib).
+  Use includeMembers=true for API overview, includeSource=true for full code.
+- mixin_search_symbols: Find classes/methods by name pattern across everything.
+- mixin_search_in_deps: Regex search across all library/dependency sources
+  (published and auto-decompiled). Use fileMask (e.g. "*irons*", "*traveloptics*")
+  to scope to specific mods.
+- mixin_get_dep_source: Read source from dependency jars or decompiled cache.
+  **Required: `url`** (from mixin_search_in_deps results) **or** `path`
+  (e.g. io/redspace/ironsspellbooks/api/util/Utils.java). Workflow:
+  (1) mixin_search_in_deps to find matches; (2) copy the `url` from the result
+  and pass to mixin_get_dep_source — or pass `path` directly if you know it.
+  Optional: lineNumber, linesBefore, linesAfter.
+
+## Semantic Navigation
+- mixin_type_hierarchy: See inheritance chains. Essential before writing mixins.
+- mixin_find_impls: Find all implementors of an interface.
+- mixin_find_references: Find all usages of a class/method.
+- mixin_call_hierarchy: See callers/callees of a method.
+- mixin_super_methods: Find where a method is originally declared.
+
+## Bytecode (for Mixin Targets)
+- mixin_class_bytecode: Get bytecode info including synthetic methods.
+  Use filter="synthetic" for lambda/bridge method mixin targets.
+- mixin_method_bytecode: Get instructions for a specific method.
+  **Use when the target mod has no sources** (e.g. Traveloptics in to-tweaks jar)
+  to see exact call sites for @Redirect/@Inject.
+
+## Workflow Rules
+- When writing @Mixin: ALWAYS check mixin_type_hierarchy first.
+- When targeting lambdas: ALWAYS use mixin_class_bytecode with filter="synthetic".
+  Decompiled source DOES NOT show synthetic method names.
+- When unsure about method origin: use mixin_super_methods.
+- After writing any mixin: use the built-in get_file_problems to validate.
+- After changing build.gradle deps: run `./gradlew mixinDecompile` to decompile
+  new dependencies, then call mixin_sync_project to refresh IntelliJ's project model.
