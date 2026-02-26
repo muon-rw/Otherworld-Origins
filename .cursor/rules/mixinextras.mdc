@@ -1,0 +1,128 @@
+---
+alwaysApply: true
+---
+## MixinExtras Best Practices
+
+When writing Sponge Mixins, **always prefer MixinExtras injectors** over vanilla mixin
+patterns. MixinExtras injectors chain when multiple mods target the same code; vanilla
+`@Overwrite`, `@Inject` at HEAD with cancel/return, `@Redirect`, and `@ModifyConstant`
+do not chain and will silently conflict with other mods.
+
+### Injector Selection Guide
+
+Pick the **most specific** injector that fits the task:
+
+| Goal | Use | Avoid |
+|---|---|---|
+| Tweak a method's return value | `@ModifyReturnValue` | `@Inject(at = RETURN)` + `cir.setReturnValue(modify(cir.getReturnValue()))` |
+| Add/change a condition around an expression | `@ModifyExpressionValue` | `@Redirect` on the boolean call |
+| Conditionally skip a void call or field write | `@WrapWithCondition` | `@Redirect` returning default/void |
+| Wrap a call/field/instanceof in custom logic | `@WrapOperation` | `@Redirect` |
+| Wrap an entire method (try/catch, sync, etc.) | `@WrapMethod` | `@Overwrite` or `@Inject` at HEAD + RETURN |
+| Change receiver of a call/field access | `@ModifyReceiver` | `@Redirect` |
+| Replace a method wholesale (last resort) | `@Overwrite` only if no other option | — |
+
+### Local Variable Capture
+
+Use MixinExtras `@Local` sugar instead of traditional mixin local capture:
+
+```java
+// GOOD — annotation-based, concise, works with any injector
+@Inject(method = "use", at = @At(value = "INVOKE", target = "..."))
+private void onUse(CallbackInfoReturnable<?> cir, @Local ItemStack stack) {
+    stack.shrink(1);
+}
+
+// BAD — fragile ordinal-based LocalCapture
+@Inject(method = "use", at = @At(value = "INVOKE", target = "..."),
+        locals = LocalCapture.CAPTURE_FAILHARD)
+private void onUse(Level level, Player player, InteractionHand hand,
+                   CallbackInfoReturnable<?> cir,
+                   /* every preceding local in order */ ItemStack stack) {
+    stack.shrink(1);
+}
+```
+
+For mutable capture use `LocalRef<T>` / `LocalIntRef` / `LocalDoubleRef` etc.
+with `@Local`:
+```java
+@Inject(method = "target", at = @At(...))
+private void mutateLocals(CallbackInfo ci,
+                          @Local LocalRef<String> name,
+                          @Local LocalIntRef color) {
+    name.set("modified");
+    color.set(0xFF0000);
+}
+```
+
+### Sharing Values Between Handlers
+
+Use `@Share` instead of storing values in mixin fields (thread-safe, no long-term
+memory):
+```java
+@ModifyArg(method = "target", at = @At(value = "INVOKE", target = "..."))
+private int captureArg(int arg, @Share("myArg") LocalIntRef ref) {
+    ref.set(arg);
+    return arg;
+}
+
+@Inject(method = "target", at = @At("TAIL"))
+private void useArg(CallbackInfo ci, @Share("myArg") LocalIntRef ref) {
+    doSomething(ref.get());
+}
+```
+
+### @Cancellable Sugar
+
+Any MixinExtras injector can receive a `@Cancellable CallbackInfo(Returnable)` to
+optionally cancel the enclosing method without needing a separate `@Inject`:
+```java
+@ModifyExpressionValue(method = "render", at = @At(value = "INVOKE", target = "..."))
+private Identifier skipPoison(Identifier texture, @Cancellable CallbackInfo ci) {
+    if (texture.equals(Textures.POISON_HEART)) ci.cancel();
+    return texture;
+}
+```
+
+### MixinExtras Expressions
+
+For targeting complex bytecode patterns (comparisons, instanceof, compound
+expressions) that are hard or impossible to reach with standard `@At`, use
+`@Expression` with `@Definition`:
+
+```java
+// Target `? instanceof AbstractArrow` in the hurt method
+@Definition(id = "AbstractArrow", type = AbstractArrow.class)
+@Expression("? instanceof AbstractArrow")
+@WrapOperation(method = "hurt", at = @At("MIXINEXTRAS:EXPRESSION"))
+private boolean modifyArrowCheck(Object entity, Operation<Boolean> original) {
+    return original.call(entity) && someCondition();
+}
+```
+
+Key rules for Expressions:
+- `@At` value must be `"MIXINEXTRAS:EXPRESSION"` — the actual target comes from
+  `@Expression`
+- `@Definition` annotations bind identifiers to fields, methods, types, or locals
+- Use `?` wildcards for parts you don't care about matching
+- Strings use single quotes inside `@Expression` (it's already in a Java string)
+- Built-in identifiers like `this` don't need a `@Definition`
+- Expressions target the "last" instruction unless you explicitly mark a target with
+  `@(...)` syntax
+
+### Quick Reference: When NOT to Use Vanilla Patterns
+
+- **`@Overwrite`**: Almost never needed. Use `@WrapMethod` to wrap, or a combination
+  of injectors. Overwrites break ALL other mods targeting the same method.
+- **`@Inject` at HEAD + `ci.cancel()`/`cir.setReturnValue()`**: Prevents other mods'
+  injections from running. Use `@WrapMethod` or `@ModifyReturnValue` instead.
+- **`@Redirect`**: Does not chain. Use `@WrapOperation` (wraps + chains),
+  `@ModifyExpressionValue` (tweak result + chains), `@WrapWithCondition` (conditional
+  skip + chains), or `@ModifyReceiver` (swap receiver + chains).
+- **`@ModifyConstant`**: Does not chain. Use `@ModifyExpressionValue` on the constant
+  expression instead.
+- **`locals = LocalCapture.CAPTURE_FAILHARD`**: Fragile and verbose. Use `@Local` sugar.
+
+There are exceptions — sometimes `@Inject` at HEAD with cancel is the only practical
+option (e.g., returning early on the client side before any logic runs, as in
+`AquaGrandmasterEntityMixin`). Use your judgment, but default to MixinExtras.
