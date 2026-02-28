@@ -125,4 +125,5 @@ Key rules for Expressions:
 
 There are exceptions — sometimes `@Inject` at HEAD with cancel is the only practical
 option (e.g., returning early on the client side before any logic runs, as in
-`AquaGrandmasterEntityMixin`). Use your judgment, but default to MixinExtras.
+`AquaGrandmasterEntityMixin`), and `@ModifyArg` or `@ModifyArgs` is often the
+most practical option. Use your judgment, but default to MixinExtras.

@@ -9,6 +9,7 @@ import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,20 +26,33 @@ public abstract class LivingEntityMixin {
         return self.hasEffect(ModEffects.FAVORED_FOE.get());
     }
 
+    /**
+     * JustLevelingFork intercepts the 1-arg addEffect for Players, cancelling
+     * delegation to the 2-arg overload and handling effects via its own logic.
+     * It reads effect.getDuration() to build the final MobEffectInstance, so we
+     * must modify duration here before JLF's injection point.
+     * Only targets Players to avoid double-application on non-Players (where the
+     * 1-arg still delegates to the 2-arg normally).
+     */
     @Inject(method = "addEffect(Lnet/minecraft/world/effect/MobEffectInstance;)Z", at = @At("HEAD"))
-    private void onAddEffectNoEntity(MobEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
-        otherworld$modifyEffectDuration(effect, null);
+    private void otherworld$onAddEffectSingleArg(MobEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity self = (LivingEntity) (Object) this;
+        if (!(self instanceof Player)) return;
+        otherworld$modifyEffectDuration(self, effect);
     }
 
     @Inject(method = "addEffect(Lnet/minecraft/world/effect/MobEffectInstance;Lnet/minecraft/world/entity/Entity;)Z", at = @At("HEAD"))
-    private void onAddEffectWithEntity(MobEffectInstance effect, Entity source, CallbackInfoReturnable<Boolean> cir) {
-        otherworld$modifyEffectDuration(effect, source);
+    private void otherworld$onAddEffect(MobEffectInstance effect, Entity source, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity self = (LivingEntity) (Object) this;
+        otherworld$modifyEffectDuration(self, effect);
     }
 
     @Unique
-    private void otherworld$modifyEffectDuration(MobEffectInstance effect, Entity source) {
-        LivingEntity self = (LivingEntity) (Object) this;
-
+    private static void otherworld$modifyEffectDuration(LivingEntity self, MobEffectInstance effect) {
+        MobEffectInstance existing = self.getEffect(effect.getEffect());
+        if (existing != null && existing.getDuration() >= effect.getDuration()) {
+            return;
+        }
 
         float multiplier = otherworld$getEffectMultiplier(self, effect);
         if (multiplier != 1.0f) {
