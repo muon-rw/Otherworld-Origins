@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
     id "net.darkhax.curseforgegradle" version "1.0.7"
     id 'net.neoforged.moddev.legacyforge' version '2.0.126'
-    id 'dev.mixinmcp.decompile' version '0.4.0'
+    id 'dev.mixinmcp.decompile' version '0.6.3'
 }
 
 version = mod_version
@@ -165,7 +165,8 @@ dependencies {
     modRuntimeOnly("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
 
     // Dev Env
-    modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    // modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+    modRuntimeOnly("curse.maven:jei-238222:7391695")
     modRuntimeOnly("curse.maven:jade-324717:${jade_id}")
     modRuntimeOnly("me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}")
 
@@ -181,6 +182,10 @@ dependencies {
 
     // Eidolon
     modImplementation("curse.maven:eidolon-repraised-870250:5877358")
+
+    // Sophisticated
+    modImplementation("curse.maven:sophisticated-backpacks-422301:7645913")
+    modImplementation("curse.maven:sophisticated-core-618298:7645911")
 
     // Valoria
     // Aether incompat with dev environment, using old version for now

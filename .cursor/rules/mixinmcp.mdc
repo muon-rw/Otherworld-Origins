@@ -1,8 +1,7 @@
 ---
 alwaysApply: true
 ---
-This is a Minecraft mod project using [Fabric/NeoForge/Forge] with extensive
-mixin usage and many dependencies.
+This is a Minecraft mod project with extensive mixin usage and many dependencies.
 
 You have access to MixinMCP tools via the IntelliJ MCP server. **Prefer these
 over grep, read_file, or jar extraction** when working with mod/dependency code.
@@ -80,7 +79,7 @@ Read source by known path (without searching first):
 | Synthetic/lambda method names | mixin_class_bytecode (filter="synthetic") |
 | Exact @At(target) for an INVOKE | mixin_method_bytecode — read the owner class from INVOKE* instructions |
 | Bytecode for a specific method | mixin_method_bytecode |
-| Diagnose missing source roots | mixin_debug_roots — lists all roots searched by dep tools |
+| Diagnose missing source roots | mixin_list_source_roots — lists all roots searched by dep tools |
 
 ## Common Pitfalls
 

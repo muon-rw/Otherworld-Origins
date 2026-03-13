@@ -17,6 +17,7 @@
     "compat.apotheosis.ApothEnchantmentMenuMixin",
     "compat.apotheosis.EndlessQuiverEnchantMixin",
     "compat.backpacked.RepairmanEnchantmentMixin",
+    "compat.sophisticatedcore.XpPumpUpgradeWrapperMixin",
     "compat.irons_spellbooks.AbstractSpellMixin",
     "compat.irons_spellbooks.TeleportSpellMixin",
     "compat.irons_spellbooks.UtilsMixin",

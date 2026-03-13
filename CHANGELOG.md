@@ -1,3 +1,6 @@
+## 1.6.0
+- Fix Sophisticated XP Pump bypassing Mending restriction
+
 ## 1.5.0
 - Class balancing
 
