@@ -1,6 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:class/artificer/attributes"
+		"otherworldorigins:class/artificer/attributes",
+		"otherworldorigins:class/artificer/prevent_repair_penalty"
 	],
 	"icon": {
 		"item": "otherworldorigins:class/artificer"

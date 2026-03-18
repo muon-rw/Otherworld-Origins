@@ -332,7 +332,7 @@
 "origin.otherworldorigins.feats/weapon_master.name": "Weapon Master",
 "origin.otherworldorigins.feats/weapon_master.description": "Deal 10% extra damage with any weapon, ranged or melee",
 
-"origin.otherworldorigins.class/artificer.description": "• 8 Hearts + 3/Level\n\n§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
+"origin.otherworldorigins.class/artificer.description": "• 8 Hearts + 3/Level\n• Repairs do not increase enchantment cost\n\n§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
 
 "origin.otherworldorigins.class/barbarian.description": "• 12 Hearts + 5/Level\n• Rage \n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
 

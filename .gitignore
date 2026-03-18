@@ -31,7 +31,3 @@ generate_models.py
 # MixinMCP auto-injected rules
 .cursor/rules/mixinmcp.mdc
 .cursor/rules/mixin-reference.mdc
-
-# MixinMCP auto-injected rules
-.cursor/rules/mixinmcp.mdc
-.cursor/rules/mixin-reference.mdc

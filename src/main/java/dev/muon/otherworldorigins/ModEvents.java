@@ -23,5 +23,4 @@ public class ModEvents {
         event.add(EntityType.PLAYER, ModAttributes.HEALTH_PER_LEVEL.get());
     }
 
-
 }

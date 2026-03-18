@@ -47,7 +47,6 @@ public abstract class OriginDisplayScreenMixin {
         if (originPath.startsWith("subclass/")) {
             modifiedDesc = appendSubclassSpellAccess(modifiedDesc, originPath.substring("subclass/".length()));
         } else if (originPath.startsWith("class/")) {
-            modifiedDesc = appendClassSpellAccess(modifiedDesc, originPath.substring("class/".length()));
             modifiedDesc = appendEnchantmentAccess(modifiedDesc, originPath.substring("class/".length()));
         } else if (originPath.startsWith("cantrips/two/")) {
             modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/two/".length()));
@@ -186,53 +185,6 @@ public abstract class OriginDisplayScreenMixin {
     private SchoolType otherworld$getSchoolType(ResourceLocation id) {
         if (SchoolRegistry.REGISTRY.get() == null) return null;
         return SchoolRegistry.REGISTRY.get().getValue(id);
-    }
-
-    @Unique
-    private MutableComponent appendClassSpellAccess(MutableComponent desc, String className) {
-        Map<String, List<String>> categoryRestrictions = OtherworldOriginsConfig.getClassRestrictions();
-        Map<String, List<String>> schoolRestrictions = OtherworldOriginsConfig.getSchoolRestrictions();
-
-        Set<List<String>> subclassCategoryRestrictions = categoryRestrictions.entrySet().stream()
-                .filter(entry -> entry.getKey().startsWith(className + "/"))
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toSet());
-
-        Set<List<String>> subclassSchoolRestrictions = schoolRestrictions.entrySet().stream()
-                .filter(entry -> entry.getKey().startsWith(className + "/"))
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toSet());
-
-        if (subclassCategoryRestrictions.isEmpty() && subclassSchoolRestrictions.isEmpty()) return desc;
-
-        // Add two line breaks and spell access header
-        desc.append("\n\n").append(
-                Component.translatable("otherworldorigins.gui.spell_access")
-                        .withStyle(style -> style.withUnderlined(true).withColor(13434879))
-        );
-
-        // Check if all subclasses have no spell access (no categories AND no schools)
-        boolean allNoSpells = subclassCategoryRestrictions.stream()
-                .allMatch(list -> list == null || list.isEmpty()) &&
-                subclassSchoolRestrictions.stream()
-                        .allMatch(list -> list == null || list.isEmpty());
-
-        // Check if all subclasses have all 3 categories (schools don't matter then)
-        boolean allAllSpells = subclassCategoryRestrictions.stream()
-                .allMatch(list -> list != null &&
-                        new HashSet<>(list).containsAll(Arrays.asList("OFFENSIVE", "SUPPORT", "DEFENSIVE")));
-
-        Component message;
-        if (allNoSpells) {
-            message = Component.translatable("otherworldorigins.gui.no_spells").withStyle(style -> style.withColor(13434879));
-        } else if (allAllSpells) {
-            message = Component.translatable("otherworldorigins.gui.all_spells").withStyle(style -> style.withColor(13434879));
-        } else {
-            message = Component.translatable("otherworldorigins.gui.varies").withStyle(style -> style.withColor(13434879));
-        }
-
-        desc.append("\n").append(message);
-        return desc;
     }
 
     @Unique

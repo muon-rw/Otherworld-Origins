@@ -35,6 +35,7 @@ public class ModPowers {
     public static final RegistryObject<PlayerLevelPower> PLAYER_LEVEL = POWER_FACTORIES.register("player_level", PlayerLevelPower::new);
     public static final RegistryObject<PowerFactory<SpellImmunityPower.Configuration>> SPELL_IMMUNITY = POWER_FACTORIES.register("spell_immunity", SpellImmunityPower::new);
     public static final RegistryObject<PowerFactory<HolderConfiguration<ConfiguredBlockCondition<?, ?>>>> PREVENT_BLOCK_SLOWDOWN = POWER_FACTORIES.register("prevent_block_slowdown", PreventBlockSlowdownPower::new);
+    public static final RegistryObject<PowerFactory<NoConfiguration>> PREVENT_REPAIR_PENALTY = POWER_FACTORIES.register("prevent_repair_penalty", PreventRepairPenaltyPower::new);
 
 
     private static <T extends PowerFactory<?>> RegistryObject<T> registerConditional(String name, Supplier<T> factory, String modId) {

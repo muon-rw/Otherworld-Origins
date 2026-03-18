@@ -26,7 +26,7 @@ mixin {
 
 legacyForge {
     // Develop against MinecraftForge version 47.3.0 for 1.20.1 (the versions can be found at https://files.minecraftforge.net/)
-    version = "1.20.1-47.4.12"
+    version = "${minecraft_version}-${forge_version}"
     parchment {
         minecraftVersion = "1.20.1"
         mappingsVersion = "2023.09.03"
@@ -194,6 +194,9 @@ dependencies {
     modImplementation("maven.modrinth:valoria:0.6.4.35")
     modRuntimeOnly("curse.maven:fluffy-fur-1097456:6392791")
 
+    // Immersive Melodies
+    modImplementation("curse.maven:immersive-melodies-904471:6744792")
+
     // Alex's
     modImplementation("curse.maven:alexs-mobs-426558:5160697")
     modImplementation("curse.maven:citadel-331936:5143956")
@@ -260,6 +263,9 @@ dependencies {
     modRuntimeOnly("curse.maven:lendercataclysm-551586:6906993")
     modRuntimeOnly("curse.maven:lionfish-api-1001614:5922047")
 
+    // Alshanex
+    modImplementation("curse.maven:alshanexs-familiars-1171602:7481428")
+    modImplementation("curse.maven:familiarslib-1316458:7696453")
     // Dummy
     modRuntimeOnly("curse.maven:mmmmmmmmmmmm-225738:6860192")
     modRuntimeOnly("curse.maven:selene-499980:7191950")

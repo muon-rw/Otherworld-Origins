@@ -1,5 +1,7 @@
 ## 1.6.0
 - Fix Sophisticated XP Pump bypassing Mending restriction
+- Fix buff duration exploit caused by JL 
+- More Subclass+Class abilities
 
 ## 1.5.0
 - Class balancing
