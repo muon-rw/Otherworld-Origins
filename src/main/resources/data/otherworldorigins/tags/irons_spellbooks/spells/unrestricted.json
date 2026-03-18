@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "otherworldorigins:summon_golem",
+    "otherworldorigins:summon_grizzly_bear",
+    "otherworldorigins:black_dragon_breath",
+    "otherworldorigins:blue_dragon_breath",
+    "otherworldorigins:brass_dragon_breath",
+    "otherworldorigins:bronze_dragon_breath",
+    "otherworldorigins:copper_dragon_breath",
+    "otherworldorigins:gold_dragon_breath",
+    "otherworldorigins:red_dragon_breath",
+    "otherworldorigins:silver_dragon_breath",
+    "otherworldorigins:white_dragon_breath",
+    "irons_spellbooks:counterspell"
+  ]
+}

@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/paladin/devotion"
+        "otherworldorigins:subclass/paladin/devotion",
+        "otherworldorigins:spell_access/paladin/devotion"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/paladin/devotion"

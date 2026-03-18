@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/warlock/fiend"
+        "otherworldorigins:subclass/warlock/fiend",
+        "otherworldorigins:spell_access/warlock/fiend"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/warlock/fiend"

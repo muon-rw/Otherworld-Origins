@@ -1,0 +1,30 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:frostbite",
+    "irons_spellbooks:raise_dead",
+    "irons_spellbooks:summon_horse",
+    "irons_spellbooks:summon_polar_bear",
+    "irons_spellbooks:summon_swords",
+    "irons_spellbooks:summon_vex",
+    {"id": "alshanex_familiars:summon_shadows", "required": false},
+    {"id": "darkdoppelganger:doppel_portal", "required": false},
+    {"id": "traveloptics:axe_of_the_doomed", "required": false},
+    {"id": "traveloptics:call_forth_the_dead_king", "required": false},
+    {"id": "traveloptics:conjure_void_tomes", "required": false},
+    {"id": "traveloptics:cursed_revenants", "required": false},
+    {"id": "traveloptics:echo_of_the_abyss", "required": false},
+    {"id": "traveloptics:eternal_sentinel", "required": false},
+    {"id": "traveloptics:herald_of_acropolis", "required": false},
+    {"id": "traveloptics:ignited_onslaught", "required": false},
+    {"id": "traveloptics:magnetron_deployment", "required": false},
+    {"id": "traveloptics:mechanized_predator", "required": false},
+    {"id": "traveloptics:nocturnal_swarm", "required": false},
+    {"id": "traveloptics:primal_pack", "required": false},
+    {"id": "traveloptics:primordial_steed", "required": false},
+    {"id": "traveloptics:sticky_steed_summon", "required": false},
+    {"id": "traveloptics:summon_desert_dwellers", "required": false},
+    {"id": "traveloptics:sword_of_the_ancients", "required": false},
+    {"id": "traveloptics:the_forgotten_beast", "required": false}
+  ]
+}

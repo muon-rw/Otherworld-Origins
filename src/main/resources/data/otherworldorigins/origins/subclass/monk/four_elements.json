@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/monk/four_elements"
+        "otherworldorigins:subclass/monk/four_elements",
+        "otherworldorigins:spell_access/monk/four_elements"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/monk/four_elements"

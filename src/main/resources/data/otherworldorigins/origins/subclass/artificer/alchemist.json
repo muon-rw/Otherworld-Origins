@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/artificer/alchemist"
+        "otherworldorigins:subclass/artificer/alchemist",
+        "otherworldorigins:spell_access/artificer/alchemist"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/artificer/alchemist"

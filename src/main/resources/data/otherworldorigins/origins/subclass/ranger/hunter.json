@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/ranger/hunter"
+        "otherworldorigins:subclass/ranger/hunter",
+        "otherworldorigins:spell_access/ranger/hunter"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/ranger/hunter"

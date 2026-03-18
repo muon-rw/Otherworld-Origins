@@ -1,0 +1,6 @@
+{
+    "powers": ["otherworldorigins:feats/school_evocation"],
+    "icon": {"item": "irons_spellbooks:evocation_upgrade_orb"},
+    "impact": 1,
+    "order": 106
+}

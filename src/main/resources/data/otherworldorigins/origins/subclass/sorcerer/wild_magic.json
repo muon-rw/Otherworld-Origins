@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/sorcerer/wild_magic"
+        "otherworldorigins:subclass/sorcerer/wild_magic",
+        "otherworldorigins:spell_access/sorcerer/wild_magic"
     ],
     "icon": {
         "item": "irons_spellbooks:lightning_upgrade_orb"

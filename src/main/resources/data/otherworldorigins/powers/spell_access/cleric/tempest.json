@@ -1,0 +1,11 @@
+{
+    "hidden": true,
+    "type": "otherworldorigins:allowed_spells",
+    "entries": [
+        "#otherworldorigins:offensive",
+        "#otherworldorigins:control",
+        "@irons_spellbooks:lightning",
+        "@irons_spellbooks:ice",
+        "@traveloptics:aqua"
+    ]
+}

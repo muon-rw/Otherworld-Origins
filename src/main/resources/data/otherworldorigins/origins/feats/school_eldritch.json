@@ -1,0 +1,6 @@
+{
+    "powers": ["otherworldorigins:feats/school_eldritch"],
+    "icon": {"item": "traveloptics:eldritch_upgrade_orb"},
+    "impact": 1,
+    "order": 108
+}

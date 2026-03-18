@@ -1,0 +1,10 @@
+{
+    "hidden": true,
+    "type": "otherworldorigins:allowed_spells",
+    "entries": [
+        "#otherworldorigins:offensive",
+        "#otherworldorigins:conjuring",
+        "#otherworldorigins:control",
+        "@irons_spellbooks:blood"
+    ]
+}

@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/paladin/vengeance"
+        "otherworldorigins:subclass/paladin/vengeance",
+        "otherworldorigins:spell_access/paladin/vengeance"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/paladin/vengeance"

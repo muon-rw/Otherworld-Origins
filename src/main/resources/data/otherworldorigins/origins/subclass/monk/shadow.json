@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/monk/shadow"
+        "otherworldorigins:subclass/monk/shadow",
+        "otherworldorigins:spell_access/monk/shadow"
     ],
     "icon": {
         "item": "irons_spellbooks:shadowwalker_helmet"

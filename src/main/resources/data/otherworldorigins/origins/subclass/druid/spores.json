@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/druid/spores"
+        "otherworldorigins:subclass/druid/spores",
+        "otherworldorigins:spell_access/druid/spores"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/druid/spores"

@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/ranger/beast_master"
+        "otherworldorigins:subclass/ranger/beast_master",
+        "otherworldorigins:spell_access/ranger/beast_master"
     ],
     "icon": {
         "item": "alexsmobs:bison_fur"

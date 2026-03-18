@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/druid/moon"
+        "otherworldorigins:subclass/druid/moon",
+        "otherworldorigins:spell_access/druid/moon"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/druid/moon"

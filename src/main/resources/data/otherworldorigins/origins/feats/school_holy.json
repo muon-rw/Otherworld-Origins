@@ -1,0 +1,6 @@
+{
+    "powers": ["otherworldorigins:feats/school_holy"],
+    "icon": {"item": "irons_spellbooks:holy_upgrade_orb"},
+    "impact": 1,
+    "order": 103
+}

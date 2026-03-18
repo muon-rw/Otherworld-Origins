@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/cleric/trickery"
+        "otherworldorigins:subclass/cleric/trickery",
+        "otherworldorigins:spell_access/cleric/trickery"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/cleric/trickery"

@@ -1,0 +1,6 @@
+{
+    "powers": ["otherworldorigins:feats/school_geo"],
+    "icon": {"item": "gtbcs_geomancy_plus:geo_upgrade_orb"},
+    "impact": 1,
+    "order": 111
+}

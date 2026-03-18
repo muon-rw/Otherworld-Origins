@@ -1,0 +1,6 @@
+{
+    "powers": ["otherworldorigins:feats/school_nature"],
+    "icon": {"item": "irons_spellbooks:nature_upgrade_orb"},
+    "impact": 1,
+    "order": 107
+}

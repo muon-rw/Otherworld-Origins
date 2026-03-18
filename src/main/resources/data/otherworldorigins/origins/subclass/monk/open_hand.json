@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/monk/open_hand"
+        "otherworldorigins:subclass/monk/open_hand",
+        "otherworldorigins:spell_access/monk/open_hand"
     ],
     "icon": {
         "item": "alexsmobs:falconry_glove"

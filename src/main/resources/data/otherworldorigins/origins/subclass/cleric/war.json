@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/cleric/war"
+        "otherworldorigins:subclass/cleric/war",
+        "otherworldorigins:spell_access/cleric/war"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/cleric/war"

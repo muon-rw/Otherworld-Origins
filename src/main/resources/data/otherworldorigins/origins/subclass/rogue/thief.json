@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/rogue/thief"
+        "otherworldorigins:subclass/rogue/thief",
+        "otherworldorigins:spell_access/rogue/thief"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/rogue/thief"

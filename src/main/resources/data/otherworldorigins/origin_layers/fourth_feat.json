@@ -388,6 +388,222 @@
       "origins": [
         "otherworldorigins:feats/two_handed"
       ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "irons_spellbooks:fire",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_fire"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "irons_spellbooks:ice",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_ice"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "irons_spellbooks:lightning",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_lightning"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "irons_spellbooks:holy",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_holy"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "irons_spellbooks:ender",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_ender"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "irons_spellbooks:blood",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_blood"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "irons_spellbooks:evocation",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_evocation"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "irons_spellbooks:nature",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_nature"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "irons_spellbooks:eldritch",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_eldritch"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "traveloptics:aqua",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_aqua"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "familiarslib:sound",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_sound"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "otherworldorigins:has_school_access",
+            "school": "gtbcs_geomancy_plus:geo",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 16
+          }
+        ]
+      },
+      "origins": ["otherworldorigins:feats/school_geo"]
     }
   ]
 }

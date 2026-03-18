@@ -31,7 +31,19 @@
         "otherworldorigins:feats/skilled",
         "otherworldorigins:feats/tough",
         "otherworldorigins:feats/two_handed",
-        "otherworldorigins:feats/weapon_master"
+        "otherworldorigins:feats/weapon_master",
+        "otherworldorigins:feats/school_fire",
+        "otherworldorigins:feats/school_ice",
+        "otherworldorigins:feats/school_lightning",
+        "otherworldorigins:feats/school_holy",
+        "otherworldorigins:feats/school_ender",
+        "otherworldorigins:feats/school_blood",
+        "otherworldorigins:feats/school_evocation",
+        "otherworldorigins:feats/school_nature",
+        "otherworldorigins:feats/school_eldritch",
+        "otherworldorigins:feats/school_aqua",
+        "otherworldorigins:feats/school_sound",
+        "otherworldorigins:feats/school_geo"
       ]
     }
   ]

@@ -1,0 +1,12 @@
+{
+    "hidden": true,
+    "type": "otherworldorigins:allowed_spells",
+    "entries": [
+        "@irons_spellbooks:fire",
+        "@irons_spellbooks:ice",
+        "@irons_spellbooks:lightning",
+        "@irons_spellbooks:nature",
+        "@traveloptics:aqua",
+        "@gtbcs_geomancy_plus:geo"
+    ]
+}

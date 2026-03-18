@@ -1,0 +1,9 @@
+{
+    "hidden": true,
+    "type": "otherworldorigins:allowed_spells",
+    "entries": [
+        "#otherworldorigins:support",
+        "#otherworldorigins:utility",
+        "@irons_spellbooks:nature"
+    ]
+}

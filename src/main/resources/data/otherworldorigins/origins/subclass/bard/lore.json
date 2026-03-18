@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/bard/lore"
+        "otherworldorigins:subclass/bard/lore",
+        "otherworldorigins:spell_access/bard/lore"
     ],
     "icon": {
         "item": "irons_spellbooks:scroll"

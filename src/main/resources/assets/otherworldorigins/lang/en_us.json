@@ -1,12 +1,5 @@
 {
-  "otherworldorigins.restrictions.school_type": "%s %ss are not attuned to %s magic",
-  
-  "otherworldorigins.restriction.unknown": "Unable to determine class restrictions",
-  "otherworldorigins.restriction.no_spells": "%s cannot cast any spells",
-  "otherworldorigins.restriction.can_only_cast": "%s can only cast %s spells",
-  "otherworldorigins.restriction.list.two": "%s or %s",
-  "otherworldorigins.restriction.list.separator": ", ",
-  "otherworldorigins.restriction.list.last_separator": ", or ",
+  "otherworldorigins.restriction.not_attuned": "You are not attuned to this spell",
 
   "otherworldorigins.disconnect.validation_failed": "Failed to validate origin layers after multiple attempts. Please try reconnecting. If this happens repeatedly, please check your network connection.",
 
@@ -332,6 +325,31 @@
 "origin.otherworldorigins.feats/weapon_master.name": "Weapon Master",
 "origin.otherworldorigins.feats/weapon_master.description": "Deal 10% extra damage with any weapon, ranged or melee",
 
+"origin.otherworldorigins.feats/school_fire.name": "Fire Attunement",
+"origin.otherworldorigins.feats/school_fire.description": "You become attuned to all Fire spells.",
+"origin.otherworldorigins.feats/school_ice.name": "Ice Attunement",
+"origin.otherworldorigins.feats/school_ice.description": "You become attuned to all Ice spells.",
+"origin.otherworldorigins.feats/school_lightning.name": "Lightning Attunement",
+"origin.otherworldorigins.feats/school_lightning.description": "You become attuned to all Lightning spells.",
+"origin.otherworldorigins.feats/school_holy.name": "Holy Attunement",
+"origin.otherworldorigins.feats/school_holy.description": "You become attuned to all Holy spells.",
+"origin.otherworldorigins.feats/school_ender.name": "Ender Attunement",
+"origin.otherworldorigins.feats/school_ender.description": "You become attuned to all Ender spells.",
+"origin.otherworldorigins.feats/school_blood.name": "Blood Attunement",
+"origin.otherworldorigins.feats/school_blood.description": "You become attuned to all Blood spells.",
+"origin.otherworldorigins.feats/school_evocation.name": "Evocation Attunement",
+"origin.otherworldorigins.feats/school_evocation.description": "You become attuned to all Evocation spells.",
+"origin.otherworldorigins.feats/school_nature.name": "Nature Attunement",
+"origin.otherworldorigins.feats/school_nature.description": "You become attuned to all Nature spells.",
+"origin.otherworldorigins.feats/school_eldritch.name": "Eldritch Attunement",
+"origin.otherworldorigins.feats/school_eldritch.description": "You become attuned to all Eldritch spells.",
+"origin.otherworldorigins.feats/school_aqua.name": "Aqua Attunement",
+"origin.otherworldorigins.feats/school_aqua.description": "You become attuned to all Aqua spells.",
+"origin.otherworldorigins.feats/school_sound.name": "Sound Attunement",
+"origin.otherworldorigins.feats/school_sound.description": "You become attuned to all Sound spells.",
+"origin.otherworldorigins.feats/school_geo.name": "Geomancy Attunement",
+"origin.otherworldorigins.feats/school_geo.description": "You become attuned to all Geomancy spells.",
+
 "origin.otherworldorigins.class/artificer.description": "• 8 Hearts + 3/Level\n• Repairs do not increase enchantment cost\n\n§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
 
 "origin.otherworldorigins.class/barbarian.description": "• 12 Hearts + 5/Level\n• Rage \n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
@@ -630,14 +648,7 @@
 "power.otherworldorigins.cantrips/two/gust.name": "",
 "power.otherworldorigins.cantrips/two/gust.description": "",
 
-  "otherworldorigins.gui.spell_access": "Spell Access:",
-  "otherworldorigins.gui.all_spells": "All spells",
-  "otherworldorigins.gui.no_spells": "No spells",
   "otherworldorigins.gui.varies": "Varies",
-  "otherworldorigins.gui.all_category_spells": "• %s spells",
-  "otherworldorigins.gui.all_two_category_spells": "• %s, %s spells",
-  "otherworldorigins.gui.all_school_spells": "+ All %s spells",
-  "otherworldorigins.gui.all_two_school_spells": "+ All %s and %s spells",
   "tooltip.otherworldorigins.set_bonus": "Set Bonus:",
   "tooltip.otherworldorigins.water_protection": "Water Protection",
   

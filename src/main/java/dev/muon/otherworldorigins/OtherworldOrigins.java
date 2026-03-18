@@ -10,8 +10,6 @@ import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.item.ModItems;
 import dev.muon.otherworldorigins.network.*;
 import dev.muon.otherworldorigins.power.ModPowers;
-import dev.muon.otherworldorigins.restrictions.SpellCategoryMapper;
-import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import dev.muon.otherworldorigins.school.ModSchools;
 import dev.muon.otherworldorigins.skills.ModPassives;
 import dev.muon.otherworldorigins.skills.ModSkills;
@@ -79,19 +77,11 @@ public class OtherworldOrigins {
     }
 
     private void onConfigLoad(final ModConfigEvent.Loading event) {
-        if (event.getConfig().getSpec() == OtherworldOriginsConfig.SPEC) {
-            SpellRestrictions.initializeFromConfig();
-        }
     }
     private void onConfigReload(final ModConfigEvent.Reloading event) {
-        if (event.getConfig().getSpec() == OtherworldOriginsConfig.SPEC) {
-            SpellRestrictions.initializeFromConfig();
-            SpellCategoryMapper.initialize();
-        }
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        SpellCategoryMapper.initialize();
     }
 
     private static int packetId = 0;

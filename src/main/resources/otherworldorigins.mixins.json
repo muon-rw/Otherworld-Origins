@@ -20,6 +20,7 @@
     "compat.backpacked.RepairmanEnchantmentMixin",
     "compat.sophisticatedcore.XpPumpUpgradeWrapperMixin",
     "compat.irons_spellbooks.AbstractSpellMixin",
+    "compat.irons_spellbooks.SpellRegistryMixin",
     "compat.irons_spellbooks.TeleportSpellMixin",
     "compat.irons_spellbooks.UtilsMixin",
     "compat.justlevelingfork.AptitudeCapabilityMixin",

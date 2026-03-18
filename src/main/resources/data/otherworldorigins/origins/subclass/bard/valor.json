@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/bard/valor"
+        "otherworldorigins:subclass/bard/valor",
+        "otherworldorigins:spell_access/bard/valor"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/bard/valor"

@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/druid/land"
+        "otherworldorigins:subclass/druid/land",
+        "otherworldorigins:spell_access/druid/land"
     ],
     "icon": {
         "item": "valoria:dirt_geode"

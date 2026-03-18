@@ -1,0 +1,26 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:blood_slash",
+    "irons_spellbooks:burning_dash",
+    "irons_spellbooks:charge",
+    "irons_spellbooks:devour",
+    "irons_spellbooks:divine_smite",
+    "irons_spellbooks:echoing_strikes",
+    "irons_spellbooks:flaming_strike",
+    "irons_spellbooks:raise_hell",
+    "irons_spellbooks:shadow_slash",
+    "irons_spellbooks:spider_aspect",
+    "irons_spellbooks:stomp",
+    "irons_spellbooks:summon_swords",
+    "irons_spellbooks:throw",
+    "irons_spellbooks:volt_strike",
+    {"id": "alshanex_familiars:fire_fist", "required": false},
+    {"id": "traveloptics:flood_slash", "required": false},
+    {"id": "traveloptics:gyro_slash", "required": false},
+    {"id": "traveloptics:shadowed_miasma", "required": false},
+    {"id": "traveloptics:tidal_grasp", "required": false},
+    {"id": "traveloptics:violent_skreech", "required": false},
+    {"id": "traveloptics:vortex_punch", "required": false}
+  ]
+}

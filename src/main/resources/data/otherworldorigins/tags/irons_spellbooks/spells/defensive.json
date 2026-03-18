@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:abyssal_shroud",
+    "irons_spellbooks:angel_wing",
+    "irons_spellbooks:counterspell",
+    "irons_spellbooks:evasion",
+    "irons_spellbooks:fang_ward",
+    "irons_spellbooks:fortify",
+    "irons_spellbooks:frost_step",
+    "irons_spellbooks:heartstop",
+    "irons_spellbooks:ice_tomb",
+    "irons_spellbooks:oakskin",
+    "irons_spellbooks:shadow_slash",
+    "irons_spellbooks:shield",
+    "irons_spellbooks:wall_of_fire",
+    {"id": "alshanex_familiars:guardian_angel", "required": false},
+    {"id": "traveloptics:flames_reborn", "required": false},
+    {"id": "traveloptics:floodgate", "required": false},
+    {"id": "traveloptics:jet_steam", "required": false},
+    {"id": "traveloptics:lingering_strain", "required": false},
+    {"id": "traveloptics:rainfall", "required": false},
+    {"id": "traveloptics:reversal", "required": false}
+  ]
+}

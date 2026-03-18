@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/wizard/abjuration"
+        "otherworldorigins:subclass/wizard/abjuration",
+        "otherworldorigins:spell_access/wizard/abjuration"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/wizard/abjuration"

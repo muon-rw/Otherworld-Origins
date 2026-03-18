@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/ranger/gloom_stalker"
+        "otherworldorigins:subclass/ranger/gloom_stalker",
+        "otherworldorigins:spell_access/ranger/gloom_stalker"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/ranger/gloom_stalker"

@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/rogue/assassin"
+        "otherworldorigins:subclass/rogue/assassin",
+        "otherworldorigins:spell_access/rogue/assassin"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/rogue/assassin"

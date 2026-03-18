@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/bard/swords"
+        "otherworldorigins:subclass/bard/swords",
+        "otherworldorigins:spell_access/bard/swords"
     ],
     "icon": {
         "item": "minecraft:netherite_sword"

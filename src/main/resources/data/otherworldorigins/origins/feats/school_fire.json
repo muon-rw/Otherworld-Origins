@@ -1,0 +1,6 @@
+{
+    "powers": ["otherworldorigins:feats/school_fire"],
+    "icon": {"item": "irons_spellbooks:fire_upgrade_orb"},
+    "impact": 1,
+    "order": 100
+}

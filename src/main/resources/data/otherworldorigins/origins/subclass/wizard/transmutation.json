@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/wizard/transmutation"
+        "otherworldorigins:subclass/wizard/transmutation",
+        "otherworldorigins:spell_access/wizard/transmutation"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/wizard/transmutation"

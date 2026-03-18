@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:ascension",
+    "irons_spellbooks:blood_step",
+    "irons_spellbooks:frost_step",
+    "irons_spellbooks:gluttony",
+    "irons_spellbooks:invisibility",
+    "irons_spellbooks:planar_sight",
+    "irons_spellbooks:pocket_dimension",
+    "irons_spellbooks:portal",
+    "irons_spellbooks:recall",
+    "irons_spellbooks:spectral_hammer",
+    "irons_spellbooks:summon_ender_chest",
+    "irons_spellbooks:summon_horse",
+    "irons_spellbooks:teleport",
+    "irons_spellbooks:touch_dig",
+    {"id": "darkdoppelganger:doppel_portal", "required": false},
+    {"id": "traveloptics:apex_harvest", "required": false},
+    {"id": "traveloptics:astral_sense", "required": false},
+    {"id": "traveloptics:blink", "required": false},
+    {"id": "traveloptics:jet_steam", "required": false},
+    {"id": "traveloptics:spectral_blink", "required": false}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+    "hidden": true,
+    "type": "otherworldorigins:allowed_spells",
+    "entries": [
+        "#otherworldorigins:defensive",
+        "#otherworldorigins:melee",
+        "@irons_spellbooks:fire",
+        "@irons_spellbooks:ice",
+        "@irons_spellbooks:lightning"
+    ]
+}

@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/paladin/ancients"
+        "otherworldorigins:subclass/paladin/ancients",
+        "otherworldorigins:spell_access/paladin/ancients"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/paladin/ancients"

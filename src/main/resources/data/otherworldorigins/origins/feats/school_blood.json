@@ -1,0 +1,6 @@
+{
+    "powers": ["otherworldorigins:feats/school_blood"],
+    "icon": {"item": "irons_spellbooks:blood_upgrade_orb"},
+    "impact": 1,
+    "order": 105
+}

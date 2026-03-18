@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/artificer/artillerist"
+        "otherworldorigins:subclass/artificer/artillerist",
+        "otherworldorigins:spell_access/artificer/artillerist"
     ],
     "icon": {
         "item": "minecraft:crossbow"

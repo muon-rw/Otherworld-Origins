@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/paladin/breaker"
+        "otherworldorigins:subclass/paladin/breaker",
+        "otherworldorigins:spell_access/paladin/breaker"
     ],
     "icon": {
         "item": "irons_spellbooks:blood_upgrade_orb"

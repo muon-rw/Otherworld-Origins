@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/cleric/knowledge"
+        "otherworldorigins:subclass/cleric/knowledge",
+        "otherworldorigins:spell_access/cleric/knowledge"
     ],
     "icon": {
         "item": "minecraft:writable_book"

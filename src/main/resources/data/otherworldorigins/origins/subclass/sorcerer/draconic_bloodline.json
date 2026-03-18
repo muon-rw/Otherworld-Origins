@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/sorcerer/draconic_bloodline"
+        "otherworldorigins:subclass/sorcerer/draconic_bloodline",
+        "otherworldorigins:spell_access/sorcerer/draconic_bloodline"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/sorcerer/draconic_bloodline"

@@ -1,0 +1,10 @@
+{
+    "hidden": true,
+    "type": "otherworldorigins:allowed_spells",
+    "entries": [
+        "#otherworldorigins:melee",
+        "#otherworldorigins:support",
+        "#otherworldorigins:defensive",
+        "@irons_spellbooks:holy"
+    ]
+}

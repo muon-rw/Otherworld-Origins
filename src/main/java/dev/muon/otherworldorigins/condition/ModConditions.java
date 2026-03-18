@@ -3,6 +3,7 @@ package dev.muon.otherworldorigins.condition;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.condition.block.PlantableBlockCondition;
 import dev.muon.otherworldorigins.condition.entity.AnyOnLayerCondition;
+import dev.muon.otherworldorigins.condition.entity.HasSchoolAccessCondition;
 import dev.muon.otherworldorigins.condition.entity.HasSkillCondition;
 import dev.muon.otherworldorigins.condition.entity.LeveledChanceCondition;
 import dev.muon.otherworldorigins.condition.entity.ManaCondition;
@@ -48,6 +49,7 @@ public class ModConditions {
     public static final RegistryObject<AnyOnLayerCondition> ANY_ON_LAYER = ENTITY_CONDITIONS.register("any_on_layer", AnyOnLayerCondition::new);
     public static final RegistryObject<ManaCondition> PLAYER_MANA = ENTITY_CONDITIONS.register("player_mana", ManaCondition::new);
     public static final RegistryObject<HasSkillCondition> HAS_SKILL = ENTITY_CONDITIONS.register("has_skill", HasSkillCondition::new);
+    public static final RegistryObject<HasSchoolAccessCondition> HAS_SCHOOL_ACCESS = ENTITY_CONDITIONS.register("has_school_access", HasSchoolAccessCondition::new);
     public static final RegistryObject<LeveledChanceCondition> LEVELED_CHANCE = ENTITY_CONDITIONS.register("leveled_chance", LeveledChanceCondition::new);
 
 

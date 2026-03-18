@@ -1,0 +1,6 @@
+{
+    "powers": ["otherworldorigins:feats/school_sound"],
+    "icon": {"item": "alshanex_familiars:sound_upgrade_orb"},
+    "impact": 1,
+    "order": 110
+}

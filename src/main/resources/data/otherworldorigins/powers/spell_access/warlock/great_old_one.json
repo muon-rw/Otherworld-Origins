@@ -1,0 +1,10 @@
+{
+    "hidden": true,
+    "type": "otherworldorigins:allowed_spells",
+    "entries": [
+        "#otherworldorigins:control",
+        "#otherworldorigins:utility",
+        "#otherworldorigins:defensive",
+        "@irons_spellbooks:eldritch"
+    ]
+}

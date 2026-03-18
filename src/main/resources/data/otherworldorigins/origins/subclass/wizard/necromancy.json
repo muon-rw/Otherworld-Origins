@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/wizard/necromancy"
+        "otherworldorigins:subclass/wizard/necromancy",
+        "otherworldorigins:spell_access/wizard/necromancy"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/wizard/necromancy"

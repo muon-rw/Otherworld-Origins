@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/wizard/conjuration"
+        "otherworldorigins:subclass/wizard/conjuration",
+        "otherworldorigins:spell_access/wizard/conjuration"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/wizard/conjuration"

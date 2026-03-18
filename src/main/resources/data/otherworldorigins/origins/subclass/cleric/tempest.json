@@ -1,6 +1,7 @@
 {
     "powers": [
-        "otherworldorigins:subclass/cleric/tempest"
+        "otherworldorigins:subclass/cleric/tempest",
+        "otherworldorigins:spell_access/cleric/tempest"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/cleric/tempest"
