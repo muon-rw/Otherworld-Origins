@@ -37,6 +37,11 @@
     {"id": "traveloptics:psychic_bolt", "required": false},
     {"id": "traveloptics:shadowed_miasma", "required": false},
     {"id": "traveloptics:tidal_grasp", "required": false},
-    {"id": "traveloptics:vortex_of_the_deep", "required": false}
+    {"id": "traveloptics:vortex_of_the_deep", "required": false},
+    {"id": "gtbcs_geomancy_plus:tremor_spike", "required": false},
+    {"id": "gtbcs_geomancy_plus:chunker", "required": false},
+    {"id": "gtbcs_geomancy_plus:pillar_of_the_resounding_earth", "required": false},
+    {"id": "gtbcs_geomancy_plus:petrivise", "required": false},
+    {"id": "gtbcs_geomancy_plus:weeping_cluster", "required": false}
   ]
 }

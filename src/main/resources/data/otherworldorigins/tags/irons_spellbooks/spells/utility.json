@@ -20,6 +20,8 @@
     {"id": "traveloptics:astral_sense", "required": false},
     {"id": "traveloptics:blink", "required": false},
     {"id": "traveloptics:jet_steam", "required": false},
-    {"id": "traveloptics:spectral_blink", "required": false}
+    {"id": "traveloptics:spectral_blink", "required": false},
+    {"id": "gtbcs_geomancy_plus:seismic_surf", "required": false},
+    {"id": "gtbcs_geomancy_plus:crystalline_conduit", "required": false}
   ]
 }

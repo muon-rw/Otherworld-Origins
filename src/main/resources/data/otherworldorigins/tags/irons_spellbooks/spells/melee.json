@@ -21,6 +21,7 @@
     {"id": "traveloptics:shadowed_miasma", "required": false},
     {"id": "traveloptics:tidal_grasp", "required": false},
     {"id": "traveloptics:violent_skreech", "required": false},
-    {"id": "traveloptics:vortex_punch", "required": false}
+    {"id": "traveloptics:vortex_punch", "required": false},
+    {"id": "gtbcs_geomancy_plus:tremor_step", "required": false}
   ]
 }

@@ -100,6 +100,16 @@
     {"id": "traveloptics:violent_skreech", "required": false},
     {"id": "traveloptics:void_eruption", "required": false},
     {"id": "traveloptics:vortex_of_the_deep", "required": false},
-    {"id": "traveloptics:vortex_punch", "required": false}
+    {"id": "traveloptics:vortex_punch", "required": false},
+    {"id": "gtbcs_geomancy_plus:fissure", "required": false},
+    {"id": "gtbcs_geomancy_plus:tremor_spike", "required": false},
+    {"id": "gtbcs_geomancy_plus:eroding_boulder", "required": false},
+    {"id": "gtbcs_geomancy_plus:chunker", "required": false},
+    {"id": "gtbcs_geomancy_plus:dripstone_bolt", "required": false},
+    {"id": "gtbcs_geomancy_plus:pillar_of_the_resounding_earth", "required": false},
+    {"id": "gtbcs_geomancy_plus:petrivise", "required": false},
+    {"id": "gtbcs_geomancy_plus:weeping_cluster", "required": false},
+    {"id": "gtbcs_geomancy_plus:solar_storm", "required": false},
+    {"id": "gtbcs_geomancy_plus:solar_beam", "required": false}
   ]
 }

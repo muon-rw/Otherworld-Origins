@@ -25,6 +25,7 @@
     {"id": "traveloptics:sticky_steed_summon", "required": false},
     {"id": "traveloptics:summon_desert_dwellers", "required": false},
     {"id": "traveloptics:sword_of_the_ancients", "required": false},
-    {"id": "traveloptics:the_forgotten_beast", "required": false}
+    {"id": "traveloptics:the_forgotten_beast", "required": false},
+    {"id": "gtbcs_geomancy_plus:solar_chorus", "required": false}
   ]
 }

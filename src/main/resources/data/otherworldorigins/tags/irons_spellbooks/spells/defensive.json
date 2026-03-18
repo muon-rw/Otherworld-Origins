@@ -20,6 +20,8 @@
     {"id": "traveloptics:jet_steam", "required": false},
     {"id": "traveloptics:lingering_strain", "required": false},
     {"id": "traveloptics:rainfall", "required": false},
-    {"id": "traveloptics:reversal", "required": false}
+    {"id": "traveloptics:reversal", "required": false},
+    {"id": "gtbcs_geomancy_plus:geo_conductor", "required": false},
+    {"id": "gtbcs_geomancy_plus:weeping_wall", "required": false}
   ]
 }

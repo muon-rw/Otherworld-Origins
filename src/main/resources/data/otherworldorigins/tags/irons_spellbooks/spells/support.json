@@ -15,6 +15,8 @@
     {"id": "alshanex_familiars:birds_spell", "required": false},
     {"id": "alshanex_familiars:guardian_angel", "required": false},
     {"id": "traveloptics:rainfall", "required": false},
-    {"id": "traveloptics:vigor_siphon", "required": false}
+    {"id": "traveloptics:vigor_siphon", "required": false},
+    {"id": "gtbcs_geomancy_plus:geo_conductor", "required": false},
+    {"id": "gtbcs_geomancy_plus:crystalline_conduit", "required": false}
   ]
 }
