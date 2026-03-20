@@ -1,0 +1,23 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.otherworldorigins.cantrip_two"
+    },
+    "entity_action": {
+        "type": "otherworldorigins:cast_spell",
+        "spell": "ray_of_siphoning",
+        "power_level": 3,
+        "mana_cost": 5,
+        "continuous_cost": true,
+        "cost_interval": 10
+    },
+    "condition": {
+        "type": "otherworldorigins:player_mana",
+        "comparison": ">=",
+        "compare_to": 5
+    },
+    "cooldown": 100,
+    "hud_render": {
+        "should_render": true
+    }
+}

@@ -8,14 +8,6 @@
         "conditions": [
           {
             "type": "origins:origin",
-            "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
-          },
-                    {
-            "type": "origins:origin",
-            "origin": "otherworldorigins:subclass/fighter/eldritch_knight"
-          },
-          {
-            "type": "origins:origin",
             "origin": "otherworldorigins:class/wizard"
           },
           {
@@ -33,17 +25,139 @@
           {
             "type": "origins:origin",
             "origin": "otherworldorigins:class/druid"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:class/warlock"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/fighter/eldritch_knight"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:cantrips/two/fortify",
+        "otherworldorigins:cantrips/two/gust",
+        "otherworldorigins:cantrips/two/magic_missile"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/druid"
+      },
+      "origins": [
+        "otherworldorigins:cantrips/two/acid_orb",
+        "otherworldorigins:cantrips/two/firefly_swarm",
+        "otherworldorigins:cantrips/two/oakskin",
+        "otherworldorigins:cantrips/two/poison_arrow",
+        "otherworldorigins:cantrips/two/poison_breath",
+        "otherworldorigins:cantrips/two/root"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/cleric"
+      },
+      "origins": [
+        "otherworldorigins:cantrips/two/guiding_bolt",
+        "otherworldorigins:cantrips/two/blessing_of_life",
+        "otherworldorigins:cantrips/two/divine_smite",
+        "otherworldorigins:cantrips/two/wisp",
+        "otherworldorigins:cantrips/two/healing_circle"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:class/wizard"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:class/sorcerer"
           }
         ]
       },
       "origins": [
         "otherworldorigins:cantrips/two/acid_orb",
+        "otherworldorigins:cantrips/two/ball_lightning",
+        "otherworldorigins:cantrips/two/blaze_storm",
         "otherworldorigins:cantrips/two/chain_lightning",
+        "otherworldorigins:cantrips/two/cone_of_cold",
+        "otherworldorigins:cantrips/two/dragon_breath",
+        "otherworldorigins:cantrips/two/electrocute",
+        "otherworldorigins:cantrips/two/fire_breath",
         "otherworldorigins:cantrips/two/firebolt",
-        "otherworldorigins:cantrips/two/fortify",
-        "otherworldorigins:cantrips/two/gust",
+        "otherworldorigins:cantrips/two/frostwave",
+        "otherworldorigins:cantrips/two/heat_surge",
+        "otherworldorigins:cantrips/two/ice_spikes",
         "otherworldorigins:cantrips/two/icicle",
-        "otherworldorigins:cantrips/two/magic_missile"
+        "otherworldorigins:cantrips/two/poison_arrow",
+        "otherworldorigins:cantrips/two/ray_of_frost",
+        "otherworldorigins:cantrips/two/shockwave"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/bard"
+      },
+      "origins": [
+        "otherworldorigins:cantrips/two/music_bolt",
+        "otherworldorigins:cantrips/two/firecracker",
+        "otherworldorigins:cantrips/two/fang_strike",
+        "otherworldorigins:cantrips/two/em_pulse",
+        "otherworldorigins:cantrips/two/hydroshot",
+        "otherworldorigins:cantrips/two/fang_ward",
+        "otherworldorigins:cantrips/two/lob_creeper"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "otherworldorigins:class/warlock"
+      },
+      "origins": [
+        "otherworldorigins:cantrips/two/ray_of_siphoning",
+        "otherworldorigins:cantrips/two/wither_skull",
+        "otherworldorigins:cantrips/two/blood_step",
+        "otherworldorigins:cantrips/two/ashen_breath",
+        "otherworldorigins:cantrips/two/nocturnal_swarm",
+        "otherworldorigins:cantrips/two/blood_needles",
+        "otherworldorigins:cantrips/two/devour"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/fighter/eldritch_knight"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/rogue/arcane_trickster"
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:cantrips/two/shadow_slash",
+        "otherworldorigins:cantrips/two/burning_dash",
+        "otherworldorigins:cantrips/two/volt_strike",
+        "otherworldorigins:cantrips/two/shield",
+        "otherworldorigins:cantrips/two/flaming_strike",
+        "otherworldorigins:cantrips/two/tremor_step",
+        "otherworldorigins:cantrips/two/dripstone_bolt"
       ]
     }
   ]

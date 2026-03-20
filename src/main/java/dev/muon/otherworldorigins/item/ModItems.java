@@ -123,10 +123,6 @@ public class ModItems {
     /** Consumables */
     public static final RegistryObject<Item> GOODBERRY = ITEMS.register("goodberry", () -> new GoodberryItem(new Item.Properties()));
 
-    /** Cantrips */
-    public static final RegistryObject<Item> GUST = ITEMS.register("cantrips/gust", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> ICICLE = ITEMS.register("cantrips/icicle", () -> new Item(new Item.Properties()));
-
     /** Apts */
     public static final RegistryObject<Item> BLD = ITEMS.register("apts/bld", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> STR = ITEMS.register("apts/str", () -> new Item(new Item.Properties()));

@@ -230,7 +230,7 @@ public class FinalConfirmScreen extends Screen {
         
         if (layer != null) {
             ResourceKey<Origin> originKey = container.getOrigin(layer);
-            if (originKey != null && !originKey.location().equals(new ResourceLocation("origins", "empty"))) {
+            if (originKey != null && !originKey.location().equals(ResourceLocation.fromNamespaceAndPath("origins", "empty"))) {
                 Holder<Origin> origin = originRegistry.getHolder(originKey).orElse(null);
                 if (origin != null) {
                     // Use the origin's actual display name

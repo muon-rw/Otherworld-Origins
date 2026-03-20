@@ -104,7 +104,7 @@ public class ForgeEvents {
     @SubscribeEvent
     public static void modifySpellLevels(ModifySpellLevelEvent event) {
         if (event.getEntity() instanceof Player player) {
-            Skill skill = RegistrySkills.SKILLS_REGISTRY.get().getValue(new ResourceLocation("otherworldorigins", "wisdom"));
+            Skill skill = RegistrySkills.SKILLS_REGISTRY.get().getValue(OtherworldOrigins.loc("wisdom"));
             if (skill != null && skill.isEnabled(player)) {
                 event.addLevels(1);
             }
@@ -143,7 +143,7 @@ public class ForgeEvents {
             );
 
             ResourceKey<Origin> currentOrigin = originContainer.getOrigin(layerHolder);
-            if (currentOrigin.location().equals(new ResourceLocation("origins", "empty"))) {
+            if (currentOrigin.location().equals(ResourceLocation.fromNamespaceAndPath("origins", "empty"))) {
                 Set<Holder<Origin>> availableOrigins = layer.origins(player);
                 if (!availableOrigins.isEmpty()) {
                     missingOriginLayers.add(layerHolder);
@@ -200,7 +200,7 @@ public class ForgeEvents {
             amount *= multiplier;
         }
         if (event.getEntity() instanceof Player player) {
-            Skill diamondSkin = RegistrySkills.SKILLS_REGISTRY.get().getValue(new ResourceLocation("justlevelingfork", "diamond_skin"));
+            Skill diamondSkin = RegistrySkills.SKILLS_REGISTRY.get().getValue(ResourceLocation.fromNamespaceAndPath("justlevelingfork", "diamond_skin"));
             if (diamondSkin != null && diamondSkin.isEnabled(player)) {
                 amount *= player.isCrouching() ? 0.7f : 0.85f;
             }
@@ -209,7 +209,7 @@ public class ForgeEvents {
     }
 
     /**
-     * Deflect projectiles before impact when the power applies. Cancelling prevents the hit
+     * Deflect projectiles before impact when the power applies. SKIP_ENTITY prevents the hit
      * so the projectile continues flying (after we redirect it). Deflecting bypasses the
      * damage pipeline entirely.
      */
@@ -223,7 +223,7 @@ public class ForgeEvents {
         var projectile = event.getProjectile();
         var deflectPower = DeflectProjectilePower.tryDeflect(living, projectile);
         if (deflectPower.isPresent()) {
-            event.setCanceled(true);
+            event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
             DeflectProjectilePower.executeDeflect(deflectPower.get(), living, projectile);
         }
     }

@@ -64,7 +64,11 @@ public class OtherworldOriginsConfig {
                 .defineList("rotation_blacklist", Arrays.asList(
                         "otherworldorigins:dark_vision_toggle",
                         "otherworldorigins:cantrips/fortify",
-                        "otherworldorigins:cantrips/two/fortify"
+                        "otherworldorigins:cantrips/two/fortify",
+                        "otherworldorigins:cantrips/oakskin",
+                        "otherworldorigins:cantrips/two/oakskin",
+                        "otherworldorigins:cantrips/healing_circle",
+                        "otherworldorigins:cantrips/two/healing_circle"
                 ), value -> value instanceof String);
         BUILDER.pop();
 

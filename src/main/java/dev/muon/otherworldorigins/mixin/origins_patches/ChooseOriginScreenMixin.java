@@ -70,6 +70,8 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
 
     @Inject(method = "Lio/github/apace100/origins/screen/ChooseOriginScreen;render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V", at = @At("TAIL"), require = 1)
     private void renderCurrentOrigins(GuiGraphics graphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+        if (otherworld$isFeatLayer()) return;
+
         // Calculate starting position - center of screen, 5px down, 180px to the left
         int centerX = scrn().width / 2;
         int centerY = scrn().height / 2;
@@ -98,7 +100,7 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
                     ResourceKey<Origin> originKey = originContainer.getOrigin(layer);
                     
                     // Only render if an origin is selected (not empty)
-                    if (originKey != null && !originKey.location().equals(new ResourceLocation("origins", "empty"))) {
+                    if (originKey != null && !originKey.location().equals(ResourceLocation.fromNamespaceAndPath("origins", "empty"))) {
                         Holder<Origin> origin = originRegistry.getHolder(originKey).orElse(null);
                         if (origin != null) {
                             Component layerName = layer.value().name().copy().withStyle(style -> style.withUnderlined(true));
@@ -142,7 +144,7 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
 
 
     @Unique
-    private boolean otherworld$shouldHideButton() {
+    private boolean otherworld$isFeatLayer() {
         if (currentLayerIndex >= 0 && currentLayerIndex < layerList.size()) {
             Holder<OriginLayer> currentLayer = layerList.get(currentLayerIndex);
             ResourceLocation layerId = currentLayer.unwrapKey()
@@ -150,12 +152,27 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
                     .orElse(null);
 
             if (layerId != null) {
-                return layerId.equals(OtherworldOrigins.loc("first_feat")) ||
+                return layerId.equals(OtherworldOrigins.loc("free_feat")) ||
+                        layerId.equals(OtherworldOrigins.loc("first_feat")) ||
                         layerId.equals(OtherworldOrigins.loc("second_feat")) ||
                         layerId.equals(OtherworldOrigins.loc("third_feat")) ||
                         layerId.equals(OtherworldOrigins.loc("fourth_feat")) ||
-                        layerId.equals(OtherworldOrigins.loc("fifth_feat")) ||
-                        layerId.equals(OtherworldOrigins.loc("plus_one_aptitude_resilient"));
+                        layerId.equals(OtherworldOrigins.loc("fifth_feat"));
+            }
+        }
+        return false;
+    }
+
+    @Unique
+    private boolean otherworld$shouldHideButton() {
+        if (otherworld$isFeatLayer()) return true;
+        if (currentLayerIndex >= 0 && currentLayerIndex < layerList.size()) {
+            Holder<OriginLayer> currentLayer = layerList.get(currentLayerIndex);
+            ResourceLocation layerId = currentLayer.unwrapKey()
+                    .map(ResourceKey::location)
+                    .orElse(null);
+            if (layerId != null) {
+                return layerId.equals(OtherworldOrigins.loc("plus_one_aptitude_resilient"));
             }
         }
         return false;
@@ -179,7 +196,7 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
 
             if (layer != null) {
                 ResourceKey<Origin> originKey = originContainer.getOrigin(layer);
-                if (originKey != null && !originKey.location().equals(new ResourceLocation("origins", "empty"))) {
+                if (originKey != null && !originKey.location().equals(ResourceLocation.fromNamespaceAndPath("origins", "empty"))) {
                     Holder<Origin> origin = originRegistry.getHolder(originKey).orElse(null);
                     if (origin != null) {
                         featOrigins.add(origin);

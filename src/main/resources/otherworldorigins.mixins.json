@@ -20,6 +20,7 @@
     "compat.backpacked.RepairmanEnchantmentMixin",
     "compat.sophisticatedcore.XpPumpUpgradeWrapperMixin",
     "compat.irons_spellbooks.AbstractSpellMixin",
+    "compat.irons_spellbooks.ServerPlayerEventsMixin",
     "compat.irons_spellbooks.SpellRegistryMixin",
     "compat.irons_spellbooks.TeleportSpellMixin",
     "compat.irons_spellbooks.UtilsMixin",
@@ -43,6 +44,10 @@
     "origins_patches.WaitForNextLayerScreenMixin"
   ],
   "client": [
+    "compat.altorigingui.ChooseOriginScreenMixinSquared",
+    "compat.irons_spellbooks.ClientInputEventsMixin",
+    "compat.irons_spellbooks.ClientMagicDataAccessor",
+    "compat.irons_spellbooks.ClientServerPlayerEventsMixin",
     "compat.justlevelingfork.client.AptitudeMixin",
     "compat.justlevelingfork.client.JustLevelingScreenMixin",
     "compat.shouldersurfing.ApoliAPIMixin",

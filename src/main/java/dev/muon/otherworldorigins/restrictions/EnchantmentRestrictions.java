@@ -22,16 +22,16 @@ public class EnchantmentRestrictions {
     private static final Map<ResourceLocation, String> ENCHANTMENT_CLASS_MAP = new HashMap<>();
 
     static {
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:mending"), "artificer");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("backpacked:repairman"), "artificer");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:sweeping"), "barbarian");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:thorns"), "druid");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:sharpness"), "fighter");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:feather_falling"), "monk");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:smite"), "paladin");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:power"), "rogue");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("minecraft:infinity"), "ranger");
-        ENCHANTMENT_CLASS_MAP.put(new ResourceLocation("apotheosis:endless_quiver"), "ranger");
+        ENCHANTMENT_CLASS_MAP.put(ResourceLocation.withDefaultNamespace("mending"), "artificer");
+        ENCHANTMENT_CLASS_MAP.put(ResourceLocation.fromNamespaceAndPath("backpacked", "repairman"), "artificer");
+        ENCHANTMENT_CLASS_MAP.put(ResourceLocation.withDefaultNamespace("sweeping"), "barbarian");
+        ENCHANTMENT_CLASS_MAP.put(ResourceLocation.withDefaultNamespace("thorns"), "druid");
+        ENCHANTMENT_CLASS_MAP.put(ResourceLocation.withDefaultNamespace("sharpness"), "fighter");
+        ENCHANTMENT_CLASS_MAP.put(ResourceLocation.withDefaultNamespace("feather_falling"), "monk");
+        ENCHANTMENT_CLASS_MAP.put(ResourceLocation.withDefaultNamespace("smite"), "paladin");
+        ENCHANTMENT_CLASS_MAP.put(ResourceLocation.withDefaultNamespace("power"), "rogue");
+        ENCHANTMENT_CLASS_MAP.put(ResourceLocation.withDefaultNamespace("infinity"), "ranger");
+        ENCHANTMENT_CLASS_MAP.put(ResourceLocation.fromNamespaceAndPath("apotheosis", "endless_quiver"), "ranger");
     }
 
     public static boolean isEnchantmentAllowed(Player player, Enchantment enchantment) {

@@ -117,7 +117,7 @@ public class JustLevelingScreenMixin {
     private boolean otherworld$confirmRespec = false;
 
     @Unique
-    private static final ResourceLocation RESPEC_BUTTON_TEXTURE = new ResourceLocation(OtherworldOrigins.MODID, "textures/gui/respec_button.png");
+    private static final ResourceLocation RESPEC_BUTTON_TEXTURE = ResourceLocation.fromNamespaceAndPath(OtherworldOrigins.MODID, "textures/gui/respec_button.png");
 
     @Unique
     private boolean otherworld$respecButtonHovered = false;

@@ -46,7 +46,7 @@ public class FeatHandler {
                 OriginLayer layer = layerHolder.value();
                 ResourceKey<Origin> currentOrigin = originContainer.getOrigin(layerHolder);
 
-                if (currentOrigin.location().equals(new ResourceLocation("origins", "empty")) && !layer.origins(player).isEmpty()) {
+                if (currentOrigin.location().equals(ResourceLocation.fromNamespaceAndPath("origins", "empty")) && !layer.origins(player).isEmpty()) {
                     availableFeatLayers.add(layerId);
                 }
             }

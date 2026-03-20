@@ -6,7 +6,7 @@
     "entity_action": {
         "type": "otherworldorigins:cast_spell",
         "spell": "fortify",
-        "power_level": 4,
+        "power_level": 2,
         "mana_cost": 10,
         "cast_time": 0
     },

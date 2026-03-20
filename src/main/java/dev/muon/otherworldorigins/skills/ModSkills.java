@@ -18,7 +18,7 @@ public class ModSkills {
                     OtherworldOrigins.loc("reforging"),
                     RegistryAptitudes.BUILDING.get(),
                     20,
-                    new ResourceLocation(JustLevelingFork.MOD_ID,"textures/skill/building/locked_24.png")
+                    ResourceLocation.fromNamespaceAndPath(JustLevelingFork.MOD_ID, "textures/skill/building/locked_24.png")
             ));
 
     public static final RegistryObject<Skill> WISDOM = SKILLS.register("wisdom", () ->
@@ -26,7 +26,7 @@ public class ModSkills {
                     OtherworldOrigins.loc("wisdom"),
                     RegistryAptitudes.MAGIC.get(),
                     20,
-                    new ResourceLocation(JustLevelingFork.MOD_ID,"textures/skill/intelligence/locked_24.png")
+                    ResourceLocation.fromNamespaceAndPath(JustLevelingFork.MOD_ID, "textures/skill/intelligence/locked_24.png")
                     ));
 
 

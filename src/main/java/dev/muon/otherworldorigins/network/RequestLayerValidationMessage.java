@@ -45,7 +45,7 @@ public class RequestLayerValidationMessage {
                         Holder<OriginLayer> layerHolder = layerRegistry.getHolderOrThrow(layerRegistry.getResourceKey(layer).orElseThrow());
                         ResourceKey<Origin> originKey = originContainer.getOrigin(layerHolder);
 
-                        if (originKey == null || originKey.location().equals(new ResourceLocation("origins", "empty"))) {
+                        if (originKey == null || originKey.location().equals(ResourceLocation.fromNamespaceAndPath("origins", "empty"))) {
                             if (!layer.origins(player).isEmpty()) {
                                 missingOriginLayers.add(layerId);
                             }

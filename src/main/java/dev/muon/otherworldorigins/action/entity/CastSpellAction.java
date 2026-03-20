@@ -87,10 +87,9 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         int powerLevel = configuration.powerLevel();
         MagicData magicData = MagicData.getPlayerMagicData(livingEntity);
 
-        // Handle case where entity is already casting - varies.
-        // TODO: Make this a configurable action json field instead of hardcoded behavior by entity type
-        // Requires own impl for cancel, Iron's only has logic for cancelling Player casting
+        // Handle case where entity is already casting
         if (magicData.isCasting()) {
+            boolean sameSpell = spell.getSpellId().equals(magicData.getCastingSpellId());
             if (livingEntity instanceof ServerPlayer serverPlayer) {
                 OtherworldOrigins.LOGGER.debug("CastSpellAction: Player is still casting {}, cancelling previous cast", magicData.getCastingSpellId());
                 Utils.serverSideCancelCast(serverPlayer);
@@ -101,6 +100,9 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
                 oldSpell.onServerCastComplete(world, magicData.getCastingSpellLevel(), livingEntity, magicData, false);
             }
             magicData.resetCastingState();
+            if (sameSpell) {
+                return;
+            }
             magicData = MagicData.getPlayerMagicData(livingEntity);
         }
 

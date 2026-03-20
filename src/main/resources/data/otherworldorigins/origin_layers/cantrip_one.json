@@ -18,12 +18,24 @@
       },
       "origins": [
         "otherworldorigins:cantrips/acid_orb",
+        "otherworldorigins:cantrips/ball_lightning",
+        "otherworldorigins:cantrips/blaze_storm",
         "otherworldorigins:cantrips/chain_lightning",
+        "otherworldorigins:cantrips/cone_of_cold",
+        "otherworldorigins:cantrips/dragon_breath",
+        "otherworldorigins:cantrips/electrocute",
+        "otherworldorigins:cantrips/fire_breath",
         "otherworldorigins:cantrips/firebolt",
         "otherworldorigins:cantrips/fortify",
+        "otherworldorigins:cantrips/frostwave",
         "otherworldorigins:cantrips/gust",
+        "otherworldorigins:cantrips/heat_surge",
+        "otherworldorigins:cantrips/ice_spikes",
         "otherworldorigins:cantrips/icicle",
-        "otherworldorigins:cantrips/magic_missile"
+        "otherworldorigins:cantrips/magic_missile",
+        "otherworldorigins:cantrips/poison_arrow",
+        "otherworldorigins:cantrips/ray_of_frost",
+        "otherworldorigins:cantrips/shockwave"
       ]
     }
   ]
