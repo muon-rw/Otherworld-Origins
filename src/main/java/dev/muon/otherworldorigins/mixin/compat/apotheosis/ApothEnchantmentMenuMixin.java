@@ -10,11 +10,14 @@ import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 /**
  * Reduces the enchantment level cost for players with the ModifyEnchantmentCost power.
- * This affects both the displayed level requirement and the enchantment selection.
+ * The cost reduction only affects the level requirement and XP charge — enchantment
+ * quality is preserved by restoring the original power level in getEnchantmentList.
  */
 @Mixin(value = ApothEnchantmentMenu.class, remap = false)
 public class ApothEnchantmentMenuMixin {
@@ -23,11 +26,25 @@ public class ApothEnchantmentMenuMixin {
     @Shadow
     protected Player player;
 
+    @Unique
+    private float otherworldorigins$getCostModifier() {
+        if (this.player == null) return 1f;
+
+        IPowerContainer powerContainer = ApoliAPI.getPowerContainer(this.player);
+        if (powerContainer == null) return 1f;
+
+        var playerPowers = powerContainer.getPowers(ModPowers.MODIFY_ENCHANTMENT_COST.get());
+        if (playerPowers.isEmpty()) return 1f;
+
+        return playerPowers.stream()
+                .map(holder -> holder.value().getConfiguration())
+                .map(ModifyEnchantmentCostPower.Configuration::amount)
+                .reduce(1f, (a, b) -> a * (1 - b));
+    }
+
     /**
-     * Modifies the enchantment cost after it's calculated.
-     * // TODO:
-     * This reduces both the level requirement and affects enchantment quality proportionally.
-     * Needs to affect only requirement
+     * Reduces the enchantment cost stored in {@code costs[]}, which controls both
+     * the displayed level requirement and the XP charged when enchanting.
      */
     @ModifyExpressionValue(
             method = "lambda$slotsChanged$1",
@@ -37,21 +54,26 @@ public class ApothEnchantmentMenuMixin {
             )
     )
     private int otherworldorigins$modifyEnchantmentCost(int originalCost) {
-        if (this.player == null) return originalCost;
-        
-        IPowerContainer powerContainer = ApoliAPI.getPowerContainer(this.player);
-        if (powerContainer == null) return originalCost;
-        
-        var playerPowers = powerContainer.getPowers(ModPowers.MODIFY_ENCHANTMENT_COST.get());
-        if (playerPowers.isEmpty()) return originalCost;
-        
-        // Calculate total modifier (multiplicative reduction)
-        float totalModifier = playerPowers.stream()
-                .map(holder -> holder.value().getConfiguration())
-                .map(ModifyEnchantmentCostPower.Configuration::amount)
-                .reduce(1f, (a, b) -> a * (1 - b));
-        
-        // Apply modifier and ensure minimum cost of 1
-        return Math.max(1, Math.round(originalCost * totalModifier));
+        float modifier = otherworldorigins$getCostModifier();
+        if (modifier >= 1f) return originalCost;
+        return Math.max(1, Math.round(originalCost * modifier));
+    }
+
+    /**
+     * Reverses the cost reduction when selecting enchantments, so enchantment quality
+     * is based on the original power level rather than the reduced display cost.
+     */
+    @ModifyArg(
+            method = {"lambda$slotsChanged$1", "lambda$clickMenuButton$0"},
+            at = @At(
+                    value = "INVOKE",
+                    target = "Ldev/shadowsoffire/apotheosis/ench/table/ApothEnchantmentMenu;getEnchantmentList(Lnet/minecraft/world/item/ItemStack;II)Ljava/util/List;"
+            ),
+            index = 2
+    )
+    private int otherworldorigins$restoreOriginalLevelForQuality(int reducedLevel) {
+        float modifier = otherworldorigins$getCostModifier();
+        if (modifier >= 1f || modifier <= 0f) return reducedLevel;
+        return Math.round(reducedLevel / modifier);
     }
 }

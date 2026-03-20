@@ -15,6 +15,7 @@
     "MobEffectInstanceAccessor",
     "PlayerMixin",
     "VillagerMixin",
+    "compat.apotheosis.ApothEnchantmentMenuAccessor",
     "compat.apotheosis.ApothEnchantmentMenuMixin",
     "compat.apotheosis.EndlessQuiverEnchantMixin",
     "compat.backpacked.RepairmanEnchantmentMixin",
@@ -44,6 +45,7 @@
     "origins_patches.WaitForNextLayerScreenMixin"
   ],
   "client": [
+    "compat.apotheosis.ApothEnchantScreenMixin",
     "compat.altorigingui.ChooseOriginScreenMixinSquared",
     "compat.irons_spellbooks.ClientInputEventsMixin",
     "compat.irons_spellbooks.ClientMagicDataAccessor",

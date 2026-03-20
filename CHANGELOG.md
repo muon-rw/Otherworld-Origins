@@ -3,6 +3,8 @@
 - Fix buff duration exploit caused by JL 
 - More Subclass+Class abilities
 - New spell restrictions
+- Lotsa cantrips
+- Better enchantment cost reduction 
 
 ## 1.5.0
 - Class balancing

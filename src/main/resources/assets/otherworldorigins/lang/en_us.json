@@ -48,6 +48,8 @@
   "otherworldorigins.uncastable": "You can't use this ability right now.",
   "otherworldorigins.reforge_restricted": "Your lack the knowledge needed to use this table...",
   
+  "tooltip.otherworldorigins.enchant_cost_reduced": "Cost reduced: %1$s \u2192 %2$s",
+
   "tooltip.otherworldorigins.damage_dealt": "+%s Damage Dealt",
   "tooltip.otherworldorigins.attack_damage_bonus": "+%s Attack Damage",
 
