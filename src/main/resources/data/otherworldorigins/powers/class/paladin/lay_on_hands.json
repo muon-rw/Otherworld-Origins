@@ -37,7 +37,7 @@
     "heal": {
         "type": "origins:active_self",
         "key": {
-            "key": "key.origins.secondary_active",
+            "key": "key.otherworldorigins.cantrip_two",
             "continuous": true
         },
         "condition": {

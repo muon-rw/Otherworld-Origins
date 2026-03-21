@@ -38,8 +38,10 @@ public class ModEventsClient {
 
     @SubscribeEvent
     public static void registerKeyBindings(RegisterKeyMappingsEvent event) {
+        event.register(ModKeybinds.CANTRIP_RACE_KEY);
         event.register(ModKeybinds.CANTRIP_ONE_KEY);
         event.register(ModKeybinds.CANTRIP_TWO_KEY);
+        event.register(ModKeybinds.CANTRIP_THREE_KEY);
         event.register(ModKeybinds.TOGGLE_DARK_VISION_KEY);
     }
 

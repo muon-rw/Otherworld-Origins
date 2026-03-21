@@ -5,6 +5,7 @@ import com.seniors.justlevelingfork.registry.skills.Skill;
 import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.power.DeflectProjectilePower;
+import dev.muon.otherworldorigins.power.DirectionalTeleportPower;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
 import dev.muon.otherworldorigins.power.ModifyDamageTakenDirectPower;
@@ -31,6 +32,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -47,6 +49,7 @@ import net.minecraftforge.common.extensions.IForgeItemStack;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -65,6 +68,7 @@ public class ForgeEvents {
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
+            DirectionalTeleportPower.tickPendingMirrorSounds();
             activeCones.entrySet().removeIf(entry -> {
                 int coneId = entry.getKey();
                 int age = entry.getValue();
@@ -186,6 +190,38 @@ public class ForgeEvents {
                 event.setDamageModifier(newDamageModifier);
                 event.setResult(CriticalHitEvent.Result.ALLOW);
             }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void onPsionicWarpFallImmunity(LivingHurtEvent event) {
+        if (event.getEntity().level().isClientSide()) {
+            return;
+        }
+        if (!event.getSource().is(DamageTypes.FALL)) {
+            return;
+        }
+        if (!(event.getEntity() instanceof ServerPlayer player)) {
+            return;
+        }
+        if (!DirectionalTeleportPower.hasFallImmunity(player)) {
+            return;
+        }
+        event.setCanceled(true);
+        player.resetFallDistance();
+    }
+
+    @SubscribeEvent
+    public static void onPsionicWarpClearFallImmunity(LivingEvent.LivingTickEvent event) {
+        if (!(event.getEntity() instanceof ServerPlayer player) || player.level().isClientSide()) {
+            return;
+        }
+        if (!DirectionalTeleportPower.hasFallImmunity(player)) {
+            return;
+        }
+        if (player.onGround()) {
+            DirectionalTeleportPower.clearFallImmunity(player);
+            player.resetFallDistance();
         }
     }
 

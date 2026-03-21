@@ -3,7 +3,7 @@
     "summon": {
         "type": "origins:active_self",
         "key": {
-            "key": "key.origins.secondary_active"
+            "key": "key.otherworldorigins.cantrip_two"
         },
         "entity_action": {
             "type": "otherworldorigins:cast_spell",

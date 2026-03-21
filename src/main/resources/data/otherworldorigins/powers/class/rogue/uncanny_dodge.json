@@ -43,7 +43,7 @@
     },
     "active": {
         "type": "origins:active_self",
-        "key": "key.origins.secondary_active",
+        "key": "key.otherworldorigins.cantrip_two",
         "hud_render": {
             "should_render": false
         },

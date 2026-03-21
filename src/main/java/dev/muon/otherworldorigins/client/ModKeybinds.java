@@ -10,11 +10,18 @@ import org.lwjgl.glfw.GLFW;
 @OnlyIn(Dist.CLIENT)
 public class ModKeybinds {
 
+    public static final KeyMapping CANTRIP_RACE_KEY = new KeyMapping(
+            "key.otherworldorigins.cantrip_race",
+            KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_G,
+            "key.categories.otherworldorigins"
+    );
     public static final KeyMapping CANTRIP_ONE_KEY = new KeyMapping(
             "key.otherworldorigins.cantrip_one",
             KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_Z,
+            GLFW.GLFW_KEY_H,
             "key.categories.otherworldorigins"
     );
     public static final KeyMapping CANTRIP_TWO_KEY = new KeyMapping(
@@ -22,6 +29,13 @@ public class ModKeybinds {
             KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM,
             GLFW.GLFW_KEY_X,
+            "key.categories.otherworldorigins"
+    );
+    public static final KeyMapping CANTRIP_THREE_KEY = new KeyMapping(
+            "key.otherworldorigins.cantrip_three",
+            KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM,
+            GLFW.GLFW_KEY_Z,
             "key.categories.otherworldorigins"
     );
     public static final KeyMapping TOGGLE_DARK_VISION_KEY = new KeyMapping(

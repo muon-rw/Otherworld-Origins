@@ -1,7 +1,7 @@
 {
     "type": "origins:active_self",
     "key": {
-        "key": "key.otherworldorigins.cantrip_one"
+        "key": "key.otherworldorigins.cantrip_race"
     },
     "entity_action": {
         "type": "otherworldorigins:cast_spell",

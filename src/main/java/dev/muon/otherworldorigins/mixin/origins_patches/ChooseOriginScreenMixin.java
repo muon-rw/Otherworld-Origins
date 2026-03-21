@@ -1,5 +1,6 @@
 package dev.muon.otherworldorigins.mixin.origins_patches;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.network.ResetOriginsMessage;
 import dev.muon.otherworldorigins.util.ClientLayerScreenHelper;
@@ -27,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Mixin(value = ChooseOriginScreen.class)
 public class ChooseOriginScreenMixin extends OriginDisplayScreen {
@@ -220,5 +222,82 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
             // Render tooltip with feat name
             graphics.renderTooltip(scrn().getMinecraft().font, origin.getName(), mouseX, mouseY);
         }
+    }
+
+    @Unique
+    private static final Set<ResourceLocation> CANTRIP_GRANTING_SUBCLASSES = Set.of(
+            OtherworldOrigins.loc("subclass/rogue/arcane_trickster"),
+            OtherworldOrigins.loc("subclass/fighter/eldritch_knight")
+    );
+
+    @ModifyReturnValue(
+            method = "getTitleText()Lnet/minecraft/network/chat/Component;",
+            at = @At("RETURN"),
+            require = 1,
+            remap = false
+    )
+    private Component otherworld$injectCantripSourceName(Component original) {
+        if (currentLayerIndex < 0 || currentLayerIndex >= layerList.size()) return original;
+
+        Holder<OriginLayer> currentLayer = layerList.get(currentLayerIndex);
+        ResourceLocation layerId = currentLayer.unwrapKey()
+                .map(ResourceKey::location)
+                .orElse(null);
+        if (layerId == null) return original;
+
+        IOriginContainer container = IOriginContainer.get(scrn().getMinecraft().player).resolve().orElse(null);
+        if (container == null) return original;
+
+        Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
+        Registry<Origin> originRegistry = OriginsAPI.getOriginsRegistry(null);
+
+        String sourceName = null;
+
+        if (layerId.equals(OtherworldOrigins.loc("cantrip_one"))) {
+            sourceName = otherworld$getOriginName(container, layerRegistry, originRegistry, OtherworldOrigins.loc("subrace"));
+        } else if (layerId.equals(OtherworldOrigins.loc("cantrip_two"))) {
+            sourceName = otherworld$getCantripTwoSourceName(container, layerRegistry, originRegistry);
+        }
+
+        if (sourceName != null) {
+            return Component.translatable("otherworldorigins.gui.cantrip_choose_title", sourceName);
+        }
+
+        return original;
+    }
+
+    @Unique
+    private String otherworld$getCantripTwoSourceName(IOriginContainer container, Registry<OriginLayer> layerRegistry, Registry<Origin> originRegistry) {
+        ResourceKey<OriginLayer> subclassKey = ResourceKey.create(layerRegistry.key(), OtherworldOrigins.loc("subclass"));
+        Holder<OriginLayer> subclassLayer = layerRegistry.getHolder(subclassKey).orElse(null);
+
+        if (subclassLayer != null) {
+            ResourceKey<Origin> originKey = container.getOrigin(subclassLayer);
+            if (originKey != null && CANTRIP_GRANTING_SUBCLASSES.contains(originKey.location())) {
+                Holder<Origin> origin = originRegistry.getHolder(originKey).orElse(null);
+                if (origin != null) {
+                    return origin.value().getName().getString();
+                }
+            }
+        }
+
+        return otherworld$getOriginName(container, layerRegistry, originRegistry, OtherworldOrigins.loc("class"));
+    }
+
+    @Unique
+    private String otherworld$getOriginName(IOriginContainer container, Registry<OriginLayer> layerRegistry, Registry<Origin> originRegistry, ResourceLocation layerId) {
+        ResourceKey<OriginLayer> layerKey = ResourceKey.create(layerRegistry.key(), layerId);
+        Holder<OriginLayer> layer = layerRegistry.getHolder(layerKey).orElse(null);
+
+        if (layer != null) {
+            ResourceKey<Origin> originKey = container.getOrigin(layer);
+            if (originKey != null && !originKey.location().equals(ResourceLocation.fromNamespaceAndPath("origins", "empty"))) {
+                Holder<Origin> origin = originRegistry.getHolder(originKey).orElse(null);
+                if (origin != null) {
+                    return origin.value().getName().getString();
+                }
+            }
+        }
+        return null;
     }
 }

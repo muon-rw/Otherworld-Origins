@@ -8,7 +8,7 @@
         "translate": "origins.gui.badge.active",
         "with": [
           {
-            "keybind": "key.origins.secondary_active"
+            "keybind": "key.otherworldorigins.cantrip_two"
           }
         ]
       }
@@ -16,7 +16,7 @@
   ],
   "low": {
     "type": "origins:active_self",
-    "key": "key.origins.secondary_active",
+    "key": "key.otherworldorigins.cantrip_two",
     "condition": {
       "type": "origins:and",
       "conditions": [
@@ -48,7 +48,7 @@
   },
   "high": {
     "type": "origins:active_self",
-    "key": "key.origins.secondary_active",
+    "key": "key.otherworldorigins.cantrip_two",
     "condition": {
       "type": "origins:and",
       "conditions": [

@@ -8,7 +8,7 @@
                 "translate": "origins.gui.badge.active",
                 "with": [
                     {
-                        "keybind": "key.origins.primary_active"
+                        "keybind": "key.otherworldorigins.cantrip_race"
                     }
                 ]
             }
@@ -16,7 +16,7 @@
     ],
     "low": {
         "type": "origins:active_self",
-        "key": "key.origins.primary_active",
+        "key": "key.otherworldorigins.cantrip_race",
         "cooldown": 20,
         "hud_render": {
             "should_render": true,
@@ -38,7 +38,7 @@
     },
     "med": {
         "type": "origins:active_self",
-        "key": "key.origins.primary_active",
+        "key": "key.otherworldorigins.cantrip_race",
         "cooldown": 20,
         "hud_render": {
             "should_render": true,
@@ -70,7 +70,7 @@
     },
     "high": {
         "type": "origins:active_self",
-        "key": "key.origins.primary_active",
+        "key": "key.otherworldorigins.cantrip_race",
         "cooldown": 20,
         "hud_render": {
             "should_render": true,

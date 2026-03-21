@@ -4,7 +4,7 @@
         "type": "origins:nothing"
     },
     "key": {
-        "key": "key.origins.primary_active"
+        "key": "key.otherworldorigins.cantrip_race"
     },
     "cooldown": 100,
     "hud_render": {

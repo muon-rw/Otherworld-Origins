@@ -58,14 +58,17 @@
   
   "otherworld.message.charisma_save": "You were seen committing a crime, but spared punishment thanks to your Charisma.",
   
+  "otherworldorigins.gui.cantrip_choose_title": "Choose your Cantrip (%s):",
   "otherworldorigins.gui.start_over": "Start Over",
   "otherworldorigins.gui.current_selections": "Current Selections:",
   "otherworldorigins.gui.layer_origin": "%s: %s",
   "otherworldorigins.gui.feats": "Feats:",
   
   "key.categories.otherworldorigins": "Otherworld Origins",
-  "key.otherworldorigins.cantrip_one": "Cantrip (Race)",
-  "key.otherworldorigins.cantrip_two": "Cantrip (Class)",
+  "key.otherworldorigins.cantrip_race": "Cantrip/Ability (Race)",
+  "key.otherworldorigins.cantrip_one": "Cantrip/Ability (Class) 1",
+  "key.otherworldorigins.cantrip_two": "Cantrip/Ability (Class) 2",
+  "key.otherworldorigins.cantrip_three": "Cantrip/Ability (Class) 3",
   "key.otherworldorigins.toggle_dark_vision": "Toggle Dark Vision",
 
 
@@ -262,7 +265,7 @@
   "power.otherworldorigins.subrace/other/hobgoblin/gold_proficiency.description": "§oYou receive 50% extra stats from gold gear, and gold gear has 50% more durability",
 
   "power.otherworldorigins.subrace/other/githyanki/throw_pearl.name": "Psionics",
-  "power.otherworldorigins.subrace/other/githyanki/throw_pearl.description": "§oYou can summon and throw an ender pearl to teleport. Once you reach level 11, you can directly teleport to a target area within 64 blocks.",
+  "power.otherworldorigins.subrace/other/githyanki/throw_pearl.description": "§oYou can summon and throw an ender pearl to teleport. Once you reach level 11, you can directly teleport up to 50 blocks in the direction you are facing (with no line-of-sight required), without taking fall damage until you land.",
 
   "power.otherworldorigins.subrace/other/githyanki/water_vulnerability.name": "Water Vulnerability",
   "power.otherworldorigins.subrace/other/githyanki/water_vulnerability.description": "§oYou take damage from water and rain, but this can be offset with the Water Protection enchantment.",
