@@ -885,5 +885,9 @@
   "otherworldorigins.gui.final_confirm.aptitude_plus_one": "You have +1 to %s.",
   "otherworldorigins.gui.final_confirm.aptitude_plus_two": "You have +2 to %s.",
   "otherworldorigins.gui.final_confirm.confirm": "Confirm",
-  "otherworldorigins.gui.final_confirm.start_over": "Start Over"
+  "otherworldorigins.gui.final_confirm.start_over": "Start Over",
+
+  "message.otherworldorigins.shapeshift_tool_blocked": "You cannot wield weapons in this form",
+  "message.otherworldorigins.shapeshift_spell_blocked": "You cannot cast spells in this form",
+  "tooltip.otherworldorigins.equipment_prevented": "Cannot be worn in current form"
 }

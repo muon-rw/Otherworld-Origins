@@ -151,5 +151,10 @@ public class OtherworldOrigins {
                 .decoder(PlayPlayerAnimationPacket::decode)
                 .consumerMainThread(PlayPlayerAnimationPacket::handle)
                 .add();
+        CHANNEL.messageBuilder(ShapeshiftSyncMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(ShapeshiftSyncMessage::encode)
+                .decoder(ShapeshiftSyncMessage::decode)
+                .consumerMainThread(ShapeshiftSyncMessage::handle)
+                .add();
     }
 }

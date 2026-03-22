@@ -29,6 +29,9 @@
     "compat.justlevelingfork.RegistryCommonEventsMixin",
     "compat.justlevelingfork.RegistryPassivesMixin",
     "compat.justlevelingfork.RegistrySkillsMixin",
+    "MobAccessor",
+    "AbstractContainerMenuMixin",
+    "InventoryMenuMixin",
     "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
     "compat.otherworld.LevelingUtilsMixin",
     "compat.thief.CrimeMixin",
@@ -53,7 +56,11 @@
     "compat.justlevelingfork.client.AptitudeMixin",
     "compat.justlevelingfork.client.JustLevelingScreenMixin",
     "compat.shouldersurfing.ApoliAPIMixin",
-    "origins_patches.OriginDisplayScreenMixin"
+    "origins_patches.OriginDisplayScreenMixin",
+    "client.EntityRendererAccessor",
+    "client.WalkAnimationStateAccessor",
+    "client.EntityRenderDispatcherMixin",
+    "client.ItemInHandRendererMixin"
   ],
   "minVersion": "0.8"
 }

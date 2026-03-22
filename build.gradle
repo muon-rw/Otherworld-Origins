@@ -133,6 +133,8 @@ repositories {
     mavenLocal()
 
     maven { url = "https://maven.muon.rip/releases"}
+    maven { url = "https://maven.su5ed.dev/releases" }
+    maven { url = "https://maven.fabricmc.net" }
 }
 
 dependencies {
@@ -165,7 +167,8 @@ dependencies {
             prefer '0.5.3'
         }
     }
-    annotationProcessor ("org.spongepowered:mixin:${mixin_version}:processor")
+    annotationProcessor("net.fabricmc:sponge-mixin:${fabric_mixin_version}")
+    implementation "org.sinytra.mixinbooster:mixin-booster:0.1.3+1.20.1"
 
     // Core
 
@@ -193,6 +196,10 @@ dependencies {
 
     // Eidolon
     modImplementation("curse.maven:eidolon-repraised-870250:5877358")
+
+    // Identity?
+    // Maybe not
+    // modImplementation("curse.maven:identity-fix-morph-1238155:7777032")
 
     // Sophisticated
     modImplementation("curse.maven:sophisticated-backpacks-422301:7645913")
@@ -259,11 +266,11 @@ dependencies {
     modRuntimeOnly("curse.maven:cerbons-api-955605:5050080")
 
     // IAF
-    modRuntimeOnly("curse.maven:ice-and-fire-dragons-264231:5633453")
+    modImplementation("curse.maven:ice-and-fire-dragons-264231:5633453")
     modRuntimeOnly("curse.maven:citadel-331936:6702068")
 
     // Doppel
-    modRuntimeOnly("curse.maven:dark-doppelganger-1110803:6619700")
+    modImplementation("curse.maven:dark-doppelganger-1110803:6619700")
 
     // Autolvl
     modRuntimeOnly("curse.maven:auto-leveling-616126:4899526")
@@ -271,7 +278,7 @@ dependencies {
     // Traveloptics
     modImplementation("curse.maven:to-tweaks-irons-spells-1046916:7424522")
     modImplementation("curse.maven:alexs-caves-924854:5848216")
-    modRuntimeOnly("curse.maven:lendercataclysm-551586:6906993")
+    modImplementation("curse.maven:lendercataclysm-551586:6906993")
     modRuntimeOnly("curse.maven:lionfish-api-1001614:5922047")
 
     // GTBC Geomancy
