@@ -85,6 +85,21 @@ repositories {
         }
     }
 
+    maven {
+        url = uri("https://maven.ftb.dev/snapshots")
+        content {
+            includeGroup("dev.latvian.mods")
+            includeGroup("dev.ftb.mods")
+        }
+    }
+    maven {
+        url = uri("https://maven.ftb.dev/releases")
+        content {
+            includeGroup("dev.latvian.mods")
+            includeGroup("dev.ftb.mods")
+        }
+    }
+
     maven { url = "https://maven.bawnorton.com/releases" }
     maven {
         name = "Modrinth"
@@ -196,6 +211,13 @@ dependencies {
 
     // Eidolon
     modImplementation("curse.maven:eidolon-repraised-870250:5877358")
+
+    // FTB
+    modImplementation("dev.ftb.mods:ftb-chunks-forge:${ftb_chunks_version}")
+    modImplementation("dev.ftb.mods:ftb-quests-forge:${ftb_quests_version}")
+    modImplementation("dev.ftb.mods:ftb-library-forge:${ftb_library_version}")
+    modImplementation("dev.ftb.mods:ftb-teams-forge:${ftb_teams_version}")
+    modImplementation("dev.architectury:architectury-forge:${architectury_version}")
 
     // Identity?
     // Maybe not
