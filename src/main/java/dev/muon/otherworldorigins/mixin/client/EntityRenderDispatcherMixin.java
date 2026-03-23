@@ -86,9 +86,9 @@ public abstract class EntityRenderDispatcherMixin {
     }
 
     /**
-     * Fires a RenderNameTagEvent for the real player and calls renderNameTag directly,
-     * without rendering the player body. This lets MobHealthBar and LevelDisplayRenderer
-     * see the real Player entity with correct name, health, and level data.
+     * Replicates the nametag block from EntityRenderer.render() for the real player,
+     * so that RenderNameTagEvent fires exactly once. Mods like MobHealthBar and
+     * LevelDisplayRenderer respond to this event to render healthbars and levels.
      */
     private static void firePlayerNametag(
             EntityRenderer<?> playerRenderer, Player player,

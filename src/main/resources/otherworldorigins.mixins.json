@@ -8,10 +8,13 @@
     "defaultRequire": 1
   },
   "mixins": [
+    "AbstractContainerMenuMixin",
     "AnvilMenuMixin",
     "EntityMixin",
+    "InventoryMenuMixin",
     "ItemStackMixin",
     "LivingEntityMixin",
+    "MobAccessor",
     "MobEffectInstanceAccessor",
     "PlayerMixin",
     "VillagerMixin",
@@ -19,7 +22,6 @@
     "compat.apotheosis.ApothEnchantmentMenuMixin",
     "compat.apotheosis.EndlessQuiverEnchantMixin",
     "compat.backpacked.RepairmanEnchantmentMixin",
-    "compat.sophisticatedcore.XpPumpUpgradeWrapperMixin",
     "compat.irons_spellbooks.AbstractSpellMixin",
     "compat.irons_spellbooks.ServerPlayerEventsMixin",
     "compat.irons_spellbooks.SpellRegistryMixin",
@@ -29,11 +31,9 @@
     "compat.justlevelingfork.RegistryCommonEventsMixin",
     "compat.justlevelingfork.RegistryPassivesMixin",
     "compat.justlevelingfork.RegistrySkillsMixin",
-    "MobAccessor",
-    "AbstractContainerMenuMixin",
-    "InventoryMenuMixin",
     "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
     "compat.otherworld.LevelingUtilsMixin",
+    "compat.sophisticatedcore.XpPumpUpgradeWrapperMixin",
     "compat.thief.CrimeMixin",
     "ench_restrictions.ArrowItemMixin",
     "ench_restrictions.BlockMixin",
@@ -48,19 +48,20 @@
     "origins_patches.WaitForNextLayerScreenMixin"
   ],
   "client": [
-    "compat.apotheosis.ApothEnchantScreenMixin",
+    "client.EntityRenderDispatcherMixin",
+    "client.EntityRendererAccessor",
+    "client.LivingEntityRendererMixin",
+    "client.ItemInHandRendererMixin",
+    "client.WalkAnimationStateAccessor",
     "compat.altorigingui.ChooseOriginScreenMixinSquared",
+    "compat.apotheosis.ApothEnchantScreenMixin",
     "compat.irons_spellbooks.ClientInputEventsMixin",
     "compat.irons_spellbooks.ClientMagicDataAccessor",
     "compat.irons_spellbooks.ClientServerPlayerEventsMixin",
     "compat.justlevelingfork.client.AptitudeMixin",
     "compat.justlevelingfork.client.JustLevelingScreenMixin",
     "compat.shouldersurfing.ApoliAPIMixin",
-    "origins_patches.OriginDisplayScreenMixin",
-    "client.EntityRendererAccessor",
-    "client.WalkAnimationStateAccessor",
-    "client.EntityRenderDispatcherMixin",
-    "client.ItemInHandRendererMixin"
+    "origins_patches.OriginDisplayScreenMixin"
   ],
   "minVersion": "0.8"
 }

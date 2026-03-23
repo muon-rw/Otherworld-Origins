@@ -8,10 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.client.event.RenderNameTagEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -21,19 +18,6 @@ public class ShapeshiftClientEvents {
     @SubscribeEvent
     public static void onLoggedOut(ClientPlayerNetworkEvent.LoggingOut event) {
         ShapeshiftClientState.clear();
-    }
-
-    /**
-     * Suppress all nametag/healthbar rendering on the fake shapeshift entity body.
-     * MobHealthBar, LevelDisplayRenderer, and vanilla nametags all fire through
-     * RenderNameTagEvent. When we're rendering the morph body, deny everything --
-     * the player's own nametag is re-rendered separately via the player renderer.
-     */
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onRenderNameTag(RenderNameTagEvent event) {
-        if (ShapeshiftRenderHelper.isRenderingShapeshiftBody()) {
-            event.setResult(Event.Result.DENY);
-        }
     }
 
     @SubscribeEvent
