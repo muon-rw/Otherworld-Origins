@@ -18,7 +18,7 @@
         "modifier": {
             "attribute": "minecraft:generic.max_health",
             "operation": "addition",
-            "value": 30.0,
+            "value": 50,
             "name": "Wildshape health bonus"
         }
     },
@@ -27,7 +27,7 @@
         "modifier": {
             "attribute": "minecraft:generic.attack_damage",
             "operation": "addition",
-            "value": 7.0,
+            "value": 12,
             "name": "Wildshape damage bonus"
         }
     },
@@ -45,7 +45,7 @@
         "modifier": {
             "attribute": "minecraft:generic.armor",
             "operation": "addition",
-            "value": 8.0,
+            "value": 14,
             "name": "Wildshape armor bonus"
         }
     },
@@ -92,7 +92,7 @@
         }
     },
     "freeze_resistance": {
-        "type": "origins:damage_condition",
+        "type": "origins:modify_damage_taken",
         "damage_condition": {
             "type": "origins:name",
             "name": "freeze"
@@ -132,7 +132,7 @@
             "actions": [
                 {
                     "type": "origins:heal",
-                    "amount": 20.0
+                    "amount": 1000
                 },
                 {
                     "type": "origins:execute_command",
@@ -179,6 +179,10 @@
         "entity_action_gained": {
             "type": "origins:and",
             "actions": [
+                {
+                    "type": "origins:heal",
+                    "amount": 1000
+                },
                 {
                     "type": "origins:modify_resource",
                     "resource": "otherworldorigins:class/druid/wildshape_wildshape_charges",

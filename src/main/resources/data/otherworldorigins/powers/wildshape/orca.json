@@ -18,7 +18,7 @@
         "modifier": {
             "attribute": "minecraft:generic.max_health",
             "operation": "addition",
-            "value": 22
+            "value": 40
         }
     },
     "damage": {
@@ -26,7 +26,7 @@
         "modifier": {
             "attribute": "minecraft:generic.attack_damage",
             "operation": "addition",
-            "value": 9
+            "value": 14
         }
     },
     "armor": {
@@ -34,7 +34,120 @@
         "modifier": {
             "attribute": "minecraft:generic.armor",
             "operation": "addition",
-            "value": 6
+            "value": 10
+        }
+    },
+    "dolphins_grace": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "origins:submerged_in",
+                    "fluid": "minecraft:water"
+                },
+                {
+                    "type": "origins:in_block_anywhere",
+                    "comparison": ">=",
+                    "compare_to": 1,
+                    "block_condition": {
+                        "type": "origins:fluid",
+                        "fluid_condition": {
+                            "type": "origins:in_tag",
+                            "tag": "minecraft:water"
+                        }
+                    }
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:apply_effect",
+            "effect": {
+                "effect": "minecraft:dolphins_grace",
+                "duration": 250,
+                "amplifier": 0,
+                "is_ambient": true,
+                "show_particles": false,
+                "show_icon": false
+            }
+        },
+        "falling_action": {
+            "type": "origins:if_else",
+            "condition": {
+                "type": "origins:status_effect",
+                "effect": "minecraft:dolphins_grace",
+                "max_duration": 250
+            },
+            "if_action": {
+                "type": "origins:clear_effect",
+                "effect": "minecraft:dolphins_grace"
+            }
+        }
+    },
+    "land_slowness": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "condition": {
+            "inverted": true,
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "origins:submerged_in",
+                    "fluid": "minecraft:water"
+                },
+                {
+                    "type": "origins:in_block_anywhere",
+                    "comparison": ">=",
+                    "compare_to": 1,
+                    "block_condition": {
+                        "type": "origins:fluid",
+                        "fluid_condition": {
+                            "type": "origins:in_tag",
+                            "tag": "minecraft:water"
+                        }
+                    }
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:apply_effect",
+            "effect": {
+                "effect": "minecraft:slowness",
+                "duration": 250,
+                "amplifier": 9,
+                "is_ambient": true,
+                "show_particles": false,
+                "show_icon": false
+            }
+        },
+        "falling_action": {
+            "type": "origins:if_else",
+            "condition": {
+                "type": "origins:status_effect",
+                "effect": "minecraft:slowness",
+                "max_duration": 250
+            },
+            "if_action": {
+                "type": "origins:clear_effect",
+                "effect": "minecraft:slowness"
+            }
+        }
+    },
+    "cleanup_effects": {
+        "type": "origins:action_on_callback",
+        "entity_action_lost": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:clear_effect",
+                    "effect": "minecraft:dolphins_grace"
+                },
+                {
+                    "type": "origins:clear_effect",
+                    "effect": "minecraft:slowness"
+                }
+            ]
         }
     },
     "prevent_death": {
@@ -44,7 +157,7 @@
             "actions": [
                 {
                     "type": "origins:heal",
-                    "amount": 20
+                    "amount": 1000
                 },
                 {
                     "type": "origins:execute_command",
@@ -91,6 +204,10 @@
         "entity_action_gained": {
             "type": "origins:and",
             "actions": [
+                {
+                    "type": "origins:heal",
+                    "amount": 1000
+                },
                 {
                     "type": "origins:modify_resource",
                     "resource": "otherworldorigins:class/druid/wildshape_wildshape_charges",

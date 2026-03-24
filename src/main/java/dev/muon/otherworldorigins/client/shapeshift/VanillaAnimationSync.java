@@ -33,7 +33,7 @@ public class VanillaAnimationSync {
             "shoot", "spin", "tongue", "toungue", "lunge", "swipe"
     );
 
-    private enum AnimCategory { IDLE, ATTACK, RUN, SIT, BLOCK, FALL, LAND, FLY, SKIP }
+    private enum AnimCategory { IDLE, ATTACK, RUN, SIT, BLOCK, FALL, LAND, FLY, SWIM, SKIP }
 
     private record TypeConfig(
             @Nullable Field idleField,
@@ -43,7 +43,8 @@ public class VanillaAnimationSync {
             @Nullable Field blockField,
             @Nullable Field fallField,
             @Nullable Field landField,
-            @Nullable Field flyField
+            @Nullable Field flyField,
+            @Nullable Field swimField
     ) {}
 
     private record PlayerCache(
@@ -56,6 +57,7 @@ public class VanillaAnimationSync {
             @Nullable AnimationState fall,
             @Nullable AnimationState land,
             @Nullable AnimationState fly,
+            @Nullable AnimationState swim,
             List<AnimationState> allStates
     ) {}
 
@@ -124,13 +126,15 @@ public class VanillaAnimationSync {
         // Each condition incorporates the cache null-check so that missing animations
         // fall through to the next priority level rather than leaving a blank pose.
         boolean timed = inAttack || inLand;
-        boolean flying   = !timed && cache.fly   != null && livingSource != null && livingSource.isFallFlying();
-        boolean falling  = !timed && !flying && cache.fall  != null && !source.onGround();
-        boolean blocking = !timed && !flying && !falling && cache.block != null && livingSource != null && livingSource.isBlocking();
-        boolean sprinting= !timed && !flying && !falling && !blocking && cache.run   != null && source.isSprinting();
-        boolean sneaking = !timed && !flying && !falling && !blocking && !sprinting && cache.sit   != null && source.isCrouching();
-        boolean idle     = !timed && !flying && !falling && !blocking && !sprinting && !sneaking;
+        boolean swimming = !timed && cache.swim  != null && source.isSwimming();
+        boolean flying   = !timed && !swimming && cache.fly   != null && livingSource != null && livingSource.isFallFlying();
+        boolean falling  = !timed && !swimming && !flying && cache.fall  != null && !source.onGround();
+        boolean blocking = !timed && !swimming && !flying && !falling && cache.block != null && livingSource != null && livingSource.isBlocking();
+        boolean sprinting= !timed && !swimming && !flying && !falling && !blocking && cache.run   != null && source.isSprinting();
+        boolean sneaking = !timed && !swimming && !flying && !falling && !blocking && !sprinting && cache.sit   != null && source.isCrouching();
+        boolean idle     = !timed && !swimming && !flying && !falling && !blocking && !sprinting && !sneaking;
 
+        if (cache.swim  != null) cache.swim.animateWhen(swimming, tick);
         if (cache.fly   != null) cache.fly.animateWhen(flying, tick);
         if (cache.fall  != null) cache.fall.animateWhen(falling, tick);
         if (cache.block != null) cache.block.animateWhen(blocking, tick);
@@ -190,6 +194,7 @@ public class VanillaAnimationSync {
             AnimationState fall  = readField(tc.fallField, entity);
             AnimationState land  = readField(tc.landField, entity);
             AnimationState fly   = readField(tc.flyField, entity);
+            AnimationState swim  = readField(tc.swimField, entity);
 
             List<AnimationState> attacks = new ArrayList<>();
             for (Field f : tc.attackFields) {
@@ -200,14 +205,14 @@ public class VanillaAnimationSync {
             List<AnimationState> all = new ArrayList<>();
             if (idle != null) all.add(idle);
             all.addAll(attacks);
-            for (AnimationState s : new AnimationState[]{run, sit, block, fall, land, fly}) {
+            for (AnimationState s : new AnimationState[]{run, sit, block, fall, land, fly, swim}) {
                 if (s != null) all.add(s);
             }
             if (all.isEmpty()) return null;
 
             PlayerCache cache = new PlayerCache(
                     entity, idle, List.copyOf(attacks),
-                    run, sit, block, fall, land, fly, List.copyOf(all));
+                    run, sit, block, fall, land, fly, swim, List.copyOf(all));
             PLAYER_CACHES.put(playerId, cache);
             return cache;
         } catch (IllegalAccessException e) {
@@ -225,7 +230,7 @@ public class VanillaAnimationSync {
     private static TypeConfig getOrBuildTypeConfig(Class<?> clazz) {
         return TYPE_CONFIGS.computeIfAbsent(clazz, c -> {
             Field idleField = null, runField = null, sitField = null, blockField = null;
-            Field fallField = null, landField = null, flyField = null;
+            Field fallField = null, landField = null, flyField = null, swimField = null;
             List<Field> attackFields = new ArrayList<>();
 
             for (Field field : c.getFields()) {
@@ -239,18 +244,20 @@ public class VanillaAnimationSync {
                     case FALL    -> fallField = field;
                     case LAND    -> landField = field;
                     case FLY     -> flyField = field;
+                    case SWIM    -> swimField = field;
                     case SKIP    -> {}
                 }
             }
 
             boolean hasAnything = idleField != null || !attackFields.isEmpty()
                     || runField != null || sitField != null || blockField != null
-                    || fallField != null || landField != null || flyField != null;
+                    || fallField != null || landField != null || flyField != null
+                    || swimField != null;
             if (!hasAnything) return Optional.empty();
 
             return Optional.of(new TypeConfig(
                     idleField, List.copyOf(attackFields),
-                    runField, sitField, blockField, fallField, landField, flyField));
+                    runField, sitField, blockField, fallField, landField, flyField, swimField));
         }).orElse(null);
     }
 
@@ -277,6 +284,7 @@ public class VanillaAnimationSync {
         if (name.contains("fall") && !name.contains("fracture")) return AnimCategory.FALL;
         if (name.contains("land") && !name.contains("fracture")) return AnimCategory.LAND;
         if (name.contains("fly") || name.contains("glide")) return AnimCategory.FLY;
+        if (name.contains("swim")) return AnimCategory.SWIM;
 
         for (String keyword : ATTACK_KEYWORDS) {
             if (name.contains(keyword)) return AnimCategory.ATTACK;

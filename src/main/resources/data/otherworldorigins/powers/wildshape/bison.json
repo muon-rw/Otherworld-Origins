@@ -18,7 +18,7 @@
         "modifier": {
             "attribute": "minecraft:generic.max_health",
             "operation": "addition",
-            "value": 18
+            "value": 34
         }
     },
     "damage": {
@@ -26,7 +26,7 @@
         "modifier": {
             "attribute": "minecraft:generic.attack_damage",
             "operation": "addition",
-            "value": 6
+            "value": 10
         }
     },
     "armor": {
@@ -34,7 +34,7 @@
         "modifier": {
             "attribute": "minecraft:generic.armor",
             "operation": "addition",
-            "value": 6
+            "value": 10
         }
     },
     "kb_resist": {
@@ -52,7 +52,7 @@
             "actions": [
                 {
                     "type": "origins:heal",
-                    "amount": 20
+                    "amount": 1000
                 },
                 {
                     "type": "origins:execute_command",
@@ -99,6 +99,10 @@
         "entity_action_gained": {
             "type": "origins:and",
             "actions": [
+                {
+                    "type": "origins:heal",
+                    "amount": 1000
+                },
                 {
                     "type": "origins:modify_resource",
                     "resource": "otherworldorigins:class/druid/wildshape_wildshape_charges",

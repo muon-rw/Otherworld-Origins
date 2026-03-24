@@ -18,7 +18,7 @@
         "modifier": {
             "name": "Wildshape max health",
             "attribute": "minecraft:generic.max_health",
-            "value": 10,
+            "value": 20,
             "operation": "addition"
         }
     },
@@ -27,7 +27,7 @@
         "modifier": {
             "name": "Wildshape attack damage",
             "attribute": "minecraft:generic.attack_damage",
-            "value": 5,
+            "value": 8,
             "operation": "addition"
         }
     },
@@ -36,7 +36,7 @@
         "modifier": {
             "name": "Wildshape armor",
             "attribute": "minecraft:generic.armor",
-            "value": 4,
+            "value": 6,
             "operation": "addition"
         }
     },
@@ -47,7 +47,7 @@
             "actions": [
                 {
                     "type": "origins:heal",
-                    "amount": 20
+                    "amount": 1000
                 },
                 {
                     "type": "origins:execute_command",
@@ -94,6 +94,10 @@
         "entity_action_gained": {
             "type": "origins:and",
             "actions": [
+                {
+                    "type": "origins:heal",
+                    "amount": 1000
+                },
                 {
                     "type": "origins:modify_resource",
                     "resource": "otherworldorigins:class/druid/wildshape_wildshape_charges",

@@ -60,5 +60,39 @@
                 "value": 0
             }
         }
+    },
+    "wildshape_health_scaling": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "value_per_level": 1.0,
+        "starting_value": 1.0,
+        "update_health": false,
+        "condition": {
+            "type": "otherworldorigins:any_on_layer",
+            "layer": "otherworldorigins:wildshape"
+        }
+    },
+    "wildshape_damage_scaling": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "value_per_level": 0.25,
+        "starting_value": 0.25,
+        "condition": {
+            "type": "otherworldorigins:any_on_layer",
+            "layer": "otherworldorigins:wildshape"
+        }
+    },
+    "wildshape_armor_scaling": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "value_per_level": 0.15,
+        "starting_value": 0.15,
+        "condition": {
+            "type": "otherworldorigins:any_on_layer",
+            "layer": "otherworldorigins:wildshape"
+        }
     }
 }
