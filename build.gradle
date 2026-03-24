@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
     id "net.darkhax.curseforgegradle" version "1.0.7"
     id 'net.neoforged.moddev.legacyforge' version '2.0.126'
-    id 'dev.mixinmcp.decompile' version '0.6.5'
+    id 'dev.mixinmcp.decompile' version '0.6.7'
 }
 
 version = mod_version
@@ -233,6 +233,9 @@ dependencies {
     // modRuntimeOnly("curse.maven:tridot-1239146:7561888")
     modImplementation("maven.modrinth:valoria:0.6.4.35")
     modRuntimeOnly("curse.maven:fluffy-fur-1097456:6392791")
+
+    // Legendary Monsters
+    modImplementation("curse.maven:legendary-monsters-944035:6776766")
 
     // Immersive Melodies
     modImplementation("curse.maven:immersive-melodies-904471:6744792")

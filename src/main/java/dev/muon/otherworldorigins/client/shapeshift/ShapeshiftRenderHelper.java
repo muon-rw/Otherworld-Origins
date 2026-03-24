@@ -39,11 +39,13 @@ public class ShapeshiftRenderHelper {
     public static void clearTracking(int entityId) {
         PREV_SWINGING.remove(entityId);
         PREV_TICK_COUNT.remove(entityId);
+        VanillaAnimationSync.evict(entityId);
     }
 
     public static void clearAllTracking() {
         PREV_SWINGING.clear();
         PREV_TICK_COUNT.clear();
+        VanillaAnimationSync.clearAll();
     }
 
     public static void syncVisualState(Entity source, Entity target) {
@@ -87,6 +89,7 @@ public class ShapeshiftRenderHelper {
         }
 
         syncCitadelAnimations(source, target);
+        VanillaAnimationSync.syncAnimations(source, target);
     }
 
     private static void syncLivingState(LivingEntity source, LivingEntity target) {
