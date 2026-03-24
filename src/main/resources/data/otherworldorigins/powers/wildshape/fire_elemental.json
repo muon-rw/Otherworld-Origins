@@ -11,7 +11,12 @@
             "type": "otherworldorigins:player_level",
             "comparison": ">=",
             "compare_to": 18
-        }
+        },
+        "attack_range": 2.5,
+        "attacks": [
+            { "hitbox": "HORIZONTAL_PLANE", "angle": 100, "damage_multiplier": 1.0, "upswing": 0.4 },
+            { "hitbox": "HORIZONTAL_PLANE", "angle": 120, "damage_multiplier": 1.2, "upswing": 0.5 }
+        ]
     },
     "health": {
         "type": "origins:attribute",
@@ -101,14 +106,29 @@
             "value": 0
         }
     },
+    "fire_spell_power": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "irons_spellbooks:fire_spell_power",
+            "operation": "multiply_base",
+            "value": 0.3,
+            "name": "Wildshape fire spell power"
+        }
+    },
     "spell_attack": {
         "type": "origins:action_on_hit",
         "bientity_action": {
             "type": "origins:actor_action",
             "action": {
-                "type": "otherworldorigins:cast_spell",
-                "spell": "irons_spellbooks:flaming_strike",
-                "power_level": 5
+                "type": "origins:choice",
+                "actions": [
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:firebolt", "power_level": 5 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:fire_breath", "power_level": 5 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:heat_surge", "power_level": 5 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:flaming_strike", "power_level": 5 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:scorch", "power_level": 5 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:blaze_storm", "power_level": 5 } }
+                ]
             }
         },
         "cooldown": 60,

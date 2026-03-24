@@ -11,7 +11,12 @@
             "type": "otherworldorigins:player_level",
             "comparison": ">=",
             "compare_to": 18
-        }
+        },
+        "attack_range": 3.0,
+        "attacks": [
+            { "hitbox": "HORIZONTAL_PLANE", "angle": 120, "damage_multiplier": 1.0, "upswing": 0.5 },
+            { "hitbox": "FORWARD_BOX", "angle": 70, "damage_multiplier": 1.2, "upswing": 0.4 }
+        ]
     },
     "health": {
         "type": "origins:attribute",

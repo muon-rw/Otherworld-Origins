@@ -22,6 +22,7 @@
     "compat.apotheosis.ApothEnchantmentMenuMixin",
     "compat.apotheosis.EndlessQuiverEnchantMixin",
     "compat.backpacked.RepairmanEnchantmentMixin",
+    "compat.bettercombat.PlayerAttackHelperMixin",
     "compat.irons_spellbooks.AbstractSpellMixin",
     "compat.irons_spellbooks.ServerPlayerEventsMixin",
     "compat.irons_spellbooks.SpellRegistryMixin",

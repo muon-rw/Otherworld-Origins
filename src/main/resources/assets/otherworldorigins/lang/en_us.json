@@ -924,9 +924,9 @@
   "origin.otherworldorigins.wildshape/orca.name": "Orca",
   "origin.otherworldorigins.wildshape/orca.description": "An aquatic apex predator. Devastating in water, useless on land.",
   "origin.otherworldorigins.wildshape/fire_elemental.name": "Fire Elemental",
-  "origin.otherworldorigins.wildshape/fire_elemental.description": "A being of living flame. Immune to fire, melee attacks trigger Flaming Strike.",
+  "origin.otherworldorigins.wildshape/fire_elemental.description": "A being of living flame. Immune to fire, +30% Fire Spell Power. Melee attacks randomly cast fire spells.",
   "origin.otherworldorigins.wildshape/frost_elemental.name": "Frost Elemental",
-  "origin.otherworldorigins.wildshape/frost_elemental.description": "A being of bitter cold. Heavy armor, melee attacks trigger Ray of Frost.",
+  "origin.otherworldorigins.wildshape/frost_elemental.description": "A being of bitter cold. Heavy armor, +30% Ice Spell Power. Melee attacks randomly cast frost spells.",
 
   "power.otherworldorigins.wildshape/wolf.name": "Wolf Form",
   "power.otherworldorigins.wildshape/wolf.description": "",
