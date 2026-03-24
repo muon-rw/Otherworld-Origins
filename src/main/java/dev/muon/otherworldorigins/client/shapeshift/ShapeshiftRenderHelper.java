@@ -1,5 +1,6 @@
 package dev.muon.otherworldorigins.client.shapeshift;
 
+import com.github.alexthe666.alexsmobs.entity.*;
 import dev.muon.otherworldorigins.mixin.client.WalkAnimationStateAccessor;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -88,6 +89,7 @@ public class ShapeshiftRenderHelper {
             mobTarget.setAggressive(livingSource.isUsingItem());
         }
 
+        syncAlexsMobsState(source, target);
         syncCitadelAnimations(source, target);
         VanillaAnimationSync.syncAnimations(source, target);
     }
@@ -117,6 +119,53 @@ public class ShapeshiftRenderHelper {
 
         if (target instanceof Bat bat) {
             bat.setResting(false);
+        }
+    }
+
+    /**
+     * Drives Alex's Mobs float-progress animations on the fake entity. These entities
+     * use prev/current float pairs (0-5 range, 1/tick transitions) instead of vanilla
+     * AnimationState or Citadel IAnimatedEntity, so they need manual ticking.
+     */
+    private static void syncAlexsMobsState(Entity source, Entity target) {
+        if (!(source instanceof LivingEntity livingSource)) return;
+
+        if (target instanceof EntityBaldEagle eagle) {
+            boolean flying = livingSource.isFallFlying();
+            eagle.setFlying(flying);
+
+            int entityId = source.getId();
+            int prevTick = PREV_TICK_COUNT.getOrDefault(entityId, -1);
+            boolean isNewTick = source.tickCount != prevTick;
+
+            if (isNewTick) {
+                PREV_TICK_COUNT.put(entityId, source.tickCount);
+                float yMot = -((float) source.getDeltaMovement().y * (180.0F / (float) Math.PI));
+
+                eagle.prevFlyProgress = eagle.flyProgress;
+                eagle.prevFlapAmount = eagle.flapAmount;
+                eagle.prevSwoopProgress = eagle.swoopProgress;
+                eagle.prevBirdPitch = eagle.birdPitch;
+                eagle.prevSitProgress = eagle.sitProgress;
+
+                eagle.birdPitch = yMot;
+
+                if (flying) {
+                    if (eagle.flyProgress < 5.0F) eagle.flyProgress++;
+                } else if (eagle.flyProgress > 0.0F) {
+                    eagle.flyProgress--;
+                }
+
+                if (yMot < 0.1F) {
+                    eagle.flapAmount = Math.min(-yMot * 0.2F, 1.0F);
+                    if (eagle.swoopProgress > 0.0F) eagle.swoopProgress--;
+                } else {
+                    if (eagle.flapAmount > 0.0F) eagle.flapAmount = Math.max(0.0F, eagle.flapAmount - 0.1F);
+                    eagle.swoopProgress = Math.min(eagle.swoopProgress + 1.0F, yMot * 0.2F);
+                }
+
+                eagle.sitProgress = 0;
+            }
         }
     }
 

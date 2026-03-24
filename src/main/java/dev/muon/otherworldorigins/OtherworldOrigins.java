@@ -156,5 +156,11 @@ public class OtherworldOrigins {
                 .decoder(ShapeshiftSyncMessage::decode)
                 .consumerMainThread(ShapeshiftSyncMessage::handle)
                 .add();
+
+        CHANNEL.messageBuilder(WildshapeKeyMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(WildshapeKeyMessage::encode)
+                .decoder(WildshapeKeyMessage::decode)
+                .consumerMainThread(WildshapeKeyMessage::handle)
+                .add();
     }
 }

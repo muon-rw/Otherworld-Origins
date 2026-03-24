@@ -4,6 +4,7 @@ import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.power.ShapeshiftPower;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityCondition;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
+import io.redspace.ironsspellbooks.api.spells.CastSource;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -16,6 +17,8 @@ public class ShapeshiftSpellHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onSpellPreCast(SpellPreCastEvent event) {
+        if (event.getCastSource() == CastSource.COMMAND) return;
+
         Player player = event.getEntity();
         if (player == null) return;
 

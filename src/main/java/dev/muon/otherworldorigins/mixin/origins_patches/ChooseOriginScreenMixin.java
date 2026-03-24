@@ -72,7 +72,7 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
 
     @Inject(method = "Lio/github/apace100/origins/screen/ChooseOriginScreen;render(Lnet/minecraft/client/gui/GuiGraphics;IIF)V", at = @At("TAIL"), require = 1)
     private void renderCurrentOrigins(GuiGraphics graphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if (otherworld$isFeatLayer()) return;
+        if (otherworld$isFeatLayer() || otherworld$isWildshapeLayer()) return;
 
         // Calculate starting position - center of screen, 5px down, 180px to the left
         int centerX = scrn().width / 2;
@@ -166,8 +166,23 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
     }
 
     @Unique
+    private boolean otherworld$isWildshapeLayer() {
+        if (currentLayerIndex >= 0 && currentLayerIndex < layerList.size()) {
+            Holder<OriginLayer> currentLayer = layerList.get(currentLayerIndex);
+            ResourceLocation layerId = currentLayer.unwrapKey()
+                    .map(ResourceKey::location)
+                    .orElse(null);
+            if (layerId != null) {
+                return layerId.equals(OtherworldOrigins.loc("wildshape"));
+            }
+        }
+        return false;
+    }
+
+    @Unique
     private boolean otherworld$shouldHideButton() {
         if (otherworld$isFeatLayer()) return true;
+        if (otherworld$isWildshapeLayer()) return true;
         if (currentLayerIndex >= 0 && currentLayerIndex < layerList.size()) {
             Holder<OriginLayer> currentLayer = layerList.get(currentLayerIndex);
             ResourceLocation layerId = currentLayer.unwrapKey()
@@ -252,6 +267,10 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
         Registry<Origin> originRegistry = OriginsAPI.getOriginsRegistry(null);
 
         String sourceName = null;
+
+        if (layerId.equals(OtherworldOrigins.loc("wildshape"))) {
+            return Component.translatable("otherworldorigins.gui.wildshape_choose_title");
+        }
 
         if (layerId.equals(OtherworldOrigins.loc("cantrip_one"))) {
             sourceName = otherworld$getOriginName(container, layerRegistry, originRegistry, OtherworldOrigins.loc("subrace"));

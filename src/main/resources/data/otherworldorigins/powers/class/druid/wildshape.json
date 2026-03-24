@@ -1,0 +1,64 @@
+{
+    "hidden": true,
+    "type": "origins:multiple",
+    "wildshape_gate": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 1,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "wildshape_charges": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 3,
+        "start_value": 3,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_03.png",
+            "bar_index": 6
+        }
+    },
+    "charge_regen": {
+        "type": "origins:action_over_time",
+        "interval": 24000,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_wildshape_charges",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": 1
+            }
+        },
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_wildshape_charges",
+            "comparison": "<",
+            "compare_to": 3
+        }
+    },
+    "sleep_restore": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_wildshape_charges",
+            "modifier": {
+                "operation": "set_total",
+                "value": 3
+            }
+        }
+    },
+    "reset_gate_on_join": {
+        "type": "origins:action_on_callback",
+        "entity_action_added": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_wildshape_gate",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
+            }
+        }
+    }
+}

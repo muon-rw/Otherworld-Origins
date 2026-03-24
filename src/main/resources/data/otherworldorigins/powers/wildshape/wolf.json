@@ -1,0 +1,116 @@
+{
+    "type": "origins:multiple",
+    "shape": {
+        "type": "otherworldorigins:shapeshift",
+        "entity_type": "minecraft:wolf",
+        "hide_hands": true,
+        "allow_tools": false,
+        "prevent_equipment": true,
+        "prevent_spell_casts": {
+            "inverted": true,
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 18
+        }
+    },
+    "health": {
+        "type": "origins:attribute",
+        "modifier": {
+            "name": "Wildshape max health",
+            "attribute": "minecraft:generic.max_health",
+            "value": 0,
+            "operation": "addition"
+        }
+    },
+    "damage": {
+        "type": "origins:attribute",
+        "modifier": {
+            "name": "Wildshape attack damage",
+            "attribute": "minecraft:generic.attack_damage",
+            "value": 3,
+            "operation": "addition"
+        }
+    },
+    "speed": {
+        "type": "origins:attribute",
+        "modifier": {
+            "name": "Wildshape movement speed",
+            "attribute": "minecraft:generic.movement_speed",
+            "value": 0.2,
+            "operation": "multiply_base"
+        }
+    },
+    "prevent_death": {
+        "type": "origins:prevent_death",
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:heal",
+                    "amount": 20
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "origin set @s otherworldorigins:wildshape origins:empty"
+                }
+            ]
+        }
+    },
+    "timer": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 6000,
+        "start_value": 6000,
+        "min_action": {
+            "type": "origins:execute_command",
+            "command": "origin set @s otherworldorigins:wildshape origins:empty"
+        },
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 5,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_timer",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "tick_timer": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_timer",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -20
+            }
+        }
+    },
+    "charge_callback": {
+        "type": "origins:action_on_callback",
+        "entity_action_gained": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "otherworldorigins:class/druid/wildshape_wildshape_charges",
+                    "modifier": {
+                        "operation": "add_base_early",
+                        "value": -1
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "otherworldorigins:class/druid/wildshape_wildshape_gate",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    }
+}

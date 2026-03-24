@@ -122,6 +122,7 @@ public class ClientLayerScreenHelper {
         featLayerIds.add(OtherworldOrigins.loc("fourth_feat"));
         featLayerIds.add(OtherworldOrigins.loc("fifth_feat"));
         featLayerIds.add(OtherworldOrigins.loc("plus_one_aptitude_resilient"));
+        featLayerIds.add(OtherworldOrigins.loc("wildshape"));
         
         // Check if all selected layers were feat layers
         for (ResourceLocation layerId : lastSelectedLayers) {
