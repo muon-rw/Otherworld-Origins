@@ -16,8 +16,11 @@ import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.CastResult;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.api.spells.CastType;
+import io.redspace.ironsspellbooks.api.spells.ICastData;
 import io.redspace.ironsspellbooks.api.util.Utils;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
+import io.redspace.ironsspellbooks.entity.spells.target_area.TargetedAreaEntity;
+import io.redspace.ironsspellbooks.spells.TargetedTargetAreaCastData;
 import io.redspace.ironsspellbooks.network.casting.CastErrorPacket;
 import io.redspace.ironsspellbooks.network.casting.OnCastStartedPacket;
 import io.redspace.ironsspellbooks.network.casting.OnClientCastPacket;
@@ -92,17 +95,14 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
             magicData = MagicData.getPlayerMagicData(caster);
         }
 
-        // Set up targeting data with the provided target
-        OtherworldOrigins.LOGGER.debug("CastSpellBientityAction: Setting target to {}", livingTarget.getName().getString());
-        updateTargetData(caster, livingTarget, magicData, spell, e -> true);
-
         if (caster instanceof ServerPlayer serverPlayer) {
-            castSpellForPlayer(configuration, spell, powerLevel, serverPlayer, magicData, world);
+            castSpellForPlayer(configuration, spell, powerLevel, serverPlayer, magicData, world, livingTarget);
         } else if (caster instanceof IMagicEntity magicEntity) {
             magicEntity.initiateCastSpell(spell, powerLevel);
         } else {
             // Non-player LivingEntity casting
             if (spell.checkPreCastConditions(world, powerLevel, caster, magicData)) {
+                maybeUpdateTargetData(caster, livingTarget, magicData, spell);
                 spell.onCast(world, powerLevel, caster, CastSource.COMMAND, magicData);
                 spell.onServerCastComplete(world, powerLevel, caster, magicData, false);
             }
@@ -110,7 +110,8 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
     }
 
     private void castSpellForPlayer(Configuration configuration, AbstractSpell spell, int powerLevel,
-                                     ServerPlayer serverPlayer, MagicData magicData, Level world) {
+                                     ServerPlayer serverPlayer, MagicData magicData, Level world,
+                                     LivingEntity providedTarget) {
         Optional<Integer> castTimeOpt = configuration.castTime();
         Optional<Integer> manaCostOpt = configuration.manaCost();
 
@@ -167,6 +168,8 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
 
         spell.onServerPreCast(world, powerLevel, serverPlayer, magicData);
 
+        maybeUpdateTargetData(serverPlayer, providedTarget, magicData, spell);
+
         // Sync casting state to client
         PacketDistributor.sendToPlayer(serverPlayer, new UpdateCastingStatePacket(spell.getSpellId(), powerLevel, effectiveCastTime, CastSource.COMMAND, "command"));
         PacketDistributor.sendToPlayersTrackingEntityAndSelf(serverPlayer, new OnCastStartedPacket(serverPlayer.getUUID(), spell.getSpellId(), powerLevel));
@@ -182,8 +185,8 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
         // For instant cast spells (effectiveCastTime == 0), execute immediately
         if (effectiveCastTime == 0) {
             spell.onCast(world, powerLevel, serverPlayer, CastSource.COMMAND, magicData);
-            spell.onServerCastComplete(world, powerLevel, serverPlayer, magicData, false);
             PacketDistributor.sendToPlayer(serverPlayer, new OnClientCastPacket(spell.getSpellId(), powerLevel, CastSource.COMMAND, magicData.getAdditionalCastData()));
+            spell.onServerCastComplete(world, powerLevel, serverPlayer, magicData, false);
         }
     }
 
@@ -218,6 +221,24 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
             if (livingTarget instanceof ServerPlayer targetPlayer) {
                 Utils.sendTargetedNotification(targetPlayer, caster, spell);
             }
+        }
+    }
+
+    // TODO: ImpulseCastData (e.g. BurningDash) doesn't support bientity targeting.
+    //  The impulse direction is computed from the caster's look angle inside onCast(),
+    //  after maybeUpdateTargetData runs, so we can't redirect it here.
+    //  To support it, onCast would need to be patched (or wrapped) to compute the
+    //  impulse vector as (target.position - caster.position) instead of getLookAngle().
+    private static void maybeUpdateTargetData(LivingEntity caster, LivingEntity providedTarget,
+                                                MagicData magicData, AbstractSpell spell) {
+        ICastData data = magicData.getAdditionalCastData();
+        if (data != null && data.getClass() == TargetEntityCastData.class) {
+            updateTargetData(caster, providedTarget, magicData, spell, e -> true);
+        } else if (data instanceof TargetedTargetAreaCastData targetedArea) {
+            TargetedAreaEntity areaEntity = targetedArea.getAreaEntity();
+            areaEntity.setOwner(providedTarget);
+            areaEntity.setPos(providedTarget.position());
+            magicData.setAdditionalCastData(new TargetedTargetAreaCastData(providedTarget, areaEntity));
         }
     }
 

@@ -10,6 +10,7 @@ import io.redspace.ironsspellbooks.api.entity.IMagicEntity;
 import io.redspace.ironsspellbooks.api.events.ChangeManaEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.spells.ICastData;
 import io.redspace.ironsspellbooks.api.spells.CastResult;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.api.spells.CastType;
@@ -106,19 +107,16 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
             magicData = MagicData.getPlayerMagicData(livingEntity);
         }
 
-        // Raycast to find target and set up targeting data
-        LivingEntity target = findTarget(livingEntity, configuration.raycastDistance().orElse(DEFAULT_RAYCAST_DISTANCE));
-        if (target != null) {
-            updateTargetData(livingEntity, target, magicData, spell, e -> true);
-        }
+        LivingEntity raycastTarget = findTarget(livingEntity, configuration.raycastDistance().orElse(DEFAULT_RAYCAST_DISTANCE));
 
         if (livingEntity instanceof ServerPlayer serverPlayer) {
-            castSpellForPlayer(configuration, spell, powerLevel, serverPlayer, magicData, world);
+            castSpellForPlayer(configuration, spell, powerLevel, serverPlayer, magicData, world, raycastTarget);
         } else if (livingEntity instanceof IMagicEntity magicEntity) {
             magicEntity.initiateCastSpell(spell, powerLevel);
         } else {
             // Non-player LivingEntity casting
             if (spell.checkPreCastConditions(world, powerLevel, livingEntity, magicData)) {
+                maybeUpdateTargetData(livingEntity, raycastTarget, magicData, spell);
                 spell.onCast(world, powerLevel, livingEntity, CastSource.COMMAND, magicData);
                 spell.onServerCastComplete(world, powerLevel, livingEntity, magicData, false);
             }
@@ -126,7 +124,8 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
     }
 
     private void castSpellForPlayer(Configuration configuration, AbstractSpell spell, int powerLevel,
-                                    ServerPlayer serverPlayer, MagicData magicData, Level world) {
+                                    ServerPlayer serverPlayer, MagicData magicData, Level world,
+                                    @Nullable LivingEntity raycastTarget) {
         Optional<Integer> castTimeOpt = configuration.castTime();
         Optional<Integer> manaCostOpt = configuration.manaCost();
 
@@ -183,6 +182,8 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
 
         spell.onServerPreCast(world, powerLevel, serverPlayer, magicData);
 
+        maybeUpdateTargetData(serverPlayer, raycastTarget, magicData, spell);
+
         // Sync casting state to client
         PacketDistributor.sendToPlayer(serverPlayer, new UpdateCastingStatePacket(spell.getSpellId(), powerLevel, effectiveCastTime, CastSource.COMMAND, "command"));
         PacketDistributor.sendToPlayersTrackingEntityAndSelf(serverPlayer, new OnCastStartedPacket(serverPlayer.getUUID(), spell.getSpellId(), powerLevel));
@@ -198,8 +199,8 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         // For instant cast spells (effectiveCastTime == 0), execute immediately
         if (effectiveCastTime == 0) {
             spell.onCast(world, powerLevel, serverPlayer, CastSource.COMMAND, magicData);
-            spell.onServerCastComplete(world, powerLevel, serverPlayer, magicData, false);
             PacketDistributor.sendToPlayer(serverPlayer, new OnClientCastPacket(spell.getSpellId(), powerLevel, CastSource.COMMAND, magicData.getAdditionalCastData()));
+            spell.onServerCastComplete(world, powerLevel, serverPlayer, magicData, false);
         }
     }
 
@@ -357,6 +358,20 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         } else if (caster instanceof ServerPlayer serverPlayer) {
 //            serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(
 //                    Component.translatable("ui.irons_spellbooks.cast_error_target").withStyle(ChatFormatting.RED)));
+        }
+    }
+
+    /**
+     * Only updates targeting data if the spell has already indicated it wants a target
+     * (i.e. its checkPreCastConditions/onServerPreCast set TargetEntityCastData).
+     * This avoids overwriting spell-specific cast data (TeleportData, ImpulseCastData, etc.)
+     * which would cause ClassCastExceptions in spells that hard-cast getAdditionalCastData().
+     */
+    private static void maybeUpdateTargetData(LivingEntity caster, @Nullable LivingEntity raycastTarget,
+                                              MagicData magicData, AbstractSpell spell) {
+        ICastData data = magicData.getAdditionalCastData();
+        if (raycastTarget != null && data != null && data.getClass() == TargetEntityCastData.class) {
+            updateTargetData(caster, raycastTarget, magicData, spell, e -> true);
         }
     }
 
