@@ -7,6 +7,7 @@ import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.restrictions.ModSpellTags;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
+import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.api.spells.SchoolType;
 import io.redspace.ironsspellbooks.api.spells.SpellRarity;
 import net.minecraft.commands.CommandSourceStack;
@@ -73,9 +74,10 @@ public class ModCommands {
             int minRarityInt = spell.getMinRarity();
             SpellRarity minRarity = SpellRarity.values()[minRarityInt];
 
+            CastType castType = spell.getCastType();
             String description = Component.translatable(spell.getComponentId() + ".guide").getString();
 
-            spellDataList.add(new SpellData(spellId, categoryString, schoolName, minRarity.name(), description));
+            spellDataList.add(new SpellData(spellId, categoryString, schoolName, minRarity.name(), castType.name(), description));
         }
 
         try {
@@ -106,13 +108,15 @@ public class ModCommands {
         private final String category;
         private final String school;
         private final String minRarity;
+        private final String castType;
         private final String description;
 
-        public SpellData(String spellId, String category, String school, String minRarity, String description) {
+        public SpellData(String spellId, String category, String school, String minRarity, String castType, String description) {
             this.spellId = spellId;
             this.category = category;
             this.school = school;
             this.minRarity = minRarity;
+            this.castType = castType;
             this.description = description;
         }
 
@@ -130,6 +134,10 @@ public class ModCommands {
 
         public String getMinRarity() {
             return minRarity;
+        }
+
+        public String getCastType() {
+            return castType;
         }
 
         public String getDescription() {
