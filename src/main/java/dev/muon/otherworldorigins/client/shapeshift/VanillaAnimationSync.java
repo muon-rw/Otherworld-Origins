@@ -51,6 +51,7 @@ public class VanillaAnimationSync {
             Entity entity,
             @Nullable AnimationState idle,
             List<AnimationState> attacks,
+            Map<String, AnimationState> namedAttacks,
             @Nullable AnimationState run,
             @Nullable AnimationState sit,
             @Nullable AnimationState block,
@@ -63,17 +64,45 @@ public class VanillaAnimationSync {
 
     private static final Map<Class<?>, Optional<TypeConfig>> TYPE_CONFIGS = new IdentityHashMap<>();
     private static final Map<Integer, PlayerCache> PLAYER_CACHES = new HashMap<>();
-    private static final Map<Integer, Boolean> PREV_SWINGING = new HashMap<>();
     private static final Map<Integer, Integer> ATTACK_END_TICK = new HashMap<>();
     private static final Map<Integer, Boolean> PREV_ON_GROUND = new HashMap<>();
     private static final Map<Integer, Integer> LAND_END_TICK = new HashMap<>();
-    private static final Random ANIM_RANDOM = new Random();
 
     // ---- Public API ----
 
     /**
+     * Triggers a named attack animation on the fake entity. The key is matched against
+     * the normalized field name (e.g. {@code upperCutAnimationState} → {@code "upper_cut"}).
+     * Falls back to the first registered attack animation if the key is unrecognized.
+     *
+     * @return true if an attack animation was started
+     */
+    public static boolean triggerNamedAttack(int entityId, Entity target, String animationKey) {
+        PlayerCache cache = getOrBuildCache(entityId, target);
+        if (cache == null || cache.attacks.isEmpty()) return false;
+
+        int tick = target.tickCount;
+        AnimationState chosen = null;
+        if (animationKey != null && !animationKey.isEmpty()) {
+            chosen = cache.namedAttacks.get(animationKey);
+        }
+        if (chosen == null) {
+            chosen = cache.attacks.get(0);
+        }
+
+        cache.allStates.forEach(AnimationState::stop);
+        chosen.start(tick);
+        ATTACK_END_TICK.put(entityId, tick + ATTACK_ANIM_TICKS);
+        LAND_END_TICK.remove(entityId);
+        return true;
+    }
+
+    /**
      * Syncs vanilla AnimationState animations on the fake entity based on the source
      * player's state. Called every frame from {@link ShapeshiftRenderHelper#syncVisualState}.
+     * <p>
+     * Attack animations are no longer triggered here — they are driven externally via
+     * {@link #triggerNamedAttack} from {@link ShapeshiftRenderHelper}.
      */
     public static void syncAnimations(Entity source, Entity target) {
         PlayerCache cache = getOrBuildCache(source.getId(), target);
@@ -83,28 +112,9 @@ public class VanillaAnimationSync {
         int tick = target.tickCount;
         LivingEntity livingSource = source instanceof LivingEntity le ? le : null;
 
-        // --- Timed one-shot animations ---
         boolean inAttack = isTimerActive(ATTACK_END_TICK, id, tick);
         boolean inLand = isTimerActive(LAND_END_TICK, id, tick);
 
-        // Detect swing → start attack
-        if (livingSource != null && !cache.attacks.isEmpty()) {
-            boolean wasSwinging = PREV_SWINGING.getOrDefault(id, false);
-            boolean nowSwinging = livingSource.swinging;
-            PREV_SWINGING.put(id, nowSwinging);
-
-            if (nowSwinging && !wasSwinging) {
-                cache.allStates.forEach(AnimationState::stop);
-                AnimationState attack = cache.attacks.get(ANIM_RANDOM.nextInt(cache.attacks.size()));
-                attack.start(tick);
-                ATTACK_END_TICK.put(id, tick + ATTACK_ANIM_TICKS);
-                LAND_END_TICK.remove(id);
-                inAttack = true;
-                inLand = false;
-            }
-        }
-
-        // Detect landing → start land animation
         if (cache.land != null && !inAttack) {
             boolean wasOnGround = PREV_ON_GROUND.getOrDefault(id, true);
             boolean nowOnGround = source.onGround();
@@ -118,13 +128,9 @@ public class VanillaAnimationSync {
             }
         }
 
-        // Expire finished timers
         expireTimer(ATTACK_END_TICK, id, tick, cache.attacks);
         if (cache.land != null) expireTimer(LAND_END_TICK, id, tick, List.of(cache.land));
 
-        // --- Continuous state-driven animations ---
-        // Each condition incorporates the cache null-check so that missing animations
-        // fall through to the next priority level rather than leaving a blank pose.
         boolean timed = inAttack || inLand;
         boolean swimming = !timed && cache.swim  != null && source.isSwimming();
         boolean flying   = !timed && !swimming && cache.fly   != null && livingSource != null && livingSource.isFallFlying();
@@ -145,7 +151,6 @@ public class VanillaAnimationSync {
 
     public static void evict(int playerId) {
         PLAYER_CACHES.remove(playerId);
-        PREV_SWINGING.remove(playerId);
         ATTACK_END_TICK.remove(playerId);
         PREV_ON_GROUND.remove(playerId);
         LAND_END_TICK.remove(playerId);
@@ -153,7 +158,6 @@ public class VanillaAnimationSync {
 
     public static void clearAll() {
         PLAYER_CACHES.clear();
-        PREV_SWINGING.clear();
         ATTACK_END_TICK.clear();
         PREV_ON_GROUND.clear();
         LAND_END_TICK.clear();
@@ -197,9 +201,13 @@ public class VanillaAnimationSync {
             AnimationState swim  = readField(tc.swimField, entity);
 
             List<AnimationState> attacks = new ArrayList<>();
+            Map<String, AnimationState> namedAttacks = new LinkedHashMap<>();
             for (Field f : tc.attackFields) {
                 AnimationState s = readField(f, entity);
-                if (s != null) attacks.add(s);
+                if (s != null) {
+                    attacks.add(s);
+                    namedAttacks.put(normalizeFieldName(f.getName()), s);
+                }
             }
 
             List<AnimationState> all = new ArrayList<>();
@@ -211,7 +219,7 @@ public class VanillaAnimationSync {
             if (all.isEmpty()) return null;
 
             PlayerCache cache = new PlayerCache(
-                    entity, idle, List.copyOf(attacks),
+                    entity, idle, List.copyOf(attacks), Map.copyOf(namedAttacks),
                     run, sit, block, fall, land, fly, swim, List.copyOf(all));
             PLAYER_CACHES.put(playerId, cache);
             return cache;
@@ -253,6 +261,7 @@ public class VanillaAnimationSync {
                     || runField != null || sitField != null || blockField != null
                     || fallField != null || landField != null || flyField != null
                     || swimField != null;
+
             if (!hasAnything) return Optional.empty();
 
             return Optional.of(new TypeConfig(
@@ -291,5 +300,28 @@ public class VanillaAnimationSync {
         }
 
         return AnimCategory.SKIP;
+    }
+
+    /**
+     * Converts an AnimationState field name to a snake_case key for JSON matching.
+     * {@code upperCutAnimationState} → {@code "upper_cut"},
+     * {@code slapAnimationState} → {@code "slap"}.
+     */
+    private static String normalizeFieldName(String fieldName) {
+        String name = fieldName;
+        if (name.endsWith("AnimationState")) {
+            name = name.substring(0, name.length() - "AnimationState".length());
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < name.length(); i++) {
+            char c = name.charAt(i);
+            if (Character.isUpperCase(c)) {
+                if (i > 0) sb.append('_');
+                sb.append(Character.toLowerCase(c));
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 }

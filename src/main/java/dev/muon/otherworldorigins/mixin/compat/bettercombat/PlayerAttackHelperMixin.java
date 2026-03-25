@@ -1,5 +1,6 @@
 package dev.muon.otherworldorigins.mixin.compat.bettercombat;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.muon.otherworldorigins.power.ShapeshiftPower;
 import dev.muon.otherworldorigins.util.ShapeshiftWeaponAttributes;
 import net.bettercombat.api.AttackHand;
@@ -28,5 +29,13 @@ public class PlayerAttackHelperMixin {
         if (hand != null) {
             cir.setReturnValue(hand);
         }
+    }
+
+    @ModifyReturnValue(method = "isDualWielding", at = @At("RETURN"))
+    private static boolean otherworldorigins$preventShapeshiftDualWield(boolean original, Player player) {
+        if (!original) return false;
+        ShapeshiftPower.Configuration config = ShapeshiftPower.getActiveShapeshiftConfig(player);
+        if (config != null && !config.allowTools()) return false;
+        return true;
     }
 }

@@ -14,8 +14,8 @@
         },
         "attack_range": 2.5,
         "attacks": [
-            { "hitbox": "VERTICAL_PLANE", "angle": 80, "damage_multiplier": 1.0, "upswing": 0.5 },
-            { "hitbox": "HORIZONTAL_PLANE", "angle": 100, "damage_multiplier": 1.2, "upswing": 0.5 }
+            { "hitbox": "VERTICAL_PLANE", "angle": 80, "damage_multiplier": 1.0, "upswing": 0.5, "animation": "upper_cut" },
+            { "hitbox": "HORIZONTAL_PLANE", "angle": 100, "damage_multiplier": 1.2, "upswing": 0.5, "animation": "slap" }
         ]
     },
     "health": {
@@ -54,6 +54,15 @@
             "name": "Wildshape armor bonus"
         }
     },
+    "temperature_immunity": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "legendarysurvivaloverhaul:thermal_resistance",
+            "operation": "addition",
+            "value": 100.0,
+            "name": "Elemental temperature immunity"
+        }
+    },
     "slow_falling": {
         "type": "origins:stacking_status_effect",
         "min_stacks": 1,
@@ -70,19 +79,13 @@
         }
     },
     "levitate": {
-        "type": "origins:active_self",
-        "entity_action": {
-            "type": "origins:add_velocity",
-            "y": 0.5,
-            "server": false
-        },
-        "cooldown": 10,
-        "hud_render": {
-            "should_render": false
-        },
-        "key": {
-            "key": "key.jump",
-            "continuous": true
+        "type": "origins:grounded"
+    },
+    "jump_boost": {
+        "type": "origins:modify_jump",
+        "modifier": {
+            "operation": "addition",
+            "value": 0.2
         }
     },
     "no_fall_damage": {
@@ -117,7 +120,7 @@
         }
     },
     "spell_attack": {
-        "type": "origins:action_on_hit",
+        "type": "otherworldorigins:action_on_attack",
         "bientity_action": {
             "type": "origins:actor_action",
             "action": {

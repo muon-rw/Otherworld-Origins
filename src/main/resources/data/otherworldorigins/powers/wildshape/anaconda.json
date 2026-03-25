@@ -50,6 +50,15 @@
             "value": 6
         }
     },
+    "cold_immunity": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "legendarysurvivaloverhaul:cold_resistance",
+            "operation": "addition",
+            "value": 100.0,
+            "name": "Wildshape cold immunity"
+        }
+    },
     "prevent_death": {
         "type": "origins:prevent_death",
         "entity_action": {

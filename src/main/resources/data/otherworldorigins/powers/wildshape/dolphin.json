@@ -45,6 +45,19 @@
             "operation": "multiply_base"
         }
     },
+    "cold_immunity": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "legendarysurvivaloverhaul:cold_resistance",
+            "operation": "addition",
+            "value": 100.0,
+            "name": "Wildshape cold immunity"
+        }
+    },
+    "extended_breath": {
+        "type": "otherworldorigins:modify_max_air_supply",
+        "bonus": 360
+    },
     "dolphins_grace": {
         "type": "origins:action_over_time",
         "interval": 20,

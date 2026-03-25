@@ -43,37 +43,13 @@
         "modifier": {
             "operation": "addition",
             "value": 0.5
-        }
-    },
-    "flap": {
-        "type": "origins:active_self",
+        },
         "entity_action": {
-            "type": "origins:and",
-            "actions": [
-                {
-                    "type": "origins:add_velocity",
-                    "y": 0.8,
-                    "server": false
-                },
-                {
-                    "type": "origins:play_sound",
-                    "sound": "minecraft:entity.ender_dragon.flap",
-                    "volume": 0.6,
-                    "pitch": 1.8,
-                    "category": "player"
-                }
-            ]
-        },
-        "cooldown": 15,
-        "hud_render": {
-            "should_render": false
-        },
-        "key": {
-            "key": "key.jump",
-            "continuous": false
-        },
-        "condition": {
-            "type": "origins:fall_flying"
+            "type": "origins:play_sound",
+            "sound": "minecraft:entity.ender_dragon.flap",
+            "volume": 0.6,
+            "pitch": 1.8,
+            "category": "player"
         }
     },
     "no_fall_damage": {
@@ -85,6 +61,15 @@
         "modifier": {
             "operation": "multiply_total_multiplicative",
             "value": -1
+        }
+    },
+    "cold_resilience": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "legendarysurvivaloverhaul:cold_resistance",
+            "operation": "addition",
+            "value": 8.0,
+            "name": "Wildshape cold resistance"
         }
     },
     "prevent_death": {

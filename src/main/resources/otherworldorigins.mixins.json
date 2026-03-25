@@ -56,6 +56,8 @@
     "client.WalkAnimationStateAccessor",
     "compat.altorigingui.ChooseOriginScreenMixinSquared",
     "compat.apotheosis.ApothEnchantScreenMixin",
+    "compat.bettercombat.WeaponRegistryMixin",
+    "compat.justlevelingfork.bettercombat.TargetFinderMixin",
     "compat.irons_spellbooks.ClientInputEventsMixin",
     "compat.irons_spellbooks.ClientMagicDataAccessor",
     "compat.irons_spellbooks.ClientServerPlayerEventsMixin",

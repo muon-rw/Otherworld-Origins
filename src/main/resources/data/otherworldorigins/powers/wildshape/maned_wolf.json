@@ -45,6 +45,15 @@
             "operation": "multiply_base"
         }
     },
+    "cold_resilience": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "legendarysurvivaloverhaul:cold_resistance",
+            "operation": "addition",
+            "value": 8.0,
+            "name": "Wildshape cold resistance"
+        }
+    },
     "prevent_death": {
         "type": "origins:prevent_death",
         "entity_action": {

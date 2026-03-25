@@ -14,9 +14,9 @@
         },
         "attack_range": 3.0,
         "attacks": [
-            { "hitbox": "HORIZONTAL_PLANE", "angle": 100, "damage_multiplier": 1.0, "upswing": 0.5 },
-            { "hitbox": "HORIZONTAL_PLANE", "angle": 100, "damage_multiplier": 1.0, "upswing": 0.5 },
-            { "hitbox": "VERTICAL_PLANE", "angle": 60, "damage_multiplier": 1.3, "upswing": 0.4 }
+            { "hitbox": "HORIZONTAL_PLANE", "angle": 100, "damage_multiplier": 1.0, "upswing": 0.5, "animation": "swipe_r" },
+            { "hitbox": "HORIZONTAL_PLANE", "angle": 100, "damage_multiplier": 1.0, "upswing": 0.5, "animation": "swipe_l" },
+            { "hitbox": "VERTICAL_PLANE", "angle": 60, "damage_multiplier": 1.3, "upswing": 0.4, "animation": "maul" }
         ]
     },
     "health": {
@@ -44,6 +44,15 @@
             "attribute": "minecraft:generic.armor",
             "value": 6,
             "operation": "addition"
+        }
+    },
+    "cold_resilience": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "legendarysurvivaloverhaul:cold_resistance",
+            "operation": "addition",
+            "value": 8.0,
+            "name": "Wildshape cold resistance"
         }
     },
     "prevent_death": {

@@ -39,6 +39,8 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<AllowedSpellsPower.Configuration>> ALLOWED_SPELLS = POWER_FACTORIES.register("allowed_spells", AllowedSpellsPower::new);
     public static final RegistryObject<PowerFactory<DirectionalTeleportPower.Configuration>> DIRECTIONAL_TELEPORT = POWER_FACTORIES.register("directional_teleport", DirectionalTeleportPower::new);
     public static final RegistryObject<PowerFactory<ShapeshiftPower.Configuration>> SHAPESHIFT = POWER_FACTORIES.register("shapeshift", ShapeshiftPower::new);
+    public static final RegistryObject<ActionOnAttackPower> ACTION_ON_ATTACK = POWER_FACTORIES.register("action_on_attack", ActionOnAttackPower::new);
+    public static final RegistryObject<PowerFactory<ModifyMaxAirSupplyPower.Configuration>> MODIFY_MAX_AIR_SUPPLY = POWER_FACTORIES.register("modify_max_air_supply", ModifyMaxAirSupplyPower::new);
 
 
     private static <T extends PowerFactory<?>> RegistryObject<T> registerConditional(String name, Supplier<T> factory, String modId) {

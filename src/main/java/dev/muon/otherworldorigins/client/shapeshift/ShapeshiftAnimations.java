@@ -11,63 +11,74 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.*;
 
 /**
- * Maps entity types to their attack animations for the shapeshift system.
- * When a shapeshifted player swings, a random attack animation from the
- * mapped list is played on the fake entity, driving Citadel's ModelAnimator.
+ * Maps entity types to their named Citadel attack animations for the shapeshift system.
+ * Each animation is keyed by a snake_case string (e.g. "swipe_r", "maul") that can be
+ * referenced from the {@code animation} field in shapeshift attack JSON.
  */
 @OnlyIn(Dist.CLIENT)
 public class ShapeshiftAnimations {
 
-    private static final Map<EntityType<?>, List<Animation>> ATTACK_ANIMATIONS = new IdentityHashMap<>();
+    private static final Map<EntityType<?>, Map<String, Animation>> ATTACK_ANIMATIONS = new IdentityHashMap<>();
 
     static {
-        register(AMEntityRegistry.GRIZZLY_BEAR,
-                EntityGrizzlyBear.ANIMATION_SWIPE_R,
-                EntityGrizzlyBear.ANIMATION_SWIPE_L,
-                EntityGrizzlyBear.ANIMATION_MAUL);
+        register(AMEntityRegistry.GRIZZLY_BEAR, Map.of(
+                "swipe_r", EntityGrizzlyBear.ANIMATION_SWIPE_R,
+                "swipe_l", EntityGrizzlyBear.ANIMATION_SWIPE_L,
+                "maul", EntityGrizzlyBear.ANIMATION_MAUL
+        ));
 
-        register(AMEntityRegistry.TIGER,
-                EntityTiger.ANIMATION_PAW_R,
-                EntityTiger.ANIMATION_PAW_L);
+        register(AMEntityRegistry.TIGER, Map.of(
+                "paw_r", EntityTiger.ANIMATION_PAW_R,
+                "paw_l", EntityTiger.ANIMATION_PAW_L
+        ));
 
-        register(AMEntityRegistry.SNOW_LEOPARD,
-                EntitySnowLeopard.ANIMATION_ATTACK_R,
-                EntitySnowLeopard.ANIMATION_ATTACK_L);
+        register(AMEntityRegistry.SNOW_LEOPARD, Map.of(
+                "attack_r", EntitySnowLeopard.ANIMATION_ATTACK_R,
+                "attack_l", EntitySnowLeopard.ANIMATION_ATTACK_L
+        ));
 
-        register(AMEntityRegistry.CROCODILE,
-                EntityCrocodile.ANIMATION_LUNGE);
+        register(AMEntityRegistry.CROCODILE, Map.of(
+                "lunge", EntityCrocodile.ANIMATION_LUNGE
+        ));
 
-        register(AMEntityRegistry.GORILLA,
-                EntityGorilla.ANIMATION_ATTACK);
+        register(AMEntityRegistry.GORILLA, Map.of(
+                "attack", EntityGorilla.ANIMATION_ATTACK
+        ));
 
-        register(AMEntityRegistry.MOOSE,
-                EntityMoose.ANIMATION_ATTACK);
+        register(AMEntityRegistry.MOOSE, Map.of(
+                "attack", EntityMoose.ANIMATION_ATTACK
+        ));
 
-        register(AMEntityRegistry.ELEPHANT,
-                EntityElephant.ANIMATION_STOMP,
-                EntityElephant.ANIMATION_FLING);
+        register(AMEntityRegistry.ELEPHANT, Map.of(
+                "stomp", EntityElephant.ANIMATION_STOMP,
+                "fling", EntityElephant.ANIMATION_FLING
+        ));
 
-        register(AMEntityRegistry.RHINOCEROS,
-                EntityRhinoceros.ANIMATION_FLING,
-                EntityRhinoceros.ANIMATION_SLASH);
+        register(AMEntityRegistry.RHINOCEROS, Map.of(
+                "fling", EntityRhinoceros.ANIMATION_FLING,
+                "slash", EntityRhinoceros.ANIMATION_SLASH
+        ));
 
-        register(AMEntityRegistry.BISON,
-                EntityBison.ANIMATION_ATTACK);
+        register(AMEntityRegistry.BISON, Map.of(
+                "attack", EntityBison.ANIMATION_ATTACK
+        ));
 
-        register(AMEntityRegistry.DROPBEAR,
-                EntityDropBear.ANIMATION_BITE,
-                EntityDropBear.ANIMATION_SWIPE_R,
-                EntityDropBear.ANIMATION_SWIPE_L);
+        register(AMEntityRegistry.DROPBEAR, Map.of(
+                "bite", EntityDropBear.ANIMATION_BITE,
+                "swipe_r", EntityDropBear.ANIMATION_SWIPE_R,
+                "swipe_l", EntityDropBear.ANIMATION_SWIPE_L
+        ));
 
-        register(AMEntityRegistry.KANGAROO,
-                EntityKangaroo.ANIMATION_KICK,
-                EntityKangaroo.ANIMATION_PUNCH_R,
-                EntityKangaroo.ANIMATION_PUNCH_L);
+        register(AMEntityRegistry.KANGAROO, Map.of(
+                "kick", EntityKangaroo.ANIMATION_KICK,
+                "punch_r", EntityKangaroo.ANIMATION_PUNCH_R,
+                "punch_l", EntityKangaroo.ANIMATION_PUNCH_L
+        ));
     }
 
     private static void register(net.minecraftforge.registries.RegistryObject<? extends EntityType<?>> typeHolder,
-                                 Animation... animations) {
-        ATTACK_ANIMATIONS.put(typeHolder.get(), List.of(animations));
+                                 Map<String, Animation> animations) {
+        ATTACK_ANIMATIONS.put(typeHolder.get(), animations);
     }
 
     public static boolean hasAttackAnimations(Entity entity) {
@@ -75,12 +86,25 @@ public class ShapeshiftAnimations {
                 && ATTACK_ANIMATIONS.containsKey(entity.getType());
     }
 
-    public static void triggerRandomAttack(Entity fakeEntity, Random random) {
+    /**
+     * Plays the named attack animation on the fake entity. Falls back to the first
+     * registered animation if the key is unrecognized, or does nothing if the entity
+     * type has no Citadel animations registered.
+     */
+    public static void triggerAttack(Entity fakeEntity, String animationKey) {
         if (!(fakeEntity instanceof IAnimatedEntity animated)) return;
-        List<Animation> anims = ATTACK_ANIMATIONS.get(fakeEntity.getType());
+        Map<String, Animation> anims = ATTACK_ANIMATIONS.get(fakeEntity.getType());
         if (anims == null || anims.isEmpty()) return;
 
-        Animation chosen = anims.get(random.nextInt(anims.size()));
+        Animation chosen;
+        if (animationKey != null && !animationKey.isEmpty()) {
+            chosen = anims.get(animationKey);
+        } else {
+            chosen = null;
+        }
+        if (chosen == null) {
+            chosen = anims.values().iterator().next();
+        }
         animated.setAnimation(chosen);
         animated.setAnimationTick(0);
     }

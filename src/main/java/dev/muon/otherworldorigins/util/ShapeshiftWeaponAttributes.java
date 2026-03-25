@@ -42,14 +42,14 @@ public class ShapeshiftWeaponAttributes {
         WeaponAttributes attrs = getOrBuild(config);
         if (attrs == null || attrs.attacks() == null || attrs.attacks().length == 0) return null;
 
-        int attackIndex = comboCount % attrs.attacks().length;
+        int attackIndex = Math.floorMod(comboCount, attrs.attacks().length);
         WeaponAttributes.Attack attack = attrs.attacks()[attackIndex];
         ComboState combo = new ComboState(attackIndex + 1, attrs.attacks().length);
         return new AttackHand(attack, combo, false, attrs, ItemStack.EMPTY);
     }
 
     @Nullable
-    private static WeaponAttributes getOrBuild(ShapeshiftPower.Configuration config) {
+    public static WeaponAttributes getOrBuild(ShapeshiftPower.Configuration config) {
         return CACHE.computeIfAbsent(config.entityType(), id -> build(config));
     }
 
@@ -78,24 +78,33 @@ public class ShapeshiftWeaponAttributes {
 
     private static WeaponAttributes.Attack[] convertAttacks(List<ShapeshiftPower.ShapeshiftAttack> list) {
         WeaponAttributes.Attack[] result = new WeaponAttributes.Attack[list.size()];
-        String[] animations = {
-                "bettercombat:one_handed_slash_horizontal_right",
-                "bettercombat:one_handed_slash_horizontal_left",
-                "bettercombat:one_handed_stab",
-                "bettercombat:one_handed_slash_vertical"
-        };
+        int horizontalAlternator = 0;
 
         for (int i = 0; i < list.size(); i++) {
             ShapeshiftPower.ShapeshiftAttack sa = list.get(i);
             WeaponAttributes.HitBoxShape shape = parseHitbox(sa.hitbox());
+            String bcAnim = pickBcAnimation(shape, horizontalAlternator);
+            if (shape == WeaponAttributes.HitBoxShape.HORIZONTAL_PLANE) {
+                horizontalAlternator++;
+            }
             result[i] = new WeaponAttributes.Attack(
                     null, shape,
                     sa.damageMultiplier(), sa.angle(), sa.upswing(),
-                    animations[i % animations.length],
+                    bcAnim,
                     null, null
             );
         }
         return result;
+    }
+
+    private static String pickBcAnimation(WeaponAttributes.HitBoxShape shape, int alternator) {
+        return switch (shape) {
+            case HORIZONTAL_PLANE -> alternator % 2 == 0
+                    ? "bettercombat:one_handed_slash_horizontal_right"
+                    : "bettercombat:one_handed_slash_horizontal_left";
+            case VERTICAL_PLANE -> "bettercombat:one_handed_slam";
+            case FORWARD_BOX -> "bettercombat:one_handed_stab";
+        };
     }
 
     private static WeaponAttributes.HitBoxShape parseHitbox(String name) {

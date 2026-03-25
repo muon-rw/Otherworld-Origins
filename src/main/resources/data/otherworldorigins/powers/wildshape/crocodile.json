@@ -14,8 +14,8 @@
         },
         "attack_range": 3.5,
         "attacks": [
-            { "hitbox": "FORWARD_BOX", "angle": 60, "damage_multiplier": 1.0, "upswing": 0.4 },
-            { "hitbox": "FORWARD_BOX", "angle": 50, "damage_multiplier": 1.3, "upswing": 0.3 }
+            { "hitbox": "FORWARD_BOX", "angle": 60, "damage_multiplier": 1.0, "upswing": 0.4, "animation": "lunge" },
+            { "hitbox": "FORWARD_BOX", "angle": 50, "damage_multiplier": 1.3, "upswing": 0.3, "animation": "lunge" }
         ]
     },
     "health": {
@@ -52,6 +52,15 @@
             "attribute": "minecraft:generic.armor",
             "value": 10,
             "operation": "addition"
+        }
+    },
+    "cold_immunity": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "legendarysurvivaloverhaul:cold_resistance",
+            "operation": "addition",
+            "value": 100.0,
+            "name": "Wildshape cold immunity"
         }
     },
     "prevent_death": {

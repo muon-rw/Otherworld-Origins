@@ -52,13 +52,15 @@ public class ShapeshiftPower extends PowerFactory<ShapeshiftPower.Configuration>
             String hitbox,
             double angle,
             double damageMultiplier,
-            double upswing
+            double upswing,
+            String animation
     ) {
         public static final Codec<ShapeshiftAttack> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 CalioCodecHelper.optionalField(Codec.STRING, "hitbox", "HORIZONTAL_PLANE").forGetter(ShapeshiftAttack::hitbox),
                 CalioCodecHelper.optionalField(Codec.DOUBLE, "angle", 100.0).forGetter(ShapeshiftAttack::angle),
                 CalioCodecHelper.optionalField(Codec.DOUBLE, "damage_multiplier", 1.0).forGetter(ShapeshiftAttack::damageMultiplier),
-                CalioCodecHelper.optionalField(Codec.DOUBLE, "upswing", 0.5).forGetter(ShapeshiftAttack::upswing)
+                CalioCodecHelper.optionalField(Codec.DOUBLE, "upswing", 0.5).forGetter(ShapeshiftAttack::upswing),
+                CalioCodecHelper.optionalField(Codec.STRING, "animation", "").forGetter(ShapeshiftAttack::animation)
         ).apply(instance, ShapeshiftAttack::new));
     }
 

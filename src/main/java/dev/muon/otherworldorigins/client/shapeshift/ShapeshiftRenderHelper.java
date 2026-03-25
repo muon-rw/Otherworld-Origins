@@ -2,6 +2,8 @@ package dev.muon.otherworldorigins.client.shapeshift;
 
 import com.github.alexthe666.alexsmobs.entity.*;
 import dev.muon.otherworldorigins.mixin.client.WalkAnimationStateAccessor;
+import dev.muon.otherworldorigins.power.ShapeshiftPower;
+import net.bettercombat.logic.PlayerAttackProperties;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -9,10 +11,12 @@ import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -90,6 +94,7 @@ public class ShapeshiftRenderHelper {
         }
 
         syncAlexsMobsState(source, target);
+        dispatchAttackAnimation(source, target);
         syncCitadelAnimations(source, target);
         VanillaAnimationSync.syncAnimations(source, target);
     }
@@ -170,24 +175,50 @@ public class ShapeshiftRenderHelper {
     }
 
     /**
-     * Handles Citadel IAnimatedEntity animations on the fake entity:
-     * - Triggers a random attack animation when the player starts swinging
-     * - Ticks the animation forward once per game tick (detected via tickCount change)
+     * Central swing detection and animation dispatch. Detects when the player starts
+     * swinging, resolves the animation key from the shapeshift config's attack list
+     * using BC's combo index, and triggers the appropriate entity animation on whichever
+     * system handles the target entity (Citadel IAnimatedEntity or vanilla AnimationState).
      */
-    private static void syncCitadelAnimations(Entity source, Entity target) {
-        if (!ShapeshiftAnimations.hasAttackAnimations(target)) return;
+    private static void dispatchAttackAnimation(Entity source, Entity target) {
         if (!(source instanceof LivingEntity livingSource)) return;
 
         int entityId = source.getId();
-
         boolean wasSwinging = PREV_SWINGING.getOrDefault(entityId, false);
         boolean nowSwinging = livingSource.swinging;
         PREV_SWINGING.put(entityId, nowSwinging);
 
-        if (nowSwinging && !wasSwinging) {
-            ShapeshiftAnimations.triggerRandomAttack(target, ANIM_RANDOM);
-        }
+        if (!nowSwinging || wasSwinging) return;
 
+        String animKey = resolveAnimationKey(source);
+
+        if (ShapeshiftAnimations.hasAttackAnimations(target)) {
+            ShapeshiftAnimations.triggerAttack(target, animKey);
+        }
+        VanillaAnimationSync.triggerNamedAttack(entityId, target, animKey);
+    }
+
+    private static String resolveAnimationKey(Entity source) {
+        if (!(source instanceof Player player)) return "";
+
+        ShapeshiftPower.Configuration config = ShapeshiftPower.getActiveShapeshiftConfig(player);
+        if (config == null) return "";
+
+        List<ShapeshiftPower.ShapeshiftAttack> attacks = config.attacks();
+        if (attacks.isEmpty()) return "";
+
+        int comboCount = ((PlayerAttackProperties) player).getComboCount();
+        int attackIndex = ((comboCount - 1) % attacks.size() + attacks.size()) % attacks.size();
+        return attacks.get(attackIndex).animation();
+    }
+
+    /**
+     * Ticks Citadel IAnimatedEntity animations forward once per game tick.
+     */
+    private static void syncCitadelAnimations(Entity source, Entity target) {
+        if (!ShapeshiftAnimations.hasAttackAnimations(target)) return;
+
+        int entityId = source.getId();
         int prevTick = PREV_TICK_COUNT.getOrDefault(entityId, -1);
         int currentTick = source.tickCount;
         if (currentTick != prevTick) {
