@@ -30,8 +30,9 @@ public class ShapeshiftRenderHelper {
 
     private static boolean renderingShapeshiftBody = false;
     private static final Map<Integer, Boolean> PREV_SWINGING = new HashMap<>();
+    private static final Map<Integer, Integer> PREV_COMBO_COUNT = new HashMap<>();
     private static final Map<Integer, Integer> PREV_TICK_COUNT = new HashMap<>();
-    private static final Random ANIM_RANDOM = new Random();
+    // private static final Random ANIM_RANDOM = new Random();
 
     public static boolean isRenderingShapeshiftBody() {
         return renderingShapeshiftBody;
@@ -43,12 +44,14 @@ public class ShapeshiftRenderHelper {
 
     public static void clearTracking(int entityId) {
         PREV_SWINGING.remove(entityId);
+        PREV_COMBO_COUNT.remove(entityId);
         PREV_TICK_COUNT.remove(entityId);
         VanillaAnimationSync.evict(entityId);
     }
 
     public static void clearAllTracking() {
         PREV_SWINGING.clear();
+        PREV_COMBO_COUNT.clear();
         PREV_TICK_COUNT.clear();
         VanillaAnimationSync.clearAll();
     }
@@ -175,20 +178,40 @@ public class ShapeshiftRenderHelper {
     }
 
     /**
-     * Central swing detection and animation dispatch. Detects when the player starts
-     * swinging, resolves the animation key from the shapeshift config's attack list
-     * using BC's combo index, and triggers the appropriate entity animation on whichever
-     * system handles the target entity (Citadel IAnimatedEntity or vanilla AnimationState).
+     * Detects when the player performs an attack and dispatches the corresponding
+     * entity animation. Uses BC's combo count transition as the primary signal (it
+     * increments after each {@code performAttack}), with a vanilla swing rising-edge
+     * fallback for non-BC attacks. This avoids the problem where rapid BC attacks
+     * don't restart the vanilla swing (swingTime &lt; half duration), causing the
+     * rising-edge detector to miss subsequent hits.
      */
     private static void dispatchAttackAnimation(Entity source, Entity target) {
         if (!(source instanceof LivingEntity livingSource)) return;
 
         int entityId = source.getId();
-        boolean wasSwinging = PREV_SWINGING.getOrDefault(entityId, false);
-        boolean nowSwinging = livingSource.swinging;
-        PREV_SWINGING.put(entityId, nowSwinging);
+        boolean attacked = false;
 
-        if (!nowSwinging || wasSwinging) return;
+        if (source instanceof Player player) {
+            int combo = ((PlayerAttackProperties) player).getComboCount();
+            int prevCombo = PREV_COMBO_COUNT.getOrDefault(entityId, combo);
+            PREV_COMBO_COUNT.put(entityId, combo);
+            if (combo != prevCombo) {
+                attacked = true;
+            }
+        }
+
+        if (!attacked) {
+            boolean wasSwinging = PREV_SWINGING.getOrDefault(entityId, false);
+            boolean nowSwinging = livingSource.swinging;
+            PREV_SWINGING.put(entityId, nowSwinging);
+            if (nowSwinging && !wasSwinging) {
+                attacked = true;
+            }
+        } else {
+            PREV_SWINGING.put(entityId, livingSource.swinging);
+        }
+
+        if (!attacked) return;
 
         String animKey = resolveAnimationKey(source);
 

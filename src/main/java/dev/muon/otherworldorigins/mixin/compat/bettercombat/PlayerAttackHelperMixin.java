@@ -25,7 +25,7 @@ public class PlayerAttackHelperMixin {
         ShapeshiftPower.Configuration config = ShapeshiftPower.getActiveShapeshiftConfig(player);
         if (config == null || config.allowTools()) return;
 
-        AttackHand hand = ShapeshiftWeaponAttributes.resolve(config, comboCount);
+        AttackHand hand = ShapeshiftWeaponAttributes.resolve(player, config, comboCount);
         if (hand != null) {
             cir.setReturnValue(hand);
         }
