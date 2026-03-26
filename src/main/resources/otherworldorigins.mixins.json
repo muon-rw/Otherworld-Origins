@@ -38,6 +38,8 @@
     "compat.legendarysurvivaloverhaul.ThirstUtilInternalMixin",
     "compat.otherworld.LevelingUtilsMixin",
     "compat.sophisticatedcore.XpPumpUpgradeWrapperMixin",
+    "compat.calio.S2CDynamicRegistryLoginPacketMixin",
+    "compat.calio.S2CDynamicRegistryPlayPacketMixin",
     "compat.thief.CrimeMixin",
     "ench_restrictions.ArrowItemMixin",
     "ench_restrictions.BlockMixin",
@@ -48,6 +50,9 @@
     "ench_restrictions.ThornsEnchantmentMixin",
     "ench_restrictions.ThrownTridentMixin",
     "origins_patches.ChooseOriginScreenMixin",
+    "network.ClientboundCustomPayloadPacketMixin",
+    "network.ClientboundCustomQueryPacketMixin",
+    "network.ServerboundCustomPayloadPacketMixin",
     "origins_patches.PowerContainerMixin",
     "origins_patches.WaitForNextLayerScreenMixin"
   ],
