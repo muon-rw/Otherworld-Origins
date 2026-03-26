@@ -13,11 +13,6 @@
                         "compare_to": 0
                     },
                     {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:subclass/druid/moon",
-                        "layer": "otherworldorigins:subclass"
-                    },
-                    {
                         "type": "otherworldorigins:player_level",
                         "comparison": ">=",
                         "compare_to": 2
@@ -26,9 +21,73 @@
             },
             "origins": [
                 "otherworldorigins:wildshape/wolf",
+                "otherworldorigins:wildshape/cat"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "otherworldorigins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 4
+                    }
+                ]
+            },
+            "origins": [
                 "otherworldorigins:wildshape/snow_leopard",
-                "otherworldorigins:wildshape/maned_wolf",
-                "otherworldorigins:wildshape/dolphin"
+                "otherworldorigins:wildshape/maned_wolf"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "otherworldorigins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 6
+                    }
+                ]
+            },
+            "origins": [
+                "otherworldorigins:wildshape/dolphin",
+                "otherworldorigins:wildshape/gorilla",
+                "otherworldorigins:wildshape/anaconda"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "otherworldorigins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 8
+                    }
+                ]
+            },
+            "origins": [
+                "otherworldorigins:wildshape/bald_eagle"
             ]
         },
         {
@@ -55,67 +114,33 @@
             },
             "origins": [
                 "otherworldorigins:wildshape/grizzly_bear",
-                "otherworldorigins:wildshape/tiger",
+                "otherworldorigins:wildshape/tiger"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "otherworldorigins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "origins:origin",
+                        "origin": "otherworldorigins:subclass/druid/moon",
+                        "layer": "otherworldorigins:subclass"
+                    },
+                    {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 6
+                    }
+                ]
+            },
+            "origins": [
                 "otherworldorigins:wildshape/crocodile",
-                "otherworldorigins:wildshape/gorilla"
-            ]
-        },
-        {
-            "condition": {
-                "type": "origins:and",
-                "conditions": [
-                    {
-                        "type": "origins:resource",
-                        "resource": "otherworldorigins:class/druid/wildshape_wildshape_gate",
-                        "comparison": ">",
-                        "compare_to": 0
-                    },
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:class/druid",
-                        "layer": "otherworldorigins:class"
-                    },
-                    {
-                        "inverted": true,
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:subclass/druid/moon",
-                        "layer": "otherworldorigins:subclass"
-                    },
-                    {
-                        "type": "otherworldorigins:player_level",
-                        "comparison": ">=",
-                        "compare_to": 6
-                    }
-                ]
-            },
-            "origins": [
-                "otherworldorigins:wildshape/grizzly_bear"
-            ]
-        },
-        {
-            "condition": {
-                "type": "origins:and",
-                "conditions": [
-                    {
-                        "type": "origins:resource",
-                        "resource": "otherworldorigins:class/druid/wildshape_wildshape_gate",
-                        "comparison": ">",
-                        "compare_to": 0
-                    },
-                    {
-                        "type": "origins:origin",
-                        "origin": "otherworldorigins:subclass/druid/moon",
-                        "layer": "otherworldorigins:subclass"
-                    },
-                    {
-                        "type": "otherworldorigins:player_level",
-                        "comparison": ">=",
-                        "compare_to": 6
-                    }
-                ]
-            },
-            "origins": [
-                "otherworldorigins:wildshape/moose",
                 "otherworldorigins:wildshape/bison",
                 "otherworldorigins:wildshape/rhinoceros"
             ]
@@ -143,9 +168,8 @@
                 ]
             },
             "origins": [
+                "otherworldorigins:wildshape/moose",
                 "otherworldorigins:wildshape/elephant",
-                "otherworldorigins:wildshape/anaconda",
-                "otherworldorigins:wildshape/bald_eagle",
                 "otherworldorigins:wildshape/orca"
             ]
         },

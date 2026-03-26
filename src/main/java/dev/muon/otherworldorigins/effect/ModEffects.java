@@ -15,6 +15,9 @@ public class ModEffects {
     public static final RegistryObject<FavoredFoeEffect> FAVORED_FOE =
             MOB_EFFECTS.register("favored_foe", FavoredFoeEffect::new);
 
+    public static final RegistryObject<DiveBombMarkEffect> DIVE_BOMB_MARK =
+            MOB_EFFECTS.register("dive_bomb_mark", DiveBombMarkEffect::new);
+
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);
     }

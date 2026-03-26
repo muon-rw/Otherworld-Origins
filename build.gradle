@@ -221,7 +221,7 @@ dependencies {
 
     // Identity?
     // Maybe not
-    // modImplementation("curse.maven:identity-fix-morph-1238155:7777032")
+    modImplementation("curse.maven:identity-fix-morph-1238155:7777032")
 
     // Sophisticated
     modImplementation("curse.maven:sophisticated-backpacks-422301:7645913")

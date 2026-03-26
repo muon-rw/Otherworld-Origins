@@ -8,6 +8,7 @@ import dev.muon.otherworldorigins.condition.entity.HasSkillCondition;
 import dev.muon.otherworldorigins.condition.entity.LeveledChanceCondition;
 import dev.muon.otherworldorigins.condition.entity.ManaCondition;
 import dev.muon.otherworldorigins.condition.entity.PlayerLevelCondition;
+import dev.muon.otherworldorigins.condition.entity.VelocityCondition;
 import io.github.edwinmindcraft.apoli.api.power.factory.*;
 import io.github.edwinmindcraft.apoli.api.registry.ApoliRegistries;
 import io.github.edwinmindcraft.apoli.common.condition.bientity.SimpleBiEntityCondition;
@@ -51,6 +52,7 @@ public class ModConditions {
     public static final RegistryObject<HasSkillCondition> HAS_SKILL = ENTITY_CONDITIONS.register("has_skill", HasSkillCondition::new);
     public static final RegistryObject<HasSchoolAccessCondition> HAS_SCHOOL_ACCESS = ENTITY_CONDITIONS.register("has_school_access", HasSchoolAccessCondition::new);
     public static final RegistryObject<LeveledChanceCondition> LEVELED_CHANCE = ENTITY_CONDITIONS.register("leveled_chance", LeveledChanceCondition::new);
+    public static final RegistryObject<VelocityCondition> VELOCITY = ENTITY_CONDITIONS.register("velocity", VelocityCondition::new);
 
 
 

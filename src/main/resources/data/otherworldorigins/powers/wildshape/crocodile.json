@@ -60,6 +60,147 @@
             }
         ]
     },
+    "death_roll_cooldown": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 200,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 1,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_death_roll_cooldown",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "death_roll_tick_cooldown": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_death_roll_cooldown",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_death_roll_cooldown",
+            "change": -1
+        }
+    },
+    "death_roll_meter": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 20,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 0,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_death_roll_meter",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        },
+        "max_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "traveloptics:tidal_grasp",
+                    "level": 3
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_death_roll_cooldown",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 200
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_death_roll_meter",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    },
+    "death_roll_charge": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_death_roll_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_death_roll_meter",
+            "change": 2
+        }
+    },
+    "death_roll_drain": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_death_roll_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ],
+            "inverted": true
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_death_roll_meter",
+            "change": -1
+        }
+    },
+    "aquatic_ambush": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "operation": "multiply_total",
+            "value": 0.5
+        },
+        "condition": {
+            "type": "origins:submerged_in",
+            "fluid": "minecraft:water"
+        },
+        "bientity_action": {
+            "type": "origins:target_action",
+            "action": {
+                "type": "origins:play_sound",
+                "sound": "minecraft:entity.player.attack.crit",
+                "category": "players"
+            }
+        }
+    },
     "prevent_death": {
         "type": "origins:prevent_death",
         "entity_action": {

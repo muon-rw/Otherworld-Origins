@@ -60,6 +60,71 @@
             }
         ]
     },
+    "keen_nose_nightvision": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "entity_action": {
+            "type": "origins:apply_effect",
+            "effect": {
+                "effect": "minecraft:night_vision",
+                "duration": 250,
+                "amplifier": 0,
+                "is_ambient": true,
+                "show_particles": false,
+                "show_icon": false
+            }
+        }
+    },
+    "keen_nose_blindness_immune": {
+        "type": "origins:effect_immunity",
+        "effect": "minecraft:blindness"
+    },
+    "keen_nose_darkness_immune": {
+        "type": "origins:effect_immunity",
+        "effect": "minecraft:darkness"
+    },
+    "endurance_hunter": {
+        "type": "origins:action_over_time",
+        "interval": 40,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:sprinting"
+                },
+                {
+                    "type": "origins:on_block"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:apply_effect",
+            "effect": {
+                "effect": "minecraft:regeneration",
+                "duration": 60,
+                "amplifier": 0,
+                "is_ambient": true,
+                "show_particles": false,
+                "show_icon": false
+            }
+        }
+    },
+    "cleanup_effects": {
+        "type": "origins:action_on_callback",
+        "entity_action_lost": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:clear_effect",
+                    "effect": "minecraft:night_vision"
+                },
+                {
+                    "type": "origins:clear_effect",
+                    "effect": "minecraft:regeneration"
+                }
+            ]
+        }
+    },
     "prevent_death": {
         "type": "origins:prevent_death",
         "entity_action": {

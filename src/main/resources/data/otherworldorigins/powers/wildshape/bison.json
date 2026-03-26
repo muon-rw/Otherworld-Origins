@@ -63,6 +63,36 @@
             }
         ]
     },
+    "ironhide": {
+        "type": "origins:modify_damage_taken",
+        "modifier": {
+            "operation": "multiply_total_multiplicative",
+            "value": -0.4
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:on_block"
+                },
+                {
+                    "type": "origins:moving",
+                    "inverted": true
+                }
+            ]
+        }
+    },
+    "unyielding": {
+        "type": "origins:conditioned_attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.knockback_resistance",
+            "operation": "addition",
+            "value": 0.4
+        },
+        "condition": {
+            "type": "origins:sneaking"
+        }
+    },
     "prevent_death": {
         "type": "origins:prevent_death",
         "entity_action": {

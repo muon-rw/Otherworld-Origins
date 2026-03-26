@@ -63,6 +63,148 @@
             }
         ]
     },
+    "earthquake_cooldown": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 300,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 1,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_earthquake_cooldown",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "earthquake_tick_cooldown": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_earthquake_cooldown",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_earthquake_cooldown",
+            "change": -1
+        }
+    },
+    "earthquake_meter": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 30,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 0,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_earthquake_meter",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        },
+        "max_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "gtbcs_geomancy_plus:tremor_spike",
+                    "level": 5
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.ravager.roar",
+                    "volume": 1.5,
+                    "pitch": 0.4,
+                    "category": "players"
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_earthquake_cooldown",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 300
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_earthquake_meter",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    },
+    "earthquake_charge": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_earthquake_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_earthquake_meter",
+            "change": 2
+        }
+    },
+    "earthquake_drain": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_earthquake_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ],
+            "inverted": true
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_earthquake_meter",
+            "change": -1
+        }
+    },
+    "siege_body": {
+        "type": "origins:action_on_hit",
+        "bientity_action": {
+            "type": "origins:target_action",
+            "action": {
+                "type": "origins:add_velocity",
+                "y": 0.5,
+                "z": 1.0,
+                "space": "local_horizontal_normalized"
+            }
+        },
+        "cooldown": 20
+    },
     "prevent_death": {
         "type": "origins:prevent_death",
         "entity_action": {

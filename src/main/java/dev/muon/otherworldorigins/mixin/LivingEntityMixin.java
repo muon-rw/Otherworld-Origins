@@ -23,7 +23,7 @@ public abstract class LivingEntityMixin {
     private boolean otherworld$favoredFoeGlowing(boolean original) {
         if (original) return true;
         LivingEntity self = (LivingEntity) (Object) this;
-        return self.hasEffect(ModEffects.FAVORED_FOE.get());
+        return self.hasEffect(ModEffects.FAVORED_FOE.get()) || self.hasEffect(ModEffects.DIVE_BOMB_MARK.get());
     }
 
     /**

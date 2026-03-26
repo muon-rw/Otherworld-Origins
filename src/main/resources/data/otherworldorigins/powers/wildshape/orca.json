@@ -56,6 +56,179 @@
         "type": "otherworldorigins:modify_max_air_supply",
         "bonus": 1200
     },
+    "tidal_slam_cooldown": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 400,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 1,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_tidal_slam_cooldown",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "tidal_slam_tick_cooldown": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_tidal_slam_cooldown",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_tidal_slam_cooldown",
+            "change": -1
+        }
+    },
+    "tidal_slam_meter": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 30,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 0,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_tidal_slam_meter",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        },
+        "max_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "traveloptics:tsunami",
+                    "level": 3
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_tidal_slam_cooldown",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 400
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_tidal_slam_meter",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    },
+    "tidal_slam_charge": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_tidal_slam_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_tidal_slam_meter",
+            "change": 2
+        }
+    },
+    "tidal_slam_drain": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_tidal_slam_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ],
+            "inverted": true
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_tidal_slam_meter",
+            "change": -1
+        }
+    },
+    "apex_predator_damage": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "operation": "multiply_total",
+            "value": 0.3
+        },
+        "condition": {
+            "type": "origins:submerged_in",
+            "fluid": "minecraft:water"
+        }
+    },
+    "apex_predator_slow_aura": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "condition": {
+            "type": "origins:submerged_in",
+            "fluid": "minecraft:water"
+        },
+        "entity_action": {
+            "type": "origins:area_of_effect",
+            "radius": 8,
+            "bientity_action": {
+                "type": "origins:target_action",
+                "action": {
+                    "type": "origins:apply_effect",
+                    "effect": {
+                        "effect": "minecraft:slowness",
+                        "duration": 40,
+                        "amplifier": 1,
+                        "is_ambient": true,
+                        "show_particles": false,
+                        "show_icon": false
+                    }
+                }
+            },
+            "bientity_condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "origins:living"
+                        }
+                    },
+                    {
+                        "type": "origins:attack_target"
+                    }
+                ]
+            }
+        }
+    },
     "dolphins_grace": {
         "type": "origins:action_over_time",
         "interval": 20,

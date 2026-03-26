@@ -23,7 +23,7 @@
     },
     "charge_regen": {
         "type": "origins:action_over_time",
-        "interval": 24000,
+        "interval": 6000,
         "entity_action": {
             "type": "origins:modify_resource",
             "resource": "*:*_wildshape_charges",
@@ -58,6 +58,34 @@
             "modifier": {
                 "operation": "set_total",
                 "value": 0
+            }
+        }
+    },
+    "capstone": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_wildshape_charges",
+                    "comparison": "<",
+                    "compare_to": 3
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_wildshape_charges",
+            "modifier": {
+                "operation": "set_total",
+                "value": 3
             }
         }
     },

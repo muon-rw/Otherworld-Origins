@@ -58,6 +58,150 @@
         "type": "otherworldorigins:modify_max_air_supply",
         "bonus": 400
     },
+    "echolocation": {
+        "type": "origins:entity_glow",
+        "bientity_condition": {
+            "type": "origins:distance",
+            "comparison": "<=",
+            "compare_to": 32
+        },
+        "entity_condition": {
+            "type": "origins:living"
+        },
+        "condition": {
+            "type": "origins:submerged_in",
+            "fluid": "minecraft:water"
+        }
+    },
+    "breach_cooldown": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 100,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 1,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_breach_cooldown",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "breach_tick_cooldown": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_breach_cooldown",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_breach_cooldown",
+            "change": -1
+        }
+    },
+    "breach_meter": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 20,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 0,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_breach_meter",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        },
+        "max_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "traveloptics:jet_steam",
+                    "level": 1
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.dolphin.jump",
+                    "volume": 1.2,
+                    "pitch": 0.9,
+                    "category": "players"
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_breach_cooldown",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 100
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_breach_meter",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    },
+    "breach_charge": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_breach_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_breach_meter",
+            "change": 2
+        }
+    },
+    "breach_drain": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_breach_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ],
+            "inverted": true
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_breach_meter",
+            "change": -1
+        }
+    },
     "dolphins_grace": {
         "type": "origins:action_over_time",
         "interval": 20,

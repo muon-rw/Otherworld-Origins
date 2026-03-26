@@ -55,6 +55,182 @@
             }
         ]
     },
+    "roar_cooldown": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 600,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 1,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_roar_cooldown",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "roar_tick_cooldown": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_roar_cooldown",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_roar_cooldown",
+            "change": -1
+        }
+    },
+    "roar_meter": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 40,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 0,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_roar_meter",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        },
+        "max_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.ravager.roar",
+                    "volume": 1.5,
+                    "pitch": 0.6,
+                    "category": "players"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:angry_villager ~ ~1.5 ~ 1 0.5 1 0.1 12"
+                },
+                {
+                    "type": "origins:area_of_effect",
+                    "radius": 12,
+                    "bientity_action": {
+                        "type": "origins:target_action",
+                        "action": {
+                            "type": "origins:and",
+                            "actions": [
+                                {
+                                    "type": "origins:apply_effect",
+                                    "effect": {
+                                        "effect": "minecraft:slowness",
+                                        "duration": 30,
+                                        "amplifier": 4,
+                                        "show_particles": true
+                                    }
+                                },
+                                {
+                                    "type": "origins:apply_effect",
+                                    "effect": {
+                                        "effect": "minecraft:weakness",
+                                        "duration": 100,
+                                        "amplifier": 0,
+                                        "show_particles": true
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "bientity_condition": {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "origins:living"
+                        }
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_roar_cooldown",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 600
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_roar_meter",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    },
+    "roar_charge": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_roar_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_roar_meter",
+            "change": 2
+        }
+    },
+    "roar_drain": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_roar_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ],
+            "inverted": true
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_roar_meter",
+            "change": -2
+        }
+    },
+    "thick_hide": {
+        "type": "origins:modify_damage_taken",
+        "modifier": {
+            "operation": "multiply_total_multiplicative",
+            "value": -0.3
+        },
+        "condition": {
+            "type": "origins:health",
+            "comparison": "<=",
+            "compare_to": 0.3
+        }
+    },
     "prevent_death": {
         "type": "origins:prevent_death",
         "entity_action": {

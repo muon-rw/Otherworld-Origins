@@ -62,6 +62,49 @@
             }
         ]
     },
+    "antler_toss": {
+        "type": "origins:action_on_hit",
+        "bientity_action": {
+            "type": "origins:target_action",
+            "action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:add_velocity",
+                        "y": 0.8,
+                        "z": 0.3,
+                        "space": "local_horizontal_normalized"
+                    },
+                    {
+                        "type": "origins:play_sound",
+                        "sound": "minecraft:entity.iron_golem.attack",
+                        "volume": 0.8,
+                        "pitch": 0.6,
+                        "category": "players"
+                    }
+                ]
+            }
+        },
+        "cooldown": 40
+    },
+    "tireless": {
+        "type": "origins:action_over_time",
+        "interval": 40,
+        "condition": {
+            "type": "origins:sprinting"
+        },
+        "entity_action": {
+            "type": "origins:apply_effect",
+            "effect": {
+                "effect": "minecraft:saturation",
+                "duration": 2,
+                "amplifier": 0,
+                "is_ambient": true,
+                "show_particles": false,
+                "show_icon": false
+            }
+        }
+    },
     "prevent_death": {
         "type": "origins:prevent_death",
         "entity_action": {

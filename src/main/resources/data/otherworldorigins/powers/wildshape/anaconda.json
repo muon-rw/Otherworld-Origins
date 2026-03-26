@@ -26,12 +26,12 @@
                 "name": "Wildshape max health",
                 "attribute": "minecraft:generic.max_health",
                 "operation": "addition",
-                "value": 36
+                "value": 6
             },
             {
                 "attribute": "minecraft:generic.attack_damage",
                 "operation": "addition",
-                "value": 9
+                "value": 4
             },
             {
                 "attribute": "minecraft:generic.attack_speed",
@@ -47,7 +47,7 @@
             {
                 "attribute": "minecraft:generic.armor",
                 "operation": "addition",
-                "value": 6
+                "value": 2
             },
             {
                 "attribute": "legendarysurvivaloverhaul:heat_resistance",
@@ -56,6 +56,142 @@
                 "name": "Wildshape heat resistance"
             }
         ]
+    },
+    "constrict_cooldown": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 200,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 1,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_constrict_cooldown",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "constrict_tick_cooldown": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_constrict_cooldown",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_constrict_cooldown",
+            "change": -1
+        }
+    },
+    "constrict_meter": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 20,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 0,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_constrict_meter",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        },
+        "max_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "irons_spellbooks:root",
+                    "level": 3
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "alexsmobs:anaconda_slither",
+                    "volume": 1.0,
+                    "pitch": 0.6,
+                    "category": "players"
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_constrict_cooldown",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 200
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_constrict_meter",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    },
+    "constrict_charge": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_constrict_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_constrict_meter",
+            "change": 2
+        }
+    },
+    "constrict_drain": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_constrict_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ],
+            "inverted": true
+        },
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_constrict_meter",
+            "change": -1
+        }
+    },
+    "low_profile": {
+        "type": "origins:model_color",
+        "alpha": 0.7,
+        "condition": {
+            "type": "origins:sneaking"
+        }
     },
     "prevent_death": {
         "type": "origins:prevent_death",
