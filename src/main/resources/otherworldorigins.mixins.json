@@ -52,6 +52,7 @@
     "origins_patches.WaitForNextLayerScreenMixin"
   ],
   "client": [
+    "client.compat.alexsmobs.ModelAnacondaMixin",
     "client.EntityRenderDispatcherMixin",
     "client.EntityRendererAccessor",
     "client.LivingEntityRendererMixin",

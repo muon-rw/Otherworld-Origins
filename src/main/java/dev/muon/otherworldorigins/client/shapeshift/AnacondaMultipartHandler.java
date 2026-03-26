@@ -67,22 +67,19 @@ public class AnacondaMultipartHandler {
 
         if (source.tickCount != data.prevTickCount) {
             data.prevTickCount = source.tickCount;
-            updateHistory(data, source);
+            updateHistory(data, source, level);
             repositionParts(data, source, fakeHead, level);
         }
 
         if (!Float.isNaN(data.lastSurfacePitch)) {
             fakeHead.setXRot(data.lastSurfacePitch);
-            // We don't touch xRotO here because we want it to lerp from the previous tick's lastSurfacePitch
-            // But wait, syncVisualState overwrites xRotO too.
-            // Let's just force both to lastSurfacePitch for now, or let it be.
-            fakeHead.xRotO = data.lastSurfacePitch;
+            fakeHead.xRotO = Float.isNaN(data.lastSurfacePitchO) ? data.lastSurfacePitch : data.lastSurfacePitchO;
         }
     }
 
     // ---- position history ----
 
-    private static void updateHistory(MultipartData data, Entity source) {
+    private static void updateHistory(MultipartData data, Entity source, Level level) {
         Vec3 pos = source.position();
         float yaw = source.getYRot();
         float pitch = source.getXRot();
@@ -101,6 +98,22 @@ public class AnacondaMultipartHandler {
             if (data.historyCount < HISTORY_SIZE) data.historyCount++;
         } else {
             data.history[data.historyHead] = new PosRot(last.pos, yaw, pitch);
+        }
+
+        // Apply gravitational influence to historical positions
+        for (int i = 0; i < data.historyCount; i++) {
+            if (i == data.historyHead) continue;
+            PosRot pr = data.history[i];
+            
+            double low = getLowPartHeight(level, pr.pos.x, pr.pos.y, pr.pos.z);
+            if (low < 0 && !isNextToWall(level, pr.pos.x, pr.pos.y, pr.pos.z)) {
+                double fall = 0.15; // Fall speed per tick
+                double newY = pr.pos.y - fall;
+                if (low > -3.0 && newY < pr.pos.y + low) {
+                    newY = pr.pos.y + low;
+                }
+                data.history[i] = new PosRot(new Vec3(pr.pos.x, newY, pr.pos.z), pr.yaw, pr.pitch);
+            }
         }
     }
 
@@ -144,15 +157,6 @@ public class AnacondaMultipartHandler {
         return new PosRot(extrapolatedPos, oldest.yaw, oldest.pitch);
     }
 
-    // ---- part rotation / undulation ----
-
-    /**
-     * Port of {@code EntityAnaconda.calcPartRotation(int)} with
-     * strangleProgress/strangleTimer = 0 (player never strangles).
-     */
-    private static float calcPartRotation(float walkDist, int i) {
-        return (float) (40.0 * -Math.sin(walkDist * 3.0F - i));
-    }
 
     // ---- repositioning ----
 
@@ -168,20 +172,17 @@ public class AnacondaMultipartHandler {
 
         data.lastSurfacePitchO = data.lastSurfacePitch;
 
-        // Smooth movement vector for head pitch over the last 0.5 blocks of travel
-        PosRot pastForHead = getHistoryAtDistance(data, 0.5);
-        if (pastForHead != null) {
-            Vec3 headDir = source.position().subtract(pastForHead.pos);
-            if (headDir.lengthSqr() > 0.005) {
-                double horizLen = Math.sqrt(headDir.x * headDir.x + headDir.z * headDir.z);
-                float targetPitch = (float) (-(Mth.atan2(headDir.y, horizLen) * 180.0F / Math.PI));
-                
-                if (Float.isNaN(data.lastSurfacePitch)) {
-                    data.lastSurfacePitch = targetPitch;
-                    data.lastSurfacePitchO = targetPitch;
-                } else {
-                    data.lastSurfacePitch = limitAngle(data.lastSurfacePitch, targetPitch, 15.0F);
-                }
+        // Adjust head pitch based on actual movement
+        Vec3 movement = source.position().subtract(new Vec3(source.xo, source.yo, source.zo));
+        if (movement.lengthSqr() > 0.0005) {
+            double horizLen = Math.sqrt(movement.x * movement.x + movement.z * movement.z);
+            float targetPitch = (float) (-(Mth.atan2(movement.y, horizLen) * 180.0F / Math.PI));
+            
+            if (Float.isNaN(data.lastSurfacePitch)) {
+                data.lastSurfacePitch = targetPitch;
+                data.lastSurfacePitchO = targetPitch;
+            } else {
+                data.lastSurfacePitch = smoothPitchToward(data.lastSurfacePitch, targetPitch, 15.0F);
             }
         }
 
@@ -190,7 +191,7 @@ public class AnacondaMultipartHandler {
         PosRot p0_path = getHistoryAtDistance(data, accumulatedDist);
         if (p0_path == null) p0_path = new PosRot(source.position(), source.getYRot(), source.getXRot());
         
-        float latOffset0 = (float) (Math.sin(walkDist * 3.0F) * 0.1 * scale);
+        float latOffset0 = (float) (Math.sin(walkDist * 6.0F) * 0.15 * scale);
         Vec3 frontJoint = p0_path.pos.add(getRightVector(p0_path.yaw).scale(latOffset0));
 
         for (int i = 0; i < SEGMENT_COUNT; i++) {
@@ -209,7 +210,8 @@ public class AnacondaMultipartHandler {
             PosRot p1_path = getHistoryAtDistance(data, accumulatedDist);
             if (p1_path == null) p1_path = new PosRot(source.position(), source.getYRot(), source.getXRot());
 
-            float latOffset1 = (float) (Math.sin(walkDist * 3.0F - (i + 1)) * 0.1 * scale);
+            float diminish1 = 1.0F - ((i + 1) / (float)SEGMENT_COUNT) * 0.6F;
+            float latOffset1 = (float) (Math.sin(walkDist * 6.0F - (i + 1) * 2.0F) * 0.15 * scale * diminish1);
             Vec3 backJoint = p1_path.pos.add(getRightVector(p1_path.yaw).scale(latOffset1));
 
             Vec3 center = frontJoint.add(backJoint).scale(0.5);
@@ -225,6 +227,12 @@ public class AnacondaMultipartHandler {
                 yaw = p1_path.yaw;
                 pitch = -p1_path.pitch; // Invert history pitch as well
             }
+
+            // Restore a small amount of explicit yaw wiggle to match the head's animation,
+            // diminishing as we go down the tail so it doesn't disconnect too much.
+            float diminishYaw = 1.0F - (i / (float)SEGMENT_COUNT) * 0.8F;
+            float undulationYaw = (float) (-Math.sin(walkDist * 6.0F - i * 2.0F) * 12.0 * diminishYaw);
+            yaw += undulationYaw;
 
             part.setXRot(pitch);
             part.setYRot(yaw);
@@ -247,14 +255,71 @@ public class AnacondaMultipartHandler {
 
     // ---- math helpers ----
 
-    private static float limitAngle(float sourceAngle, float targetAngle, float maximumChange) {
-        float f = Mth.wrapDegrees(targetAngle - sourceAngle);
-        if (f > maximumChange) f = maximumChange;
-        if (f < -maximumChange) f = -maximumChange;
-        float f1 = sourceAngle + f;
-        if (f1 < 0.0F) f1 += 360.0F;
-        else if (f1 > 360.0F) f1 -= 360.0F;
-        return f1;
+    /**
+     * Smooths entity pitch degrees toward a target. Uses plain delta (not {@link Mth#wrapDegrees}
+     * on the result) so values stay in Minecraft's XRot range (~[-90, 90]); the old 0–360 wrap
+     * broke lerped pitch after the first tick and made the head appear fixed.
+     */
+    private static float smoothPitchToward(float current, float target, float maxDelta) {
+        float delta = target - current;
+        if (delta > maxDelta) {
+            delta = maxDelta;
+        } else if (delta < -maxDelta) {
+            delta = -maxDelta;
+        }
+        return Mth.clamp(current + delta, -90.0F, 90.0F);
+    }
+
+    // ---- terrain height probes ----
+
+    private static double getLowPartHeight(Level level, double x, double yIn, double z) {
+        if (isFluidAt(level, x, yIn, z)) return 0.0;
+        double checkAt = 0.0;
+        while (checkAt > -3.0 && !isOpaqueBlockAt(level, x, yIn + checkAt, z)) {
+            checkAt -= 0.2;
+        }
+        return checkAt;
+    }
+
+    private static double getHighPartHeight(Level level, double x, double yIn, double z) {
+        if (isFluidAt(level, x, yIn, z)) return 0.0;
+        double checkAt = 0.0;
+        while (checkAt <= 3.0 && isOpaqueBlockAt(level, x, yIn + checkAt, z)) {
+            checkAt += 0.2;
+        }
+        return checkAt;
+    }
+
+    private static boolean isOpaqueBlockAt(Level level, double x, double y, double z) {
+        Vec3 vec3 = new Vec3(x, y, z);
+        net.minecraft.world.phys.AABB aabb = net.minecraft.world.phys.AABB.ofSize(vec3, 1.0, 1.0E-6, 1.0);
+        return level.getBlockStates(aabb)
+                .filter(java.util.function.Predicate.not(net.minecraft.world.level.block.state.BlockBehaviour.BlockStateBase::isAir))
+                .anyMatch(state -> {
+                    net.minecraft.core.BlockPos blockpos = net.minecraft.core.BlockPos.containing(vec3);
+                    return state.isSuffocating(level, blockpos)
+                            && net.minecraft.world.phys.shapes.Shapes.joinIsNotEmpty(
+                            state.getCollisionShape(level, blockpos).move(vec3.x, vec3.y, vec3.z),
+                            net.minecraft.world.phys.shapes.Shapes.create(aabb),
+                            net.minecraft.world.phys.shapes.BooleanOp.AND);
+                });
+    }
+
+    private static boolean isNextToWall(Level level, double x, double y, double z) {
+        net.minecraft.world.phys.AABB aabb = new net.minecraft.world.phys.AABB(x - 0.75, y, z - 0.75, x + 0.75, y + 0.5, z + 0.75);
+        for (net.minecraft.core.BlockPos pos : net.minecraft.core.BlockPos.betweenClosed(
+                Mth.floor(aabb.minX), Mth.floor(aabb.minY), Mth.floor(aabb.minZ),
+                Mth.floor(aabb.maxX), Mth.floor(aabb.maxY), Mth.floor(aabb.maxZ))) {
+            net.minecraft.world.level.block.state.BlockState state = level.getBlockState(pos);
+            if (!state.isAir() && !state.getCollisionShape(level, pos).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isFluidAt(Level level, double x, double y, double z) {
+        return !level.getFluidState(net.minecraft.core.BlockPos.containing(x, y, z)).isEmpty();
     }
 
     // ---- cache management ----
