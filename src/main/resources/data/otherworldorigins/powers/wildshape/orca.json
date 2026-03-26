@@ -1,5 +1,6 @@
 {
     "type": "origins:multiple",
+    "hidden": true,
     "shape": {
         "type": "otherworldorigins:shapeshift",
         "entity_type": "alexsmobs:orca",
@@ -18,42 +19,42 @@
             { "hitbox": "HORIZONTAL_PLANE", "angle": 120, "damage_multiplier": 1.3, "upswing": 0.5 }
         ]
     },
-    "health": {
+    "attributes": {
         "type": "origins:attribute",
-        "modifier": {
-            "attribute": "minecraft:generic.max_health",
-            "operation": "addition",
-            "value": 40
-        }
-    },
-    "damage": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "minecraft:generic.attack_damage",
-            "operation": "addition",
-            "value": 14
-        }
-    },
-    "armor": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "minecraft:generic.armor",
-            "operation": "addition",
-            "value": 10
-        }
-    },
-    "cold_immunity": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "legendarysurvivaloverhaul:cold_resistance",
-            "operation": "addition",
-            "value": 100.0,
-            "name": "Wildshape cold immunity"
-        }
+        "modifiers": [
+            {
+                "name": "Wildshape max health",
+                "attribute": "minecraft:generic.max_health",
+                "operation": "addition",
+                "value": 48
+            },
+            {
+                "attribute": "minecraft:generic.attack_damage",
+                "operation": "addition",
+                "value": 12
+            },
+            {
+                "attribute": "minecraft:generic.attack_speed",
+                "operation": "addition",
+                "value": -2.8,
+                "name": "Wildshape attack speed"
+            },
+            {
+                "attribute": "minecraft:generic.armor",
+                "operation": "addition",
+                "value": 10
+            },
+            {
+                "attribute": "legendarysurvivaloverhaul:cold_resistance",
+                "operation": "addition",
+                "value": 100.0,
+                "name": "Wildshape cold immunity"
+            }
+        ]
     },
     "extended_breath": {
         "type": "otherworldorigins:modify_max_air_supply",
-        "bonus": 360
+        "bonus": 1200
     },
     "dolphins_grace": {
         "type": "origins:action_over_time",
@@ -222,6 +223,21 @@
         "entity_action_gained": {
             "type": "origins:and",
             "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.evoker.prepare_summon",
+                    "pitch": 0.7
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "alexsmobs:orca_idle"
+                },
                 {
                     "type": "origins:heal",
                     "amount": 1000

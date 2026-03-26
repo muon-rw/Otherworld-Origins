@@ -1,5 +1,6 @@
 {
     "type": "origins:multiple",
+    "hidden": true,
     "shape": {
         "type": "otherworldorigins:shapeshift",
         "entity_type": "alexsmobs:grizzly_bear",
@@ -19,41 +20,40 @@
             { "hitbox": "VERTICAL_PLANE", "angle": 60, "damage_multiplier": 1.3, "upswing": 0.4, "animation": "maul" }
         ]
     },
-    "health": {
+    "attributes": {
         "type": "origins:attribute",
-        "modifier": {
-            "name": "Wildshape max health",
-            "attribute": "minecraft:generic.max_health",
-            "value": 20,
-            "operation": "addition"
-        }
-    },
-    "damage": {
-        "type": "origins:attribute",
-        "modifier": {
-            "name": "Wildshape attack damage",
-            "attribute": "minecraft:generic.attack_damage",
-            "value": 8,
-            "operation": "addition"
-        }
-    },
-    "armor": {
-        "type": "origins:attribute",
-        "modifier": {
-            "name": "Wildshape armor",
-            "attribute": "minecraft:generic.armor",
-            "value": 6,
-            "operation": "addition"
-        }
-    },
-    "cold_resilience": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "legendarysurvivaloverhaul:cold_resistance",
-            "operation": "addition",
-            "value": 8.0,
-            "name": "Wildshape cold resistance"
-        }
+        "modifiers": [
+            {
+                "name": "Wildshape max health",
+                "attribute": "minecraft:generic.max_health",
+                "operation": "addition",
+                "value": 24
+            },
+            {
+                "name": "Wildshape attack damage",
+                "attribute": "minecraft:generic.attack_damage",
+                "value": 8,
+                "operation": "addition"
+            },
+            {
+                "name": "Wildshape attack speed",
+                "attribute": "minecraft:generic.attack_speed",
+                "value": -2.8,
+                "operation": "addition"
+            },
+            {
+                "name": "Wildshape armor",
+                "attribute": "minecraft:generic.armor",
+                "value": 6,
+                "operation": "addition"
+            },
+            {
+                "attribute": "legendarysurvivaloverhaul:cold_resistance",
+                "operation": "addition",
+                "value": 8.0,
+                "name": "Wildshape cold resistance"
+            }
+        ]
     },
     "prevent_death": {
         "type": "origins:prevent_death",
@@ -109,6 +109,21 @@
         "entity_action_gained": {
             "type": "origins:and",
             "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.evoker.prepare_summon",
+                    "pitch": 0.7
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "alexsmobs:grizzly_bear_idle"
+                },
                 {
                     "type": "origins:heal",
                     "amount": 1000

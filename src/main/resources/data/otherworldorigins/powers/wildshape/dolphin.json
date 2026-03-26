@@ -1,5 +1,6 @@
 {
     "type": "origins:multiple",
+    "hidden": true,
     "shape": {
         "type": "otherworldorigins:shapeshift",
         "entity_type": "minecraft:dolphin",
@@ -18,45 +19,44 @@
             { "hitbox": "FORWARD_BOX", "angle": 60, "damage_multiplier": 1.1, "upswing": 0.3 }
         ]
     },
-    "health": {
+    "attributes": {
         "type": "origins:attribute",
-        "modifier": {
-            "name": "Wildshape max health",
-            "attribute": "minecraft:generic.max_health",
-            "value": 4,
-            "operation": "addition"
-        }
-    },
-    "damage": {
-        "type": "origins:attribute",
-        "modifier": {
-            "name": "Wildshape attack damage",
-            "attribute": "minecraft:generic.attack_damage",
-            "value": 4,
-            "operation": "addition"
-        }
-    },
-    "speed": {
-        "type": "origins:attribute",
-        "modifier": {
-            "name": "Wildshape movement speed",
-            "attribute": "minecraft:generic.movement_speed",
-            "value": 0.3,
-            "operation": "multiply_base"
-        }
-    },
-    "cold_immunity": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "legendarysurvivaloverhaul:cold_resistance",
-            "operation": "addition",
-            "value": 100.0,
-            "name": "Wildshape cold immunity"
-        }
+        "modifiers": [
+            {
+                "name": "Wildshape max health",
+                "attribute": "minecraft:generic.max_health",
+                "operation": "addition",
+                "value": 6
+            },
+            {
+                "name": "Wildshape attack damage",
+                "attribute": "minecraft:generic.attack_damage",
+                "value": 4,
+                "operation": "addition"
+            },
+            {
+                "name": "Wildshape attack speed",
+                "attribute": "minecraft:generic.attack_speed",
+                "value": -1.6,
+                "operation": "addition"
+            },
+            {
+                "name": "Wildshape movement speed",
+                "attribute": "minecraft:generic.movement_speed",
+                "value": 0.3,
+                "operation": "multiply_base"
+            },
+            {
+                "attribute": "legendarysurvivaloverhaul:cold_resistance",
+                "operation": "addition",
+                "value": 100.0,
+                "name": "Wildshape cold immunity"
+            }
+        ]
     },
     "extended_breath": {
         "type": "otherworldorigins:modify_max_air_supply",
-        "bonus": 360
+        "bonus": 400
     },
     "dolphins_grace": {
         "type": "origins:action_over_time",
@@ -225,6 +225,21 @@
         "entity_action_gained": {
             "type": "origins:and",
             "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.evoker.prepare_summon",
+                    "pitch": 0.7
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.dolphin.ambient"
+                },
                 {
                     "type": "origins:heal",
                     "amount": 1000

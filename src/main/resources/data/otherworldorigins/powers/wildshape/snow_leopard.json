@@ -1,5 +1,6 @@
 {
     "type": "origins:multiple",
+    "hidden": true,
     "shape": {
         "type": "otherworldorigins:shapeshift",
         "entity_type": "alexsmobs:snow_leopard",
@@ -14,45 +15,44 @@
         },
         "attack_range": 2.5,
         "attacks": [
-            { "hitbox": "HORIZONTAL_PLANE", "angle": 80, "damage_multiplier": 1.0, "upswing": 0.3, "animation": "attack_r" },
-            { "hitbox": "FORWARD_BOX", "angle": 50, "damage_multiplier": 1.2, "upswing": 0.3, "animation": "attack_l" }
+            { "hitbox": "HORIZONTAL_PLANE", "angle": 80, "damage_multiplier": 0.88, "upswing": 0.3, "animation": "attack_r" },
+            { "hitbox": "FORWARD_BOX", "angle": 50, "damage_multiplier": 1.0, "upswing": 0.3, "animation": "attack_l" }
         ]
     },
-    "health": {
+    "attributes": {
         "type": "origins:attribute",
-        "modifier": {
-            "name": "Wildshape max health",
-            "attribute": "minecraft:generic.max_health",
-            "value": 4,
-            "operation": "addition"
-        }
-    },
-    "damage": {
-        "type": "origins:attribute",
-        "modifier": {
-            "name": "Wildshape attack damage",
-            "attribute": "minecraft:generic.attack_damage",
-            "value": 7,
-            "operation": "addition"
-        }
-    },
-    "speed": {
-        "type": "origins:attribute",
-        "modifier": {
-            "name": "Wildshape movement speed",
-            "attribute": "minecraft:generic.movement_speed",
-            "value": 0.25,
-            "operation": "multiply_base"
-        }
-    },
-    "cold_resilience": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "legendarysurvivaloverhaul:cold_resistance",
-            "operation": "addition",
-            "value": 8.0,
-            "name": "Wildshape cold resistance"
-        }
+        "modifiers": [
+            {
+                "name": "Wildshape max health",
+                "attribute": "minecraft:generic.max_health",
+                "operation": "addition",
+                "value": -10
+            },
+            {
+                "name": "Wildshape attack damage",
+                "attribute": "minecraft:generic.attack_damage",
+                "value": 3,
+                "operation": "addition"
+            },
+            {
+                "name": "Wildshape attack speed",
+                "attribute": "minecraft:generic.attack_speed",
+                "value": -0.9,
+                "operation": "addition"
+            },
+            {
+                "name": "Wildshape movement speed",
+                "attribute": "minecraft:generic.movement_speed",
+                "value": 0.4,
+                "operation": "multiply_base"
+            },
+            {
+                "attribute": "legendarysurvivaloverhaul:cold_resistance",
+                "operation": "addition",
+                "value": 8.0,
+                "name": "Wildshape cold resistance"
+            }
+        ]
     },
     "prevent_death": {
         "type": "origins:prevent_death",
@@ -108,6 +108,21 @@
         "entity_action_gained": {
             "type": "origins:and",
             "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.evoker.prepare_summon",
+                    "pitch": 0.7
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "alexsmobs:snow_leopard_idle"
+                },
                 {
                     "type": "origins:heal",
                     "amount": 1000

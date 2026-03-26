@@ -1,5 +1,6 @@
 {
     "type": "origins:multiple",
+    "hidden": true,
     "shape": {
         "type": "otherworldorigins:shapeshift",
         "entity_type": "alexsmobs:bald_eagle",
@@ -18,21 +19,33 @@
             { "hitbox": "HORIZONTAL_PLANE", "angle": 80, "damage_multiplier": 1.2, "upswing": 0.3 }
         ]
     },
-    "health": {
+    "attributes": {
         "type": "origins:attribute",
-        "modifier": {
-            "attribute": "minecraft:generic.max_health",
-            "operation": "addition",
-            "value": 8
-        }
-    },
-    "damage": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "minecraft:generic.attack_damage",
-            "operation": "addition",
-            "value": 6
-        }
+        "modifiers": [
+            {
+                "name": "Wildshape max health",
+                "attribute": "minecraft:generic.max_health",
+                "operation": "addition",
+                "value": -12
+            },
+            {
+                "attribute": "minecraft:generic.attack_damage",
+                "operation": "addition",
+                "value": 4
+            },
+            {
+                "attribute": "minecraft:generic.attack_speed",
+                "operation": "addition",
+                "value": -1.6,
+                "name": "Wildshape attack speed"
+            },
+            {
+                "attribute": "legendarysurvivaloverhaul:cold_resistance",
+                "operation": "addition",
+                "value": 8.0,
+                "name": "Wildshape cold resistance"
+            }
+        ]
     },
     "flight": {
         "type": "origins:elytra_flight",
@@ -49,7 +62,7 @@
             "sound": "minecraft:entity.ender_dragon.flap",
             "volume": 0.6,
             "pitch": 1.8,
-            "category": "player"
+            "category": "players"
         }
     },
     "no_fall_damage": {
@@ -61,15 +74,6 @@
         "modifier": {
             "operation": "multiply_total_multiplicative",
             "value": -1
-        }
-    },
-    "cold_resilience": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "legendarysurvivaloverhaul:cold_resistance",
-            "operation": "addition",
-            "value": 8.0,
-            "name": "Wildshape cold resistance"
         }
     },
     "prevent_death": {
@@ -126,6 +130,21 @@
         "entity_action_gained": {
             "type": "origins:and",
             "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.evoker.prepare_summon",
+                    "pitch": 0.7
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "alexsmobs:bald_eagle_idle"
+                },
                 {
                     "type": "origins:heal",
                     "amount": 1000

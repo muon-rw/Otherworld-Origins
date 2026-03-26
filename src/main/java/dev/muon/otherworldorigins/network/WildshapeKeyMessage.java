@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.network;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredPower;
 import io.github.edwinmindcraft.apoli.api.power.factory.power.VariableIntPowerFactory;
@@ -63,12 +64,14 @@ public class WildshapeKeyMessage {
                 setResourceValue(player, WILDSHAPE_GATE_ID, 0);
                 originContainer.setOrigin(layerKey, emptyKey);
                 originContainer.checkAutoChoosingLayers(false);
+                ApoliAPI.synchronizePowerContainer(player);
                 originContainer.synchronize();
             } else {
                 int charges = getResourceValue(player, WILDSHAPE_CHARGES_ID);
                 if (charges <= 0) return;
 
                 setResourceValue(player, WILDSHAPE_GATE_ID, 1);
+                ApoliAPI.synchronizePowerContainer(player);
                 originContainer.synchronize();
 
                 PacketDistributor.PacketTarget target = PacketDistributor.PLAYER.with(() -> player);

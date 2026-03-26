@@ -1,11 +1,8 @@
 package dev.muon.otherworldorigins.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyMaxAirSupplyPower;
 import dev.muon.otherworldorigins.power.PreventBlockSlowdownPower;
-import io.github.edwinmindcraft.apoli.api.ApoliAPI;
-import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,15 +21,7 @@ public class EntityMixin {
         if (!(self instanceof Player player)) {
             return original;
         }
-        IPowerContainer container = ApoliAPI.getPowerContainer(player);
-        if (container == null) {
-            return original;
-        }
-        int bonus = container.getPowers(ModPowers.MODIFY_MAX_AIR_SUPPLY.get()).stream()
-                .map(holder -> holder.value().getConfiguration())
-                .mapToInt(ModifyMaxAirSupplyPower.Configuration::bonus)
-                .sum();
-        return original + bonus;
+        return original + ModifyMaxAirSupplyPower.getTotalAirBonus(player);
     }
 
     @Inject(method = "makeStuckInBlock", at = @At("HEAD"), cancellable = true)

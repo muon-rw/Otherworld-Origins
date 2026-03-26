@@ -109,10 +109,16 @@ public class ShapeshiftRenderHelper {
         target.walkAnimation.setSpeed(source.walkAnimation.speed());
         targetAnim.setPosition(source.walkAnimation.position());
 
-        target.yBodyRot = source.yBodyRot;
-        target.yBodyRotO = source.yBodyRotO;
-        target.yHeadRot = source.yHeadRot;
-        target.yHeadRotO = source.yHeadRotO;
+        // Player yBodyRot can be ~180° from yHeadRot while strafing / moving vs. look
+        // (LivingEntity.tick "headTurn"). Mob models use (yHeadRot - yBodyRot) as head yaw in
+        // setupAnim; copying player split makes many wildshape heads point backward. Align to
+        // the dummy's entity yaw (after syncVisualState special cases like EnderDragon).
+        float entityYaw = target.getYRot();
+        float entityYawO = target.yRotO;
+        target.yBodyRot = entityYaw;
+        target.yBodyRotO = entityYawO;
+        target.yHeadRot = entityYaw;
+        target.yHeadRotO = entityYawO;
 
         target.swinging = source.swinging;
         target.swingTime = source.swingTime;

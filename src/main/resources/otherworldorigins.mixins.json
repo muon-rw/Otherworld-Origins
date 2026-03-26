@@ -29,6 +29,7 @@
     "compat.irons_spellbooks.TeleportSpellMixin",
     "compat.irons_spellbooks.UtilsMixin",
     "compat.justlevelingfork.AptitudeCapabilityMixin",
+    "compat.justlevelingfork.PlayerMaxAirSupplyMixin",
     "compat.justlevelingfork.RegistryCommonEventsMixin",
     "compat.justlevelingfork.RegistryPassivesMixin",
     "compat.justlevelingfork.RegistrySkillsMixin",

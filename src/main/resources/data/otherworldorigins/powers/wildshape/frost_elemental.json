@@ -1,5 +1,6 @@
 {
     "type": "origins:multiple",
+    "hidden": true,
     "shape": {
         "type": "otherworldorigins:shapeshift",
         "entity_type": "legendary_monsters:stratling",
@@ -18,68 +19,62 @@
             { "hitbox": "HORIZONTAL_PLANE", "angle": 100, "damage_multiplier": 1.2, "upswing": 0.5, "animation": "slap" }
         ]
     },
-    "health": {
+    "attributes": {
         "type": "origins:attribute",
-        "modifier": {
-            "attribute": "minecraft:generic.max_health",
-            "operation": "addition",
-            "value": 50,
-            "name": "Wildshape health bonus"
-        }
+        "modifiers": [
+            {
+                "name": "Wildshape max health",
+                "attribute": "minecraft:generic.max_health",
+                "operation": "addition",
+                "value": 44
+            },
+            {
+                "attribute": "minecraft:generic.attack_damage",
+                "operation": "addition",
+                "value": 10,
+                "name": "Wildshape damage bonus"
+            },
+            {
+                "attribute": "minecraft:generic.attack_speed",
+                "operation": "addition",
+                "value": -2.8,
+                "name": "Wildshape attack speed"
+            },
+            {
+                "attribute": "minecraft:generic.movement_speed",
+                "operation": "multiply_base",
+                "value": 0.05,
+                "name": "Wildshape speed bonus"
+            },
+            {
+                "attribute": "minecraft:generic.armor",
+                "operation": "addition",
+                "value": 14,
+                "name": "Wildshape armor bonus"
+            },
+            {
+                "attribute": "legendarysurvivaloverhaul:thermal_resistance",
+                "operation": "addition",
+                "value": 100.0,
+                "name": "Elemental temperature immunity"
+            },
+            {
+                "attribute": "forge:entity_gravity",
+                "operation": "multiply_base",
+                "value": -0.75,
+                "name": "Elemental reduced gravity"
+            },
+            {
+                "attribute": "irons_spellbooks:ice_spell_power",
+                "operation": "multiply_base",
+                "value": 0.3,
+                "name": "Wildshape ice spell power"
+            }
+        ]
     },
-    "damage": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "minecraft:generic.attack_damage",
-            "operation": "addition",
-            "value": 12,
-            "name": "Wildshape damage bonus"
-        }
-    },
-    "speed": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "minecraft:generic.movement_speed",
-            "operation": "multiply_base",
-            "value": 0.05,
-            "name": "Wildshape speed bonus"
-        }
-    },
-    "armor": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "minecraft:generic.armor",
-            "operation": "addition",
-            "value": 14,
-            "name": "Wildshape armor bonus"
-        }
-    },
-    "temperature_immunity": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "legendarysurvivaloverhaul:thermal_resistance",
-            "operation": "addition",
-            "value": 100.0,
-            "name": "Elemental temperature immunity"
-        }
-    },
-    "slow_falling": {
-        "type": "origins:stacking_status_effect",
-        "min_stacks": 1,
-        "max_stacks": 1,
-        "duration_per_stack": 40,
-        "tick_rate": 20,
-        "effect": {
-            "effect": "minecraft:slow_falling",
-            "duration": 40,
-            "amplifier": 0,
-            "is_ambient": true,
-            "show_particles": false,
-            "show_icon": false
-        }
-    },
-    "levitate": {
-        "type": "origins:grounded"
+    "jump_cooldown": {
+        "type": "otherworldorigins:jump_cooldown",
+        "cooldown": 15
     },
     "jump_boost": {
         "type": "origins:modify_jump",
@@ -108,15 +103,6 @@
         "modifier": {
             "operation": "set_total",
             "value": 0
-        }
-    },
-    "ice_spell_power": {
-        "type": "origins:attribute",
-        "modifier": {
-            "attribute": "irons_spellbooks:ice_spell_power",
-            "operation": "multiply_base",
-            "value": 0.3,
-            "name": "Wildshape ice spell power"
         }
     },
     "spell_attack": {
@@ -202,6 +188,21 @@
         "entity_action_gained": {
             "type": "origins:and",
             "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.evoker.prepare_summon",
+                    "pitch": 0.7
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "legendary_monsters:cloud_golem_ambient"
+                },
                 {
                     "type": "origins:heal",
                     "amount": 1000

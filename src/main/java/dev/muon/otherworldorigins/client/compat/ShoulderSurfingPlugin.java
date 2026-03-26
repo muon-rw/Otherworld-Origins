@@ -1,10 +1,13 @@
 package dev.muon.otherworldorigins.client.compat;
 
 import com.github.exopandora.shouldersurfing.api.callback.IAdaptiveItemCallback;
+import com.github.exopandora.shouldersurfing.api.callback.ITargetCameraOffsetCallback;
+import com.github.exopandora.shouldersurfing.api.client.IShoulderSurfing;
 import com.github.exopandora.shouldersurfing.api.plugin.IShoulderSurfingPlugin;
 import com.github.exopandora.shouldersurfing.api.plugin.IShoulderSurfingRegistrar;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Plugin for Shoulder Surfing Reloaded to enable adaptive aiming during continuous spell casts.
@@ -13,8 +16,8 @@ import net.minecraft.world.entity.LivingEntity;
 public class ShoulderSurfingPlugin implements IShoulderSurfingPlugin {
     @Override
     public void register(IShoulderSurfingRegistrar registrar) {
-        // Register callback to enable adaptive crosshair during continuous spell casts
         registrar.registerAdaptiveItemCallback(new ShouldAimAtTargetCallback());
+        registrar.registerTargetCameraOffsetCallback(new WildshapeCameraOffsetCallback());
     }
 
     /**
@@ -25,6 +28,18 @@ public class ShoulderSurfingPlugin implements IShoulderSurfingPlugin {
         @Override
         public boolean isHoldingAdaptiveItem(Minecraft minecraft, LivingEntity livingEntity) {
             return ShoulderSurfingIntegration.shouldAimAtTarget();
+        }
+    }
+
+    /**
+     * Scales shoulder-surfing offset after built-in modifiers so large/small wildshape forms
+     * match the rendered mob's footprint (same {@link net.minecraft.world.entity.EntityType}
+     * dimensions used elsewhere for shapeshift range).
+     */
+    private static class WildshapeCameraOffsetCallback implements ITargetCameraOffsetCallback {
+        @Override
+        public Vec3 post(IShoulderSurfing instance, Vec3 targetOffset, Vec3 defaultOffset) {
+            return ShoulderSurfingIntegration.scaleCameraOffsetForWildshape(targetOffset);
         }
     }
 }

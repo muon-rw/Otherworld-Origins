@@ -6,12 +6,17 @@ import com.github.exopandora.shouldersurfing.client.ShoulderSurfingImpl;
 import com.github.exopandora.shouldersurfing.config.Config;
 import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.player.ClientMagicData;
+import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftClientState;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
@@ -28,6 +33,13 @@ import java.util.function.Predicate;
  */
 public class ShoulderSurfingIntegration {
     private static final String SHOULDER_SURFING_MOD_ID = "shouldersurfing";
+    /** Vanilla player standing hitbox (matches {@link EntityType#PLAYER} defaults). */
+    private static final float PLAYER_WIDTH = 0.6F;
+    private static final float PLAYER_HEIGHT = 1.8F;
+    private static final float WILDSHAPE_CAMERA_SCALE_MIN = 0.65F;
+    private static final float WILDSHAPE_CAMERA_SCALE_MAX = 2.75F;
+    /** How much wider-than-player width (width ratio above 1) nudges scale, after height. */
+    private static final float WILDSHAPE_CAMERA_WIDTH_EXCESS_WEIGHT = 0.22F;
     private static Boolean isShoulderSurfingLoaded = null;
 
     private static boolean isShoulderSurfingLoaded() {
@@ -215,6 +227,38 @@ public class ShoulderSurfingIntegration {
         if (isShoulderSurfing()) {
             lookAtCrosshairTarget();
         }
+    }
+
+    /**
+     * Called from {@link com.github.exopandora.shouldersurfing.api.callback.ITargetCameraOffsetCallback}
+     * after Shoulder Surfing applies modifiers and clamps. Scale is driven mainly by height vs. a
+     * human player; width wider than the player adds a small extra factor so very broad forms still
+     * gain a bit of orbit distance without dominating tall forms.
+     */
+    public static Vec3 scaleCameraOffsetForWildshape(Vec3 targetOffset) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null || mc.level == null) {
+            return targetOffset;
+        }
+        Entity cameraEntity = mc.getCameraEntity();
+        if (cameraEntity == null || cameraEntity.getId() != mc.player.getId()) {
+            return targetOffset;
+        }
+        ResourceLocation shapeType = ShapeshiftClientState.getShapeshiftType(cameraEntity.getId());
+        if (shapeType == null) {
+            return targetOffset;
+        }
+        EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(shapeType);
+        if (entityType == null) {
+            return targetOffset;
+        }
+        var dims = entityType.getDimensions();
+        float widthRatio = dims.width / PLAYER_WIDTH;
+        float heightRatio = dims.height / PLAYER_HEIGHT;
+        float widthExcess = Math.max(0.0F, widthRatio - 1.0F);
+        float scale = heightRatio + widthExcess * WILDSHAPE_CAMERA_WIDTH_EXCESS_WEIGHT;
+        scale = Mth.clamp(scale, WILDSHAPE_CAMERA_SCALE_MIN, WILDSHAPE_CAMERA_SCALE_MAX);
+        return targetOffset.multiply(scale, scale, scale);
     }
 
     public static boolean shouldAimAtTarget() {
