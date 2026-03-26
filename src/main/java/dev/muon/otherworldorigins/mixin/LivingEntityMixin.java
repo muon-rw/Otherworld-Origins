@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.muon.otherworldorigins.effect.ModEffects;
+import dev.muon.otherworldorigins.power.MobsIgnorePower;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyStatusEffectCategoryPower;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
@@ -9,6 +10,7 @@ import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -18,6 +20,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
+
+    @Inject(method = "canAttack(Lnet/minecraft/world/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
+    private void otherworld$preventAttackValidation(LivingEntity target, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+        if (target instanceof Player player && MobsIgnorePower.preventsMobFromTargeting(livingEntity, player)) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    @Inject(method = "canAttack(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/ai/targeting/TargetingConditions;)Z",
+            at = @At("HEAD"), cancellable = true)
+    private void otherworld$preventAttackValidationWithConditions(LivingEntity target, TargetingConditions condition, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+        if (target instanceof Player player && MobsIgnorePower.preventsMobFromTargeting(livingEntity, player)) {
+            cir.setReturnValue(false);
+        }
+    }
 
     @ModifyReturnValue(method = "isCurrentlyGlowing", at = @At("RETURN"))
     private boolean otherworld$favoredFoeGlowing(boolean original) {

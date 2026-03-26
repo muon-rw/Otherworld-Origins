@@ -15,8 +15,18 @@
         },
         "attack_range": 1.5,
         "attacks": [
-            { "hitbox": "FORWARD_BOX", "angle": 40, "damage_multiplier": 1.0, "upswing": 0.2 },
-            { "hitbox": "FORWARD_BOX", "angle": 50, "damage_multiplier": 1.0, "upswing": 0.2 }
+            {
+                "hitbox": "FORWARD_BOX",
+                "angle": 40,
+                "damage_multiplier": 1.0,
+                "upswing": 0.2
+            },
+            {
+                "hitbox": "FORWARD_BOX",
+                "angle": 50,
+                "damage_multiplier": 1.0,
+                "upswing": 0.2
+            }
         ]
     },
     "attributes": {
@@ -61,7 +71,7 @@
     "stealth_cooldown": {
         "type": "origins:resource",
         "min": 0,
-        "max": 60,
+        "max": 100,
         "start_value": 0,
         "hud_render": {
             "should_render": true,
@@ -90,56 +100,24 @@
             "change": -1
         }
     },
-    "stealth_break_on_attack": {
-        "type": "origins:modify_damage_dealt",
-        "modifier": {
-            "operation": "multiply_total",
-            "value": 0.5
-        },
-        "condition": {
-            "type": "origins:and",
-            "conditions": [
-                {
-                    "type": "origins:invisible"
-                },
-                {
-                    "type": "origins:sneaking"
-                },
-                {
-                    "type": "origins:resource",
-                    "resource": "*:*_stealth_cooldown",
-                    "comparison": "==",
-                    "compare_to": 0
-                }
-            ]
-        },
-        "self_action": {
-            "type": "origins:and",
-            "actions": [
-                {
-                    "type": "origins:clear_effect",
-                    "effect": "minecraft:invisibility"
-                },
-                {
-                    "type": "origins:execute_command",
-                    "command": "scale reset pehkui:visibility @s"
-                },
-                {
-                    "type": "origins:play_sound",
-                    "sound": "minecraft:entity.player.attack.sweep",
-                    "category": "players"
-                },
-                {
-                    "type": "origins:change_resource",
-                    "resource": "*:*_stealth_cooldown",
-                    "change": 60
-                }
-            ]
+    "damage_lockout": {
+        "type": "origins:self_action_on_hit",
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_stealth_cooldown",
+            "change": 100
+        }
+    },
+    "hurt_lockout": {
+        "type": "origins:self_action_when_hit",
+        "entity_action": {
+            "type": "origins:change_resource",
+            "resource": "*:*_stealth_cooldown",
+            "change": 100
         }
     },
     "shadow_step": {
-        "type": "origins:action_over_time",
-        "interval": 2,
+        "type": "otherworldorigins:mobs_ignore",
         "condition": {
             "type": "origins:and",
             "conditions": [
@@ -151,63 +129,6 @@
                     "resource": "*:*_stealth_cooldown",
                     "comparison": "==",
                     "compare_to": 0
-                }
-            ]
-        },
-        "rising_action": {
-            "type": "origins:and",
-            "actions": [
-                {
-                    "type": "origins:execute_command",
-                    "command": "scale set pehkui:visibility 0 @s"
-                },
-                {
-                    "type": "origins:play_sound",
-                    "sound": "minecraft:entity.player.breath",
-                    "volume": 0.2,
-                    "pitch": 1.3,
-                    "category": "players"
-                },
-                {
-                    "type": "origins:area_of_effect",
-                    "radius": 32,
-                    "bientity_action": {
-                        "type": "origins:target_action",
-                        "action": {
-                            "type": "origins:execute_command",
-                            "command": "data modify entity @s AngryTime set value 0"
-                        }
-                    },
-                    "bientity_condition": {
-                        "type": "origins:invert",
-                        "condition": {
-                            "type": "origins:attack_target"
-                        }
-                    }
-                }
-            ]
-        },
-        "entity_action": {
-            "type": "origins:apply_effect",
-            "effect": {
-                "effect": "minecraft:invisibility",
-                "duration": 200,
-                "amplifier": 0,
-                "is_ambient": true,
-                "show_icon": false,
-                "show_particles": false
-            }
-        },
-        "falling_action": {
-            "type": "origins:and",
-            "actions": [
-                {
-                    "type": "origins:clear_effect",
-                    "effect": "minecraft:invisibility"
-                },
-                {
-                    "type": "origins:execute_command",
-                    "command": "scale reset pehkui:visibility @s"
                 }
             ]
         }
@@ -222,6 +143,10 @@
             "operation": "multiply_total_multiplicative",
             "value": -1
         }
+    },
+    "soft_steps": {
+        "type": "origins:prevent_game_event",
+        "event": "minecraft:step"
     },
     "prevent_death": {
         "type": "origins:prevent_death",

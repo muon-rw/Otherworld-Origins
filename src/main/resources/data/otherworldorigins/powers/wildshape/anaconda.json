@@ -57,6 +57,16 @@
             }
         ]
     },
+    "wall_climb": {
+        "type": "origins:climbing",
+        "condition": {
+            "type": "origins:collided_horizontally"
+        },
+        "allow_holding": true,
+        "hold_condition": {
+            "type": "origins:collided_horizontally"
+        }
+    },
     "constrict_cooldown": {
         "type": "origins:resource",
         "min": 0,

@@ -33,13 +33,15 @@ import java.util.function.Predicate;
  */
 public class ShoulderSurfingIntegration {
     private static final String SHOULDER_SURFING_MOD_ID = "shouldersurfing";
-    /** Vanilla player standing hitbox (matches {@link EntityType#PLAYER} defaults). */
-    private static final float PLAYER_WIDTH = 0.6F;
     private static final float PLAYER_HEIGHT = 1.8F;
     private static final float WILDSHAPE_CAMERA_SCALE_MIN = 0.65F;
     private static final float WILDSHAPE_CAMERA_SCALE_MAX = 2.75F;
-    /** How much wider-than-player width (width ratio above 1) nudges scale, after height. */
-    private static final float WILDSHAPE_CAMERA_WIDTH_EXCESS_WEIGHT = 0.22F;
+    /**
+     * Shoulder Surfing applies offset Y as the camera's vertical move ({@code Camera.move}'s vertical arg).
+     * Shapeshift still uses the human eye anchor, so short forms need extra negative Y to pan the camera down.
+     */
+    private static final float WILDSHAPE_CAMERA_SHORT_PAN_PER_BLOCK = 0.546F;
+    private static final float WILDSHAPE_CAMERA_SHORT_PAN_MAX = 1.56F;
     private static Boolean isShoulderSurfingLoaded = null;
 
     private static boolean isShoulderSurfingLoaded() {
@@ -231,9 +233,9 @@ public class ShoulderSurfingIntegration {
 
     /**
      * Called from {@link com.github.exopandora.shouldersurfing.api.callback.ITargetCameraOffsetCallback}
-     * after Shoulder Surfing applies modifiers and clamps. Scale is driven mainly by height vs. a
-     * human player; width wider than the player adds a small extra factor so very broad forms still
-     * gain a bit of orbit distance without dominating tall forms.
+     * after Shoulder Surfing applies modifiers and clamps. Distance scale follows model height vs. player;
+     * when the form is shorter than the player, offset Y is reduced so the camera sits lower (MixinCamera
+     * maps offset Y to vertical camera translation).
      */
     public static Vec3 scaleCameraOffsetForWildshape(Vec3 targetOffset) {
         Minecraft mc = Minecraft.getInstance();
@@ -253,12 +255,18 @@ public class ShoulderSurfingIntegration {
             return targetOffset;
         }
         var dims = entityType.getDimensions();
-        float widthRatio = dims.width / PLAYER_WIDTH;
-        float heightRatio = dims.height / PLAYER_HEIGHT;
-        float widthExcess = Math.max(0.0F, widthRatio - 1.0F);
-        float scale = heightRatio + widthExcess * WILDSHAPE_CAMERA_WIDTH_EXCESS_WEIGHT;
-        scale = Mth.clamp(scale, WILDSHAPE_CAMERA_SCALE_MIN, WILDSHAPE_CAMERA_SCALE_MAX);
-        return targetOffset.multiply(scale, scale, scale);
+        float mobHeight = dims.height;
+        float scale = Mth.clamp(
+                mobHeight / PLAYER_HEIGHT,
+                WILDSHAPE_CAMERA_SCALE_MIN,
+                WILDSHAPE_CAMERA_SCALE_MAX);
+        Vec3 scaled = targetOffset.multiply(scale, scale, scale);
+        float shortfall = Math.max(0.0F, PLAYER_HEIGHT - mobHeight);
+        float panDown = Mth.clamp(
+                shortfall * WILDSHAPE_CAMERA_SHORT_PAN_PER_BLOCK,
+                0.0F,
+                WILDSHAPE_CAMERA_SHORT_PAN_MAX);
+        return new Vec3(scaled.x(), scaled.y() - panDown, scaled.z());
     }
 
     public static boolean shouldAimAtTarget() {

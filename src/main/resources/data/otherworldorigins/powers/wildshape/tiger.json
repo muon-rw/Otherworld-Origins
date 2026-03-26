@@ -93,6 +93,23 @@
             "change": -1
         }
     },
+    "ambush_pounce_mobs_ignore": {
+        "type": "otherworldorigins:mobs_ignore",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_ambush_pounce_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ]
+        }
+    },
     "ambush_pounce_meter": {
         "type": "origins:resource",
         "min": 0,
@@ -132,14 +149,6 @@
                     "type": "origins:sneaking"
                 }
             ]
-        },
-        "rising_action": {
-            "type": "origins:execute_command",
-            "command": "scale set pehkui:visibility 0.5 @s"
-        },
-        "falling_action": {
-            "type": "origins:execute_command",
-            "command": "scale reset pehkui:visibility @s"
         },
         "entity_action": {
             "type": "origins:change_resource",
@@ -197,10 +206,6 @@
                         "sound": "otherworldorigins:dash",
                         "pitch": 0.5,
                         "category": "players"
-                    },
-                    {
-                        "type": "origins:execute_command",
-                        "command": "scale reset pehkui:visibility @s"
                     },
                     {
                         "type": "origins:modify_resource",

@@ -24,6 +24,7 @@ public class ShapeshiftClientState {
         } else {
             ACTIVE_SHAPESHIFTS.remove(playerId);
             FakeEntityCache.evict(playerId);
+            AnacondaMultipartHandler.evict(playerId);
             ShapeshiftRenderHelper.clearTracking(playerId);
         }
     }
@@ -51,6 +52,7 @@ public class ShapeshiftClientState {
     public static void clear() {
         ACTIVE_SHAPESHIFTS.clear();
         FakeEntityCache.clearAll();
+        AnacondaMultipartHandler.clearAll();
         ShapeshiftRenderHelper.clearAllTracking();
     }
 

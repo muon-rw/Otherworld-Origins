@@ -1,8 +1,11 @@
 package dev.muon.otherworldorigins.mixin.client;
 
+import com.github.alexthe666.alexsmobs.entity.EntityAnaconda;
+import com.github.alexthe666.alexsmobs.entity.EntityAnacondaPart;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.muon.otherworldorigins.client.shapeshift.AnacondaMultipartHandler;
 import dev.muon.otherworldorigins.client.shapeshift.FakeEntityCache;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftClientState;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftRenderHelper;
@@ -10,6 +13,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.RenderNameTagEvent;
@@ -61,6 +65,10 @@ public abstract class EntityRenderDispatcherMixin {
 
         ShapeshiftRenderHelper.syncVisualState(entity, fakeEntity);
 
+        if (fakeEntity instanceof EntityAnaconda anaconda) {
+            AnacondaMultipartHandler.tickAndPosition(entity.getId(), entity, anaconda);
+        }
+
         EntityRenderer<?> shapeshiftRenderer = this.getRenderer(fakeEntity);
         if (shapeshiftRenderer == null) {
             original.call(originalRenderer, entity, yaw, tickDelta, poseStack, bufferSource, light);
@@ -70,6 +78,10 @@ public abstract class EntityRenderDispatcherMixin {
         ShapeshiftRenderHelper.setRenderingShapeshiftBody(true);
         try {
             renderDelegated(shapeshiftRenderer, fakeEntity, yaw, tickDelta, poseStack, bufferSource, light);
+
+            if (fakeEntity instanceof EntityAnaconda) {
+                renderAnacondaParts(entity, tickDelta, poseStack, bufferSource, light);
+            }
         } finally {
             ShapeshiftRenderHelper.setRenderingShapeshiftBody(false);
         }
@@ -83,6 +95,36 @@ public abstract class EntityRenderDispatcherMixin {
             PoseStack poseStack, MultiBufferSource bufferSource, int light
     ) {
         ((EntityRenderer<T>) renderer).render(entity, yaw, tickDelta, poseStack, bufferSource, light);
+    }
+
+    /**
+     * Renders the 7 anaconda body segments at their world positions, offset
+     * from the head (which is at the current PoseStack origin).
+     */
+    private void renderAnacondaParts(Entity player, float tickDelta,
+                                     PoseStack poseStack, MultiBufferSource bufferSource, int light) {
+        EntityAnacondaPart[] parts = AnacondaMultipartHandler.getParts(player.getId());
+        if (parts == null) return;
+
+        double playerX = Mth.lerp(tickDelta, player.xo, player.getX());
+        double playerY = Mth.lerp(tickDelta, player.yo, player.getY());
+        double playerZ = Mth.lerp(tickDelta, player.zo, player.getZ());
+
+        for (EntityAnacondaPart part : parts) {
+            if (part == null) continue;
+
+            EntityRenderer<?> partRenderer = this.getRenderer(part);
+            if (partRenderer == null) continue;
+
+            double dx = Mth.lerp(tickDelta, part.xo, part.getX()) - playerX;
+            double dy = Mth.lerp(tickDelta, part.yo, part.getY()) - playerY;
+            double dz = Mth.lerp(tickDelta, part.zo, part.getZ()) - playerZ;
+
+            poseStack.pushPose();
+            poseStack.translate(dx, dy, dz);
+            renderDelegated(partRenderer, part, part.getYRot(), tickDelta, poseStack, bufferSource, light);
+            poseStack.popPose();
+        }
     }
 
     /**

@@ -32,9 +32,9 @@ public class ShoulderSurfingPlugin implements IShoulderSurfingPlugin {
     }
 
     /**
-     * Scales shoulder-surfing offset after built-in modifiers so large/small wildshape forms
-     * match the rendered mob's footprint (same {@link net.minecraft.world.entity.EntityType}
-     * dimensions used elsewhere for shapeshift range).
+     * Adjusts shoulder-surfing offset after built-in modifiers: distance scales with wildshape height,
+     * and extra downward vertical offset is applied for forms much shorter than the player (human eye
+     * anchor vs. low model).
      */
     private static class WildshapeCameraOffsetCallback implements ITargetCameraOffsetCallback {
         @Override
