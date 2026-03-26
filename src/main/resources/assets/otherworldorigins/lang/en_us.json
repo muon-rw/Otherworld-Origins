@@ -355,7 +355,7 @@
 "origin.otherworldorigins.feats/school_geo.name": "Geomancy Attunement",
 "origin.otherworldorigins.feats/school_geo.description": "You become attuned to all Geomancy spells.",
 
-"origin.otherworldorigins.class/artificer.description": "• 8 Hearts + 3/Level\n• Repairs do not increase enchantment cost\n\n§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
+"origin.otherworldorigins.class/artificer.description": "• 8 Hearts + 3/Level\n• Repairing gear does not increase its enchantment cost\n\n§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
 
 "origin.otherworldorigins.class/barbarian.description": "• 12 Hearts + 5/Level\n• Rage \n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
 

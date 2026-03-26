@@ -125,7 +125,7 @@
         "hud_render": {
             "should_render": true,
             "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
-            "bar_index": 1,
+            "bar_index": 9,
             "condition": {
                 "type": "origins:resource",
                 "resource": "*:*_spell_attack",
@@ -162,7 +162,7 @@
         "hud_render": {
             "should_render": true,
             "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
-            "bar_index": 5,
+            "bar_index": 7,
             "condition": {
                 "type": "origins:resource",
                 "resource": "*:*_timer",
