@@ -33,7 +33,7 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public class AnacondaMultipartHandler {
 
-    private static final ResourceLocation ANACONDA_ID = new ResourceLocation("alexsmobs", "anaconda");
+    private static final ResourceLocation ANACONDA_ID = ResourceLocation.fromNamespaceAndPath("alexsmobs", "anaconda");
     private static final int SEGMENT_COUNT = 7;
     private static final int HISTORY_SIZE = 256;
 

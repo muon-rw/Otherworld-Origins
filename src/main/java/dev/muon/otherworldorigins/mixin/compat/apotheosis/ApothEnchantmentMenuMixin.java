@@ -7,10 +7,7 @@ import dev.shadowsoffire.apotheosis.ench.table.ApothEnchantmentMenu;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import net.minecraft.world.entity.player.Player;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
@@ -19,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
  * The cost reduction only affects the level requirement and XP charge — enchantment
  * quality is preserved by restoring the original power level in getEnchantmentList.
  */
+@Pseudo
 @Mixin(value = ApothEnchantmentMenu.class, remap = false)
 public class ApothEnchantmentMenuMixin {
 
@@ -65,6 +63,8 @@ public class ApothEnchantmentMenuMixin {
      */
     @ModifyArg(
             method = {"lambda$slotsChanged$1", "lambda$clickMenuButton$0"},
+            // These lambda targets
+            remap = true,
             at = @At(
                     value = "INVOKE",
                     target = "Ldev/shadowsoffire/apotheosis/ench/table/ApothEnchantmentMenu;getEnchantmentList(Lnet/minecraft/world/item/ItemStack;II)Ljava/util/List;"

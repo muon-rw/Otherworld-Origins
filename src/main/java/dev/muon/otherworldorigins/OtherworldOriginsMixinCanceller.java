@@ -13,6 +13,12 @@ public class OtherworldOriginsMixinCanceller implements MixinCanceller {
         if ("com.seniors.justlevelingfork.mixin.MixTargetFinder".equals(mixinClassName)) {
             return true;
         }
+        // JLF's MixPlayer overrides getMaxAirSupply without calling super, breaking
+        // all other @ModifyReturnValue chains on Entity.getMaxAirSupply (e.g. Origins).
+        // Reimplemented in PlayerMaxAirSupplyMixin.
+        if ("com.seniors.justlevelingfork.mixin.MixPlayer".equals(mixinClassName)) {
+            return true;
+        }
         return false;
     }
 }

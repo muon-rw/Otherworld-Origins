@@ -117,7 +117,7 @@ public abstract class OriginDisplayScreenMixin {
 
     @WrapOperation(
             method = "renderOriginName",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;renderItem(Lnet/minecraft/world/item/ItemStack;II)V")
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;renderItem(Lnet/minecraft/world/item/ItemStack;II)V", remap = true)
     )
     private void otherworldorigins$renderCantripSpellIcon(GuiGraphics graphics, ItemStack stack, int x, int y, Operation<Void> original) {
         Holder<Origin> currentOrigin = this.getCurrentOrigin();
