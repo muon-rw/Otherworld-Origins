@@ -7,6 +7,8 @@
   "otherworldorigins.gui.enchantment_restriction": "Only %s can make use of the %s enchantment",
 
   "otherworldorigins.gui.badge.cantrip": "Cantrips are low-level spells that have a short cooldown and low mana cost. \n\nThey have a separate keybind, bypass class restrictions, and do not use up a spell slot.",
+  "otherworldorigins.gui.badge.wildshape_forms": "Wildshape forms by character level:\n\nLevel 2 — Wolf, Cat\nLevel 4 — Snow Leopard, Maned Wolf\nLevel 6 — Dolphin, Gorilla, Anaconda\nLevel 8 — Bald Eagle",
+  "otherworldorigins.gui.badge.combat_wild_shapes": "Circle of the Moon: extra forms by level\n\nLevel 4 — Grizzly Bear, Tiger\nLevel 6 — Crocodile, Bison, Rhinoceros\nLevel 8 — Moose, Elephant, Orca\nLevel 10 — Fire Elemental, Frost Elemental",
 
   "button.otherworldorigins.respec_button": "Respec",
   "button.otherworldorigins.respec_button_confirm": "Are you sure?",
@@ -219,8 +221,6 @@
   "power.otherworldorigins.cantrip_desc.name": "Cantrip",
   "power.otherworldorigins.cantrip_desc.description": "",
 
-  "power.otherworldorigins.class/bard/starter_item.name": "Musical",
-  "power.otherworldorigins.class/bard/starter_item.description": "You'll begin your adventure with a lute, for serenading purposes.",
   
   "power.otherworldorigins.race/half_elf/charisma.name": "Charisma",
   "power.otherworldorigins.race/half_elf/charisma.description": "§oCharisma reduces the chance you will be punished when committing a crime.",
@@ -363,7 +363,7 @@
 
 "origin.otherworldorigins.class/cleric.description": "• 8 Hearts + 3/Level\n• +1 Cantrip from the Cleric spell list\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
 
-"origin.otherworldorigins.class/druid.description": "• 8 Hearts + 3/Level\n• Wild Shape\n• +1 Cantrip from the Druid spell list\n\n§nWild Shape Forms§r\n• Wolf | Lv. 2\n• Cat | Lv. 2\n• Snow Leopard | Lv. 4\n• Maned Wolf | Lv. 4\n• Dolphin | Lv. 6\n• Gorilla | Lv. 6\n• Anaconda | Lv. 6\n• Bald Eagle | Lv. 8\n\n§nSubclasses§r\nCircle of the Land\nCircle of the Moon\nCircle of the Spores",
+"origin.otherworldorigins.class/druid.description": "• 8 Hearts + 3/Level\n• Wild Shape\n• +1 Cantrip from the Druid spell list",
 
 "origin.otherworldorigins.class/fighter.description": "• 10 Hearts + 4/Level\n• Second Wind\n\n§nSubclasses§r\nBattle Master\nEldritch Knight\nChampion",
 
@@ -423,7 +423,7 @@
 "origin.otherworldorigins.subclass/druid/land.name": "Circle of the Land",
 "origin.otherworldorigins.subclass/druid/land.description": "• +100% Healing Effectiveness",
 "origin.otherworldorigins.subclass/druid/moon.name": "Circle of the Moon",
-"origin.otherworldorigins.subclass/druid/moon.description": "• Bonus Stats at Night\n• Summon a Beast for 50 mana, lasting 10 minutes. 5 minute cooldown.\n\n§nCombat Wild Shapes§r\n• Grizzly Bear | Lv. 4\n• Tiger | Lv. 4\n• Crocodile | Lv. 6\n• Bison | Lv. 6\n• Rhinoceros | Lv. 6\n• Moose | Lv. 8\n• Elephant | Lv. 8\n• Orca | Lv. 8\n• Fire Elemental | Lv. 10\n• Frost Elemental | Lv. 10",
+"origin.otherworldorigins.subclass/druid/moon.description": "• Combat Wild Shape\n• Summon a Beast for 50 mana, lasting 10 minutes. 5 minute cooldown.",
 "origin.otherworldorigins.subclass/druid/spores.name": "Circle of the Spores",
 "origin.otherworldorigins.subclass/druid/spores.description": "• Bonus Stats while below y=0\n• Summon 2 Undead for 50 mana, lasting 10 minutes. 5 minute cooldown.",
 
@@ -931,7 +931,10 @@
   "origin.otherworldorigins.wildshape/frost_elemental.description": "• 11 Attack Damage\n• 1.2 Attack Speed\n• +22 Hearts\n• +14 Armor\n• +5% Movement Speed\n• +30% Ice Spell Power\n• Temperature immune\n\nMelee hits randomly cast an ice spell (3 second cooldown)\n\n§oA floating glacier: heavy armor, spell-strikes, and ice focus.§r",
 
   "power.otherworldorigins.class/druid/wildshape.name": "Wild Shape",
-  "power.otherworldorigins.class/druid/wildshape.description": "Press the Wild Shape key (default: Z) to transform into a beast form. You are healed to full on transform and upon reverting from lethal damage. All forms gain +2 HP, +0.4 Attack Damage, and +0.2 Armor per Character Level. 3 charges, restored on sleep.",
+  "power.otherworldorigins.class/druid/wildshape.description": "You can magically assume the shape of a beast. Additional forms are unlocked on levels 4, 6, and 8. At level 20, you can do this an infinite number of times.",
+
+  "power.otherworldorigins.subclass/druid/combat_wild_shapes.name": "Combat Wild Shape",
+  "power.otherworldorigins.subclass/druid/combat_wild_shapes.description": "The rites of your circle grant you the ability to transform into more dangerous forms.",
 
   "subtitles.otherworldorigins.dash": "Dash"
 }

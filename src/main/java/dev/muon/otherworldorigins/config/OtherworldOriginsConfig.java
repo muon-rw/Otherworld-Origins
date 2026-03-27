@@ -12,6 +12,7 @@ public class OtherworldOriginsConfig {
     public static final ForgeConfigSpec.BooleanValue ENABLE_ENCHANTMENT_RESTRICTIONS;
     public static final ForgeConfigSpec.BooleanValue ENABLE_DURABILITY_REWORK;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> STARTER_KIT_ITEMS;
+    public static final ForgeConfigSpec.ConfigValue<List<? extends String>> CLASS_STARTER_KIT_ENTRIES;
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> SHOULDER_SURFING_ROTATION_BLACKLIST;
 
     static {
@@ -46,6 +47,42 @@ public class OtherworldOriginsConfig {
                     if (!(value instanceof String str)) return false;
                     String[] parts = str.split("\\|", 3);
                     return parts.length >= 2;
+                });
+        BUILDER.comment(
+                " Extra items for players who finished character creation with a specific class origin",
+                " on layer otherworldorigins:class (checked on server when they confirm the final screen).",
+                " Format: \"class_origin_id|item_id|count|nbt\" where:",
+                "   - class_origin_id: Full origin ID on the class layer (e.g. otherworldorigins:class/bard)",
+                "   - item_id, count, nbt: Same as starter_kit_items (nbt optional)"
+        );
+        CLASS_STARTER_KIT_ENTRIES = BUILDER
+                .comment(" Per-class starter kit rows: class_origin_id|item_id|count|nbt")
+                .defineList("class_starter_kit_entries", Arrays.asList(
+                        "otherworldorigins:class/artificer|minecraft:iron_pickaxe|1|",
+                        "otherworldorigins:class/barbarian|minecraft:stone_axe|1|",
+                        "otherworldorigins:class/bard|immersive_melodies:lute|1|",
+                        "otherworldorigins:class/cleric|minecraft:book|1|",
+                        "otherworldorigins:class/druid|minecraft:wooden_hoe|1|",
+                        "otherworldorigins:class/fighter|minecraft:iron_sword|1|",
+                        "otherworldorigins:class/monk|minecraft:stick|1|",
+                        "otherworldorigins:class/paladin|minecraft:shield|1|",
+                        "otherworldorigins:class/ranger|minecraft:bow|1|",
+                        "otherworldorigins:class/rogue|minecraft:crossbow|1|",
+                        "otherworldorigins:class/sorcerer|minecraft:blaze_powder|1|",
+                        "otherworldorigins:class/warlock|minecraft:ender_pearl|1|",
+                        "otherworldorigins:class/wizard|minecraft:writable_book|1|"
+                ), value -> {
+                    if (!(value instanceof String str)) return false;
+                    String[] parts = str.split("\\|", 4);
+                    if (parts.length < 3) return false;
+                    try {
+                        ResourceLocation.parse(parts[0].trim());
+                        ResourceLocation.parse(parts[1].trim());
+                        Integer.parseInt(parts[2].trim());
+                    } catch (Exception e) {
+                        return false;
+                    }
+                    return true;
                 });
         BUILDER.pop();
 

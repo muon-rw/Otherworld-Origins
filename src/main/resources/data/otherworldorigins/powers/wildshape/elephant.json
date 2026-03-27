@@ -117,7 +117,8 @@
                 {
                     "type": "otherworldorigins:cast_spell",
                     "spell": "gtbcs_geomancy_plus:tremor_spike",
-                    "level": 5
+                    "level": 5,
+                    "cast_time": 0
                 },
                 {
                     "type": "origins:play_sound",

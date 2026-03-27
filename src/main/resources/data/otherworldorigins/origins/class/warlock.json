@@ -1,6 +1,7 @@
 {
 	"powers": [
 		"otherworldorigins:class/warlock/attributes",
+		"otherworldorigins:cantrip_desc",
 		"otherworldorigins:class/warlock/eldritch_blast"
 	],
 	"icon": {

@@ -1,6 +1,14 @@
 {
-    "hidden": true,
     "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wildshape_forms"
+            }
+        }
+    ],
     "wildshape_gate": {
         "type": "origins:resource",
         "min": 0,

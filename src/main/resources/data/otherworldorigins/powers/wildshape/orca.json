@@ -110,7 +110,8 @@
                 {
                     "type": "otherworldorigins:cast_spell",
                     "spell": "traveloptics:tsunami",
-                    "level": 3
+                    "level": 3,
+                    "cast_time": 0
                 },
                 {
                     "type": "origins:modify_resource",

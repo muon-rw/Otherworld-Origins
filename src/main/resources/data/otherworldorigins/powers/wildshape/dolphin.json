@@ -127,7 +127,8 @@
                 {
                     "type": "otherworldorigins:cast_spell",
                     "spell": "traveloptics:jet_steam",
-                    "level": 1
+                    "level": 1,
+                    "cast_time": 0
                 },
                 {
                     "type": "origins:play_sound",

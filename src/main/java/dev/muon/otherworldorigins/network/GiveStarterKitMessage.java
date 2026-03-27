@@ -1,15 +1,16 @@
 package dev.muon.otherworldorigins.network;
 
+import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.TagParser;
+import dev.muon.otherworldorigins.util.StarterKitUtil;
+import io.github.edwinmindcraft.origins.api.OriginsAPI;
+import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
+import io.github.edwinmindcraft.origins.api.origin.Origin;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,7 @@ import java.util.function.Supplier;
 
 public class GiveStarterKitMessage {
     private static final Logger LOGGER = LoggerFactory.getLogger(GiveStarterKitMessage.class);
+    private static final ResourceLocation EMPTY_ORIGIN = ResourceLocation.fromNamespaceAndPath("origins", "empty");
 
     public GiveStarterKitMessage() {}
 
@@ -30,69 +32,55 @@ public class GiveStarterKitMessage {
     public static void handle(GiveStarterKitMessage message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             ServerPlayer player = ctx.get().getSender();
-            if (player != null) {
-                if (!OtherworldOriginsConfig.SPEC.isLoaded()) {
-                    LOGGER.warn("Config not loaded, cannot give starter kit");
-                    return;
+            if (player == null) {
+                return;
+            }
+            if (!OtherworldOriginsConfig.SPEC.isLoaded()) {
+                LOGGER.warn("Config not loaded, cannot give starter kit");
+                return;
+            }
+
+            StarterKitUtil.giveItemEntries(player, OtherworldOriginsConfig.STARTER_KIT_ITEMS.get());
+
+            IOriginContainer originContainer = IOriginContainer.get(player).resolve().orElse(null);
+            if (originContainer == null) {
+                LOGGER.warn("No origin container for player {}, skipping class starter kit entries", player.getName().getString());
+                return;
+            }
+
+            ResourceLocation classLayerId = OtherworldOrigins.loc("class");
+            ResourceKey<Origin> classOriginKey = originContainer.getOrigin(
+                    ResourceKey.create(OriginsAPI.getLayersRegistry(null).key(), classLayerId));
+
+            if (classOriginKey == null || EMPTY_ORIGIN.equals(classOriginKey.location())) {
+                LOGGER.debug("Player {} has no class origin on {}, skipping class starter kit entries",
+                        player.getName().getString(), classLayerId);
+                return;
+            }
+
+            ResourceLocation resolvedClassOrigin = classOriginKey.location();
+            List<? extends String> classEntries = OtherworldOriginsConfig.CLASS_STARTER_KIT_ENTRIES.get();
+            for (String row : classEntries) {
+                String[] parts = row.split("\\|", 4);
+                if (parts.length < 3) {
+                    LOGGER.warn("Invalid class starter kit entry (need at least origin|item|count): {}", row);
+                    continue;
                 }
-
-                List<? extends String> starterKitItems = OtherworldOriginsConfig.STARTER_KIT_ITEMS.get();
-                
-                for (String itemEntry : starterKitItems) {
-                    try {
-                        String[] parts = itemEntry.split("\\|", 3);
-                        if (parts.length < 2) {
-                            LOGGER.warn("Invalid starter kit entry format: {}", itemEntry);
-                            continue;
-                        }
-
-                        String itemIdStr = parts[0].trim();
-                        String countStr = parts[1].trim();
-                        String nbtStr = parts.length > 2 ? parts[2].trim() : "";
-
-                        // Parse item ID
-                        ResourceLocation itemId = ResourceLocation.parse(itemIdStr);
-                        Item item = ForgeRegistries.ITEMS.getValue(itemId);
-                        if (item == null) {
-                            LOGGER.warn("Unknown item ID in starter kit: {}", itemIdStr);
-                            continue;
-                        }
-
-                        // Parse count
-                        int count;
-                        try {
-                            count = Integer.parseInt(countStr);
-                            if (count <= 0) {
-                                LOGGER.warn("Invalid count in starter kit entry: {}", itemEntry);
-                                continue;
-                            }
-                        } catch (NumberFormatException e) {
-                            LOGGER.warn("Invalid count format in starter kit entry: {}", itemEntry);
-                            continue;
-                        }
-
-                        // Create item stack
-                        ItemStack stack = new ItemStack(item, count);
-
-                        // Parse and apply NBT if provided
-                        if (!nbtStr.isEmpty()) {
-                            try {
-                                CompoundTag nbt = TagParser.parseTag(nbtStr);
-                                stack.setTag(nbt);
-                            } catch (Exception e) {
-                                LOGGER.warn("Failed to parse NBT for starter kit item {}: {}", itemIdStr, e.getMessage());
-                            }
-                        }
-
-                        // Give item to player
-                        if (!player.getInventory().add(stack)) {
-                            // If inventory is full, drop the item
-                            player.drop(stack, false);
-                        }
-                    } catch (Exception e) {
-                        LOGGER.error("Error processing starter kit entry: {}", itemEntry, e);
-                    }
+                ResourceLocation entryOriginId;
+                try {
+                    entryOriginId = ResourceLocation.parse(parts[0].trim());
+                } catch (Exception e) {
+                    LOGGER.warn("Invalid class origin id in class starter kit entry: {}", row);
+                    continue;
                 }
+                if (!entryOriginId.equals(resolvedClassOrigin)) {
+                    continue;
+                }
+                String itemPart = parts[1].trim() + "|" + parts[2].trim() + "|";
+                if (parts.length > 3) {
+                    itemPart += parts[3];
+                }
+                StarterKitUtil.giveSingleItemEntry(player, itemPart);
             }
         });
         ctx.get().setPacketHandled(true);

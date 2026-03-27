@@ -108,12 +108,12 @@
             "action": {
                 "type": "origins:choice",
                 "actions": [
-                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "alshanex_familiars:ice_age", "power_level": 5 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:ice_block", "power_level": 5, "cast_time": 0 } },
                     { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:cone_of_cold", "power_level": 5 } },
-                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:ray_of_frost", "power_level": 5 } },
-                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:icicle", "power_level": 5 } },
-                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:frostwave", "power_level": 5 } },
-                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:ice_spikes", "power_level": 5 } }
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:ray_of_frost", "power_level": 5, "cast_time": 0 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:icicle", "power_level": 5, "cast_time": 0 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:frostwave", "power_level": 5, "cast_time": 0 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:ice_spikes", "power_level": 5, "cast_time": 0 } }
                 ]
             }
         },

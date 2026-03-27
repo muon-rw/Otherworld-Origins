@@ -107,11 +107,11 @@
             "action": {
                 "type": "origins:choice",
                 "actions": [
-                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:firebolt", "power_level": 5 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:firebolt", "power_level": 5, "cast_time": 0 } },
                     { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:fire_breath", "power_level": 5 } },
-                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:heat_surge", "power_level": 5 } },
-                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:flaming_strike", "power_level": 5 } },
-                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:scorch", "power_level": 5 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:heat_surge", "power_level": 5, "cast_time": 0 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:flaming_strike", "power_level": 5, "cast_time": 0 } },
+                    { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:scorch", "power_level": 5, "cast_time": 0 } },
                     { "weight": 1, "element": { "type": "otherworldorigins:cast_spell", "spell": "irons_spellbooks:blaze_storm", "power_level": 5 } }
                 ]
             }

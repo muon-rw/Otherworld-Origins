@@ -1,8 +1,8 @@
 {
     "dash": {
+        "subtitle": "subtitles.otherworldorigins.dash",
         "sounds": [
-            "otherworldorigins:dash"
-        ],
-        "subtitle": "subtitles.otherworldorigins.dash"
+            "dash"
+        ]
     }
 }

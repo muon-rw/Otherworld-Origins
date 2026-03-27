@@ -315,20 +315,6 @@
             }
         }
     },
-    "predators_grace": {
-        "type": "origins:action_on_kill",
-        "entity_action": {
-            "type": "origins:apply_effect",
-            "effect": {
-                "effect": "minecraft:speed",
-                "duration": 100,
-                "amplifier": 1,
-                "is_ambient": true,
-                "show_particles": false,
-                "show_icon": false
-            }
-        }
-    },
     "prevent_death": {
         "type": "origins:prevent_death",
         "entity_action": {

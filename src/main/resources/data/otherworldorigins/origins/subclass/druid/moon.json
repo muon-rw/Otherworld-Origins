@@ -1,6 +1,7 @@
 {
     "powers": [
         "otherworldorigins:subclass/druid/moon",
+        "otherworldorigins:subclass/druid/combat_wild_shapes",
         "otherworldorigins:spell_access/druid/moon"
     ],
     "icon": {

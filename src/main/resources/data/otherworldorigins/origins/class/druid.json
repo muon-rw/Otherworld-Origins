@@ -1,8 +1,8 @@
 {
 	"powers": [
 		"otherworldorigins:class/druid/attributes",
-		"otherworldorigins:class/druid/wildshape",
-		"otherworldorigins:cantrip_desc"
+		"otherworldorigins:cantrip_desc",
+		"otherworldorigins:class/druid/wildshape"
 	],
 	"icon": {
 		"item": "valoria:nature_gift"
