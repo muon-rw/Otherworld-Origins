@@ -10,6 +10,7 @@ import io.github.edwinmindcraft.calio.api.network.CalioCodecHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import dev.muon.otherworldorigins.util.ShapeshiftCollisionShape;
 import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nullable;
@@ -72,7 +73,9 @@ public class ShapeshiftPower extends PowerFactory<ShapeshiftPower.Configuration>
             boolean preventEquipment,
             Holder<ConfiguredEntityCondition<?, ?>> preventSpellCasts,
             double attackRange,
-            List<ShapeshiftAttack> attacks
+            List<ShapeshiftAttack> attacks,
+            float collisionWidth,
+            float collisionHeight
     ) implements IDynamicFeatureConfiguration {
 
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -83,16 +86,39 @@ public class ShapeshiftPower extends PowerFactory<ShapeshiftPower.Configuration>
                 CalioCodecHelper.optionalField(CalioCodecHelper.BOOL, "prevent_equipment", true).forGetter(Configuration::preventEquipment),
                 ConfiguredEntityCondition.optional("prevent_spell_casts").forGetter(Configuration::preventSpellCasts),
                 CalioCodecHelper.optionalField(Codec.DOUBLE, "attack_range", 0.0).forGetter(Configuration::attackRange),
-                CalioCodecHelper.optionalField(ShapeshiftAttack.CODEC.listOf(), "attacks", List.of()).forGetter(Configuration::attacks)
+                CalioCodecHelper.optionalField(ShapeshiftAttack.CODEC.listOf(), "attacks", List.of()).forGetter(Configuration::attacks),
+                CalioCodecHelper.optionalField(CalioCodecHelper.FLOAT, "collision_width", -1.0F).forGetter(Configuration::collisionWidth),
+                CalioCodecHelper.optionalField(CalioCodecHelper.FLOAT, "collision_height", -1.0F).forGetter(Configuration::collisionHeight)
         ).apply(instance, Configuration::new));
 
         @Override
         public boolean isConfigurationValid() {
-            return entityType != null && BuiltInRegistries.ENTITY_TYPE.containsKey(entityType);
+            if (entityType == null || !BuiltInRegistries.ENTITY_TYPE.containsKey(entityType)) {
+                return false;
+            }
+            boolean wSet = collisionWidth > 0.0F;
+            boolean hSet = collisionHeight > 0.0F;
+            return wSet == hSet;
         }
 
         public boolean hasAttackOverrides() {
             return !attacks.isEmpty() || attackRange > 0;
+        }
+
+        public boolean hasCollisionOverride() {
+            return collisionWidth > 0.0F && collisionHeight > 0.0F;
+        }
+
+        /**
+         * Hitbox used while this shapeshift is active: explicit {@code collision_*} when set, otherwise
+         * {@link net.minecraft.world.entity.EntityType#getDimensions()} for {@link #entityType()}.
+         */
+        public ShapeshiftCollisionShape effectiveCollisionShape() {
+            if (hasCollisionOverride()) {
+                return new ShapeshiftCollisionShape(collisionWidth, collisionHeight);
+            }
+            var dims = BuiltInRegistries.ENTITY_TYPE.get(entityType).getDimensions();
+            return new ShapeshiftCollisionShape(dims.width, dims.height);
         }
 
         /**
@@ -105,7 +131,9 @@ public class ShapeshiftPower extends PowerFactory<ShapeshiftPower.Configuration>
                     && hideHands == other.hideHands
                     && allowTools == other.allowTools
                     && Float.compare(playAttackSoundChance, other.playAttackSoundChance) == 0
-                    && preventEquipment == other.preventEquipment;
+                    && preventEquipment == other.preventEquipment
+                    && Float.compare(collisionWidth, other.collisionWidth) == 0
+                    && Float.compare(collisionHeight, other.collisionHeight) == 0;
         }
     }
 }

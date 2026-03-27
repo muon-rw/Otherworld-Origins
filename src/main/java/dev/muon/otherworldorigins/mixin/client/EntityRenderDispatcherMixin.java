@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.muon.otherworldorigins.client.shapeshift.AnacondaMultipartHandler;
 import dev.muon.otherworldorigins.client.shapeshift.FakeEntityCache;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftClientState;
+import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftCameraObstruction;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftRenderHelper;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
@@ -75,7 +76,10 @@ public abstract class EntityRenderDispatcherMixin {
             return;
         }
 
+        float obstructionAlpha = ShapeshiftCameraObstruction.compute(player, fakeEntity, tickDelta);
         ShapeshiftRenderHelper.setRenderingShapeshiftBody(true);
+        ShapeshiftRenderHelper.setShapeshiftBodyObstructionAlpha(obstructionAlpha);
+        ShapeshiftRenderHelper.setUseTranslucentRenderTypes(obstructionAlpha < 1.0F);
         try {
             renderDelegated(shapeshiftRenderer, fakeEntity, yaw, tickDelta, poseStack, bufferSource, light);
 
@@ -83,6 +87,8 @@ public abstract class EntityRenderDispatcherMixin {
                 renderAnacondaParts(entity, tickDelta, poseStack, bufferSource, light);
             }
         } finally {
+            ShapeshiftRenderHelper.setUseTranslucentRenderTypes(false);
+            ShapeshiftRenderHelper.setShapeshiftBodyObstructionAlpha(1.0F);
             ShapeshiftRenderHelper.setRenderingShapeshiftBody(false);
         }
 

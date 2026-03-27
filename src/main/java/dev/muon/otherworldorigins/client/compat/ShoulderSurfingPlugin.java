@@ -17,7 +17,7 @@ public class ShoulderSurfingPlugin implements IShoulderSurfingPlugin {
     @Override
     public void register(IShoulderSurfingRegistrar registrar) {
         registrar.registerAdaptiveItemCallback(new ShouldAimAtTargetCallback());
-        registrar.registerTargetCameraOffsetCallback(new WildshapeCameraOffsetCallback());
+        registrar.registerTargetCameraOffsetCallback(new ShapeshiftCameraOffsetCallback());
     }
 
     /**
@@ -31,15 +31,10 @@ public class ShoulderSurfingPlugin implements IShoulderSurfingPlugin {
         }
     }
 
-    /**
-     * Adjusts shoulder-surfing offset after built-in modifiers: distance scales with wildshape height,
-     * and extra downward vertical offset is applied for forms much shorter than the player (human eye
-     * anchor vs. low model).
-     */
-    private static class WildshapeCameraOffsetCallback implements ITargetCameraOffsetCallback {
+    private static class ShapeshiftCameraOffsetCallback implements ITargetCameraOffsetCallback {
         @Override
         public Vec3 post(IShoulderSurfing instance, Vec3 targetOffset, Vec3 defaultOffset) {
-            return ShoulderSurfingIntegration.scaleCameraOffsetForWildshape(targetOffset);
+            return ShoulderSurfingIntegration.scaleCameraOffsetForShapeshift(targetOffset);
         }
     }
 }

@@ -34,6 +34,7 @@ public class ShapeshiftSyncHandler {
         if (changed) {
             updateState(player.getUUID(), current);
             broadcastToTracking(player, current);
+            player.refreshDimensions();
         }
     }
 
@@ -43,6 +44,7 @@ public class ShapeshiftSyncHandler {
         ShapeshiftPower.Configuration current = ShapeshiftPower.getActiveShapeshiftConfig(player);
         updateState(player.getUUID(), current);
         broadcastToTracking(player, current);
+        player.refreshDimensions();
     }
 
     @SubscribeEvent
@@ -51,6 +53,7 @@ public class ShapeshiftSyncHandler {
         ShapeshiftPower.Configuration current = ShapeshiftPower.getActiveShapeshiftConfig(player);
         updateState(player.getUUID(), current);
         broadcastToTracking(player, current);
+        player.refreshDimensions();
     }
 
     @SubscribeEvent
@@ -81,9 +84,16 @@ public class ShapeshiftSyncHandler {
 
     private static ShapeshiftSyncMessage createMessage(int playerId, @Nullable ShapeshiftPower.Configuration config) {
         if (config == null) {
-            return new ShapeshiftSyncMessage(playerId, null, false, true);
+            return new ShapeshiftSyncMessage(playerId, null, false, true, 0.0F, 0.0F);
         }
-        return new ShapeshiftSyncMessage(playerId, config.entityType(), config.hideHands(), config.allowTools());
+        var shape = config.effectiveCollisionShape();
+        return new ShapeshiftSyncMessage(
+                playerId,
+                config.entityType(),
+                config.hideHands(),
+                config.allowTools(),
+                shape.width(),
+                shape.height());
     }
 
     private static void updateState(UUID uuid, @Nullable ShapeshiftPower.Configuration config) {

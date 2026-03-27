@@ -11,6 +11,7 @@ import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.monster.Phantom;
 import net.minecraft.world.entity.monster.Shulker;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -29,6 +30,17 @@ import java.util.Random;
 public class ShapeshiftRenderHelper {
 
     private static boolean renderingShapeshiftBody = false;
+    /**
+     * Camera obstruction fade for the current delegated shapeshift draw (fake entity + anaconda parts).
+     * Mirrors shoulder-surfing's per-vertex alpha when the camera sits inside the wildshape bounds.
+     */
+    private static float shapeshiftBodyObstructionAlpha = 1.0F;
+    /**
+     * When true, {@link RenderType} factory methods like {@code entityCutoutNoCull} are redirected
+     * to translucent equivalents so that per-vertex alpha from the obstruction fade is actually
+     * blended by the GPU instead of being silently ignored by the opaque pipeline.
+     */
+    private static boolean useTranslucentRenderTypes = false;
     private static final Map<Integer, Boolean> PREV_SWINGING = new HashMap<>();
     private static final Map<Integer, Integer> PREV_COMBO_COUNT = new HashMap<>();
     private static final Map<Integer, Integer> PREV_TICK_COUNT = new HashMap<>();
@@ -40,6 +52,22 @@ public class ShapeshiftRenderHelper {
 
     public static void setRenderingShapeshiftBody(boolean rendering) {
         renderingShapeshiftBody = rendering;
+    }
+
+    public static float getShapeshiftBodyObstructionAlpha() {
+        return shapeshiftBodyObstructionAlpha;
+    }
+
+    public static void setShapeshiftBodyObstructionAlpha(float alpha) {
+        shapeshiftBodyObstructionAlpha = Mth.clamp(alpha, 0.0F, 1.0F);
+    }
+
+    public static boolean shouldUseTranslucentRenderTypes() {
+        return useTranslucentRenderTypes;
+    }
+
+    public static void setUseTranslucentRenderTypes(boolean translucent) {
+        useTranslucentRenderTypes = translucent;
     }
 
     public static void clearTracking(int entityId) {

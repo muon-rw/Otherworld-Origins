@@ -58,7 +58,10 @@
   ],
   "client": [
     "client.compat.alexsmobs.ModelAnacondaMixin",
+    "client.compat.citadel.CitadelModelTransparencyMixin",
     "client.EntityRenderDispatcherMixin",
+    "client.ModelPartShapeshiftObstructionMixin",
+    "client.RenderTypeShapeshiftMixin",
     "client.EntityRendererAccessor",
     "client.LivingEntityRendererMixin",
     "client.ItemInHandRendererMixin",

@@ -61,7 +61,7 @@
             {
                 "attribute": "forge:entity_gravity",
                 "operation": "multiply_base",
-                "value": -0.75,
+                "value": -0.625,
                 "name": "Elemental reduced gravity"
             },
             {
@@ -72,16 +72,12 @@
             }
         ]
     },
+    "always_jump": {
+        "type": "origins:grounded"
+    },
     "jump_cooldown": {
         "type": "otherworldorigins:jump_cooldown",
         "cooldown": 15
-    },
-    "jump_boost": {
-        "type": "origins:modify_jump",
-        "modifier": {
-            "operation": "addition",
-            "value": 0.2
-        }
     },
     "no_fall_damage": {
         "type": "origins:modify_damage_taken",

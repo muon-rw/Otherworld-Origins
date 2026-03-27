@@ -5,7 +5,9 @@ import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.client.network.ShapeshiftSyncClient;
 import dev.muon.otherworldorigins.entity.ModEntities;
+import dev.muon.otherworldorigins.network.ShapeshiftSyncClientDispatch;
 import dev.muon.otherworldorigins.item.HeartsTooltipComponent;
 import net.minecraft.client.renderer.entity.IronGolemRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,6 +30,8 @@ public class ModEventsClient {
 
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
+        ShapeshiftSyncClientDispatch.registerHandler(ShapeshiftSyncClient::handlePacket);
+
         // Register our animation layer for player-animator. Priority 100 to avoid conflicts with Iron's (spell casting).
         PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
                 PlayerAnimationHandler.ANIMATION_LAYER_ID,

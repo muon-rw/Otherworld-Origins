@@ -4,19 +4,21 @@ import com.github.exopandora.shouldersurfing.api.model.PickContext;
 import com.github.exopandora.shouldersurfing.client.ObjectPicker;
 import com.github.exopandora.shouldersurfing.client.ShoulderSurfingImpl;
 import com.github.exopandora.shouldersurfing.config.Config;
+import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftClientState;
+import dev.muon.otherworldorigins.power.ShapeshiftPower;
+import dev.muon.otherworldorigins.util.ShapeshiftCollisionHelper;
+import dev.muon.otherworldorigins.util.ShapeshiftCollisionShape;
 import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.player.ClientMagicData;
-import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftClientState;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
@@ -33,15 +35,31 @@ import java.util.function.Predicate;
  */
 public class ShoulderSurfingIntegration {
     private static final String SHOULDER_SURFING_MOD_ID = "shouldersurfing";
-    private static final float PLAYER_HEIGHT = 1.8F;
-    private static final float WILDSHAPE_CAMERA_SCALE_MIN = 0.65F;
-    private static final float WILDSHAPE_CAMERA_SCALE_MAX = 2.75F;
+
+    /** Vanilla {@link Player} standing footprint: {@code 0.6 + 1.8} blocks (width + height). */
+    private static final float VANILLA_PLAYER_WIDTH = 0.6F;
+    private static final float VANILLA_PLAYER_HEIGHT = 1.8F;
+    private static final float VANILLA_PLAYER_COMBINED_SIZE = VANILLA_PLAYER_WIDTH + VANILLA_PLAYER_HEIGHT;
+
     /**
-     * Shoulder Surfing applies offset Y as the camera's vertical move ({@code Camera.move}'s vertical arg).
-     * Shapeshift still uses the human eye anchor, so short forms need extra negative Y to pan the camera down.
+     * Maps combined-size ratio to offset scale using a softened curve ({@literal ratio^0.52}); clamp keeps
+     * changes noticeable but sane for very large mobs.
      */
-    private static final float WILDSHAPE_CAMERA_SHORT_PAN_PER_BLOCK = 0.546F;
-    private static final float WILDSHAPE_CAMERA_SHORT_PAN_MAX = 1.56F;
+    private static final float SHAPESHIFT_ZOOM_CURVE_POWER = 0.52F;
+    private static final float SHAPESHIFT_ZOOM_SCALE_MIN = 0.74F;
+    private static final float SHAPESHIFT_ZOOM_SCALE_MAX = 2.65F;
+
+    /** Multipart anaconda reads short in width+height but needs a pulled-back camera for tail clearance. */
+    private static final ResourceLocation ANACONDA_SHAPESHIFT_TYPE =
+            ResourceLocation.fromNamespaceAndPath("alexsmobs", "anaconda");
+    private static final float ANACONDA_EXTRA_ZOOM = 1.4F;
+    private static final float ANACONDA_MIN_SCALE = 1.18F;
+
+    /** Small bird form: combined hitbox is below the human baseline so the curve zooms in; nudge outward slightly. */
+    private static final ResourceLocation BALD_EAGLE_SHAPESHIFT_TYPE =
+            ResourceLocation.fromNamespaceAndPath("alexsmobs", "bald_eagle");
+    private static final float BALD_EAGLE_MIN_SCALE = 1.2F;
+
     private static Boolean isShoulderSurfingLoaded = null;
 
     private static boolean isShoulderSurfingLoaded() {
@@ -232,45 +250,57 @@ public class ShoulderSurfingIntegration {
     }
 
     /**
-     * Called from {@link com.github.exopandora.shouldersurfing.api.callback.ITargetCameraOffsetCallback}
-     * after Shoulder Surfing applies modifiers and clamps. Distance scale follows model height vs. player;
-     * when the form is shorter than the player, offset Y is reduced so the camera sits lower (MixinCamera
-     * maps offset Y to vertical camera translation).
+     * After Shoulder Surfing applies its pose/modifier pipeline, scales the offset so larger forms
+     * (especially wide ones — combined width+height vs. the player) zoom out and smaller forms zoom in.
+     * Anaconda gets an additional pull-back so horizontal framing fits the rendered multipart body.
+     * Bald eagle gets a mild minimum zoom so the small hitbox does not pull the camera in too close.
      */
-    public static Vec3 scaleCameraOffsetForWildshape(Vec3 targetOffset) {
+    public static Vec3 scaleCameraOffsetForShapeshift(Vec3 targetOffset) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.level == null) {
             return targetOffset;
         }
         Entity cameraEntity = mc.getCameraEntity();
-        if (cameraEntity == null || cameraEntity.getId() != mc.player.getId()) {
+        if (!(cameraEntity instanceof Player player) || cameraEntity.getId() != mc.player.getId()) {
             return targetOffset;
         }
-        ResourceLocation shapeType = ShapeshiftClientState.getShapeshiftType(cameraEntity.getId());
-        if (shapeType == null) {
+        ShapeshiftCollisionShape shape = ShapeshiftCollisionHelper.resolve(player);
+        if (shape == null) {
             return targetOffset;
         }
-        EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(shapeType);
-        if (entityType == null) {
-            return targetOffset;
-        }
-        var dims = entityType.getDimensions();
-        float mobHeight = dims.height;
+        float combined = shape.width() + shape.height();
+        float sizeRatio = combined / VANILLA_PLAYER_COMBINED_SIZE;
         float scale = Mth.clamp(
-                mobHeight / PLAYER_HEIGHT,
-                WILDSHAPE_CAMERA_SCALE_MIN,
-                WILDSHAPE_CAMERA_SCALE_MAX);
-        Vec3 scaled = targetOffset.multiply(scale, scale, scale);
-        float shortfall = Math.max(0.0F, PLAYER_HEIGHT - mobHeight);
-        float panDown = Mth.clamp(
-                shortfall * WILDSHAPE_CAMERA_SHORT_PAN_PER_BLOCK,
-                0.0F,
-                WILDSHAPE_CAMERA_SHORT_PAN_MAX);
-        return new Vec3(scaled.x(), scaled.y() - panDown, scaled.z());
+                (float) Math.pow(sizeRatio, SHAPESHIFT_ZOOM_CURVE_POWER),
+                SHAPESHIFT_ZOOM_SCALE_MIN,
+                SHAPESHIFT_ZOOM_SCALE_MAX);
+        ResourceLocation form = ShapeshiftClientState.getShapeshiftType(player.getId());
+        if (form == null) {
+            ShapeshiftPower.Configuration cfg = ShapeshiftPower.getActiveShapeshiftConfig(player);
+            form = cfg != null ? cfg.entityType() : null;
+        }
+        if (ANACONDA_SHAPESHIFT_TYPE.equals(form)) {
+            scale = Math.max(scale, ANACONDA_MIN_SCALE);
+            scale *= ANACONDA_EXTRA_ZOOM;
+            scale = Math.min(scale, SHAPESHIFT_ZOOM_SCALE_MAX * 1.1F);
+        } else if (BALD_EAGLE_SHAPESHIFT_TYPE.equals(form)) {
+            scale = Math.max(scale, BALD_EAGLE_MIN_SCALE);
+        }
+        return targetOffset.scale(scale);
     }
 
     public static boolean shouldAimAtTarget() {
         return isCastingContinuousSpell();
+    }
+
+    /**
+     * When Shoulder Surfing is present, reuse its "adjust player transparency" config for shapeshift obstruction.
+     */
+    public static boolean isShapeshiftObstructionFadeEnabled() {
+        if (!isShoulderSurfingLoaded()) {
+            return true;
+        }
+        return Config.CLIENT.isPlayerTransparencyEnabled();
     }
 
     private static boolean isContinuousSpell(CastType castType) {
