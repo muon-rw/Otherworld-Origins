@@ -33,6 +33,10 @@ public class OtherworldOriginsClientEvents {
                         .sorted(Comparator.comparing(Holder::value))
                         .toList();
                 if (!layers.isEmpty()) {
+                    OtherworldOrigins.LOGGER.info("[OWClientEvents] AWAITING_DISPLAY: opening screen with {} missing layers", layers.size());
+                    for (var l : layers) {
+                        OtherworldOrigins.LOGGER.info("[OWClientEvents]   missing: {}", l.key().location());
+                    }
                     instance.setScreen(new OtherworldOriginScreen(ImmutableList.copyOf(layers), 0, OriginsClient.SHOW_DIRT_BACKGROUND));
                     OriginsClient.AWAITING_DISPLAY.set(false);
                 }

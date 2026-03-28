@@ -45,7 +45,19 @@ import io.github.apace100.origins.badge.Badge;
 import io.github.apace100.origins.badge.BadgeManager;
 import io.github.apace100.origins.mixin.DrawContextAccessor;
 import io.github.apace100.origins.origin.Impact;
+import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import dev.muon.otherworldorigins.client.shapeshift.AnacondaMultipartHandler;
+import dev.muon.otherworldorigins.client.shapeshift.FakeEntityCache;
+import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftRenderHelper;
+import dev.muon.otherworldorigins.power.ShapeshiftPower;
+import com.github.alexthe666.alexsmobs.entity.EntityAnaconda;
+import com.github.alexthe666.alexsmobs.entity.EntityAnacondaPart;
+import net.minecraft.client.multiplayer.ClientLevel;
+import org.joml.Quaternionf;
+import javax.annotation.Nullable;
 
 public class OtherworldOriginScreen extends Screen {
 
@@ -65,6 +77,7 @@ public class OtherworldOriginScreen extends Screen {
     private float time = 0.0f;
 
     private List<FormattedCharSequence> sheetLines = new ArrayList<>();
+    private boolean dynamicPromptMode = false;
 
     private static final int LEFT_PANEL_WIDTH = 160;
     private static final int RIGHT_PANEL_WIDTH = 160;
@@ -97,7 +110,42 @@ public class OtherworldOriginScreen extends Screen {
         ).bounds(rightPanelX, this.height - 30, RIGHT_PANEL_WIDTH, 20).build());
         this.selectButton.visible = false;
 
+        OtherworldOrigins.LOGGER.info("[OWOriginScreen] init: layerList has {} layers", this.layerList.size());
+        for (int i = 0; i < this.layerList.size(); i++) {
+            Holder<OriginLayer> l = this.layerList.get(i);
+            ResourceLocation lid = l.unwrapKey().map(ResourceKey::location).orElse(null);
+            OtherworldOrigins.LOGGER.info("[OWOriginScreen]   layer[{}] = {}", i, lid);
+        }
         evaluateCurrentLayer();
+        computeDynamicPromptMode();
+        OtherworldOrigins.LOGGER.info("[OWOriginScreen] after eval: currentLayerIndex={}, dynamicPromptMode={}, confirmedSelections={}",
+                this.currentLayerIndex, this.dynamicPromptMode, this.confirmedSelections.size());
+    }
+
+    private void computeDynamicPromptMode() {
+        Player player = Minecraft.getInstance().player;
+        if (player == null) {
+            this.dynamicPromptMode = false;
+            return;
+        }
+
+        boolean hasUserSelectableLayer = false;
+        for (int i = this.currentLayerIndex; i < this.layerList.size(); i++) {
+            Holder<OriginLayer> layer = this.layerList.get(i);
+
+            boolean hasChoosableOrigins = layer.value().origins(player).stream()
+                    .anyMatch(o -> o.isBound() && o.value().isChoosable());
+            if (!hasChoosableOrigins) continue;
+
+            hasUserSelectableLayer = true;
+            ResourceLocation id = layer.unwrapKey().map(ResourceKey::location).orElse(null);
+            if (id == null || !DYNAMIC_LAYER_IDS.contains(id)) {
+                OtherworldOrigins.LOGGER.info("[OWOriginScreen] computeDynamic: non-dynamic selectable layer[{}] = {}", i, id);
+                this.dynamicPromptMode = false;
+                return;
+            }
+        }
+        this.dynamicPromptMode = hasUserSelectableLayer;
     }
 
     private void evaluateCurrentLayer() {
@@ -213,6 +261,11 @@ public class OtherworldOriginScreen extends Screen {
     private void finishSelection() {
         Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ENCHANTMENT_TABLE_USE, 1.0F));
 
+        if (this.dynamicPromptMode) {
+            Minecraft.getInstance().setScreen(null);
+            return;
+        }
+
         Set<ResourceLocation> selectedLayerIds = new HashSet<>();
         for (Holder<OriginLayer> layerHolder : this.layerList) {
             layerHolder.unwrapKey().ifPresent(key -> selectedLayerIds.add(key.location()));
@@ -238,13 +291,6 @@ public class OtherworldOriginScreen extends Screen {
         OtherworldOrigins.loc("plus_one_aptitude_resilient"), OtherworldOrigins.loc("wildshape")
     );
 
-    private boolean isDynamicGameplayPrompt() {
-        for (Holder<OriginLayer> layer : this.layerList) {
-            ResourceLocation id = layer.unwrapKey().map(ResourceKey::location).orElse(null);
-            if (id != null && !DYNAMIC_LAYER_IDS.contains(id)) return false;
-        }
-        return true;
-    }
 
     private int getEffectiveCardCollapsedWidth() {
         int paperLeft = this.width / 2 - 128;
@@ -269,6 +315,51 @@ public class OtherworldOriginScreen extends Screen {
     public void tick() {
         super.tick();
         updateAnimations();
+
+        if (this.dynamicPromptMode) {
+            Holder<Origin> displayOrigin = this.hoveredOrigin != null ? this.hoveredOrigin : this.selectedOrigin;
+            if (displayOrigin != null && displayOrigin.isBound()) {
+                ResourceLocation entityTypeId = getShapeshiftEntityType(displayOrigin);
+                if (entityTypeId != null && AnacondaMultipartHandler.isAnaconda(entityTypeId)) {
+                    Entity previewEntity = FakeEntityCache.getOrCreate(PREVIEW_ENTITY_CACHE_ID, entityTypeId);
+                    if (previewEntity instanceof LivingEntity living) {
+                        Player player = Minecraft.getInstance().player;
+                        double startX = player != null ? player.getX() : 0;
+                        double startY = player != null ? player.getY() : 0;
+                        double startZ = player != null ? player.getZ() : 0;
+
+                        if (living.tickCount == 0) {
+                            living.setPos(startX, startY, startZ);
+                        }
+
+                        living.xo = living.getX();
+                        living.yo = living.getY();
+                        living.zo = living.getZ();
+                        living.yBodyRotO = living.yBodyRot;
+                        living.yRotO = living.getYRot();
+                        living.yHeadRotO = living.yHeadRot;
+
+                        living.tickCount++;
+                        living.walkDist += 0.08f;
+                        
+                        float simAngleDeg = living.tickCount * 1.5f; 
+                        float yawRad = (float) Math.toRadians(180 + simAngleDeg);
+                        
+                        double speed = 0.08;
+                        double nx = living.getX() - Math.sin(yawRad) * speed;
+                        double nz = living.getZ() + Math.cos(yawRad) * speed;
+                        living.setPos(nx, startY, nz);
+                        
+                        float newYaw = 180 + simAngleDeg;
+                        living.setYRot(newYaw);
+                        living.yBodyRot = newYaw;
+                        living.yHeadRot = newYaw;
+                        
+                        AnacondaMultipartHandler.tickAndPosition(PREVIEW_ENTITY_CACHE_ID, living, (com.github.alexthe666.alexsmobs.entity.EntityAnaconda) living, true);
+                    }
+                }
+            }
+        }
     }
 
     private void updateAnimations() {
@@ -711,7 +802,10 @@ public class OtherworldOriginScreen extends Screen {
     }
 
     private void renderCenterPanel(GuiGraphics graphics, int mouseX, int mouseY) {
-        if (isDynamicGameplayPrompt()) return;
+        if (this.dynamicPromptMode) {
+            renderWildshapePreview(graphics);
+            return;
+        }
 
         int centerX = this.width / 2;
         int centerY = this.height / 2;
@@ -734,6 +828,185 @@ public class OtherworldOriginScreen extends Screen {
                 textY += 14;
             }
         }
+    }
+
+    private static final int PREVIEW_ENTITY_CACHE_ID = Integer.MIN_VALUE;
+
+    private static final float ISOMETRIC_TILT = (float) Math.toRadians(-20);
+
+    private void renderWildshapePreview(GuiGraphics graphics) {
+        Holder<Origin> displayOrigin = this.hoveredOrigin != null ? this.hoveredOrigin : this.selectedOrigin;
+        if (displayOrigin == null || !displayOrigin.isBound()) return;
+
+        ResourceLocation entityTypeId = getShapeshiftEntityType(displayOrigin);
+        if (entityTypeId == null) return;
+
+        Entity previewEntity = FakeEntityCache.getOrCreate(PREVIEW_ENTITY_CACHE_ID, entityTypeId);
+        if (!(previewEntity instanceof LivingEntity living)) return;
+
+        int centerX = this.width / 2;
+        int centerY = this.height / 2;
+
+        float bbHeight = living.getBbHeight();
+        float bbWidth = living.getBbWidth();
+        float maxDim = Math.max(bbHeight, bbWidth);
+        int scale = Math.max(10, (int) (80.0f / maxDim));
+
+        boolean isAnaconda = AnacondaMultipartHandler.isAnaconda(entityTypeId);
+        if (isAnaconda) {
+            scale = (int) (scale * 0.2f);
+        }
+
+        int yPos = centerY + (int) (bbHeight * scale / 2);
+
+        float partialTick = Minecraft.getInstance().getFrameTime();
+
+        if (isAnaconda) {
+            renderAnacondaParts(graphics, living, centerX, yPos, scale, partialTick);
+        } else {
+            float spinAngleDeg = (float) Math.toDegrees(this.time * 0.04f);
+            renderPreviewEntity(graphics, living, centerX, yPos, scale, 180 + spinAngleDeg);
+        }
+    }
+
+    private void renderPreviewEntity(GuiGraphics graphics, LivingEntity living, int x, int y,
+                                     int scale, float facingDeg) {
+        renderPreviewEntity(graphics, living, x, y, 0, scale, facingDeg);
+    }
+
+    private void renderPreviewEntity(GuiGraphics graphics, LivingEntity living, int x, int y, float zOffset,
+                                     int scale, float facingDeg) {
+        float savedBodyRot = living.yBodyRot;
+        float savedBodyRotO = living.yBodyRotO;
+        float savedYRot = living.getYRot();
+        float savedXRot = living.getXRot();
+        float savedHeadRot = living.yHeadRot;
+        float savedHeadRotO = living.yHeadRotO;
+
+        living.yBodyRot = facingDeg;
+        living.yBodyRotO = facingDeg;
+        living.setYRot(facingDeg);
+        living.setXRot(0);
+        living.yHeadRot = facingDeg;
+        living.yHeadRotO = facingDeg;
+
+        Quaternionf pose = new Quaternionf().rotateZ((float) Math.PI);
+        Quaternionf camera = new Quaternionf().rotateX(ISOMETRIC_TILT);
+        pose.mul(camera);
+
+        if (zOffset != 0) {
+            graphics.pose().pushPose();
+            graphics.pose().translate(0, 0, zOffset);
+        }
+
+        ShapeshiftRenderHelper.setRenderingShapeshiftBody(true);
+        InventoryScreen.renderEntityInInventory(graphics, x, y, scale, pose, camera, living);
+        ShapeshiftRenderHelper.setRenderingShapeshiftBody(false);
+
+        if (zOffset != 0) {
+            graphics.pose().popPose();
+        }
+
+        living.yBodyRot = savedBodyRot;
+        living.yBodyRotO = savedBodyRotO;
+        living.setYRot(savedYRot);
+        living.setXRot(savedXRot);
+        living.yHeadRot = savedHeadRot;
+        living.yHeadRotO = savedHeadRotO;
+    }
+
+    private void renderAnacondaParts(GuiGraphics graphics, LivingEntity head, int centerX, int yPos,
+                                     int scale, float partialTick) {
+        EntityAnacondaPart[] parts = AnacondaMultipartHandler.getParts(PREVIEW_ENTITY_CACHE_ID);
+        if (parts == null) {
+            ClientLevel level = Minecraft.getInstance().level;
+            if (level == null) return;
+            AnacondaMultipartHandler.tickAndPosition(PREVIEW_ENTITY_CACHE_ID, head, (EntityAnaconda) head, true);
+            parts = AnacondaMultipartHandler.getParts(PREVIEW_ENTITY_CACHE_ID);
+            if (parts == null) return;
+        }
+
+        double hx = net.minecraft.util.Mth.lerp(partialTick, head.xo, head.getX());
+        double hy = net.minecraft.util.Mth.lerp(partialTick, head.yo, head.getY());
+        double hz = net.minecraft.util.Mth.lerp(partialTick, head.zo, head.getZ());
+        float headYaw = net.minecraft.util.Mth.lerp(partialTick, head.yBodyRotO, head.yBodyRot);
+
+        List<PartRenderInfo> renderQueue = new ArrayList<>();
+        
+        renderQueue.add(new PartRenderInfo(head, centerX, yPos, 0, headYaw));
+
+        for (int i = 0; i < parts.length; i++) {
+            EntityAnacondaPart part = parts[i];
+            if (part == null) continue;
+
+            double px = net.minecraft.util.Mth.lerp(partialTick, part.xo, part.getX());
+            double py = net.minecraft.util.Mth.lerp(partialTick, part.yo, part.getY());
+            double pz = net.minecraft.util.Mth.lerp(partialTick, part.zo, part.getZ());
+
+            float dx = (float)(px - hx);
+            float dy = (float)(py - hy);
+            float dz = (float)(pz - hz);
+
+            org.joml.Vector3f vec = new org.joml.Vector3f(dx, dy, dz);
+
+            Quaternionf pose = new Quaternionf().rotateZ((float) Math.PI);
+            Quaternionf camera = new Quaternionf().rotateX(ISOMETRIC_TILT);
+            pose.mul(camera);
+
+            vec.rotate(pose);
+            vec.mul(scale, scale, -scale);
+
+            float partYaw = net.minecraft.util.Mth.lerp(partialTick, part.yBodyRotO, part.yBodyRot);
+
+            renderQueue.add(new PartRenderInfo(part, centerX + (int)vec.x(), yPos + (int)vec.y(), vec.z(), partYaw));
+        }
+
+        renderQueue.sort(Comparator.comparingDouble(p -> p.zOffset));
+
+        for (PartRenderInfo info : renderQueue) {
+            renderPreviewEntity(graphics, info.part, info.screenX, info.screenY, info.zOffset, scale, info.yaw);
+        }
+    }
+
+    private static class PartRenderInfo {
+        final LivingEntity part;
+        final int screenX;
+        final int screenY;
+        final float zOffset;
+        final float yaw;
+
+        PartRenderInfo(LivingEntity part, int screenX, int screenY, float zOffset, float yaw) {
+            this.part = part;
+            this.screenX = screenX;
+            this.screenY = screenY;
+            this.zOffset = zOffset;
+            this.yaw = yaw;
+        }
+    }
+
+    @Nullable
+    private ResourceLocation getShapeshiftEntityType(Holder<Origin> origin) {
+        for (Holder<ConfiguredPower<?, ?>> powerHolder : origin.value().getValidPowers().toList()) {
+            if (!powerHolder.isBound()) continue;
+            ResourceLocation found = findShapeshiftType(powerHolder.value());
+            if (found != null) return found;
+        }
+        return null;
+    }
+
+    @Nullable
+    private ResourceLocation findShapeshiftType(ConfiguredPower<?, ?> power) {
+        if (power.getFactory() instanceof ShapeshiftPower &&
+                power.getConfiguration() instanceof ShapeshiftPower.Configuration config) {
+            return config.entityType();
+        }
+        for (Holder<ConfiguredPower<?, ?>> subHolder : power.getContainedPowers().values()) {
+            if (subHolder.isBound()) {
+                ResourceLocation found = findShapeshiftType(subHolder.value());
+                if (found != null) return found;
+            }
+        }
+        return null;
     }
 
     private void renderRightPanel(GuiGraphics graphics, int mouseX, int mouseY) {

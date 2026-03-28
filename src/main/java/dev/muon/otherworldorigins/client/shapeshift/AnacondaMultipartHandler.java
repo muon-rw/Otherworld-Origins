@@ -54,7 +54,7 @@ public class AnacondaMultipartHandler {
      * Gated by tick count so state only advances once per game tick,
      * even if called multiple times per frame.
      */
-    public static void tickAndPosition(int playerId, Entity source, EntityAnaconda fakeHead) {
+    public static void tickAndPosition(int playerId, Entity source, EntityAnaconda fakeHead, boolean isUI) {
         ClientLevel level = Minecraft.getInstance().level;
         if (level == null) return;
 
@@ -67,7 +67,7 @@ public class AnacondaMultipartHandler {
 
         if (source.tickCount != data.prevTickCount) {
             data.prevTickCount = source.tickCount;
-            updateHistory(data, source, level);
+            updateHistory(data, source, level, isUI);
             repositionParts(data, source, fakeHead, level);
         }
 
@@ -77,9 +77,13 @@ public class AnacondaMultipartHandler {
         }
     }
 
+    public static void tickAndPosition(int playerId, Entity source, EntityAnaconda fakeHead) {
+        tickAndPosition(playerId, source, fakeHead, false);
+    }
+
     // ---- position history ----
 
-    private static void updateHistory(MultipartData data, Entity source, Level level) {
+    private static void updateHistory(MultipartData data, Entity source, Level level, boolean isUI) {
         Vec3 pos = source.position();
         float yaw = source.getYRot();
         float pitch = source.getXRot();
@@ -99,6 +103,8 @@ public class AnacondaMultipartHandler {
         } else {
             data.history[data.historyHead] = new PosRot(last.pos, yaw, pitch);
         }
+
+        if (isUI) return; // Skip gravitational influence and terrain checking for UI
 
         // Apply gravitational influence to historical positions
         for (int i = 0; i < data.historyCount; i++) {
@@ -234,12 +240,14 @@ public class AnacondaMultipartHandler {
             float undulationYaw = (float) (-Math.sin(walkDist * 6.0F - i * 2.0F) * 12.0 * diminishYaw);
             yaw += undulationYaw;
 
+            part.xRotO = part.getXRot();
             part.setXRot(pitch);
+            part.yRotO = part.getYRot();
             part.setYRot(yaw);
+            part.yHeadRotO = part.yHeadRot;
             part.yHeadRot = yaw;
-            part.yHeadRotO = yaw;
+            part.yBodyRotO = part.yBodyRot;
             part.yBodyRot = yaw;
-            part.yBodyRotO = yaw;
             part.setPosRaw(center.x, center.y, center.z);
 
             part.copyDataFrom(fakeHead);
