@@ -49,6 +49,7 @@ import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.FlyingAnimal;
 import dev.muon.otherworldorigins.client.shapeshift.AnacondaMultipartHandler;
 import dev.muon.otherworldorigins.client.shapeshift.FakeEntityCache;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftRenderHelper;
@@ -61,6 +62,15 @@ import javax.annotation.Nullable;
 
 public class OtherworldOriginScreen extends Screen {
 
+    /**
+     * Matches stock {@code ChooseOriginScreen} (impact, then datapack {@code order}), with a final
+     * stable tie-breaker so lists stay consistent when multiple origins share impact and default order.
+     */
+    private static final Comparator<Holder<Origin>> CHOOSABLE_ORIGIN_ORDER = Comparator
+            .comparingInt((Holder<Origin> a) -> a.value().getImpact().getImpactValue())
+            .thenComparingInt(a -> a.value().getOrder())
+            .thenComparing(a -> a.unwrapKey().map(k -> k.location().toString()).orElse(""));
+
     private final List<Holder<OriginLayer>> layerList;
     private int currentLayerIndex;
     private final boolean showDirtBackground;
@@ -72,8 +82,14 @@ public class OtherworldOriginScreen extends Screen {
     private Holder<Origin> selectedOrigin = null;
 
     private float[] cardExpandProgress = new float[0];
+    /** Layer index of a completed (non-active) row slot hovered last frame; drives expand animation. */
+    @Nullable
+    private Integer hoveredCompletedLayerIndex = null;
+    private final Map<Integer, Float> completedCardExpandProgress = new HashMap<>();
     private int rightPanelScrollPos = 0;
     private int rightPanelMaxScroll = 0;
+    @Nullable
+    private ResourceKey<Origin> lastRightPanelOriginKey = null;
     private float time = 0.0f;
 
     private List<FormattedCharSequence> sheetLines = new ArrayList<>();
@@ -85,6 +101,10 @@ public class OtherworldOriginScreen extends Screen {
     private static final int CARD_EXPANDED_WIDTH = 32;
     private static final int CARD_HEIGHT = 32;
     private static final int ICON_SIZE = 16;
+    private static final int COMPLETED_ROW_GAP = 4;
+    private static final int COMPLETED_NAME_GAP = 4;
+    /** Horizontal slot when a completed choice shows icon only (no name). */
+    private static final int COMPLETED_ICON_COLLAPSED_WIDTH = ICON_SIZE + 2;
     private static final int COMPLETED_PORTRAIT_HEIGHT = 36;
     private static final int COMPLETED_ICON_HEIGHT = 22;
     private static final ResourceLocation CHARACTER_SHEET = OtherworldOrigins.loc("textures/gui/character_sheet.png");
@@ -181,7 +201,7 @@ public class OtherworldOriginScreen extends Screen {
         
         List<Holder<Origin>> availableOrigins = currentLayer.value().origins(player).stream()
             .filter(originHolder -> originHolder.isBound() && originHolder.value().isChoosable())
-            .sorted(Comparator.comparingInt(a -> a.value().getImpact().getImpactValue()))
+            .sorted(CHOOSABLE_ORIGIN_ORDER)
             .collect(Collectors.toList());
 
         if (availableOrigins.isEmpty()) {
@@ -231,6 +251,7 @@ public class OtherworldOriginScreen extends Screen {
         for (int i = index; i < this.layerList.size(); i++) {
             this.confirmedSelections.remove(i);
             this.layerOriginCache.remove(i);
+            this.completedCardExpandProgress.remove(i);
             
             Holder<OriginLayer> layer = this.layerList.get(i);
             ResourceLocation layerId = layer.unwrapKey().map(ResourceKey::location).orElse(null);
@@ -279,6 +300,27 @@ public class OtherworldOriginScreen extends Screen {
     private void updateButtonStates() {
         this.selectButton.active = this.selectedOrigin != null;
     }
+
+    /**
+     * Origin whose details are shown in the right panel: completed-row hover wins, then active-row
+     * hover, then the active-layer selection.
+     */
+    @Nullable
+    private Holder<Origin> getRightPanelDisplayOrigin() {
+        if (this.hoveredCompletedLayerIndex != null) {
+            Holder<Origin> o = this.confirmedSelections.get(this.hoveredCompletedLayerIndex);
+            if (o != null && o.isBound()) {
+                return o;
+            }
+        }
+        if (this.hoveredOrigin != null && this.hoveredOrigin.isBound()) {
+            return this.hoveredOrigin;
+        }
+        if (this.selectedOrigin != null && this.selectedOrigin.isBound()) {
+            return this.selectedOrigin;
+        }
+        return null;
+    }
     private boolean isPortraitLayer(Holder<OriginLayer> layer) {
         ResourceLocation id = layer.unwrapKey().map(ResourceKey::location).orElse(null);
         return id != null && (id.equals(OtherworldOrigins.loc("race")) || id.equals(OtherworldOrigins.loc("subrace")));
@@ -291,6 +333,38 @@ public class OtherworldOriginScreen extends Screen {
         OtherworldOrigins.loc("plus_one_aptitude_resilient"), OtherworldOrigins.loc("wildshape")
     );
 
+    private int findLayerIndexForId(ResourceLocation layerId) {
+        for (int i = 0; i < this.layerList.size(); i++) {
+            ResourceLocation id = this.layerList.get(i).unwrapKey().map(ResourceKey::location).orElse(null);
+            if (layerId.equals(id)) return i;
+        }
+        return -1;
+    }
+
+    /**
+     * Human variant: +2/+2 stat picks ({@code plus_two_aptitude_*}) and free feat share one completed row.
+     */
+    private boolean isAptitudeFreeTripleComplete() {
+        int apt1 = findLayerIndexForId(OtherworldOrigins.loc("plus_two_aptitude_one"));
+        int apt2 = findLayerIndexForId(OtherworldOrigins.loc("plus_two_aptitude_two"));
+        int free = findLayerIndexForId(OtherworldOrigins.loc("free_feat"));
+        if (apt1 < 0 || apt2 < 0 || free < 0) return false;
+        if (apt1 >= this.currentLayerIndex || apt2 >= this.currentLayerIndex || free >= this.currentLayerIndex) {
+            return false;
+        }
+        return this.confirmedSelections.containsKey(apt1)
+                && this.confirmedSelections.containsKey(apt2)
+                && this.confirmedSelections.containsKey(free);
+    }
+
+    /** Layer index where the +2/+2/free-feat triple row is emitted (first of the three in stack order). */
+    private int aptitudeFreeTripleAnchorIndex() {
+        int apt1 = findLayerIndexForId(OtherworldOrigins.loc("plus_two_aptitude_one"));
+        int apt2 = findLayerIndexForId(OtherworldOrigins.loc("plus_two_aptitude_two"));
+        int free = findLayerIndexForId(OtherworldOrigins.loc("free_feat"));
+        if (apt1 < 0 || apt2 < 0 || free < 0) return -1;
+        return Math.min(apt1, Math.min(apt2, free));
+    }
 
     private int getEffectiveCardCollapsedWidth() {
         int paperLeft = this.width / 2 - 128;
@@ -317,61 +391,115 @@ public class OtherworldOriginScreen extends Screen {
         updateAnimations();
 
         if (this.dynamicPromptMode) {
-            Holder<Origin> displayOrigin = this.hoveredOrigin != null ? this.hoveredOrigin : this.selectedOrigin;
+            Holder<Origin> displayOrigin = getRightPanelDisplayOrigin();
             if (displayOrigin != null && displayOrigin.isBound()) {
                 ResourceLocation entityTypeId = getShapeshiftEntityType(displayOrigin);
-                if (entityTypeId != null && AnacondaMultipartHandler.isAnaconda(entityTypeId)) {
+                if (entityTypeId != null) {
                     Entity previewEntity = FakeEntityCache.getOrCreate(PREVIEW_ENTITY_CACHE_ID, entityTypeId);
                     if (previewEntity instanceof LivingEntity living) {
-                        Player player = Minecraft.getInstance().player;
-                        double startX = player != null ? player.getX() : 0;
-                        double startY = player != null ? player.getY() : 0;
-                        double startZ = player != null ? player.getZ() : 0;
-
-                        if (living.tickCount == 0) {
-                            living.setPos(startX, startY, startZ);
+                        if (AnacondaMultipartHandler.isAnaconda(entityTypeId)) {
+                            tickWildshapePreviewAnaconda(living);
+                        } else {
+                            tickWildshapePreviewIdle(living);
                         }
-
-                        living.xo = living.getX();
-                        living.yo = living.getY();
-                        living.zo = living.getZ();
-                        living.yBodyRotO = living.yBodyRot;
-                        living.yRotO = living.getYRot();
-                        living.yHeadRotO = living.yHeadRot;
-
-                        living.tickCount++;
-                        living.walkDist += 0.08f;
-                        
-                        float simAngleDeg = living.tickCount * 1.5f; 
-                        float yawRad = (float) Math.toRadians(180 + simAngleDeg);
-                        
-                        double speed = 0.08;
-                        double nx = living.getX() - Math.sin(yawRad) * speed;
-                        double nz = living.getZ() + Math.cos(yawRad) * speed;
-                        living.setPos(nx, startY, nz);
-                        
-                        float newYaw = 180 + simAngleDeg;
-                        living.setYRot(newYaw);
-                        living.yBodyRot = newYaw;
-                        living.yHeadRot = newYaw;
-                        
-                        AnacondaMultipartHandler.tickAndPosition(PREVIEW_ENTITY_CACHE_ID, living, (com.github.alexthe666.alexsmobs.entity.EntityAnaconda) living, true);
                     }
                 }
             }
         }
     }
 
-    private void updateAnimations() {
-        if (this.currentLayerIndex >= this.layerList.size()) return;
-        List<Holder<Origin>> options = this.layerOriginCache.get(this.currentLayerIndex);
-        if (options == null || !isPortraitLayer(this.layerList.get(this.currentLayerIndex))) return;
+    /** Advances client age + walk decay so {@link InventoryScreen#renderEntityInInventory} shows idle posing. */
+    private static void tickWildshapePreviewIdle(LivingEntity living) {
+        Player player = Minecraft.getInstance().player;
+        double anchorX = player != null ? player.getX() : 0;
+        double anchorY = player != null ? player.getY() : 0;
+        double anchorZ = player != null ? player.getZ() : 0;
 
-        for (int i = 0; i < this.cardExpandProgress.length; i++) {
-            boolean isHovered = (this.hoveredOrigin != null && this.hoveredOrigin.equals(options.get(i)));
-            float target = isHovered ? 1.0f : 0.0f;
-            this.cardExpandProgress[i] = net.minecraft.util.Mth.lerp(0.3f, this.cardExpandProgress[i], target);
+        if (living.tickCount == 0) {
+            living.setPos(anchorX, anchorY, anchorZ);
         }
+
+        living.xo = living.getX();
+        living.yo = living.getY();
+        living.zo = living.getZ();
+        living.yBodyRotO = living.yBodyRot;
+        living.yRotO = living.getYRot();
+        living.yHeadRotO = living.yHeadRot;
+        living.xRotO = living.getXRot();
+
+        living.tickCount++;
+        living.calculateEntityAnimation(living instanceof FlyingAnimal);
+    }
+
+    private void tickWildshapePreviewAnaconda(LivingEntity living) {
+        Player player = Minecraft.getInstance().player;
+        double startX = player != null ? player.getX() : 0;
+        double startY = player != null ? player.getY() : 0;
+        double startZ = player != null ? player.getZ() : 0;
+
+        if (living.tickCount == 0) {
+            living.setPos(startX, startY, startZ);
+        }
+
+        living.xo = living.getX();
+        living.yo = living.getY();
+        living.zo = living.getZ();
+        living.yBodyRotO = living.yBodyRot;
+        living.yRotO = living.getYRot();
+        living.yHeadRotO = living.yHeadRot;
+
+        living.tickCount++;
+        living.walkDist += 0.08f;
+
+        float simAngleDeg = living.tickCount * 1.5f;
+        float yawRad = (float) Math.toRadians(180 + simAngleDeg);
+
+        double speed = 0.08;
+        double nx = living.getX() - Math.sin(yawRad) * speed;
+        double nz = living.getZ() + Math.cos(yawRad) * speed;
+        living.setPos(nx, startY, nz);
+
+        float newYaw = 180 + simAngleDeg;
+        living.setYRot(newYaw);
+        living.yBodyRot = newYaw;
+        living.yHeadRot = newYaw;
+
+        AnacondaMultipartHandler.tickAndPosition(PREVIEW_ENTITY_CACHE_ID, living, (EntityAnaconda) living, true);
+    }
+
+    private void updateAnimations() {
+        if (this.currentLayerIndex < this.layerList.size()) {
+            List<Holder<Origin>> options = this.layerOriginCache.get(this.currentLayerIndex);
+            if (options != null && isPortraitLayer(this.layerList.get(this.currentLayerIndex))) {
+                for (int i = 0; i < this.cardExpandProgress.length; i++) {
+                    boolean isHovered = (this.hoveredOrigin != null && this.hoveredOrigin.equals(options.get(i)));
+                    float target = isHovered ? 1.0f : 0.0f;
+                    this.cardExpandProgress[i] = net.minecraft.util.Mth.lerp(0.5f, this.cardExpandProgress[i], target);
+                }
+            }
+        }
+
+        for (Map.Entry<Integer, Holder<Origin>> entry : this.confirmedSelections.entrySet()) {
+            int layerIdx = entry.getKey();
+            if (layerIdx >= this.currentLayerIndex) continue;
+            float target = (this.hoveredCompletedLayerIndex != null && this.hoveredCompletedLayerIndex.equals(layerIdx))
+                    ? 1.0f
+                    : 0.0f;
+            float cur = this.completedCardExpandProgress.getOrDefault(layerIdx, 0.0f);
+            this.completedCardExpandProgress.put(layerIdx, net.minecraft.util.Mth.lerp(0.5f, cur, target));
+        }
+    }
+
+    private int getCompletedCollapsedWidth(Holder<OriginLayer> layer) {
+        return isPortraitLayer(layer) ? CARD_COLLAPSED_WIDTH : COMPLETED_ICON_COLLAPSED_WIDTH;
+    }
+
+    private int getCompletedSlotWidth(Holder<OriginLayer> layer, Holder<Origin> origin, float expandProgress) {
+        float p = net.minecraft.util.Mth.clamp(expandProgress, 0.0f, 1.0f);
+        int collapsed = getCompletedCollapsedWidth(layer);
+        int nameW = this.font.width(origin.value().getName());
+        int expanded = collapsed + COMPLETED_NAME_GAP + nameW;
+        return (int) net.minecraft.util.Mth.lerp(p, collapsed, expanded);
     }
 
     private void rebuildCharacterSheetText() {
@@ -597,7 +725,7 @@ public class OtherworldOriginScreen extends Screen {
         renderLeftPanel(graphics, mouseX, mouseY);
         renderRightPanel(graphics, mouseX, mouseY);
 
-        boolean hasInfoPanel = this.hoveredOrigin != null || this.selectedOrigin != null;
+        boolean hasInfoPanel = getRightPanelDisplayOrigin() != null;
         this.selectButton.visible = hasInfoPanel;
         this.selectButton.active = this.selectedOrigin != null;
 
@@ -611,7 +739,28 @@ public class OtherworldOriginScreen extends Screen {
         ResourceLocation pairedId = null;
         if (layerId.equals(OtherworldOrigins.loc("race"))) pairedId = OtherworldOrigins.loc("subrace");
         else if (layerId.equals(OtherworldOrigins.loc("class"))) pairedId = OtherworldOrigins.loc("subclass");
-        else return null;
+        else if (layerId.equals(OtherworldOrigins.loc("cantrip_one"))) pairedId = OtherworldOrigins.loc("cantrip_two");
+        else if (layerId.equals(OtherworldOrigins.loc("cantrip_two"))) pairedId = OtherworldOrigins.loc("cantrip_one");
+        else if (layerId.equals(OtherworldOrigins.loc("plus_two_aptitude_one"))) pairedId = OtherworldOrigins.loc("plus_two_aptitude_two");
+        else if (layerId.equals(OtherworldOrigins.loc("plus_two_aptitude_two"))) pairedId = OtherworldOrigins.loc("plus_two_aptitude_one");
+        else if (layerId.equals(OtherworldOrigins.loc("plus_one_aptitude_one"))) pairedId = OtherworldOrigins.loc("plus_one_aptitude_two");
+        else if (layerId.equals(OtherworldOrigins.loc("plus_one_aptitude_two"))) pairedId = OtherworldOrigins.loc("plus_one_aptitude_one");
+        else if (layerId.equals(OtherworldOrigins.loc("first_feat"))) pairedId = OtherworldOrigins.loc("second_feat");
+        else if (layerId.equals(OtherworldOrigins.loc("second_feat"))) pairedId = OtherworldOrigins.loc("first_feat");
+        else if (layerId.equals(OtherworldOrigins.loc("third_feat"))) pairedId = OtherworldOrigins.loc("fourth_feat");
+        else if (layerId.equals(OtherworldOrigins.loc("fourth_feat"))) pairedId = OtherworldOrigins.loc("third_feat");
+        else {
+            return null;
+        }
+
+        if (isAptitudeFreeTripleComplete()) {
+            int apt1 = findLayerIndexForId(OtherworldOrigins.loc("plus_two_aptitude_one"));
+            int apt2 = findLayerIndexForId(OtherworldOrigins.loc("plus_two_aptitude_two"));
+            int free = findLayerIndexForId(OtherworldOrigins.loc("free_feat"));
+            if (index == apt1 || index == apt2 || index == free) {
+                return null;
+            }
+        }
 
         for (int j = 0; j < this.layerList.size(); j++) {
             if (j == index || !this.confirmedSelections.containsKey(j)) continue;
@@ -622,6 +771,7 @@ public class OtherworldOriginScreen extends Screen {
     }
 
     private void renderLeftPanel(GuiGraphics graphics, int mouseX, int mouseY) {
+        this.hoveredCompletedLayerIndex = null;
         int x = 10;
         int y = 10;
 
@@ -655,12 +805,25 @@ public class OtherworldOriginScreen extends Screen {
                     }
                 }
             } else {
-                Integer pairIdx = findConfirmedPairIndex(i);
-                if (pairIdx != null) {
-                    renderedAsPair.add(pairIdx);
-                    renderCompletedPairRow(graphics, i, pairIdx, x, y, mouseX, mouseY);
+                int tripleAnchor = aptitudeFreeTripleAnchorIndex();
+                if (tripleAnchor >= 0 && isAptitudeFreeTripleComplete() && i == tripleAnchor) {
+                    int apt1 = findLayerIndexForId(OtherworldOrigins.loc("plus_two_aptitude_one"));
+                    int apt2 = findLayerIndexForId(OtherworldOrigins.loc("plus_two_aptitude_two"));
+                    int free = findLayerIndexForId(OtherworldOrigins.loc("free_feat"));
+                    renderedAsPair.add(apt1);
+                    renderedAsPair.add(apt2);
+                    renderedAsPair.add(free);
+                    renderCompletedTripleRow(graphics, apt1, apt2, free, x, y, mouseX, mouseY);
                 } else {
-                    renderCompactCompletedRow(graphics, layer, this.confirmedSelections.get(i), x, y, mouseX, mouseY, i);
+                    Integer pairIdx = findConfirmedPairIndex(i);
+                    if (pairIdx != null) {
+                        renderedAsPair.add(pairIdx);
+                        int leftIdx = Math.min(i, pairIdx);
+                        int rightIdx = Math.max(i, pairIdx);
+                        renderCompletedPairRow(graphics, leftIdx, rightIdx, x, y, mouseX, mouseY);
+                    } else {
+                        renderCompactCompletedRow(graphics, layer, this.confirmedSelections.get(i), x, y, mouseX, mouseY, i);
+                    }
                 }
                 y += isPortraitLayer(layer) ? COMPLETED_PORTRAIT_HEIGHT : COMPLETED_ICON_HEIGHT;
             }
@@ -674,42 +837,110 @@ public class OtherworldOriginScreen extends Screen {
         Holder<Origin> rightOrigin = this.confirmedSelections.get(rightIdx);
         boolean portrait = isPortraitLayer(leftLayer);
         int rowH = portrait ? COMPLETED_PORTRAIT_HEIGHT : COMPLETED_ICON_HEIGHT;
-        int halfW = LEFT_PANEL_WIDTH / 2;
         int nameYOff = portrait ? 12 : 4;
 
-        boolean leftHov = mouseX >= x && mouseX < x + halfW && mouseY >= y && mouseY < y + rowH;
-        boolean rightHov = mouseX >= x + halfW && mouseX < x + LEFT_PANEL_WIDTH && mouseY >= y && mouseY < y + rowH;
+        float pL = this.completedCardExpandProgress.getOrDefault(leftIdx, 0.0f);
+        float pR = this.completedCardExpandProgress.getOrDefault(rightIdx, 0.0f);
+        int wL = getCompletedSlotWidth(leftLayer, leftOrigin, pL);
+        int wR = getCompletedSlotWidth(rightLayer, rightOrigin, pR);
 
-        if (leftHov) graphics.fill(x - 2, y - 2, x + halfW, y + rowH, 0x22FFFFFF);
-        if (rightHov) graphics.fill(x + halfW, y - 2, x + LEFT_PANEL_WIDTH + 2, y + rowH, 0x22FFFFFF);
+        int lx = x;
+        int rx = lx + wL + COMPLETED_ROW_GAP;
 
-        renderCompletedItem(graphics, leftLayer, leftOrigin, x, y, nameYOff, leftHov);
+        boolean leftHov = mouseX >= lx && mouseX < lx + wL && mouseY >= y && mouseY < y + rowH;
+        boolean rightHov = mouseX >= rx && mouseX < rx + wR && mouseY >= y && mouseY < y + rowH;
 
-        int rx = x + halfW + 4;
-        renderCompletedItem(graphics, rightLayer, rightOrigin, rx, y, nameYOff, rightHov);
+        if (leftHov) {
+            this.hoveredCompletedLayerIndex = leftIdx;
+        } else if (rightHov) {
+            this.hoveredCompletedLayerIndex = rightIdx;
+        }
+
+        if (leftHov) graphics.fill(lx - 2, y - 2, lx + wL, y + rowH, 0x22FFFFFF);
+        if (rightHov) graphics.fill(rx - 2, y - 2, rx + wR, y + rowH, 0x22FFFFFF);
+
+        renderCompletedSlot(graphics, leftLayer, leftOrigin, lx, y, wL, rowH, pL, nameYOff, leftHov);
+        renderCompletedSlot(graphics, rightLayer, rightOrigin, rx, y, wR, rowH, pR, nameYOff, rightHov);
+    }
+
+    private void renderCompletedTripleRow(GuiGraphics graphics, int leftIdx, int midIdx, int rightIdx, int x, int y, int mouseX, int mouseY) {
+        Holder<OriginLayer> leftLayer = this.layerList.get(leftIdx);
+        Holder<Origin> leftOrigin = this.confirmedSelections.get(leftIdx);
+        Holder<OriginLayer> midLayer = this.layerList.get(midIdx);
+        Holder<Origin> midOrigin = this.confirmedSelections.get(midIdx);
+        Holder<OriginLayer> rightLayer = this.layerList.get(rightIdx);
+        Holder<Origin> rightOrigin = this.confirmedSelections.get(rightIdx);
+
+        boolean portrait = isPortraitLayer(leftLayer);
+        int rowH = portrait ? COMPLETED_PORTRAIT_HEIGHT : COMPLETED_ICON_HEIGHT;
+        int nameYOff = portrait ? 12 : 4;
+
+        float pL = this.completedCardExpandProgress.getOrDefault(leftIdx, 0.0f);
+        float pM = this.completedCardExpandProgress.getOrDefault(midIdx, 0.0f);
+        float pR = this.completedCardExpandProgress.getOrDefault(rightIdx, 0.0f);
+        int wL = getCompletedSlotWidth(leftLayer, leftOrigin, pL);
+        int wM = getCompletedSlotWidth(midLayer, midOrigin, pM);
+        int wR = getCompletedSlotWidth(rightLayer, rightOrigin, pR);
+
+        int lx = x;
+        int mx = lx + wL + COMPLETED_ROW_GAP;
+        int rx = mx + wM + COMPLETED_ROW_GAP;
+
+        boolean leftHov = mouseX >= lx && mouseX < lx + wL && mouseY >= y && mouseY < y + rowH;
+        boolean midHov = mouseX >= mx && mouseX < mx + wM && mouseY >= y && mouseY < y + rowH;
+        boolean rightHov = mouseX >= rx && mouseX < rx + wR && mouseY >= y && mouseY < y + rowH;
+
+        if (leftHov) {
+            this.hoveredCompletedLayerIndex = leftIdx;
+        } else if (midHov) {
+            this.hoveredCompletedLayerIndex = midIdx;
+        } else if (rightHov) {
+            this.hoveredCompletedLayerIndex = rightIdx;
+        }
+
+        if (leftHov) graphics.fill(lx - 2, y - 2, lx + wL, y + rowH, 0x22FFFFFF);
+        if (midHov) graphics.fill(mx - 2, y - 2, mx + wM, y + rowH, 0x22FFFFFF);
+        if (rightHov) graphics.fill(rx - 2, y - 2, rx + wR, y + rowH, 0x22FFFFFF);
+
+        renderCompletedSlot(graphics, leftLayer, leftOrigin, lx, y, wL, rowH, pL, nameYOff, leftHov);
+        renderCompletedSlot(graphics, midLayer, midOrigin, mx, y, wM, rowH, pM, nameYOff, midHov);
+        renderCompletedSlot(graphics, rightLayer, rightOrigin, rx, y, wR, rowH, pR, nameYOff, rightHov);
     }
 
     private void renderCompactCompletedRow(GuiGraphics graphics, Holder<OriginLayer> layer, Holder<Origin> origin, int x, int y, int mouseX, int mouseY, int layerIndex) {
         boolean portrait = isPortraitLayer(layer);
         int rowH = portrait ? COMPLETED_PORTRAIT_HEIGHT : COMPLETED_ICON_HEIGHT;
-        boolean isHovered = mouseX >= x && mouseX <= x + LEFT_PANEL_WIDTH && mouseY >= y && mouseY < y + rowH;
+        float p = this.completedCardExpandProgress.getOrDefault(layerIndex, 0.0f);
+        int slotW = getCompletedSlotWidth(layer, origin, p);
+        boolean isHovered = mouseX >= x && mouseX < x + slotW && mouseY >= y && mouseY < y + rowH;
 
-        if (isHovered) graphics.fill(x - 2, y - 2, x + LEFT_PANEL_WIDTH, y + rowH, 0x22FFFFFF);
+        if (isHovered) {
+            this.hoveredCompletedLayerIndex = layerIndex;
+        }
+        if (isHovered) graphics.fill(x - 2, y - 2, x + slotW, y + rowH, 0x22FFFFFF);
 
         int nameYOff = portrait ? 12 : 4;
-        renderCompletedItem(graphics, layer, origin, x, y, nameYOff, isHovered);
+        renderCompletedSlot(graphics, layer, origin, x, y, slotW, rowH, p, nameYOff, isHovered);
     }
 
-    private void renderCompletedItem(GuiGraphics graphics, Holder<OriginLayer> layer, Holder<Origin> origin, int x, int y, int nameYOff, boolean bright) {
+    private void renderCompletedSlot(GuiGraphics graphics, Holder<OriginLayer> layer, Holder<Origin> origin, int drawX, int y, int slotWidth, int rowHeight, float expandProgress, int nameYOff, boolean bright) {
+        int iconW = getCompletedCollapsedWidth(layer);
         if (isPortraitLayer(layer)) {
             ResourceLocation texture = getPortraitTexture(origin.value().getIcon());
             if (!bright) RenderSystem.setShaderColor(0.6f, 0.6f, 0.6f, 1.0f);
-            graphics.blit(texture, x, y, 0, 0, CARD_COLLAPSED_WIDTH, CARD_HEIGHT, 32, 32);
+            graphics.blit(texture, drawX, y, 0, 0, CARD_COLLAPSED_WIDTH, CARD_HEIGHT, 32, 32);
             if (!bright) RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         } else {
-            renderIcon(graphics, origin, x, y);
+            renderIcon(graphics, origin, drawX, y);
         }
-        graphics.drawString(this.font, origin.value().getName(), x + 20, y + nameYOff, bright ? 0xFFFFFF : 0xAAAAAA, true);
+        int textAvail = slotWidth - iconW - COMPLETED_NAME_GAP;
+        if (textAvail > 0 && expandProgress > 0.02f) {
+            int textX = drawX + iconW + COMPLETED_NAME_GAP;
+            int textColor = bright ? 0xFFFFFF : 0xAAAAAA;
+            graphics.enableScissor(textX, y, drawX + slotWidth, y + rowHeight);
+            graphics.drawString(this.font, origin.value().getName(), textX, y + nameYOff, textColor, true);
+            graphics.disableScissor();
+        }
     }
 
     private void renderPortraitRow(GuiGraphics graphics, List<Holder<Origin>> options, int startX, int startY, int mouseX, int mouseY) {
@@ -835,7 +1066,7 @@ public class OtherworldOriginScreen extends Screen {
     private static final float ISOMETRIC_TILT = (float) Math.toRadians(-20);
 
     private void renderWildshapePreview(GuiGraphics graphics) {
-        Holder<Origin> displayOrigin = this.hoveredOrigin != null ? this.hoveredOrigin : this.selectedOrigin;
+        Holder<Origin> displayOrigin = getRightPanelDisplayOrigin();
         if (displayOrigin == null || !displayOrigin.isBound()) return;
 
         ResourceLocation entityTypeId = getShapeshiftEntityType(displayOrigin);
@@ -1010,8 +1241,17 @@ public class OtherworldOriginScreen extends Screen {
     }
 
     private void renderRightPanel(GuiGraphics graphics, int mouseX, int mouseY) {
-        Holder<Origin> displayOrigin = this.hoveredOrigin != null ? this.hoveredOrigin : this.selectedOrigin;
-        if (displayOrigin == null || !displayOrigin.isBound()) return;
+        Holder<Origin> displayOrigin = getRightPanelDisplayOrigin();
+        if (displayOrigin == null || !displayOrigin.isBound()) {
+            this.lastRightPanelOriginKey = null;
+            return;
+        }
+
+        ResourceKey<Origin> originKey = displayOrigin.unwrapKey().orElse(null);
+        if (!java.util.Objects.equals(originKey, this.lastRightPanelOriginKey)) {
+            this.rightPanelScrollPos = 0;
+            this.lastRightPanelOriginKey = originKey;
+        }
 
         int panelX = this.width - RIGHT_PANEL_WIDTH - 10;
         int panelY = 20;
@@ -1255,23 +1495,75 @@ public class OtherworldOriginScreen extends Screen {
             } else {
                 boolean portrait = isPortraitLayer(layer);
                 int rowH = portrait ? COMPLETED_PORTRAIT_HEIGHT : COMPLETED_ICON_HEIGHT;
-                Integer pairIdx = findConfirmedPairIndex(i);
-
-                if (pairIdx != null) {
-                    clickedAsPair.add(pairIdx);
-                    int halfW = LEFT_PANEL_WIDTH / 2;
-                    if (mouseX >= x && mouseX < x + halfW && mouseY >= y && mouseY < y + rowH) {
-                        revertToLayer(i);
+                int tripleAnchor = aptitudeFreeTripleAnchorIndex();
+                if (tripleAnchor >= 0 && isAptitudeFreeTripleComplete() && i == tripleAnchor) {
+                    int apt1 = findLayerIndexForId(OtherworldOrigins.loc("plus_two_aptitude_one"));
+                    int apt2 = findLayerIndexForId(OtherworldOrigins.loc("plus_two_aptitude_two"));
+                    int free = findLayerIndexForId(OtherworldOrigins.loc("free_feat"));
+                    clickedAsPair.add(apt1);
+                    clickedAsPair.add(apt2);
+                    clickedAsPair.add(free);
+                    Holder<OriginLayer> l1 = this.layerList.get(apt1);
+                    Holder<Origin> o1 = this.confirmedSelections.get(apt1);
+                    Holder<OriginLayer> l2 = this.layerList.get(apt2);
+                    Holder<Origin> o2 = this.confirmedSelections.get(apt2);
+                    Holder<OriginLayer> lf = this.layerList.get(free);
+                    Holder<Origin> of = this.confirmedSelections.get(free);
+                    int rowHt = isPortraitLayer(l1) ? COMPLETED_PORTRAIT_HEIGHT : COMPLETED_ICON_HEIGHT;
+                    float p1 = this.completedCardExpandProgress.getOrDefault(apt1, 0.0f);
+                    float p2 = this.completedCardExpandProgress.getOrDefault(apt2, 0.0f);
+                    float pf = this.completedCardExpandProgress.getOrDefault(free, 0.0f);
+                    int w1 = getCompletedSlotWidth(l1, o1, p1);
+                    int w2 = getCompletedSlotWidth(l2, o2, p2);
+                    int wf = getCompletedSlotWidth(lf, of, pf);
+                    int lx = x;
+                    int mx = lx + w1 + COMPLETED_ROW_GAP;
+                    int rx = mx + w2 + COMPLETED_ROW_GAP;
+                    if (mouseX >= lx && mouseX < lx + w1 && mouseY >= y && mouseY < y + rowHt) {
+                        revertToLayer(apt1);
                         return true;
                     }
-                    if (mouseX >= x + halfW && mouseX < x + LEFT_PANEL_WIDTH && mouseY >= y && mouseY < y + rowH) {
-                        revertToLayer(pairIdx);
+                    if (mouseX >= mx && mouseX < mx + w2 && mouseY >= y && mouseY < y + rowHt) {
+                        revertToLayer(apt2);
+                        return true;
+                    }
+                    if (mouseX >= rx && mouseX < rx + wf && mouseY >= y && mouseY < y + rowHt) {
+                        revertToLayer(free);
                         return true;
                     }
                 } else {
-                    if (mouseX >= x && mouseX <= x + LEFT_PANEL_WIDTH && mouseY >= y && mouseY < y + rowH) {
-                        revertToLayer(i);
-                        return true;
+                    Integer pairIdx = findConfirmedPairIndex(i);
+
+                    if (pairIdx != null) {
+                        clickedAsPair.add(pairIdx);
+                        int leftIdx = Math.min(i, pairIdx);
+                        int rightIdx = Math.max(i, pairIdx);
+                        Holder<OriginLayer> leftLayer = this.layerList.get(leftIdx);
+                        Holder<Origin> leftOrigin = this.confirmedSelections.get(leftIdx);
+                        Holder<OriginLayer> rightLayer = this.layerList.get(rightIdx);
+                        Holder<Origin> rightOrigin = this.confirmedSelections.get(rightIdx);
+                        float pL = this.completedCardExpandProgress.getOrDefault(leftIdx, 0.0f);
+                        float pR = this.completedCardExpandProgress.getOrDefault(rightIdx, 0.0f);
+                        int wL = getCompletedSlotWidth(leftLayer, leftOrigin, pL);
+                        int wR = getCompletedSlotWidth(rightLayer, rightOrigin, pR);
+                        int lx = x;
+                        int rx = lx + wL + COMPLETED_ROW_GAP;
+                        if (mouseX >= lx && mouseX < lx + wL && mouseY >= y && mouseY < y + rowH) {
+                            revertToLayer(leftIdx);
+                            return true;
+                        }
+                        if (mouseX >= rx && mouseX < rx + wR && mouseY >= y && mouseY < y + rowH) {
+                            revertToLayer(rightIdx);
+                            return true;
+                        }
+                    } else {
+                        Holder<Origin> origin = this.confirmedSelections.get(i);
+                        float p = this.completedCardExpandProgress.getOrDefault(i, 0.0f);
+                        int slotW = getCompletedSlotWidth(layer, origin, p);
+                        if (mouseX >= x && mouseX < x + slotW && mouseY >= y && mouseY < y + rowH) {
+                            revertToLayer(i);
+                            return true;
+                        }
                     }
                 }
                 y += rowH;
@@ -1283,16 +1575,13 @@ public class OtherworldOriginScreen extends Screen {
     
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
-        int panelX = this.width - RIGHT_PANEL_WIDTH - 10;
-        int panelY = 20;
-        int panelHeight = this.height - 60;
-        
-        if (mouseX >= panelX && mouseX <= panelX + RIGHT_PANEL_WIDTH && mouseY >= panelY && mouseY <= panelY + panelHeight) {
-            int np = this.rightPanelScrollPos - (int)scroll * 12;
-            this.rightPanelScrollPos = np < 0 ? 0 : Math.min(np, this.rightPanelMaxScroll);
-            return true;
+        Holder<Origin> displayOrigin = getRightPanelDisplayOrigin();
+        if (displayOrigin == null || !displayOrigin.isBound() || this.rightPanelMaxScroll <= 0) {
+            return super.mouseScrolled(mouseX, mouseY, scroll);
         }
-        return super.mouseScrolled(mouseX, mouseY, scroll);
+        int np = this.rightPanelScrollPos - (int) scroll * 12;
+        this.rightPanelScrollPos = np < 0 ? 0 : Math.min(np, this.rightPanelMaxScroll);
+        return true;
     }
     
     @Override
