@@ -872,6 +872,7 @@
   "otherworldorigins.gui.final_confirm.cantrips_header": "Cantrips",
   "otherworldorigins.gui.final_confirm.aptitudes_header": "Aptitude Bonuses",
   "otherworldorigins.gui.final_confirm.main_description_name_only": "You are %s.",
+  "otherworldorigins.gui.final_confirm.pick_left_to_start": "Pick something on the left to begin",
   "otherworldorigins.gui.final_confirm.main_description_race_only": "You are %s, a %s %s.",
   "otherworldorigins.gui.final_confirm.main_description_race_only_no_race": "You are %s, a %s.",
   "otherworldorigins.gui.final_confirm.main_description": "You are %s, a %s %s with %s %s heritage.",

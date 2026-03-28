@@ -521,14 +521,22 @@ public class OtherworldOriginScreen extends Screen {
 
         if (race == null) {
             addSheetText(Component.translatable("otherworldorigins.gui.final_confirm.main_description_name_only", playerName));
+            if (this.confirmedSelections.isEmpty()) {
+                this.sheetLines.add(FormattedCharSequence.EMPTY);
+                addSheetText(Component.translatable("otherworldorigins.gui.final_confirm.pick_left_to_start"));
+            }
             return;
         }
         
         Component mainText;
         if (className == null) {
             if (race.equals("Other") || race.equals("Undead")) {
-                mainText = Component.translatable("otherworldorigins.gui.final_confirm.main_description_race_only_no_race", 
-                        playerName, subrace != null ? subrace : race);
+                if ((race.equals("Other") || race.equals("Undead")) && (subrace == null || subrace.isEmpty())) {
+                    mainText = Component.translatable("otherworldorigins.gui.final_confirm.main_description_name_only", playerName);
+                } else {
+                    mainText = Component.translatable("otherworldorigins.gui.final_confirm.main_description_race_only_no_race",
+                            playerName, subrace != null ? subrace : race);
+                }
             } else {
                 mainText = Component.translatable("otherworldorigins.gui.final_confirm.main_description_race_only", 
                         playerName, subrace != null ? subrace : "", race);
