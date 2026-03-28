@@ -5,6 +5,7 @@
 - New spell restrictions
 - Lotsa cantrips
 - Better enchantment cost reduction 
+- New selection screen
 
 ## 1.5.0
 - Class balancing

@@ -11,9 +11,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Builds and caches Better Combat {@link WeaponAttributes} from shapeshift power
@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class ShapeshiftWeaponAttributes {
 
-    private static final Map<ResourceLocation, WeaponAttributes> CACHE = new HashMap<>();
+    private static final Map<ResourceLocation, WeaponAttributes> CACHE = new ConcurrentHashMap<>();
 
     private static final WeaponAttributes.Attack[] DEFAULT_ATTACKS = new WeaponAttributes.Attack[]{
             new WeaponAttributes.Attack(
@@ -53,7 +53,11 @@ public class ShapeshiftWeaponAttributes {
 
     @Nullable
     public static WeaponAttributes getOrBuild(ShapeshiftPower.Configuration config) {
-        return CACHE.computeIfAbsent(config.entityType(), id -> build(config));
+        try {
+            return CACHE.computeIfAbsent(config.entityType(), id -> build(config));
+        } catch (Exception e) {
+            return CACHE.get(config.entityType());
+        }
     }
 
     private static WeaponAttributes build(ShapeshiftPower.Configuration config) {

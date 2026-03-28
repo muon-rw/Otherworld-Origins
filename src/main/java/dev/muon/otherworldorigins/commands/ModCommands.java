@@ -5,6 +5,12 @@ import com.google.gson.GsonBuilder;
 import com.mojang.brigadier.CommandDispatcher;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.restrictions.ModSpellTags;
+import io.github.edwinmindcraft.origins.api.OriginsAPI;
+import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
+import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
+import io.github.edwinmindcraft.origins.common.OriginsCommon;
+import io.github.edwinmindcraft.origins.common.network.S2COpenOriginScreen;
+import io.github.edwinmindcraft.origins.common.registry.OriginRegisters;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.CastType;
@@ -12,18 +18,23 @@ import io.redspace.ironsspellbooks.api.spells.SchoolType;
 import io.redspace.ironsspellbooks.api.spells.SpellRarity;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.tags.TagKey;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.tags.ITagManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -36,11 +47,43 @@ public class ModCommands {
         CommandDispatcher<CommandSourceStack> dispatcher = event.getDispatcher();
 
         dispatcher.register(Commands.literal("otherworldorigins")
+                .then(Commands.literal("gui")
+                        .requires(source -> source.hasPermission(2))
+                        .executes(context -> openGui(context.getSource(), List.of(context.getSource().getPlayerOrException())))
+                        .then(Commands.argument("targets", EntityArgument.players())
+                                .executes(context -> openGui(context.getSource(), EntityArgument.getPlayers(context, "targets").stream().toList()))
+                        )
+                )
                 .then(Commands.literal("dumpSpells")
                         .requires(source -> source.hasPermission(2))
                         .executes(context -> dumpSpells(context.getSource()))
                 )
         );
+    }
+
+    private static int openGui(CommandSourceStack source, List<ServerPlayer> targets) {
+        for (ServerPlayer target : targets) {
+            IOriginContainer.get(target).ifPresent(container -> {
+                List<Holder.Reference<OriginLayer>> activeLayers = OriginsAPI.getActiveLayers().stream()
+                        .sorted(Comparator.comparing(Holder::value))
+                        .toList();
+                for (Holder<OriginLayer> layer : activeLayers) {
+                    container.setOrigin(layer.unwrapKey().orElseThrow(), OriginRegisters.EMPTY.getKey());
+                }
+                container.synchronize();
+                container.checkAutoChoosingLayers(false);
+                OriginsCommon.CHANNEL.send(
+                        PacketDistributor.PLAYER.with(() -> target),
+                        new S2COpenOriginScreen(false)
+                );
+            });
+        }
+        if (targets.size() == 1) {
+            source.sendSuccess(() -> Component.literal("Opened origin selection for " + targets.get(0).getDisplayName().getString()), true);
+        } else {
+            source.sendSuccess(() -> Component.literal("Opened origin selection for " + targets.size() + " players"), true);
+        }
+        return targets.size();
     }
 
     private static int dumpSpells(CommandSourceStack source) {

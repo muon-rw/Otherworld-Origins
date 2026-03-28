@@ -2,7 +2,7 @@ package dev.muon.otherworldorigins.util;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.client.screen.FinalConfirmScreen;
-import io.github.apace100.origins.screen.ChooseOriginScreen;
+import dev.muon.otherworldorigins.client.screen.OtherworldOriginScreen;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
 import net.minecraft.client.Minecraft;
@@ -14,6 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
@@ -41,22 +42,29 @@ public class ClientLayerScreenHelper {
             }
 
             Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
-            List<Holder<OriginLayer>> missingOriginLayers = new ArrayList<>();
 
+            Set<ResourceLocation> missingSet = new HashSet<>(validMissingLayers);
+            boolean hasMissing = false;
             for (ResourceLocation layerId : validMissingLayers) {
-                OriginLayer layer = layerRegistry.get(layerId);
-                if (layer != null) {
-                    missingOriginLayers.add(layerRegistry.getHolderOrThrow(layerRegistry.getResourceKey(layer).orElseThrow()));
+                if (layerRegistry.get(layerId) != null) {
+                    hasMissing = true;
+                    break;
                 }
             }
 
-            if (!missingOriginLayers.isEmpty()) {
-                OtherworldOrigins.LOGGER.info("Reopening selection screen for validated layers:");
-                for (Holder<OriginLayer> layerHolder : missingOriginLayers) {
-                    OtherworldOrigins.LOGGER.info("- " + layerHolder.value().name().getString());
+            if (hasMissing) {
+                List<Holder<OriginLayer>> allActiveLayers = new ArrayList<>();
+                for (Holder.Reference<OriginLayer> ref : OriginsAPI.getActiveLayers()) {
+                    allActiveLayers.add(ref);
+                }
+                allActiveLayers.sort(Comparator.comparing(Holder::value));
+
+                OtherworldOrigins.LOGGER.info("Reopening selection screen with all layers. Missing layers:");
+                for (ResourceLocation id : missingSet) {
+                    OtherworldOrigins.LOGGER.info("- " + id);
                 }
                 minecraft.execute(() -> {
-                    ChooseOriginScreen newScreen = new ChooseOriginScreen(missingOriginLayers, 0, false);
+                    OtherworldOriginScreen newScreen = new OtherworldOriginScreen(allActiveLayers, 0, false);
                     minecraft.setScreen(newScreen);
                 });
             }
@@ -92,7 +100,7 @@ public class ClientLayerScreenHelper {
                     OtherworldOrigins.LOGGER.debug("- " + layerHolder.value().name().getString());
                 }
                 minecraft.execute(() -> {
-                    ChooseOriginScreen newScreen = new ChooseOriginScreen(featOriginLayers, 0, false);
+                    OtherworldOriginScreen newScreen = new OtherworldOriginScreen(featOriginLayers, 0, false);
                     minecraft.setScreen(newScreen);
                 });
             }

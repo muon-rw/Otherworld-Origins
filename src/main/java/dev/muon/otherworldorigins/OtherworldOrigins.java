@@ -103,6 +103,12 @@ public class OtherworldOrigins {
                 .consumerMainThread(ResetOriginsMessage::handle)
                 .add();
 
+        CHANNEL.messageBuilder(C2SRevertLayerOriginsMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(C2SRevertLayerOriginsMessage::encode)
+                .decoder(C2SRevertLayerOriginsMessage::decode)
+                .consumerMainThread(C2SRevertLayerOriginsMessage::handle)
+                .add();
+
         CHANNEL.messageBuilder(CheckFeatScreenMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
                 .encoder(CheckFeatScreenMessage::encode)
                 .decoder(CheckFeatScreenMessage::decode)
