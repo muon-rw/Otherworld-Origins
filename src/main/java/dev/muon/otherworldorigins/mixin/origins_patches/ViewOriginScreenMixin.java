@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 import java.util.Objects;
 
-@Mixin(value = ViewOriginScreen.class, remap = false)
+@Mixin(ViewOriginScreen.class)
 public abstract class ViewOriginScreenMixin extends OriginDisplayScreen {
 
     @Shadow(remap = false) private Button chooseOriginButton;
