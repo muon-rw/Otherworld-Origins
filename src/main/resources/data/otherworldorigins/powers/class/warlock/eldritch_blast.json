@@ -93,7 +93,7 @@
         },
         {
           "type": "origins:delay",
-          "ticks": 5,
+          "ticks": 10,
           "action": {
             "type": "otherworldorigins:cast_spell",
             "spell": "magic_missile",
