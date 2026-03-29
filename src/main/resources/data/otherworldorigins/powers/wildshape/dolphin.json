@@ -59,6 +59,19 @@
         "type": "otherworldorigins:modify_max_air_supply",
         "bonus": 400
     },
+    "rapid_air_recovery": {
+        "type": "origins:action_over_time",
+        "interval": 5,
+        "condition": {
+            "inverted": true,
+            "type": "origins:submerged_in",
+            "fluid": "minecraft:water"
+        },
+        "entity_action": {
+            "type": "origins:gain_air",
+            "value": 50
+        }
+    },
     "echolocation": {
         "type": "origins:entity_glow",
         "bientity_condition": {

@@ -61,6 +61,23 @@
             }
         ]
     },
+    "extended_breath": {
+        "type": "otherworldorigins:modify_max_air_supply",
+        "bonus": 600
+    },
+    "rapid_air_recovery": {
+        "type": "origins:action_over_time",
+        "interval": 5,
+        "condition": {
+            "inverted": true,
+            "type": "origins:submerged_in",
+            "fluid": "minecraft:water"
+        },
+        "entity_action": {
+            "type": "origins:gain_air",
+            "value": 50
+        }
+    },
     "death_roll_cooldown": {
         "type": "origins:resource",
         "min": 0,
