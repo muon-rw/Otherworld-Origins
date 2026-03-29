@@ -1,12 +1,13 @@
 {
 	"powers": [
+		"otherworldorigins:subrace/undead/undead_vitals",
 		"otherworldorigins:subrace/undead/skeleton/attributes",
 		"otherworldorigins:subrace/undead/skeleton/bow_damage",
 		"otherworldorigins:subrace/undead/skeleton/vulnerability"
 	],
 	"icon": {
-		"item": "minecraft:skeleton_skull"
+		"item": "otherworldorigins:portrait/skeleton"
 	},
 	"impact": 3,
-	"order": 0
+	"order": 2
 }

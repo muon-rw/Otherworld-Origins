@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/gnome/rock"
 	],
 	"icon": {
-		"item": "minecraft:stone_shovel"
+		"item": "otherworldorigins:portrait/rock"
 	},
 	"impact": 1,
 	"order": 0

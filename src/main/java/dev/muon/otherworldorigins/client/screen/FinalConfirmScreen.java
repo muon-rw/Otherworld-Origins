@@ -94,6 +94,13 @@ public class FinalConfirmScreen extends Screen {
                 .build());
     }
     
+    private static String heritagePhrase(String subrace, String race) {
+        if (subrace != null && !subrace.isEmpty()) {
+            return subrace + " " + race;
+        }
+        return race;
+    }
+
     private void buildDisplayLines() {
         displayLines.clear();
         headerLineIndices.clear();
@@ -158,11 +165,10 @@ public class FinalConfirmScreen extends Screen {
                 String key = useAn ? "otherworldorigins.gui.final_confirm.main_description_an"
                                   : "otherworldorigins.gui.final_confirm.main_description";
                 mainText = Component.translatable(key,
-                        playerName, 
-                        subclassName != null ? subclassName : "", 
+                        playerName,
+                        subclassName != null ? subclassName : "",
                         className,
-                        subrace != null ? subrace : "",
-                        race);
+                        heritagePhrase(subrace, race));
             }
             addWrappedText(mainText);
             displayLines.add(FormattedCharSequence.EMPTY); // Blank line

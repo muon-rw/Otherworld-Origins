@@ -41,6 +41,7 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<ShapeshiftPower.Configuration>> SHAPESHIFT = POWER_FACTORIES.register("shapeshift", ShapeshiftPower::new);
     public static final RegistryObject<ActionOnAttackPower> ACTION_ON_ATTACK = POWER_FACTORIES.register("action_on_attack", ActionOnAttackPower::new);
     public static final RegistryObject<PowerFactory<ModifyMaxAirSupplyPower.Configuration>> MODIFY_MAX_AIR_SUPPLY = POWER_FACTORIES.register("modify_max_air_supply", ModifyMaxAirSupplyPower::new);
+    public static final RegistryObject<PowerFactory<NoConfiguration>> UNDEAD_VITALS = POWER_FACTORIES.register("undead_vitals", UndeadVitalsPower::new);
     public static final RegistryObject<PowerFactory<JumpCooldownPower.Configuration>> JUMP_COOLDOWN = POWER_FACTORIES.register("jump_cooldown", JumpCooldownPower::new);
     public static final RegistryObject<PowerFactory<MobsIgnorePower.Configuration>> MOBS_IGNORE = POWER_FACTORIES.register("mobs_ignore", MobsIgnorePower::new);
 

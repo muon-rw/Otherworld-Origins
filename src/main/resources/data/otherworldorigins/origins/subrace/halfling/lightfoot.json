@@ -3,7 +3,7 @@
 		"otherworldorigins:subrace/halfling/lightfoot"
 	],
 	"icon": {
-		"item": "minecraft:leather_boots"
+		"item": "otherworldorigins:portrait/lightfoot"
 	},
 	"impact": 1,
 	"order": 0

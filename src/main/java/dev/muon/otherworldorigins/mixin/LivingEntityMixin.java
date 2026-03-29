@@ -5,8 +5,10 @@ import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.power.MobsIgnorePower;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyStatusEffectCategoryPower;
+import dev.muon.otherworldorigins.power.UndeadVitalsPower;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -20,6 +22,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
+
+    @Inject(method = "decreaseAirSupply", at = @At("HEAD"), cancellable = true)
+    private void otherworldorigins$undeadWaterBreath(int currentAir, CallbackInfoReturnable<Integer> cir) {
+        LivingEntity self = (LivingEntity) (Object) this;
+        if (self instanceof Player player
+                && UndeadVitalsPower.has(player)
+                && self.isEyeInFluid(FluidTags.WATER)) {
+            cir.setReturnValue(currentAir);
+        }
+    }
 
     @Inject(method = "canAttack(Lnet/minecraft/world/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
     private void otherworld$preventAttackValidation(LivingEntity target, CallbackInfoReturnable<Boolean> cir) {

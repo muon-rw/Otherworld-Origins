@@ -3,16 +3,26 @@ package dev.muon.otherworldorigins.mixin.compat.legendarysurvivaloverhaul;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyThirstExhaustionPower;
+import dev.muon.otherworldorigins.power.UndeadVitalsPower;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import sfiomn.legendarysurvivaloverhaul.util.internal.ThirstUtilInternal;
 
 @Mixin(value = ThirstUtilInternal.class, remap = false)
 public class ThirstUtilInternalMixin {
+
+    @Inject(method = "addExhaustion", at = @At("HEAD"), cancellable = true)
+    private void otherworldorigins$undeadIgnoreThirstExhaustion(Player player, float exhaustion, CallbackInfo ci) {
+        if (UndeadVitalsPower.has(player)) {
+            ci.cancel();
+        }
+    }
 
     @ModifyVariable(method = "addExhaustion",
             at = @At(value = "INVOKE", target = "Lsfiomn/legendarysurvivaloverhaul/common/capabilities/thirst/ThirstCapability;addThirstExhaustion(F)V"),

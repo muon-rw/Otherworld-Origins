@@ -1,12 +1,13 @@
 {
 	"powers": [
+		"otherworldorigins:subrace/undead/undead_vitals",
 		"otherworldorigins:subrace/undead/zombie/attributes",
 		"otherworldorigins:subrace/undead/zombie/resistance",
 		"otherworldorigins:subrace/undead/zombie/vulnerability"
 	],
 	"icon": {
-		"item": "minecraft:zombie_head"
+		"item": "otherworldorigins:portrait/zombie"
 	},
 	"impact": 3,
-	"order": 0
+	"order": 1
 }

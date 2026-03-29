@@ -3,7 +3,7 @@
 		"otherworldorigins:race/human_variant/dummy"
 	],
 	"icon": {
-		"item": "minecraft:player_head"
+		"item": "otherworldorigins:portrait/variant"
 	},
 	"impact": 1,
 	"order": 10

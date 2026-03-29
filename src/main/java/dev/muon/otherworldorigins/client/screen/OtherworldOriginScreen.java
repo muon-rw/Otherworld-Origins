@@ -502,6 +502,14 @@ public class OtherworldOriginScreen extends Screen {
         return (int) net.minecraft.util.Mth.lerp(p, collapsed, expanded);
     }
 
+    /** Subrace + race for "… heritage" / "a …" phrases; avoids double spaces when subrace is absent. */
+    private static String heritagePhrase(@Nullable String subrace, String race) {
+        if (subrace != null && !subrace.isEmpty()) {
+            return subrace + " " + race;
+        }
+        return race;
+    }
+
     private void rebuildCharacterSheetText() {
         this.sheetLines.clear();
         
@@ -538,8 +546,8 @@ public class OtherworldOriginScreen extends Screen {
                             playerName, subrace != null ? subrace : race);
                 }
             } else {
-                mainText = Component.translatable("otherworldorigins.gui.final_confirm.main_description_race_only", 
-                        playerName, subrace != null ? subrace : "", race);
+                mainText = Component.translatable("otherworldorigins.gui.final_confirm.main_description_race_only",
+                        playerName, heritagePhrase(subrace, race));
             }
         } else {
             boolean hasSubclass = subclassName != null && !subclassName.isEmpty();
@@ -573,10 +581,10 @@ public class OtherworldOriginScreen extends Screen {
             } else {
                 if (hasSubclass) {
                     String key = prefix + (useAn ? "main_description_an" : "main_description");
-                    mainText = Component.translatable(key, playerName, subclassName, className, subrace != null ? subrace : "", race);
+                    mainText = Component.translatable(key, playerName, subclassName, className, heritagePhrase(subrace, race));
                 } else {
                     String key = prefix + (useAn ? "main_description_no_subclass_an" : "main_description_no_subclass");
-                    mainText = Component.translatable(key, playerName, className, subrace != null ? subrace : "", race);
+                    mainText = Component.translatable(key, playerName, className, heritagePhrase(subrace, race));
                 }
             }
         }

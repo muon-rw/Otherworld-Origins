@@ -45,12 +45,15 @@ public class ModItems {
     public static final RegistryObject<Item> RED_PORTRAIT = ITEMS.register("portrait/red", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> ROCK_PORTRAIT = ITEMS.register("portrait/rock", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SILVER_PORTRAIT = ITEMS.register("portrait/silver", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SKELETON_PORTRAIT = ITEMS.register("portrait/skeleton", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> STOUT_PORTRAIT = ITEMS.register("portrait/stout", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> TIEFLING_PORTRAIT = ITEMS.register("portrait/tiefling", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> UNDEAD_PORTRAIT = ITEMS.register("portrait/undead", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> VARIANT_PORTRAIT = ITEMS.register("portrait/variant", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> WHITE_PORTRAIT = ITEMS.register("portrait/white", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> WITHER_PORTRAIT = ITEMS.register("portrait/wither", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> WOOD_PORTRAIT = ITEMS.register("portrait/wood", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ZOMBIE_PORTRAIT = ITEMS.register("portrait/zombie", () -> new Item(new Item.Properties()));
 
 
     /** Classes */
