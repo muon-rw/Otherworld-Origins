@@ -24,6 +24,9 @@ public class ShapeshiftSyncHandler {
     public static void onPlayerTick(LivingEvent.LivingTickEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer player)) return;
         if (player.level().isClientSide()) return;
+
+        tickAquaticWildshapeSwimming(player);
+
         if (player.tickCount % 5 != 0) return;
 
         ShapeshiftPower.Configuration current = ShapeshiftPower.getActiveShapeshiftConfig(player);
@@ -102,5 +105,17 @@ public class ShapeshiftSyncHandler {
         } else {
             LAST_KNOWN_STATE.remove(uuid);
         }
+    }
+
+    /**
+     * Vanilla only sets {@linkplain net.minecraft.world.entity.Entity#isSwimming() swimming} when
+     * sprinting underwater; aquatic wildshapes should use the swim pose whenever
+     * {@linkplain net.minecraft.world.entity.Entity#isInWater()} so client animations and cross-mod
+     * checks behave correctly.
+     */
+    private static void tickAquaticWildshapeSwimming(ServerPlayer player) {
+        ShapeshiftPower.Configuration config = ShapeshiftPower.getActiveShapeshiftConfig(player);
+        if (config == null || !config.autoSwimInWater()) return;
+        player.setSwimming(player.isInWater());
     }
 }

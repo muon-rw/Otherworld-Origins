@@ -4,6 +4,7 @@
     "shape": {
         "type": "otherworldorigins:shapeshift",
         "entity_type": "alexsmobs:crocodile",
+        "auto_swim_in_water": true,
         "hide_hands": true,
         "allow_tools": false,
         "prevent_equipment": true,

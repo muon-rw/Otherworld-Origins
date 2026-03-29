@@ -23,7 +23,7 @@ public class OpenFinalConfirmScreenMessage {
         ctx.get().enqueueWork(() ->
                 DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
                     // Check if we should show the final confirm screen before clearing
-                    boolean shouldShowConfirm = !ClientLayerScreenHelper.wasOnlyFeatLayersSelected();
+                    boolean shouldShowConfirm = !ClientLayerScreenHelper.wasOnlyDynamicLayersSelected();
                     
                     // Always clear tracked layers to prevent state leakage
                     ClientLayerScreenHelper.clearSelectedLayers();

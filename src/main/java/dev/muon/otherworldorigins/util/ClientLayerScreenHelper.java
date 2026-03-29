@@ -64,7 +64,7 @@ public class ClientLayerScreenHelper {
                     OtherworldOrigins.LOGGER.info("- " + id);
                 }
                 minecraft.execute(() -> {
-                    OtherworldOriginScreen newScreen = new OtherworldOriginScreen(allActiveLayers, 0, false);
+                    OtherworldOriginScreen newScreen = new OtherworldOriginScreen(allActiveLayers, 0, false, false);
                     minecraft.setScreen(newScreen);
                 });
             }
@@ -100,7 +100,7 @@ public class ClientLayerScreenHelper {
                     OtherworldOrigins.LOGGER.debug("- " + layerHolder.value().name().getString());
                 }
                 minecraft.execute(() -> {
-                    OtherworldOriginScreen newScreen = new OtherworldOriginScreen(featOriginLayers, 0, false);
+                    OtherworldOriginScreen newScreen = new OtherworldOriginScreen(featOriginLayers, 0, false, true);
                     minecraft.setScreen(newScreen);
                 });
             }
@@ -117,30 +117,24 @@ public class ClientLayerScreenHelper {
         lastSelectedLayers.clear();
     }
     
-    public static boolean wasOnlyFeatLayersSelected() {
+    public static boolean wasOnlyDynamicLayersSelected() {
         if (lastSelectedLayers.isEmpty()) {
-            OtherworldOrigins.LOGGER.debug("wasOnlyFeatLayersSelected: false (no layers tracked)");
             return false;
         }
         
-        Set<ResourceLocation> featLayerIds = new HashSet<>();
-        featLayerIds.add(OtherworldOrigins.loc("first_feat"));
-        featLayerIds.add(OtherworldOrigins.loc("second_feat"));
-        featLayerIds.add(OtherworldOrigins.loc("third_feat"));
-        featLayerIds.add(OtherworldOrigins.loc("fourth_feat"));
-        featLayerIds.add(OtherworldOrigins.loc("fifth_feat"));
-        featLayerIds.add(OtherworldOrigins.loc("plus_one_aptitude_resilient"));
-        featLayerIds.add(OtherworldOrigins.loc("wildshape"));
+        Set<ResourceLocation> dynamicLayerIds = Set.of(
+                OtherworldOrigins.loc("first_feat"), OtherworldOrigins.loc("second_feat"),
+                OtherworldOrigins.loc("third_feat"), OtherworldOrigins.loc("fourth_feat"),
+                OtherworldOrigins.loc("fifth_feat"),
+                OtherworldOrigins.loc("plus_one_aptitude_resilient"), OtherworldOrigins.loc("wildshape")
+        );
         
-        // Check if all selected layers were feat layers
         for (ResourceLocation layerId : lastSelectedLayers) {
-            if (!featLayerIds.contains(layerId)) {
-                OtherworldOrigins.LOGGER.debug("wasOnlyFeatLayersSelected: false (found non-feat layer: {})", layerId);
+            if (!dynamicLayerIds.contains(layerId)) {
                 return false;
             }
         }
         
-        OtherworldOrigins.LOGGER.debug("wasOnlyFeatLayersSelected: true. All {} tracked layers are feat layers", lastSelectedLayers.size());
         return true;
     }
 }

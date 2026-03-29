@@ -75,7 +75,8 @@ public class ShapeshiftPower extends PowerFactory<ShapeshiftPower.Configuration>
             double attackRange,
             List<ShapeshiftAttack> attacks,
             float collisionWidth,
-            float collisionHeight
+            float collisionHeight,
+            boolean autoSwimInWater
     ) implements IDynamicFeatureConfiguration {
 
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -88,7 +89,8 @@ public class ShapeshiftPower extends PowerFactory<ShapeshiftPower.Configuration>
                 CalioCodecHelper.optionalField(Codec.DOUBLE, "attack_range", 0.0).forGetter(Configuration::attackRange),
                 CalioCodecHelper.optionalField(ShapeshiftAttack.CODEC.listOf(), "attacks", List.of()).forGetter(Configuration::attacks),
                 CalioCodecHelper.optionalField(CalioCodecHelper.FLOAT, "collision_width", -1.0F).forGetter(Configuration::collisionWidth),
-                CalioCodecHelper.optionalField(CalioCodecHelper.FLOAT, "collision_height", -1.0F).forGetter(Configuration::collisionHeight)
+                CalioCodecHelper.optionalField(CalioCodecHelper.FLOAT, "collision_height", -1.0F).forGetter(Configuration::collisionHeight),
+                CalioCodecHelper.optionalField(CalioCodecHelper.BOOL, "auto_swim_in_water", false).forGetter(Configuration::autoSwimInWater)
         ).apply(instance, Configuration::new));
 
         @Override

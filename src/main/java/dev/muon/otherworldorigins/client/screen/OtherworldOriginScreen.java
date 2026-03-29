@@ -113,10 +113,15 @@ public class OtherworldOriginScreen extends Screen {
     private Button selectButton;
 
     public OtherworldOriginScreen(List<Holder<OriginLayer>> layerList, int startLayerIndex, boolean showDirtBackground) {
+        this(layerList, startLayerIndex, showDirtBackground, false);
+    }
+
+    public OtherworldOriginScreen(List<Holder<OriginLayer>> layerList, int startLayerIndex, boolean showDirtBackground, boolean dynamicPrompt) {
         super(Component.translatable("origins.screen.choose_origin"));
         this.layerList = layerList;
         this.currentLayerIndex = startLayerIndex;
         this.showDirtBackground = showDirtBackground;
+        this.dynamicPromptMode = dynamicPrompt;
     }
 
     @Override
@@ -130,42 +135,9 @@ public class OtherworldOriginScreen extends Screen {
         ).bounds(rightPanelX, this.height - 30, RIGHT_PANEL_WIDTH, 20).build());
         this.selectButton.visible = false;
 
-        OtherworldOrigins.LOGGER.info("[OWOriginScreen] init: layerList has {} layers", this.layerList.size());
-        for (int i = 0; i < this.layerList.size(); i++) {
-            Holder<OriginLayer> l = this.layerList.get(i);
-            ResourceLocation lid = l.unwrapKey().map(ResourceKey::location).orElse(null);
-            OtherworldOrigins.LOGGER.info("[OWOriginScreen]   layer[{}] = {}", i, lid);
-        }
         evaluateCurrentLayer();
-        computeDynamicPromptMode();
-        OtherworldOrigins.LOGGER.info("[OWOriginScreen] after eval: currentLayerIndex={}, dynamicPromptMode={}, confirmedSelections={}",
-                this.currentLayerIndex, this.dynamicPromptMode, this.confirmedSelections.size());
-    }
-
-    private void computeDynamicPromptMode() {
-        Player player = Minecraft.getInstance().player;
-        if (player == null) {
-            this.dynamicPromptMode = false;
-            return;
-        }
-
-        boolean hasUserSelectableLayer = false;
-        for (int i = this.currentLayerIndex; i < this.layerList.size(); i++) {
-            Holder<OriginLayer> layer = this.layerList.get(i);
-
-            boolean hasChoosableOrigins = layer.value().origins(player).stream()
-                    .anyMatch(o -> o.isBound() && o.value().isChoosable());
-            if (!hasChoosableOrigins) continue;
-
-            hasUserSelectableLayer = true;
-            ResourceLocation id = layer.unwrapKey().map(ResourceKey::location).orElse(null);
-            if (id == null || !DYNAMIC_LAYER_IDS.contains(id)) {
-                OtherworldOrigins.LOGGER.info("[OWOriginScreen] computeDynamic: non-dynamic selectable layer[{}] = {}", i, id);
-                this.dynamicPromptMode = false;
-                return;
-            }
-        }
-        this.dynamicPromptMode = hasUserSelectableLayer;
+        OtherworldOrigins.LOGGER.debug("[OWOriginScreen] init: {} layers, currentLayerIndex={}, dynamicPromptMode={}, confirmedSelections={}",
+                this.layerList.size(), this.currentLayerIndex, this.dynamicPromptMode, this.confirmedSelections.size());
     }
 
     private void evaluateCurrentLayer() {
@@ -326,12 +298,6 @@ public class OtherworldOriginScreen extends Screen {
         return id != null && (id.equals(OtherworldOrigins.loc("race")) || id.equals(OtherworldOrigins.loc("subrace")));
     }
 
-    private static final Set<ResourceLocation> DYNAMIC_LAYER_IDS = Set.of(
-        OtherworldOrigins.loc("first_feat"), OtherworldOrigins.loc("second_feat"),
-        OtherworldOrigins.loc("third_feat"), OtherworldOrigins.loc("fourth_feat"),
-        OtherworldOrigins.loc("fifth_feat"), OtherworldOrigins.loc("free_feat"),
-        OtherworldOrigins.loc("plus_one_aptitude_resilient"), OtherworldOrigins.loc("wildshape")
-    );
 
     private int findLayerIndexForId(ResourceLocation layerId) {
         for (int i = 0; i < this.layerList.size(); i++) {

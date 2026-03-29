@@ -15,15 +15,17 @@ import org.spongepowered.asm.mixin.injection.At;
  * instead of calling {@code super}, so {@link dev.muon.otherworldorigins.mixin.client.LivingEntityRendererMixin}'s
  * skip around {@code EntityRenderer#render} never runs and nametags still draw in GUI previews.
  */
-@Mixin(value = RenderTiger.class, remap = false)
+@Mixin(value = RenderTiger.class, remap = true)
 public class RenderTigerMixin {
 
     @WrapWithCondition(
             method = "render(Lcom/github/alexthe666/alexsmobs/entity/EntityTiger;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
             at = @At(
                     value = "INVOKE",
-                    target = "Lcom/github/alexthe666/alexsmobs/client/render/RenderTiger;renderNameTag(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/network/chat/Component;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V"
-            )
+                    target = "Lcom/github/alexthe666/alexsmobs/client/render/RenderTiger;renderNameTag(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/network/chat/Component;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
+                    remap = true
+            ),
+            remap = true
     )
     private boolean otherworldorigins$skipNametagDuringShapeshiftPreview(
             RenderTiger instance,
