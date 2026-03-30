@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
     id "net.darkhax.curseforgegradle" version "1.0.7"
     id 'net.neoforged.moddev.legacyforge' version '2.0.126'
-    id 'dev.mixinmcp.decompile' version '0.6.7'
+    id 'dev.mixinmcp.decompile' version '0.7.0'
 }
 
 version = mod_version
@@ -190,7 +190,7 @@ dependencies {
     // Core
 
     modImplementation("dev.muon:otherworld:${otherworld_core_version}+1.20.1")
-    modRuntimeOnly("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
+    modImplementation("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
 
     // Alt Origin GUI
     modImplementation("curse.maven:altorigingui-873788:5633649")
@@ -203,12 +203,12 @@ dependencies {
 
     // Common Shared Deps
     modImplementation("dev.isxander:yet-another-config-lib:${project.yacl_version}")
-    modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}:api")
-    modRuntimeOnly("top.theillusivec4.curios:curios-forge:${curios_version}")
+    // modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+    modImplementation("top.theillusivec4.curios:curios-forge:${curios_version}")
 
     // Iron's Spells n Spellbooks
     modImplementation("io.redspace:irons_spellbooks:${irons_version}")
-    modRuntimeOnly("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
+    modImplementation("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
     modImplementation("dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}")
 
     // Eidolon
@@ -289,18 +289,18 @@ dependencies {
     modImplementation("curse.maven:ancient-aether-886751:6400544")
 
     // BOMD
-    modRuntimeOnly("curse.maven:bosses-of-mass-destruction-forge-941573:5067728")
+    modImplementation("curse.maven:bosses-of-mass-destruction-forge-941573:5067728")
     modRuntimeOnly("curse.maven:cerbons-api-955605:5050080")
 
     // IAF
     modImplementation("curse.maven:ice-and-fire-dragons-264231:5633453")
-    modRuntimeOnly("curse.maven:citadel-331936:6702068")
+    modImplementation("curse.maven:citadel-331936:6702068")
 
     // Doppel
     modImplementation("curse.maven:dark-doppelganger-1110803:6619700")
 
     // Autolvl
-    modRuntimeOnly("curse.maven:auto-leveling-616126:4899526")
+    modImplementation("curse.maven:auto-leveling-616126:4899526")
 
     // Traveloptics
     modImplementation("curse.maven:to-tweaks-irons-spells-1046916:7424522")
@@ -317,8 +317,8 @@ dependencies {
     modImplementation("curse.maven:alshanexs-familiars-1171602:7481428")
     modImplementation("curse.maven:familiarslib-1316458:7696453")
     // Dummy
-    modRuntimeOnly("curse.maven:mmmmmmmmmmmm-225738:6860192")
-    modRuntimeOnly("curse.maven:selene-499980:7191950")
+    modImplementation("curse.maven:mmmmmmmmmmmm-225738:6860192")
+    modImplementation("curse.maven:selene-499980:7191950")
     // END OW CORE DEPS
 }
 
