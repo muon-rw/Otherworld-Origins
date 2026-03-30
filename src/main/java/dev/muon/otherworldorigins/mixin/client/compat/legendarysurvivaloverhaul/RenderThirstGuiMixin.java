@@ -1,6 +1,6 @@
 package dev.muon.otherworldorigins.mixin.client.compat.legendarysurvivaloverhaul;
 
-import dev.muon.otherworldorigins.power.UndeadVitalsPower;
+import dev.muon.otherworldorigins.power.ThirstImmunityPower;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.gui.overlay.ForgeGui;
@@ -15,7 +15,7 @@ public class RenderThirstGuiMixin {
 
     @Inject(method = "drawHydrationBar", at = @At("HEAD"), cancellable = true)
     private static void otherworldorigins$hideThirstForUndead(ForgeGui gui, GuiGraphics graphics, Player player, int x, int y, CallbackInfo ci) {
-        if (player != null && UndeadVitalsPower.has(player)) {
+        if (player != null && ThirstImmunityPower.has(player)) {
             ci.cancel();
         }
     }

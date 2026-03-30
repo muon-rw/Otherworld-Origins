@@ -15,8 +15,18 @@
         },
         "attack_range": 2.0,
         "attacks": [
-            { "hitbox": "VERTICAL_PLANE", "angle": 60, "damage_multiplier": 1.0, "upswing": 0.3 },
-            { "hitbox": "HORIZONTAL_PLANE", "angle": 80, "damage_multiplier": 1.2, "upswing": 0.3 }
+            {
+                "hitbox": "VERTICAL_PLANE",
+                "angle": 60,
+                "damage_multiplier": 1.0,
+                "upswing": 0.3
+            },
+            {
+                "hitbox": "HORIZONTAL_PLANE",
+                "angle": 80,
+                "damage_multiplier": 1.2,
+                "upswing": 0.3
+            }
         ]
     },
     "attributes": {
@@ -46,6 +56,9 @@
                 "name": "Wildshape cold resistance"
             }
         ]
+    },
+    "walk_on_powder_snow": {
+        "type": "otherworldorigins:walk_on_powder_snow"
     },
     "flight": {
         "type": "origins:elytra_flight",

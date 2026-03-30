@@ -8,13 +8,13 @@ import net.minecraft.world.entity.player.Player;
 /**
  * Marker for undead subraces: mixin and HUD hooks gate on {@link #has(Player)}.
  */
-public class UndeadVitalsPower extends PowerFactory<NoConfiguration> {
-    public UndeadVitalsPower() {
+public class SuffocationImmunityPower extends PowerFactory<NoConfiguration> {
+    public SuffocationImmunityPower() {
         super(NoConfiguration.CODEC);
     }
 
     public static boolean has(Player player) {
         if (player == null) return false;
-        return PowerPresenceCache.hasPower(player, ModPowers.UNDEAD_VITALS.get());
+        return PowerPresenceCache.hasPower(player, ModPowers.SUFFOCATION_IMMUNITY.get());
     }
 }

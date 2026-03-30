@@ -54,6 +54,9 @@
             }
         ]
     },
+    "walk_on_powder_snow": {
+        "type": "otherworldorigins:walk_on_powder_snow"
+    },
     "pounce_cooldown": {
         "type": "origins:resource",
         "min": 0,

@@ -3,7 +3,7 @@ package dev.muon.otherworldorigins.mixin.compat.legendarysurvivaloverhaul;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyThirstExhaustionPower;
-import dev.muon.otherworldorigins.power.UndeadVitalsPower;
+import dev.muon.otherworldorigins.power.ThirstImmunityPower;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +19,7 @@ public class ThirstUtilInternalMixin {
 
     @Inject(method = "addExhaustion", at = @At("HEAD"), cancellable = true)
     private void otherworldorigins$undeadIgnoreThirstExhaustion(Player player, float exhaustion, CallbackInfo ci) {
-        if (UndeadVitalsPower.has(player)) {
+        if (ThirstImmunityPower.has(player)) {
             ci.cancel();
         }
     }

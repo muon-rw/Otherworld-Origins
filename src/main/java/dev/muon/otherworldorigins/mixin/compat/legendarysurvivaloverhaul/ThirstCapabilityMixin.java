@@ -1,6 +1,6 @@
 package dev.muon.otherworldorigins.mixin.compat.legendarysurvivaloverhaul;
 
-import dev.muon.otherworldorigins.power.UndeadVitalsPower;
+import dev.muon.otherworldorigins.power.ThirstImmunityPower;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
@@ -15,7 +15,7 @@ public class ThirstCapabilityMixin {
 
     @Inject(method = "tickUpdate", at = @At("HEAD"), cancellable = true)
     private void otherworldorigins$undeadSkipThirstDrain(Player player, Level level, TickEvent.Phase phase, CallbackInfo ci) {
-        if (phase != TickEvent.Phase.END || !UndeadVitalsPower.has(player)) {
+        if (phase != TickEvent.Phase.END || !ThirstImmunityPower.has(player)) {
             return;
         }
         ThirstCapability self = (ThirstCapability) (Object) this;

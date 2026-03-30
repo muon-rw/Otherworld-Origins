@@ -1,4 +1,16 @@
 {
-    "type": "origins:entity_group",
-    "group": "undead"
+    "type": "origins:multiple",
+    "group": {
+        "type": "origins:entity_group",
+        "group": "undead"
+    },
+    "air": {
+        "type": "otherworldorigins:suffocation_immunity"
+    },
+    "thirst": {
+        "type": "otherworldorigins:thirst_immunity"
+    },
+    "food": {
+        "type": "otherworldorigins:hunger_immunity"
+    }
 }

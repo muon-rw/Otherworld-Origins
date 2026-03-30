@@ -2,10 +2,7 @@ package dev.muon.otherworldorigins.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.muon.otherworldorigins.effect.ModEffects;
-import dev.muon.otherworldorigins.power.MobsIgnorePower;
-import dev.muon.otherworldorigins.power.ModPowers;
-import dev.muon.otherworldorigins.power.ModifyStatusEffectCategoryPower;
-import dev.muon.otherworldorigins.power.UndeadVitalsPower;
+import dev.muon.otherworldorigins.power.*;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import net.minecraft.tags.FluidTags;
@@ -27,7 +24,7 @@ public abstract class LivingEntityMixin {
     private void otherworldorigins$undeadWaterBreath(int currentAir, CallbackInfoReturnable<Integer> cir) {
         LivingEntity self = (LivingEntity) (Object) this;
         if (self instanceof Player player
-                && UndeadVitalsPower.has(player)
+                && SuffocationImmunityPower.has(player)
                 && self.isEyeInFluid(FluidTags.WATER)) {
             cir.setReturnValue(currentAir);
         }

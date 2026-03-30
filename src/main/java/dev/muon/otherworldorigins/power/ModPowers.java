@@ -23,6 +23,7 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<TradeDiscountPower.Configuration>> TRADE_DISCOUNT = POWER_FACTORIES.register("trade_discount", TradeDiscountPower::new);
     public static final RegistryObject<PowerFactory<ModifyThirstExhaustionPower.Configuration>> MODIFY_THIRST_EXHAUSTION = POWER_FACTORIES.register("modify_thirst_exhaustion", ModifyThirstExhaustionPower::new);
     public static final RegistryObject<PowerFactory<CharismaPower.Configuration>> CHARISMA = POWER_FACTORIES.register("charisma", CharismaPower::new);
+    public static final RegistryObject<PowerFactory<NoConfiguration>> HUNGER_IMMUNITY = POWER_FACTORIES.register("hunger_immunity", HungerImmunityPower::new);
     public static final RegistryObject<PowerFactory<LeveledAttributePower.Configuration>> LEVELED_ATTRIBUTE = POWER_FACTORIES.register("leveled_attribute", LeveledAttributePower::new);
     public static final RegistryObject<PowerFactory<ModifyStatusEffectCategoryPower.Configuration>> MODIFY_STATUS_EFFECT_CATEGORY = POWER_FACTORIES.register("modify_status_effect_category", () -> ModifyStatusEffectCategoryPower.INSTANCE);
     public static final RegistryObject<PowerFactory<ModifyEnchantmentCostPower.Configuration>> MODIFY_ENCHANTMENT_COST = POWER_FACTORIES.register("modify_enchantment_cost", ModifyEnchantmentCostPower::new);
@@ -42,7 +43,9 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<ShapeshiftPower.Configuration>> SHAPESHIFT = POWER_FACTORIES.register("shapeshift", ShapeshiftPower::new);
     public static final RegistryObject<ActionOnAttackPower> ACTION_ON_ATTACK = POWER_FACTORIES.register("action_on_attack", ActionOnAttackPower::new);
     public static final RegistryObject<PowerFactory<ModifyMaxAirSupplyPower.Configuration>> MODIFY_MAX_AIR_SUPPLY = POWER_FACTORIES.register("modify_max_air_supply", ModifyMaxAirSupplyPower::new);
-    public static final RegistryObject<PowerFactory<NoConfiguration>> UNDEAD_VITALS = POWER_FACTORIES.register("undead_vitals", UndeadVitalsPower::new);
+    public static final RegistryObject<PowerFactory<NoConfiguration>> SUFFOCATION_IMMUNITY = POWER_FACTORIES.register("suffocation_immunity", SuffocationImmunityPower::new);
+    public static final RegistryObject<PowerFactory<NoConfiguration>> THIRST_IMMUNITY = POWER_FACTORIES.register("thirst_immunity", ThirstImmunityPower::new);
+    public static final RegistryObject<PowerFactory<NoConfiguration>> WALK_ON_POWDER_SNOW = POWER_FACTORIES.register("walk_on_powder_snow", WalkOnPowderSnowPower::new);
     public static final RegistryObject<PowerFactory<JumpCooldownPower.Configuration>> JUMP_COOLDOWN = POWER_FACTORIES.register("jump_cooldown", JumpCooldownPower::new);
     public static final RegistryObject<PowerFactory<MobsIgnorePower.Configuration>> MOBS_IGNORE = POWER_FACTORIES.register("mobs_ignore", MobsIgnorePower::new);
 
