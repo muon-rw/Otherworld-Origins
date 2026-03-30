@@ -46,7 +46,8 @@
   "item.otherworldorigins.goodberry": "Goodberry",
   "item.otherworldorigins.goodberry.tooltip.decays_in": "Decays in: %s",
   "item.otherworldorigins.goodberry.tooltip.ordinary": "Ordinary",
-  
+  "item.otherworldorigins.masterwork": "Masterwork",
+
   "otherworldorigins.uncastable": "You can't use this ability right now.",
   "otherworldorigins.reforge_restricted": "Your lack the knowledge needed to use this table...",
   

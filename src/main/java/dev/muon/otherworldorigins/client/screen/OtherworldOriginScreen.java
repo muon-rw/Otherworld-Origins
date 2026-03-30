@@ -351,6 +351,34 @@ public class OtherworldOriginScreen extends Screen {
         return Math.min(CARD_EXPANDED_WIDTH, availableWidth);
     }
 
+    private int[] computeFixedWidthCardWidths(int optionCount) {
+        int effCollapsed = getEffectiveCardCollapsedWidth();
+        int effExpanded = getEffectiveCardExpandedWidth();
+        int totalFixedWidth = optionCount * effCollapsed;
+
+        float[] desired = new float[optionCount];
+        float totalDesired = 0;
+        for (int i = 0; i < optionCount; i++) {
+            float progress = i < this.cardExpandProgress.length ? this.cardExpandProgress[i] : 0;
+            desired[i] = effCollapsed + progress * (effExpanded - effCollapsed);
+            totalDesired += desired[i];
+        }
+
+        int[] widths = new int[optionCount];
+        if (totalDesired > 0 && optionCount > 0) {
+            float scale = (float) totalFixedWidth / totalDesired;
+            float cumFloat = 0;
+            int cumInt = 0;
+            for (int i = 0; i < optionCount; i++) {
+                cumFloat += desired[i] * scale;
+                int newCumInt = Math.round(cumFloat);
+                widths[i] = newCumInt - cumInt;
+                cumInt = newCumInt;
+            }
+        }
+        return widths;
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -433,6 +461,14 @@ public class OtherworldOriginScreen extends Screen {
         AnacondaMultipartHandler.tickAndPosition(PREVIEW_ENTITY_CACHE_ID, living, (EntityAnaconda) living, true);
     }
 
+    private static final float CARD_ANIM_SPEED = 0.7f;
+    private static final float CARD_ANIM_SNAP = 0.01f;
+
+    private static float animStep(float current, float target) {
+        float next = net.minecraft.util.Mth.lerp(CARD_ANIM_SPEED, current, target);
+        return Math.abs(next - target) < CARD_ANIM_SNAP ? target : next;
+    }
+
     private void updateAnimations() {
         if (this.currentLayerIndex < this.layerList.size()) {
             List<Holder<Origin>> options = this.layerOriginCache.get(this.currentLayerIndex);
@@ -440,7 +476,7 @@ public class OtherworldOriginScreen extends Screen {
                 for (int i = 0; i < this.cardExpandProgress.length; i++) {
                     boolean isHovered = (this.hoveredOrigin != null && this.hoveredOrigin.equals(options.get(i)));
                     float target = isHovered ? 1.0f : 0.0f;
-                    this.cardExpandProgress[i] = net.minecraft.util.Mth.lerp(0.5f, this.cardExpandProgress[i], target);
+                    this.cardExpandProgress[i] = animStep(this.cardExpandProgress[i], target);
                 }
             }
         }
@@ -452,7 +488,7 @@ public class OtherworldOriginScreen extends Screen {
                     ? 1.0f
                     : 0.0f;
             float cur = this.completedCardExpandProgress.getOrDefault(layerIdx, 0.0f);
-            this.completedCardExpandProgress.put(layerIdx, net.minecraft.util.Mth.lerp(0.5f, cur, target));
+            this.completedCardExpandProgress.put(layerIdx, animStep(cur, target));
         }
     }
 
@@ -926,16 +962,21 @@ public class OtherworldOriginScreen extends Screen {
     }
 
     private void renderPortraitRow(GuiGraphics graphics, List<Holder<Origin>> options, int startX, int startY, int mouseX, int mouseY) {
-        int x = startX;
         boolean hoveredAny = false;
         int effCollapsed = getEffectiveCardCollapsedWidth();
-        int effExpanded = getEffectiveCardExpandedWidth();
-        
+        int totalFixedWidth = options.size() * effCollapsed;
+        int[] cardWidths = computeFixedWidthCardWidths(options.size());
+
+        boolean anyCardHovered = mouseX >= startX && mouseX < startX + totalFixedWidth && mouseY >= startY && mouseY < startY + CARD_HEIGHT;
+        if (anyCardHovered) {
+            graphics.fill(startX, startY, startX + totalFixedWidth, startY + CARD_HEIGHT, 0x22FFFFFF);
+        }
+
+        int x = startX;
         for (int i = 0; i < options.size(); i++) {
             Holder<Origin> origin = options.get(i);
-            float progress = this.cardExpandProgress[i];
-            int width = (int) net.minecraft.util.Mth.lerp(progress, effCollapsed, effExpanded);
-            
+            int width = cardWidths[i];
+
             boolean isHovered = mouseX >= x && mouseX < x + width && mouseY >= startY && mouseY < startY + CARD_HEIGHT;
             if (isHovered) {
                 this.hoveredOrigin = origin;
@@ -945,15 +986,15 @@ public class OtherworldOriginScreen extends Screen {
             ResourceLocation texture = getPortraitTexture(origin.value().getIcon());
             int uvX = (32 - width) / 2;
             graphics.blit(texture, x, startY, width, CARD_HEIGHT, uvX, 0, width, CARD_HEIGHT, 32, 32);
-            
+
             boolean isSelected = (this.selectedOrigin != null && this.selectedOrigin.equals(origin));
             if (isSelected) {
                 graphics.fill(x, startY + CARD_HEIGHT + 2, x + width, startY + CARD_HEIGHT + 4, 0xFFFFFFFF);
             }
-            
+
             x += width;
         }
-        
+
         if (!hoveredAny) {
             if (this.selectedOrigin != null) {
                 this.hoveredOrigin = this.selectedOrigin;
@@ -1430,10 +1471,9 @@ public class OtherworldOriginScreen extends Screen {
                 if (options != null && !options.isEmpty()) {
                     if (isPortraitLayer(layer)) {
                         int cx = x;
-                        int effCollapsed = getEffectiveCardCollapsedWidth();
-                        int effExpanded = getEffectiveCardExpandedWidth();
+                        int[] cardWidths = computeFixedWidthCardWidths(options.size());
                         for (int j = 0; j < options.size(); j++) {
-                            int width = (int) net.minecraft.util.Mth.lerp(this.cardExpandProgress[j], effCollapsed, effExpanded);
+                            int width = cardWidths[j];
                             if (mouseX >= cx && mouseX < cx + width && mouseY >= y && mouseY < y + CARD_HEIGHT) {
                                 Holder<Origin> clicked = options.get(j);
                                 if (clicked.equals(this.selectedOrigin)) {

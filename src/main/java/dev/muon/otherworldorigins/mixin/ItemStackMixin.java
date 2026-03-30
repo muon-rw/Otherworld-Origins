@@ -10,6 +10,7 @@ import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import dev.muon.otherworldorigins.skills.ModSkills;
+import dev.muon.otherworldorigins.util.MasterworkAffixNbt;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;
@@ -65,6 +66,7 @@ public class ItemStackMixin {
         otherworld$addEnchantmentTooltips(modifiedTooltips, stack, player);
         otherworld$addSpellTooltips(modifiedTooltips, stack, player);
         otherworld$addReforgeTableTooltips(modifiedTooltips, stack, player);
+        otherworld$addMasterworkLine(modifiedTooltips, stack);
 
         return modifiedTooltips;
     }
@@ -91,6 +93,20 @@ public class ItemStackMixin {
                         .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC));
             }
         }
+    }
+
+    @Unique
+    private void otherworld$addMasterworkLine(List<Component> tooltips, ItemStack stack) {
+        if (!MasterworkAffixNbt.hasMasterwork(stack)) {
+            return;
+        }
+        Component line = Component.translatable("item.otherworldorigins.masterwork")
+                .withStyle(ChatFormatting.LIGHT_PURPLE);
+        if (tooltips.isEmpty()) {
+            tooltips.add(line);
+            return;
+        }
+        tooltips.add(1, line);
     }
 
     @Unique

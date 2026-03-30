@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins.power;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.muon.otherworld.power.PowerPresenceCache;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredBiEntityCondition;
@@ -30,9 +31,10 @@ public class MobsIgnorePower extends PowerFactory<MobsIgnorePower.Configuration>
         if (player == null || mob == null || player.level().isClientSide()) {
             return false;
         }
-        return IPowerContainer.get(player).resolve()
-                .stream()
-                .flatMap(container -> container.getPowers(ModPowers.MOBS_IGNORE.get()).stream())
+        if (!PowerPresenceCache.hasPresence(player, ModPowers.MOBS_IGNORE.get())) return false;
+        IPowerContainer container = PowerPresenceCache.getContainer(player);
+        if (container == null) return false;
+        return container.getPowers(ModPowers.MOBS_IGNORE.get()).stream()
                 .anyMatch(holder -> {
                     Configuration config = holder.value().getConfiguration();
                     return ConfiguredEntityCondition.check(config.mobCondition(), mob)

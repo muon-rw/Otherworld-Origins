@@ -38,6 +38,8 @@ public class ShapeshiftSyncHandler {
             updateState(player.getUUID(), current);
             broadcastToTracking(player, current);
             player.refreshDimensions();
+            // refreshDimensions() can clear the swim flag; re-apply immediately
+            tickAquaticWildshapeSwimming(player);
         }
     }
 
@@ -48,6 +50,7 @@ public class ShapeshiftSyncHandler {
         updateState(player.getUUID(), current);
         broadcastToTracking(player, current);
         player.refreshDimensions();
+        tickAquaticWildshapeSwimming(player);
     }
 
     @SubscribeEvent
@@ -57,6 +60,7 @@ public class ShapeshiftSyncHandler {
         updateState(player.getUUID(), current);
         broadcastToTracking(player, current);
         player.refreshDimensions();
+        tickAquaticWildshapeSwimming(player);
     }
 
     @SubscribeEvent

@@ -3,8 +3,10 @@ package dev.muon.otherworldorigins.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.muon.otherworldorigins.power.ModPowers;
+import dev.muon.otherworldorigins.util.EnhancedRepairLogic;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
@@ -15,6 +17,8 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
  * When the player has prevent_repair_penalty power, anvil repairs do not increase
@@ -43,5 +47,12 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
             return oldRepairCost;
         }
         return original.call(oldRepairCost);
+    }
+
+    @Inject(method = "createResult", at = @At("TAIL"))
+    private void otherworldorigins$enhancedRepair(CallbackInfo ci) {
+        ItemStack left = this.inputSlots.getItem(0);
+        ItemStack result = this.resultSlots.getItem(0);
+        EnhancedRepairLogic.onAnvilRepair(this.player, left, result);
     }
 }

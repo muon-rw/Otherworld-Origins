@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins.power;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.muon.otherworld.power.PowerPresenceCache;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityCondition;
@@ -26,9 +27,10 @@ public class ShapeshiftPower extends PowerFactory<ShapeshiftPower.Configuration>
     @Nullable
     public static Configuration getActiveShapeshiftConfig(LivingEntity entity) {
         if (entity == null) return null;
-        return IPowerContainer.get(entity).resolve()
-                .stream()
-                .flatMap(container -> container.getPowers(ModPowers.SHAPESHIFT.get()).stream())
+        if (!PowerPresenceCache.hasPresence(entity, ModPowers.SHAPESHIFT.get())) return null;
+        IPowerContainer container = PowerPresenceCache.getContainer(entity);
+        if (container == null) return null;
+        return container.getPowers(ModPowers.SHAPESHIFT.get()).stream()
                 .map(holder -> holder.value().getConfiguration())
                 .findFirst()
                 .orElse(null);

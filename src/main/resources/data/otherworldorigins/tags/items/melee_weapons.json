@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#otherworldorigins:swords",
+    { "id": "#forge:tools/swords", "required": false },
+    { "id": "#forge:tools/axes", "required": false }
+  ]
+}

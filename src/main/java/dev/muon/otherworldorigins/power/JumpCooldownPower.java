@@ -2,8 +2,8 @@ package dev.muon.otherworldorigins.power;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.muon.otherworld.power.PowerPresenceCache;
 import dev.muon.otherworldorigins.util.JumpCooldownAccess;
-import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
@@ -25,8 +25,7 @@ public class JumpCooldownPower extends PowerFactory<JumpCooldownPower.Configurat
         if (!(entity instanceof Player player)) {
             return;
         }
-        IPowerContainer container = ApoliAPI.getPowerContainer(player);
-        if (container == null || container.getPowers(ModPowers.JUMP_COOLDOWN.get()).isEmpty()) {
+        if (!PowerPresenceCache.hasPresence(player, ModPowers.JUMP_COOLDOWN.get())) {
             ((JumpCooldownAccess) player).otherworldorigins$setJumpCooldownRemaining(0);
         }
     }
@@ -35,10 +34,7 @@ public class JumpCooldownPower extends PowerFactory<JumpCooldownPower.Configurat
         if (!player.level().isClientSide() || !player.isLocalPlayer()) {
             return false;
         }
-        IPowerContainer container = ApoliAPI.getPowerContainer(player);
-        if (container == null || container.getPowers(ModPowers.JUMP_COOLDOWN.get()).isEmpty()) {
-            return false;
-        }
+        if (!PowerPresenceCache.hasPresence(player, ModPowers.JUMP_COOLDOWN.get())) return false;
         return ((JumpCooldownAccess) player).otherworldorigins$getJumpCooldownRemaining() > 0;
     }
 
@@ -46,10 +42,9 @@ public class JumpCooldownPower extends PowerFactory<JumpCooldownPower.Configurat
         if (!player.level().isClientSide() || !player.isLocalPlayer()) {
             return;
         }
-        IPowerContainer container = ApoliAPI.getPowerContainer(player);
-        if (container == null) {
-            return;
-        }
+        if (!PowerPresenceCache.hasPresence(player, ModPowers.JUMP_COOLDOWN.get())) return;
+        IPowerContainer container = PowerPresenceCache.getContainer(player);
+        if (container == null) return;
         int cooldownTicks = container.getPowers(ModPowers.JUMP_COOLDOWN.get()).stream()
                 .mapToInt(holder -> holder.value().getConfiguration().cooldown())
                 .max()

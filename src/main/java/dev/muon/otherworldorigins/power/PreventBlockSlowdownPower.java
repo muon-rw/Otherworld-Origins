@@ -1,5 +1,6 @@
 package dev.muon.otherworldorigins.power;
 
+import dev.muon.otherworld.power.PowerPresenceCache;
 import io.github.edwinmindcraft.apoli.api.configuration.HolderConfiguration;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredBlockCondition;
@@ -46,11 +47,12 @@ public class PreventBlockSlowdownPower extends PowerFactory<HolderConfiguration<
         if (entity == null) {
             return false;
         }
+        if (!PowerPresenceCache.hasPresence(entity, ModPowers.PREVENT_BLOCK_SLOWDOWN.get())) return false;
+        IPowerContainer container = PowerPresenceCache.getContainer(entity);
+        if (container == null) return false;
         LevelReader level = entity.level();
         NonNullSupplier<BlockState> stateGetter = () -> state;
-        return IPowerContainer.get(entity).resolve()
-                .stream()
-                .flatMap(container -> container.getPowers(ModPowers.PREVENT_BLOCK_SLOWDOWN.get()).stream())
+        return container.getPowers(ModPowers.PREVENT_BLOCK_SLOWDOWN.get()).stream()
                 .anyMatch(holder -> {
                     ConfiguredPower<HolderConfiguration<ConfiguredBlockCondition<?, ?>>, ?> config = holder.value();
                     Holder<ConfiguredBlockCondition<?, ?>> blockCondition = config.getConfiguration().holder();

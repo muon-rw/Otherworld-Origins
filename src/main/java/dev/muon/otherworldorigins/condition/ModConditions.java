@@ -71,6 +71,15 @@ public class ModConditions {
                     stack.getItem() instanceof BowItem)
     );
 
+    public static final RegistryObject<SimpleItemCondition> IS_CROSSBOW = ITEM_CONDITIONS.register("is_crossbow", () ->
+            new SimpleItemCondition(stack ->
+                    stack.getItem() instanceof CrossbowItem)
+    );
+
+    public static final RegistryObject<SimpleItemCondition> IS_ARMOR = ITEM_CONDITIONS.register("is_armor", () ->
+            new SimpleItemCondition(stack -> stack.getItem() instanceof ArmorItem)
+    );
+
     public static final RegistryObject<SimpleItemCondition> IS_ONE_HANDED = ITEM_CONDITIONS.register("is_one_handed", () ->
             new SimpleItemCondition(stack -> {
                 if (ModList.get().isLoaded("bettercombat")) {

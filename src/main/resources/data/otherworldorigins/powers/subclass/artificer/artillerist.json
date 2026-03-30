@@ -1,8 +1,263 @@
 {
     "hidden": true,
-    "type": "origins:modify_projectile_damage",
-    "modifier": {
-        "operation": "addition",
-        "value": 4
+    "type": "origins:multiple",
+    "projectile": {
+        "type": "origins:modify_projectile_damage",
+        "modifier": {
+            "operation": "addition",
+            "value": 4
+        }
+    },
+    "mws_i": {
+        "type": "otherworldorigins:enhanced_repair",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 5
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:is_staff"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "otherworldorigins:staffs"
+                    }
+                }
+            ]
+        },
+        "attribute": "irons_spellbooks:spell_power",
+        "operation": "multiply_total",
+        "value": 0.1
+    },
+    "mws_ii": {
+        "type": "otherworldorigins:enhanced_repair",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 5
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 10
+                }
+            ]
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:is_staff"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "otherworldorigins:staffs"
+                    }
+                }
+            ]
+        },
+        "attribute": "irons_spellbooks:spell_power",
+        "operation": "multiply_total",
+        "value": 0.15
+    },
+    "mws_iii": {
+        "type": "otherworldorigins:enhanced_repair",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 15
+                }
+            ]
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:is_staff"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "otherworldorigins:staffs"
+                    }
+                }
+            ]
+        },
+        "attribute": "irons_spellbooks:spell_power",
+        "operation": "multiply_total",
+        "value": 0.2
+    },
+    "mws_iv": {
+        "type": "otherworldorigins:enhanced_repair",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:is_staff"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "otherworldorigins:staffs"
+                    }
+                }
+            ]
+        },
+        "attribute": "irons_spellbooks:spell_power",
+        "operation": "multiply_total",
+        "value": 0.25
+    },
+    "mwb_i": {
+        "type": "otherworldorigins:enhanced_repair",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 5
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:is_bow"
+                },
+                {
+                    "type": "otherworldorigins:is_crossbow"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "otherworldorigins:bows"
+                    }
+                }
+            ]
+        },
+        "attribute": "attributeslib:arrow_damage",
+        "operation": "multiply_total",
+        "value": 0.1
+    },
+    "mwb_ii": {
+        "type": "otherworldorigins:enhanced_repair",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 5
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 10
+                }
+            ]
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:is_bow"
+                },
+                {
+                    "type": "otherworldorigins:is_crossbow"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "otherworldorigins:bows"
+                    }
+                }
+            ]
+        },
+        "attribute": "attributeslib:arrow_damage",
+        "operation": "multiply_total",
+        "value": 0.15
+    },
+    "mwb_iii": {
+        "type": "otherworldorigins:enhanced_repair",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 15
+                }
+            ]
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:is_bow"
+                },
+                {
+                    "type": "otherworldorigins:is_crossbow"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "otherworldorigins:bows"
+                    }
+                }
+            ]
+        },
+        "attribute": "attributeslib:arrow_damage",
+        "operation": "multiply_total",
+        "value": 0.2
+    },
+    "mwb_iv": {
+        "type": "otherworldorigins:enhanced_repair",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:is_bow"
+                },
+                {
+                    "type": "otherworldorigins:is_crossbow"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "otherworldorigins:bows"
+                    }
+                }
+            ]
+        },
+        "attribute": "attributeslib:arrow_damage",
+        "operation": "multiply_total",
+        "value": 0.25
     }
 }

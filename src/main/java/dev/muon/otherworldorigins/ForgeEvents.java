@@ -11,6 +11,7 @@ import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
 import dev.muon.otherworldorigins.power.ModifyDamageTakenDirectPower;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
+import dev.muon.otherworldorigins.util.EnhancedRepairLogic;
 import dev.shadowsoffire.apotheosis.Apotheosis;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
@@ -52,6 +53,7 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -87,6 +89,11 @@ public class ForgeEvents {
                 }
             });
         }
+    }
+
+    @SubscribeEvent
+    public static void onMasterworkAttributeModifiers(ItemAttributeModifierEvent event) {
+        EnhancedRepairLogic.onItemAttributeModifiers(event);
     }
 
     @SubscribeEvent
