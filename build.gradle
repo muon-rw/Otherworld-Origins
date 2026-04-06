@@ -166,8 +166,12 @@ dependencies {
         exclude group: 'com.github.llamalad.mixinextras'
     }
 
+    // EMF - wildshape compat testing
+    modImplementation("curse.maven:entity-model-features-844662:5646339")
+    modImplementation("curse.maven:entity-texture-features-fabric-568563:5982136")
+
     // Pehkui
-    //modImplementation("com.github.Virtuoel:Pehkui:${pehkui_version}-${minecraft_version}-forge")
+    modCompileOnly("com.github.Virtuoel:Pehkui:${pehkui_version}-${minecraft_version}-forge")
 
     // Mixin
     compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${mixin_squared_version}"))
@@ -203,8 +207,9 @@ dependencies {
 
     // Common Shared Deps
     modImplementation("dev.isxander:yet-another-config-lib:${project.yacl_version}")
-    // modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}:api")
-    modImplementation("top.theillusivec4.curios:curios-forge:${curios_version}")
+    modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}:api")
+    modRuntimeOnly("top.theillusivec4.curios:curios-forge:${curios_version}")
+    modImplementation("curse.maven:citadel-331936:7476570")
 
     // Iron's Spells n Spellbooks
     modImplementation("io.redspace:irons_spellbooks:${irons_version}")
@@ -237,14 +242,13 @@ dependencies {
     modRuntimeOnly("curse.maven:fluffy-fur-1097456:6392791")
 
     // Legendary Monsters
-    modImplementation("curse.maven:legendary-monsters-944035:6776766")
+    modCompileOnly("curse.maven:legendary-monsters-944035:6776766")
 
     // Immersive Melodies
     modImplementation("curse.maven:immersive-melodies-904471:6744792")
 
     // Alex's
     modImplementation("curse.maven:alexs-mobs-426558:5160697")
-    modImplementation("curse.maven:citadel-331936:5143956")
 
     // Just Leveling
     modImplementation("curse.maven:justleveling-fork-1073400:5824051")
@@ -294,7 +298,6 @@ dependencies {
 
     // IAF
     modImplementation("curse.maven:ice-and-fire-dragons-264231:5633453")
-    modImplementation("curse.maven:citadel-331936:6702068")
 
     // Doppel
     modImplementation("curse.maven:dark-doppelganger-1110803:6619700")
