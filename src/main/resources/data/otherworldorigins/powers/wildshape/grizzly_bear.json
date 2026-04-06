@@ -55,55 +55,18 @@
             }
         ]
     },
-    "roar_cooldown": {
-        "type": "origins:resource",
-        "min": 0,
-        "max": 600,
-        "start_value": 0,
+    "ability": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.otherworldorigins.cantrip_three"
+        },
+        "cooldown": 600,
         "hud_render": {
             "should_render": true,
             "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
-            "bar_index": 1,
-            "condition": {
-                "type": "origins:resource",
-                "resource": "*:*_roar_cooldown",
-                "comparison": ">",
-                "compare_to": 0
-            }
-        }
-    },
-    "roar_tick_cooldown": {
-        "type": "origins:action_over_time",
-        "interval": 1,
-        "condition": {
-            "type": "origins:resource",
-            "resource": "*:*_roar_cooldown",
-            "comparison": ">",
-            "compare_to": 0
+            "bar_index": 1
         },
         "entity_action": {
-            "type": "origins:change_resource",
-            "resource": "*:*_roar_cooldown",
-            "change": -1
-        }
-    },
-    "roar_meter": {
-        "type": "origins:resource",
-        "min": 0,
-        "max": 40,
-        "start_value": 0,
-        "hud_render": {
-            "should_render": true,
-            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
-            "bar_index": 0,
-            "condition": {
-                "type": "origins:resource",
-                "resource": "*:*_roar_meter",
-                "comparison": ">",
-                "compare_to": 0
-            }
-        },
-        "max_action": {
             "type": "origins:and",
             "actions": [
                 {
@@ -148,75 +111,10 @@
                     },
                     "bientity_condition": {
                         "type": "origins:target_condition",
-                        "condition": {
-                            "type": "origins:living"
-                        }
-                    }
-                },
-                {
-                    "type": "origins:modify_resource",
-                    "resource": "*:*_roar_cooldown",
-                    "modifier": {
-                        "operation": "set_total",
-                        "value": 600
-                    }
-                },
-                {
-                    "type": "origins:modify_resource",
-                    "resource": "*:*_roar_meter",
-                    "modifier": {
-                        "operation": "set_total",
-                        "value": 0
+                        "condition": { "type": "origins:living" }
                     }
                 }
             ]
-        }
-    },
-    "roar_charge": {
-        "type": "origins:action_over_time",
-        "interval": 1,
-        "condition": {
-            "type": "origins:and",
-            "conditions": [
-                {
-                    "type": "origins:resource",
-                    "resource": "*:*_roar_cooldown",
-                    "comparison": "==",
-                    "compare_to": 0
-                },
-                {
-                    "type": "origins:sneaking"
-                }
-            ]
-        },
-        "entity_action": {
-            "type": "origins:change_resource",
-            "resource": "*:*_roar_meter",
-            "change": 2
-        }
-    },
-    "roar_drain": {
-        "type": "origins:action_over_time",
-        "interval": 1,
-        "condition": {
-            "type": "origins:and",
-            "conditions": [
-                {
-                    "type": "origins:resource",
-                    "resource": "*:*_roar_cooldown",
-                    "comparison": "==",
-                    "compare_to": 0
-                },
-                {
-                    "type": "origins:sneaking"
-                }
-            ],
-            "inverted": true
-        },
-        "entity_action": {
-            "type": "origins:change_resource",
-            "resource": "*:*_roar_meter",
-            "change": -2
         }
     },
     "thick_hide": {

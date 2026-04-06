@@ -95,25 +95,34 @@
             "compare_to": 0
         },
         "entity_action": {
-            "type": "origins:change_resource",
+            "type": "origins:modify_resource",
             "resource": "*:*_stealth_cooldown",
-            "change": -1
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -1
+            }
         }
     },
     "damage_lockout": {
         "type": "origins:self_action_on_hit",
         "entity_action": {
-            "type": "origins:change_resource",
+            "type": "origins:modify_resource",
             "resource": "*:*_stealth_cooldown",
-            "change": 100
+            "modifier": {
+                "operation": "add_base_early",
+                "value": 100
+            }
         }
     },
     "hurt_lockout": {
         "type": "origins:self_action_when_hit",
         "entity_action": {
-            "type": "origins:change_resource",
+            "type": "origins:modify_resource",
             "resource": "*:*_stealth_cooldown",
-            "change": 100
+            "modifier": {
+                "operation": "add_base_early",
+                "value": 100
+            }
         }
     },
     "shadow_step": {

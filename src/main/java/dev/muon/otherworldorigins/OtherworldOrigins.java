@@ -163,10 +163,10 @@ public class OtherworldOrigins {
                 .consumerMainThread(ShapeshiftSyncMessage::handle)
                 .add();
 
-        CHANNEL.messageBuilder(WildshapeKeyMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
-                .encoder(WildshapeKeyMessage::encode)
-                .decoder(WildshapeKeyMessage::decode)
-                .consumerMainThread(WildshapeKeyMessage::handle)
+        CHANNEL.messageBuilder(WildshapeCantripHeldMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(WildshapeCantripHeldMessage::encode)
+                .decoder(WildshapeCantripHeldMessage::decode)
+                .consumerMainThread(WildshapeCantripHeldMessage::handle)
                 .add();
     }
 }
