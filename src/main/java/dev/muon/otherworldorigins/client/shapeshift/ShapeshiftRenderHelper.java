@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.client.shapeshift;
 
 import com.github.alexthe666.alexsmobs.entity.*;
+import dev.muon.otherworldorigins.mixin.client.EntityWaterStateAccessor;
 import dev.muon.otherworldorigins.mixin.client.WalkAnimationStateAccessor;
 import dev.muon.otherworldorigins.power.ShapeshiftPower;
 import net.bettercombat.logic.PlayerAttackProperties;
@@ -19,7 +20,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Syncs visual state from the source player entity to the dummy shapeshift entity
@@ -115,6 +115,7 @@ public class ShapeshiftRenderHelper {
         target.setSwimming(source.isSwimming());
         target.setPose(source.getPose());
         target.setSharedFlagOnFire(source.isOnFire());
+        ((EntityWaterStateAccessor) target).setWasTouchingWater(source.isInWater());
 
         if (source instanceof LivingEntity livingSource && target instanceof LivingEntity livingTarget) {
             syncLivingState(livingSource, livingTarget);

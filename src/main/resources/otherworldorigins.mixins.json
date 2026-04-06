@@ -62,6 +62,7 @@
   "client": [
     "client.EntityRenderDispatcherMixin",
     "client.EntityRendererAccessor",
+    "client.EntityWaterStateAccessor",
     "client.ForgeGuiMixin",
     "client.ItemInHandRendererMixin",
     "client.LivingEntityRendererMixin",
