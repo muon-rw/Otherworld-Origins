@@ -25,9 +25,6 @@ run-data
 .idea
 libs
 
-generate_origin_portraits.py
-generate_models.py
-
 .cursor/rules
 .cursor/skills
 .claude/skills
