@@ -1,0 +1,16 @@
+{
+  "hidden": true,
+  "type": "origins:action_over_time",
+  "interval": 20,
+  "entity_action": {
+    "type": "origins:apply_effect",
+    "effect": {
+      "effect": "goblins_tyranny:goblins_disguise",
+      "duration": 20,
+      "amplifier": 0,
+      "is_ambient": false,
+      "show_particles": false,
+      "show_icon": false
+    }
+  }
+}

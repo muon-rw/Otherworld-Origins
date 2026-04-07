@@ -226,6 +226,9 @@ dependencies {
     modImplementation("dev.ftb.mods:ftb-teams-forge:${ftb_teams_version}")
     modImplementation("dev.architectury:architectury-forge:${architectury_version}")
 
+    // Goblin's Tyranny
+    modImplementation("curse.maven:goblins-tyranny-1020500:5651594")
+
     // Identity?
     // Maybe not
     // modImplementation("curse.maven:identity-fix-morph-1238155:7777032")

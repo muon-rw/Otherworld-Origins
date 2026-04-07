@@ -8,11 +8,14 @@ import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.client.network.ShapeshiftSyncClient;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.network.ShapeshiftSyncClientDispatch;
+import dev.muon.otherworldorigins.client.compat.goblinstyranny.GoblinKinFakeEarsLayer;
 import dev.muon.otherworldorigins.item.HeartsTooltipComponent;
 import net.minecraft.client.renderer.entity.IronGolemRenderer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,6 +29,19 @@ public class ModEventsClient {
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.SUMMONED_IRON_GOLEM.get(), IronGolemRenderer::new);
         event.registerEntityRenderer(ModEntities.SUMMONED_GRIZZLY_BEAR.get(), RenderGrizzlyBear::new);
+    }
+
+    @SubscribeEvent
+    public static void registerPlayerLayers(EntityRenderersEvent.AddLayers event) {
+        if (!ModList.get().isLoaded("goblins_tyranny")) {
+            return;
+        }
+        for (String skin : event.getSkins()) {
+            PlayerRenderer renderer = event.getPlayerSkin(skin);
+            if (renderer != null) {
+                renderer.addLayer(new GoblinKinFakeEarsLayer(renderer));
+            }
+        }
     }
 
     @SubscribeEvent

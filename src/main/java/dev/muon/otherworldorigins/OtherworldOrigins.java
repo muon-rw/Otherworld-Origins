@@ -31,6 +31,11 @@ import org.slf4j.Logger;
 public class OtherworldOrigins {
     public static final String MODID = "otherworldorigins";
 
+    /**
+     * Shared goblin / hobgoblin power: Goblin's Tyranny disguise effect + cosmetic ears layer.
+     */
+    public static final ResourceLocation GOBLINS_TYRANNY_KIN_POWER = loc("subrace/other/goblin/goblins_tyranny_kin");
+
     public static ResourceLocation loc(String id) {
         return ResourceLocation.fromNamespaceAndPath(MODID, id);
     }
