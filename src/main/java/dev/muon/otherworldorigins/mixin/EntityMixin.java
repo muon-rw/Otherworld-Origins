@@ -51,7 +51,7 @@ public class EntityMixin {
 
     @WrapOperation(
             method = "updateSwimming",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;canStartSwimming()Z"))
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;canStartSwimming()Z", remap = false)) // canStartSwimming is interface patched by Forge
     private boolean otherworldorigins$wrapCanStartSwimming(Entity instance, Operation<Boolean> original) {
         return this.otherworldorigins$shouldForceAquaticWildshapeSwim() || original.call(instance);
     }
