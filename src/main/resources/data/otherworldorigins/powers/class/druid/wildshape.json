@@ -7,6 +7,21 @@
             "text": {
                 "translate": "otherworldorigins.gui.badge.wildshape_forms"
             }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wildshape_forms_exit",
+                "with": [
+                    {
+                        "keybind": "key.otherworldorigins.cantrip_three"
+                    },
+                    {
+                        "keybind": "key.sneak"
+                    }
+                ]
+            }
         }
     ],
     "wildshape_gate": {

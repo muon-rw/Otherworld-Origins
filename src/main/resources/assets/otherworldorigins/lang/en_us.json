@@ -8,6 +8,7 @@
 
   "otherworldorigins.gui.badge.cantrip": "Cantrips are low-level spells that have a short cooldown and low mana cost. \n\nThey have a separate keybind, bypass class restrictions, and do not use up a spell slot.",
   "otherworldorigins.gui.badge.wildshape_forms": "Wildshape forms by character level:\n\nLevel 2 — Wolf, Cat\nLevel 4 — Snow Leopard, Maned Wolf\nLevel 6 — Dolphin, Gorilla, Anaconda\nLevel 8 — Bald Eagle",
+  "otherworldorigins.gui.badge.wildshape_forms_exit": "To exit Wildshape early, hold %s and %s together for 3 seconds.",
   "otherworldorigins.gui.badge.combat_wild_shapes": "Circle of the Moon: extra forms by level\n\nLevel 4 — Grizzly Bear, Tiger\nLevel 6 — Crocodile, Bison, Rhinoceros\nLevel 8 — Moose, Elephant, Orca\nLevel 10 — Fire Elemental, Frost Elemental",
 
   "button.otherworldorigins.respec_button": "Respec",
@@ -47,6 +48,7 @@
   "item.otherworldorigins.goodberry.tooltip.decays_in": "Decays in: %s",
   "item.otherworldorigins.goodberry.tooltip.ordinary": "Ordinary",
   "item.otherworldorigins.masterwork": "Masterwork",
+  "item.otherworldorigins.artificers_soul": "Artificer's Soul",
 
   "otherworldorigins.uncastable": "You can't use this ability right now.",
   "otherworldorigins.reforge_restricted": "Your lack the knowledge needed to use this table...",
