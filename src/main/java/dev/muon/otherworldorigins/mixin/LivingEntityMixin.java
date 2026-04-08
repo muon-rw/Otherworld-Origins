@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import dev.muon.otherworldorigins.compat.irons_spellbooks.IronsSpellOutgoingHealContext;
 import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.power.*;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
@@ -15,10 +16,21 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
+
+    /**
+     * When an Iron's Spellbooks heal just posted {@code SpellHealEvent} for {@code this} as target, use heal amount
+     * after {@code apoli:modify_healing} on the caster (see
+     * {@link dev.muon.otherworldorigins.mixin.compat.irons_spellbooks.SpellHealEventMixin}).
+     */
+    @ModifyVariable(method = "heal", at = @At("HEAD"), argsOnly = true)
+    private float otherworldorigins$ironsSpellOutgoingHeal(float healAmount) {
+        return IronsSpellOutgoingHealContext.consumeFor((LivingEntity) (Object) this, healAmount);
+    }
 
     @Inject(method = "decreaseAirSupply", at = @At("HEAD"), cancellable = true)
     private void otherworldorigins$undeadWaterBreath(int currentAir, CallbackInfoReturnable<Integer> cir) {
