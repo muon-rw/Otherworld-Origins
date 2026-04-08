@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.condition;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.util.SoulOfArtificeLogic;
 import dev.muon.otherworldorigins.condition.block.PlantableBlockCondition;
 import dev.muon.otherworldorigins.condition.entity.AnyOnLayerCondition;
 import dev.muon.otherworldorigins.condition.entity.HasSchoolAccessCondition;
@@ -117,6 +118,12 @@ public class ModConditions {
     public static final RegistryObject<SimpleItemCondition> IS_STAFF = ITEM_CONDITIONS.register("is_staff", () ->
             new SimpleItemCondition(stack -> ForgeRegistries.ITEMS.getKey(stack.getItem()).getPath().contains("staff"))
     );
+
+    /**
+     * True when {@link dev.muon.otherworldorigins.action.item.SoulOfArtificeItemAction} would successfully roll a bonus affix.
+     */
+    public static final RegistryObject<SimpleItemCondition> AFFIXABLE = ITEM_CONDITIONS.register("affixable", () ->
+            new SimpleItemCondition(SoulOfArtificeLogic::canApplyBonusAffix));
 
     public static final RegistryObject<SimpleItemCondition> IS_FIST_WEAPON = ITEM_CONDITIONS.register("is_fist_weapon", () ->
             new SimpleItemCondition(stack -> {

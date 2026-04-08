@@ -532,6 +532,11 @@
 "power.otherworldorigins.class/ranger/goodberry.name": "Goodberry",
 "power.otherworldorigins.class/ranger/goodberry.description": "Conjure up to 10 magic berries (based on level) that each restore 4 hearts when eaten. Berries lose their magic after one day and no longer heal. Recharges on sleep.",
 
+"power.otherworldorigins.class/artificer/soul_of_artifice.name": "Soul of Artifice",
+"power.otherworldorigins.class/artificer/soul_of_artifice.description": "Starting at level 20, hold rare loot and activate to add an extra affix for the item's rarity. You can do this once per day. Reforging clears the infusion.",
+
+"otherworldorigins.soul_of_artifice.cannot_infuse": "You can't infuse this item with your Artificer's Soul.",
+
 "power.otherworldorigins.class/ranger/landstride.name": "Land's Stride",
 "power.otherworldorigins.class/ranger/landstride.description": "You are resistant to the Slowness effect and are not slowed by dense foliage or the Root spell.",
 

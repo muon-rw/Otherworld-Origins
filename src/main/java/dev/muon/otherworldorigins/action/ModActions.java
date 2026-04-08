@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.action;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.action.item.SoulOfArtificeItemAction;
 import dev.muon.otherworldorigins.action.bientity.ApplyFavoredFoeAction;
 import dev.muon.otherworldorigins.action.bientity.AttackAction;
 import dev.muon.otherworldorigins.action.bientity.CastSpellBientityAction;
@@ -43,7 +44,8 @@ public class ModActions {
 
 
     public static final DeferredRegister<ItemAction<?>> ITEM_ACTIONS = DeferredRegister.create(ApoliRegistries.ITEM_ACTION_KEY, OtherworldOrigins.MODID);
-
+    public static final RegistryObject<SoulOfArtificeItemAction> SOUL_OF_ARTIFICE =
+            ITEM_ACTIONS.register("soul_of_artifice", SoulOfArtificeItemAction::new);
 
     public static void register(IEventBus eventBus) {
         ENTITY_ACTIONS.register(eventBus);

@@ -11,6 +11,7 @@ import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import dev.muon.otherworldorigins.skills.ModSkills;
 import dev.muon.otherworldorigins.util.MasterworkAffixNbt;
+import dev.muon.otherworldorigins.util.SoulOfArtificeNbt;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.configuration.NoConfiguration;
@@ -67,6 +68,7 @@ public class ItemStackMixin {
         otherworld$addSpellTooltips(modifiedTooltips, stack, player);
         otherworld$addReforgeTableTooltips(modifiedTooltips, stack, player);
         otherworld$addMasterworkLine(modifiedTooltips, stack);
+        otherworld$addSoulOfArtificeLine(modifiedTooltips, stack);
 
         return modifiedTooltips;
     }
@@ -101,6 +103,20 @@ public class ItemStackMixin {
             return;
         }
         Component line = Component.translatable("item.otherworldorigins.masterwork")
+                .withStyle(ChatFormatting.LIGHT_PURPLE);
+        if (tooltips.isEmpty()) {
+            tooltips.add(line);
+            return;
+        }
+        tooltips.add(1, line);
+    }
+
+    @Unique
+    private void otherworld$addSoulOfArtificeLine(List<Component> tooltips, ItemStack stack) {
+        if (!SoulOfArtificeNbt.isActive(stack)) {
+            return;
+        }
+        Component line = Component.translatable("item.otherworldorigins.artificers_soul")
                 .withStyle(ChatFormatting.LIGHT_PURPLE);
         if (tooltips.isEmpty()) {
             tooltips.add(line);

@@ -1,0 +1,108 @@
+{
+    "type": "origins:multiple",
+    "apply": {
+        "type": "origins:active_self",
+        "key": "key.otherworldorigins.cantrip_two",
+        "cooldown": 24000,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                },
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "mainhand",
+                    "item_condition": {
+                        "type": "otherworldorigins:affixable"
+                    }
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:equipped_item_action",
+            "equipment_slot": "mainhand",
+            "action": {
+                "type": "otherworldorigins:soul_of_artifice"
+            }
+        },
+        "hud_render": {
+            "should_render": true,
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 20
+                    },
+                    {
+                        "type": "origins:resource",
+                        "resource": "*:*_apply",
+                        "compare_to": 0,
+                        "comparison": ">"
+                    }
+                ]
+            },
+            "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_02.png",
+            "bar_index": 9
+        }
+    },
+    "apply_feedback": {
+        "type": "origins:active_self",
+        "key": "key.otherworldorigins.cantrip_two",
+        "cooldown": 0,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_apply",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "mainhand",
+                    "item_condition": {
+                        "type": "otherworldorigins:affixable",
+                        "inverted": true
+                    }
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:execute_command",
+            "command": "title @s actionbar {\"translate\": \"otherworldorigins.soul_of_artifice.cannot_infuse\", \"color\": \"red\"}"
+        },
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:if_else",
+            "condition": {
+                "type": "otherworldorigins:player_level",
+                "comparison": ">=",
+                "compare_to": 20
+            },
+            "if_action": {
+                "type": "origins:modify_resource",
+                "resource": "*:*_apply",
+                "modifier": {
+                    "operation": "set_total",
+                    "value": 0
+                }
+            }
+        }
+    }
+}
