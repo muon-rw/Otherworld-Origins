@@ -1,0 +1,11 @@
+{
+    "powers": [
+        "otherworldorigins:chemical_mastery/restoration"
+    ],
+    "icon": {
+        "item": "minecraft:splash_potion",
+        "tag": "{Potion:\"minecraft:healing\",CustomPotionColor:16711680}"
+    },
+    "impact": 1,
+    "order": 0
+}

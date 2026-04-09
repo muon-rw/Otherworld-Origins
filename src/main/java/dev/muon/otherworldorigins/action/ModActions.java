@@ -29,6 +29,8 @@ public class ModActions {
     public static final RegistryObject<ResourceHealAction> RESOURCE_HEAL = ENTITY_ACTIONS.register("resource_heal", ResourceHealAction::new);
     public static final RegistryObject<PlayPlayerAnimationAction> PLAY_PLAYER_ANIMATION = ENTITY_ACTIONS.register("play_player_animation", PlayPlayerAnimationAction::new);
     public static final RegistryObject<PromptLayerSelectionAction> PROMPT_LAYER_SELECTION = ENTITY_ACTIONS.register("prompt_layer_selection", PromptLayerSelectionAction::new);
+    public static final RegistryObject<ExperimentalElixirEntityAction> EXPERIMENTAL_ELIXIR_BREW =
+            ENTITY_ACTIONS.register("experimental_elixir_brew", ExperimentalElixirEntityAction::new);
 
 
     public static final DeferredRegister<BiEntityAction<?>> BIENTITY_ACTIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_ACTION_KEY, OtherworldOrigins.MODID);

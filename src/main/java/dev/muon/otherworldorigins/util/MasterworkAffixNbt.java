@@ -53,6 +53,7 @@ public final class MasterworkAffixNbt {
     public static void clearMasterwork(ItemStack stack) {
         if (!stack.hasTag()) return;
         CompoundTag tag = stack.getTag();
+        if (tag == null) return;
         if (!tag.contains(OtherworldOrigins.MODID, Tag.TAG_COMPOUND)) return;
         CompoundTag root = tag.getCompound(OtherworldOrigins.MODID);
         if (!root.contains(MOD_SUBROOT, Tag.TAG_COMPOUND)) return;

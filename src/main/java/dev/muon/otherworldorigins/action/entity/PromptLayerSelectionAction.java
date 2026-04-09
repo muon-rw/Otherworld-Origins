@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
-import dev.muon.otherworldorigins.network.SendFeatLayersMessage;
+import dev.muon.otherworldorigins.network.SendLeveledLayersMessage;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
@@ -43,7 +43,7 @@ public class PromptLayerSelectionAction extends EntityAction<PromptLayerSelectio
 
         PacketDistributor.PacketTarget target = PacketDistributor.PLAYER.with(() -> player);
         OtherworldOrigins.CHANNEL.send(target, new CloseCurrentScreenMessage());
-        OtherworldOrigins.CHANNEL.send(target, new SendFeatLayersMessage(validLayers));
+        OtherworldOrigins.CHANNEL.send(target, new SendLeveledLayersMessage(validLayers));
     }
 
     public record Configuration(List<ResourceLocation> layers) implements IDynamicFeatureConfiguration {

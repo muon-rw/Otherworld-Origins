@@ -81,26 +81,26 @@ public class ClientLayerScreenHelper {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void handleFeatLayers(List<ResourceLocation> validLayerIds) {
+    public static void handleLeveledLayers(List<ResourceLocation> validLayerIds) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.player != null) {
             Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
-            List<Holder<OriginLayer>> featOriginLayers = new ArrayList<>();
+            List<Holder<OriginLayer>> leveledLayers = new ArrayList<>();
 
             for (ResourceLocation layerId : validLayerIds) {
                 OriginLayer layer = layerRegistry.get(layerId);
                 if (layer != null) {
-                    featOriginLayers.add(layerRegistry.getHolderOrThrow(layerRegistry.getResourceKey(layer).orElseThrow()));
+                    leveledLayers.add(layerRegistry.getHolderOrThrow(layerRegistry.getResourceKey(layer).orElseThrow()));
                 }
             }
 
-            if (!featOriginLayers.isEmpty()) {
+            if (!leveledLayers.isEmpty()) {
                 OtherworldOrigins.LOGGER.debug("Opening selection screen for feat layers:");
-                for (Holder<OriginLayer> layerHolder : featOriginLayers) {
+                for (Holder<OriginLayer> layerHolder : leveledLayers) {
                     OtherworldOrigins.LOGGER.debug("- " + layerHolder.value().name().getString());
                 }
                 minecraft.execute(() -> {
-                    OtherworldOriginScreen newScreen = new OtherworldOriginScreen(featOriginLayers, 0, false, true);
+                    OtherworldOriginScreen newScreen = new OtherworldOriginScreen(leveledLayers, 0, false, true);
                     minecraft.setScreen(newScreen);
                 });
             }
@@ -126,7 +126,8 @@ public class ClientLayerScreenHelper {
                 OtherworldOrigins.loc("first_feat"), OtherworldOrigins.loc("second_feat"),
                 OtherworldOrigins.loc("third_feat"), OtherworldOrigins.loc("fourth_feat"),
                 OtherworldOrigins.loc("fifth_feat"),
-                OtherworldOrigins.loc("plus_one_aptitude_resilient"), OtherworldOrigins.loc("wildshape")
+                OtherworldOrigins.loc("plus_one_aptitude_resilient"), OtherworldOrigins.loc("wildshape"),
+                OtherworldOrigins.loc("chemical_mastery")
         );
         
         for (ResourceLocation layerId : lastSelectedLayers) {

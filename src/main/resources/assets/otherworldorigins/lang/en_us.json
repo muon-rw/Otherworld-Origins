@@ -247,7 +247,7 @@
   "power.otherworldorigins.race/dragonborn/draconic_ancestry.description": "§oYour dragon scales grant you 10% resistance to physical weapons. You can breathe a cone of magical energy based on your ancestral heritage",
 
   "power.otherworldorigins.race/undead/undead.name": "Undead",
-  "power.otherworldorigins.race/undead/undead.description": "§oAll Undead races receive inverted Healing and Harming effects, and take extra damage from the Smite enchantment",
+  "power.otherworldorigins.race/undead/undead.description": "§oAll Undead races receive inverted Healing and Harming effects, and take extra damage from the Smite enchantment. They have no hunger or thirst, and do not have to breathe air.",
 
   "power.otherworldorigins.subrace/undead/zombie/vulnerability.name": "-Sun Resistance",
   "power.otherworldorigins.subrace/undead/zombie/vulnerability.description": "§oYou'll burn in daylight - this can be negated with a helmet.",
@@ -386,13 +386,13 @@
 
 "origin.otherworldorigins.class/artificer.name": "Artificer",
 "origin.otherworldorigins.subclass/artificer/alchemist.name": "Alchemist",
-"origin.otherworldorigins.subclass/artificer/alchemist.description": "• Receive double the duration of potion effects",
+"origin.otherworldorigins.subclass/artificer/alchemist.description": "• Beneficial effects you receive last 50% longer\n• Experimental Elixir\n• At level 15, choose a Chemical Mastery, enhancing your experimental elixir.",
 "origin.otherworldorigins.subclass/artificer/armorer.name": "Armorer",
-"origin.otherworldorigins.subclass/artificer/armorer.description": "• +3 Armor",
+"origin.otherworldorigins.subclass/artificer/armorer.description": "• +3 Armor\n• Armor you repair gains an additional 10%/15%/20% armor at levels 5, 10, and 15.",
 "origin.otherworldorigins.subclass/artificer/artillerist.name": "Artillerist",
-"origin.otherworldorigins.subclass/artificer/artillerist.description": "• +4 Ranged Damage",
+"origin.otherworldorigins.subclass/artificer/artillerist.description": "• +4 Ranged Damage\n• Bows and staves you repair gain an additional 10%/15%/20% damage at levels 5, 10, and 15.",
 "origin.otherworldorigins.subclass/artificer/battle_smith.name": "Battle Smith",
-"origin.otherworldorigins.subclass/artificer/battle_smith.description": "• +3 Melee Damage",
+"origin.otherworldorigins.subclass/artificer/battle_smith.description": "• +3 Melee Damage\n• Weapons you repair gain an additional 10%/15%/20% damage at levels 5, 10, and 15.",
 
 "origin.otherworldorigins.class/barbarian.name": "Barbarian",
 "origin.otherworldorigins.subclass/barbarian/wildheart.name": "Wildheart",
@@ -536,6 +536,23 @@
 "power.otherworldorigins.class/artificer/soul_of_artifice.description": "Starting at level 20, hold rare loot and activate to add an extra affix for the item's rarity. You can do this once per day. Reforging clears the infusion.",
 
 "otherworldorigins.soul_of_artifice.cannot_infuse": "You can't infuse this item with your Artificer's Soul.",
+
+"otherworldorigins.experimental_elixir.cannot_brew": "You need an empty bottle, water bottle, or awkward potion to brew an experimental elixir.",
+  "item.otherworldorigins.experimental_elixir": "Experimental Elixir",
+
+"layer.otherworldorigins.chemical_mastery.name": "Chemical Mastery",
+
+"origin.otherworldorigins.chemical_mastery/restoration.name": "Restoration",
+"origin.otherworldorigins.chemical_mastery/restoration.description": "Your experimental elixirs stay beneficial and become lingering potions. Beneficial potion effects you receive last an additional 50% longer.",
+"origin.otherworldorigins.chemical_mastery/negation.name": "Negation",
+"origin.otherworldorigins.chemical_mastery/negation.description": "Your experimental elixirs become harmful lingering clouds. Harmful potion and debuff durations on you are shortened by 75%.",
+
+"power.otherworldorigins.subclass/artificer/alchemist.name": "Experimental Elixir",
+"power.otherworldorigins.subclass/artificer/alchemist.description": "Once per day, you can magically produce an experimental elixir in an empty bottle, water bottle, or awkward potion. This improves as you level up, as listed in the tooltips.",
+
+"otherworldorigins.gui.badge.experimental_elixir_lv5": "Level 5+: 2 uses per day. Gain a chance for an additional effect, and a chance for a higher amplifier.",
+"otherworldorigins.gui.badge.experimental_elixir_lv10": "Level 10+: 3 daily uses. All elixirs have at least 2 effects with a chance for a third. All new elixirs will be longer.",
+"otherworldorigins.gui.badge.experimental_elixir_lv15": "Level 15+: 4 daily uses. At least 2, with a chance for up to 4 effects per elixir, plus the bonuses from your Chemical Mastery alignment.",
 
 "power.otherworldorigins.class/ranger/landstride.name": "Land's Stride",
 "power.otherworldorigins.class/ranger/landstride.description": "You are resistant to the Slowness effect and are not slowed by dense foliage or the Root spell.",

@@ -1,0 +1,33 @@
+{
+    "order": 299,
+    "name": "Chemical Mastery",
+    "auto_choose": true,
+    "hidden": false,
+    "gui_title": {
+        "choose_origin": "Choose your Chemical Mastery:",
+        "view_origin": "Chemical Mastery:"
+    },
+    "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+    "origins": [
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:origin",
+                        "origin": "otherworldorigins:subclass/artificer/alchemist"
+                    },
+                    {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 15
+                    }
+                ]
+            },
+            "origins": [
+                "otherworldorigins:chemical_mastery/restoration",
+                "otherworldorigins:chemical_mastery/negation"
+            ]
+        }
+    ]
+}

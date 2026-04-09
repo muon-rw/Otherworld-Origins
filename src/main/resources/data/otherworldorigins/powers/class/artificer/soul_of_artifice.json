@@ -2,7 +2,7 @@
     "type": "origins:multiple",
     "apply": {
         "type": "origins:active_self",
-        "key": "key.otherworldorigins.cantrip_two",
+        "key": "key.otherworldorigins.cantrip_one",
         "cooldown": 24000,
         "condition": {
             "type": "origins:and",
@@ -52,7 +52,7 @@
     },
     "apply_feedback": {
         "type": "origins:active_self",
-        "key": "key.otherworldorigins.cantrip_two",
+        "key": "key.otherworldorigins.cantrip_one",
         "cooldown": 0,
         "condition": {
             "type": "origins:and",

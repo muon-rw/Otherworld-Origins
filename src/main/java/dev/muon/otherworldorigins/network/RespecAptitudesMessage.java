@@ -13,10 +13,8 @@ import com.seniors.justlevelingfork.registry.skills.Skill;
 import com.seniors.justlevelingfork.registry.title.Title;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.power.InnateAptitudeBonusPower;
-import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -59,7 +57,7 @@ public class RespecAptitudesMessage {
                     resetPassives(capability);
                     resetTitles(capability);
 
-                    ResetFeatsMessage.handle(new ResetFeatsMessage(), ctx);
+                    ResetLeveledLayersMessage.handle(new ResetLeveledLayersMessage(), ctx);
                     RegistryTitles.syncTitles(player);
                     SyncAptitudeCapabilityCP.send(player);
 

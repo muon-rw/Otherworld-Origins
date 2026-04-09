@@ -28,7 +28,8 @@ public class OtherworldOriginsClientEvents {
             OtherworldOrigins.loc("first_feat"), OtherworldOrigins.loc("second_feat"),
             OtherworldOrigins.loc("third_feat"), OtherworldOrigins.loc("fourth_feat"),
             OtherworldOrigins.loc("fifth_feat"),
-            OtherworldOrigins.loc("plus_one_aptitude_resilient"), OtherworldOrigins.loc("wildshape")
+            OtherworldOrigins.loc("plus_one_aptitude_resilient"), OtherworldOrigins.loc("wildshape"),
+            OtherworldOrigins.loc("chemical_mastery")
     );
 
     @SubscribeEvent(priority = EventPriority.HIGH)

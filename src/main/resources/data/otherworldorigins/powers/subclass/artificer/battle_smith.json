@@ -12,31 +12,6 @@
     "mw_i": {
         "type": "otherworldorigins:enhanced_repair",
         "condition": {
-            "type": "otherworldorigins:player_level",
-            "comparison": "<",
-            "compare_to": 5
-        },
-        "item_condition": {
-            "type": "origins:or",
-            "conditions": [
-                {
-                    "type": "otherworldorigins:is_melee_weapon"
-                },
-                {
-                    "type": "origins:ingredient",
-                    "ingredient": {
-                        "tag": "otherworldorigins:melee_weapons"
-                    }
-                }
-            ]
-        },
-        "attribute": "minecraft:generic.attack_damage",
-        "operation": "multiply_total",
-        "value": 0.1
-    },
-    "mw_ii": {
-        "type": "otherworldorigins:enhanced_repair",
-        "condition": {
             "type": "origins:and",
             "conditions": [
                 {
@@ -67,9 +42,9 @@
         },
         "attribute": "minecraft:generic.attack_damage",
         "operation": "multiply_total",
-        "value": 0.15
+        "value": 0.1
     },
-    "mw_iii": {
+    "mw_ii": {
         "type": "otherworldorigins:enhanced_repair",
         "condition": {
             "type": "origins:and",
@@ -102,9 +77,9 @@
         },
         "attribute": "minecraft:generic.attack_damage",
         "operation": "multiply_total",
-        "value": 0.2
+        "value": 0.15
     },
-    "mw_iv": {
+    "mw_iii": {
         "type": "otherworldorigins:enhanced_repair",
         "condition": {
             "type": "otherworldorigins:player_level",
@@ -127,6 +102,6 @@
         },
         "attribute": "minecraft:generic.attack_damage",
         "operation": "multiply_total",
-        "value": 0.25
+        "value": 0.2
     }
 }

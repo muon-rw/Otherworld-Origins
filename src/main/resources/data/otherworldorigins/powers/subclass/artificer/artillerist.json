@@ -11,31 +11,6 @@
     "mws_i": {
         "type": "otherworldorigins:enhanced_repair",
         "condition": {
-            "type": "otherworldorigins:player_level",
-            "comparison": "<",
-            "compare_to": 5
-        },
-        "item_condition": {
-            "type": "origins:or",
-            "conditions": [
-                {
-                    "type": "otherworldorigins:is_staff"
-                },
-                {
-                    "type": "origins:ingredient",
-                    "ingredient": {
-                        "tag": "otherworldorigins:staffs"
-                    }
-                }
-            ]
-        },
-        "attribute": "irons_spellbooks:spell_power",
-        "operation": "multiply_total",
-        "value": 0.1
-    },
-    "mws_ii": {
-        "type": "otherworldorigins:enhanced_repair",
-        "condition": {
             "type": "origins:and",
             "conditions": [
                 {
@@ -66,9 +41,9 @@
         },
         "attribute": "irons_spellbooks:spell_power",
         "operation": "multiply_total",
-        "value": 0.15
+        "value": 0.1
     },
-    "mws_iii": {
+    "mws_ii": {
         "type": "otherworldorigins:enhanced_repair",
         "condition": {
             "type": "origins:and",
@@ -101,9 +76,9 @@
         },
         "attribute": "irons_spellbooks:spell_power",
         "operation": "multiply_total",
-        "value": 0.2
+        "value": 0.15
     },
-    "mws_iv": {
+    "mws_iii": {
         "type": "otherworldorigins:enhanced_repair",
         "condition": {
             "type": "otherworldorigins:player_level",
@@ -126,14 +101,24 @@
         },
         "attribute": "irons_spellbooks:spell_power",
         "operation": "multiply_total",
-        "value": 0.25
+        "value": 0.2
     },
     "mwb_i": {
         "type": "otherworldorigins:enhanced_repair",
         "condition": {
-            "type": "otherworldorigins:player_level",
-            "comparison": "<",
-            "compare_to": 5
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 5
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 10
+                }
+            ]
         },
         "item_condition": {
             "type": "origins:or",
@@ -164,44 +149,6 @@
                 {
                     "type": "otherworldorigins:player_level",
                     "comparison": ">=",
-                    "compare_to": 5
-                },
-                {
-                    "type": "otherworldorigins:player_level",
-                    "comparison": "<",
-                    "compare_to": 10
-                }
-            ]
-        },
-        "item_condition": {
-            "type": "origins:or",
-            "conditions": [
-                {
-                    "type": "otherworldorigins:is_bow"
-                },
-                {
-                    "type": "otherworldorigins:is_crossbow"
-                },
-                {
-                    "type": "origins:ingredient",
-                    "ingredient": {
-                        "tag": "otherworldorigins:bows"
-                    }
-                }
-            ]
-        },
-        "attribute": "attributeslib:arrow_damage",
-        "operation": "multiply_total",
-        "value": 0.15
-    },
-    "mwb_iii": {
-        "type": "otherworldorigins:enhanced_repair",
-        "condition": {
-            "type": "origins:and",
-            "conditions": [
-                {
-                    "type": "otherworldorigins:player_level",
-                    "comparison": ">=",
                     "compare_to": 10
                 },
                 {
@@ -230,9 +177,9 @@
         },
         "attribute": "attributeslib:arrow_damage",
         "operation": "multiply_total",
-        "value": 0.2
+        "value": 0.15
     },
-    "mwb_iv": {
+    "mwb_iii": {
         "type": "otherworldorigins:enhanced_repair",
         "condition": {
             "type": "otherworldorigins:player_level",
@@ -258,6 +205,6 @@
         },
         "attribute": "attributeslib:arrow_damage",
         "operation": "multiply_total",
-        "value": 0.25
+        "value": 0.2
     }
 }

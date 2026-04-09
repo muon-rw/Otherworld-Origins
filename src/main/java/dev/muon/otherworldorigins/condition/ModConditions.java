@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.condition;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.util.ExperimentalElixirLogic;
 import dev.muon.otherworldorigins.util.SoulOfArtificeLogic;
 import dev.muon.otherworldorigins.condition.block.PlantableBlockCondition;
 import dev.muon.otherworldorigins.condition.entity.AnyOnLayerCondition;
@@ -18,6 +19,7 @@ import io.github.edwinmindcraft.apoli.common.condition.item.SimpleItemCondition;
 import io.redspace.ironsspellbooks.item.CastingItem;
 import net.bettercombat.api.WeaponAttributes;
 import net.bettercombat.logic.WeaponRegistry;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.*;
@@ -54,6 +56,9 @@ public class ModConditions {
     public static final RegistryObject<HasSchoolAccessCondition> HAS_SCHOOL_ACCESS = ENTITY_CONDITIONS.register("has_school_access", HasSchoolAccessCondition::new);
     public static final RegistryObject<LeveledChanceCondition> LEVELED_CHANCE = ENTITY_CONDITIONS.register("leveled_chance", LeveledChanceCondition::new);
     public static final RegistryObject<VelocityCondition> VELOCITY = ENTITY_CONDITIONS.register("velocity", VelocityCondition::new);
+    public static final RegistryObject<SimpleEntityCondition> HOLDING_EXPERIMENTAL_ELIXIR_REAGENT = ENTITY_CONDITIONS.register("holding_experimental_elixir_reagent", () ->
+            new SimpleEntityCondition(entity ->
+                    entity instanceof LivingEntity living && ExperimentalElixirLogic.isReagent(living.getMainHandItem())));
 
 
 

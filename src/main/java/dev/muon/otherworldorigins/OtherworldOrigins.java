@@ -114,10 +114,10 @@ public class OtherworldOrigins {
                 .consumerMainThread(C2SRevertLayerOriginsMessage::handle)
                 .add();
 
-        CHANNEL.messageBuilder(CheckFeatScreenMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
-                .encoder(CheckFeatScreenMessage::encode)
-                .decoder(CheckFeatScreenMessage::decode)
-                .consumerMainThread(CheckFeatScreenMessage::handle)
+        CHANNEL.messageBuilder(CheckLeveledLayersMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(CheckLeveledLayersMessage::encode)
+                .decoder(CheckLeveledLayersMessage::decode)
+                .consumerMainThread(CheckLeveledLayersMessage::handle)
                 .add();
         CHANNEL.messageBuilder(RespecAptitudesMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
                 .encoder(RespecAptitudesMessage::encode)
@@ -135,10 +135,10 @@ public class OtherworldOrigins {
                 .decoder(SendValidatedLayersMessage::decode)
                 .consumerMainThread(SendValidatedLayersMessage::handle)
                 .add();
-        CHANNEL.messageBuilder(SendFeatLayersMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
-                .encoder(SendFeatLayersMessage::encode)
-                .decoder(SendFeatLayersMessage::decode)
-                .consumerMainThread(SendFeatLayersMessage::handle)
+        CHANNEL.messageBuilder(SendLeveledLayersMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(SendLeveledLayersMessage::encode)
+                .decoder(SendLeveledLayersMessage::decode)
+                .consumerMainThread(SendLeveledLayersMessage::handle)
                 .add();
         CHANNEL.messageBuilder(ResetValidationAttemptsMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(ResetValidationAttemptsMessage::encode)

@@ -1,0 +1,11 @@
+{
+    "powers": [
+        "otherworldorigins:chemical_mastery/negation"
+    ],
+    "icon": {
+        "item": "minecraft:splash_potion",
+        "tag": "{Potion:\"minecraft:poison\",CustomPotionColor:65280}"
+    },
+    "impact": 1,
+    "order": 1
+}

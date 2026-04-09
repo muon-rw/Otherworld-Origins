@@ -15,38 +15,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class SendFeatLayersMessage {
+public class SendLeveledLayersMessage {
 
     // Functionally identical to SendValidatedLayersMessage
 
-    private final List<ResourceLocation> featLayers;
+    private final List<ResourceLocation> leveledLayers;
 
-    public SendFeatLayersMessage(List<ResourceLocation> featLayers) {
-        this.featLayers = featLayers;
+    public SendLeveledLayersMessage(List<ResourceLocation> leveledLayers) {
+        this.leveledLayers = leveledLayers;
     }
 
-    public static SendFeatLayersMessage decode(FriendlyByteBuf buf) {
+    public static SendLeveledLayersMessage decode(FriendlyByteBuf buf) {
         int size = buf.readInt();
         List<ResourceLocation> layers = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             layers.add(buf.readResourceLocation());
         }
-        return new SendFeatLayersMessage(layers);
+        return new SendLeveledLayersMessage(layers);
     }
 
     public void encode(FriendlyByteBuf buf) {
-        buf.writeInt(featLayers.size());
-        for (ResourceLocation layer : featLayers) {
+        buf.writeInt(leveledLayers.size());
+        for (ResourceLocation layer : leveledLayers) {
             buf.writeResourceLocation(layer);
         }
     }
 
-    public static void handle(SendFeatLayersMessage message, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(SendLeveledLayersMessage message, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(null);
             List<ResourceLocation> validLayerIds = new ArrayList<>();
 
-            for (ResourceLocation layerId : message.featLayers) {
+            for (ResourceLocation layerId : message.leveledLayers) {
                 OriginLayer layer = layerRegistry.get(layerId);
                 if (layer != null) {
                     validLayerIds.add(layerId);
@@ -59,7 +59,7 @@ public class SendFeatLayersMessage {
                     OtherworldOrigins.LOGGER.debug("- " + layerId);
                 }
 
-                DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientLayerScreenHelper.handleFeatLayers(validLayerIds));
+                DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> ClientLayerScreenHelper.handleLeveledLayers(validLayerIds));
             }
         });
         ctx.get().setPacketHandled(true);
