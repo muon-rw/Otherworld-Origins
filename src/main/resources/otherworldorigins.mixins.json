@@ -87,6 +87,7 @@
     "compat.justlevelingfork.client.JustLevelingScreenMixin",
     "compat.shouldersurfing.ApoliAPIMixin",
     "origins_patches.OriginDisplayScreenMixin",
+    "origins_patches.OriginsBadgeAddLinesMixin",
     "origins_patches.ViewOriginScreenMixin"
   ],
   "minVersion": "0.8"
