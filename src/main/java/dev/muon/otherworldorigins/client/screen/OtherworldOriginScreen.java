@@ -46,7 +46,7 @@ import io.github.apace100.origins.badge.BadgeManager;
 import io.github.apace100.origins.mixin.DrawContextAccessor;
 import io.github.apace100.origins.origin.Impact;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.FlyingAnimal;
@@ -58,6 +58,7 @@ import com.github.alexthe666.alexsmobs.entity.EntityAnaconda;
 import com.github.alexthe666.alexsmobs.entity.EntityAnacondaPart;
 import net.minecraft.client.multiplayer.ClientLevel;
 import org.joml.Quaternionf;
+import org.joml.Vector2i;
 import javax.annotation.Nullable;
 
 public class OtherworldOriginScreen extends Screen {
@@ -109,6 +110,27 @@ public class OtherworldOriginScreen extends Screen {
     private static final int COMPLETED_ICON_HEIGHT = 22;
     private static final ResourceLocation CHARACTER_SHEET = OtherworldOrigins.loc("textures/gui/character_sheet.png");
     private static final ResourceLocation WINDOW = ResourceLocation.fromNamespaceAndPath("origins", "textures/gui/choose_origin.png");
+
+    /**
+     * Power badges in the right panel sit next to the screen edge. Vanilla/default tooltip
+     * placement grows to the right of the cursor, and Origins line-wrap width uses
+     * {@code screenWidth - mouseX}, which collapses there. This positioner keeps the tooltip
+     * opening to the left (outer right edge near the cursor, with the same 12px gap vanilla uses).
+     */
+    private static final ClientTooltipPositioner BADGE_TOOLTIP_POSITIONER = (screenWidth, screenHeight, mouseX, mouseY, tooltipWidth, tooltipHeight) -> {
+        Vector2i pos = new Vector2i(mouseX - 12 - tooltipWidth, mouseY - 12);
+        if (pos.x < 4) {
+            pos.x = 4;
+        }
+        if (pos.x + tooltipWidth > screenWidth - 4) {
+            pos.x = Math.max(4, screenWidth - tooltipWidth - 4);
+        }
+        int bottomSpace = tooltipHeight + 3;
+        if (pos.y + bottomSpace > screenHeight) {
+            pos.y = screenHeight - bottomSpace;
+        }
+        return pos;
+    };
 
     private Button selectButton;
 
@@ -1354,8 +1376,8 @@ public class OtherworldOriginScreen extends Screen {
 
         for (RenderedBadge rb : this.renderedBadges) {
             if (mouseX >= rb.x && mouseX < rb.x + 9 && mouseY >= rb.y && mouseY < rb.y + 9 && rb.badge.hasTooltip()) {
-                int widthLimit = this.width - mouseX - 24;
-                ((DrawContextAccessor)graphics).invokeDrawTooltip(this.font, rb.badge.getTooltipComponents(rb.powerType, widthLimit, this.time, this.font), mouseX, mouseY, DefaultTooltipPositioner.INSTANCE);
+                int widthLimit = Math.max(64, mouseX - 24);
+                ((DrawContextAccessor)graphics).invokeDrawTooltip(this.font, rb.badge.getTooltipComponents(rb.powerType, widthLimit, this.time, this.font), mouseX, mouseY, BADGE_TOOLTIP_POSITIONER);
             }
         }
     }
