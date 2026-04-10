@@ -1,0 +1,10 @@
+{
+  "powers": [
+    "otherworldorigins:draconic_ancestry/copper"
+  ],
+  "icon": {
+    "item": "iceandfire:dragonegg_emerald"
+  },
+  "impact": 1,
+  "order": 4
+}

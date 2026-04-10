@@ -1,0 +1,66 @@
+{
+  "type": "origins:multiple",
+  "hidden": true,
+  "spell_power_tier_5": {
+    "type": "origins:conditioned_attribute",
+    "condition": {
+      "type": "origins:and",
+      "conditions": [
+        {
+          "type": "otherworldorigins:player_level",
+          "comparison": ">=",
+          "compare_to": 5
+        },
+        {
+          "type": "otherworldorigins:player_level",
+          "comparison": "<",
+          "compare_to": 10
+        }
+      ]
+    },
+    "modifier": {
+      "name": "Brass draconic bloodline school spell power (level 5)",
+      "attribute": "irons_spellbooks:fire_spell_power",
+      "operation": "multiply_base",
+      "value": 0.05
+    }
+  },
+  "spell_power_tier_10": {
+    "type": "origins:conditioned_attribute",
+    "condition": {
+      "type": "origins:and",
+      "conditions": [
+        {
+          "type": "otherworldorigins:player_level",
+          "comparison": ">=",
+          "compare_to": 10
+        },
+        {
+          "type": "otherworldorigins:player_level",
+          "comparison": "<",
+          "compare_to": 15
+        }
+      ]
+    },
+    "modifier": {
+      "name": "Brass draconic bloodline school spell power (level 10)",
+      "attribute": "irons_spellbooks:fire_spell_power",
+      "operation": "multiply_base",
+      "value": 0.1
+    }
+  },
+  "spell_power_tier_15": {
+    "type": "origins:conditioned_attribute",
+    "condition": {
+      "type": "otherworldorigins:player_level",
+      "comparison": ">=",
+      "compare_to": 15
+    },
+    "modifier": {
+      "name": "Brass draconic bloodline school spell power (level 15)",
+      "attribute": "irons_spellbooks:fire_spell_power",
+      "operation": "multiply_base",
+      "value": 0.15
+    }
+  }
+}

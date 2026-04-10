@@ -1,0 +1,10 @@
+{
+  "powers": [
+    "otherworldorigins:draconic_ancestry/blue"
+  ],
+  "icon": {
+    "item": "iceandfire:dragonegg_sapphire"
+  },
+  "impact": 1,
+  "order": 1
+}

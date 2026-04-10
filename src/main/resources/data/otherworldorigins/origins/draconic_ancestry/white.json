@@ -1,0 +1,10 @@
+{
+  "powers": [
+    "otherworldorigins:draconic_ancestry/white"
+  ],
+  "icon": {
+    "item": "iceandfire:dragonegg_white"
+  },
+  "impact": 1,
+  "order": 8
+}

@@ -1,0 +1,10 @@
+{
+  "powers": [
+    "otherworldorigins:draconic_ancestry/silver"
+  ],
+  "icon": {
+    "item": "iceandfire:dragonegg_silver"
+  },
+  "impact": 1,
+  "order": 7
+}

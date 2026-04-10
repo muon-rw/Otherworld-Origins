@@ -354,6 +354,41 @@ public class OtherworldOriginScreen extends Screen {
         return Math.min(apt1, Math.min(apt2, free));
     }
 
+    /** Draconic Bloodline: class, subclass, and draconic ancestry share one completed row (item icons). */
+    private boolean isSubclassDraconicBloodline() {
+        int subIdx = findLayerIndexForId(OtherworldOrigins.loc("subclass"));
+        if (subIdx < 0) return false;
+        Holder<Origin> sub = this.confirmedSelections.get(subIdx);
+        if (sub == null || !sub.isBound()) return false;
+        return sub.unwrapKey()
+                .map(ResourceKey::location)
+                .map(loc -> loc.equals(OtherworldOrigins.loc("subclass/sorcerer/draconic_bloodline")))
+                .orElse(false);
+    }
+
+    private boolean isClassSubclassDraconicTripleComplete() {
+        if (!isSubclassDraconicBloodline()) return false;
+        int classIdx = findLayerIndexForId(OtherworldOrigins.loc("class"));
+        int subIdx = findLayerIndexForId(OtherworldOrigins.loc("subclass"));
+        int dracIdx = findLayerIndexForId(OtherworldOrigins.loc("draconic_ancestry"));
+        if (classIdx < 0 || subIdx < 0 || dracIdx < 0) return false;
+        if (classIdx >= this.currentLayerIndex || subIdx >= this.currentLayerIndex || dracIdx >= this.currentLayerIndex) {
+            return false;
+        }
+        return this.confirmedSelections.containsKey(classIdx)
+                && this.confirmedSelections.containsKey(subIdx)
+                && this.confirmedSelections.containsKey(dracIdx);
+    }
+
+    private int classSubclassDraconicTripleAnchorIndex() {
+        if (!isSubclassDraconicBloodline()) return -1;
+        int classIdx = findLayerIndexForId(OtherworldOrigins.loc("class"));
+        int subIdx = findLayerIndexForId(OtherworldOrigins.loc("subclass"));
+        int dracIdx = findLayerIndexForId(OtherworldOrigins.loc("draconic_ancestry"));
+        if (classIdx < 0 || subIdx < 0 || dracIdx < 0) return -1;
+        return Math.min(classIdx, Math.min(subIdx, dracIdx));
+    }
+
     private int getEffectiveCardCollapsedWidth() {
         int paperLeft = this.width / 2 - 128;
         int availableWidth = paperLeft - 10 - 4;
@@ -802,6 +837,15 @@ public class OtherworldOriginScreen extends Screen {
             }
         }
 
+        if (isClassSubclassDraconicTripleComplete()) {
+            int classI = findLayerIndexForId(OtherworldOrigins.loc("class"));
+            int subI = findLayerIndexForId(OtherworldOrigins.loc("subclass"));
+            int dracI = findLayerIndexForId(OtherworldOrigins.loc("draconic_ancestry"));
+            if (index == classI || index == subI || index == dracI) {
+                return null;
+            }
+        }
+
         for (int j = 0; j < this.layerList.size(); j++) {
             if (j == index || !this.confirmedSelections.containsKey(j)) continue;
             ResourceLocation jId = this.layerList.get(j).unwrapKey().map(ResourceKey::location).orElse(null);
@@ -855,14 +899,25 @@ public class OtherworldOriginScreen extends Screen {
                     renderedAsPair.add(free);
                     renderCompletedTripleRow(graphics, apt1, apt2, free, x, y, mouseX, mouseY);
                 } else {
-                    Integer pairIdx = findConfirmedPairIndex(i);
-                    if (pairIdx != null) {
-                        renderedAsPair.add(pairIdx);
-                        int leftIdx = Math.min(i, pairIdx);
-                        int rightIdx = Math.max(i, pairIdx);
-                        renderCompletedPairRow(graphics, leftIdx, rightIdx, x, y, mouseX, mouseY);
+                    int draconicAnchor = classSubclassDraconicTripleAnchorIndex();
+                    if (draconicAnchor >= 0 && isClassSubclassDraconicTripleComplete() && i == draconicAnchor) {
+                        int classI = findLayerIndexForId(OtherworldOrigins.loc("class"));
+                        int subI = findLayerIndexForId(OtherworldOrigins.loc("subclass"));
+                        int dracI = findLayerIndexForId(OtherworldOrigins.loc("draconic_ancestry"));
+                        renderedAsPair.add(classI);
+                        renderedAsPair.add(subI);
+                        renderedAsPair.add(dracI);
+                        renderCompletedTripleRow(graphics, classI, subI, dracI, x, y, mouseX, mouseY);
                     } else {
-                        renderCompactCompletedRow(graphics, layer, this.confirmedSelections.get(i), x, y, mouseX, mouseY, i);
+                        Integer pairIdx = findConfirmedPairIndex(i);
+                        if (pairIdx != null) {
+                            renderedAsPair.add(pairIdx);
+                            int leftIdx = Math.min(i, pairIdx);
+                            int rightIdx = Math.max(i, pairIdx);
+                            renderCompletedPairRow(graphics, leftIdx, rightIdx, x, y, mouseX, mouseY);
+                        } else {
+                            renderCompactCompletedRow(graphics, layer, this.confirmedSelections.get(i), x, y, mouseX, mouseY, i);
+                        }
                     }
                 }
                 y += isPortraitLayer(layer) ? COMPLETED_PORTRAIT_HEIGHT : COMPLETED_ICON_HEIGHT;
@@ -1576,37 +1631,75 @@ public class OtherworldOriginScreen extends Screen {
                         return true;
                     }
                 } else {
-                    Integer pairIdx = findConfirmedPairIndex(i);
-
-                    if (pairIdx != null) {
-                        clickedAsPair.add(pairIdx);
-                        int leftIdx = Math.min(i, pairIdx);
-                        int rightIdx = Math.max(i, pairIdx);
-                        Holder<OriginLayer> leftLayer = this.layerList.get(leftIdx);
-                        Holder<Origin> leftOrigin = this.confirmedSelections.get(leftIdx);
-                        Holder<OriginLayer> rightLayer = this.layerList.get(rightIdx);
-                        Holder<Origin> rightOrigin = this.confirmedSelections.get(rightIdx);
-                        float pL = this.completedCardExpandProgress.getOrDefault(leftIdx, 0.0f);
-                        float pR = this.completedCardExpandProgress.getOrDefault(rightIdx, 0.0f);
-                        int wL = getCompletedSlotWidth(leftLayer, leftOrigin, pL);
-                        int wR = getCompletedSlotWidth(rightLayer, rightOrigin, pR);
+                    int draconicAnchor = classSubclassDraconicTripleAnchorIndex();
+                    if (draconicAnchor >= 0 && isClassSubclassDraconicTripleComplete() && i == draconicAnchor) {
+                        int classI = findLayerIndexForId(OtherworldOrigins.loc("class"));
+                        int subI = findLayerIndexForId(OtherworldOrigins.loc("subclass"));
+                        int dracI = findLayerIndexForId(OtherworldOrigins.loc("draconic_ancestry"));
+                        clickedAsPair.add(classI);
+                        clickedAsPair.add(subI);
+                        clickedAsPair.add(dracI);
+                        Holder<OriginLayer> lc = this.layerList.get(classI);
+                        Holder<Origin> oc = this.confirmedSelections.get(classI);
+                        Holder<OriginLayer> ls = this.layerList.get(subI);
+                        Holder<Origin> os = this.confirmedSelections.get(subI);
+                        Holder<OriginLayer> ld = this.layerList.get(dracI);
+                        Holder<Origin> od = this.confirmedSelections.get(dracI);
+                        int rowHt = isPortraitLayer(lc) ? COMPLETED_PORTRAIT_HEIGHT : COMPLETED_ICON_HEIGHT;
+                        float pc = this.completedCardExpandProgress.getOrDefault(classI, 0.0f);
+                        float ps = this.completedCardExpandProgress.getOrDefault(subI, 0.0f);
+                        float pd = this.completedCardExpandProgress.getOrDefault(dracI, 0.0f);
+                        int wc = getCompletedSlotWidth(lc, oc, pc);
+                        int ws = getCompletedSlotWidth(ls, os, ps);
+                        int wd = getCompletedSlotWidth(ld, od, pd);
                         int lx = x;
-                        int rx = lx + wL + COMPLETED_ROW_GAP;
-                        if (mouseX >= lx && mouseX < lx + wL && mouseY >= y && mouseY < y + rowH) {
-                            revertToLayer(leftIdx);
+                        int mx = lx + wc + COMPLETED_ROW_GAP;
+                        int rx = mx + ws + COMPLETED_ROW_GAP;
+                        if (mouseX >= lx && mouseX < lx + wc && mouseY >= y && mouseY < y + rowHt) {
+                            revertToLayer(classI);
                             return true;
                         }
-                        if (mouseX >= rx && mouseX < rx + wR && mouseY >= y && mouseY < y + rowH) {
-                            revertToLayer(rightIdx);
+                        if (mouseX >= mx && mouseX < mx + ws && mouseY >= y && mouseY < y + rowHt) {
+                            revertToLayer(subI);
+                            return true;
+                        }
+                        if (mouseX >= rx && mouseX < rx + wd && mouseY >= y && mouseY < y + rowHt) {
+                            revertToLayer(dracI);
                             return true;
                         }
                     } else {
-                        Holder<Origin> origin = this.confirmedSelections.get(i);
-                        float p = this.completedCardExpandProgress.getOrDefault(i, 0.0f);
-                        int slotW = getCompletedSlotWidth(layer, origin, p);
-                        if (mouseX >= x && mouseX < x + slotW && mouseY >= y && mouseY < y + rowH) {
-                            revertToLayer(i);
-                            return true;
+                        Integer pairIdx = findConfirmedPairIndex(i);
+
+                        if (pairIdx != null) {
+                            clickedAsPair.add(pairIdx);
+                            int leftIdx = Math.min(i, pairIdx);
+                            int rightIdx = Math.max(i, pairIdx);
+                            Holder<OriginLayer> leftLayer = this.layerList.get(leftIdx);
+                            Holder<Origin> leftOrigin = this.confirmedSelections.get(leftIdx);
+                            Holder<OriginLayer> rightLayer = this.layerList.get(rightIdx);
+                            Holder<Origin> rightOrigin = this.confirmedSelections.get(rightIdx);
+                            float pL = this.completedCardExpandProgress.getOrDefault(leftIdx, 0.0f);
+                            float pR = this.completedCardExpandProgress.getOrDefault(rightIdx, 0.0f);
+                            int wL = getCompletedSlotWidth(leftLayer, leftOrigin, pL);
+                            int wR = getCompletedSlotWidth(rightLayer, rightOrigin, pR);
+                            int lx = x;
+                            int rx = lx + wL + COMPLETED_ROW_GAP;
+                            if (mouseX >= lx && mouseX < lx + wL && mouseY >= y && mouseY < y + rowH) {
+                                revertToLayer(leftIdx);
+                                return true;
+                            }
+                            if (mouseX >= rx && mouseX < rx + wR && mouseY >= y && mouseY < y + rowH) {
+                                revertToLayer(rightIdx);
+                                return true;
+                            }
+                        } else {
+                            Holder<Origin> origin = this.confirmedSelections.get(i);
+                            float p = this.completedCardExpandProgress.getOrDefault(i, 0.0f);
+                            int slotW = getCompletedSlotWidth(layer, origin, p);
+                            if (mouseX >= x && mouseX < x + slotW && mouseY >= y && mouseY < y + rowH) {
+                                revertToLayer(i);
+                                return true;
+                            }
                         }
                     }
                 }
