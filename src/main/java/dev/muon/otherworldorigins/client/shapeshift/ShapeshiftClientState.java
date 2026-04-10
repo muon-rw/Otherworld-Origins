@@ -1,6 +1,6 @@
 package dev.muon.otherworldorigins.client.shapeshift;
 
-import dev.muon.otherworldorigins.util.ShapeshiftCollisionShape;
+import dev.muon.otherworldorigins.util.shapeshift.ShapeshiftCollisionShape;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;

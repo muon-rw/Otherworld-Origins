@@ -33,8 +33,11 @@
     "elixir_charges": {
         "type": "otherworldorigins:leveled_resource",
         "min": 0,
-        "max_base": 1,
-        "max_per_level": 0.2,
+        "stepped_max": {
+            "start": 1,
+            "increment": 0.2,
+            "gap": 1
+        },
         "restore_on_levelup": true,
         "hud_render": {
             "should_render": true,

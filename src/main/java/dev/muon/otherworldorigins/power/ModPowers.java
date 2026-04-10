@@ -48,6 +48,9 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<NoConfiguration>> WALK_ON_POWDER_SNOW = POWER_FACTORIES.register("walk_on_powder_snow", WalkOnPowderSnowPower::new);
     public static final RegistryObject<PowerFactory<JumpCooldownPower.Configuration>> JUMP_COOLDOWN = POWER_FACTORIES.register("jump_cooldown", JumpCooldownPower::new);
     public static final RegistryObject<PowerFactory<MobsIgnorePower.Configuration>> MOBS_IGNORE = POWER_FACTORIES.register("mobs_ignore", MobsIgnorePower::new);
+    public static final RegistryObject<PowerFactory<InspirationPower.Configuration>> INSPIRATION = POWER_FACTORIES.register("inspiration", InspirationPower::new);
+    public static final RegistryObject<PowerFactory<ActionOnSpellCastPower.Configuration>> ACTION_ON_SPELL_CAST = POWER_FACTORIES.register("action_on_spell_cast", ActionOnSpellCastPower::new);
+    public static final RegistryObject<PowerFactory<RecastSpellPower.Configuration>> RECAST_SPELL = POWER_FACTORIES.register("recast_spell", RecastSpellPower::new);
 
 
     private static <T extends PowerFactory<?>> RegistryObject<T> registerConditional(String name, Supplier<T> factory, String modId) {

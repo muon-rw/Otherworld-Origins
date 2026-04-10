@@ -2,7 +2,7 @@ package dev.muon.otherworldorigins.client.shapeshift;
 
 import com.github.exopandora.shouldersurfing.client.ShoulderSurfingImpl;
 import dev.muon.otherworldorigins.client.compat.ShoulderSurfingIntegration;
-import dev.muon.otherworldorigins.util.ShapeshiftCollisionShape;
+import dev.muon.otherworldorigins.util.shapeshift.ShapeshiftCollisionShape;
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;

@@ -3,8 +3,11 @@
     "pool": {
         "type": "otherworldorigins:leveled_resource",
         "min": 0,
-        "max_base": 0,
-        "max_per_level": 10,
+        "stepped_max": {
+            "start": 0,
+            "increment": 10,
+            "gap": 1
+        },
         "start_value": 200,
         "hud_render": {
             "should_render": true,

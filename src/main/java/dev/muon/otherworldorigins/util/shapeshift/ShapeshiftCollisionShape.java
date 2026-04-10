@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.util;
+package dev.muon.otherworldorigins.util.shapeshift;
 
 /**
  * Hitbox override while shapeshifted (width/height in blocks, same units as {@link net.minecraft.world.entity.EntityDimensions}).

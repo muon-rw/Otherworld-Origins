@@ -2,7 +2,7 @@ package dev.muon.otherworldorigins.mixin.compat.bettercombat;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.muon.otherworldorigins.power.ShapeshiftPower;
-import dev.muon.otherworldorigins.util.ShapeshiftWeaponAttributes;
+import dev.muon.otherworldorigins.util.shapeshift.ShapeshiftWeaponAttributes;
 import net.bettercombat.api.AttackHand;
 import net.bettercombat.logic.PlayerAttackHelper;
 import net.minecraft.world.entity.player.Player;

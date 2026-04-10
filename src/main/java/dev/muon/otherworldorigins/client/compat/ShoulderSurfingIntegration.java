@@ -1,13 +1,12 @@
 package dev.muon.otherworldorigins.client.compat;
 
 import com.github.exopandora.shouldersurfing.api.model.PickContext;
-import com.github.exopandora.shouldersurfing.client.ObjectPicker;
 import com.github.exopandora.shouldersurfing.client.ShoulderSurfingImpl;
 import com.github.exopandora.shouldersurfing.config.Config;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftClientState;
 import dev.muon.otherworldorigins.power.ShapeshiftPower;
-import dev.muon.otherworldorigins.util.ShapeshiftCollisionHelper;
-import dev.muon.otherworldorigins.util.ShapeshiftCollisionShape;
+import dev.muon.otherworldorigins.util.shapeshift.ShapeshiftCollisionHelper;
+import dev.muon.otherworldorigins.util.shapeshift.ShapeshiftCollisionShape;
 import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.player.ClientMagicData;
 import net.minecraft.client.Camera;
@@ -21,7 +20,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.*;
 import net.minecraft.world.phys.shapes.VoxelShape;

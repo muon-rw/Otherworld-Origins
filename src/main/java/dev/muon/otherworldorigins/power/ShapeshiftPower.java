@@ -11,7 +11,7 @@ import io.github.edwinmindcraft.calio.api.network.CalioCodecHelper;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import dev.muon.otherworldorigins.util.ShapeshiftCollisionShape;
+import dev.muon.otherworldorigins.util.shapeshift.ShapeshiftCollisionShape;
 import net.minecraft.world.entity.LivingEntity;
 
 import javax.annotation.Nullable;

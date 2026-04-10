@@ -84,6 +84,8 @@ public class ModItems {
     public static final RegistryObject<Item> BATTLE_MASTER = ITEMS.register("subclass/fighter/battle_master", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CHAMPION = ITEMS.register("subclass/fighter/champion", () -> new Item(new Item.Properties()));
 
+    public static final RegistryObject<Item> WILDHEART = ITEMS.register("subclass/barbarian/wildheart", () -> new Item(new Item.Properties()));
+
     public static final RegistryObject<Item> FOUR_ELEMENTS = ITEMS.register("subclass/monk/four_elements", () -> new Item(new Item.Properties()));
 
     public static final RegistryObject<Item> ANCIENTS = ITEMS.register("subclass/paladin/ancients", () -> new Item(new Item.Properties()));

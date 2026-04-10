@@ -1,8 +1,220 @@
 {
-    "hidden": true,
-    "type": "origins:modify_healing",
-    "modifier": {
-        "operation": "multiply_total",
-        "value": 0.5
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wild_magic_surge_bracket_1"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wild_magic_surge_bracket_2"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wild_magic_surge_bracket_3"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wild_magic_surge_bracket_4"
+            }
+        }
+    ],
+    "wm_progress": {
+        "type": "otherworldorigins:leveled_resource",
+        "min": 0,
+        "stepped_max": {
+            "start": 6,
+            "increment": -1,
+            "gap": 5,
+            "max_steps": 3
+        },
+        "start_value": 0,
+        "hud_render": {
+            "should_render": false
+        },
+        "max_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_wm_surge_ready",
+            "modifier": {
+                "operation": "set_total",
+                "value": 1
+            }
+        }
+    },
+    "wm_surge_ready": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 1,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "surge_melee": {
+        "type": "otherworldorigins:action_on_attack",
+        "condition": {
+            "type": "origins:resource",
+            "resource": "otherworldorigins:class/barbarian/rage_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "cooldown": 1,
+        "hud_render": {
+            "should_render": false
+        },
+        "bientity_condition": {
+            "type": "origins:target_condition",
+            "condition": {
+                "type": "origins:living"
+            }
+        },
+        "bientity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:actor_action",
+                    "action": {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_wm_progress",
+                        "modifier": {
+                            "operation": "add_base_early",
+                            "value": 1
+                        }
+                    }
+                },
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "origins:resource",
+                            "resource": "*:*_wm_surge_ready",
+                            "comparison": ">",
+                            "compare_to": 0
+                        }
+                    },
+                    "if_action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:if_else",
+                                "condition": {
+                                    "type": "origins:actor_condition",
+                                    "condition": {
+                                        "type": "otherworldorigins:player_level",
+                                        "comparison": "<",
+                                        "compare_to": 5
+                                    }
+                                },
+                                "if_action": {
+                                    "type": "otherworldorigins:cast_spell",
+                                    "spell": {
+                                        "spell_tag": "otherworldorigins:wild_magic_surge",
+                                        "min_rarity": "common",
+                                        "max_rarity": "common",
+                                        "level_mode": "random",
+                                        "power_level": 1
+                                    },
+                                    "cast_time": 0
+                                },
+                                "else_action": {
+                                    "type": "origins:if_else",
+                                    "condition": {
+                                        "type": "origins:actor_condition",
+                                        "condition": {
+                                            "type": "otherworldorigins:player_level",
+                                            "comparison": "<",
+                                            "compare_to": 10
+                                        }
+                                    },
+                                    "if_action": {
+                                        "type": "otherworldorigins:cast_spell",
+                                        "spell": {
+                                            "spell_tag": "otherworldorigins:wild_magic_surge",
+                                            "min_rarity": "uncommon",
+                                            "max_rarity": "rare",
+                                            "level_mode": "random",
+                                            "power_level": 1
+                                        },
+                                        "cast_time": 0
+                                    },
+                                    "else_action": {
+                                        "type": "origins:if_else",
+                                        "condition": {
+                                            "type": "origins:actor_condition",
+                                            "condition": {
+                                                "type": "otherworldorigins:player_level",
+                                                "comparison": "<",
+                                                "compare_to": 15
+                                            }
+                                        },
+                                        "if_action": {
+                                            "type": "otherworldorigins:cast_spell",
+                                            "spell": {
+                                                "spell_tag": "otherworldorigins:wild_magic_surge",
+                                                "min_rarity": "uncommon",
+                                                "max_rarity": "epic",
+                                                "level_mode": "random",
+                                                "power_level": 1
+                                            },
+                                            "cast_time": 0
+                                        },
+                                        "else_action": {
+                                            "type": "otherworldorigins:cast_spell",
+                                            "spell": {
+                                                "spell_tag": "otherworldorigins:wild_magic_surge",
+                                                "min_rarity": "rare",
+                                                "max_rarity": "legendary",
+                                                "level_mode": "random",
+                                                "power_level": 1
+                                            },
+                                            "cast_time": 0
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "origins:actor_action",
+                                "action": {
+                                    "type": "origins:and",
+                                    "actions": [
+                                        {
+                                            "type": "origins:modify_resource",
+                                            "resource": "*:*_wm_surge_ready",
+                                            "modifier": {
+                                                "operation": "set_total",
+                                                "value": 0
+                                            }
+                                        },
+                                        {
+                                            "type": "origins:modify_resource",
+                                            "resource": "*:*_wm_progress",
+                                            "modifier": {
+                                                "operation": "set_total",
+                                                "value": 0
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "else_action": {
+                        "type": "origins:nothing"
+                    }
+                }
+            ]
+        }
     }
 }

@@ -1,12 +1,171 @@
 {
-    "hidden": true,
-    "type": "origins:modify_damage_dealt",
-    "damage_condition": {
-        "type": "origins:in_tag",
-        "tag": "otherworldorigins:is_magic"
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wild_magic_sorcerer_surge_bracket_1"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wild_magic_sorcerer_surge_bracket_2"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wild_magic_sorcerer_surge_bracket_3"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wild_magic_sorcerer_surge_bracket_4"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/arrow_up.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wild_magic_sorcerer_free_recast"
+            }
+        }
+    ],
+    "wild_magic_surge": {
+        "type": "otherworldorigins:action_on_spell_cast",
+        "cast_conditions": {
+            "cast_sources": [
+                "spellbook",
+                "scroll",
+                "sword",
+                "mob",
+                "command",
+                "none"
+            ]
+        },
+        "condition": {
+            "type": "otherworldorigins:leveled_chance",
+            "base": 0.01,
+            "per_level": 0.01,
+            "aptitude": "justlevelingfork:luck"
+        },
+        "entity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 15
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": {
+                            "spell_tag": "otherworldorigins:wild_magic_surge",
+                            "min_rarity": "rare",
+                            "max_rarity": "legendary",
+                            "level_mode": "random",
+                            "power_level": 1
+                        },
+                        "cast_time": 0
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 10
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": {
+                            "spell_tag": "otherworldorigins:wild_magic_surge",
+                            "min_rarity": "uncommon",
+                            "max_rarity": "epic",
+                            "level_mode": "random",
+                            "power_level": 1
+                        },
+                        "cast_time": 0
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 5
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": {
+                            "spell_tag": "otherworldorigins:wild_magic_surge",
+                            "min_rarity": "uncommon",
+                            "max_rarity": "rare",
+                            "level_mode": "random",
+                            "power_level": 1
+                        },
+                        "cast_time": 0
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 0
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": {
+                            "spell_tag": "otherworldorigins:wild_magic_surge",
+                            "min_rarity": "common",
+                            "max_rarity": "common",
+                            "level_mode": "random",
+                            "power_level": 1
+                        },
+                        "cast_time": 0
+                    }
+                }
+            ]
+        }
     },
-    "modifier": {
-        "operation": "multiply_base",
-        "value": 0.1
+    "wild_magic_free_recast": {
+        "type": "otherworldorigins:recast_spell",
+        "cast_conditions": {
+            "cast_sources": [
+                "spellbook",
+                "scroll",
+                "sword",
+                "mob",
+                "command",
+                "none"
+            ],
+            "cast_types": [
+                "none",
+                "instant",
+                "long"
+            ]
+        },
+        "delay_ticks": 10,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                },
+                {
+                    "type": "otherworldorigins:leveled_chance",
+                    "base": 0.1,
+                    "per_level": 0
+                }
+            ]
+        },
+        "cast_time": 0
     }
 }

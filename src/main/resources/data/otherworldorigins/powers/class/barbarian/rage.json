@@ -3,8 +3,11 @@
     "casts": {
         "type": "otherworldorigins:leveled_resource",
         "min": 0,
-        "max_base": 2,
-        "max_per_level": 0.25,
+        "stepped_max": {
+            "start": 2,
+            "increment": 0.25,
+            "gap": 1
+        },
         "start_value": 20,
         "hud_render": {
             "should_render": true,
@@ -33,12 +36,25 @@
         "min": 0,
         "max": 20,
         "min_action": {
-            "type": "origins:modify_resource",
-            "resource": "*:*_cooldown",
-            "modifier": {
-                "operation": "set_total",
-                "value": 60
-            }
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_cooldown",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 60
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "otherworldorigins:subclass/barbarian/berserker_enhanced_rage",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
         },
         "hud_render": {
             "should_render": true,

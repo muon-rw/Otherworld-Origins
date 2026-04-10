@@ -8,6 +8,7 @@ import dev.muon.otherworldorigins.power.DeflectProjectilePower;
 import dev.muon.otherworldorigins.power.DirectionalTeleportPower;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
+import dev.muon.otherworldorigins.power.RecastSpellPower;
 import dev.muon.otherworldorigins.power.ModifyDamageTakenDirectPower;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
@@ -71,6 +72,7 @@ public class ForgeEvents {
     public static void onServerTick(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             DirectionalTeleportPower.tickPendingMirrorSounds();
+            RecastSpellPower.tickPendingRecasts(event.getServer());
             activeCones.entrySet().removeIf(entry -> {
                 int coneId = entry.getKey();
                 int age = entry.getValue();

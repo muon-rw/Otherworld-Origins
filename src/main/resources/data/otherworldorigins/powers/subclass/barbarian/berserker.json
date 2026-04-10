@@ -1,9 +1,248 @@
 {
     "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "minecraft:generic.attack_damage",
-        "operation": "addition",
-        "value": 3
+    "type": "origins:multiple",
+    "melee_bonus": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.attack_damage",
+            "operation": "addition",
+            "value": 3
+        }
+    },
+    "rage_bonus_5": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 5,
+        "modifier": {
+            "name": "Berserker rage strike 5",
+            "attribute": "minecraft:generic.attack_damage",
+            "operation": "addition",
+            "value": 3
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 5
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "otherworldorigins:class/barbarian/rage_timer",
+                    "comparison": ">",
+                    "compare_to": 0
+                }
+            ]
+        }
+    },
+    "rage_bonus_10": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 5,
+        "modifier": {
+            "name": "Berserker rage strike 10",
+            "attribute": "minecraft:generic.attack_damage",
+            "operation": "addition",
+            "value": 3
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "otherworldorigins:class/barbarian/rage_timer",
+                    "comparison": ">",
+                    "compare_to": 0
+                }
+            ]
+        }
+    },
+    "rage_bonus_15": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 5,
+        "modifier": {
+            "name": "Berserker rage strike 15",
+            "attribute": "minecraft:generic.attack_damage",
+            "operation": "addition",
+            "value": 3
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 15
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "otherworldorigins:class/barbarian/rage_timer",
+                    "comparison": ">",
+                    "compare_to": 0
+                }
+            ]
+        }
+    },
+    "death_save_cooldown": {
+        "type": "origins:active_self",
+        "condition": {
+            "type": "origins:constant",
+            "value": false
+        },
+        "entity_action": {
+            "type": "origins:nothing"
+        },
+        "cooldown": 24000,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "death_save_sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_death_save_cooldown",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
+            }
+        }
+    },
+    "enhanced_rage": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 1,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "death_save": {
+        "type": "origins:prevent_death",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_death_save_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:heal",
+                    "amount": 1000000
+                },
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "otherworldorigins:class/barbarian/rage_casts",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    "if_action": {
+                        "type": "origins:modify_resource",
+                        "resource": "otherworldorigins:class/barbarian/rage_casts",
+                        "modifier": {
+                            "operation": "add_base_early",
+                            "value": -1
+                        }
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "otherworldorigins:class/barbarian/rage_timer",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 20
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_enhanced_rage",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 1
+                    }
+                },
+                {
+                    "type": "origins:trigger_cooldown",
+                    "power": "otherworldorigins:subclass/barbarian/berserker_death_save_cooldown"
+                }
+            ]
+        }
+    },
+    "enhanced_rage_stats": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 1,
+        "modifiers": [
+            {
+                "name": "Berserker enhanced rage speed",
+                "attribute": "minecraft:generic.movement_speed",
+                "operation": "multiply_base",
+                "value": 0.1
+            },
+            {
+                "name": "Berserker enhanced rage attack speed",
+                "attribute": "minecraft:generic.attack_speed",
+                "operation": "multiply_base",
+                "value": 0.1
+            }
+        ],
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "otherworldorigins:class/barbarian/rage_timer",
+                    "comparison": ">",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_enhanced_rage",
+                    "comparison": ">",
+                    "compare_to": 0
+                }
+            ]
+        }
+    },
+    "enhanced_rage_damage": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.25
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "otherworldorigins:class/barbarian/rage_timer",
+                    "comparison": ">",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_enhanced_rage",
+                    "comparison": ">",
+                    "compare_to": 0
+                }
+            ]
+        }
     }
 }

@@ -17,7 +17,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -53,6 +52,9 @@ public class LeveledResourcePower extends HudRenderedVariableIntPowerFactory.Sim
             return config.staticMax().get();
         }
         int level = player instanceof Player p ? LevelingUtils.getPlayerLevel(p) : 1;
+        if (config.steppedMax().isPresent()) {
+            return config.steppedMax().get().maxForLevel(level);
+        }
         LeveledMax lm = config.leveledMax().orElseThrow();
         return (int) (lm.base() + lm.perLevel() * level);
     }
@@ -75,7 +77,7 @@ public class LeveledResourcePower extends HudRenderedVariableIntPowerFactory.Sim
                 if (config.restoreOnLevelup()) {
                     factory.assign(configuredPower, player, newMax);
                     ApoliAPI.synchronizePowerContainer(player);
-                } else if (config.leveledMax().isPresent()) {
+                } else if (config.leveledMax().isPresent() || config.steppedMax().isPresent()) {
                     int current = factory.getValue(configuredPower, player);
                     if (current > newMax) {
                         factory.assign(configuredPower, player, current);
@@ -84,6 +86,44 @@ public class LeveledResourcePower extends HudRenderedVariableIntPowerFactory.Sim
                 }
             });
         });
+    }
+
+    /**
+     * Piecewise max from level "steps": {@code stepCount = floor(level / gap)} (at least 0), optionally capped
+     * by {@code maxSteps}, then {@code max = round(start + increment * stepCount)} clamped to int range.
+     * <p>
+     * {@code increment} applies per completed step (each {@code gap} player levels), not per individual level.
+     * With {@code gap = 1}, this is linear in level: {@code round(start + increment * level)}.
+     * <p>
+     * Example (Wild Magic–style brackets): {@code start=6}, {@code increment=-1}, {@code gap=5},
+     * {@code max_steps=3} → max 6,5,4,3 for levels [0–4],[5–9],[10–14],[15+].
+     */
+    public record SteppedMax(float start, float increment, int gap, Optional<Integer> maxSteps) {
+        public SteppedMax {
+            if (gap < 1) {
+                throw new IllegalArgumentException("stepped_max.gap must be >= 1");
+            }
+            if (maxSteps.isPresent() && maxSteps.get() < 0) {
+                throw new IllegalArgumentException("stepped_max.max_steps must be >= 0 when present");
+            }
+        }
+
+        public static final Codec<SteppedMax> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                Codec.FLOAT.fieldOf("start").forGetter(SteppedMax::start),
+                Codec.FLOAT.fieldOf("increment").forGetter(SteppedMax::increment),
+                Codec.INT.fieldOf("gap").forGetter(SteppedMax::gap),
+                CalioCodecHelper.optionalField(CalioCodecHelper.INT, "max_steps").forGetter(SteppedMax::maxSteps)
+        ).apply(instance, SteppedMax::new));
+
+        public int maxForLevel(int level) {
+            int lvl = Math.max(0, level);
+            long stepCount = lvl / (long) gap;
+            if (maxSteps.isPresent()) {
+                stepCount = Math.min(stepCount, maxSteps.get());
+            }
+            float raw = start + increment * stepCount;
+            return Mth.clamp(Math.round(raw), Integer.MIN_VALUE, Integer.MAX_VALUE);
+        }
     }
 
     public record LeveledMax(float base, float perLevel) {
@@ -99,6 +139,7 @@ public class LeveledResourcePower extends HudRenderedVariableIntPowerFactory.Sim
             int min,
             Optional<Integer> staticMax,
             Optional<LeveledMax> leveledMax,
+            Optional<SteppedMax> steppedMax,
             boolean restoreOnLevelup,
             Holder<ConfiguredEntityAction<?, ?>> minAction,
             Holder<ConfiguredEntityAction<?, ?>> maxAction
@@ -111,31 +152,40 @@ public class LeveledResourcePower extends HudRenderedVariableIntPowerFactory.Sim
                 CalioCodecHelper.optionalField(CalioCodecHelper.INT, "max").forGetter(Configuration::staticMax),
                 CalioCodecHelper.optionalField(CalioCodecHelper.FLOAT, "max_base").forGetter(c -> c.leveledMax().map(LeveledMax::base)),
                 CalioCodecHelper.optionalField(CalioCodecHelper.FLOAT, "max_per_level").forGetter(c -> c.leveledMax().map(LeveledMax::perLevel)),
+                CalioCodecHelper.optionalField(SteppedMax.CODEC, "stepped_max").forGetter(Configuration::steppedMax),
                 CalioCodecHelper.optionalField(CalioCodecHelper.BOOL, "restore_on_levelup", false).forGetter(Configuration::restoreOnLevelup),
                 ConfiguredEntityAction.optional("min_action").forGetter(Configuration::minAction),
                 ConfiguredEntityAction.optional("max_action").forGetter(Configuration::maxAction)
-        ).apply(instance, (hudRender, startValue, min, maxOpt, maxBaseOpt, maxPerLevelOpt, restoreOnLevelup, minAction, maxAction) -> {
+        ).apply(instance, (hudRender, startValue, min, maxOpt, maxBaseOpt, maxPerLevelOpt, steppedMaxOpt, restoreOnLevelup, minAction, maxAction) -> {
             int initialValue = startValue.orElse(min);
             Optional<Integer> staticMax = maxOpt;
-            Optional<LeveledMax> leveledMax = Optional.empty();
-            if (staticMax.isEmpty() && maxBaseOpt.isPresent() && maxPerLevelOpt.isPresent()) {
-                leveledMax = Optional.of(new LeveledMax(maxBaseOpt.get(), maxPerLevelOpt.get()));
-            } else if (staticMax.isEmpty() && (maxBaseOpt.isPresent() || maxPerLevelOpt.isPresent())) {
-                throw new IllegalArgumentException("When using level-based max, both 'max_base' and 'max_per_level' must be provided");
-            } else if (staticMax.isEmpty()) {
-                throw new IllegalArgumentException("Must provide either 'max' (static) or both 'max_base' and 'max_per_level'");
+            boolean hasStatic = staticMax.isPresent();
+            boolean hasLinear = maxBaseOpt.isPresent() && maxPerLevelOpt.isPresent();
+            boolean hasLinearPartial = maxBaseOpt.isPresent() ^ maxPerLevelOpt.isPresent();
+            boolean hasStepped = steppedMaxOpt.isPresent();
+            if (hasLinearPartial) {
+                throw new IllegalArgumentException("When using linear level-based max, both 'max_base' and 'max_per_level' must be provided");
             }
-            return new Configuration(hudRender, initialValue, min, staticMax, leveledMax, restoreOnLevelup, minAction, maxAction);
+            int modeCount = (hasStatic ? 1 : 0) + (hasLinear ? 1 : 0) + (hasStepped ? 1 : 0);
+            if (modeCount != 1) {
+                throw new IllegalArgumentException("Provide exactly one of: 'max', ('max_base' + 'max_per_level'), or 'stepped_max'");
+            }
+            Optional<LeveledMax> leveledMax = hasLinear ? Optional.of(new LeveledMax(maxBaseOpt.get(), maxPerLevelOpt.get())) : Optional.empty();
+            Optional<SteppedMax> steppedMax = hasStepped ? steppedMaxOpt : Optional.empty();
+            return new Configuration(hudRender, initialValue, min, staticMax, leveledMax, steppedMax, restoreOnLevelup, minAction, maxAction);
         }));
 
         @Override
         public boolean isConfigurationValid() {
-            return staticMax().isPresent() || leveledMax().isPresent();
+            return staticMax().isPresent() || leveledMax().isPresent() || steppedMax().isPresent();
         }
 
         @Override
         public int max() {
-            return staticMax().orElseGet(() -> leveledMax().map(lm -> (int) lm.base()).orElse(0));
+            if (staticMax().isPresent()) {
+                return staticMax().get();
+            }
+            return leveledMax().map(lm -> (int) lm.base()).orElseGet(() -> steppedMax().map(sm -> Math.round(sm.start())).orElse(0));
         }
     }
 }

@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.util;
+package dev.muon.otherworldorigins.util.shapeshift;
 
 import dev.muon.otherworldorigins.power.ShapeshiftPower;
 import net.bettercombat.api.AttackHand;

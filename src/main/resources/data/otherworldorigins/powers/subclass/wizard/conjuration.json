@@ -1,23 +1,181 @@
 {
-    "type": "origins:active_self",
-    "key": {
-        "key": "key.otherworldorigins.cantrip_two"
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": {
+                "translate": "origins.gui.badge.active",
+                "with": [
+                    {
+                        "keybind": "key.otherworldorigins.cantrip_two"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.conjuration_bracket_1"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.conjuration_bracket_2"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.conjuration_bracket_3"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.conjuration_bracket_4"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.conjuration_bracket_5"
+            }
+        }
+    ],
+    "summon_damage_5": {
+        "type": "origins:conditioned_attribute",
+        "modifier": {
+            "name": "Conjuration summon damage 5",
+            "attribute": "irons_spellbooks:summon_damage",
+            "operation": "multiply_base",
+            "value": 0.05
+        },
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 5
+        }
     },
-    "entity_action": {
-        "type": "otherworldorigins:cast_spell",
-        "spell": "otherworldorigins:summon_golem",
-        "power_level": 5,
-        "mana_cost": 50
+    "summon_damage_10": {
+        "type": "origins:conditioned_attribute",
+        "modifier": {
+            "name": "Conjuration summon damage 10",
+            "attribute": "irons_spellbooks:summon_damage",
+            "operation": "multiply_base",
+            "value": 0.05
+        },
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 10
+        }
     },
-    "cooldown": 600,
-    "hud_render": {
-        "should_render": true,
-        "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_02.png",
-        "bar_index": 6
+    "summon_damage_15": {
+        "type": "origins:conditioned_attribute",
+        "modifier": {
+            "name": "Conjuration summon damage 15",
+            "attribute": "irons_spellbooks:summon_damage",
+            "operation": "multiply_base",
+            "value": 0.05
+        },
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        }
     },
-    "condition": {
-        "type": "otherworldorigins:player_mana",
-        "comparison": ">=",
-        "compare_to": 50
+    "summon": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.otherworldorigins.cantrip_two"
+        },
+        "entity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 20
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "traveloptics:eternal_sentinel",
+                        "power_level": 4,
+                        "mana_cost": 50
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 15
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "otherworldorigins:summon_golem",
+                        "power_level": 6,
+                        "mana_cost": 50
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 10
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "otherworldorigins:summon_golem",
+                        "power_level": 5,
+                        "mana_cost": 50
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 5
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "otherworldorigins:summon_golem",
+                        "power_level": 4,
+                        "mana_cost": 50
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 0
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "otherworldorigins:summon_golem",
+                        "power_level": 3,
+                        "mana_cost": 50
+                    }
+                }
+            ]
+        },
+        "cooldown": 600,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_02.png",
+            "bar_index": 6
+        },
+        "condition": {
+            "type": "otherworldorigins:player_mana",
+            "comparison": ">=",
+            "compare_to": 50
+        }
     }
 }
