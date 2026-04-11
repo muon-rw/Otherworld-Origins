@@ -28,3 +28,4 @@ libs
 .cursor/rules
 .cursor/skills
 .claude/skills
+/.cursor/cli.json
