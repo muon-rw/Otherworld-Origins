@@ -1025,5 +1025,6 @@
   "power.otherworldorigins.subclass/druid/combat_wild_shapes.name": "Combat Wild Shape",
   "power.otherworldorigins.subclass/druid/combat_wild_shapes.description": "The rites of your circle grant you the ability to transform into more dangerous forms.",
 
-  "subtitles.otherworldorigins.dash": "Dash"
+  "subtitles.otherworldorigins.dash": "Dash",
+  "subtitles.otherworldorigins.flourish": "Flourish"
 }

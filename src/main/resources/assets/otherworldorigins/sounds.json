@@ -2,7 +2,17 @@
     "dash": {
         "subtitle": "subtitles.otherworldorigins.dash",
         "sounds": [
-            "otherworldorigins:dash"
+            "otherworldorigins:dash",
+            "otherworldorigins:dash_2"
+        ]
+    },
+    "flourish": {
+        "subtitle": "subtitles.otherworldorigins.flourish",
+        "sounds": [
+            "otherworldorigins:flourish",
+            "otherworldorigins:flourish_2",
+            "otherworldorigins:flourish_3",
+            "otherworldorigins:flourish_4"
         ]
     }
 }

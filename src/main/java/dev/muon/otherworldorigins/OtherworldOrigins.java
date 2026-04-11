@@ -13,6 +13,7 @@ import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.school.ModSchools;
 import dev.muon.otherworldorigins.skills.ModPassives;
 import dev.muon.otherworldorigins.skills.ModSkills;
+import dev.muon.otherworldorigins.sound.ModSounds;
 import dev.muon.otherworldorigins.spells.ModSpells;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -64,6 +65,7 @@ public class OtherworldOrigins {
         ModEntities.register(modEventBus);
         ModEffects.register(modEventBus);
         ModItems.register(modEventBus);
+        ModSounds.register(modEventBus);
 
         ModActions.register(modEventBus);
         ModConditions.register(modEventBus);
