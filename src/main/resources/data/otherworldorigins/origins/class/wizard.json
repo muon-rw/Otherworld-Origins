@@ -1,7 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:class/wizard/attributes",
-		"otherworldorigins:cantrip_desc"
+		"otherworldorigins:cantrip_desc",
+		"otherworldorigins:class/wizard/attributes"
 	],
 	"icon": {
 		"item": "irons_spellbooks:graybeard_staff"

@@ -1,8 +1,8 @@
 {
     "powers": [
+        "otherworldorigins:cantrip_desc",
         "otherworldorigins:subclass/fighter/eldritch_knight",
-        "otherworldorigins:spell_access/fighter/eldritch_knight",
-        "otherworldorigins:cantrip_desc"
+        "otherworldorigins:spell_access/fighter/eldritch_knight"
     ],
     "icon": {
         "item": "valoria:spectral_blade"

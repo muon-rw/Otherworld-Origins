@@ -5,6 +5,7 @@ import dev.muon.otherworldorigins.action.item.SoulOfArtificeItemAction;
 import dev.muon.otherworldorigins.action.bientity.ApplyFavoredFoeAction;
 import dev.muon.otherworldorigins.action.bientity.AttackAction;
 import dev.muon.otherworldorigins.action.bientity.CastSpellBientityAction;
+import dev.muon.otherworldorigins.action.bientity.SpellThiefBientityAction;
 import dev.muon.otherworldorigins.action.bientity.LeveledHealBientityAction;
 import dev.muon.otherworldorigins.action.bientity.RaycastBetweenAction;
 import dev.muon.otherworldorigins.action.bientity.ResourceHealBientityAction;
@@ -43,6 +44,8 @@ public class ModActions {
     public static final RegistryObject<AttackAction> ATTACK = BIENTITY_ACTIONS.register("attack", AttackAction::new);
     public static final RegistryObject<CastSpellBientityAction> CAST_SPELL_BIENTITY = ModList.get().isLoaded("irons_spellbooks") ?
             BIENTITY_ACTIONS.register("cast_spell", CastSpellBientityAction::new) : null;
+    public static final RegistryObject<SpellThiefBientityAction> SPELL_THIEF = ModList.get().isLoaded("irons_spellbooks") ?
+            BIENTITY_ACTIONS.register("spell_thief", SpellThiefBientityAction::new) : null;
 
 
     public static final DeferredRegister<ItemAction<?>> ITEM_ACTIONS = DeferredRegister.create(ApoliRegistries.ITEM_ACTION_KEY, OtherworldOrigins.MODID);

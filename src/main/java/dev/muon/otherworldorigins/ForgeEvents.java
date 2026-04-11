@@ -13,6 +13,7 @@ import dev.muon.otherworldorigins.power.ModifyDamageTakenDirectPower;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import dev.muon.otherworldorigins.util.EnhancedRepairLogic;
+import dev.muon.otherworldorigins.util.RecentSpellCastCache;
 import dev.shadowsoffire.apotheosis.Apotheosis;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
@@ -49,13 +50,16 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.extensions.IForgeItemStack;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -67,10 +71,15 @@ import java.util.*;
 public class ForgeEvents {
     private static final int CONE_DURATION_TICKS = 10;
     private static final Map<Integer, Integer> activeCones = new HashMap<>();
+    private static int recentSpellCastMaintenanceCounter;
 
     @SubscribeEvent
     public static void onServerTick(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
+            if (++recentSpellCastMaintenanceCounter >= 100) {
+                recentSpellCastMaintenanceCounter = 0;
+                RecentSpellCastCache.maintenancePrune(event.getServer());
+            }
             DirectionalTeleportPower.tickPendingMirrorSounds();
             RecastSpellPower.tickPendingRecasts(event.getServer());
             activeCones.entrySet().removeIf(entry -> {
@@ -91,6 +100,35 @@ public class ForgeEvents {
                 }
             });
         }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLoggedOutSpellCache(PlayerEvent.PlayerLoggedOutEvent event) {
+        RecentSpellCastCache.remove(event.getEntity().getUUID());
+    }
+
+    @SubscribeEvent
+    public static void onLivingDeathSpellCache(LivingDeathEvent event) {
+        RecentSpellCastCache.remove(event.getEntity().getUUID());
+    }
+
+    /**
+     * Non-player mobs leave the level on unload/despawn/discarding; players also fire this when
+     * changing dimension, so we must not remove player rows here (see {@link PlayerEvent.PlayerLoggedOutEvent}).
+     */
+    @SubscribeEvent
+    public static void onNonPlayerLivingLeaveLevelSpellCache(EntityLeaveLevelEvent event) {
+        if (event.getLevel().isClientSide) {
+            return;
+        }
+        if (event.getEntity() instanceof LivingEntity living && !(living instanceof Player)) {
+            RecentSpellCastCache.remove(living.getUUID());
+        }
+    }
+
+    @SubscribeEvent
+    public static void onServerStoppingSpellCache(ServerStoppingEvent event) {
+        RecentSpellCastCache.clear();
     }
 
     @SubscribeEvent

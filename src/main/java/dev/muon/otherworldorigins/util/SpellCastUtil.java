@@ -17,6 +17,7 @@ import io.redspace.ironsspellbooks.network.casting.CastErrorPacket;
 import io.redspace.ironsspellbooks.network.casting.OnCastStartedPacket;
 import io.redspace.ironsspellbooks.network.casting.OnClientCastPacket;
 import io.redspace.ironsspellbooks.network.casting.SyncTargetingDataPacket;
+import io.redspace.ironsspellbooks.network.SyncManaPacket;
 import io.redspace.ironsspellbooks.network.casting.UpdateCastingStatePacket;
 import io.redspace.ironsspellbooks.setup.PacketDistributor;
 import net.minecraft.ChatFormatting;
@@ -471,7 +472,19 @@ public final class SpellCastUtil {
         ChangeManaEvent event = new ChangeManaEvent(player, magicData, magicData.getMana(), newMana);
         if (!MinecraftForge.EVENT_BUS.post(event)) {
             magicData.setMana(event.getNewMana());
+            PacketDistributor.sendToPlayer(player, new SyncManaPacket(magicData));
         }
+    }
+
+    /**
+     * Helper to drain a fixed amount of mana from a player. 
+     */
+    public static void drainPlayerMana(ServerPlayer player, float amount) {
+        if (amount <= 0 || player.getAbilities().instabuild) {
+            return;
+        }
+        MagicData magicData = MagicData.getPlayerMagicData(player);
+        setManaWithEvent(player, magicData, Math.max(0f, magicData.getMana() - amount));
     }
 
     public static void onSpellEnd(ServerPlayer player) {

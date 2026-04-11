@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins.mixin.compat.irons_spellbooks;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import dev.muon.otherworldorigins.util.RecentSpellCastCache;
 import dev.muon.otherworldorigins.util.SpellCastUtil;
 import dev.muon.otherworldorigins.power.ActionOnSpellCastPower;
 import dev.muon.otherworldorigins.power.RecastSpellPower;
@@ -39,10 +40,11 @@ public class AbstractSpellMixin {
         CastSource castSource = playerMagicData.getCastSource();
         CastType castType = playerMagicData.getCastType();
         original.call(level, spellLevel, entity, playerMagicData, cancelled);
+        AbstractSpell self = (AbstractSpell) (Object) this;
+        RecentSpellCastCache.recordCompletedCast(level, entity, self, spellLevel, cancelled);
         if (entity instanceof ServerPlayer serverPlayer) {
             SpellCastUtil.onSpellEnd(serverPlayer);
         }
-        AbstractSpell self = (AbstractSpell) (Object) this;
         ActionOnSpellCastPower.handleSpellCastComplete(self, entity, spellLevel, castSource, castType);
         RecastSpellPower.handleSpellCastComplete(self, entity, spellLevel, castSource, castType);
     }

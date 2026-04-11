@@ -1,7 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:class/bard/attributes",
-		"otherworldorigins:cantrip_desc"
+		"otherworldorigins:cantrip_desc",
+		"otherworldorigins:class/bard/attributes"
 	],
 	"icon": {
 		"item": "otherworldorigins:class/bard"

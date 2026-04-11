@@ -1,12 +1,144 @@
 {
-    "hidden": true,
-    "type": "origins:modify_damage_dealt",
-    "damage_condition": {
-        "type": "origins:in_tag",
-        "tag": "otherworldorigins:is_magic"
+    "type": "origins:multiple",
+    "magic_damage": {
+        "type": "origins:modify_damage_dealt",
+        "damage_condition": {
+            "type": "origins:in_tag",
+            "tag": "otherworldorigins:is_magic"
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.1
+        }
     },
-    "modifier": {
-        "operation": "multiply_base",
-        "value": 0.2
+    "magical_ambush": {
+        "type": "origins:modify_damage_dealt",
+        "damage_condition": {
+            "type": "origins:in_tag",
+            "tag": "otherworldorigins:is_magic"
+        },
+        "bientity_condition": {
+            "type": "origins:relative_rotation",
+            "actor_rotation": "head",
+            "target_rotation": "head",
+            "comparison": ">=",
+            "compare_to": 0.4
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    },
+    "armed": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 1,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "prepare": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.otherworldorigins.cantrip_three"
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_armed",
+                    "comparison": "==",
+                    "compare_to": 0
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_armed",
+            "modifier": {
+                "operation": "set_total",
+                "value": 1
+            }
+        },
+        "cooldown": 24000,
+        "hud_render": {
+            "should_render": true,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_prepare",
+                "compare_to": 0,
+                "comparison": ">"
+            },
+            "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_02.png",
+            "bar_index": 9
+        }
+    },
+    "sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_prepare",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_armed",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    },
+    "steal_on_melee": {
+        "type": "otherworldorigins:action_on_attack",
+        "cooldown": 1,
+        "hud_render": {
+            "should_render": false
+        },
+        "bientity_condition": {
+            "type": "origins:actor_condition",
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_armed",
+                "comparison": "==",
+                "compare_to": 1
+            }
+        },
+        "bientity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "otherworldorigins:spell_thief",
+                    "trigger_target_cooldown": true,
+                    "cast_time": 0
+                },
+                {
+                    "type": "origins:actor_action",
+                    "action": {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_armed",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 0
+                        }
+                    }
+                }
+            ]
+        }
     }
 }

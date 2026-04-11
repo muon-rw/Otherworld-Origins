@@ -468,7 +468,9 @@
 "origin.otherworldorigins.subclass/rogue/thief.name": "Thief",
 "origin.otherworldorigins.subclass/rogue/thief.description": "• 20% Reduced Fall Damage\n• Quiet Footsteps",
 "origin.otherworldorigins.subclass/rogue/arcane_trickster.name": "Arcane Trickster",
-"origin.otherworldorigins.subclass/rogue/arcane_trickster.description": "• +20% Magic Damage\n• +1 Cantrip from the Arcane Trickster spell list",
+"origin.otherworldorigins.subclass/rogue/arcane_trickster.description": "• +10% Magic Damage\n• +1 Cantrip from the Arcane Trickster spell list\n• At level 10, deal 10% additional magic damage to targets looking away from you.\n• At level 20, gain Spell Thief.",
+"power.otherworldorigins.subclass/rogue/arcane_trickster.name": "Spell Thief",
+"power.otherworldorigins.subclass/rogue/arcane_trickster.description": "• Activate to steal a spell on your next attack. If the target is channeling, steal that spell and cast it at the target immediately, cancelling their cast. If they are not channeling, steal their most recent spell instead, place it on cooldown, and drain 50 mana. You can do this once per day.",
 "origin.otherworldorigins.subclass/rogue/assassin.name": "Assassin",
 "origin.otherworldorigins.subclass/rogue/assassin.description": "• +2 Melee Damage",
 

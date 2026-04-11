@@ -1,7 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:subrace/half_elf/high",
-		"otherworldorigins:cantrip_desc"
+		"otherworldorigins:cantrip_desc",
+		"otherworldorigins:subrace/half_elf/high"
 	],
 	"icon": {
 		"item": "otherworldorigins:portrait/high"

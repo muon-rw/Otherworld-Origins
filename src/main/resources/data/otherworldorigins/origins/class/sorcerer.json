@@ -1,7 +1,7 @@
 {
 	"powers": [
-		"otherworldorigins:class/sorcerer/attributes",
-		"otherworldorigins:cantrip_desc"
+		"otherworldorigins:cantrip_desc",
+		"otherworldorigins:class/sorcerer/attributes"
 	],
 	"icon": {
 		"item": "otherworldorigins:class/sorcerer"
