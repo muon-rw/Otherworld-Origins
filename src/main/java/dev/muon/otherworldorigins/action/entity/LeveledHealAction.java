@@ -2,12 +2,14 @@ package dev.muon.otherworldorigins.action.entity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.muon.otherworld.leveling.LevelingUtils;
+import dev.muon.otherworldorigins.util.LeveledScaling;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
+
+import java.util.Optional;
 
 public class LeveledHealAction extends EntityAction<LeveledHealAction.Configuration> {
 
@@ -21,7 +23,7 @@ public class LeveledHealAction extends EntityAction<LeveledHealAction.Configurat
             return;
         }
 
-        int level = livingEntity instanceof Player player ? LevelingUtils.getPlayerLevel(player) : 1;
+        int level = LeveledScaling.levelForScaling(livingEntity, configuration.aptitude());
         float healAmount = configuration.base() + (configuration.perLevel() * level);
 
         livingEntity.heal(healAmount);
@@ -29,16 +31,18 @@ public class LeveledHealAction extends EntityAction<LeveledHealAction.Configurat
 
     public record Configuration(
             float base,
-            float perLevel
+            float perLevel,
+            Optional<ResourceLocation> aptitude
     ) implements IDynamicFeatureConfiguration {
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.FLOAT.fieldOf("base").forGetter(Configuration::base),
-                Codec.FLOAT.fieldOf("per_level").forGetter(Configuration::perLevel)
+                Codec.FLOAT.fieldOf("per_level").forGetter(Configuration::perLevel),
+                ResourceLocation.CODEC.optionalFieldOf("aptitude").forGetter(Configuration::aptitude)
         ).apply(instance, Configuration::new));
 
         @Override
         public boolean isConfigurationValid() {
-            return true;
+            return LeveledScaling.isValidAptitudeReference(aptitude);
         }
     }
 }

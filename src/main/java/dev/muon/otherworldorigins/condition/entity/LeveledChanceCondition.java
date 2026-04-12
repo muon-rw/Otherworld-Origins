@@ -2,16 +2,12 @@ package dev.muon.otherworldorigins.condition.entity;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
-import com.seniors.justlevelingfork.registry.RegistryAptitudes;
-import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
-import dev.muon.otherworld.leveling.LevelingUtils;
+import dev.muon.otherworldorigins.util.LeveledScaling;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityCondition;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -24,20 +20,10 @@ public class LeveledChanceCondition extends EntityCondition<LeveledChanceConditi
 
     @Override
     public boolean check(@NotNull Configuration configuration, @NotNull Entity entity) {
-        int level;
-        if (configuration.aptitude().isPresent()) {
-            ResourceLocation aptId = configuration.aptitude().get();
-            Aptitude aptitude = RegistryAptitudes.getAptitude(aptId.getPath());
-            if (aptitude == null) return false;
-            if (entity instanceof Player player) {
-                AptitudeCapability cap = AptitudeCapability.get(player);
-                level = cap != null ? cap.getAptitudeLevel(aptitude) : 1;
-            } else {
-                level = 1;
-            }
-        } else {
-            level = entity instanceof Player player ? LevelingUtils.getPlayerLevel(player) : 1;
+        if (!LeveledScaling.isValidAptitudeReference(configuration.aptitude())) {
+            return false;
         }
+        int level = LeveledScaling.levelForScaling(entity, configuration.aptitude());
         float chance = configuration.base() + configuration.perLevel() * level;
         chance = Mth.clamp(chance, 0f, 1f);
         return entity.level().getRandom().nextFloat() < chance;
@@ -52,10 +38,7 @@ public class LeveledChanceCondition extends EntityCondition<LeveledChanceConditi
 
         @Override
         public boolean isConfigurationValid() {
-            if (aptitude.isEmpty()) {
-                return true;
-            }
-            return RegistryAptitudes.getAptitude(aptitude.get().getPath()) != null;
+            return LeveledScaling.isValidAptitudeReference(aptitude);
         }
     }
 }

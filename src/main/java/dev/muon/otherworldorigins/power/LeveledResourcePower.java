@@ -2,8 +2,8 @@ package dev.muon.otherworldorigins.power;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.muon.otherworld.leveling.LevelingUtils;
 import dev.muon.otherworld.leveling.event.AptitudeChangedEvent;
+import dev.muon.otherworldorigins.util.LeveledScaling;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.github.apace100.apoli.util.HudRender;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
@@ -14,6 +14,7 @@ import io.github.edwinmindcraft.apoli.api.power.configuration.power.IHudRendered
 import io.github.edwinmindcraft.apoli.api.power.factory.power.HudRenderedVariableIntPowerFactory;
 import io.github.edwinmindcraft.calio.api.network.CalioCodecHelper;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -51,7 +52,7 @@ public class LeveledResourcePower extends HudRenderedVariableIntPowerFactory.Sim
         if (config.staticMax().isPresent()) {
             return config.staticMax().get();
         }
-        int level = player instanceof Player p ? LevelingUtils.getPlayerLevel(p) : 1;
+        int level = LeveledScaling.levelForScaling(player, config.aptitude());
         if (config.steppedMax().isPresent()) {
             return config.steppedMax().get().maxForLevel(level);
         }
@@ -142,7 +143,8 @@ public class LeveledResourcePower extends HudRenderedVariableIntPowerFactory.Sim
             Optional<SteppedMax> steppedMax,
             boolean restoreOnLevelup,
             Holder<ConfiguredEntityAction<?, ?>> minAction,
-            Holder<ConfiguredEntityAction<?, ?>> maxAction
+            Holder<ConfiguredEntityAction<?, ?>> maxAction,
+            Optional<ResourceLocation> aptitude
     ) implements IHudRenderedVariableIntPowerConfiguration {
 
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -155,8 +157,9 @@ public class LeveledResourcePower extends HudRenderedVariableIntPowerFactory.Sim
                 CalioCodecHelper.optionalField(SteppedMax.CODEC, "stepped_max").forGetter(Configuration::steppedMax),
                 CalioCodecHelper.optionalField(CalioCodecHelper.BOOL, "restore_on_levelup", false).forGetter(Configuration::restoreOnLevelup),
                 ConfiguredEntityAction.optional("min_action").forGetter(Configuration::minAction),
-                ConfiguredEntityAction.optional("max_action").forGetter(Configuration::maxAction)
-        ).apply(instance, (hudRender, startValue, min, maxOpt, maxBaseOpt, maxPerLevelOpt, steppedMaxOpt, restoreOnLevelup, minAction, maxAction) -> {
+                ConfiguredEntityAction.optional("max_action").forGetter(Configuration::maxAction),
+                ResourceLocation.CODEC.optionalFieldOf("aptitude").forGetter(Configuration::aptitude)
+        ).apply(instance, (hudRender, startValue, min, maxOpt, maxBaseOpt, maxPerLevelOpt, steppedMaxOpt, restoreOnLevelup, minAction, maxAction, aptitude) -> {
             int initialValue = startValue.orElse(min);
             Optional<Integer> staticMax = maxOpt;
             boolean hasStatic = staticMax.isPresent();
@@ -172,12 +175,13 @@ public class LeveledResourcePower extends HudRenderedVariableIntPowerFactory.Sim
             }
             Optional<LeveledMax> leveledMax = hasLinear ? Optional.of(new LeveledMax(maxBaseOpt.get(), maxPerLevelOpt.get())) : Optional.empty();
             Optional<SteppedMax> steppedMax = hasStepped ? steppedMaxOpt : Optional.empty();
-            return new Configuration(hudRender, initialValue, min, staticMax, leveledMax, steppedMax, restoreOnLevelup, minAction, maxAction);
+            return new Configuration(hudRender, initialValue, min, staticMax, leveledMax, steppedMax, restoreOnLevelup, minAction, maxAction, aptitude);
         }));
 
         @Override
         public boolean isConfigurationValid() {
-            return staticMax().isPresent() || leveledMax().isPresent() || steppedMax().isPresent();
+            return (staticMax().isPresent() || leveledMax().isPresent() || steppedMax().isPresent())
+                    && LeveledScaling.isValidAptitudeReference(aptitude());
         }
 
         @Override

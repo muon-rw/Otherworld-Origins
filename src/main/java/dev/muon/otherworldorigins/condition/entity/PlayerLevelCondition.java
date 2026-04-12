@@ -5,13 +5,16 @@ import io.github.edwinmindcraft.apoli.common.condition.entity.IntComparingEntity
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
+/**
+ * Compares {@link LevelingUtils#getPlayerLevel} to {@code compare_to}. Non-players use {@code 0}.
+ */
 public class PlayerLevelCondition extends IntComparingEntityCondition {
 
     public PlayerLevelCondition() {
-        super(PlayerLevelCondition::getPlayerLevel);
+        super(PlayerLevelCondition::characterLevel);
     }
 
-    private static int getPlayerLevel(Entity entity) {
+    private static int characterLevel(Entity entity) {
         if (entity instanceof Player player) {
             return LevelingUtils.getPlayerLevel(player);
         }

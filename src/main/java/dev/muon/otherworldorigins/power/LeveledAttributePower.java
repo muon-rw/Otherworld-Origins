@@ -2,14 +2,15 @@ package dev.muon.otherworldorigins.power;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import dev.muon.otherworld.leveling.LevelingUtils;
 import dev.muon.otherworld.leveling.event.AptitudeChangedEvent;
+import dev.muon.otherworldorigins.util.LeveledScaling;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredPower;
 import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
 import io.github.edwinmindcraft.calio.api.network.CalioCodecHelper;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,6 +22,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = OtherworldOrigins.MODID)
@@ -97,6 +99,7 @@ public class LeveledAttributePower extends PowerFactory<LeveledAttributePower.Co
             double startingValue,
             boolean updateHealth,
             int tickRate,
+            Optional<ResourceLocation> aptitude,
             UUID modifierUuid  // UUID is generated at deserialization time, making it unique per power definition
     ) implements IDynamicFeatureConfiguration {
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -105,12 +108,13 @@ public class LeveledAttributePower extends PowerFactory<LeveledAttributePower.Co
                 Codec.DOUBLE.fieldOf("value_per_level").forGetter(Configuration::valuePerLevel),
                 Codec.DOUBLE.fieldOf("starting_value").forGetter(Configuration::startingValue),
                 CalioCodecHelper.optionalField(CalioCodecHelper.BOOL, "update_health", true).forGetter(Configuration::updateHealth),
-                CalioCodecHelper.optionalField(CalioCodecHelper.INT, "tick_rate", 20).forGetter(Configuration::tickRate)
-        ).apply(instance, (attr, op, vpl, sv, uh, tr) -> new Configuration(attr, op, vpl, sv, uh, tr, UUID.randomUUID())));
+                CalioCodecHelper.optionalField(CalioCodecHelper.INT, "tick_rate", 20).forGetter(Configuration::tickRate),
+                ResourceLocation.CODEC.optionalFieldOf("aptitude").forGetter(Configuration::aptitude)
+        ).apply(instance, (attr, op, vpl, sv, uh, tr, apt) -> new Configuration(attr, op, vpl, sv, uh, tr, apt, UUID.randomUUID())));
 
         @Override
         public boolean isConfigurationValid() {
-            return true;
+            return LeveledScaling.isValidAptitudeReference(aptitude);
         }
 
         /**
@@ -135,7 +139,7 @@ public class LeveledAttributePower extends PowerFactory<LeveledAttributePower.Co
             float previousMaxHealth = living.getMaxHealth();
             float previousHealthPercent = living.getHealth() / previousMaxHealth;
 
-            int level = living instanceof Player player ? LevelingUtils.getPlayerLevel(player) : 1;
+            int level = LeveledScaling.levelForScaling(living, this.aptitude());
             double value = this.startingValue + ((level - 1) * this.valuePerLevel);
 
             AttributeModifier modifier = new AttributeModifier(
@@ -197,7 +201,7 @@ public class LeveledAttributePower extends PowerFactory<LeveledAttributePower.Co
             attributeInstance.removeModifier(this.modifierUuid);
 
             // Calculate and apply new value
-            int level = living instanceof Player player ? LevelingUtils.getPlayerLevel(player) : 1;
+            int level = LeveledScaling.levelForScaling(living, this.aptitude());
             double value = this.startingValue + ((level - 1) * this.valuePerLevel);
 
             AttributeModifier modifier = new AttributeModifier(
