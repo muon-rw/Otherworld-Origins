@@ -16,6 +16,7 @@ import io.github.edwinmindcraft.apoli.api.registry.ApoliRegistries;
 import io.github.edwinmindcraft.apoli.common.condition.bientity.SimpleBiEntityCondition;
 import io.github.edwinmindcraft.apoli.common.condition.entity.SimpleEntityCondition;
 import io.github.edwinmindcraft.apoli.common.condition.item.SimpleItemCondition;
+import io.redspace.ironsspellbooks.entity.spells.root.RootEntity;
 import io.redspace.ironsspellbooks.item.CastingItem;
 import net.bettercombat.api.WeaponAttributes;
 import net.bettercombat.logic.WeaponRegistry;
@@ -63,8 +64,9 @@ public class ModConditions {
             new SimpleEntityCondition(entity ->
                     entity instanceof LivingEntity living && ExperimentalElixirLogic.isReagent(living.getMainHandItem())));
 
-
-
+    /** True when the entity is held by Iron's Spellbooks {@link RootEntity} (nature Root spell). */
+    public static final RegistryObject<SimpleEntityCondition> IS_ROOTED = ENTITY_CONDITIONS.register("is_rooted", () ->
+            new SimpleEntityCondition(entity -> entity.getVehicle() instanceof RootEntity));
 
     /**Bientity*/
     public static final RegistryObject<SimpleBiEntityCondition> IS_ALLIED = BIENTITY_CONDITIONS.register("allied", () ->

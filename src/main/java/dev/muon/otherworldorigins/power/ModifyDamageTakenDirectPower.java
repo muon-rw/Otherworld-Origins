@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins.power;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.muon.otherworldorigins.util.DamageTakenPowerConditions;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.configuration.ListConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredBiEntityAction;
@@ -36,23 +37,19 @@ public class ModifyDamageTakenDirectPower extends ValueModifyingPowerFactory<Mod
      */
     public boolean check(ConfiguredPower<Configuration, ?> config, Entity entity, DamageSource source, float amount) {
         Configuration configuration = config.getConfiguration();
-        boolean damage = ConfiguredDamageCondition.check(configuration.damageCondition(), source, amount);
-        if (!damage) return false;
-        Entity damageSource = source.getDirectEntity();
-        if (damageSource == null || damageSource == source.getEntity()) {
-            damageSource = source.getEntity();
-        }
-        if (damageSource == null) {
-            return configuration.biEntityCondition().is(ApoliDefaultConditions.BIENTITY_DEFAULT.getId());
-        }
-        return ConfiguredBiEntityCondition.check(configuration.biEntityCondition(), entity, damageSource);
+        return DamageTakenPowerConditions.matches(
+                configuration.damageCondition(),
+                configuration.biEntityCondition(),
+                entity,
+                source,
+                amount
+        );
     }
 
     public void execute(ConfiguredPower<Configuration, ?> config, Entity entity, DamageSource source) {
         Configuration configuration = config.getConfiguration();
         ConfiguredEntityAction.execute(configuration.selfAction(), entity);
         Entity attacker = source.getEntity();
-        Entity directEntity = source.getDirectEntity();
         if (attacker != null) {
             ConfiguredEntityAction.execute(configuration.targetAction(), attacker);
             ConfiguredBiEntityAction.execute(configuration.biEntityAction(), entity, attacker);

@@ -1,0 +1,74 @@
+{
+    "type": "otherworldorigins:action_on_attack",
+    "bientity_condition": {
+        "type": "origins:target_condition",
+        "condition": {
+            "type": "origins:living"
+        }
+    },
+    "bientity_action": {
+        "type": "origins:if_else_list",
+        "actions": [
+            {
+                "condition": {
+                    "type": "origins:actor_condition",
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 20
+                    }
+                },
+                "action": {
+                    "type": "origins:damage",
+                    "amount": 4,
+                    "damage_type": "minecraft:magic"
+                }
+            },
+            {
+                "condition": {
+                    "type": "origins:actor_condition",
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 15
+                    }
+                },
+                "action": {
+                    "type": "origins:damage",
+                    "amount": 3,
+                    "damage_type": "minecraft:magic"
+                }
+            },
+            {
+                "condition": {
+                    "type": "origins:actor_condition",
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 10
+                    }
+                },
+                "action": {
+                    "type": "origins:damage",
+                    "amount": 2,
+                    "damage_type": "minecraft:magic"
+                }
+            },
+            {
+                "condition": {
+                    "type": "origins:actor_condition",
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 5
+                    }
+                },
+                "action": {
+                    "type": "origins:damage",
+                    "amount": 1,
+                    "damage_type": "minecraft:magic"
+                }
+            }
+        ]
+    }
+}

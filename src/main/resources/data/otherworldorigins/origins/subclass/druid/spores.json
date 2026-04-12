@@ -1,6 +1,7 @@
 {
     "powers": [
         "otherworldorigins:subclass/druid/spores",
+        "otherworldorigins:subclass/druid/fungal_body",
         "otherworldorigins:spell_access/druid/spores"
     ],
     "icon": {

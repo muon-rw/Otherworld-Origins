@@ -32,6 +32,7 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<GoldDurabilityPower.Configuration>> GOLD_DURABILITY = POWER_FACTORIES.register("gold_durability", GoldDurabilityPower::new);
     public static final RegistryObject<LeveledResourcePower> LEVELED_RESOURCE = POWER_FACTORIES.register("leveled_resource", LeveledResourcePower::new);
     public static final RegistryObject<ModifyDamageTakenDirectPower> MODIFY_DAMAGE_TAKEN = POWER_FACTORIES.register("modify_damage_taken", ModifyDamageTakenDirectPower::new);
+    public static final RegistryObject<HealFromDamagePower> HEAL_FROM_DAMAGE = POWER_FACTORIES.register("heal_from_damage", HealFromDamagePower::new);
     public static final RegistryObject<DeflectProjectilePower> DEFLECT_PROJECTILE = POWER_FACTORIES.register("deflect_projectile", DeflectProjectilePower::new);
     public static final RegistryObject<PlayerLevelPower> PLAYER_LEVEL = POWER_FACTORIES.register("player_level", PlayerLevelPower::new);
     public static final RegistryObject<PowerFactory<SpellImmunityPower.Configuration>> SPELL_IMMUNITY = POWER_FACTORIES.register("spell_immunity", SpellImmunityPower::new);
@@ -45,6 +46,7 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<ModifyMaxAirSupplyPower.Configuration>> MODIFY_MAX_AIR_SUPPLY = POWER_FACTORIES.register("modify_max_air_supply", ModifyMaxAirSupplyPower::new);
     public static final RegistryObject<PowerFactory<NoConfiguration>> SUFFOCATION_IMMUNITY = POWER_FACTORIES.register("suffocation_immunity", SuffocationImmunityPower::new);
     public static final RegistryObject<PowerFactory<NoConfiguration>> THIRST_IMMUNITY = POWER_FACTORIES.register("thirst_immunity", ThirstImmunityPower::new);
+    public static final RegistryObject<PowerFactory<EffectCategoryImmunityPower.Configuration>> EFFECT_CATEGORY_IMMUNITY = POWER_FACTORIES.register("effect_category_immunity", EffectCategoryImmunityPower::new);
     public static final RegistryObject<PowerFactory<NoConfiguration>> WALK_ON_POWDER_SNOW = POWER_FACTORIES.register("walk_on_powder_snow", WalkOnPowderSnowPower::new);
     public static final RegistryObject<PowerFactory<JumpCooldownPower.Configuration>> JUMP_COOLDOWN = POWER_FACTORIES.register("jump_cooldown", JumpCooldownPower::new);
     public static final RegistryObject<PowerFactory<MobsIgnorePower.Configuration>> MOBS_IGNORE = POWER_FACTORIES.register("mobs_ignore", MobsIgnorePower::new);

@@ -22,6 +22,20 @@
                     }
                 ]
             }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/arrow_up.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wildshape_uses_per_level"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/arrow_up.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.wildshape_spellcasting"
+            }
         }
     ],
     "wildshape_gate": {
@@ -34,10 +48,16 @@
         }
     },
     "wildshape_charges": {
-        "type": "origins:resource",
+        "type": "otherworldorigins:leveled_resource",
         "min": 0,
-        "max": 3,
-        "start_value": 3,
+        "stepped_max": {
+            "start": 2,
+            "increment": 1,
+            "gap": 4,
+            "max_steps": 4
+        },
+        "start_value": 999,
+        "restore_on_levelup": true,
         "hud_render": {
             "should_render": true,
             "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_03.png",
@@ -54,12 +74,6 @@
                 "operation": "add_base_early",
                 "value": 1
             }
-        },
-        "condition": {
-            "type": "origins:resource",
-            "resource": "*:*_wildshape_charges",
-            "comparison": "<",
-            "compare_to": 3
         }
     },
     "sleep_restore": {
@@ -69,7 +83,7 @@
             "resource": "*:*_wildshape_charges",
             "modifier": {
                 "operation": "set_total",
-                "value": 3
+                "value": 999999
             }
         }
     },
@@ -275,27 +289,16 @@
         "type": "origins:action_over_time",
         "interval": 20,
         "condition": {
-            "type": "origins:and",
-            "conditions": [
-                {
-                    "type": "otherworldorigins:player_level",
-                    "comparison": ">=",
-                    "compare_to": 20
-                },
-                {
-                    "type": "origins:resource",
-                    "resource": "*:*_wildshape_charges",
-                    "comparison": "<",
-                    "compare_to": 3
-                }
-            ]
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 20
         },
         "entity_action": {
             "type": "origins:modify_resource",
             "resource": "*:*_wildshape_charges",
             "modifier": {
                 "operation": "set_total",
-                "value": 3
+                "value": 999999
             }
         }
     },

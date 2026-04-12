@@ -74,16 +74,24 @@ public abstract class LivingEntityMixin {
      * Only targets Players to avoid double-application on non-Players (where the
      * 1-arg still delegates to the 2-arg normally).
      */
-    @Inject(method = "addEffect(Lnet/minecraft/world/effect/MobEffectInstance;)Z", at = @At("HEAD"))
+    @Inject(method = "addEffect(Lnet/minecraft/world/effect/MobEffectInstance;)Z", at = @At("HEAD"), cancellable = true)
     private void otherworld$onAddEffectSingleArg(MobEffectInstance effect, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity self = (LivingEntity) (Object) this;
+        if (EffectCategoryImmunityPower.isImmune(self, effect)) {
+            cir.setReturnValue(false);
+            return;
+        }
         if (!(self instanceof Player)) return;
         otherworld$modifyEffectDuration(self, effect);
     }
 
-    @Inject(method = "addEffect(Lnet/minecraft/world/effect/MobEffectInstance;Lnet/minecraft/world/entity/Entity;)Z", at = @At("HEAD"))
+    @Inject(method = "addEffect(Lnet/minecraft/world/effect/MobEffectInstance;Lnet/minecraft/world/entity/Entity;)Z", at = @At("HEAD"), cancellable = true)
     private void otherworld$onAddEffect(MobEffectInstance effect, Entity source, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity self = (LivingEntity) (Object) this;
+        if (EffectCategoryImmunityPower.isImmune(self, effect)) {
+            cir.setReturnValue(false);
+            return;
+        }
         otherworld$modifyEffectDuration(self, effect);
     }
 

@@ -7,6 +7,7 @@ import dev.muon.otherworldorigins.effect.CuttingWordsEffect;
 import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.power.DeflectProjectilePower;
+import dev.muon.otherworldorigins.power.HealFromDamagePower;
 import dev.muon.otherworldorigins.power.DirectionalTeleportPower;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
@@ -274,7 +275,8 @@ public class ForgeEvents {
 
     @SubscribeEvent
     public static void modifyDamageTakenDirect(LivingDamageEvent event) {
-        float amount = ModifyDamageTakenDirectPower.modify(event.getEntity(), event.getSource(), event.getAmount());
+        float amount = HealFromDamagePower.apply(event.getEntity(), event.getSource(), event.getAmount());
+        amount = ModifyDamageTakenDirectPower.modify(event.getEntity(), event.getSource(), amount);
         // Favored Foe: +2% damage per effect level (level 10 = +20%)
         var favoredFoe = event.getEntity().getEffect(ModEffects.FAVORED_FOE.get());
         if (favoredFoe != null) {

@@ -1,5 +1,6 @@
 {
     "powers": [
+        "otherworldorigins:class/ranger/landstride",
         "otherworldorigins:subclass/druid/land",
         "otherworldorigins:spell_access/druid/land"
     ],

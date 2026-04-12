@@ -1,0 +1,11 @@
+{
+    "type": "otherworldorigins:effect_category_immunity",
+    "affect_beneficial": false,
+    "affect_harmful": true,
+    "affect_neutral": false,
+    "condition": {
+        "type": "otherworldorigins:player_level",
+        "comparison": ">=",
+        "compare_to": 10
+    }
+}

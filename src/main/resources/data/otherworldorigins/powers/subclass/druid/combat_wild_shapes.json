@@ -3,7 +3,7 @@
     "badges": [
         {
             "type": "origins:tooltip",
-            "sprite": "origins:textures/gui/badge/info.png",
+            "sprite": "origins:textures/gui/badge/arrow_up.png",
             "text": {
                 "translate": "otherworldorigins.gui.badge.combat_wild_shapes"
             }
