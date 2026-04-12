@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.util.RecentSpellCastCache;
+import dev.muon.otherworldorigins.util.SpellCastInterruptMode;
 import dev.muon.otherworldorigins.util.SpellCastUtil;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.factory.BiEntityAction;
@@ -31,6 +32,7 @@ import java.util.Optional;
  * their cast is cancelled first. Otherwise the most recent completed cast from {@link RecentSpellCastCache}
  * is used. Optionally puts that spell on cooldown for the victim and drains their mana (players only for
  * mana). The stolen cast uses the same pipeline as {@link CastSpellBientityAction} (target = victim).
+ * If {@code interrupt_mode} is {@code fail} and the actor is already casting, the action aborts before the target is modified.
  */
 public class SpellThiefBientityAction extends BiEntityAction<SpellThiefBientityAction.Configuration> {
 
@@ -55,6 +57,14 @@ public class SpellThiefBientityAction extends BiEntityAction<SpellThiefBientityA
         }
 
         if (MinecraftForge.EVENT_BUS.post(new CounterSpellEvent(actor, target))) {
+            return;
+        }
+
+        if (configuration.interruptMode() == SpellCastInterruptMode.FAIL
+                && MagicData.getPlayerMagicData(caster).isCasting()) {
+            if (caster instanceof ServerPlayer serverPlayer) {
+                SpellCastUtil.sendCannotUseWhileCastingActionBar(serverPlayer);
+            }
             return;
         }
 
@@ -89,9 +99,9 @@ public class SpellThiefBientityAction extends BiEntityAction<SpellThiefBientityA
         applyVictimCosts(configuration, livingTarget, stolenSpell);
 
         MagicData casterMagicData = MagicData.getPlayerMagicData(caster);
-        if (casterMagicData.isCasting()) {
-            SpellCastUtil.forceCompleteCurrentCastIfAny(caster, world);
-            casterMagicData = MagicData.getPlayerMagicData(caster);
+        casterMagicData = SpellCastUtil.resolveBusyCastBeforeNewSpell(caster, world, casterMagicData, configuration.interruptMode(), stolenSpell);
+        if (casterMagicData == null) {
+            return;
         }
 
         if (caster instanceof ServerPlayer serverPlayer) {
@@ -159,7 +169,8 @@ public class SpellThiefBientityAction extends BiEntityAction<SpellThiefBientityA
                 Codec.INT.optionalFieldOf("mana_cost").forGetter(Configuration::manaCost),
                 Codec.BOOL.optionalFieldOf("continuous_cost", false).forGetter(Configuration::continuousCost),
                 Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval),
-                Codec.INT.optionalFieldOf("target_mana_cost").forGetter(Configuration::targetManaCost)
+                Codec.INT.optionalFieldOf("target_mana_cost").forGetter(Configuration::targetManaCost),
+                SpellCastInterruptMode.CODEC.optionalFieldOf("interrupt_mode", SpellCastInterruptMode.CANCEL).forGetter(Configuration::interruptMode)
         ).apply(instance, Configuration::create));
 
         private final boolean triggerTargetCooldown;
@@ -168,6 +179,7 @@ public class SpellThiefBientityAction extends BiEntityAction<SpellThiefBientityA
         private final boolean continuousCost;
         private final int costInterval;
         private final Optional<Integer> targetManaCost;
+        private final SpellCastInterruptMode interruptMode;
 
         private static Configuration create(
                 boolean triggerTargetCooldown,
@@ -175,19 +187,22 @@ public class SpellThiefBientityAction extends BiEntityAction<SpellThiefBientityA
                 Optional<Integer> manaCost,
                 boolean continuousCost,
                 int costInterval,
-                Optional<Integer> targetManaCost
+                Optional<Integer> targetManaCost,
+                SpellCastInterruptMode interruptMode
         ) {
-            return new Configuration(triggerTargetCooldown, castTime, manaCost, continuousCost, costInterval, targetManaCost);
+            return new Configuration(triggerTargetCooldown, castTime, manaCost, continuousCost, costInterval, targetManaCost, interruptMode);
         }
 
         public Configuration(boolean triggerTargetCooldown, Optional<Integer> castTime, Optional<Integer> manaCost,
-                             boolean continuousCost, int costInterval, Optional<Integer> targetManaCost) {
+                             boolean continuousCost, int costInterval, Optional<Integer> targetManaCost,
+                             SpellCastInterruptMode interruptMode) {
             this.triggerTargetCooldown = triggerTargetCooldown;
             this.castTime = castTime;
             this.manaCost = manaCost;
             this.continuousCost = continuousCost;
             this.costInterval = costInterval;
             this.targetManaCost = targetManaCost;
+            this.interruptMode = interruptMode;
         }
 
         public boolean triggerTargetCooldown() {
@@ -212,6 +227,10 @@ public class SpellThiefBientityAction extends BiEntityAction<SpellThiefBientityA
 
         public Optional<Integer> targetManaCost() {
             return targetManaCost;
+        }
+
+        public SpellCastInterruptMode interruptMode() {
+            return interruptMode;
         }
     }
 }

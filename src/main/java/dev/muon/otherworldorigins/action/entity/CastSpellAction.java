@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.util.SpellCastInterruptMode;
 import dev.muon.otherworldorigins.util.SpellSelection;
 import dev.muon.otherworldorigins.util.SpellCastUtil;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
@@ -12,7 +13,6 @@ import io.redspace.ironsspellbooks.api.entity.IMagicEntity;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
-import io.redspace.ironsspellbooks.api.util.Utils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -49,23 +49,9 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         AbstractSpell spell = resolved.spell();
         int powerLevel = resolved.level();
         MagicData magicData = MagicData.getPlayerMagicData(livingEntity);
-
-        if (magicData.isCasting()) {
-            boolean sameSpell = spell.getSpellId().equals(magicData.getCastingSpellId());
-            if (livingEntity instanceof ServerPlayer serverPlayer) {
-                OtherworldOrigins.LOGGER.debug("CastSpellAction: Player is still casting {}, cancelling previous cast", magicData.getCastingSpellId());
-                Utils.serverSideCancelCast(serverPlayer);
-            } else {
-                OtherworldOrigins.LOGGER.debug("CastSpellAction: Entity is still casting {}, force-completing old cast", magicData.getCastingSpellId());
-                AbstractSpell oldSpell = magicData.getCastingSpell().getSpell();
-                oldSpell.onCast(world, magicData.getCastingSpellLevel(), livingEntity, magicData.getCastSource(), magicData);
-                oldSpell.onServerCastComplete(world, magicData.getCastingSpellLevel(), livingEntity, magicData, false);
-            }
-            magicData.resetCastingState();
-            if (sameSpell) {
-                return;
-            }
-            magicData = MagicData.getPlayerMagicData(livingEntity);
+        magicData = SpellCastUtil.resolveBusyCastBeforeNewSpell(livingEntity, world, magicData, configuration.interruptMode(), spell);
+        if (magicData == null) {
+            return;
         }
 
         LivingEntity raycastTarget = SpellCastUtil.findTarget(livingEntity, configuration.raycastDistance().orElse(SpellCastUtil.DEFAULT_RAYCAST_DISTANCE));
@@ -104,7 +90,8 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
                 Codec.INT.optionalFieldOf("mana_cost").forGetter(Configuration::manaCost),
                 Codec.BOOL.optionalFieldOf("continuous_cost", false).forGetter(Configuration::continuousCost),
                 Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval),
-                Codec.DOUBLE.optionalFieldOf("raycast_distance").forGetter(Configuration::raycastDistance)
+                Codec.DOUBLE.optionalFieldOf("raycast_distance").forGetter(Configuration::raycastDistance),
+                SpellCastInterruptMode.CODEC.optionalFieldOf("interrupt_mode", SpellCastInterruptMode.CANCEL).forGetter(Configuration::interruptMode)
         ).apply(instance, Configuration::create));
 
         private final SpellSelection spell;
@@ -113,6 +100,7 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
         private final boolean continuousCost;
         private final int costInterval;
         private final Optional<Double> raycastDistance;
+        private final SpellCastInterruptMode interruptMode;
 
         private static Configuration create(
                 Either<ResourceLocation, SpellSelection> spellField,
@@ -121,24 +109,26 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
                 Optional<Integer> manaCost,
                 boolean continuousCost,
                 int costInterval,
-                Optional<Double> raycastDistance
+                Optional<Double> raycastDistance,
+                SpellCastInterruptMode interruptMode
         ) {
             SpellSelection selection = spellField.map(
                     rl -> SpellSelection.fromLegacyStringForm(rl, legacyPowerLevel.orElse(1)),
                     s -> s
             );
-            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval, raycastDistance);
+            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval, raycastDistance, interruptMode);
         }
 
         public Configuration(SpellSelection spell, Optional<Integer> castTime,
                              Optional<Integer> manaCost, boolean continuousCost, int costInterval,
-                             Optional<Double> raycastDistance) {
+                             Optional<Double> raycastDistance, SpellCastInterruptMode interruptMode) {
             this.spell = spell;
             this.castTime = castTime;
             this.manaCost = manaCost;
             this.continuousCost = continuousCost;
             this.costInterval = costInterval;
             this.raycastDistance = raycastDistance;
+            this.interruptMode = interruptMode;
         }
 
         private Either<ResourceLocation, SpellSelection> spellFieldForCodec() {
@@ -171,6 +161,10 @@ public class CastSpellAction extends EntityAction<CastSpellAction.Configuration>
 
         public Optional<Double> raycastDistance() {
             return raycastDistance;
+        }
+
+        public SpellCastInterruptMode interruptMode() {
+            return interruptMode;
         }
     }
 }

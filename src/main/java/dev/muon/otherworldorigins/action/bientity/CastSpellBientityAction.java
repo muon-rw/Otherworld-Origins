@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.util.SpellCastInterruptMode;
 import dev.muon.otherworldorigins.util.SpellSelection;
 import dev.muon.otherworldorigins.util.SpellCastUtil;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
@@ -25,6 +26,10 @@ import java.util.Optional;
  * Unlike {@link dev.muon.otherworldorigins.action.entity.CastSpellAction}, this does not use
  * {@link SpellCastUtil#findTarget} — the target is provided directly. Player casts share
  * {@link SpellCastUtil#castSpellForPlayerWithBientityTarget}.
+ * <p>
+ * When the actor is already casting, {@code interrupt_mode} controls behavior (default {@code cancel} for players;
+ * non-players use force-complete for {@code cancel} and {@code force_complete}). {@code fail} aborts the action and
+ * leaves the current cast unchanged.
  */
 public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAction.Configuration> {
 
@@ -56,10 +61,9 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
         AbstractSpell spell = resolved.spell();
         int powerLevel = resolved.level();
         MagicData magicData = MagicData.getPlayerMagicData(caster);
-
-        if (magicData.isCasting()) {
-            SpellCastUtil.forceCompleteCurrentCastIfAny(caster, world);
-            magicData = MagicData.getPlayerMagicData(caster);
+        magicData = SpellCastUtil.resolveBusyCastBeforeNewSpell(caster, world, magicData, configuration.interruptMode(), spell);
+        if (magicData == null) {
+            return;
         }
 
         if (caster instanceof ServerPlayer serverPlayer) {
@@ -95,7 +99,8 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
                 Codec.INT.optionalFieldOf("cast_time").forGetter(Configuration::castTime),
                 Codec.INT.optionalFieldOf("mana_cost").forGetter(Configuration::manaCost),
                 Codec.BOOL.optionalFieldOf("continuous_cost", false).forGetter(Configuration::continuousCost),
-                Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval)
+                Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval),
+                SpellCastInterruptMode.CODEC.optionalFieldOf("interrupt_mode", SpellCastInterruptMode.CANCEL).forGetter(Configuration::interruptMode)
         ).apply(instance, Configuration::create));
 
         private final SpellSelection spell;
@@ -103,6 +108,7 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
         private final Optional<Integer> manaCost;
         private final boolean continuousCost;
         private final int costInterval;
+        private final SpellCastInterruptMode interruptMode;
 
         private static Configuration create(
                 Either<ResourceLocation, SpellSelection> spellField,
@@ -110,22 +116,25 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
                 Optional<Integer> castTime,
                 Optional<Integer> manaCost,
                 boolean continuousCost,
-                int costInterval
+                int costInterval,
+                SpellCastInterruptMode interruptMode
         ) {
             SpellSelection selection = spellField.map(
                     rl -> SpellSelection.fromLegacyStringForm(rl, legacyPowerLevel.orElse(1)),
                     s -> s
             );
-            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval);
+            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval, interruptMode);
         }
 
         public Configuration(SpellSelection spell, Optional<Integer> castTime,
-                             Optional<Integer> manaCost, boolean continuousCost, int costInterval) {
+                             Optional<Integer> manaCost, boolean continuousCost, int costInterval,
+                             SpellCastInterruptMode interruptMode) {
             this.spell = spell;
             this.castTime = castTime;
             this.manaCost = manaCost;
             this.continuousCost = continuousCost;
             this.costInterval = costInterval;
+            this.interruptMode = interruptMode;
         }
 
         private Either<ResourceLocation, SpellSelection> spellFieldForCodec() {
@@ -154,6 +163,10 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
 
         public int costInterval() {
             return costInterval;
+        }
+
+        public SpellCastInterruptMode interruptMode() {
+            return interruptMode;
         }
     }
 }

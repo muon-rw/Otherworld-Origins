@@ -262,7 +262,8 @@ public final class SpellCastUtil {
 
     /**
      * If the caster was already casting, force-complete that spell (onCast + onServerCastComplete) and reset state.
-     * Used by {@link dev.muon.otherworldorigins.action.bientity.CastSpellBientityAction} instead of canceling the prior cast.
+     * Used for {@link SpellCastInterruptMode#FORCE_COMPLETE} and for non-player casters when interrupting with
+     * {@link SpellCastInterruptMode#CANCEL} (no dedicated cancel helper).
      */
     public static void forceCompleteCurrentCastIfAny(LivingEntity caster, Level world) {
         MagicData magicData = MagicData.getPlayerMagicData(caster);
@@ -274,6 +275,56 @@ public final class SpellCastUtil {
         oldSpell.onCast(world, magicData.getCastingSpellLevel(), caster, magicData.getCastSource(), magicData);
         oldSpell.onServerCastComplete(world, magicData.getCastingSpellLevel(), caster, magicData, false);
         magicData.resetCastingState();
+    }
+
+    /**
+     * When the actor is already casting and a new spell should start, applies {@link SpellCastInterruptMode}.
+     *
+     * @return {@code null} if the action must stop without starting {@code incomingSpell} ({@link SpellCastInterruptMode#FAIL},
+     * or the interrupted cast was the same spell as {@code incomingSpell}). Otherwise magic data to use for the new cast.
+     */
+    @Nullable
+    public static MagicData resolveBusyCastBeforeNewSpell(
+            LivingEntity entity,
+            Level world,
+            MagicData magicData,
+            SpellCastInterruptMode interruptMode,
+            AbstractSpell incomingSpell
+    ) {
+        if (!magicData.isCasting()) {
+            return magicData;
+        }
+        if (interruptMode == SpellCastInterruptMode.FAIL) {
+            if (entity instanceof ServerPlayer serverPlayer) {
+                sendCannotUseWhileCastingActionBar(serverPlayer);
+            }
+            return null;
+        }
+        boolean sameSpell = incomingSpell.getSpellId().equals(magicData.getCastingSpellId());
+        if (entity instanceof ServerPlayer serverPlayer) {
+            if (interruptMode == SpellCastInterruptMode.FORCE_COMPLETE) {
+                forceCompleteCurrentCastIfAny(entity, world);
+            } else {
+                OtherworldOrigins.LOGGER.debug("SpellCastUtil: cancelling previous cast {} for new spell", magicData.getCastingSpellId());
+                Utils.serverSideCancelCast(serverPlayer);
+                magicData.resetCastingState();
+            }
+        } else {
+            OtherworldOrigins.LOGGER.debug("SpellCastUtil: force-completing prior cast on non-player {}", magicData.getCastingSpellId());
+            forceCompleteCurrentCastIfAny(entity, world);
+        }
+        if (sameSpell) {
+            return null;
+        }
+        return MagicData.getPlayerMagicData(entity);
+    }
+
+    /**
+     * Action bar when an origin cast action is blocked because the player is already casting ({@link SpellCastInterruptMode#FAIL}).
+     */
+    public static void sendCannotUseWhileCastingActionBar(ServerPlayer player) {
+        player.connection.send(new ClientboundSetActionBarTextPacket(
+                Component.translatable("otherworldorigins.action.cannot_use_while_casting")));
     }
 
     public enum TargetBindMode {
