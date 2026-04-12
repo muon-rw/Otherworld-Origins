@@ -148,9 +148,6 @@ repositories {
     }
     mavenCentral()
     mavenLocal()
-
-    // Scoped so a partial outage does not break resolution of unrelated artifacts
-    // (Gradle still queries each repo for dynamic/range versions).
     maven {
         name = "Muon"
         url = "https://maven.muon.rip/releases"

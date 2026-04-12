@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.util;
+package dev.muon.otherworldorigins.util.spell;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;

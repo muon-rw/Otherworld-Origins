@@ -1,7 +1,7 @@
 package dev.muon.otherworldorigins.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import dev.muon.otherworldorigins.compat.irons_spellbooks.IronsSpellOutgoingHealContext;
+import dev.muon.otherworldorigins.util.spell.OutgoingHealContext;
 import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.power.*;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
@@ -29,7 +29,7 @@ public abstract class LivingEntityMixin {
      */
     @ModifyVariable(method = "heal", at = @At("HEAD"), argsOnly = true)
     private float otherworldorigins$ironsSpellOutgoingHeal(float healAmount) {
-        return IronsSpellOutgoingHealContext.consumeFor((LivingEntity) (Object) this, healAmount);
+        return OutgoingHealContext.consumeFor((LivingEntity) (Object) this, healAmount);
     }
 
     @Inject(method = "decreaseAirSupply", at = @At("HEAD"), cancellable = true)

@@ -1,8 +1,7 @@
 package dev.muon.otherworldorigins.mixin.compat.irons_spellbooks;
 
-import dev.muon.otherworldorigins.compat.irons_spellbooks.IronsSpellOutgoingHealContext;
+import dev.muon.otherworldorigins.util.spell.OutgoingHealContext;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
-import io.github.edwinmindcraft.apoli.common.power.ModifyValuePower;
 import io.github.edwinmindcraft.apoli.common.registry.ApoliPowers;
 import io.redspace.ironsspellbooks.api.events.SpellHealEvent;
 import io.redspace.ironsspellbooks.api.spells.SchoolType;
@@ -34,6 +33,6 @@ public class SpellHealEventMixin {
                 ApoliPowers.MODIFY_HEALING.get(),
                 healAmount
         );
-        IronsSpellOutgoingHealContext.pushOutgoingHeal(targetEntity, modified);
+        OutgoingHealContext.pushOutgoingHeal(targetEntity, modified);
     }
 }

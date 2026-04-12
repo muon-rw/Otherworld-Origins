@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.util;
+package dev.muon.otherworldorigins.util.spell;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.redspace.ironsspellbooks.api.events.ChangeManaEvent;

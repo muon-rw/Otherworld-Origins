@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.compat.irons_spellbooks;
+package dev.muon.otherworldorigins.util.spell;
 
 import net.minecraft.world.entity.LivingEntity;
 
@@ -11,13 +11,13 @@ import java.util.Iterator;
  * <em>caster</em>. Apoli only scales healing for the entity in {@link net.minecraftforge.event.entity.living.LivingHealEvent}
  * (the recipient); spell heals skip the caster's modifiers when the target is another entity.
  */
-public final class IronsSpellOutgoingHealContext {
+public final class OutgoingHealContext {
 
     private static final ThreadLocal<Deque<Pending>> PENDING = ThreadLocal.withInitial(ArrayDeque::new);
 
     private record Pending(LivingEntity target, float modifiedAmount) {}
 
-    private IronsSpellOutgoingHealContext() {}
+    private OutgoingHealContext() {}
 
     public static void pushOutgoingHeal(LivingEntity target, float modifiedHealAmount) {
         PENDING.get().addLast(new Pending(target, modifiedHealAmount));

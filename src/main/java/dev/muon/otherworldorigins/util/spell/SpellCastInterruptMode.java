@@ -1,4 +1,4 @@
-package dev.muon.otherworldorigins.util;
+package dev.muon.otherworldorigins.util.spell;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;

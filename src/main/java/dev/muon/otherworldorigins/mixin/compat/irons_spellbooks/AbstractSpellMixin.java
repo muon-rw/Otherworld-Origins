@@ -2,8 +2,8 @@ package dev.muon.otherworldorigins.mixin.compat.irons_spellbooks;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import dev.muon.otherworldorigins.util.RecentSpellCastCache;
-import dev.muon.otherworldorigins.util.SpellCastUtil;
+import dev.muon.otherworldorigins.util.spell.RecentSpellCastCache;
+import dev.muon.otherworldorigins.util.spell.SpellCastUtil;
 import dev.muon.otherworldorigins.power.ActionOnSpellCastPower;
 import dev.muon.otherworldorigins.power.RecastSpellPower;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
