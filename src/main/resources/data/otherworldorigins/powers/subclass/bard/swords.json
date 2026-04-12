@@ -407,7 +407,15 @@
                     "if_action": {
                         "type": "origins:actor_action",
                         "action": {
-                            "type": "otherworldorigins:flourish_momentum_stack"
+                            "type": "otherworldorigins:apply_effect_stacking",
+                            "effect": {
+                                "effect": "otherworldorigins:flourish_momentum",
+                                "duration": 100,
+                                "amplifier": 0,
+                                "is_ambient": false,
+                                "show_particles": true,
+                                "show_icon": true
+                            }
                         }
                     }
                 },
