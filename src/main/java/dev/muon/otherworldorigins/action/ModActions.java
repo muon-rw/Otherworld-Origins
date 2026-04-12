@@ -32,6 +32,10 @@ public class ModActions {
     public static final RegistryObject<PromptLayerSelectionAction> PROMPT_LAYER_SELECTION = ENTITY_ACTIONS.register("prompt_layer_selection", PromptLayerSelectionAction::new);
     public static final RegistryObject<ExperimentalElixirEntityAction> EXPERIMENTAL_ELIXIR_BREW =
             ENTITY_ACTIONS.register("experimental_elixir_brew", ExperimentalElixirEntityAction::new);
+    public static final RegistryObject<ActionBarMessageAction> ACTION_BAR_MESSAGE =
+            ENTITY_ACTIONS.register("action_bar_message", ActionBarMessageAction::new);
+    public static final RegistryObject<FlourishMomentumStackAction> FLOURISH_MOMENTUM_STACK =
+            ENTITY_ACTIONS.register("flourish_momentum_stack", FlourishMomentumStackAction::new);
 
 
     public static final DeferredRegister<BiEntityAction<?>> BIENTITY_ACTIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_ACTION_KEY, OtherworldOrigins.MODID);

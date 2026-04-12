@@ -1,0 +1,24 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.otherworldorigins.cantrip_two"
+    },
+    "entity_action": {
+        "type": "otherworldorigins:cast_spell",
+        "spell": "heat_surge",
+        "power_level": 2,
+        "mana_cost": 10,
+        "cast_time": 0
+    },
+    "condition": {
+        "type": "otherworldorigins:player_mana",
+        "comparison": ">=",
+        "compare_to": 10
+    },
+    "cooldown": 30,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+        "bar_index": 15
+    }
+}

@@ -2,6 +2,8 @@ package dev.muon.otherworldorigins;
 
 import com.seniors.justlevelingfork.registry.RegistrySkills;
 import com.seniors.justlevelingfork.registry.skills.Skill;
+import dev.muon.otherworldorigins.effect.BattleHymnEffect;
+import dev.muon.otherworldorigins.effect.CuttingWordsEffect;
 import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
 import dev.muon.otherworldorigins.power.DeflectProjectilePower;
@@ -309,6 +311,46 @@ public class ForgeEvents {
             event.setImpactResult(ProjectileImpactEvent.ImpactResult.SKIP_ENTITY);
             DeflectProjectilePower.executeDeflect(deflectPower.get(), living, projectile);
         }
+    }
+
+    /**
+     * Cutting Words: while the damage dealer has the effect, all damage they deal is reduced (amplifier tier).
+     */
+    @SubscribeEvent(priority = EventPriority.NORMAL)
+    public static void onCuttingWordsOutgoingDamage(LivingHurtEvent event) {
+        if (event.getEntity().level().isClientSide()) {
+            return;
+        }
+        LivingEntity dealer = CuttingWordsEffect.resolveOutgoingDamageDealer(event.getSource());
+        if (dealer == null) {
+            return;
+        }
+        var cuttingWords = dealer.getEffect(ModEffects.CUTTING_WORDS.get());
+        if (cuttingWords == null) {
+            return;
+        }
+        float mult = CuttingWordsEffect.outgoingDamageMultiplier(cuttingWords.getAmplifier());
+        event.setAmount(event.getAmount() * mult);
+    }
+
+    /**
+     * Battle Hymn: while the damage dealer has the effect, all damage they deal is increased (amplifier tier).
+     */
+    @SubscribeEvent(priority = EventPriority.NORMAL)
+    public static void onBattleHymnOutgoingDamage(LivingHurtEvent event) {
+        if (event.getEntity().level().isClientSide()) {
+            return;
+        }
+        LivingEntity dealer = BattleHymnEffect.resolveOutgoingDamageDealer(event.getSource());
+        if (dealer == null) {
+            return;
+        }
+        var battleHymn = dealer.getEffect(ModEffects.BATTLE_HYMN.get());
+        if (battleHymn == null) {
+            return;
+        }
+        float mult = BattleHymnEffect.outgoingDamageMultiplier(battleHymn.getAmplifier());
+        event.setAmount(event.getAmount() * mult);
     }
 
     @SubscribeEvent

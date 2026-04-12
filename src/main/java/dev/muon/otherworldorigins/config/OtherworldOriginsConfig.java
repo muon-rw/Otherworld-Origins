@@ -106,6 +106,9 @@ public class OtherworldOriginsConfig {
                         "otherworldorigins:cantrips/two/oakskin",
                         "otherworldorigins:cantrips/healing_circle",
                         "otherworldorigins:cantrips/two/healing_circle",
+                        "otherworldorigins:cantrips/magical_secrets/fortify",
+                        "otherworldorigins:cantrips/magical_secrets/oakskin",
+                        "otherworldorigins:cantrips/magical_secrets/healing_circle",
                         "otherworldorigins:class/druid/wildshape_enter_wildshape"
                 ), value -> value instanceof String);
         BUILDER.pop();

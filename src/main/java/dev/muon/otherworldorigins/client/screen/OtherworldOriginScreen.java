@@ -1458,6 +1458,8 @@ public class OtherworldOriginScreen extends Screen {
         String spellName = null;
         if (originPath.startsWith("cantrips/two/")) {
             spellName = originPath.substring("cantrips/two/".length());
+        } else if (originPath.startsWith("cantrips/magical_secrets/")) {
+            spellName = originPath.substring("cantrips/magical_secrets/".length());
         } else if (originPath.startsWith("cantrips/")) {
             spellName = originPath.substring("cantrips/".length());
         }
@@ -1480,6 +1482,8 @@ public class OtherworldOriginScreen extends Screen {
             modifiedDesc = appendEnchantmentAccess(modifiedDesc, originPath.substring("class/".length()));
         } else if (originPath.startsWith("cantrips/two/")) {
             modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/two/".length()));
+        } else if (originPath.startsWith("cantrips/magical_secrets/")) {
+            modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/magical_secrets/".length()));
         } else if (originPath.startsWith("cantrips/")) {
             modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/".length()));
         }

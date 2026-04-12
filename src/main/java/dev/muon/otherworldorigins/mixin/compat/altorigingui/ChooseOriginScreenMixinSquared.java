@@ -79,6 +79,8 @@ public abstract class ChooseOriginScreenMixinSquared extends OriginDisplayScreen
                             String path = key.location().getPath();
                             if (path.startsWith("cantrips/two/")) {
                                 return path.substring("cantrips/two/".length());
+                            } else if (path.startsWith("cantrips/magical_secrets/")) {
+                                return path.substring("cantrips/magical_secrets/".length());
                             } else if (path.startsWith("cantrips/")) {
                                 return path.substring("cantrips/".length());
                             }

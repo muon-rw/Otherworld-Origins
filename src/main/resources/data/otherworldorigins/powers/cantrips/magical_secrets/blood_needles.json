@@ -1,12 +1,12 @@
 {
     "type": "origins:active_self",
     "key": {
-        "key": "key.otherworldorigins.cantrip_one"
+        "key": "key.otherworldorigins.cantrip_two"
     },
     "entity_action": {
         "type": "otherworldorigins:cast_spell",
-        "spell": "traveloptics:em_pulse",
-        "power_level": 2,
+        "spell": "blood_needles",
+        "power_level": 1,
         "mana_cost": 10,
         "cast_time": 0
     },
@@ -15,10 +15,10 @@
         "comparison": ">=",
         "compare_to": 10
     },
-    "cooldown": 40,
+    "cooldown": 20,
     "hud_render": {
         "should_render": true,
-        "sprite_location": "origins:textures/gui/resource_bar.png",
-        "bar_index": 2
+        "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_01.png",
+        "bar_index": 5
     }
 }

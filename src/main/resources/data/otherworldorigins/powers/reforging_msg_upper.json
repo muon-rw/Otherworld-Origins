@@ -5,8 +5,11 @@
         "tag": "otherworldorigins:advanced_tables"
     },
     "entity_action": {
-        "type": "origins:execute_command",
-        "command": "title @s actionbar {\"translate\": \"otherworldorigins.reforge_restricted\", \"color\": \"red\"}"
+        "type": "otherworldorigins:action_bar_message",
+        "message": {
+            "translate": "otherworldorigins.reforge_restricted",
+            "color": "red"
+        }
     },
     "condition": {
         "inverted": true,

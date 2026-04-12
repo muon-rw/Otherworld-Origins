@@ -79,8 +79,11 @@
             ]
         },
         "entity_action": {
-            "type": "origins:execute_command",
-            "command": "title @s actionbar {\"translate\": \"otherworldorigins.soul_of_artifice.cannot_infuse\", \"color\": \"red\"}"
+            "type": "otherworldorigins:action_bar_message",
+            "message": {
+                "translate": "otherworldorigins.soul_of_artifice.cannot_infuse",
+                "color": "red"
+            }
         },
         "hud_render": {
             "should_render": false

@@ -18,6 +18,7 @@ public final class LeveledLayers {
             OtherworldOrigins.loc("third_feat"),
             OtherworldOrigins.loc("fourth_feat"),
             OtherworldOrigins.loc("fifth_feat"),
-            OtherworldOrigins.loc("chemical_mastery")
+            OtherworldOrigins.loc("chemical_mastery"),
+            OtherworldOrigins.loc("magical_secrets")
     );
 }

@@ -1,0 +1,20 @@
+{
+  "type": "otherworldorigins:inspiration",
+  "heal_amount": 1.0,
+  "radius": 32.0,
+  "interval": 20,
+  "bientity_condition": {
+    "type": "origins:or",
+    "conditions": [
+      {
+        "type": "otherworldorigins:allied"
+      },
+      {
+        "type": "origins:target_condition",
+        "condition": {
+          "type": "otherworldorigins:is_friendly"
+        }
+      }
+    ]
+  }
+}

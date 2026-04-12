@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import dev.muon.otherworldorigins.power.ActionOnAttackPower;
 import dev.muon.otherworldorigins.power.JumpCooldownPower;
 import dev.muon.otherworldorigins.power.ShapeshiftPower;
 import dev.muon.otherworldorigins.util.IEnchantmentSeedResettable;
@@ -8,6 +9,7 @@ import dev.muon.otherworldorigins.util.JumpCooldownAccess;
 import dev.muon.otherworldorigins.util.shapeshift.ShapeshiftCollisionHelper;
 import dev.muon.otherworldorigins.util.shapeshift.ShapeshiftCollisionShape;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -46,6 +48,26 @@ public class PlayerMixin implements IEnchantmentSeedResettable, JumpCooldownAcce
     @Override
     public void otherworldorigins$setJumpCooldownRemaining(int ticks) {
         this.otherworldorigins$jumpCooldownRemaining = Math.max(0, ticks);
+    }
+
+    /**
+     * {@link ActionOnAttackPower}: run after vanilla melee damage and follow-ups (knockback, sweep, enchants, durability, exhaustion).
+     * <p>
+     * Injection is after {@code causeFoodExhaustion(0.1F)} rather than {@code @At("TAIL")} because that call lives only inside
+     * the {@code hurt}Succeeded branch — {@code TAIL} still runs when the player attempted a hit but {@code hurt} returned false
+     * (immune, i-frames, etc.), and we want powers only on a successful weapon hit. This is not driven by Forge moving
+     * {@code resetAttackStrengthTicker} to the end of {@code attack} (a side effect: we run before that reset, {@code TAIL} would be after).
+     */
+    @Inject(
+            method = "attack",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/entity/player/Player;causeFoodExhaustion(F)V",
+                    shift = At.Shift.AFTER
+            )
+    )
+    private void otherworldorigins$actionOnAttackAfterSuccessfulMelee(Entity target, CallbackInfo ci) {
+        ActionOnAttackPower.afterSuccessfulPlayerMeleeHit((Player) (Object) this, target);
     }
 
     @Inject(method = "jumpFromGround", at = @At("HEAD"), cancellable = true)

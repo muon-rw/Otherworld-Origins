@@ -1,9 +1,708 @@
-{ 
-    "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "minecraft:generic.attack_damage",
-        "operation": "addition",
-        "value": 4
+{
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.swords_stance_cycle",
+                "with": [
+                    {
+                        "keybind": "key.otherworldorigins.cantrip_two"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.swords_slashing"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.swords_mobile"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.swords_defensive"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/arrow_up.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.swords_capstone"
+            }
+        }
+    ],
+    "on_hit": {
+        "type": "otherworldorigins:action_on_attack",
+        "bientity_condition": {
+            "type": "origins:target_condition",
+            "condition": {
+                "type": "origins:living"
+            }
+        },
+        "bientity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 15
+                        }
+                    },
+                    "action": {
+                        "type": "origins:damage",
+                        "amount": 4,
+                        "damage_type": "minecraft:magic"
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 10
+                        }
+                    },
+                    "action": {
+                        "type": "origins:damage",
+                        "amount": 3,
+                        "damage_type": "minecraft:magic"
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 5
+                        }
+                    },
+                    "action": {
+                        "type": "origins:damage",
+                        "amount": 2,
+                        "damage_type": "minecraft:magic"
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "origins:constant",
+                            "value": true
+                        }
+                    },
+                    "action": {
+                        "type": "origins:damage",
+                        "amount": 1,
+                        "damage_type": "minecraft:magic"
+                    }
+                }
+            ]
+        }
+    },
+    "stance": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 2,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "deflect_ready": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 1,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "stance_cycle": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.otherworldorigins.cantrip_two"
+        },
+        "cooldown": 1,
+        "hud_render": {
+            "should_render": false
+        },
+        "entity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_stance",
+                        "comparison": "==",
+                        "compare_to": 2
+                    },
+                    "action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:modify_resource",
+                                "resource": "*:*_stance",
+                                "modifier": {
+                                    "operation": "set_total",
+                                    "value": 0
+                                }
+                            },
+                            {
+                                "type": "otherworldorigins:action_bar_message",
+                                "message": {
+                                    "translate": "otherworldorigins.bard.flourish.stance_slashing",
+                                    "color": "red"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:resource",
+                        "resource": "*:*_stance",
+                        "comparison": "==",
+                        "compare_to": 1
+                    },
+                    "action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:modify_resource",
+                                "resource": "*:*_stance",
+                                "modifier": {
+                                    "operation": "set_total",
+                                    "value": 2
+                                }
+                            },
+                            {
+                                "type": "otherworldorigins:action_bar_message",
+                                "message": {
+                                    "translate": "otherworldorigins.bard.flourish.stance_mobile",
+                                    "color": "green"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:constant",
+                        "value": true
+                    },
+                    "action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:modify_resource",
+                                "resource": "*:*_stance",
+                                "modifier": {
+                                    "operation": "set_total",
+                                    "value": 1
+                                }
+                            },
+                            {
+                                "type": "otherworldorigins:action_bar_message",
+                                "message": {
+                                    "translate": "otherworldorigins.bard.flourish.stance_defensive",
+                                    "color": "yellow"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "deflect_taken_1": {
+        "type": "origins:modify_damage_taken",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_deflect_ready",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 5
+                }
+            ]
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -0.2
+        },
+        "self_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_deflect_ready",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
+            }
+        }
+    },
+    "deflect_taken_2": {
+        "type": "origins:modify_damage_taken",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_deflect_ready",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 5
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<=",
+                    "compare_to": 9
+                }
+            ]
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -0.25
+        },
+        "self_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_deflect_ready",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
+            }
+        }
+    },
+    "deflect_taken_3": {
+        "type": "origins:modify_damage_taken",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_deflect_ready",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<=",
+                    "compare_to": 14
+                }
+            ]
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -0.3
+        },
+        "self_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_deflect_ready",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
+            }
+        }
+    },
+    "deflect_taken_4": {
+        "type": "origins:modify_damage_taken",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_deflect_ready",
+                    "comparison": "==",
+                    "compare_to": 1
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 15
+                }
+            ]
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -0.35
+        },
+        "self_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_deflect_ready",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
+            }
+        }
+    },
+    "flourish_on_final": {
+        "type": "otherworldorigins:action_on_attack",
+        "attack_condition": {
+            "swing": "final",
+            "require_weapon_attributes": true
+        },
+        "cooldown": 1,
+        "hud_render": {
+            "should_render": false
+        },
+        "bientity_condition": {
+            "type": "origins:target_condition",
+            "condition": {
+                "type": "origins:living"
+            }
+        },
+        "bientity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:actor_action",
+                    "action": {
+                        "type": "origins:delay",
+                        "ticks": 2,
+                        "action": {
+                            "type": "origins:execute_command",
+                            "command": "playsound otherworldorigins:dash player @s ~ ~ ~ 1.0 1.3"
+                        }
+                    }
+                },
+                {
+                    "type": "origins:if_else",
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 20
+                        }
+                    },
+                    "if_action": {
+                        "type": "origins:actor_action",
+                        "action": {
+                            "type": "otherworldorigins:flourish_momentum_stack"
+                        }
+                    }
+                },
+                {
+                    "type": "origins:if_else_list",
+                    "actions": [
+                        {
+                            "condition": {
+                                "type": "origins:actor_condition",
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "*:*_stance",
+                                    "comparison": "==",
+                                    "compare_to": 0
+                                }
+                            },
+                            "action": {
+                                "type": "origins:if_else_list",
+                                "actions": [
+                                    {
+                                        "condition": {
+                                            "type": "origins:actor_condition",
+                                            "condition": {
+                                                "type": "otherworldorigins:player_level",
+                                                "comparison": ">=",
+                                                "compare_to": 15
+                                            }
+                                        },
+                                        "action": {
+                                            "type": "otherworldorigins:attack",
+                                            "bypasses_attack_speed": true,
+                                            "attack_strength": 1.0
+                                        }
+                                    },
+                                    {
+                                        "condition": {
+                                            "type": "origins:actor_condition",
+                                            "condition": {
+                                                "type": "otherworldorigins:player_level",
+                                                "comparison": ">=",
+                                                "compare_to": 10
+                                            }
+                                        },
+                                        "action": {
+                                            "type": "otherworldorigins:attack",
+                                            "bypasses_attack_speed": true,
+                                            "attack_strength": 0.75
+                                        }
+                                    },
+                                    {
+                                        "condition": {
+                                            "type": "origins:actor_condition",
+                                            "condition": {
+                                                "type": "otherworldorigins:player_level",
+                                                "comparison": ">=",
+                                                "compare_to": 5
+                                            }
+                                        },
+                                        "action": {
+                                            "type": "otherworldorigins:attack",
+                                            "bypasses_attack_speed": true,
+                                            "attack_strength": 0.5
+                                        }
+                                    },
+                                    {
+                                        "condition": {
+                                            "type": "origins:actor_condition",
+                                            "condition": {
+                                                "type": "origins:constant",
+                                                "value": true
+                                            }
+                                        },
+                                        "action": {
+                                            "type": "otherworldorigins:attack",
+                                            "bypasses_attack_speed": true,
+                                            "attack_strength": 0.25
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "condition": {
+                                "type": "origins:actor_condition",
+                                "condition": {
+                                    "type": "origins:resource",
+                                    "resource": "*:*_stance",
+                                    "comparison": "==",
+                                    "compare_to": 1
+                                }
+                            },
+                            "action": {
+                                "type": "origins:actor_action",
+                                "action": {
+                                    "type": "origins:modify_resource",
+                                    "resource": "*:*_deflect_ready",
+                                    "modifier": {
+                                        "operation": "set_total",
+                                        "value": 1
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "condition": {
+                                "type": "origins:actor_condition",
+                                "condition": {
+                                    "type": "origins:constant",
+                                    "value": true
+                                }
+                            },
+                            "action": {
+                                "type": "origins:if_else_list",
+                                "actions": [
+                                    {
+                                        "condition": {
+                                            "type": "origins:actor_condition",
+                                            "condition": {
+                                                "type": "otherworldorigins:player_level",
+                                                "comparison": ">=",
+                                                "compare_to": 15
+                                            }
+                                        },
+                                        "action": {
+                                            "type": "origins:and",
+                                            "actions": [
+                                                {
+                                                    "type": "origins:add_velocity",
+                                                    "y": 0.22,
+                                                    "z": 2.625,
+                                                    "reference": "position"
+                                                },
+                                                {
+                                                    "type": "origins:if_else_list",
+                                                    "actions": [
+                                                        {
+                                                            "condition": {
+                                                                "type": "origins:actor_condition",
+                                                                "condition": {
+                                                                    "type": "origins:on_block",
+                                                                    "inverted": true
+                                                                }
+                                                            },
+                                                            "action": {
+                                                                "type": "origins:actor_action",
+                                                                "action": {
+                                                                    "type": "origins:add_velocity",
+                                                                    "space": "local_horizontal_normalized",
+                                                                    "z": -1.15,
+                                                                    "y": 0.52
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "condition": {
+                                            "type": "origins:actor_condition",
+                                            "condition": {
+                                                "type": "otherworldorigins:player_level",
+                                                "comparison": ">=",
+                                                "compare_to": 10
+                                            }
+                                        },
+                                        "action": {
+                                            "type": "origins:and",
+                                            "actions": [
+                                                {
+                                                    "type": "origins:add_velocity",
+                                                    "y": 0.18,
+                                                    "z": 2.025,
+                                                    "reference": "position"
+                                                },
+                                                {
+                                                    "type": "origins:if_else_list",
+                                                    "actions": [
+                                                        {
+                                                            "condition": {
+                                                                "type": "origins:actor_condition",
+                                                                "condition": {
+                                                                    "type": "origins:on_block",
+                                                                    "inverted": true
+                                                                }
+                                                            },
+                                                            "action": {
+                                                                "type": "origins:actor_action",
+                                                                "action": {
+                                                                    "type": "origins:add_velocity",
+                                                                    "space": "local_horizontal_normalized",
+                                                                    "z": -0.9,
+                                                                    "y": 0.42
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "condition": {
+                                            "type": "origins:actor_condition",
+                                            "condition": {
+                                                "type": "otherworldorigins:player_level",
+                                                "comparison": ">=",
+                                                "compare_to": 5
+                                            }
+                                        },
+                                        "action": {
+                                            "type": "origins:and",
+                                            "actions": [
+                                                {
+                                                    "type": "origins:add_velocity",
+                                                    "y": 0.14,
+                                                    "z": 1.425,
+                                                    "reference": "position"
+                                                },
+                                                {
+                                                    "type": "origins:if_else_list",
+                                                    "actions": [
+                                                        {
+                                                            "condition": {
+                                                                "type": "origins:actor_condition",
+                                                                "condition": {
+                                                                    "type": "origins:on_block",
+                                                                    "inverted": true
+                                                                }
+                                                            },
+                                                            "action": {
+                                                                "type": "origins:actor_action",
+                                                                "action": {
+                                                                    "type": "origins:add_velocity",
+                                                                    "space": "local_horizontal_normalized",
+                                                                    "z": -0.65,
+                                                                    "y": 0.32
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    {
+                                        "condition": {
+                                            "type": "origins:actor_condition",
+                                            "condition": {
+                                                "type": "origins:constant",
+                                                "value": true
+                                            }
+                                        },
+                                        "action": {
+                                            "type": "origins:and",
+                                            "actions": [
+                                                {
+                                                    "type": "origins:add_velocity",
+                                                    "y": 0.1,
+                                                    "z": 0.75,
+                                                    "reference": "position"
+                                                },
+                                                {
+                                                    "type": "origins:if_else_list",
+                                                    "actions": [
+                                                        {
+                                                            "condition": {
+                                                                "type": "origins:actor_condition",
+                                                                "condition": {
+                                                                    "type": "origins:on_block",
+                                                                    "inverted": true
+                                                                }
+                                                            },
+                                                            "action": {
+                                                                "type": "origins:actor_action",
+                                                                "action": {
+                                                                    "type": "origins:add_velocity",
+                                                                    "space": "local_horizontal_normalized",
+                                                                    "z": -0.4,
+                                                                    "y": 0.22
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
     }
 }

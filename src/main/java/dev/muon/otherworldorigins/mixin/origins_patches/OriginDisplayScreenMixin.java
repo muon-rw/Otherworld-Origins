@@ -47,6 +47,8 @@ public abstract class OriginDisplayScreenMixin {
             modifiedDesc = appendEnchantmentAccess(modifiedDesc, originPath.substring("class/".length()));
         } else if (originPath.startsWith("cantrips/two/")) {
             modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/two/".length()));
+        } else if (originPath.startsWith("cantrips/magical_secrets/")) {
+            modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/magical_secrets/".length()));
         } else if (originPath.startsWith("cantrips/")) {
             modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/".length()));
         }
@@ -86,7 +88,8 @@ public abstract class OriginDisplayScreenMixin {
 
     /**
      * Resolves a spell's mod namespace from just its path name (e.g. "ashen_breath" → "traveloptics").
-     * The origin display screen only has the Origin registry key (e.g. "cantrips/two/ashen_breath"),
+     * The origin display screen only has the Origin registry key (e.g. "cantrips/two/ashen_breath"
+     * or "cantrips/magical_secrets/ashen_breath"),
      * not the actual spell object — that's buried in the power's entity action config, which would
      * require parsing serialized JSON from the Origin→Power→ActionConfig chain (insanely dumb). Instead, we scan
      * the ISS spell registry by path. If this ever becomes insufficient (e.g. cross-mod path
@@ -129,6 +132,8 @@ public abstract class OriginDisplayScreenMixin {
             String spellName = null;
             if (originPath.startsWith("cantrips/two/")) {
                 spellName = originPath.substring("cantrips/two/".length());
+            } else if (originPath.startsWith("cantrips/magical_secrets/")) {
+                spellName = originPath.substring("cantrips/magical_secrets/".length());
             } else if (originPath.startsWith("cantrips/")) {
                 spellName = originPath.substring("cantrips/".length());
             }

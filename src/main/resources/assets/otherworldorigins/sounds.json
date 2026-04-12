@@ -1,9 +1,24 @@
 {
+    "boost": {
+        "subtitle": "subtitles.otherworldorigins.boost",
+        "sounds": [
+            "otherworldorigins:boost",
+            "otherworldorigins:boost_2",
+            "otherworldorigins:boost_3",
+            "otherworldorigins:boost_4"
+        ]
+    },
     "dash": {
         "subtitle": "subtitles.otherworldorigins.dash",
         "sounds": [
             "otherworldorigins:dash",
             "otherworldorigins:dash_2"
+        ]
+    },
+    "divine_smite": {
+        "subtitle": "subtitles.otherworldorigins.divine_smite",
+        "sounds": [
+            "otherworldorigins:divine_smite"
         ]
     },
     "flourish": {
@@ -13,6 +28,28 @@
             "otherworldorigins:flourish_2",
             "otherworldorigins:flourish_3",
             "otherworldorigins:flourish_4"
+        ]
+    },
+    "jump": {
+        "subtitle": "subtitles.otherworldorigins.jump",
+        "sounds": [
+            "otherworldorigins:jump_1",
+            "otherworldorigins:jump_2",
+            "otherworldorigins:jump_3",
+            "otherworldorigins:jump_4",
+            "otherworldorigins:jump_5"
+        ]
+    },
+    "valkyrie_land": {
+        "subtitle": "subtitles.otherworldorigins.valkyrie_land",
+        "sounds": [
+            "otherworldorigins:valkyrie_land"
+        ]
+    },
+    "zhh_woo_voop_early": {
+        "subtitle": "subtitles.otherworldorigins.zhh_woo_voop_early",
+        "sounds": [
+            "otherworldorigins:zhh_woo_voop_early"
         ]
     }
 }

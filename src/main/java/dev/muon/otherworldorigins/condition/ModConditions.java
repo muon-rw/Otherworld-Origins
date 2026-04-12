@@ -49,6 +49,9 @@ public class ModConditions {
             new SimpleEntityCondition(entity ->
                     entity instanceof Player player && player.getAbilities().instabuild));
 
+    public static final RegistryObject<SimpleEntityCondition> IS_FRIENDLY = ENTITY_CONDITIONS.register("is_friendly", () ->
+            new SimpleEntityCondition(entity -> entity.getType().getCategory().isFriendly()));
+
     public static final RegistryObject<PlayerLevelCondition> PLAYER_LEVEL = ENTITY_CONDITIONS.register("player_level", PlayerLevelCondition::new);
     public static final RegistryObject<AnyOnLayerCondition> ANY_ON_LAYER = ENTITY_CONDITIONS.register("any_on_layer", AnyOnLayerCondition::new);
     public static final RegistryObject<ManaCondition> PLAYER_MANA = ENTITY_CONDITIONS.register("player_mana", ManaCondition::new);

@@ -388,8 +388,11 @@
             ]
         },
         "entity_action": {
-            "type": "origins:execute_command",
-            "command": "title @s actionbar {\"translate\": \"otherworldorigins.experimental_elixir.cannot_brew\", \"color\": \"red\"}"
+            "type": "otherworldorigins:action_bar_message",
+            "message": {
+                "translate": "otherworldorigins.experimental_elixir.cannot_brew",
+                "color": "red"
+            }
         },
         "hud_render": {
             "should_render": false
