@@ -1,9 +1,4 @@
 {
     "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "irons_spellbooks:mana_regen",
-        "operation": "multiply_base",
-        "value": 0.25
-    }
+    "type": "otherworldorigins:eldritch_knowledge"
 }

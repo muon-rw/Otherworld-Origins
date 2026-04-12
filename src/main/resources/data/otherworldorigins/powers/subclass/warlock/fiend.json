@@ -1,9 +1,10 @@
 {
     "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "irons_spellbooks:cast_time_reduction",
-        "operation": "multiply_base",
-        "value": 0.15
+    "type": "origins:self_action_on_kill",
+    "cooldown": 1,
+    "entity_action": {
+        "type": "otherworldorigins:grant_absorption_hearts",
+        "base_hearts": 0,
+        "per_level_hearts": 1
     }
 }

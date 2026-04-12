@@ -569,6 +569,21 @@ public class OtherworldOriginScreen extends Screen {
         return race;
     }
 
+    private boolean selectedClassIsWarlock() {
+        for (Map.Entry<Integer, Holder<Origin>> entry : this.confirmedSelections.entrySet()) {
+            int idx = entry.getKey();
+            if (idx >= this.layerList.size()) continue;
+            Holder<OriginLayer> layer = this.layerList.get(idx);
+            ResourceLocation lId = layer.unwrapKey().map(ResourceKey::location).orElse(null);
+            if (!OtherworldOrigins.loc("class").equals(lId)) continue;
+            Holder<Origin> origin = entry.getValue();
+            if (origin == null || !origin.isBound()) return false;
+            ResourceLocation oid = origin.unwrapKey().map(ResourceKey::location).orElse(null);
+            return OtherworldOrigins.loc("class/warlock").equals(oid);
+        }
+        return false;
+    }
+
     private void rebuildCharacterSheetText() {
         this.sheetLines.clear();
         
@@ -610,6 +625,20 @@ public class OtherworldOriginScreen extends Screen {
             }
         } else {
             boolean hasSubclass = subclassName != null && !subclassName.isEmpty();
+            boolean warlockPactLine = hasSubclass
+                    && selectedClassIsWarlock()
+                    && (!(race.equals("Other") || race.equals("Undead")) || (subrace != null && !subrace.isEmpty()));
+
+            if (warlockPactLine) {
+                String heritageData = (race.equals("Other") || race.equals("Undead"))
+                        ? subrace
+                        : heritagePhrase(subrace, race);
+                mainText = Component.translatable(
+                        "otherworldorigins.gui.final_confirm.main_description_warlock_subclass",
+                        playerName,
+                        subclassName,
+                        heritageData);
+            } else {
             String articleTarget = hasSubclass ? subclassName : className;
             boolean useAn = false;
             if (articleTarget != null && !articleTarget.isEmpty()) {
@@ -645,6 +674,7 @@ public class OtherworldOriginScreen extends Screen {
                     String key = prefix + (useAn ? "main_description_no_subclass_an" : "main_description_no_subclass");
                     mainText = Component.translatable(key, playerName, className, heritagePhrase(subrace, race));
                 }
+            }
             }
         }
         addSheetText(mainText);

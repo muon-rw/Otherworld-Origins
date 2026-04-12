@@ -20,9 +20,9 @@ import java.util.Optional;
  * {@code template.amplifier + clamp(L - level_offset, min_amplifier, max_amplifier)} where {@code L} is
  * the actor's character level, or a Just Leveling aptitude level if {@code aptitude} is set.
  */
-public class ApplyLeveledEffectAction extends BiEntityAction<ApplyLeveledEffectAction.Configuration> {
+public class ApplyLeveledEffectBientityAction extends BiEntityAction<ApplyLeveledEffectBientityAction.Configuration> {
 
-    public ApplyLeveledEffectAction() {
+    public ApplyLeveledEffectBientityAction() {
         super(Configuration.CODEC);
     }
 

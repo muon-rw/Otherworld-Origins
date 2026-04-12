@@ -1,15 +1,8 @@
 package dev.muon.otherworldorigins.action;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.action.bientity.*;
 import dev.muon.otherworldorigins.action.item.SoulOfArtificeItemAction;
-import dev.muon.otherworldorigins.action.bientity.ApplyLeveledEffectAction;
-import dev.muon.otherworldorigins.action.bientity.AttackAction;
-import dev.muon.otherworldorigins.action.bientity.CastSpellBientityAction;
-import dev.muon.otherworldorigins.action.bientity.SpellThiefBientityAction;
-import dev.muon.otherworldorigins.action.bientity.LeveledHealBientityAction;
-import dev.muon.otherworldorigins.action.bientity.RaycastBetweenAction;
-import dev.muon.otherworldorigins.action.bientity.ResourceHealBientityAction;
-import dev.muon.otherworldorigins.action.bientity.TameAction;
 import dev.muon.otherworldorigins.action.entity.*;
 import io.github.edwinmindcraft.apoli.api.power.factory.BiEntityAction;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
@@ -36,6 +29,10 @@ public class ModActions {
             ENTITY_ACTIONS.register("action_bar_message", ActionBarMessageAction::new);
     public static final RegistryObject<ApplyEffectStackingAction> APPLY_EFFECT_STACKING =
             ENTITY_ACTIONS.register("apply_effect_stacking", ApplyEffectStackingAction::new);
+    public static final RegistryObject<GrantAbsorptionHeartsAction> GRANT_ABSORPTION_HEARTS =
+            ENTITY_ACTIONS.register("grant_absorption_hearts", GrantAbsorptionHeartsAction::new);
+    public static final RegistryObject<ApplyLeveledEffectAction> APPLY_LEVELED_EFFECT =
+            ENTITY_ACTIONS.register("apply_leveled_effect", ApplyLeveledEffectAction::new);
 
 
     public static final DeferredRegister<BiEntityAction<?>> BIENTITY_ACTIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_ACTION_KEY, OtherworldOrigins.MODID);
@@ -44,8 +41,8 @@ public class ModActions {
     public static final RegistryObject<LeveledHealBientityAction> LEVELED_HEAL_BIENTITY = BIENTITY_ACTIONS.register("leveled_heal", LeveledHealBientityAction::new);
     public static final RegistryObject<ResourceHealBientityAction> RESOURCE_HEAL_BIENTITY = BIENTITY_ACTIONS.register("resource_heal", ResourceHealBientityAction::new);
     public static final RegistryObject<RaycastBetweenAction> RAYCAST_BETWEEN = BIENTITY_ACTIONS.register("raycast_between", RaycastBetweenAction::new);
-    public static final RegistryObject<ApplyLeveledEffectAction> APPLY_LEVELED_EFFECT =
-            BIENTITY_ACTIONS.register("apply_leveled_effect", ApplyLeveledEffectAction::new);
+    public static final RegistryObject<ApplyLeveledEffectBientityAction> APPLY_LEVELED_EFFECT_BIENTITY =
+            BIENTITY_ACTIONS.register("apply_leveled_effect", ApplyLeveledEffectBientityAction::new);
     public static final RegistryObject<AttackAction> ATTACK = BIENTITY_ACTIONS.register("attack", AttackAction::new);
     public static final RegistryObject<CastSpellBientityAction> CAST_SPELL_BIENTITY = ModList.get().isLoaded("irons_spellbooks") ?
             BIENTITY_ACTIONS.register("cast_spell", CastSpellBientityAction::new) : null;

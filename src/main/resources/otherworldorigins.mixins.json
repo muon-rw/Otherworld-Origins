@@ -36,6 +36,8 @@
     "compat.irons_spellbooks.SpellRegistryMixin",
     "compat.irons_spellbooks.TeleportSpellMixin",
     "compat.irons_spellbooks.UtilsMixin",
+    "compat.irons_spellbooks.SyncedSpellDataMixin",
+    "compat.irons_spellbooks.accessor.SyncedSpellDataAccessor",
     "compat.justlevelingfork.AptitudeCapabilityMixin",
     "compat.justlevelingfork.PlayerMaxAirSupplyMixin",
     "compat.justlevelingfork.RegistryCommonEventsMixin",

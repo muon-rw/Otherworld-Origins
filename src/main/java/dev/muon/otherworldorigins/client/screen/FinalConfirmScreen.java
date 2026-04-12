@@ -101,6 +101,14 @@ public class FinalConfirmScreen extends Screen {
         return race;
     }
 
+    private static boolean selectedClassIsWarlock(IOriginContainer originContainer, Registry<OriginLayer> layerRegistry) {
+        ResourceKey<OriginLayer> layerKey = ResourceKey.create(layerRegistry.key(), OtherworldOrigins.loc("class"));
+        Holder<OriginLayer> layer = layerRegistry.getHolder(layerKey).orElse(null);
+        if (layer == null) return false;
+        ResourceKey<Origin> originKey = originContainer.getOrigin(layer);
+        return originKey != null && originKey.location().equals(OtherworldOrigins.loc("class/warlock"));
+    }
+
     private void buildDisplayLines() {
         displayLines.clear();
         headerLineIndices.clear();
@@ -132,6 +140,21 @@ public class FinalConfirmScreen extends Screen {
             addWrappedTextAsHeader(raceClassHeader);
             
             Component mainText;
+            boolean hasSubclass = subclassName != null && !subclassName.isEmpty();
+            boolean warlockPactLine = hasSubclass
+                    && selectedClassIsWarlock(originContainer, layerRegistry)
+                    && (!(race.equals("Other") || race.equals("Undead")) || (subrace != null && !subrace.isEmpty()));
+
+            if (warlockPactLine) {
+                String heritageData = (race.equals("Other") || race.equals("Undead"))
+                        ? subrace
+                        : heritagePhrase(subrace, race);
+                mainText = Component.translatable(
+                        "otherworldorigins.gui.final_confirm.main_description_warlock_subclass",
+                        playerName,
+                        subclassName,
+                        heritageData);
+            } else {
             // Determine if we need "a" or "an" based on the subclass name
             boolean useAn = false;
             if (subclassName != null && !subclassName.isEmpty()) {
@@ -169,6 +192,7 @@ public class FinalConfirmScreen extends Screen {
                         subclassName != null ? subclassName : "",
                         className,
                         heritagePhrase(subrace, race));
+            }
             }
             addWrappedText(mainText);
             displayLines.add(FormattedCharSequence.EMPTY); // Blank line
