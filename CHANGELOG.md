@@ -1,7 +1,7 @@
 ## 1.6.0
+- 70% of massive class rebalance
 - Fix Sophisticated XP Pump bypassing Mending restriction
 - Fix buff duration exploit caused by JL 
-- More Subclass+Class abilities
 - New spell restrictions
 - Lotsa cantrips
 - Better enchantment cost reduction 
