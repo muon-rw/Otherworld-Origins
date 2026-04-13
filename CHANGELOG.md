@@ -1,5 +1,5 @@
 ## 1.6.0
-- 70% of massive class rebalance
+- 70% of massive subclass ability rewrite
 - Fix Sophisticated XP Pump bypassing Mending restriction
 - Fix buff duration exploit caused by JL 
 - New spell restrictions
