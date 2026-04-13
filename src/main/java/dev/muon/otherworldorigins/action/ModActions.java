@@ -17,6 +17,10 @@ public class ModActions {
     public static final DeferredRegister<EntityAction<?>> ENTITY_ACTIONS = DeferredRegister.create(ApoliRegistries.ENTITY_ACTION_KEY, OtherworldOrigins.MODID);
     public static final RegistryObject<CastSpellAction> CAST_SPELL = ModList.get().isLoaded("irons_spellbooks") ?
             ENTITY_ACTIONS.register("cast_spell", CastSpellAction::new) : null;
+    public static final RegistryObject<RestoreManaAction> RESTORE_MANA = ModList.get().isLoaded("irons_spellbooks") ?
+            ENTITY_ACTIONS.register("restore_mana", RestoreManaAction::new) : null;
+    public static final RegistryObject<ResetSpellCooldownsAction> RESET_SPELL_COOLDOWNS = ModList.get().isLoaded("irons_spellbooks") ?
+            ENTITY_ACTIONS.register("reset_spell_cooldowns", ResetSpellCooldownsAction::new) : null;
     public static final RegistryObject<ClearNegativeEffectsAction> CLEAR_NEGATIVE_EFFECTS = ENTITY_ACTIONS.register("clear_negative_effects", ClearNegativeEffectsAction::new);
     public static final RegistryObject<ResetEnchantmentSeedAction> RESET_ENCHANTMENT_SEED = ENTITY_ACTIONS.register("reset_enchantment_seed", ResetEnchantmentSeedAction::new);
     public static final RegistryObject<LeveledHealAction> LEVELED_HEAL = ENTITY_ACTIONS.register("leveled_heal", LeveledHealAction::new);
@@ -33,6 +37,8 @@ public class ModActions {
             ENTITY_ACTIONS.register("grant_absorption_hearts", GrantAbsorptionHeartsAction::new);
     public static final RegistryObject<ApplyLeveledEffectAction> APPLY_LEVELED_EFFECT =
             ENTITY_ACTIONS.register("apply_leveled_effect", ApplyLeveledEffectAction::new);
+    public static final RegistryObject<AreaOfEffectSequentialAction> AREA_OF_EFFECT_SEQUENTIAL =
+            ENTITY_ACTIONS.register("area_of_effect_sequential", AreaOfEffectSequentialAction::new);
 
 
     public static final DeferredRegister<BiEntityAction<?>> BIENTITY_ACTIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_ACTION_KEY, OtherworldOrigins.MODID);

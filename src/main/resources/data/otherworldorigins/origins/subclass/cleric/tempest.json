@@ -1,7 +1,8 @@
 {
     "powers": [
         "otherworldorigins:subclass/cleric/tempest",
-        "otherworldorigins:spell_access/cleric/tempest"
+        "otherworldorigins:spell_access/cleric/tempest",
+        "otherworldorigins:subclass/cleric/divine_intervention/tempest"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/cleric/tempest"

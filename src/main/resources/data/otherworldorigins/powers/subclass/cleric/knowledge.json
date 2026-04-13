@@ -1,5 +1,11 @@
 {
   "hidden": true,
+  "type": "origins:multiple",
+  "cost": {
     "type": "otherworldorigins:modify_enchantment_cost",
     "amount": 0.2
+  },
+  "clues": {
+    "type": "otherworldorigins:enchanting_knowledge"
   }
+}

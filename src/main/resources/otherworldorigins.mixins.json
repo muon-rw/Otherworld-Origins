@@ -7,9 +7,11 @@
   "injectors": {
     "defaultRequire": 1
   },
+  "mixinextras": {"minVersion": "0.5.3"},
   "mixins": [
     "AbstractContainerMenuMixin",
     "AnvilMenuMixin",
+    "BientitySpellCastAimEntityMixin",
     "EntityMixin",
     "FoodDataMixin",
     "InventoryMenuMixin",

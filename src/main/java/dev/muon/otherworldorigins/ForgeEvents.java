@@ -11,6 +11,7 @@ import dev.muon.otherworldorigins.power.HealFromDamagePower;
 import dev.muon.otherworldorigins.power.DirectionalTeleportPower;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
+import dev.muon.otherworldorigins.action.entity.AreaOfEffectSequentialAction;
 import dev.muon.otherworldorigins.power.RecastSpellPower;
 import dev.muon.otherworldorigins.power.ModifyDamageTakenDirectPower;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
@@ -83,6 +84,7 @@ public class ForgeEvents {
             }
             DirectionalTeleportPower.tickPendingMirrorSounds();
             RecastSpellPower.tickPendingRecasts(event.getServer());
+            AreaOfEffectSequentialAction.tickPending(event.getServer());
             activeCones.entrySet().removeIf(entry -> {
                 int coneId = entry.getKey();
                 int age = entry.getValue();
@@ -130,6 +132,7 @@ public class ForgeEvents {
     @SubscribeEvent
     public static void onServerStoppingSpellCache(ServerStoppingEvent event) {
         RecentSpellCastCache.clear();
+        AreaOfEffectSequentialAction.clearPending();
     }
 
     @SubscribeEvent

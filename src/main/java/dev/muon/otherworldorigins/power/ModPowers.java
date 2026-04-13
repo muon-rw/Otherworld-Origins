@@ -25,6 +25,7 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<CharismaPower.Configuration>> CHARISMA = POWER_FACTORIES.register("charisma", CharismaPower::new);
     public static final RegistryObject<PowerFactory<NoConfiguration>> HUNGER_IMMUNITY = POWER_FACTORIES.register("hunger_immunity", HungerImmunityPower::new);
     public static final RegistryObject<PowerFactory<NoConfiguration>> ELDRITCH_KNOWLEDGE = POWER_FACTORIES.register("eldritch_knowledge", EldritchKnowledgePower::new);
+    public static final RegistryObject<PowerFactory<NoConfiguration>> ENCHANTING_KNOWLEDGE = POWER_FACTORIES.register("enchanting_knowledge", EnchantingKnowledgePower::new);
     public static final RegistryObject<PowerFactory<LeveledAttributePower.Configuration>> LEVELED_ATTRIBUTE = POWER_FACTORIES.register("leveled_attribute", LeveledAttributePower::new);
     public static final RegistryObject<PowerFactory<ModifyStatusEffectCategoryPower.Configuration>> MODIFY_STATUS_EFFECT_CATEGORY = POWER_FACTORIES.register("modify_status_effect_category", () -> ModifyStatusEffectCategoryPower.INSTANCE);
     public static final RegistryObject<PowerFactory<ModifyEnchantmentCostPower.Configuration>> MODIFY_ENCHANTMENT_COST = POWER_FACTORIES.register("modify_enchantment_cost", ModifyEnchantmentCostPower::new);

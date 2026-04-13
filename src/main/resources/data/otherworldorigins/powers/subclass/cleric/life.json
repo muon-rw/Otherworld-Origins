@@ -1,8 +1,114 @@
 {
-    "hidden": true,
-    "type": "origins:modify_healing",
-    "modifier": {
-        "operation": "multiply_total",
-        "value": 0.5
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.life_divine_strike_bracket_1"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.life_divine_strike_bracket_2"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.life_divine_strike_bracket_3"
+            }
+        }
+    ],
+    "healing": {
+        "type": "origins:modify_healing",
+        "modifier": {
+            "operation": "multiply_total",
+            "value": 0.5
+        }
+    },
+    "divine_strike": {
+        "type": "otherworldorigins:action_on_attack",
+        "cooldown": 100,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/resource_bar.png",
+            "bar_index": 2
+        },
+        "bientity_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:actor_condition",
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 5
+                    }
+                },
+                {
+                    "type": "origins:target_condition",
+                    "condition": {
+                        "type": "origins:living"
+                    }
+                }
+            ]
+        },
+        "bientity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 15
+                        }
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "irons_spellbooks:sunbeam",
+                        "power_level": 5,
+                        "cast_time": 0
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 10
+                        }
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "irons_spellbooks:sunbeam",
+                        "power_level": 3,
+                        "cast_time": 0
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 5
+                        }
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "irons_spellbooks:sunbeam",
+                        "power_level": 1,
+                        "cast_time": 0
+                    }
+                }
+            ]
+        }
     }
 }

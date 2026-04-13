@@ -1,7 +1,8 @@
 {
     "powers": [
         "otherworldorigins:subclass/cleric/life",
-        "otherworldorigins:spell_access/cleric/life"
+        "otherworldorigins:spell_access/cleric/life",
+        "otherworldorigins:subclass/cleric/divine_intervention/life"
     ],
     "icon": {
         "item": "otherworldorigins:subclass/cleric/life"

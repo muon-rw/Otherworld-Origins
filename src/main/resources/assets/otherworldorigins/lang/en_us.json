@@ -391,7 +391,7 @@
 
 "origin.otherworldorigins.class/bard.description": "• 8 Hearts + 3/Level\n• +1 Cantrip from the Bard spell list\n• Inspiration\n\n§nSubclasses§r\nCollege of Lore\nCollege of Valor\nCollege of Swords",
 
-"origin.otherworldorigins.class/cleric.description": "• 8 Hearts + 3/Level\n• +1 Cantrip from the Cleric spell list\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
+"origin.otherworldorigins.class/cleric.description": "• 8 Hearts + 3/Level\n• +1 Cantrip from the Cleric spell list\n• At level 20, cast a Divine Intervention based on your Domain, once per day.\n\n§nSubclasses§r\nLife Domain\nTrickery Domain\nKnowledge Domain\nTempest Domain\nWar Domain",
 
 "origin.otherworldorigins.class/druid.description": "• 8 Hearts + 3/Level\n• Wild Shape\n• +1 Cantrip from the Druid spell list",
 
@@ -423,7 +423,7 @@
 
 "origin.otherworldorigins.class/barbarian.name": "Barbarian",
 "origin.otherworldorigins.subclass/barbarian/wildheart.name": "Wildheart",
-"origin.otherworldorigins.subclass/barbarian/wildheart.description": "• Summon a Beast for 50 mana, lasting 10 minutes.",
+"origin.otherworldorigins.subclass/barbarian/wildheart.description": "• Summon a Beast for 50 mana, lasting 10 minutes. This gets stronger as you level up.",
 "origin.otherworldorigins.subclass/barbarian/berserker.name": "Berserker",
 "origin.otherworldorigins.subclass/barbarian/berserker.description": "• +3 Melee Damage\n\n• At levels 5, 10, and 15, deal +3 / +6 / +9 damage per hit while raging.\n\n• At level 20, on death, heal to full health and enter an enhanced rage with increased speed and damage for the duration (Once per day).",
 "origin.otherworldorigins.subclass/barbarian/wild_magic.name": "Wild Magic",
@@ -439,15 +439,15 @@
 
 "origin.otherworldorigins.class/cleric.name": "Cleric",
 "origin.otherworldorigins.subclass/cleric/life.name": "Life Domain",
-"origin.otherworldorigins.subclass/cleric/life.description": "• +50% Healing Effectiveness",
+"origin.otherworldorigins.subclass/cleric/life.description": "• +50% Healing Effectiveness\n• At level 5, gain Divine Strike\n• At level 20, you can call for Divine Intervention from Apollo, once per day.",
 "origin.otherworldorigins.subclass/cleric/trickery.name": "Trickery Domain",
-"origin.otherworldorigins.subclass/cleric/trickery.description": "• +20% Magic Damage",
+"origin.otherworldorigins.subclass/cleric/trickery.description": "• +25% Evocation Spell Power\n• At level 5, gain Divine Strike\n• At level 20, you can call for Divine Intervention from Hermes, once per day.",
 "origin.otherworldorigins.subclass/cleric/knowledge.name": "Knowledge Domain",
-"origin.otherworldorigins.subclass/cleric/knowledge.description": "• -20% Enchantment Cost",
+"origin.otherworldorigins.subclass/cleric/knowledge.description": "• You can see all enchantments when enchanting items\n• -20% Enchantment Cost\n• At level 20, you can call for Divine Intervention from Athena, once per day.",
 "origin.otherworldorigins.subclass/cleric/tempest.name": "Tempest Domain",
-"origin.otherworldorigins.subclass/cleric/tempest.description": "• +50% Lightning/Thunder Damage",
+"origin.otherworldorigins.subclass/cleric/tempest.description": "• +30% Lightning/Thunder Damage\n• At level 5, gain Divine Strike\n• At level 20, you can call for Divine Intervention from Zeus, once per day.",
 "origin.otherworldorigins.subclass/cleric/war.name": "War Domain",
-"origin.otherworldorigins.subclass/cleric/war.description": "• +3 Melee Damage",
+"origin.otherworldorigins.subclass/cleric/war.description": "• +2 Attack Damage\n• At level 5, gain Divine Strike\n• At level 20, you can call for Divine Intervention from Ares, once per day.",
 
 "origin.otherworldorigins.class/druid.name": "Druid",
 "origin.otherworldorigins.subclass/druid/land.name": "Circle of the Land",
@@ -612,6 +612,40 @@
 
 "power.otherworldorigins.subclass/artificer/alchemist.name": "Experimental Elixir",
 "power.otherworldorigins.subclass/artificer/alchemist.description": "Once per day, you can magically produce an experimental elixir in an empty bottle, water bottle, or awkward potion. This improves as you level up, as listed in the tooltips.",
+
+"power.otherworldorigins.subclass/cleric/tempest.name": "Divine Strike",
+"power.otherworldorigins.subclass/cleric/tempest.description": "Once every 5 seconds, infuse your next attack with divine energy of the Tempest, smiting the target with a lightning bolt whose power is based on your level.",
+"power.otherworldorigins.subclass/cleric/war.name": "Divine Strike",
+"power.otherworldorigins.subclass/cleric/war.description": "Once every 5 seconds, infuse your next attack with divine energy of War, piercing the target with blood needles whose power is based on your level.",
+"power.otherworldorigins.subclass/cleric/life.name": "Divine Strike",
+"power.otherworldorigins.subclass/cleric/life.description": "Once every 5 seconds, infuse your next attack with divine energy of Life, smiting the target with a sunbeam whose power is based on your level.",
+"power.otherworldorigins.subclass/cleric/trickery.name": "Divine Strike",
+"power.otherworldorigins.subclass/cleric/trickery.description": "Once every 5 seconds, infuse your next attack with divine energy of Trickery, striking the target with Firecracker whose power is based on your level.",
+"power.otherworldorigins.subclass/cleric/divine_intervention/tempest.name": "Divine Intervention - Zeus",
+"power.otherworldorigins.subclass/cleric/divine_intervention/tempest.description": "Cast high level variants of Shockwave, Ascension, and Thunderstorm in sequence, then a number of Lightning Lances thrown at nearby enemies, repeating targets if few are nearby.",
+"power.otherworldorigins.subclass/cleric/divine_intervention/war.name": "Divine Intervention - Ares",
+"power.otherworldorigins.subclass/cleric/divine_intervention/war.description": "Unleash three Stomps and Earthquake in sequence, then a number of Blood Slashes aimed at nearby enemies, repeating targets if few are nearby.",
+"power.otherworldorigins.subclass/cleric/divine_intervention/knowledge.name": "Divine Intervention - Athena",
+"power.otherworldorigins.subclass/cleric/divine_intervention/knowledge.description": "Restore mana to maximum and reset spell cooldowns for you and all nearby allies, then grant each the Ancient Knowledge IV effect for 30 seconds, greatly increasing their experience gain.",
+"power.otherworldorigins.subclass/cleric/divine_intervention/life.name": "Divine Intervention - Apollo",
+"power.otherworldorigins.subclass/cleric/divine_intervention/life.description": "Fully heal and cleanse harmful effects from you and all nearby allies, then cast a powerful Fortification spell affecting allies directly around you. After a moment, bring down three powerful Sunbeams at nearby enemies, repeating targets if few are nearby.",
+"power.otherworldorigins.subclass/cleric/divine_intervention/trickery.name": "Divine Intervention - Hades",
+"power.otherworldorigins.subclass/cleric/divine_intervention/trickery.description": "Grant nearby friendlies True Invisibility for 30 seconds, then throw a chaotic frenzy of Fireworks and Creeper Heads at nearby enemies, repeating targets if few are nearby. When the volley is finished, turn yourself invisible.",
+"otherworldorigins.gui.badge.tempest_divine_strike_bracket_1": "Levels 5–9: \n• Level 1 Lightning Bolt",
+"otherworldorigins.gui.badge.tempest_divine_strike_bracket_2": "Levels 10–14: \n• Level 3 Lightning Bolt",
+"otherworldorigins.gui.badge.tempest_divine_strike_bracket_3": "Level 15+: \n• Level 5 Lightning Bolt",
+
+"otherworldorigins.gui.badge.war_divine_strike_bracket_1": "Levels 5–9: \n• Level 1 Acupuncture",
+"otherworldorigins.gui.badge.war_divine_strike_bracket_2": "Levels 10–14: \n• Level 3 Acupuncture",
+"otherworldorigins.gui.badge.war_divine_strike_bracket_3": "Level 15+: \n• Level 5 Acupuncture",
+
+"otherworldorigins.gui.badge.life_divine_strike_bracket_1": "Levels 5–9: \n• Level 1 Sunbeam",
+"otherworldorigins.gui.badge.life_divine_strike_bracket_2": "Levels 10–14: \n• Level 3 Sunbeam",
+"otherworldorigins.gui.badge.life_divine_strike_bracket_3": "Level 15+: \n• Level 5 Sunbeam",
+
+"otherworldorigins.gui.badge.trickery_divine_strike_bracket_1": "Levels 5–9: \n• Level 1 Firecracker",
+"otherworldorigins.gui.badge.trickery_divine_strike_bracket_2": "Levels 10–14: \n• Level 3 Firecracker",
+"otherworldorigins.gui.badge.trickery_divine_strike_bracket_3": "Level 15+: \n• Level 5 Firecracker",
 
 "otherworldorigins.gui.badge.experimental_elixir_lv5": "Level 5+: \n• 2 uses per day. \n• Gain a chance for an additional effect, and a chance for a higher amplifier.",
 "otherworldorigins.gui.badge.experimental_elixir_lv10": "Level 10+: \n• 3 daily uses. \n• All elixirs have at least 2 effects with a chance for a third. \n• All new elixirs will be longer.",

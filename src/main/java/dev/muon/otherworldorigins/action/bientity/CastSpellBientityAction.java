@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.util.spell.BientitySpellCastAim;
 import dev.muon.otherworldorigins.util.spell.SpellCastInterruptMode;
 import dev.muon.otherworldorigins.util.spell.SpellSelection;
 import dev.muon.otherworldorigins.util.spell.SpellCastUtil;
@@ -82,10 +83,15 @@ public class CastSpellBientityAction extends BiEntityAction<CastSpellBientityAct
         } else if (caster instanceof IMagicEntity magicEntity) {
             magicEntity.initiateCastSpell(spell, powerLevel);
         } else {
-            if (spell.checkPreCastConditions(world, powerLevel, caster, magicData)) {
-                SpellCastUtil.maybeApplyBientityProvidedTarget(caster, livingTarget, magicData, spell);
-                spell.onCast(world, powerLevel, caster, CastSource.COMMAND, magicData);
-                spell.onServerCastComplete(world, powerLevel, caster, magicData, false);
+            BientitySpellCastAim.push(caster, livingTarget);
+            try {
+                if (spell.checkPreCastConditions(world, powerLevel, caster, magicData)) {
+                    SpellCastUtil.maybeApplyBientityProvidedTarget(caster, livingTarget, magicData, spell);
+                    spell.onCast(world, powerLevel, caster, CastSource.COMMAND, magicData);
+                    spell.onServerCastComplete(world, powerLevel, caster, magicData, false);
+                }
+            } finally {
+                BientitySpellCastAim.pop();
             }
         }
     }

@@ -4,6 +4,7 @@ import dev.muon.otherworldorigins.OtherworldOrigins;
 import io.redspace.ironsspellbooks.api.events.ChangeManaEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.CastResult;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
@@ -194,70 +195,83 @@ public final class SpellCastUtil {
             serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(castResult.message));
         }
 
-        if (!castResult.isSuccess()
-                || !spell.checkPreCastConditions(world, powerLevel, serverPlayer, magicData)
-                || MinecraftForge.EVENT_BUS.post(new SpellPreCastEvent(serverPlayer, spell.getSpellId(), powerLevel, spell.getSchoolType(), CastSource.COMMAND))) {
+        if (!castResult.isSuccess()) {
             return false;
         }
 
-        if (manaCostOpt.isPresent()) {
-            int manaCost = manaCostOpt.get();
-            if (!serverPlayer.getAbilities().instabuild && magicData.getMana() < manaCost) {
-                PacketDistributor.sendToPlayer(serverPlayer, CastErrorPacket.ErrorType.MANA);
+        boolean bientityAim = targetBindMode == TargetBindMode.BIENTITY_PROVIDED;
+        if (bientityAim) {
+            BientitySpellCastAim.push(serverPlayer, Objects.requireNonNull(targetOrRaycast));
+        }
+        try {
+            if (!spell.checkPreCastConditions(world, powerLevel, serverPlayer, magicData)
+                    || MinecraftForge.EVENT_BUS.post(new SpellPreCastEvent(serverPlayer, spell.getSpellId(), powerLevel, spell.getSchoolType(), CastSource.COMMAND))) {
                 return false;
             }
-            if (!serverPlayer.getAbilities().instabuild) {
-                setManaWithEvent(serverPlayer, magicData, magicData.getMana() - manaCost);
+
+            if (manaCostOpt.isPresent()) {
+                int manaCost = manaCostOpt.get();
+                if (!serverPlayer.getAbilities().instabuild && magicData.getMana() < manaCost) {
+                    PacketDistributor.sendToPlayer(serverPlayer, CastErrorPacket.ErrorType.MANA);
+                    return false;
+                }
+                if (!serverPlayer.getAbilities().instabuild) {
+                    setManaWithEvent(serverPlayer, magicData, magicData.getMana() - manaCost);
+                }
+            }
+
+            if (serverPlayer.isUsingItem()) {
+                serverPlayer.stopUsingItem();
+            }
+
+            int effectiveCastTime;
+            if (castTimeOpt.isPresent()) {
+                effectiveCastTime = castTimeOpt.get();
+            } else if (spell.getCastType() == CastType.CONTINUOUS) {
+                effectiveCastTime = spell.getEffectiveCastTime(powerLevel, serverPlayer);
+            } else if (spell.getCastType() == CastType.INSTANT) {
+                effectiveCastTime = 0;
+            } else {
+                effectiveCastTime = spell.getEffectiveCastTime(powerLevel, serverPlayer);
+            }
+
+            if (continuousCost && manaCostOpt.isPresent() && !serverPlayer.getAbilities().instabuild) {
+                int manaCost = manaCostOpt.get();
+                CONTINUOUS_CASTS.put(serverPlayer.getUUID(), new ContinuousCastData(manaCost, costInterval, 0));
+            }
+
+            magicData.initiateCast(spell, powerLevel, effectiveCastTime, CastSource.COMMAND, "command");
+            magicData.setPlayerCastingItem(ItemStack.EMPTY);
+
+            spell.onServerPreCast(world, powerLevel, serverPlayer, magicData);
+
+            if (targetBindMode == TargetBindMode.RAYCAST_NULLABLE) {
+                maybeUpdateTargetData(serverPlayer, targetOrRaycast, magicData, spell);
+            } else {
+                maybeApplyBientityProvidedTarget(serverPlayer, Objects.requireNonNull(targetOrRaycast), magicData, spell);
+            }
+
+            PacketDistributor.sendToPlayer(serverPlayer, new UpdateCastingStatePacket(spell.getSpellId(), powerLevel, effectiveCastTime, CastSource.COMMAND, "command"));
+            PacketDistributor.sendToPlayersTrackingEntityAndSelf(serverPlayer, new OnCastStartedPacket(serverPlayer.getUUID(), spell.getSpellId(), powerLevel));
+
+            if (magicData.getAdditionalCastData() instanceof TargetEntityCastData targetingData) {
+                LivingEntity target = targetingData.getTarget((ServerLevel) serverPlayer.level());
+                if (target != null) {
+                    OtherworldOrigins.LOGGER.debug("Casting Spell {} with target {}", magicData.getCastingSpellId(), target.getName().getString());
+                }
+            }
+
+            if (effectiveCastTime == 0) {
+                spell.onCast(world, powerLevel, serverPlayer, CastSource.COMMAND, magicData);
+                PacketDistributor.sendToPlayer(serverPlayer, new OnClientCastPacket(spell.getSpellId(), powerLevel, CastSource.COMMAND, magicData.getAdditionalCastData()));
+                spell.onServerCastComplete(world, powerLevel, serverPlayer, magicData, false);
+            }
+            return true;
+        } finally {
+            if (bientityAim) {
+                BientitySpellCastAim.pop();
             }
         }
-
-        if (serverPlayer.isUsingItem()) {
-            serverPlayer.stopUsingItem();
-        }
-
-        int effectiveCastTime;
-        if (castTimeOpt.isPresent()) {
-            effectiveCastTime = castTimeOpt.get();
-        } else if (spell.getCastType() == CastType.CONTINUOUS) {
-            effectiveCastTime = spell.getEffectiveCastTime(powerLevel, serverPlayer);
-        } else if (spell.getCastType() == CastType.INSTANT) {
-            effectiveCastTime = 0;
-        } else {
-            effectiveCastTime = spell.getEffectiveCastTime(powerLevel, serverPlayer);
-        }
-
-        if (continuousCost && manaCostOpt.isPresent() && !serverPlayer.getAbilities().instabuild) {
-            int manaCost = manaCostOpt.get();
-            CONTINUOUS_CASTS.put(serverPlayer.getUUID(), new ContinuousCastData(manaCost, costInterval, 0));
-        }
-
-        magicData.initiateCast(spell, powerLevel, effectiveCastTime, CastSource.COMMAND, "command");
-        magicData.setPlayerCastingItem(ItemStack.EMPTY);
-
-        spell.onServerPreCast(world, powerLevel, serverPlayer, magicData);
-
-        if (targetBindMode == TargetBindMode.RAYCAST_NULLABLE) {
-            maybeUpdateTargetData(serverPlayer, targetOrRaycast, magicData, spell);
-        } else {
-            maybeApplyBientityProvidedTarget(serverPlayer, Objects.requireNonNull(targetOrRaycast), magicData, spell);
-        }
-
-        PacketDistributor.sendToPlayer(serverPlayer, new UpdateCastingStatePacket(spell.getSpellId(), powerLevel, effectiveCastTime, CastSource.COMMAND, "command"));
-        PacketDistributor.sendToPlayersTrackingEntityAndSelf(serverPlayer, new OnCastStartedPacket(serverPlayer.getUUID(), spell.getSpellId(), powerLevel));
-
-        if (magicData.getAdditionalCastData() instanceof TargetEntityCastData targetingData) {
-            LivingEntity target = targetingData.getTarget((ServerLevel) serverPlayer.level());
-            if (target != null) {
-                OtherworldOrigins.LOGGER.debug("Casting Spell {} with target {}", magicData.getCastingSpellId(), target.getName().getString());
-            }
-        }
-
-        if (effectiveCastTime == 0) {
-            spell.onCast(world, powerLevel, serverPlayer, CastSource.COMMAND, magicData);
-            PacketDistributor.sendToPlayer(serverPlayer, new OnClientCastPacket(spell.getSpellId(), powerLevel, CastSource.COMMAND, magicData.getAdditionalCastData()));
-            spell.onServerCastComplete(world, powerLevel, serverPlayer, magicData, false);
-        }
-        return true;
     }
 
     /**
@@ -483,9 +497,9 @@ public final class SpellCastUtil {
      * Only {@link TargetEntityCastData} gets client feedback ({@link Utils#preCastTargetHelper} parity). ISB does not
      * auto-notify for targeted-area merge paths — spells handle their own messages.
      * <p>
-     * TODO: {@code ImpulseCastData} (e.g. BurningDash) does not support bi-entity targeting — impulse is computed
-     * from the caster's look angle inside {@code onCast()} after this runs, so direction cannot be redirected here
-     * without patching or wrapping {@code onCast}.
+     * For {@link dev.muon.otherworldorigins.action.bientity.CastSpellBientityAction} / {@link #castSpellForPlayerWithBientityTarget}, {@link BientitySpellCastAim}
+     * already steers the caster's reported facing on the server during precast / {@code onCast} so spells that use
+     * {@code getLookAngle()} / {@code getForward()} aim at {@code providedTarget}.
      */
     public static void maybeApplyBientityProvidedTarget(LivingEntity caster, LivingEntity providedTarget,
                                                          MagicData magicData, AbstractSpell spell) {
@@ -536,6 +550,32 @@ public final class SpellCastUtil {
         }
         MagicData magicData = MagicData.getPlayerMagicData(player);
         setManaWithEvent(player, magicData, Math.max(0f, magicData.getMana() - amount));
+    }
+
+    public static void restorePlayerMana(ServerPlayer player, float amount) {
+        if (amount <= 0 || player.level().isClientSide()) {
+            return;
+        }
+        MagicData magicData = MagicData.getPlayerMagicData(player);
+        float maxMana = (float) player.getAttributeValue(AttributeRegistry.MAX_MANA.get());
+        float current = magicData.getMana();
+        float newMana = Math.min(maxMana, current + amount);
+        if (newMana <= current) {
+            return;
+        }
+        setManaWithEvent(player, magicData, newMana);
+    }
+
+    /**
+     * Clears every Iron's Spellbooks spell cooldown and notifies the client (same as an empty cooldown map).
+     */
+    public static void clearPlayerSpellCooldowns(ServerPlayer player) {
+        if (player.level().isClientSide()) {
+            return;
+        }
+        var cooldowns = MagicData.getPlayerMagicData(player).getPlayerCooldowns();
+        cooldowns.clearCooldowns();
+        cooldowns.syncToPlayer(player);
     }
 
     public static void onSpellEnd(ServerPlayer player) {
