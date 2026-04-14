@@ -5,11 +5,11 @@
         "type": "origins:modify_exhaustion",
         "modifier": {
             "operation": "multiply_base",
-            "value": -0.25
+            "value": -0.5
         }
     },
     "thirst": {
         "type": "otherworldorigins:modify_thirst_exhaustion",
-        "amount": -0.25
+        "amount": -0.5
     }
 }

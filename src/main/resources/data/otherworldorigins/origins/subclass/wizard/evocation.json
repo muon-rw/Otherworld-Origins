@@ -1,6 +1,8 @@
 {
     "powers": [
         "otherworldorigins:subclass/wizard/evocation",
+        "otherworldorigins:subclass/wizard/evocation_empowered_evocation",
+        "otherworldorigins:subclass/wizard/evocation_overchannel",
         "otherworldorigins:spell_access/wizard/evocation"
     ],
     "icon": {

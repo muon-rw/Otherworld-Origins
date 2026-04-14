@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins.condition;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.util.ExperimentalElixirLogic;
+import dev.muon.otherworldorigins.util.LootReforgeLogic;
 import dev.muon.otherworldorigins.util.SoulOfArtificeLogic;
 import dev.muon.otherworldorigins.condition.block.PlantableBlockCondition;
 import dev.muon.otherworldorigins.condition.entity.AnyOnLayerCondition;
@@ -134,6 +135,10 @@ public class ModConditions {
      */
     public static final RegistryObject<SimpleItemCondition> AFFIXABLE = ITEM_CONDITIONS.register("affixable", () ->
             new SimpleItemCondition(SoulOfArtificeLogic::canApplyBonusAffix));
+
+    /** Main-hand items that {@link dev.muon.otherworldorigins.util.LootReforgeLogic#tryReforgeMainHand} may roll (Apotheosis loot category, etc.). */
+    public static final RegistryObject<SimpleItemCondition> REFORGE_ELIGIBLE = ITEM_CONDITIONS.register("reforge_eligible", () ->
+            new SimpleItemCondition(LootReforgeLogic::isReforgeEligible));
 
     public static final RegistryObject<SimpleItemCondition> IS_FIST_WEAPON = ITEM_CONDITIONS.register("is_fist_weapon", () ->
             new SimpleItemCondition(stack -> {

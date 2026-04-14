@@ -1,0 +1,39 @@
+{
+    "type": "otherworldorigins:action_on_attack",
+    "cooldown": 1,
+    "hud_render": {
+        "should_render": false
+    },
+    "bientity_condition": {
+        "type": "origins:and",
+        "conditions": [
+            {
+                "type": "origins:actor_condition",
+                "condition": {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                }
+            },
+            {
+                "type": "origins:target_condition",
+                "condition": {
+                    "type": "origins:living"
+                }
+            }
+        ]
+    },
+    "bientity_action": {
+        "type": "origins:target_action",
+        "action": {
+            "type": "origins:apply_effect",
+            "effect": {
+                "effect": "minecraft:wither",
+                "duration": 60,
+                "amplifier": 1,
+                "show_particles": true,
+                "show_icon": true
+            }
+        }
+    }
+}

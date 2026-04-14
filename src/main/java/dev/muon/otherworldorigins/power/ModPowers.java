@@ -58,6 +58,7 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<ActionOnSpellCastPower.Configuration>> ACTION_ON_SPELL_CAST = POWER_FACTORIES.register("action_on_spell_cast", ActionOnSpellCastPower::new);
     public static final RegistryObject<ActionOnSpellDamagePower> ACTION_ON_SPELL_DAMAGE = POWER_FACTORIES.register("action_on_spell_damage", ActionOnSpellDamagePower::new);
     public static final RegistryObject<PowerFactory<RecastSpellPower.Configuration>> RECAST_SPELL = POWER_FACTORIES.register("recast_spell", RecastSpellPower::new);
+    public static final RegistryObject<ArcaneWardPreventDeathPower> ARCANE_WARD_PREVENT_DEATH = POWER_FACTORIES.register("arcane_ward_prevent_death", ArcaneWardPreventDeathPower::new);
 
 
     private static <T extends PowerFactory<?>> RegistryObject<T> registerConditional(String name, Supplier<T> factory, String modId) {

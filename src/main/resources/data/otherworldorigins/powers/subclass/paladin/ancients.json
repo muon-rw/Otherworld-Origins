@@ -1,8 +1,76 @@
 {
     "hidden": true,
-    "type": "origins:modify_healing",
-    "modifier": {
-        "operation": "multiply_total",
-        "value": 0.5
+    "type": "origins:multiple",
+    "healing": {
+        "type": "origins:modify_healing",
+        "modifier": {
+            "operation": "multiply_total",
+            "value": 0.5
+        }
+    },
+    "aura_of_warding": {
+        "type": "origins:modify_damage_taken",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 5
+        },
+        "damage_condition": {
+            "type": "origins:in_tag",
+            "tag": "otherworldorigins:is_magic"
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -0.3
+        }
+    },
+    "undying_sentinel_10": {
+        "type": "origins:modify_damage_taken",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 15
+                },
+                {
+                    "type": "origins:relative_health",
+                    "comparison": "<",
+                    "compare_to": 0.5
+                }
+            ]
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -0.3
+        }
+    },
+    "undying_sentinel_15": {
+        "type": "origins:modify_damage_taken",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 15
+                },
+                {
+                    "type": "origins:relative_health",
+                    "comparison": "<",
+                    "compare_to": 0.5
+                }
+            ]
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -0.5
+        }
     }
 }

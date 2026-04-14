@@ -4,6 +4,7 @@
     "entries": [
         "#otherworldorigins:offensive",
         "#otherworldorigins:melee",
-        "#otherworldorigins:control"
+        "#otherworldorigins:control",
+        "@irons_spellbooks:evocation"
     ]
 }

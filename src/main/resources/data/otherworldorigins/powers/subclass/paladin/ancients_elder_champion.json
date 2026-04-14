@@ -1,0 +1,80 @@
+{
+    "type": "origins:multiple",
+    "cooldown": {
+        "type": "origins:active_self",
+        "condition": {
+            "type": "origins:constant",
+            "value": false
+        },
+        "entity_action": {
+            "type": "origins:nothing"
+        },
+        "cooldown": 24000,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_cooldown",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
+            }
+        }
+    },
+    "prevent_death": {
+        "type": "origins:prevent_death",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:heal",
+                    "amount": 1000000
+                },
+                {
+                    "type": "origins:apply_effect",
+                    "effect": {
+                        "effect": "minecraft:regeneration",
+                        "duration": 600,
+                        "amplifier": 2,
+                        "show_particles": true,
+                        "show_icon": true
+                    }
+                },
+                {
+                    "type": "origins:apply_effect",
+                    "effect": {
+                        "effect": "minecraft:resistance",
+                        "duration": 600,
+                        "amplifier": 1,
+                        "show_particles": true,
+                        "show_icon": true
+                    }
+                },
+                {
+                    "type": "origins:trigger_cooldown",
+                    "power": "otherworldorigins:subclass/paladin/ancients_elder_champion_cooldown"
+                }
+            ]
+        }
+    }
+}

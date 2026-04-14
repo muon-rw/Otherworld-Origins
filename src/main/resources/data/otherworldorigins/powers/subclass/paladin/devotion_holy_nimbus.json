@@ -1,0 +1,14 @@
+{
+    "type": "origins:conditioned_attribute",
+    "tick_rate": 20,
+    "condition": {
+        "type": "otherworldorigins:player_level",
+        "comparison": ">=",
+        "compare_to": 20
+    },
+    "modifier": {
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "value": 2
+    }
+}

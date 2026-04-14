@@ -1,16 +1,4 @@
 {
     "hidden": true,
-    "type": "origins:attribute",
-    "modifiers": [
-        {
-            "attribute": "minecraft:generic.max_health",
-            "value": 2,
-            "operation": "addition"
-        },
-        {
-            "attribute": "minecraft:generic.armor",
-            "value": 3,
-            "operation": "addition"
-        }
-    ]
+    "type": "otherworldorigins:arcane_ward_prevent_death"
 }

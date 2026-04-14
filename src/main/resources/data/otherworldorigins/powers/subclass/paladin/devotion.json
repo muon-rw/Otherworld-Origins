@@ -1,9 +1,168 @@
 {
-    "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "minecraft:generic.armor",
-        "operation": "addition",
-        "value": 2
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.devotion_sacred_smite_bracket_1"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.devotion_sacred_smite_bracket_2"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.devotion_sacred_smite_bracket_3"
+            }
+        }
+    ],
+    "armor": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.armor",
+            "operation": "addition",
+            "value": 2
+        }
+    },
+    "armor_15": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "modifier": {
+            "attribute": "minecraft:generic.armor",
+            "operation": "addition",
+            "value": 2
+        }
+    },
+    "sacred_smite": {
+        "type": "otherworldorigins:action_on_attack",
+        "cooldown": 100,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/resource_bar.png",
+            "bar_index": 2
+        },
+        "bientity_condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:actor_condition",
+                    "condition": {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 5
+                    }
+                },
+                {
+                    "type": "origins:target_condition",
+                    "condition": {
+                        "type": "origins:living"
+                    }
+                }
+            ]
+        },
+        "bientity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 20
+                        }
+                    },
+                    "action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "otherworldorigins:cast_spell",
+                                "spell": "irons_spellbooks:divine_smite",
+                                "power_level": 8,
+                                "cast_time": 0
+                            },
+                            {
+                                "type": "origins:actor_action",
+                                "action": {
+                                    "type": "origins:heal",
+                                    "amount": 6
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 15
+                        }
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "irons_spellbooks:divine_smite",
+                        "power_level": 5,
+                        "cast_time": 0
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 10
+                        }
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "irons_spellbooks:divine_smite",
+                        "power_level": 3,
+                        "cast_time": 0
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "origins:actor_condition",
+                        "condition": {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 5
+                        }
+                    },
+                    "action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "irons_spellbooks:divine_smite",
+                        "power_level": 1,
+                        "cast_time": 0
+                    }
+                }
+            ]
+        }
+    },
+    "aura_of_devotion": {
+        "type": "otherworldorigins:effect_category_immunity",
+        "affect_beneficial": false,
+        "affect_harmful": true,
+        "affect_neutral": false,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 10
+        }
     }
 }

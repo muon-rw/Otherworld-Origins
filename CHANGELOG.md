@@ -1,3 +1,6 @@
+## 1.7.0
+- rest of the owl
+
 ## 1.6.0
 - 70% of massive subclass ability rewrite
 - Fix Sophisticated XP Pump bypassing Mending restriction

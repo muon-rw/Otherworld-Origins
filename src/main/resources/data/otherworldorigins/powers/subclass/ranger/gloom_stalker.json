@@ -1,9 +1,79 @@
 {
+    "type": "origins:multiple",
     "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "minecraft:generic.movement_speed",
-        "operation": "multiply_base",
-        "value": 0.1
+    "speed": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.movement_speed",
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    },
+    "shadowy_dodge": {
+        "type": "origins:modify_damage_taken",
+        "modifier": {
+            "operation": "set_total",
+            "value": 0
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:brightness",
+                                    "comparison": "<=",
+                                    "compare_to": 0.5
+                                },
+                                {
+                                    "type": "otherworldorigins:leveled_chance",
+                                    "base": 0.0,
+                                    "per_level": 0.02,
+                                    "aptitude": "justlevelingfork:dexterity"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:brightness",
+                                    "comparison": ">",
+                                    "compare_to": 0.5
+                                },
+                                {
+                                    "type": "otherworldorigins:leveled_chance",
+                                    "base": 0.0,
+                                    "per_level": 0.01,
+                                    "aptitude": "justlevelingfork:dexterity"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "self_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "playsound minecraft:entity.enderman.teleport ambient @a ~ ~ ~ 1 1"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:end_rod ~ ~1.5 ~ .4 .4 .4 0 15 normal"
+                }
+            ]
+        }
     }
 }

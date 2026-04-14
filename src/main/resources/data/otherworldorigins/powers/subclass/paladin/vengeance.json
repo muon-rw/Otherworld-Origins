@@ -1,9 +1,74 @@
 {
     "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "minecraft:generic.attack_damage",
-        "operation": "addition",
-        "value": 3
+    "type": "origins:multiple",
+    "damage": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.attack_damage",
+            "operation": "addition",
+            "value": 3
+        }
+    },
+    "relentless_avenger_speed": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 5
+        },
+        "modifier": {
+            "attribute": "minecraft:generic.movement_speed",
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    },
+    "relentless_avenger_attack_speed": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 5
+        },
+        "modifier": {
+            "attribute": "minecraft:generic.attack_speed",
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    },
+    "vow_of_enmity_10": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 15
+                }
+            ]
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.2
+        }
+    },
+    "vow_of_enmity_15": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.3
+        }
     }
 }

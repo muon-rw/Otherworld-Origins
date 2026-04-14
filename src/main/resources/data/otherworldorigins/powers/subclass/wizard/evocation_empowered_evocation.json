@@ -1,0 +1,28 @@
+{
+    "type": "otherworldorigins:action_on_spell_damage",
+    "condition": {
+        "type": "otherworldorigins:player_level",
+        "comparison": ">=",
+        "compare_to": 10
+    },
+    "cooldown": 20,
+    "hud_render": {
+        "should_render": false
+    },
+    "spell_conditions": {
+        "spell_school": "irons_spellbooks:evocation"
+    },
+    "bientity_condition": {
+        "type": "origins:target_condition",
+        "condition": {
+            "type": "origins:living"
+        }
+    },
+    "bientity_action": {
+        "type": "otherworldorigins:leveled_damage",
+        "base": 0,
+        "per_level": 1,
+        "aptitude": "justlevelingfork:intelligence",
+        "damage_type": "irons_spellbooks:evocation_magic"
+    }
+}

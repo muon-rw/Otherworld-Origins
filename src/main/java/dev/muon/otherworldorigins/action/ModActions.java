@@ -41,6 +41,8 @@ public class ModActions {
             ENTITY_ACTIONS.register("apply_leveled_effect", ApplyLeveledEffectAction::new);
     public static final RegistryObject<AreaOfEffectSequentialAction> AREA_OF_EFFECT_SEQUENTIAL =
             ENTITY_ACTIONS.register("area_of_effect_sequential", AreaOfEffectSequentialAction::new);
+    public static final RegistryObject<ReforgeHeldItemAction> REFORGE_HELD_ITEM =
+            ENTITY_ACTIONS.register("reforge_held_item", ReforgeHeldItemAction::new);
 
 
     public static final DeferredRegister<BiEntityAction<?>> BIENTITY_ACTIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_ACTION_KEY, OtherworldOrigins.MODID);

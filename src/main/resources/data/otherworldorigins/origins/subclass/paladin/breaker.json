@@ -1,6 +1,7 @@
 {
     "powers": [
         "otherworldorigins:subclass/paladin/breaker",
+        "otherworldorigins:subclass/paladin/breaker_dread_lord",
         "otherworldorigins:spell_access/paladin/breaker"
     ],
     "icon": {

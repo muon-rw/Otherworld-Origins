@@ -5,13 +5,6 @@
             "type": "origins:tooltip",
             "sprite": "origins:textures/gui/badge/info.png",
             "text": {
-                "translate": "otherworldorigins.gui.badge.four_elements_info_picks"
-            }
-        },
-        {
-            "type": "origins:tooltip",
-            "sprite": "origins:textures/gui/badge/info.png",
-            "text": {
                 "translate": "otherworldorigins.gui.badge.four_elements_info_ki"
             }
         },

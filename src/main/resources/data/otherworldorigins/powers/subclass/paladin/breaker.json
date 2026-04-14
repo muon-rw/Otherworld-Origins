@@ -1,9 +1,145 @@
 {
-    "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "minecraft:generic.max_health",
-        "operation": "addition",
-        "value": 6
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.breaker_dark_blessing_bracket_1"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.breaker_dark_blessing_bracket_2"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.breaker_dark_blessing_bracket_3"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.breaker_dark_blessing_bracket_4"
+            }
+        }
+    ],
+    "health": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.max_health",
+            "operation": "addition",
+            "value": 6
+        }
+    },
+    "aura_of_hate": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 5
+        },
+        "modifier": {
+            "attribute": "minecraft:generic.attack_damage",
+            "operation": "addition",
+            "value": 3
+        }
+    },
+    "dark_blessing_5": {
+        "type": "origins:self_action_on_hit",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 5
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 10
+                }
+            ]
+        },
+        "target_condition": {
+            "type": "origins:living"
+        },
+        "entity_action": {
+            "type": "origins:heal",
+            "amount": 1
+        }
+    },
+    "dark_blessing_10": {
+        "type": "origins:self_action_on_hit",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 15
+                }
+            ]
+        },
+        "target_condition": {
+            "type": "origins:living"
+        },
+        "entity_action": {
+            "type": "origins:heal",
+            "amount": 2
+        }
+    },
+    "dark_blessing_15": {
+        "type": "origins:self_action_on_hit",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 15
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 20
+                }
+            ]
+        },
+        "target_condition": {
+            "type": "origins:living"
+        },
+        "entity_action": {
+            "type": "origins:heal",
+            "amount": 3
+        }
+    },
+    "dark_blessing_20": {
+        "type": "origins:self_action_on_hit",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 20
+        },
+        "target_condition": {
+            "type": "origins:living"
+        },
+        "entity_action": {
+            "type": "origins:heal",
+            "amount": 4
+        }
     }
 }

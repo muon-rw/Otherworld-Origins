@@ -5,8 +5,11 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworldorigins.util.LeveledScaling;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.factory.BiEntityAction;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -31,11 +34,23 @@ public class LeveledDamageBientityAction extends BiEntityAction<LeveledDamageBie
             return;
         }
 
-        DamageSource source = resolveDamageSource(livingTarget, livingActor);
+        DamageSource source = resolveDamageSource(livingTarget, livingActor, configuration.damageType());
         livingTarget.hurt(source, damage);
     }
 
-    private static DamageSource resolveDamageSource(LivingEntity target, LivingEntity attacker) {
+    private static DamageSource resolveDamageSource(LivingEntity target, LivingEntity attacker, Optional<ResourceLocation> damageTypeId) {
+        if (damageTypeId.isPresent()) {
+            return target.level()
+                    .registryAccess()
+                    .registryOrThrow(Registries.DAMAGE_TYPE)
+                    .getHolder(ResourceKey.create(Registries.DAMAGE_TYPE, damageTypeId.get()))
+                    .map(holder -> new DamageSource(holder, attacker))
+                    .orElseGet(() -> defaultMeleeDamageSource(target, attacker));
+        }
+        return defaultMeleeDamageSource(target, attacker);
+    }
+
+    private static DamageSource defaultMeleeDamageSource(LivingEntity target, LivingEntity attacker) {
         if (attacker instanceof Player player) {
             return target.damageSources().playerAttack(player);
         }
@@ -45,12 +60,14 @@ public class LeveledDamageBientityAction extends BiEntityAction<LeveledDamageBie
     public record Configuration(
             float base,
             float perLevel,
-            Optional<ResourceLocation> aptitude
+            Optional<ResourceLocation> aptitude,
+            Optional<ResourceLocation> damageType
     ) implements IDynamicFeatureConfiguration {
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 Codec.FLOAT.fieldOf("base").forGetter(Configuration::base),
                 Codec.FLOAT.fieldOf("per_level").forGetter(Configuration::perLevel),
-                ResourceLocation.CODEC.optionalFieldOf("aptitude").forGetter(Configuration::aptitude)
+                ResourceLocation.CODEC.optionalFieldOf("aptitude").forGetter(Configuration::aptitude),
+                ResourceLocation.CODEC.optionalFieldOf("damage_type").forGetter(Configuration::damageType)
         ).apply(instance, Configuration::new));
 
         @Override

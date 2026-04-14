@@ -13,6 +13,7 @@ import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyCriticalHitPower;
 import dev.muon.otherworldorigins.action.entity.AreaOfEffectSequentialAction;
 import dev.muon.otherworldorigins.power.RecastSpellPower;
+import dev.muon.otherworldorigins.power.ArcaneWardPreventDeathPower;
 import dev.muon.otherworldorigins.power.ModifyDamageTakenDirectPower;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
@@ -22,6 +23,7 @@ import dev.muon.otherworldorigins.util.spell.RecentSpellCastCache;
 import dev.shadowsoffire.apotheosis.Apotheosis;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
+import io.github.edwinmindcraft.apoli.api.component.IPowerDataCache;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
 import io.github.edwinmindcraft.origins.api.origin.Origin;
@@ -115,6 +117,27 @@ public class ForgeEvents {
     @SubscribeEvent
     public static void onLivingDeathSpellCache(LivingDeathEvent event) {
         RecentSpellCastCache.remove(event.getEntity().getUUID());
+    }
+
+    /**
+     * Arcane Ward: runs after Apoli's {@code origins:prevent_death} (HIGHEST). If death was already canceled,
+     * does nothing; otherwise attempts mana-for-lethal-damage trade from {@link ArcaneWardPreventDeathPower}.
+     */
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void arcaneWardPreventDeath(LivingDeathEvent event) {
+        if (event.isCanceled()) {
+            return;
+        }
+        LivingEntity living = event.getEntity();
+        if (living.level().isClientSide()) {
+            return;
+        }
+        IPowerDataCache.get(living).map(IPowerDataCache::getDamage).ifPresent(damageAmount -> {
+            if (ArcaneWardPreventDeathPower.tryPreventDeath(living, event.getSource(), damageAmount)) {
+                living.setHealth(1.0F);
+                event.setCanceled(true);
+            }
+        });
     }
 
     /**

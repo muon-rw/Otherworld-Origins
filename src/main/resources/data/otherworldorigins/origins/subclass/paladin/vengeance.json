@@ -1,6 +1,7 @@
 {
     "powers": [
         "otherworldorigins:subclass/paladin/vengeance",
+        "otherworldorigins:subclass/paladin/vengeance_avenging_angel",
         "otherworldorigins:spell_access/paladin/vengeance"
     ],
     "icon": {
