@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.muon.otherworldorigins.mixin.origins_patches.OriginDisplayScreenMixin;
+import dev.muon.otherworldorigins.util.ElementalDisciplineSpellDisplay;
 import io.github.apace100.origins.screen.ChooseOriginScreen;
 import io.github.apace100.origins.screen.OriginDisplayScreen;
 import io.github.edwinmindcraft.origins.api.origin.Origin;
@@ -77,6 +78,10 @@ public abstract class ChooseOriginScreenMixinSquared extends OriginDisplayScreen
                 return holder.unwrapKey()
                         .map(key -> {
                             String path = key.location().getPath();
+                            String disciplinePath = ElementalDisciplineSpellDisplay.spellPathForDisciplineOrigin(path).orElse(null);
+                            if (disciplinePath != null) {
+                                return disciplinePath;
+                            }
                             if (path.startsWith("cantrips/two/")) {
                                 return path.substring("cantrips/two/".length());
                             } else if (path.startsWith("cantrips/magical_secrets/")) {

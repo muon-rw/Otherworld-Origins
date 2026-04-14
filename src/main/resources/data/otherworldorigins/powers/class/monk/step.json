@@ -1,6 +1,6 @@
 {
     "type": "origins:active_self",
-    "key": "key.otherworldorigins.cantrip_two",
+    "key": "key.otherworldorigins.cantrip_one",
     "condition": {
         "type": "origins:resource",
         "resource": "*:class/monk/ki_pool",

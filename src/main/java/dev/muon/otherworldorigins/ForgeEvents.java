@@ -17,6 +17,7 @@ import dev.muon.otherworldorigins.power.ModifyDamageTakenDirectPower;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import dev.muon.otherworldorigins.util.EnhancedRepairLogic;
+import dev.muon.otherworldorigins.util.RepairMaterialDescription;
 import dev.muon.otherworldorigins.util.spell.RecentSpellCastCache;
 import dev.shadowsoffire.apotheosis.Apotheosis;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
@@ -51,6 +52,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
+import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
@@ -133,6 +135,11 @@ public class ForgeEvents {
     public static void onServerStoppingSpellCache(ServerStoppingEvent event) {
         RecentSpellCastCache.clear();
         AreaOfEffectSequentialAction.clearPending();
+    }
+
+    @SubscribeEvent
+    public static void onTagsUpdatedRepairTooltipCache(TagsUpdatedEvent event) {
+        RepairMaterialDescription.invalidate();
     }
 
     @SubscribeEvent

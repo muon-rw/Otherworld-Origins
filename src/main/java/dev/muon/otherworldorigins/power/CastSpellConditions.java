@@ -182,6 +182,41 @@ public final class CastSpellConditions {
         return true;
     }
 
+    /**
+     * For contexts without cast metadata (e.g. {@link dev.muon.otherworldorigins.power.ActionOnSpellDamagePower}):
+     * only {@code spell}, {@code spells}, {@code spell_tag}, and {@code spell_school} apply.
+     * {@code cast_source(s)} and {@code cast_type(s)} are ignored.
+     */
+    public boolean matchesSpellOnly(AbstractSpell spellEntity) {
+        ResourceLocation spellRl = spellEntity.getSpellResource();
+        if (spell.isPresent() && !spellIdsMatch(spellRl, spell.get())) {
+            return false;
+        }
+        if (spells.isPresent() && !spells.get().isEmpty()) {
+            ResourceLocation id = spellRl;
+            boolean any = false;
+            for (ResourceLocation candidate : spells.get()) {
+                if (spellIdsMatch(id, candidate)) {
+                    any = true;
+                    break;
+                }
+            }
+            if (!any) {
+                return false;
+            }
+        }
+        if (spellTag.isPresent() && !spellInTag(spellEntity, spellTag.get())) {
+            return false;
+        }
+        if (spellSchool.isPresent()) {
+            SchoolType school = SchoolRegistry.getSchool(normalizeId(spellSchool.get()));
+            if (school == null || spellEntity.getSchoolType() != school) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private static boolean spellInTag(AbstractSpell spellEntity, ResourceLocation tagId) {
         TagKey<AbstractSpell> tagKey = TagKey.create(SpellRegistry.SPELL_REGISTRY_KEY, normalizeId(tagId));
         IForgeRegistry<AbstractSpell> registry = SpellRegistry.REGISTRY.get();

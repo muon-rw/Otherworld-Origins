@@ -3,22 +3,57 @@
     "key": "key.otherworldorigins.cantrip_two",
     "cooldown": 600,
     "entity_action": {
-        "type": "origins:and",
-        "actions": [
-            {
-                "type": "otherworldorigins:leveled_heal",
-                "base": 4,
-                "per_level": 2
-            },
-            {
-                "type": "origins:exhaust",
-                "amount": 8
-            },
-            {
-                "type": "origins:execute_command",
-                "command": "particle minecraft:heart ^ ^1 ^ 0.3 0.3 0.3 1 10 force"
-            }
-        ]
+        "type": "origins:if_else",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:power",
+                    "power": "otherworldorigins:subclass/fighter/battle_master"
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                }
+            ]
+        },
+        "if_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "otherworldorigins:leveled_heal",
+                    "base": 8,
+                    "per_level": 4
+                },
+                {
+                    "type": "origins:exhaust",
+                    "amount": 8
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:heart ^ ^1 ^ 0.3 0.3 0.3 1 10 force"
+                }
+            ]
+        },
+        "else_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "otherworldorigins:leveled_heal",
+                    "base": 4,
+                    "per_level": 2
+                },
+                {
+                    "type": "origins:exhaust",
+                    "amount": 8
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:heart ^ ^1 ^ 0.3 0.3 0.3 1 10 force"
+                }
+            ]
+        }
     },
     "hud_render": {
         "should_render": true,

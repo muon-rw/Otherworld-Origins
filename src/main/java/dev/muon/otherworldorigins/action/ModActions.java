@@ -21,6 +21,8 @@ public class ModActions {
             ENTITY_ACTIONS.register("restore_mana", RestoreManaAction::new) : null;
     public static final RegistryObject<ResetSpellCooldownsAction> RESET_SPELL_COOLDOWNS = ModList.get().isLoaded("irons_spellbooks") ?
             ENTITY_ACTIONS.register("reset_spell_cooldowns", ResetSpellCooldownsAction::new) : null;
+    public static final RegistryObject<ReduceSpellCooldownsAction> REDUCE_SPELL_COOLDOWNS = ModList.get().isLoaded("irons_spellbooks") ?
+            ENTITY_ACTIONS.register("reduce_spell_cooldowns", ReduceSpellCooldownsAction::new) : null;
     public static final RegistryObject<ClearNegativeEffectsAction> CLEAR_NEGATIVE_EFFECTS = ENTITY_ACTIONS.register("clear_negative_effects", ClearNegativeEffectsAction::new);
     public static final RegistryObject<ResetEnchantmentSeedAction> RESET_ENCHANTMENT_SEED = ENTITY_ACTIONS.register("reset_enchantment_seed", ResetEnchantmentSeedAction::new);
     public static final RegistryObject<LeveledHealAction> LEVELED_HEAL = ENTITY_ACTIONS.register("leveled_heal", LeveledHealAction::new);

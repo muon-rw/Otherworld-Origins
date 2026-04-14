@@ -11,6 +11,7 @@ import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.api.spells.CastType;
 import io.redspace.ironsspellbooks.api.spells.ICastData;
 import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.capabilities.magic.PlayerCooldowns;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import io.redspace.ironsspellbooks.entity.spells.target_area.TargetedAreaEntity;
 import io.redspace.ironsspellbooks.spells.TargetedTargetAreaCastData;
@@ -44,7 +45,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.entity.PartEntity;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -575,6 +578,30 @@ public final class SpellCastUtil {
         }
         var cooldowns = MagicData.getPlayerMagicData(player).getPlayerCooldowns();
         cooldowns.clearCooldowns();
+        cooldowns.syncToPlayer(player);
+    }
+
+    /**
+     * Reduces each active spell cooldown by {@code ticks} game ticks (non-positive values are ignored).
+     * Uses {@link PlayerCooldowns#decrementCooldown} so expiry matches ISB's own tick logic.
+     */
+    public static void reducePlayerSpellCooldowns(ServerPlayer player, int ticks) {
+        if (player.level().isClientSide() || ticks <= 0) {
+            return;
+        }
+        PlayerCooldowns cooldowns = MagicData.getPlayerMagicData(player).getPlayerCooldowns();
+        if (!cooldowns.hasCooldownsActive()) {
+            return;
+        }
+        List<String> toRemove = new ArrayList<>();
+        for (var entry : cooldowns.getSpellCooldowns().entrySet()) {
+            if (cooldowns.decrementCooldown(entry.getValue(), ticks)) {
+                toRemove.add(entry.getKey());
+            }
+        }
+        for (String spellId : toRemove) {
+            cooldowns.getSpellCooldowns().remove(spellId);
+        }
         cooldowns.syncToPlayer(player);
     }
 

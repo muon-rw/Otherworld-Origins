@@ -23,70 +23,108 @@
         "condition": {
             "type": "otherworldorigins:player_level",
             "comparison": ">=",
-            "compare_to": 20
+            "compare_to": 10
         },
         "entity_action": {
-            "type": "origins:and",
-            "actions": [
-                {
-                    "type": "otherworldorigins:cast_spell",
-                    "spell": "irons_spellbooks:shockwave",
-                    "power_level": 5,
-                    "cast_time": 0,
-                    "interrupt_mode": "force_complete"
-                },
-                {
-                    "type": "origins:delay",
-                    "ticks": 5,
-                    "action": {
-                        "type": "otherworldorigins:cast_spell",
-                        "spell": "irons_spellbooks:ascension",
-                        "power_level": 5,
-                        "cast_time": 0,
-                        "interrupt_mode": "force_complete"
-                    }
-                },
-                {
-                    "type": "origins:delay",
-                    "ticks": 10,
-                    "action": {
-                        "type": "otherworldorigins:cast_spell",
-                        "spell": "irons_spellbooks:thunderstorm",
-                        "power_level": 5,
-                        "cast_time": 0,
-                        "interrupt_mode": "force_complete"
-                    }
-                },
-                {
-                    "type": "otherworldorigins:area_of_effect_sequential",
-                    "radius": 16,
-                    "include_self": false,
-                    "application_count": 20,
-                    "delay_ticks": 3,
-                    "bientity_condition": {
-                        "type": "origins:or",
-                        "inverted": true,
-                        "conditions": [
-                            {
-                                "type": "otherworldorigins:allied"
-                            },
-                            {
-                                "type": "origins:target_condition",
-                                "condition": {
-                                    "type": "otherworldorigins:is_friendly"
-                                }
-                            }
-                        ]
+            "type": "origins:if_else",
+            "condition": {
+                "type": "origins:or",
+                "conditions": [
+                    {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 20
                     },
-                    "bientity_action": {
+                    {
+                        "type": "otherworldorigins:leveled_chance",
+                        "base": 0,
+                        "per_level": 0.02,
+                        "aptitude": "justlevelingfork:luck"
+                    }
+                ]
+            },
+            "if_action": {
+                "type": "origins:and",
+                "actions": [
+                    {
                         "type": "otherworldorigins:cast_spell",
-                        "spell": "irons_spellbooks:lightning_lance",
+                        "spell": "irons_spellbooks:shockwave",
                         "power_level": 5,
                         "cast_time": 0,
                         "interrupt_mode": "force_complete"
+                    },
+                    {
+                        "type": "origins:delay",
+                        "ticks": 5,
+                        "action": {
+                            "type": "otherworldorigins:cast_spell",
+                            "spell": "irons_spellbooks:ascension",
+                            "power_level": 5,
+                            "cast_time": 0,
+                            "interrupt_mode": "force_complete"
+                        }
+                    },
+                    {
+                        "type": "origins:delay",
+                        "ticks": 10,
+                        "action": {
+                            "type": "otherworldorigins:cast_spell",
+                            "spell": "irons_spellbooks:thunderstorm",
+                            "power_level": 5,
+                            "cast_time": 0,
+                            "interrupt_mode": "force_complete"
+                        }
+                    },
+                    {
+                        "type": "otherworldorigins:area_of_effect_sequential",
+                        "radius": 16,
+                        "include_self": false,
+                        "application_count": 20,
+                        "delay_ticks": 3,
+                        "bientity_condition": {
+                            "type": "origins:or",
+                            "inverted": true,
+                            "conditions": [
+                                {
+                                    "type": "otherworldorigins:allied"
+                                },
+                                {
+                                    "type": "origins:target_condition",
+                                    "condition": {
+                                        "type": "otherworldorigins:is_friendly"
+                                    }
+                                }
+                            ]
+                        },
+                        "bientity_action": {
+                            "type": "otherworldorigins:cast_spell",
+                            "spell": "irons_spellbooks:lightning_lance",
+                            "power_level": 5,
+                            "cast_time": 0,
+                            "interrupt_mode": "force_complete"
+                        }
+                    },
+                    {
+                        "type": "otherworldorigins:action_bar_message",
+                        "message": {
+                            "translate": "otherworldorigins.divine_intervention.success",
+                            "color": "green",
+                            "with": [
+                                {
+                                    "translate": "otherworldorigins.divine_intervention.deity.zeus"
+                                }
+                            ]
+                        }
                     }
+                ]
+            },
+            "else_action": {
+                "type": "otherworldorigins:action_bar_message",
+                "message": {
+                    "translate": "otherworldorigins.divine_intervention.fail",
+                    "color": "red"
                 }
-            ]
+            }
         },
         "hud_render": {
             "should_render": true,
@@ -103,19 +141,11 @@
     "sleep": {
         "type": "origins:action_on_wake_up",
         "entity_action": {
-            "type": "origins:if_else",
-            "condition": {
-                "type": "otherworldorigins:player_level",
-                "comparison": ">=",
-                "compare_to": 20
-            },
-            "if_action": {
-                "type": "origins:modify_resource",
-                "resource": "*:*_invoke",
-                "modifier": {
-                    "operation": "set_total",
-                    "value": 0
-                }
+            "type": "origins:modify_resource",
+            "resource": "*:*_invoke",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
             }
         }
     }

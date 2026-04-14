@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.network.C2SRevertLayerOriginsMessage;
 import dev.muon.otherworldorigins.util.ClientLayerScreenHelper;
+import dev.muon.otherworldorigins.util.ElementalDisciplineSpellDisplay;
 import dev.muon.otherworldorigins.network.RequestLayerValidationMessage;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
@@ -87,10 +88,20 @@ public class OtherworldOriginScreen extends Screen {
     @Nullable
     private Integer hoveredCompletedLayerIndex = null;
     private final Map<Integer, Float> completedCardExpandProgress = new HashMap<>();
+    /**
+     * Virtual scroll in the right description pane: ranges from 0 through top/bottom overscroll
+     * padding plus content overflow. Effective content offset is
+     * {@code clamp(virtual - overscroll, 0, rightPanelContentMaxScroll)}.
+     */
     private int rightPanelScrollPos = 0;
-    private int rightPanelMaxScroll = 0;
+    /** Pixels of description content that extend past the scissor (updated each render). */
+    private int rightPanelContentMaxScroll = 0;
+    private static final int RIGHT_PANEL_SCROLL_OVERSCROLL_PX = 24;
     @Nullable
     private ResourceKey<Origin> lastRightPanelOriginKey = null;
+    /** Vertical scroll for the active layer's origin options only (under the layer title). */
+    private int activeLayerOptionsScrollY = 0;
+    private int activeLayerOptionsMaxScrollY = 0;
     private float time = 0.0f;
 
     private List<FormattedCharSequence> sheetLines = new ArrayList<>();
@@ -208,7 +219,8 @@ public class OtherworldOriginScreen extends Screen {
         this.cardExpandProgress = new float[availableOrigins.size()];
         this.selectedOrigin = null;
         this.hoveredOrigin = null;
-        this.rightPanelScrollPos = 0;
+        this.rightPanelScrollPos = RIGHT_PANEL_SCROLL_OVERSCROLL_PX;
+        this.activeLayerOptionsScrollY = 0;
         
         updateButtonStates();
         rebuildCharacterSheetText();
@@ -707,13 +719,25 @@ public class OtherworldOriginScreen extends Screen {
         String cantrip2 = getOriginDisplayName(OtherworldOrigins.loc("cantrip_two"));
         if (cantrip1 != null) cantrips.add(cantrip1);
         if (cantrip2 != null) cantrips.add(cantrip2);
+        for (ResourceLocation layerId : new ResourceLocation[]{
+                OtherworldOrigins.loc("elemental_discipline_one"),
+                OtherworldOrigins.loc("elemental_discipline_two"),
+                OtherworldOrigins.loc("elemental_discipline_three"),
+                OtherworldOrigins.loc("elemental_discipline_four")
+        }) {
+            String elemental = getOriginDisplayName(layerId);
+            if (elemental != null) cantrips.add(elemental);
+        }
         if (!cantrips.isEmpty()) {
             this.sheetLines.add(FormattedCharSequence.EMPTY);
             addSheetText(Component.translatable("otherworldorigins.gui.final_confirm.cantrips_header").withStyle(style -> style.withUnderlined(true)));
             if (cantrips.size() == 1) {
                 addSheetText(Component.translatable("otherworldorigins.gui.final_confirm.cantrips_single", cantrips.get(0)));
-            } else {
+            } else if (cantrips.size() == 2) {
                 addSheetText(Component.translatable("otherworldorigins.gui.final_confirm.cantrips_double", cantrips.get(0), cantrips.get(1)));
+            } else {
+                String allButLast = String.join(", ", cantrips.subList(0, cantrips.size() - 1));
+                addSheetText(Component.translatable("otherworldorigins.gui.final_confirm.cantrips_multiple", allButLast, cantrips.get(cantrips.size() - 1)));
             }
         }
         
@@ -854,6 +878,10 @@ public class OtherworldOriginScreen extends Screen {
         else if (layerId.equals(OtherworldOrigins.loc("second_feat"))) pairedId = OtherworldOrigins.loc("first_feat");
         else if (layerId.equals(OtherworldOrigins.loc("third_feat"))) pairedId = OtherworldOrigins.loc("fourth_feat");
         else if (layerId.equals(OtherworldOrigins.loc("fourth_feat"))) pairedId = OtherworldOrigins.loc("third_feat");
+        else if (layerId.equals(OtherworldOrigins.loc("elemental_discipline_one"))) pairedId = OtherworldOrigins.loc("elemental_discipline_two");
+        else if (layerId.equals(OtherworldOrigins.loc("elemental_discipline_two"))) pairedId = OtherworldOrigins.loc("elemental_discipline_one");
+        else if (layerId.equals(OtherworldOrigins.loc("elemental_discipline_three"))) pairedId = OtherworldOrigins.loc("elemental_discipline_four");
+        else if (layerId.equals(OtherworldOrigins.loc("elemental_discipline_four"))) pairedId = OtherworldOrigins.loc("elemental_discipline_three");
         else {
             return null;
         }
@@ -888,6 +916,10 @@ public class OtherworldOriginScreen extends Screen {
         this.hoveredCompletedLayerIndex = null;
         int x = 10;
         int y = 10;
+        int leftViewportBottom = this.height - 10;
+        /** Right edge for vertical scroll clip: allow drawing over the center sheet until the description panel. */
+        int leftOptionsClipRight = this.width - RIGHT_PANEL_WIDTH - 10;
+        this.activeLayerOptionsMaxScrollY = 0;
 
         Set<Integer> renderedAsPair = new HashSet<>();
 
@@ -908,15 +940,34 @@ public class OtherworldOriginScreen extends Screen {
 
                 List<Holder<Origin>> options = this.layerOriginCache.get(i);
                 if (options != null && !options.isEmpty()) {
+                    int optionsTop = y;
+                    int iconsPerRow = Math.max(1, (Math.max(40, this.width / 2 - 128 - x - 4)) / 20);
+                    int contentH;
                     if (isPortraitLayer(layer)) {
-                        renderPortraitRow(graphics, options, x, y, mouseX, mouseY);
-                        y += CARD_HEIGHT + 10;
+                        contentH = CARD_HEIGHT + 10;
                     } else {
-                        renderIconGrid(graphics, options, x, y, mouseX, mouseY);
-                        int iconsPerRow = Math.max(1, (Math.max(40, this.width / 2 - 128 - x - 4)) / 20);
                         int rows = (options.size() + iconsPerRow - 1) / iconsPerRow;
-                        y += rows * 20 + 4;
+                        contentH = rows * 20 + 4;
                     }
+                    int visibleH = Math.max(0, leftViewportBottom - optionsTop);
+                    this.activeLayerOptionsMaxScrollY = Math.max(0, contentH - visibleH);
+                    if (this.activeLayerOptionsScrollY > this.activeLayerOptionsMaxScrollY) {
+                        this.activeLayerOptionsScrollY = this.activeLayerOptionsMaxScrollY;
+                    }
+                    int optionsMouseY = mouseY + this.activeLayerOptionsScrollY;
+                    if (optionsTop < leftViewportBottom && leftOptionsClipRight > 10) {
+                        graphics.enableScissor(10, optionsTop, leftOptionsClipRight, leftViewportBottom);
+                        graphics.pose().pushPose();
+                        graphics.pose().translate(0.0f, (float) -this.activeLayerOptionsScrollY, 0.0f);
+                        if (isPortraitLayer(layer)) {
+                            renderPortraitRow(graphics, options, x, optionsTop, mouseX, optionsMouseY);
+                        } else {
+                            renderIconGrid(graphics, options, x, optionsTop, mouseX, optionsMouseY);
+                        }
+                        graphics.pose().popPose();
+                        graphics.disableScissor();
+                    }
+                    y += contentH;
                 }
             } else {
                 int tripleAnchor = aptitudeFreeTripleAnchorIndex();
@@ -1379,8 +1430,9 @@ public class OtherworldOriginScreen extends Screen {
 
         ResourceKey<Origin> originKey = displayOrigin.unwrapKey().orElse(null);
         if (!java.util.Objects.equals(originKey, this.lastRightPanelOriginKey)) {
-            this.rightPanelScrollPos = 0;
+            this.rightPanelScrollPos = RIGHT_PANEL_SCROLL_OVERSCROLL_PX;
             this.lastRightPanelOriginKey = originKey;
+            this.rightPanelContentMaxScroll = 0;
         }
 
         int panelX = this.width - RIGHT_PANEL_WIDTH - 10;
@@ -1413,9 +1465,14 @@ public class OtherworldOriginScreen extends Screen {
         graphics.enableScissor(panelX, panelY + 28, panelX + RIGHT_PANEL_WIDTH, panelY + panelHeight);
 
         int startY = panelY + 30;
-        int y = startY - this.rightPanelScrollPos;
+        int o = RIGHT_PANEL_SCROLL_OVERSCROLL_PX;
+        int effScroll = this.rightPanelContentMaxScroll <= 0
+                ? 0
+                : net.minecraft.util.Mth.clamp(this.rightPanelScrollPos - o, 0, this.rightPanelContentMaxScroll);
 
         this.renderedBadges.clear();
+
+        int y = startY - effScroll;
 
         Component orgDesc = appendExtraInfo(origin.getDescription(), displayOrigin);
         for (FormattedCharSequence line : this.font.split(orgDesc, textWidth)) {
@@ -1457,7 +1514,15 @@ public class OtherworldOriginScreen extends Screen {
 
         graphics.disableScissor();
 
-        this.rightPanelMaxScroll = Math.max(0, y + this.rightPanelScrollPos - (panelY + panelHeight));
+        this.rightPanelContentMaxScroll = Math.max(0, y + effScroll - (panelY + panelHeight));
+        int virtualMax = this.rightPanelContentMaxScroll <= 0
+                ? 0
+                : o + this.rightPanelContentMaxScroll + o;
+        if (virtualMax <= 0) {
+            this.rightPanelScrollPos = 0;
+        } else {
+            this.rightPanelScrollPos = net.minecraft.util.Mth.clamp(this.rightPanelScrollPos, 0, virtualMax);
+        }
 
         for (RenderedBadge rb : this.renderedBadges) {
             if (mouseX >= rb.x && mouseX < rb.x + 9 && mouseY >= rb.y && mouseY < rb.y + 9 && rb.badge.hasTooltip()) {
@@ -1501,6 +1566,15 @@ public class OtherworldOriginScreen extends Screen {
             return;
         }
 
+        Optional<ResourceLocation> disciplineSpell = ElementalDisciplineSpellDisplay.spellIdForDisciplineOriginPath(originPath);
+        if (disciplineSpell.isPresent()) {
+            ResourceLocation id = disciplineSpell.get();
+            ResourceLocation iconTexture = ResourceLocation.fromNamespaceAndPath(
+                    id.getNamespace(), "textures/gui/spell_icons/" + id.getPath() + ".png");
+            graphics.blit(iconTexture, x, y, 0, 0, 16, 16, 16, 16);
+            return;
+        }
+
         graphics.renderItem(originHolder.value().getIcon(), x, y);
     }
 
@@ -1516,6 +1590,11 @@ public class OtherworldOriginScreen extends Screen {
             modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/magical_secrets/".length()));
         } else if (originPath.startsWith("cantrips/")) {
             modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/".length()));
+        } else {
+            Optional<ResourceLocation> disciplineSpell = ElementalDisciplineSpellDisplay.spellIdForDisciplineOriginPath(originPath);
+            if (disciplineSpell.isPresent()) {
+                modifiedDesc = ElementalDisciplineSpellDisplay.appendSpellGuide(modifiedDesc, disciplineSpell.get());
+            }
         }
 
         return modifiedDesc;
@@ -1562,6 +1641,7 @@ public class OtherworldOriginScreen extends Screen {
 
         int x = 10;
         int y = 10;
+        int mouseYInt = (int) mouseY;
 
         Set<Integer> clickedAsPair = new HashSet<>();
 
@@ -1580,12 +1660,13 @@ public class OtherworldOriginScreen extends Screen {
 
                 List<Holder<Origin>> options = this.layerOriginCache.get(i);
                 if (options != null && !options.isEmpty()) {
+                    int optionsMouseY = mouseYInt + this.activeLayerOptionsScrollY;
                     if (isPortraitLayer(layer)) {
                         int cx = x;
                         int[] cardWidths = computeFixedWidthCardWidths(options.size());
                         for (int j = 0; j < options.size(); j++) {
                             int width = cardWidths[j];
-                            if (mouseX >= cx && mouseX < cx + width && mouseY >= y && mouseY < y + CARD_HEIGHT) {
+                            if (mouseX >= cx && mouseX < cx + width && optionsMouseY >= y && optionsMouseY < y + CARD_HEIGHT) {
                                 Holder<Origin> clicked = options.get(j);
                                 if (clicked.equals(this.selectedOrigin)) {
                                     confirmSelection();
@@ -1608,7 +1689,7 @@ public class OtherworldOriginScreen extends Screen {
                                 cx = x;
                                 cy += 20;
                             }
-                            if (mouseX >= cx && mouseX < cx + ICON_SIZE && mouseY >= cy && mouseY < cy + ICON_SIZE) {
+                            if (mouseX >= cx && mouseX < cx + ICON_SIZE && optionsMouseY >= cy && optionsMouseY < cy + ICON_SIZE) {
                                 Holder<Origin> clicked = options.get(j);
                                 if (clicked.equals(this.selectedOrigin)) {
                                     confirmSelection();
@@ -1652,15 +1733,15 @@ public class OtherworldOriginScreen extends Screen {
                     int lx = x;
                     int mx = lx + w1 + COMPLETED_ROW_GAP;
                     int rx = mx + w2 + COMPLETED_ROW_GAP;
-                    if (mouseX >= lx && mouseX < lx + w1 && mouseY >= y && mouseY < y + rowHt) {
+                    if (mouseX >= lx && mouseX < lx + w1 && mouseYInt >= y && mouseYInt < y + rowHt) {
                         revertToLayer(apt1);
                         return true;
                     }
-                    if (mouseX >= mx && mouseX < mx + w2 && mouseY >= y && mouseY < y + rowHt) {
+                    if (mouseX >= mx && mouseX < mx + w2 && mouseYInt >= y && mouseYInt < y + rowHt) {
                         revertToLayer(apt2);
                         return true;
                     }
-                    if (mouseX >= rx && mouseX < rx + wf && mouseY >= y && mouseY < y + rowHt) {
+                    if (mouseX >= rx && mouseX < rx + wf && mouseYInt >= y && mouseYInt < y + rowHt) {
                         revertToLayer(free);
                         return true;
                     }
@@ -1689,15 +1770,15 @@ public class OtherworldOriginScreen extends Screen {
                         int lx = x;
                         int mx = lx + wc + COMPLETED_ROW_GAP;
                         int rx = mx + ws + COMPLETED_ROW_GAP;
-                        if (mouseX >= lx && mouseX < lx + wc && mouseY >= y && mouseY < y + rowHt) {
+                        if (mouseX >= lx && mouseX < lx + wc && mouseYInt >= y && mouseYInt < y + rowHt) {
                             revertToLayer(classI);
                             return true;
                         }
-                        if (mouseX >= mx && mouseX < mx + ws && mouseY >= y && mouseY < y + rowHt) {
+                        if (mouseX >= mx && mouseX < mx + ws && mouseYInt >= y && mouseYInt < y + rowHt) {
                             revertToLayer(subI);
                             return true;
                         }
-                        if (mouseX >= rx && mouseX < rx + wd && mouseY >= y && mouseY < y + rowHt) {
+                        if (mouseX >= rx && mouseX < rx + wd && mouseYInt >= y && mouseYInt < y + rowHt) {
                             revertToLayer(dracI);
                             return true;
                         }
@@ -1718,11 +1799,11 @@ public class OtherworldOriginScreen extends Screen {
                             int wR = getCompletedSlotWidth(rightLayer, rightOrigin, pR);
                             int lx = x;
                             int rx = lx + wL + COMPLETED_ROW_GAP;
-                            if (mouseX >= lx && mouseX < lx + wL && mouseY >= y && mouseY < y + rowH) {
+                            if (mouseX >= lx && mouseX < lx + wL && mouseYInt >= y && mouseYInt < y + rowH) {
                                 revertToLayer(leftIdx);
                                 return true;
                             }
-                            if (mouseX >= rx && mouseX < rx + wR && mouseY >= y && mouseY < y + rowH) {
+                            if (mouseX >= rx && mouseX < rx + wR && mouseYInt >= y && mouseYInt < y + rowH) {
                                 revertToLayer(rightIdx);
                                 return true;
                             }
@@ -1730,7 +1811,7 @@ public class OtherworldOriginScreen extends Screen {
                             Holder<Origin> origin = this.confirmedSelections.get(i);
                             float p = this.completedCardExpandProgress.getOrDefault(i, 0.0f);
                             int slotW = getCompletedSlotWidth(layer, origin, p);
-                            if (mouseX >= x && mouseX < x + slotW && mouseY >= y && mouseY < y + rowH) {
+                            if (mouseX >= x && mouseX < x + slotW && mouseYInt >= y && mouseYInt < y + rowH) {
                                 revertToLayer(i);
                                 return true;
                             }
@@ -1747,12 +1828,38 @@ public class OtherworldOriginScreen extends Screen {
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
         Holder<Origin> displayOrigin = getRightPanelDisplayOrigin();
-        if (displayOrigin == null || !displayOrigin.isBound() || this.rightPanelMaxScroll <= 0) {
-            return super.mouseScrolled(mouseX, mouseY, scroll);
+        boolean rightOpen = displayOrigin != null && displayOrigin.isBound();
+        boolean rightConsumed = false;
+        int o = RIGHT_PANEL_SCROLL_OVERSCROLL_PX;
+        int contentMax = this.rightPanelContentMaxScroll;
+        int virtualMax = contentMax <= 0 ? 0 : o + contentMax + o;
+
+        if (rightOpen && virtualMax > 0) {
+            boolean canScrollRight = scroll > 0
+                    ? this.rightPanelScrollPos > 0
+                    : scroll < 0 && this.rightPanelScrollPos < virtualMax;
+            if (canScrollRight) {
+                int np = this.rightPanelScrollPos - (int) scroll * 12;
+                this.rightPanelScrollPos = net.minecraft.util.Mth.clamp(np, 0, virtualMax);
+                rightConsumed = true;
+            }
         }
-        int np = this.rightPanelScrollPos - (int) scroll * 12;
-        this.rightPanelScrollPos = np < 0 ? 0 : Math.min(np, this.rightPanelMaxScroll);
-        return true;
+
+        if (!rightConsumed && this.activeLayerOptionsMaxScrollY > 0) {
+            boolean canScrollActive = scroll > 0
+                    ? this.activeLayerOptionsScrollY > 0
+                    : scroll < 0 && this.activeLayerOptionsScrollY < this.activeLayerOptionsMaxScrollY;
+            if (canScrollActive) {
+                int ny = this.activeLayerOptionsScrollY - (int) scroll * 12;
+                this.activeLayerOptionsScrollY = ny < 0 ? 0 : Math.min(ny, this.activeLayerOptionsMaxScrollY);
+                return true;
+            }
+        }
+
+        if (rightConsumed) {
+            return true;
+        }
+        return super.mouseScrolled(mouseX, mouseY, scroll);
     }
     
     @Override

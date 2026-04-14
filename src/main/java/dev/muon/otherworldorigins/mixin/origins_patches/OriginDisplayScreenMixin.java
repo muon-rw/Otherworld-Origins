@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
+import dev.muon.otherworldorigins.util.ElementalDisciplineSpellDisplay;
 import io.github.apace100.origins.screen.OriginDisplayScreen;
 import io.github.edwinmindcraft.origins.api.origin.Origin;
 import io.redspace.ironsspellbooks.IronsSpellbooks;
@@ -23,7 +24,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Mixin(value = OriginDisplayScreen.class, remap = false)
 public abstract class OriginDisplayScreenMixin {
@@ -51,6 +53,11 @@ public abstract class OriginDisplayScreenMixin {
             modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/magical_secrets/".length()));
         } else if (originPath.startsWith("cantrips/")) {
             modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/".length()));
+        } else {
+            Optional<ResourceLocation> disciplineSpell = ElementalDisciplineSpellDisplay.spellIdForDisciplineOriginPath(originPath);
+            if (disciplineSpell.isPresent()) {
+                modifiedDesc = ElementalDisciplineSpellDisplay.appendSpellGuide(modifiedDesc, disciplineSpell.get());
+            }
         }
 
         return modifiedDesc;
@@ -142,6 +149,15 @@ public abstract class OriginDisplayScreenMixin {
                 String namespace = otherworldorigins$resolveNamespace(spellName);
                 ResourceLocation iconTexture = ResourceLocation.fromNamespaceAndPath(
                         namespace, "textures/gui/spell_icons/" + spellName + ".png");
+                graphics.blit(iconTexture, x, y, 0, 0, 16, 16, 16, 16);
+                return;
+            }
+
+            Optional<ResourceLocation> disciplineSpell = ElementalDisciplineSpellDisplay.spellIdForDisciplineOriginPath(originPath);
+            if (disciplineSpell.isPresent()) {
+                ResourceLocation id = disciplineSpell.get();
+                ResourceLocation iconTexture = ResourceLocation.fromNamespaceAndPath(
+                        id.getNamespace(), "textures/gui/spell_icons/" + id.getPath() + ".png");
                 graphics.blit(iconTexture, x, y, 0, 0, 16, 16, 16, 16);
                 return;
             }

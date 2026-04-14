@@ -1,12 +1,17 @@
 package dev.muon.otherworldorigins.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import dev.muon.otherworldorigins.util.spell.OutgoingHealContext;
 import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.power.*;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
+import io.redspace.ironsspellbooks.damage.SpellDamageSource;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,6 +22,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
@@ -30,6 +36,24 @@ public abstract class LivingEntityMixin {
     @ModifyVariable(method = "heal", at = @At("HEAD"), argsOnly = true)
     private float otherworldorigins$ironsSpellOutgoingHeal(float healAmount) {
         return OutgoingHealContext.consumeFor((LivingEntity) (Object) this, healAmount);
+    }
+
+    /**
+     * {@link ActionOnSpellDamagePower}: after {@link LivingEntity#setHealth} runs for damage in {@link LivingEntity#actuallyHurt}
+     * ({@code f1 != 0} branch). {@link WrapOperation} chains with other mods; {@link net.minecraftforge.event.entity.living.LivingDamageEvent}
+     * still fires before {@code setHealth}.
+     */
+    @WrapOperation(
+            method = "actuallyHurt",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/LivingEntity;setHealth(F)V")
+    )
+    private void otherworldorigins$actionOnSpellDamageAfterSetHealth(
+            LivingEntity instance, float health, Operation<Void> original, @Local DamageSource damageSource
+    ) {
+        original.call(instance, health);
+        if (damageSource instanceof SpellDamageSource sds) {
+            ActionOnSpellDamagePower.afterSpellDamageApplied((LivingEntity) (Object) this, sds);
+        }
     }
 
     @Inject(method = "decreaseAirSupply", at = @At("HEAD"), cancellable = true)

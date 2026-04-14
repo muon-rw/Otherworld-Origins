@@ -1,9 +1,82 @@
 {
     "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "minecraft:generic.attack_damage",
-        "value": 3,
-        "operation": "addition"
+    "type": "origins:multiple",
+    "attack_damage": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.attack_damage",
+            "value": 3,
+            "operation": "addition"
+        }
+    },
+    "crit_damage_5": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 5
+        },
+        "modifier": {
+            "attribute": "attributeslib:crit_damage",
+            "operation": "multiply_base",
+            "value": 0.2
+        }
+    },
+    "crit_damage_10": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 10
+        },
+        "modifier": {
+            "attribute": "attributeslib:crit_damage",
+            "operation": "multiply_base",
+            "value": 0.2
+        }
+    },
+    "crit_damage_15": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "modifier": {
+            "attribute": "attributeslib:crit_damage",
+            "operation": "multiply_base",
+            "value": 0.2
+        }
+    },
+    "second_wind_hastened_recovery": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "otherworldorigins:class/fighter/second_wind",
+                    "comparison": ">",
+                    "compare_to": 0
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "otherworldorigins:class/fighter/second_wind",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -3
+            }
+        }
     }
 }

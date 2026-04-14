@@ -26,6 +26,7 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<NoConfiguration>> HUNGER_IMMUNITY = POWER_FACTORIES.register("hunger_immunity", HungerImmunityPower::new);
     public static final RegistryObject<PowerFactory<NoConfiguration>> ELDRITCH_KNOWLEDGE = POWER_FACTORIES.register("eldritch_knowledge", EldritchKnowledgePower::new);
     public static final RegistryObject<PowerFactory<NoConfiguration>> ENCHANTING_KNOWLEDGE = POWER_FACTORIES.register("enchanting_knowledge", EnchantingKnowledgePower::new);
+    public static final RegistryObject<PowerFactory<NoConfiguration>> SHOW_REPAIR_TOOLTIP = POWER_FACTORIES.register("show_repair_tooltip", ShowRepairTooltipPower::new);
     public static final RegistryObject<PowerFactory<LeveledAttributePower.Configuration>> LEVELED_ATTRIBUTE = POWER_FACTORIES.register("leveled_attribute", LeveledAttributePower::new);
     public static final RegistryObject<PowerFactory<ModifyStatusEffectCategoryPower.Configuration>> MODIFY_STATUS_EFFECT_CATEGORY = POWER_FACTORIES.register("modify_status_effect_category", () -> ModifyStatusEffectCategoryPower.INSTANCE);
     public static final RegistryObject<PowerFactory<ModifyEnchantmentCostPower.Configuration>> MODIFY_ENCHANTMENT_COST = POWER_FACTORIES.register("modify_enchantment_cost", ModifyEnchantmentCostPower::new);
@@ -54,6 +55,7 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<MobsIgnorePower.Configuration>> MOBS_IGNORE = POWER_FACTORIES.register("mobs_ignore", MobsIgnorePower::new);
     public static final RegistryObject<PowerFactory<InspirationPower.Configuration>> INSPIRATION = POWER_FACTORIES.register("inspiration", InspirationPower::new);
     public static final RegistryObject<PowerFactory<ActionOnSpellCastPower.Configuration>> ACTION_ON_SPELL_CAST = POWER_FACTORIES.register("action_on_spell_cast", ActionOnSpellCastPower::new);
+    public static final RegistryObject<ActionOnSpellDamagePower> ACTION_ON_SPELL_DAMAGE = POWER_FACTORIES.register("action_on_spell_damage", ActionOnSpellDamagePower::new);
     public static final RegistryObject<PowerFactory<RecastSpellPower.Configuration>> RECAST_SPELL = POWER_FACTORIES.register("recast_spell", RecastSpellPower::new);
 
 

@@ -62,6 +62,7 @@
     "network.ClientboundCustomQueryPacketMixin",
     "network.ServerboundCustomPayloadPacketMixin",
     "origins_patches.ChooseOriginScreenMixin",
+    "origins_patches.OriginContainerMixin",
     "origins_patches.CooldownPowerFactoryActiveSelfMixin",
     "origins_patches.PowerContainerMixin",
     "origins_patches.WaitForNextLayerScreenMixin"

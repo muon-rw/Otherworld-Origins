@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.network.ResetOriginsMessage;
 import dev.muon.otherworldorigins.util.ClientLayerScreenHelper;
+import dev.muon.otherworldorigins.util.ElementalDisciplineSpellDisplay;
 import io.github.apace100.origins.screen.ChooseOriginScreen;
 import io.github.apace100.origins.screen.OriginDisplayScreen;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
@@ -17,7 +18,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Mixin(value = ChooseOriginScreen.class)
@@ -131,14 +132,14 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
                 // Render feat icons in 2 columns
                 int column2X = featX + 20;
                 for (int i = 0; i < featOrigins.size(); i++) {
-                    Holder<Origin> origin = featOrigins.get(i);
+                    Holder<Origin> originHolder = featOrigins.get(i);
                     int column = i % 2; // 0 for left column, 1 for right column
                     int row = i / 2;
                     
                     int iconX = column == 0 ? featX : column2X;
                     int iconY = featY + (row * 20); // Icon size (16) + spacing (4)
                     
-                    otherworld$renderOriginIcon(graphics, origin.value(), iconX, iconY, mouseX, mouseY);
+                    otherworld$renderOriginIcon(graphics, originHolder, iconX, iconY, mouseX, mouseY);
                 }
             }
         }
@@ -159,7 +160,11 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
                         layerId.equals(OtherworldOrigins.loc("second_feat")) ||
                         layerId.equals(OtherworldOrigins.loc("third_feat")) ||
                         layerId.equals(OtherworldOrigins.loc("fourth_feat")) ||
-                        layerId.equals(OtherworldOrigins.loc("fifth_feat"));
+                        layerId.equals(OtherworldOrigins.loc("fifth_feat")) ||
+                        layerId.equals(OtherworldOrigins.loc("elemental_discipline_one")) ||
+                        layerId.equals(OtherworldOrigins.loc("elemental_discipline_two")) ||
+                        layerId.equals(OtherworldOrigins.loc("elemental_discipline_three")) ||
+                        layerId.equals(OtherworldOrigins.loc("elemental_discipline_four"));
             }
         }
         return false;
@@ -204,7 +209,11 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
                 OtherworldOrigins.loc("second_feat"),
                 OtherworldOrigins.loc("third_feat"),
                 OtherworldOrigins.loc("fourth_feat"),
-                OtherworldOrigins.loc("fifth_feat")
+                OtherworldOrigins.loc("fifth_feat"),
+                OtherworldOrigins.loc("elemental_discipline_one"),
+                OtherworldOrigins.loc("elemental_discipline_two"),
+                OtherworldOrigins.loc("elemental_discipline_three"),
+                OtherworldOrigins.loc("elemental_discipline_four")
         };
 
         for (ResourceLocation layerId : featLayerIds) {
@@ -226,15 +235,20 @@ public class ChooseOriginScreenMixin extends OriginDisplayScreen {
     }
     
     @Unique
-    private void otherworld$renderOriginIcon(GuiGraphics graphics, Origin origin, int x, int y, int mouseX, int mouseY) {
-        ItemStack icon = origin.getIcon();
-        
-        // Render the icon
-        graphics.renderItem(icon, x, y);
-        
-        // Check if mouse is hovering over the icon
+    private void otherworld$renderOriginIcon(GuiGraphics graphics, Holder<Origin> originHolder, int x, int y, int mouseX, int mouseY) {
+        Origin origin = originHolder.value();
+        String originPath = originHolder.unwrapKey().map(key -> key.location().getPath()).orElse("");
+        Optional<ResourceLocation> disciplineSpell = ElementalDisciplineSpellDisplay.spellIdForDisciplineOriginPath(originPath);
+        if (disciplineSpell.isPresent()) {
+            ResourceLocation id = disciplineSpell.get();
+            ResourceLocation iconTexture = ResourceLocation.fromNamespaceAndPath(
+                    id.getNamespace(), "textures/gui/spell_icons/" + id.getPath() + ".png");
+            graphics.blit(iconTexture, x, y, 0, 0, 16, 16, 16, 16);
+        } else {
+            graphics.renderItem(origin.getIcon(), x, y);
+        }
+
         if (mouseX >= x && mouseX < x + 16 && mouseY >= y && mouseY < y + 16) {
-            // Render tooltip with feat name
             graphics.renderTooltip(scrn().getMinecraft().font, origin.getName(), mouseX, mouseY);
         }
     }

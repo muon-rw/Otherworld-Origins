@@ -1,0 +1,8 @@
+{
+    "type": "origins:action_on_callback",
+    "hidden": true,
+    "entity_action_gained": {
+        "type": "origins:execute_command",
+        "command": "origin set @s otherworldorigins:elemental_discipline_one origins:empty"
+    }
+}

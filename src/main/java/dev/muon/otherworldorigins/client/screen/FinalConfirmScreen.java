@@ -211,7 +211,7 @@ public class FinalConfirmScreen extends Screen {
             displayLines.add(FormattedCharSequence.EMPTY); // Blank line
         }
         
-        // Cantrips
+        // Cantrips (includes class cantrips and elemental disciplines)
         List<String> cantrips = getCantrips(originContainer, layerRegistry, originRegistry);
         if (!cantrips.isEmpty()) {
             // Add "Cantrips" header
@@ -316,6 +316,19 @@ public class FinalConfirmScreen extends Screen {
         
         if (cantrip1 != null) cantrips.add(cantrip1);
         if (cantrip2 != null) cantrips.add(cantrip2);
+
+        ResourceLocation[] elementalLayers = {
+                OtherworldOrigins.loc("elemental_discipline_one"),
+                OtherworldOrigins.loc("elemental_discipline_two"),
+                OtherworldOrigins.loc("elemental_discipline_three"),
+                OtherworldOrigins.loc("elemental_discipline_four")
+        };
+        for (ResourceLocation layerId : elementalLayers) {
+            String n = getOriginDisplayName(container, layerRegistry, originRegistry, layerId);
+            if (n != null) {
+                cantrips.add(n);
+            }
+        }
         
         return cantrips;
     }
@@ -325,8 +338,11 @@ public class FinalConfirmScreen extends Screen {
         
         if (cantrips.size() == 1) {
             return Component.translatable("otherworldorigins.gui.final_confirm.cantrips_single", cantrips.get(0));
-        } else {
+        } else if (cantrips.size() == 2) {
             return Component.translatable("otherworldorigins.gui.final_confirm.cantrips_double", cantrips.get(0), cantrips.get(1));
+        } else {
+            String allButLast = String.join(", ", cantrips.subList(0, cantrips.size() - 1));
+            return Component.translatable("otherworldorigins.gui.final_confirm.cantrips_multiple", allButLast, cantrips.get(cantrips.size() - 1));
         }
     }
     

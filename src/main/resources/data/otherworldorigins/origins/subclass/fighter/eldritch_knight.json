@@ -2,6 +2,8 @@
     "powers": [
         "otherworldorigins:cantrip_desc",
         "otherworldorigins:subclass/fighter/eldritch_knight",
+        "otherworldorigins:subclass/fighter/eldritch_knight_war_magic",
+        "otherworldorigins:subclass/fighter/eldritch_knight_arcane_tempo",
         "otherworldorigins:spell_access/fighter/eldritch_knight"
     ],
     "icon": {

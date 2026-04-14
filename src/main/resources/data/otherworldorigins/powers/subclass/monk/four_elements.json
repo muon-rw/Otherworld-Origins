@@ -1,9 +1,41 @@
 {
-    "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "minecraft:generic.armor",
-        "operation": "addition",
-        "value": 2
-    }
+    "type": "origins:simple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.four_elements_info_picks"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/info.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.four_elements_info_ki"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/arrow_up.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.four_elements_info_scaling"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.four_elements_keys",
+                "with": [
+                    {
+                        "keybind": "key.otherworldorigins.cantrip_two"
+                    },
+                    {
+                        "keybind": "key.otherworldorigins.cantrip_three"
+                    }
+                ]
+            }
+        }
+    ]
 }

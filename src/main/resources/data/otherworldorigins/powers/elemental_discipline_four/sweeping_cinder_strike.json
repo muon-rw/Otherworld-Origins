@@ -1,0 +1,39 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.otherworldorigins.cantrip_three"
+    },
+    "condition": {
+        "type": "origins:resource",
+        "resource": "*:class/monk/ki_pool",
+        "comparison": ">=",
+        "compare_to": 4
+    },
+    "entity_action": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "origins:modify_resource",
+                "resource": "*:class/monk/ki_pool",
+                "modifier": {
+                    "operation": "add_base_early",
+                    "value": -4
+                }
+            },
+            {
+                "type": "otherworldorigins:cast_spell",
+                "spell": "blaze_storm",
+                "power_level": 8,
+                "mana_cost": 0,
+                "continuous_cost": true,
+                "cost_interval": 10
+            }
+        ]
+    },
+    "cooldown": 100,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+        "bar_index": 9
+    }
+}

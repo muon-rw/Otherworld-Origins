@@ -1,0 +1,203 @@
+{
+  "order": 51,
+  "name": "Elemental Discipline (1st)",
+  "auto_choose": true,
+  "hidden": false,
+  "gui_title": {
+    "choose_origin": "Choose an Elemental Discipline:",
+    "view_origin": "Your First Elemental Discipline:"
+  },
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/monk/four_elements"
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:elemental_discipline_one/breath_of_winter"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/monk/four_elements"
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:elemental_discipline_one/flames_of_the_phoenix"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/monk/four_elements"
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:elemental_discipline_one/river_of_hungry_flame"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/monk/four_elements"
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:elemental_discipline_one/rush_of_the_gale_spirits"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/monk/four_elements"
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:elemental_discipline_one/sweeping_cinder_strike"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/monk/four_elements"
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:elemental_discipline_one/water_whip"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/monk/four_elements"
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:elemental_discipline_one/eternal_mountain_defense"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/monk/four_elements"
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:elemental_discipline_one/fist_of_four_thunders"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/monk/four_elements"
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:elemental_discipline_one/shape_the_flowing_river"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:subclass/monk/four_elements"
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:elemental_discipline_one/fangs_of_the_fire_snake"
+      ]
+    }
+  ]
+}

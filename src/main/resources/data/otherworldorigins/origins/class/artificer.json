@@ -2,6 +2,7 @@
 	"powers": [
 		"otherworldorigins:class/artificer/attributes",
 		"otherworldorigins:class/artificer/prevent_repair_penalty",
+		"otherworldorigins:class/artificer/show_repair_tooltip",
 		"otherworldorigins:class/artificer/soul_of_artifice"
 	],
 	"icon": {
