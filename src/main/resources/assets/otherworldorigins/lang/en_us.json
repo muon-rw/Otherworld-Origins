@@ -76,6 +76,7 @@
   "otherworldorigins.gui.start_over": "Start Over",
   "otherworldorigins.gui.current_selections": "Current Selections:",
   "otherworldorigins.gui.layer_origin": "%s: %s",
+  "otherworldorigins.gui.choose_origin_double_click_hint": "Double-click to confirm, or press %s.",
   "otherworldorigins.gui.feats": "Feats:",
 
   "key.categories.otherworldorigins": "Otherworld Origins",

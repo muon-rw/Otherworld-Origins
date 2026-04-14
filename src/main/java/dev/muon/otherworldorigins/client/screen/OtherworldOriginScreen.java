@@ -115,8 +115,25 @@ public class OtherworldOriginScreen extends Screen {
     private int pendingConfirmHintScreenX;
     private int pendingConfirmHintScreenY;
 
+    private boolean rightPanelScrollbarDragging;
+    private double rightPanelScrollbarDragStartMouseY;
+    private int rightPanelScrollbarDragStartEffScroll;
+
     private static final int LEFT_PANEL_WIDTH = 160;
     private static final int RIGHT_PANEL_WIDTH = 160;
+    /**
+     * Top of the scrollable description area (below icon/name/impact); matches stock Origins scissor.
+     */
+    private static final int RIGHT_PANEL_CONTENT_TOP_OFFSET = 28;
+    /**
+     * Track/thumb widths and thumb height from stock {@code OriginDisplayScreen} (sprite used only as a ruler).
+     */
+    private static final int RIGHT_PANEL_SCROLLBAR_TRACK_W = 8;
+    private static final int RIGHT_PANEL_SCROLLBAR_THUMB_W = 6;
+    private static final int RIGHT_PANEL_SCROLLBAR_THUMB_H = 27;
+    private static final int RIGHT_PANEL_SCROLLBAR_TRACK_ARGB = 0x44FFFFFF;
+    private static final int RIGHT_PANEL_SCROLLBAR_THUMB_ARGB = 0x77FFFFFF;
+    private static final int RIGHT_PANEL_SCROLLBAR_THUMB_ACTIVE_ARGB = 0xAAFFFFFF;
     private static final int CARD_COLLAPSED_WIDTH = 16;
     private static final int CARD_EXPANDED_WIDTH = 32;
     private static final int CARD_HEIGHT = 32;
@@ -1581,9 +1598,9 @@ public class OtherworldOriginScreen extends Screen {
             graphics.renderTooltip(this.font, ttc, mouseX, mouseY);
         }
 
-        graphics.enableScissor(panelX, panelY + 28, panelX + RIGHT_PANEL_WIDTH, panelY + panelHeight);
+        graphics.enableScissor(panelX, panelY + RIGHT_PANEL_CONTENT_TOP_OFFSET, panelX + RIGHT_PANEL_WIDTH, panelY + panelHeight);
 
-        int startY = panelY + 30;
+        int startY = panelY + RIGHT_PANEL_CONTENT_TOP_OFFSET + 2;
         int o = RIGHT_PANEL_SCROLL_OVERSCROLL_PX;
         int effScroll = this.rightPanelContentMaxScroll <= 0
                 ? 0
@@ -1643,12 +1660,106 @@ public class OtherworldOriginScreen extends Screen {
             this.rightPanelScrollPos = net.minecraft.util.Mth.clamp(this.rightPanelScrollPos, 0, virtualMax);
         }
 
+        renderRightPanelScrollbar(graphics, mouseX, mouseY);
+
         for (RenderedBadge rb : this.renderedBadges) {
             if (mouseX >= rb.x && mouseX < rb.x + 9 && mouseY >= rb.y && mouseY < rb.y + 9 && rb.badge.hasTooltip()) {
                 int widthLimit = Math.max(64, mouseX - 24);
                 ((DrawContextAccessor)graphics).invokeDrawTooltip(this.font, rb.badge.getTooltipComponents(rb.powerType, widthLimit, this.time, this.font), mouseX, mouseY, BADGE_TOOLTIP_POSITIONER);
             }
         }
+    }
+
+    private void renderRightPanelScrollbar(GuiGraphics graphics, int mouseX, int mouseY) {
+        if (this.rightPanelContentMaxScroll <= 0) {
+            return;
+        }
+        int panelX = this.width - RIGHT_PANEL_WIDTH - 10;
+        int panelY = 20;
+        int panelHeight = this.height - 60;
+        int contentTop = panelY + RIGHT_PANEL_CONTENT_TOP_OFFSET;
+        int viewportH = panelHeight - RIGHT_PANEL_CONTENT_TOP_OFFSET;
+        if (viewportH <= RIGHT_PANEL_SCROLLBAR_THUMB_H) {
+            return;
+        }
+        int trackX = panelX + RIGHT_PANEL_WIDTH - RIGHT_PANEL_SCROLLBAR_TRACK_W;
+        graphics.fill(
+                trackX,
+                contentTop,
+                trackX + RIGHT_PANEL_SCROLLBAR_TRACK_W,
+                contentTop + viewportH,
+                RIGHT_PANEL_SCROLLBAR_TRACK_ARGB);
+
+        int thumbX = trackX + (RIGHT_PANEL_SCROLLBAR_TRACK_W - RIGHT_PANEL_SCROLLBAR_THUMB_W) / 2;
+        int thumbY = computeRightPanelScrollbarThumbY(contentTop, viewportH);
+        boolean hover = !this.rightPanelScrollbarDragging
+                && mouseX >= thumbX
+                && mouseX < thumbX + RIGHT_PANEL_SCROLLBAR_THUMB_W
+                && mouseY >= thumbY
+                && mouseY < thumbY + RIGHT_PANEL_SCROLLBAR_THUMB_H;
+        int thumbArgb = (this.rightPanelScrollbarDragging || hover)
+                ? RIGHT_PANEL_SCROLLBAR_THUMB_ACTIVE_ARGB
+                : RIGHT_PANEL_SCROLLBAR_THUMB_ARGB;
+        graphics.fill(
+                thumbX,
+                thumbY,
+                thumbX + RIGHT_PANEL_SCROLLBAR_THUMB_W,
+                thumbY + RIGHT_PANEL_SCROLLBAR_THUMB_H,
+                thumbArgb);
+    }
+
+    private int computeRightPanelScrollbarThumbY(int contentTop, int viewportH) {
+        int o = RIGHT_PANEL_SCROLL_OVERSCROLL_PX;
+        int eff = Mth.clamp(this.rightPanelScrollPos - o, 0, this.rightPanelContentMaxScroll);
+        float part = this.rightPanelContentMaxScroll <= 0 ? 0.0f : eff / (float) this.rightPanelContentMaxScroll;
+        int thumbTravel = viewportH - RIGHT_PANEL_SCROLLBAR_THUMB_H;
+        return contentTop + (int) (thumbTravel * part + 0.5f);
+    }
+
+    private boolean tryBeginRightPanelScrollbarDrag(double mouseX, double mouseY) {
+        Holder<Origin> displayOrigin = getRightPanelDisplayOrigin();
+        if (displayOrigin == null
+                || !displayOrigin.isBound()
+                || this.rightPanelContentMaxScroll <= 0) {
+            return false;
+        }
+        int panelX = this.width - RIGHT_PANEL_WIDTH - 10;
+        int panelY = 20;
+        int panelHeight = this.height - 60;
+        int contentTop = panelY + RIGHT_PANEL_CONTENT_TOP_OFFSET;
+        int viewportH = panelHeight - RIGHT_PANEL_CONTENT_TOP_OFFSET;
+        if (viewportH <= RIGHT_PANEL_SCROLLBAR_THUMB_H) {
+            return false;
+        }
+        int trackX = panelX + RIGHT_PANEL_WIDTH - RIGHT_PANEL_SCROLLBAR_TRACK_W;
+        int thumbX = trackX + (RIGHT_PANEL_SCROLLBAR_TRACK_W - RIGHT_PANEL_SCROLLBAR_THUMB_W) / 2;
+        int thumbY = computeRightPanelScrollbarThumbY(contentTop, viewportH);
+        if (mouseX >= thumbX
+                && mouseX < thumbX + RIGHT_PANEL_SCROLLBAR_THUMB_W
+                && mouseY >= thumbY
+                && mouseY < thumbY + RIGHT_PANEL_SCROLLBAR_THUMB_H) {
+            this.rightPanelScrollbarDragging = true;
+            this.rightPanelScrollbarDragStartMouseY = mouseY;
+            int o = RIGHT_PANEL_SCROLL_OVERSCROLL_PX;
+            this.rightPanelScrollbarDragStartEffScroll =
+                    Mth.clamp(this.rightPanelScrollPos - o, 0, this.rightPanelContentMaxScroll);
+            return true;
+        }
+        return false;
+    }
+
+    private void applyRightPanelScrollbarDrag(double mouseY) {
+        int panelHeight = this.height - 60;
+        int viewportH = panelHeight - RIGHT_PANEL_CONTENT_TOP_OFFSET;
+        int thumbTravel = viewportH - RIGHT_PANEL_SCROLLBAR_THUMB_H;
+        if (thumbTravel <= 0 || this.rightPanelContentMaxScroll <= 0) {
+            return;
+        }
+        double deltaY = mouseY - this.rightPanelScrollbarDragStartMouseY;
+        int deltaEff = (int) Math.round(deltaY / thumbTravel * this.rightPanelContentMaxScroll);
+        int newEff = Mth.clamp(this.rightPanelScrollbarDragStartEffScroll + deltaEff, 0, this.rightPanelContentMaxScroll);
+        int o = RIGHT_PANEL_SCROLL_OVERSCROLL_PX;
+        this.rightPanelScrollPos = newEff + o;
     }
 
     private final LinkedList<RenderedBadge> renderedBadges = new LinkedList<>();
@@ -1757,6 +1868,10 @@ public class OtherworldOriginScreen extends Screen {
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         if (button != 0) return super.mouseClicked(mouseX, mouseY, button);
+
+        if (tryBeginRightPanelScrollbarDrag(mouseX, mouseY)) {
+            return true;
+        }
 
         int x = 10;
         int y = 10;
@@ -1982,6 +2097,21 @@ public class OtherworldOriginScreen extends Screen {
             return true;
         }
         return super.mouseScrolled(mouseX, mouseY, scroll);
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double deltaX, double deltaY) {
+        if (button == 0 && this.rightPanelScrollbarDragging) {
+            applyRightPanelScrollbarDrag(mouseY);
+            return true;
+        }
+        return super.mouseDragged(mouseX, mouseY, button, deltaX, deltaY);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        this.rightPanelScrollbarDragging = false;
+        return super.mouseReleased(mouseX, mouseY, button);
     }
     
     @Override
