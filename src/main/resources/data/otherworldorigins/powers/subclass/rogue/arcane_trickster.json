@@ -76,8 +76,8 @@
                 "compare_to": 0,
                 "comparison": ">"
             },
-            "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_02.png",
-            "bar_index": 9
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_01.png",
+            "bar_index": 0
         }
     },
     "sleep": {

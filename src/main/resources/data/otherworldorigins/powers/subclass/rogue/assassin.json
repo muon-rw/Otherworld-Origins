@@ -1,9 +1,118 @@
 {
-    "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "minecraft:generic.attack_damage",
-        "operation": "addition",
-        "value": 3
+    "type": "origins:multiple",
+    "melee": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.attack_damage",
+            "operation": "addition",
+            "value": 2
+        }
+    },
+    "sneak_attack_amp_15": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "bientity_condition": {
+            "type": "origins:attacker",
+            "inverted": true
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.8
+        }
+    },
+    "sneak_attack_amp_10": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 15
+                }
+            ]
+        },
+        "bientity_condition": {
+            "type": "origins:attacker",
+            "inverted": true
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.6
+        }
+    },
+    "sneak_attack_amp_5": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 5
+                },
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": "<",
+                    "compare_to": 10
+                }
+            ]
+        },
+        "bientity_condition": {
+            "type": "origins:attacker",
+            "inverted": true
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.4
+        }
+    },
+    "sneak_attack_amp_start": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": "<",
+            "compare_to": 5
+        },
+        "bientity_condition": {
+            "type": "origins:attacker",
+            "inverted": true
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.2
+        }
+    },
+    "death_strike": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                },
+                {
+                    "type": "otherworldorigins:leveled_chance",
+                    "base": 0.0,
+                    "per_level": 0.01,
+                    "aptitude": "justlevelingfork:dexterity"
+                }
+            ]
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": 1.0
+        }
     }
 }

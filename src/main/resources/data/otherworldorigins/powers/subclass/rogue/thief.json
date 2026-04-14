@@ -1,5 +1,4 @@
 {
-    "hidden": true,
     "type": "origins:multiple",
     "quiet": {
         "type": "origins:prevent_game_event",
@@ -14,6 +13,286 @@
         "modifier": {
             "operation": "multiply_total",
             "value": -0.2
+        }
+    },
+    "supreme_sneak_meter": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 200,
+        "start_value": 160,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 17,
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 10
+                    },
+                    {
+                        "type": "origins:resource",
+                        "resource": "*:*_supreme_sneak_meter",
+                        "comparison": "<",
+                        "compare_to": 200
+                    }
+                ]
+            }
+        }
+    },
+    "supreme_sneak_cooldown": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 100,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 1,
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "otherworldorigins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 10
+                    },
+                    {
+                        "type": "origins:resource",
+                        "resource": "*:*_supreme_sneak_cooldown",
+                        "comparison": ">",
+                        "compare_to": 0
+                    }
+                ]
+            }
+        }
+    },
+    "supreme_sneak_tick_cooldown": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_supreme_sneak_cooldown",
+                    "comparison": ">",
+                    "compare_to": 0
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_supreme_sneak_cooldown",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -1
+            }
+        }
+    },
+    "supreme_sneak_damage_lockout": {
+        "type": "origins:self_action_on_hit",
+        "target_condition": {
+            "type": "origins:living"
+        },
+        "entity_action": {
+            "type": "origins:if_else",
+            "condition": {
+                "type": "otherworldorigins:player_level",
+                "comparison": ">=",
+                "compare_to": 10
+            },
+            "if_action": {
+                "type": "origins:modify_resource",
+                "resource": "*:*_supreme_sneak_cooldown",
+                "modifier": {
+                    "operation": "add_base_early",
+                    "value": 100
+                }
+            }
+        }
+    },
+    "supreme_sneak_drain_meter": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "origins:invisible"
+                },
+                {
+                    "type": "origins:sneaking"
+                },
+                {
+                    "type": "origins:moving"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_supreme_sneak_meter",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -1
+            }
+        }
+    },
+    "supreme_sneak_refill_meter": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "origins:and",
+                    "conditions": [
+                        {
+                            "type": "origins:invisible"
+                        },
+                        {
+                            "type": "origins:sneaking"
+                        }
+                    ],
+                    "inverted": true
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_supreme_sneak_meter",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": 1
+            }
+        }
+    },
+    "supreme_sneak_mobs_ignore": {
+        "type": "otherworldorigins:mobs_ignore",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_supreme_sneak_meter",
+                    "comparison": ">=",
+                    "compare_to": 1
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_supreme_sneak_cooldown",
+                    "comparison": "<",
+                    "compare_to": 1
+                },
+                {
+                    "type": "origins:sneaking"
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 20
+                        },
+                        {
+                            "type": "origins:brightness",
+                            "comparison": "<=",
+                            "compare_to": 0.5
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "supreme_sneak_invisibility": {
+        "type": "origins:action_over_time",
+        "interval": 2,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_supreme_sneak_meter",
+                    "comparison": ">=",
+                    "compare_to": 1
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_supreme_sneak_cooldown",
+                    "comparison": "<",
+                    "compare_to": 1
+                },
+                {
+                    "type": "origins:sneaking"
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 20
+                        },
+                        {
+                            "type": "origins:brightness",
+                            "comparison": "<=",
+                            "compare_to": 0.5
+                        }
+                    ]
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:apply_effect",
+            "effect": {
+                "effect": "irons_spellbooks:true_invisibility",
+                "duration": 200,
+                "amplifier": 0,
+                "is_ambient": true,
+                "show_particles": false,
+                "show_icon": false
+            }
+        },
+        "falling_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:clear_effect",
+                    "effect": "irons_spellbooks:true_invisibility"
+                },
+                {
+                    "type": "origins:clear_effect",
+                    "effect": "minecraft:invisibility"
+                }
+            ]
         }
     }
 }

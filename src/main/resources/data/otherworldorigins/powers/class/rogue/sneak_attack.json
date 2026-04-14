@@ -12,8 +12,36 @@
             }
         },
         "bientity_condition": {
-            "type": "origins:attacker",
-            "inverted": true
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "origins:attacker",
+                    "inverted": true
+                },
+                {
+                    "type": "origins:and",
+                    "conditions": [
+                        {
+                            "type": "origins:actor_condition",
+                            "condition": {
+                                "type": "origins:origin",
+                                "origin": "otherworldorigins:subclass/rogue/thief",
+                                "layer": "otherworldorigins:subclass"
+                            }
+                        },
+                        {
+                            "type": "origins:actor_condition",
+                            "condition": {
+                                "type": "origins:invisible"
+                            }
+                        },
+                        {
+                            "type": "origins:attacker",
+                            "inverted": false
+                        }
+                    ]
+                }
+            ]
         }
     },
     "facing": {
@@ -26,8 +54,36 @@
             "type": "origins:and",
             "conditions": [
                 {
-                    "type": "origins:attacker",
-                    "inverted": true
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "origins:attacker",
+                            "inverted": true
+                        },
+                        {
+                            "type": "origins:and",
+                            "conditions": [
+                                {
+                                    "type": "origins:actor_condition",
+                                    "condition": {
+                                        "type": "origins:origin",
+                                        "origin": "otherworldorigins:subclass/rogue/thief",
+                                        "layer": "otherworldorigins:subclass"
+                                    }
+                                },
+                                {
+                                    "type": "origins:actor_condition",
+                                    "condition": {
+                                        "type": "origins:invisible"
+                                    }
+                                },
+                                {
+                                    "type": "origins:attacker",
+                                    "inverted": false
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "type": "origins:relative_rotation",
