@@ -1,5 +1,44 @@
 {
-  "hidden": true,
-    "type": "otherworldorigins:modify_enchantment_cost",
-    "amount": 0.2
-  }
+    "type": "origins:multiple",
+    "cost_base": {
+        "type": "otherworldorigins:modify_enchantment_cost",
+        "amount": 0.1
+    },
+    "cost_5": {
+        "type": "otherworldorigins:modify_enchantment_cost",
+        "amount": 0.05,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 5
+        }
+    },
+    "cost_10": {
+        "type": "otherworldorigins:modify_enchantment_cost",
+        "amount": 0.1,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 10
+        }
+    },
+    "cost_15": {
+        "type": "otherworldorigins:modify_enchantment_cost",
+        "amount": 0.15,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        }
+    },
+    "savant": {
+        "type": "otherworldorigins:increase_enchanting_levels",
+        "amount": 1,
+        "bypass_max_level": false,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 20
+        }
+    }
+}

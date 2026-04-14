@@ -3,9 +3,11 @@ package dev.muon.otherworldorigins.mixin.compat.apotheosis;
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.muon.otherworldorigins.power.EnchantingKnowledgePower;
+import dev.muon.otherworldorigins.power.IncreaseEnchantingLevelsPower;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyEnchantmentCostPower;
 import dev.shadowsoffire.apotheosis.ench.table.ApothEnchantmentMenu;
@@ -26,6 +28,7 @@ import java.util.List;
 
 /**
  * Apotheosis enchanting table hooks: {@link ModifyEnchantmentCostPower} cost display/quality,
+ * {@link IncreaseEnchantingLevelsPower} rolled enchantment levels,
  * and {@link EnchantingKnowledgePower} full clue lists (via {@code new ClueMessage} args).
  * Injection points use MixinExtras {@link Expression} targets instead of ordinal-based bytecode.
  */
@@ -78,6 +81,19 @@ public class ApothEnchantmentMenuMixin {
             args.set(2, true);
             this.otherworldorigins$fullCluePool = null;
         }
+    }
+
+    /**
+     * Applied after Apotheosis builds the enchantment candidate list for a slot (including infusion override);
+     * matches client clue formatting in {@link ApothEnchantScreenMixin}.
+     */
+    @ModifyReturnValue(
+            method = "getEnchantmentList(Lnet/minecraft/world/item/ItemStack;II)Ljava/util/List;",
+            at = @At("RETURN"),
+            remap = true
+    )
+    private List<EnchantmentInstance> otherworldorigins$boostEnchantmentLevels(List<EnchantmentInstance> original) {
+        return IncreaseEnchantingLevelsPower.applyBonus(this.player, original);
     }
 
     @Unique

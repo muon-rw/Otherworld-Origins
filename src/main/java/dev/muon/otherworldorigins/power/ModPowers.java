@@ -30,6 +30,7 @@ public class ModPowers {
     public static final RegistryObject<PowerFactory<LeveledAttributePower.Configuration>> LEVELED_ATTRIBUTE = POWER_FACTORIES.register("leveled_attribute", LeveledAttributePower::new);
     public static final RegistryObject<PowerFactory<ModifyStatusEffectCategoryPower.Configuration>> MODIFY_STATUS_EFFECT_CATEGORY = POWER_FACTORIES.register("modify_status_effect_category", () -> ModifyStatusEffectCategoryPower.INSTANCE);
     public static final RegistryObject<PowerFactory<ModifyEnchantmentCostPower.Configuration>> MODIFY_ENCHANTMENT_COST = POWER_FACTORIES.register("modify_enchantment_cost", ModifyEnchantmentCostPower::new);
+    public static final RegistryObject<PowerFactory<IncreaseEnchantingLevelsPower.Configuration>> INCREASE_ENCHANTING_LEVELS = POWER_FACTORIES.register("increase_enchanting_levels", IncreaseEnchantingLevelsPower::new);
     public static final RegistryObject<PowerFactory<NoConfiguration>> PREVENT_CRITICAL_HIT = POWER_FACTORIES.register("prevent_critical_hit", PreventCriticalHitPower::new);
     public static final RegistryObject<PowerFactory<ModifyCriticalHitPower.Configuration>> MODIFY_CRITICAL_HIT = POWER_FACTORIES.register("modify_critical_hit", ModifyCriticalHitPower::new);
     public static final RegistryObject<PowerFactory<GoldDurabilityPower.Configuration>> GOLD_DURABILITY = POWER_FACTORIES.register("gold_durability", GoldDurabilityPower::new);

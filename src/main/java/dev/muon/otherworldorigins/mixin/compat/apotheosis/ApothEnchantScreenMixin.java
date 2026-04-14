@@ -3,6 +3,7 @@ package dev.muon.otherworldorigins.mixin.compat.apotheosis;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import dev.muon.otherworldorigins.power.IncreaseEnchantingLevelsPower;
 import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyEnchantmentCostPower;
 import dev.shadowsoffire.apotheosis.ench.table.ApothEnchantScreen;
@@ -21,6 +22,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.EnchantmentMenu;
+import net.minecraft.world.item.enchantment.Enchantment;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -30,8 +32,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.List;
 
 /**
- * Adds cost-reduction tooltip info and fixes the side panel to show the original
- * enchantment power level (before cost reduction) for quality-related displays.
+ * Adds cost-reduction tooltip info, {@link IncreaseEnchantingLevelsPower} clue level breakdown,
+ * and fixes the side panel to show the original enchantment power level (before cost reduction)
+ * for quality-related displays.
  */
 @Mixin(ApothEnchantScreen.class)
 public abstract class ApothEnchantScreenMixin extends EnchantmentScreen {
@@ -154,5 +157,25 @@ public abstract class ApothEnchantScreenMixin extends EnchantmentScreen {
                 .map(holder -> holder.value().getConfiguration())
                 .map(ModifyEnchantmentCostPower.Configuration::amount)
                 .reduce(1f, (a, b) -> a * (1 - b));
+    }
+
+    /**
+     * Clue list uses {@link Enchantment#getFullname(int)}; replace with a line that includes
+     * {@code [base + from power]} when the player has {@link IncreaseEnchantingLevelsPower}.
+     */
+    @WrapOperation(
+            method = "render",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/item/enchantment/Enchantment;getFullname(I)Lnet/minecraft/network/chat/Component;"
+            )
+    )
+    private Component otherworldorigins$clueEnchantmentName(
+            Enchantment enchantment, int level, Operation<Component> original) {
+        int bonus = IncreaseEnchantingLevelsPower.getBonus(this.minecraft.player);
+        if (bonus <= 0) {
+            return original.call(enchantment, level);
+        }
+        return IncreaseEnchantingLevelsPower.formatClueLine(enchantment, level, bonus);
     }
 }
