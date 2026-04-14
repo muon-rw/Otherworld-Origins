@@ -496,7 +496,7 @@
   "power.otherworldorigins.subclass/monk/shadow.name": "Key Info:",
   "power.otherworldorigins.subclass/monk/shadow.description": "",
   "power.otherworldorigins.subclass/monk/open_hand.name": "Wholeness of Body",
-  "power.otherworldorigins.subclass/monk/open_hand.description": "Starting at level 5, hold to heal while injured, drawing from a pool equal to three times your character level. The pool refills when you wake up after resting (and when your level increases).",
+  "power.otherworldorigins.subclass/monk/open_hand.description": "Hold to heal for up to three times your character level, recharged every time you rest.",
   "power.otherworldorigins.subclass/monk/open_hand_quivering_palm.name": "Quivering Palm",
   "power.otherworldorigins.subclass/monk/open_hand_quivering_palm.description": "Attacking the same enemy twice in quick succession knocks them back and deals additional damage equal to 3x your dexterity, 30 second cooldown per target.",
   "power.otherworldorigins.class/rogue/sneak_attack.name": "Sneak Attack",
