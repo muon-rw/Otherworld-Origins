@@ -1,27 +1,361 @@
 {
-    "hidden": true,
     "type": "origins:multiple",
-    "stats": {
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": {
+                "translate": "otherworldorigins.gui.badge.shadow_monk_keys",
+                "with": [
+                    {
+                        "keybind": "key.otherworldorigins.cantrip_two"
+                    },
+                    {
+                        "keybind": "key.otherworldorigins.cantrip_three"
+                    }
+                ]
+            }
+        }
+    ],
+    "dmg": {
         "type": "origins:conditioned_attribute",
         "modifier": {
-            "attribute": "minecraft:generic.max_health",
+            "attribute": "minecraft:generic.attack_damage",
             "operation": "addition",
-            "value": 10
+            "value": 5
         },
         "condition": {
-            "type": "origins:daytime",
-            "inverted": true
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                },
+                {
+                    "type": "origins:brightness",
+                    "comparison": "<=",
+                    "compare_to": 0.5
+                }
+            ]
         }
     },
-    "dmg": {
-        "type": "origins:modify_damage_dealt",
-        "modifier": {
-            "value": 10,
-            "operation": "addition"
+    "shadow_stealth_meter": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 200,
+        "start_value": 160,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 17,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_shadow_stealth_meter",
+                "comparison": "<",
+                "compare_to": 200
+            }
+        }
+    },
+    "shadow_stealth_cooldown": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 100,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 1,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_shadow_stealth_cooldown",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "shadow_stealth_tick_cooldown": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_shadow_stealth_cooldown",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_shadow_stealth_cooldown",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -1
+            }
+        }
+    },
+    "shadow_stealth_damage_lockout": {
+        "type": "origins:self_action_on_hit",
+        "target_condition": {
+            "type": "origins:living"
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_shadow_stealth_cooldown",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": 100
+            }
+        }
+    },
+    "shadow_stealth_drain_meter": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:invisible"
+                },
+                {
+                    "type": "origins:sneaking"
+                },
+                {
+                    "type": "origins:moving"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_shadow_stealth_meter",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -1
+            }
+        }
+    },
+    "shadow_stealth_refill_meter": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:and",
+                    "conditions": [
+                        {
+                            "type": "origins:invisible"
+                        },
+                        {
+                            "type": "origins:sneaking"
+                        }
+                    ],
+                    "inverted": true
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_shadow_stealth_meter",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": 1
+            }
+        }
+    },
+    "shadow_stealth_mobs_ignore": {
+        "type": "otherworldorigins:mobs_ignore",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_shadow_stealth_meter",
+                    "comparison": ">=",
+                    "compare_to": 1
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_shadow_stealth_cooldown",
+                    "comparison": "<",
+                    "compare_to": 1
+                },
+                {
+                    "type": "origins:sneaking"
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 20
+                        },
+                        {
+                            "type": "origins:brightness",
+                            "comparison": "<=",
+                            "compare_to": 0.5
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "shadow_stealth_invisibility": {
+        "type": "origins:action_over_time",
+        "interval": 2,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_shadow_stealth_meter",
+                    "comparison": ">=",
+                    "compare_to": 1
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_shadow_stealth_cooldown",
+                    "comparison": "<",
+                    "compare_to": 1
+                },
+                {
+                    "type": "origins:sneaking"
+                },
+                {
+                    "type": "origins:or",
+                    "conditions": [
+                        {
+                            "type": "otherworldorigins:player_level",
+                            "comparison": ">=",
+                            "compare_to": 20
+                        },
+                        {
+                            "type": "origins:brightness",
+                            "comparison": "<=",
+                            "compare_to": 0.5
+                        }
+                    ]
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:apply_effect",
+            "effect": {
+                "effect": "irons_spellbooks:true_invisibility",
+                "duration": 200,
+                "amplifier": 0,
+                "is_ambient": true,
+                "show_particles": false,
+                "show_icon": false
+            }
+        },
+        "falling_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:clear_effect",
+                    "effect": "irons_spellbooks:true_invisibility"
+                },
+                {
+                    "type": "origins:clear_effect",
+                    "effect": "minecraft:invisibility"
+                }
+            ]
+        }
+    },
+    "shadow_slash": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.otherworldorigins.cantrip_two"
         },
         "condition": {
-            "type": "origins:daytime",
-            "inverted": true
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:class/monk/ki_pool",
+                    "comparison": ">=",
+                    "compare_to": 1
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:class/monk/ki_pool",
+                    "modifier": {
+                        "operation": "add_base_early",
+                        "value": -1
+                    }
+                },
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "shadow_slash",
+                    "power_level": 3,
+                    "mana_cost": 0,
+                    "cast_time": 0
+                }
+            ]
+        },
+        "cooldown": 25,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 9
+        }
+    },
+    "blink": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.otherworldorigins.cantrip_three"
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 15
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:class/monk/ki_pool",
+                    "comparison": ">=",
+                    "compare_to": 2
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:class/monk/ki_pool",
+                    "modifier": {
+                        "operation": "add_base_early",
+                        "value": -2
+                    }
+                },
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "traveloptics:blink",
+                    "power_level": 3,
+                    "mana_cost": 0,
+                    "cast_time": 0
+                }
+            ]
+        },
+        "cooldown": 25,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 10
         }
     }
 }

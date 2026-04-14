@@ -27,6 +27,12 @@ public class ModEffects {
     public static final RegistryObject<FlourishMomentumEffect> FLOURISH_MOMENTUM =
             MOB_EFFECTS.register("flourish_momentum", FlourishMomentumEffect::new);
 
+    public static final RegistryObject<QuiveringPalmMarkEffect> QUIVERING_PALM_MARK =
+            MOB_EFFECTS.register("quivering_palm_mark", QuiveringPalmMarkEffect::new);
+
+    public static final RegistryObject<QuiveringPalmLockoutEffect> QUIVERING_PALM_LOCKOUT =
+            MOB_EFFECTS.register("quivering_palm_lockout", QuiveringPalmLockoutEffect::new);
+
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);
     }

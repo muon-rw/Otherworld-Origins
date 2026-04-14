@@ -47,6 +47,7 @@ public class ModActions {
     public static final RegistryObject<TameAction> TAME = BIENTITY_ACTIONS.register("tame",
             () -> new TameAction(TameAction::tame));
     public static final RegistryObject<LeveledHealBientityAction> LEVELED_HEAL_BIENTITY = BIENTITY_ACTIONS.register("leveled_heal", LeveledHealBientityAction::new);
+    public static final RegistryObject<LeveledDamageBientityAction> LEVELED_DAMAGE_BIENTITY = BIENTITY_ACTIONS.register("leveled_damage", LeveledDamageBientityAction::new);
     public static final RegistryObject<ResourceHealBientityAction> RESOURCE_HEAL_BIENTITY = BIENTITY_ACTIONS.register("resource_heal", ResourceHealBientityAction::new);
     public static final RegistryObject<RaycastBetweenAction> RAYCAST_BETWEEN = BIENTITY_ACTIONS.register("raycast_between", RaycastBetweenAction::new);
     public static final RegistryObject<ApplyLeveledEffectBientityAction> APPLY_LEVELED_EFFECT_BIENTITY =

@@ -1,0 +1,99 @@
+{
+    "type": "otherworldorigins:action_on_attack",
+    "cooldown": 1,
+    "hud_render": {
+        "should_render": false
+    },
+    "bientity_condition": {
+        "type": "origins:and",
+        "conditions": [
+            {
+                "type": "origins:target_condition",
+                "condition": {
+                    "type": "origins:living"
+                }
+            },
+            {
+                "type": "origins:target_condition",
+                "condition": {
+                    "type": "origins:status_effect",
+                    "effect": "otherworldorigins:quivering_palm_lockout",
+                    "inverted": true
+                }
+            }
+        ]
+    },
+    "bientity_action": {
+        "type": "origins:if_else_list",
+        "actions": [
+            {
+                "condition": {
+                    "type": "origins:target_condition",
+                    "condition": {
+                        "type": "origins:status_effect",
+                        "effect": "otherworldorigins:quivering_palm_mark"
+                    }
+                },
+                "action": {
+                    "type": "origins:and",
+                    "actions": [
+                        {
+                            "type": "origins:target_action",
+                            "action": {
+                                "type": "origins:clear_effect",
+                                "effect": "otherworldorigins:quivering_palm_mark"
+                            }
+                        },
+                        {
+                            "type": "otherworldorigins:leveled_damage",
+                            "base": 0,
+                            "per_level": 3,
+                            "aptitude": "justlevelingfork:dexterity"
+                        },
+                        {
+                            "type": "otherworldorigins:cast_spell",
+                            "spell": "gust",
+                            "power_level": 1,
+                            "mana_cost": 0,
+                            "cast_time": 0
+                        },
+                        {
+                            "type": "origins:target_action",
+                            "action": {
+                                "type": "origins:apply_effect",
+                                "effect": {
+                                    "effect": "otherworldorigins:quivering_palm_lockout",
+                                    "duration": 600,
+                                    "amplifier": 0,
+                                    "is_ambient": true,
+                                    "show_particles": false,
+                                    "show_icon": false
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "condition": {
+                    "type": "origins:constant",
+                    "value": true
+                },
+                "action": {
+                    "type": "origins:target_action",
+                    "action": {
+                        "type": "origins:apply_effect",
+                        "effect": {
+                            "effect": "otherworldorigins:quivering_palm_mark",
+                            "duration": 40,
+                            "amplifier": 0,
+                            "is_ambient": true,
+                            "show_particles": false,
+                            "show_icon": false
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

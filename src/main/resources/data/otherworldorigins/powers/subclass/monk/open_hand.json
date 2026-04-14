@@ -1,28 +1,132 @@
 {
-    "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "minecraft:generic.attack_damage",
-        "operation": "addition",
-        "value": 5
+    "type": "origins:multiple",
+    "fist_damage": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.attack_damage",
+            "operation": "addition",
+            "value": 5
+        },
+        "condition": {
+            "type": "origins:equipped_item",
+            "equipment_slot": "mainhand",
+            "item_condition": {
+                "type": "origins:or",
+                "conditions": [
+                    {
+                        "type": "origins:empty"
+                    },
+                    {
+                        "type": "origins:ingredient",
+                        "ingredient": {
+                            "tag": "otherworldorigins:fist_weapons"
+                        }
+                    },
+                    {
+                        "type": "otherworldorigins:is_fist_weapon"
+                    }
+                ]
+            }
+        }
     },
-    "condition": {
-        "type": "origins:equipped_item",
-        "equipment_slot": "mainhand",
-        "item_condition": {
-            "type": "origins:or",
+    "wholeness_pool": {
+        "type": "otherworldorigins:leveled_resource",
+        "min": 0,
+        "max_base": 0,
+        "max_per_level": 3,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 20
+        }
+    },
+    "wholeness_sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_wholeness_pool",
+            "modifier": {
+                "operation": "set_total",
+                "value": 2147483647
+            }
+        }
+    },
+    "wholeness_level": {
+        "type": "otherworldorigins:action_on_levelup",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_wholeness_pool",
+            "modifier": {
+                "operation": "set_total",
+                "value": 2147483647
+            }
+        }
+    },
+    "wholeness_gain": {
+        "type": "origins:action_on_callback",
+        "entity_action_added": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_wholeness_pool",
+            "modifier": {
+                "operation": "set_total",
+                "value": 2147483647
+            }
+        },
+        "entity_action_chosen": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_wholeness_pool",
+            "modifier": {
+                "operation": "set_total",
+                "value": 2147483647
+            }
+        },
+        "execute_chosen_when_orb": true
+    },
+    "wholeness_heal": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.otherworldorigins.cantrip_two",
+            "continuous": true
+        },
+        "condition": {
+            "type": "origins:and",
             "conditions": [
                 {
-                    "type": "origins:empty"
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 5
                 },
                 {
-                    "type": "origins:ingredient",
-                    "ingredient": {
-                        "tag": "otherworldorigins:fist_weapons"
+                    "type": "origins:resource",
+                    "resource": "*:*_wholeness_pool",
+                    "compare_to": 0,
+                    "comparison": ">"
+                },
+                {
+                    "type": "origins:relative_health",
+                    "compare_to": 1,
+                    "comparison": "<"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_wholeness_pool",
+                    "modifier": {
+                        "operation": "add_base_early",
+                        "value": -1
                     }
                 },
                 {
-                    "type": "otherworldorigins:is_fist_weapon"
+                    "type": "origins:heal",
+                    "amount": 1
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:heart ^ ^1 ^ 0.3 0.3 0.3 1 1 force"
                 }
             ]
         }
