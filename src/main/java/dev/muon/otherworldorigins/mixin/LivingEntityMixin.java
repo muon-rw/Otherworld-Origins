@@ -129,7 +129,7 @@ public abstract class LivingEntityMixin {
         float multiplier = otherworld$getEffectMultiplier(self, effect);
         if (multiplier != 1.0f) {
             int newDuration = Math.round(effect.getDuration() * multiplier);
-            ((MobEffectInstanceAccessor) effect).setDuration(newDuration);
+            effect.duration = newDuration;
         }
     }
 
