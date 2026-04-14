@@ -47,10 +47,12 @@ import io.github.apace100.origins.badge.BadgeManager;
 import io.github.apace100.origins.mixin.DrawContextAccessor;
 import io.github.apace100.origins.origin.Impact;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipComponent;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.FlyingAnimal;
+import dev.muon.otherworldorigins.client.BadgeTooltipLinebreaks;
 import dev.muon.otherworldorigins.client.shapeshift.AnacondaMultipartHandler;
 import dev.muon.otherworldorigins.client.shapeshift.FakeEntityCache;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftRenderHelper;
@@ -58,6 +60,7 @@ import dev.muon.otherworldorigins.power.ShapeshiftPower;
 import com.github.alexthe666.alexsmobs.entity.EntityAnaconda;
 import com.github.alexthe666.alexsmobs.entity.EntityAnacondaPart;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.util.Mth;
 import org.joml.Quaternionf;
 import org.joml.Vector2i;
 import javax.annotation.Nullable;
@@ -107,12 +110,20 @@ public class OtherworldOriginScreen extends Screen {
     private List<FormattedCharSequence> sheetLines = new ArrayList<>();
     private boolean dynamicPromptMode = false;
 
+    /** Queued during active-layer row render (under scissor); drawn in {@link #renderLeftPanel} after scissor ends. */
+    private boolean pendingConfirmSelectionHint;
+    private int pendingConfirmHintScreenX;
+    private int pendingConfirmHintScreenY;
+
     private static final int LEFT_PANEL_WIDTH = 160;
     private static final int RIGHT_PANEL_WIDTH = 160;
     private static final int CARD_COLLAPSED_WIDTH = 16;
     private static final int CARD_EXPANDED_WIDTH = 32;
     private static final int CARD_HEIGHT = 32;
     private static final int ICON_SIZE = 16;
+    /** Padding around each grid icon for the translucent hover highlight (see {@link #renderIconGrid}). */
+    private static final int ICON_GRID_HOVER_PAD = 2;
+    private static final int ICON_GRID_HOVER_BOX = ICON_SIZE + 2 * ICON_GRID_HOVER_PAD;
     private static final int COMPLETED_ROW_GAP = 4;
     private static final int COMPLETED_NAME_GAP = 4;
     /** Horizontal slot when a completed choice shows icon only (no name). */
@@ -142,6 +153,41 @@ public class OtherworldOriginScreen extends Screen {
         }
         return pos;
     };
+
+    /**
+     * Chooses left vs right of the cursor and clamps to the screen so the confirm hint is not
+     * clipped by edges (unlike fixed badge positioning when the cursor sits on the left stack).
+     */
+    private final ClientTooltipPositioner confirmHintTooltipPositioner =
+            (screenWidth, screenHeight, mouseX, mouseY, tooltipWidth, tooltipHeight) ->
+                    computeConfirmHintTooltipPos(screenWidth, screenHeight, mouseX, mouseY, tooltipWidth, tooltipHeight);
+
+    private static Vector2i computeConfirmHintTooltipPos(
+            int sw, int sh, int mx, int my, int tw, int th) {
+        final int margin = 4;
+        final int gap = 12;
+        int preferLeftX = mx - gap - tw;
+        int preferRightX = mx + gap;
+        boolean fitsLeft = preferLeftX >= margin && preferLeftX + tw <= sw - margin;
+        boolean fitsRight = preferRightX >= margin && preferRightX + tw <= sw - margin;
+        int x;
+        if (fitsLeft && (!fitsRight || mx >= sw - mx)) {
+            x = preferLeftX;
+        } else if (fitsRight) {
+            x = preferRightX;
+        } else if (preferLeftX >= preferRightX) {
+            x = Mth.clamp(preferLeftX, margin, Math.max(margin, sw - margin - tw));
+        } else {
+            x = Mth.clamp(preferRightX, margin, Math.max(margin, sw - margin - tw));
+        }
+        int y = my - 12;
+        if (y < margin) {
+            y = margin;
+        } else if (y + th + 3 > sh) {
+            y = sh - th - 3;
+        }
+        return new Vector2i(x, y);
+    }
 
     private Button selectButton;
 
@@ -914,6 +960,7 @@ public class OtherworldOriginScreen extends Screen {
 
     private void renderLeftPanel(GuiGraphics graphics, int mouseX, int mouseY) {
         this.hoveredCompletedLayerIndex = null;
+        this.pendingConfirmSelectionHint = false;
         int x = 10;
         int y = 10;
         int leftViewportBottom = this.height - 10;
@@ -956,16 +1003,28 @@ public class OtherworldOriginScreen extends Screen {
                     }
                     int optionsMouseY = mouseY + this.activeLayerOptionsScrollY;
                     if (optionsTop < leftViewportBottom && leftOptionsClipRight > 10) {
-                        graphics.enableScissor(10, optionsTop, leftOptionsClipRight, leftViewportBottom);
+                        /*
+                         * Icon grid hover + 1px selection inset extend ICON_GRID_HOVER_PAD past each
+                         * cell origin; without extra clip margin the left/top edges are scissored off.
+                         */
+                        int clipPad = isPortraitLayer(layer) ? 0 : ICON_GRID_HOVER_PAD;
+                        int clipLeft = Math.max(0, 10 - clipPad);
+                        int clipTop = Math.max(0, optionsTop - clipPad);
+                        graphics.enableScissor(clipLeft, clipTop, leftOptionsClipRight, leftViewportBottom);
                         graphics.pose().pushPose();
                         graphics.pose().translate(0.0f, (float) -this.activeLayerOptionsScrollY, 0.0f);
                         if (isPortraitLayer(layer)) {
-                            renderPortraitRow(graphics, options, x, optionsTop, mouseX, optionsMouseY);
+                            renderPortraitRow(graphics, options, x, optionsTop, mouseX, optionsMouseY, mouseX, mouseY);
                         } else {
-                            renderIconGrid(graphics, options, x, optionsTop, mouseX, optionsMouseY);
+                            renderIconGrid(graphics, options, x, optionsTop, mouseX, optionsMouseY, mouseX, mouseY);
                         }
                         graphics.pose().popPose();
                         graphics.disableScissor();
+                        if (this.pendingConfirmSelectionHint) {
+                            renderConfirmSelectionHintTooltip(
+                                    graphics, this.pendingConfirmHintScreenX, this.pendingConfirmHintScreenY);
+                            this.pendingConfirmSelectionHint = false;
+                        }
                     }
                     y += contentH;
                 }
@@ -1119,7 +1178,38 @@ public class OtherworldOriginScreen extends Screen {
         }
     }
 
-    private void renderPortraitRow(GuiGraphics graphics, List<Holder<Origin>> options, int startX, int startY, int mouseX, int mouseY) {
+    /** 1px border along the inside edge of a rectangular sprite (top/bottom full width; sides omit corner pixels). */
+    private static void fillInnerBorder1px(GuiGraphics graphics, int x, int y, int w, int h, int argb) {
+        if (w <= 0 || h <= 0) return;
+        graphics.fill(x, y, x + w, Math.min(y + 1, y + h), argb);
+        if (h <= 1) return;
+        graphics.fill(x, y + h - 1, x + w, y + h, argb);
+        if (w <= 1) return;
+        graphics.fill(x, y + 1, x + 1, y + h - 1, argb);
+        graphics.fill(x + w - 1, y + 1, x + w, y + h - 1, argb);
+    }
+
+    /** Same framed tooltip path as power badges ({@link DrawContextAccessor#invokeDrawTooltip}). */
+    private void renderConfirmSelectionHintTooltip(GuiGraphics graphics, int screenMouseX, int screenMouseY) {
+        Component tip = Component.translatable(
+                "otherworldorigins.gui.choose_origin_double_click_hint",
+                Component.translatable("origins.gui.select"));
+        List<ClientTooltipComponent> lines = new ArrayList<>();
+        int margin = 4;
+        int gap = 12;
+        int spaceLeft = Math.max(48, screenMouseX - margin - gap);
+        int spaceRight = Math.max(48, this.width - margin - gap - screenMouseX);
+        int widthLimit = Mth.clamp(Math.max(spaceLeft, spaceRight), 72, 280);
+        BadgeTooltipLinebreaks.addLines(lines, tip, this.font, widthLimit);
+        ((DrawContextAccessor) graphics).invokeDrawTooltip(
+                this.font, lines, screenMouseX, screenMouseY, this.confirmHintTooltipPositioner);
+    }
+
+    /**
+     * @param mouseX/mouseY hit-test coords (Y includes {@link #activeLayerOptionsScrollY} to match the scrolled pose stack)
+     * @param screenMouseX/screenMouseY real cursor position for tooltips
+     */
+    private void renderPortraitRow(GuiGraphics graphics, List<Holder<Origin>> options, int startX, int startY, int mouseX, int mouseY, int screenMouseX, int screenMouseY) {
         boolean hoveredAny = false;
         int effCollapsed = getEffectiveCardCollapsedWidth();
         int totalFixedWidth = options.size() * effCollapsed;
@@ -1147,7 +1237,13 @@ public class OtherworldOriginScreen extends Screen {
 
             boolean isSelected = (this.selectedOrigin != null && this.selectedOrigin.equals(origin));
             if (isSelected) {
-                graphics.fill(x, startY + CARD_HEIGHT + 2, x + width, startY + CARD_HEIGHT + 4, 0xFFFFFFFF);
+                fillInnerBorder1px(graphics, x, startY, width, CARD_HEIGHT, 0xFFFFFFFF);
+            }
+
+            if (isSelected && isHovered) {
+                this.pendingConfirmSelectionHint = true;
+                this.pendingConfirmHintScreenX = screenMouseX;
+                this.pendingConfirmHintScreenY = screenMouseY;
             }
 
             x += width;
@@ -1162,7 +1258,11 @@ public class OtherworldOriginScreen extends Screen {
         }
     }
 
-    private void renderIconGrid(GuiGraphics graphics, List<Holder<Origin>> options, int startX, int startY, int mouseX, int mouseY) {
+    /**
+     * @param mouseX/mouseY hit-test coords (Y includes scroll delta to match the scrolled pose stack)
+     * @param screenMouseX/screenMouseY real cursor position for tooltips
+     */
+    private void renderIconGrid(GuiGraphics graphics, List<Holder<Origin>> options, int startX, int startY, int mouseX, int mouseY, int screenMouseX, int screenMouseY) {
         int x = startX;
         int y = startY;
         int count = 0;
@@ -1177,18 +1277,37 @@ public class OtherworldOriginScreen extends Screen {
                 y += 20;
             }
             
-            boolean isHovered = mouseX >= x && mouseX < x + ICON_SIZE && mouseY >= y && mouseY < y + ICON_SIZE;
+            int hx0 = x - ICON_GRID_HOVER_PAD;
+            int hy0 = y - ICON_GRID_HOVER_PAD;
+            boolean isHovered = mouseX >= hx0 && mouseX < hx0 + ICON_GRID_HOVER_BOX && mouseY >= hy0 && mouseY < hy0 + ICON_GRID_HOVER_BOX;
             if (isHovered) {
                 this.hoveredOrigin = origin;
                 hoveredAny = true;
-                graphics.fill(x - 2, y - 2, x + ICON_SIZE + 2, y + ICON_SIZE + 2, 0x44FFFFFF);
+                graphics.fill(
+                        hx0,
+                        hy0,
+                        hx0 + ICON_GRID_HOVER_BOX,
+                        hy0 + ICON_GRID_HOVER_BOX,
+                        0x44FFFFFF);
             }
             
             renderIcon(graphics, origin, x, y);
             
             boolean isSelected = (this.selectedOrigin != null && this.selectedOrigin.equals(origin));
             if (isSelected) {
-                graphics.fill(x, y + ICON_SIZE + 1, x + ICON_SIZE, y + ICON_SIZE + 2, 0xFFFFFFFF);
+                fillInnerBorder1px(
+                        graphics,
+                        hx0,
+                        hy0,
+                        ICON_GRID_HOVER_BOX,
+                        ICON_GRID_HOVER_BOX,
+                        0xFFFFFFFF);
+            }
+
+            if (isSelected && isHovered) {
+                this.pendingConfirmSelectionHint = true;
+                this.pendingConfirmHintScreenX = screenMouseX;
+                this.pendingConfirmHintScreenY = screenMouseY;
             }
             
             x += 20;
@@ -1689,7 +1808,10 @@ public class OtherworldOriginScreen extends Screen {
                                 cx = x;
                                 cy += 20;
                             }
-                            if (mouseX >= cx && mouseX < cx + ICON_SIZE && optionsMouseY >= cy && optionsMouseY < cy + ICON_SIZE) {
+                            int hx0 = cx - ICON_GRID_HOVER_PAD;
+                            int hy0 = cy - ICON_GRID_HOVER_PAD;
+                            if (mouseX >= hx0 && mouseX < hx0 + ICON_GRID_HOVER_BOX
+                                    && optionsMouseY >= hy0 && optionsMouseY < hy0 + ICON_GRID_HOVER_BOX) {
                                 Holder<Origin> clicked = options.get(j);
                                 if (clicked.equals(this.selectedOrigin)) {
                                     confirmSelection();
