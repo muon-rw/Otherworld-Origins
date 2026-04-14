@@ -1,13 +1,13 @@
 package dev.muon.otherworldorigins.mixin.compat.irons_spellbooks;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import dev.muon.otherworldorigins.client.compat.irons_spellbooks.SyncedSpellDataClientHelper;
 import dev.muon.otherworldorigins.mixin.compat.irons_spellbooks.accessor.SyncedSpellDataAccessor;
 import dev.muon.otherworldorigins.power.EldritchKnowledgePower;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.SchoolType;
 import io.redspace.ironsspellbooks.capabilities.magic.SyncedSpellData;
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
@@ -42,12 +42,7 @@ public class SyncedSpellDataMixin {
             return p;
         }
         if (FMLEnvironment.dist == Dist.CLIENT) {
-            Minecraft mc = Minecraft.getInstance();
-            if (mc.level == null) {
-                return null;
-            }
-            int id = ((SyncedSpellData) (Object) this).getServerPlayerId();
-            return mc.level.getEntity(id) instanceof Player pl ? pl : null;
+            return SyncedSpellDataClientHelper.resolveOwningPlayerFromClientWorld((SyncedSpellData) (Object) this);
         }
         return null;
     }

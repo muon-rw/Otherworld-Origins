@@ -172,8 +172,8 @@ dependencies {
     }
 
     // EMF - wildshape compat testing
-    modImplementation("curse.maven:entity-model-features-844662:5646339")
-    modImplementation("curse.maven:entity-texture-features-fabric-568563:5982136")
+    modCompileOnly("curse.maven:entity-model-features-844662:5646339")
+    modCompileOnly("curse.maven:entity-texture-features-fabric-568563:5982136")
 
     // Pehkui
     modCompileOnly("com.github.Virtuoel:Pehkui:${pehkui_version}-${minecraft_version}-forge")
