@@ -1,6 +1,7 @@
 ## 1.7.1
 - Fix crash with Undead + newer versions of LSO
 - Patch for Hardcore Revival x Origins/Iron's
+- Fix desync of power container on death
 
 ## 1.7.0
 - rest of the owl
