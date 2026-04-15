@@ -242,6 +242,9 @@ dependencies {
     modImplementation("curse.maven:sophisticated-backpacks-422301:7645913")
     modImplementation("curse.maven:sophisticated-core-618298:7645911")
 
+    // Hardcore Revival
+    modImplementation("curse.maven:hardcore-revival-274036:7658890")
+
     // Valoria
     // Aether incompat with dev environment, using old version for now
     // modImplementation("maven.modrinth:valoria:1.0.2.9")
@@ -267,7 +270,7 @@ dependencies {
     modImplementation("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apotheosis_version}")
 
     // Legendary Survival Overhaul
-    modImplementation("curse.maven:legendary-survival-overhaul-840254:6867014")
+    modImplementation("curse.maven:legendary-survival-overhaul-840254:7603852")
 
     // Monobank (Thief)
     modImplementation("curse.maven:thief-839159:6845226")

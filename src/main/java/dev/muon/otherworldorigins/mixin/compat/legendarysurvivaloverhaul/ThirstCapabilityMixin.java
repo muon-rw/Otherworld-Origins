@@ -20,7 +20,7 @@ public class ThirstCapabilityMixin {
         }
         ThirstCapability self = (ThirstCapability) (Object) this;
         self.setHydrationLevel(ThirstCapability.MAX_HYDRATION);
-        self.setThirstExhaustion(0f);
+        self.setExhaustion(0f);
         ci.cancel();
     }
 }

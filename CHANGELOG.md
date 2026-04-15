@@ -1,3 +1,6 @@
+## 1.7.1
+- Fix crash with Undead + newer versions of LSO
+
 ## 1.7.0
 - rest of the owl
 
