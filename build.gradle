@@ -244,6 +244,7 @@ dependencies {
 
     // Hardcore Revival
     modImplementation("curse.maven:hardcore-revival-274036:7658890")
+    modImplementation("curse.maven:balm-531761:7420617")
 
     // Valoria
     // Aether incompat with dev environment, using old version for now
@@ -253,7 +254,7 @@ dependencies {
     modRuntimeOnly("curse.maven:fluffy-fur-1097456:6392791")
 
     // Legendary Monsters
-    modCompileOnly("curse.maven:legendary-monsters-944035:6776766")
+    modImplementation("curse.maven:legendary-monsters-944035:6776766")
 
     // Immersive Melodies
     modImplementation("curse.maven:immersive-melodies-904471:6744792")

@@ -31,6 +31,8 @@
     "compat.bettercombat.PlayerAttackHelperMixin",
     "compat.calio.S2CDynamicRegistryLoginPacketMixin",
     "compat.calio.S2CDynamicRegistryPlayPacketMixin",
+    "compat.hardcorerevival.AbstractSpellKnockoutMixin",
+    "compat.hardcorerevival.C2SUseActivePowersKnockoutMixin",
     "compat.irons_spellbooks.AbstractSpellMixin",
     "compat.irons_spellbooks.SpellHealEventMixin",
     "compat.irons_spellbooks.ServerPlayerEventsMixin",
