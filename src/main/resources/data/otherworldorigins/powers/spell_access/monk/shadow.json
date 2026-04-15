@@ -3,6 +3,7 @@
     "type": "otherworldorigins:allowed_spells",
     "entries": [
         "#otherworldorigins:control",
-        "#otherworldorigins:utility"
+        "#otherworldorigins:utility",
+        "@irons_spellbooks:ender"
     ]
 }

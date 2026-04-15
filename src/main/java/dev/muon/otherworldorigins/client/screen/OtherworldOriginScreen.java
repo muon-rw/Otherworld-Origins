@@ -56,7 +56,12 @@ import dev.muon.otherworldorigins.client.BadgeTooltipLinebreaks;
 import dev.muon.otherworldorigins.client.shapeshift.AnacondaMultipartHandler;
 import dev.muon.otherworldorigins.client.shapeshift.FakeEntityCache;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftRenderHelper;
+import dev.muon.otherworldorigins.power.AllowedSpellsPower;
 import dev.muon.otherworldorigins.power.ShapeshiftPower;
+import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
+import io.redspace.ironsspellbooks.api.spells.SchoolType;
+import net.minecraft.tags.TagKey;
+import net.minecraftforge.registries.tags.ITagManager;
 import com.github.alexthe666.alexsmobs.entity.EntityAnaconda;
 import com.github.alexthe666.alexsmobs.entity.EntityAnacondaPart;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -1557,6 +1562,182 @@ public class OtherworldOriginScreen extends Screen {
         return null;
     }
 
+    private static final ResourceLocation SCHOOL_BADGE_PLACEHOLDER =
+            ResourceLocation.fromNamespaceAndPath("origins", "textures/gui/badge/star.png");
+
+    private record AllowedSpellBadge(ResourceLocation sprite, java.util.List<Component> tooltip) {}
+
+    @Nullable
+    private java.util.List<Component> pendingAllowedSpellsTooltip;
+    private boolean allowedSpellsEverHovered = false;
+    private int allowedSpellsTooltipScroll = 0;
+    private int allowedSpellsLastHoveredIdx = -1;
+    private int allowedSpellsStripX, allowedSpellsStripY, allowedSpellsStripW, allowedSpellsStripH;
+    private boolean allowedSpellsStripActive = false;
+
+    private void renderAllowedSpellsBadges(GuiGraphics graphics, int rightX, int y, int mouseX, int mouseY, Holder<Origin> originHolder) {
+        this.pendingAllowedSpellsTooltip = null;
+        this.allowedSpellsStripActive = false;
+        java.util.List<AllowedSpellBadge> badges = collectAllowedSpellBadges(originHolder.value());
+        boolean isSubclass = originHolder.unwrapKey()
+                .map(k -> k.location().getPath().startsWith("subclass/"))
+                .orElse(false);
+        if (badges.isEmpty() && isSubclass) {
+            badges = java.util.List.of(new AllowedSpellBadge(SCHOOL_BADGE_PLACEHOLDER, java.util.List.of(
+                    Component.translatable("otherworldorigins.gui.allowed_spells.none")
+                            .withStyle(ChatFormatting.GRAY)
+            )));
+        }
+        if (badges.isEmpty()) return;
+        int stride = 10;
+        int n = badges.size();
+        int startX = rightX - (n * stride - 2);
+        int stripW = n * stride - 2;
+        this.allowedSpellsStripX = startX;
+        this.allowedSpellsStripY = y;
+        this.allowedSpellsStripW = stripW;
+        this.allowedSpellsStripH = 8;
+        this.allowedSpellsStripActive = true;
+
+        int hoveredIdx = -1;
+        for (int i = 0; i < n; i++) {
+            int x = startX + i * stride;
+            graphics.blit(badges.get(i).sprite(), x, y, 0, 0, 8, 8, 8, 8);
+            if (mouseX >= x && mouseX < x + 8 && mouseY >= y && mouseY < y + 8) {
+                hoveredIdx = i;
+            }
+        }
+        if (hoveredIdx >= 0) {
+            this.pendingAllowedSpellsTooltip = badges.get(hoveredIdx).tooltip();
+            this.allowedSpellsEverHovered = true;
+            if (hoveredIdx != this.allowedSpellsLastHoveredIdx) {
+                this.allowedSpellsTooltipScroll = 0;
+                this.allowedSpellsLastHoveredIdx = hoveredIdx;
+            }
+        } else {
+            this.allowedSpellsLastHoveredIdx = -1;
+        }
+
+        if (!this.allowedSpellsEverHovered) {
+            float pulse = 0.5f + 0.5f * net.minecraft.util.Mth.sin(this.time * 0.18f);
+            int alpha = (int) (0x55 + pulse * 0xAA);
+            int color = (alpha << 24) | 0xFFFFFF;
+            int x0 = startX - 1;
+            int y0 = y - 1;
+            int x1 = startX + stripW + 1;
+            int y1 = y + 8 + 1;
+            graphics.fill(x0, y0, x1, y0 + 1, color);
+            graphics.fill(x0, y1 - 1, x1, y1, color);
+            graphics.fill(x0, y0, x0 + 1, y1, color);
+            graphics.fill(x1 - 1, y0, x1, y1, color);
+
+            Component label = Component.translatable("otherworldorigins.gui.allowed_spells.hint");
+            int lw = this.font.width(label);
+            int lx = startX + stripW - lw;
+            int ly = y + 11;
+            int textAlpha = (int) (0xAA + pulse * 0x55);
+            int textColor = (textAlpha << 24) | 0xFFFFFF;
+            graphics.drawString(this.font, label.getVisualOrderText(), lx, ly, textColor, true);
+        }
+    }
+
+    private java.util.List<AllowedSpellBadge> collectAllowedSpellBadges(Origin origin) {
+        java.util.List<AllowedSpellBadge> categoryBadges = new java.util.ArrayList<>();
+        java.util.Set<String> seen = new java.util.HashSet<>();
+        java.util.List<Component> additionalLines = new java.util.ArrayList<>();
+        for (Holder<ConfiguredPower<?, ?>> ph : origin.getValidPowers().toList()) {
+            if (!ph.isBound()) continue;
+            collectAllowedSpellBadges(ph.value(), categoryBadges, seen, additionalLines);
+        }
+        java.util.List<AllowedSpellBadge> out = new java.util.ArrayList<>(categoryBadges);
+        if (!additionalLines.isEmpty()) {
+            java.util.List<Component> tt = new java.util.ArrayList<>();
+            tt.add(Component.translatable("otherworldorigins.gui.allowed_spells.additional_header").withStyle(ChatFormatting.GOLD));
+            tt.addAll(additionalLines);
+            out.add(new AllowedSpellBadge(SCHOOL_BADGE_PLACEHOLDER, tt));
+        }
+        return out;
+    }
+
+    private void collectAllowedSpellBadges(ConfiguredPower<?, ?> power, java.util.List<AllowedSpellBadge> categoryBadges, java.util.Set<String> seen, java.util.List<Component> additionalLines) {
+        if (power.getFactory() instanceof AllowedSpellsPower &&
+                power.getConfiguration() instanceof AllowedSpellsPower.Configuration cfg) {
+            for (String entry : cfg.entries()) {
+                if (!seen.add(entry)) continue;
+                if (entry.startsWith("#")) {
+                    AllowedSpellBadge b = makeCategoryBadge(entry.substring(1));
+                    if (b != null) categoryBadges.add(b);
+                } else if (entry.startsWith("@")) {
+                    Component line = makeSchoolLine(entry.substring(1));
+                    if (line != null) additionalLines.add(line);
+                } else {
+                    ResourceLocation loc = parseAllowedSpellsLoc(entry);
+                    if (loc == null) continue;
+                    AbstractSpell spell = SpellRegistry.getSpell(loc);
+                    if (spell != null && spell != SpellRegistry.none()) {
+                        additionalLines.add(Component.translatable("otherworldorigins.gui.allowed_spells.entry",
+                                Component.translatable(spell.getComponentId())).withStyle(ChatFormatting.GRAY));
+                    }
+                }
+            }
+        }
+        for (Holder<ConfiguredPower<?, ?>> sub : power.getContainedPowers().values()) {
+            if (sub.isBound()) collectAllowedSpellBadges(sub.value(), categoryBadges, seen, additionalLines);
+        }
+    }
+
+    @Nullable
+    private AllowedSpellBadge makeCategoryBadge(String tagId) {
+        ResourceLocation loc = parseAllowedSpellsLoc(tagId);
+        if (loc == null) return null;
+        ITagManager<AbstractSpell> tm = SpellRegistry.REGISTRY.get().tags();
+        if (tm == null) return null;
+        TagKey<AbstractSpell> tagKey = TagKey.create(SpellRegistry.SPELL_REGISTRY_KEY, loc);
+        if (!tm.isKnownTagName(tagKey)) return null;
+        java.util.List<Component> tt = new java.util.ArrayList<>();
+        tt.add(Component.translatable("otherworldorigins.gui.allowed_spells.category_header",
+                prettifyName(loc.getPath())).withStyle(ChatFormatting.GOLD));
+        for (AbstractSpell spell : tm.getTag(tagKey)) {
+            tt.add(Component.translatable("otherworldorigins.gui.allowed_spells.entry",
+                    Component.translatable(spell.getComponentId())).withStyle(ChatFormatting.GRAY));
+        }
+        ResourceLocation sprite = ResourceLocation.fromNamespaceAndPath(
+                OtherworldOrigins.MODID, "textures/gui/spell_category/" + loc.getPath() + ".png");
+        return new AllowedSpellBadge(sprite, tt);
+    }
+
+    @Nullable
+    private Component makeSchoolLine(String schoolId) {
+        ResourceLocation loc = parseAllowedSpellsLoc(schoolId);
+        if (loc == null || SchoolRegistry.REGISTRY.get() == null) return null;
+        SchoolType school = SchoolRegistry.REGISTRY.get().getValue(loc);
+        if (school == null) return null;
+        return Component.translatable("otherworldorigins.gui.allowed_spells.school_line",
+                school.getDisplayName().copy()).withStyle(ChatFormatting.GRAY);
+    }
+
+    @Nullable
+    private static ResourceLocation parseAllowedSpellsLoc(String id) {
+        try {
+            return id.contains(":") ? ResourceLocation.tryParse(id)
+                    : ResourceLocation.fromNamespaceAndPath("irons_spellbooks", id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private static String prettifyName(String s) {
+        if (s.isEmpty()) return s;
+        String[] parts = s.split("[_/]");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].isEmpty()) continue;
+            if (sb.length() > 0) sb.append(' ');
+            sb.append(Character.toUpperCase(parts[i].charAt(0))).append(parts[i].substring(1));
+        }
+        return sb.toString();
+    }
+
     private void renderRightPanel(GuiGraphics graphics, int mouseX, int mouseY) {
         Holder<Origin> displayOrigin = getRightPanelDisplayOrigin();
         if (displayOrigin == null || !displayOrigin.isBound()) {
@@ -1582,21 +1763,7 @@ public class OtherworldOriginScreen extends Screen {
         renderIcon(graphics, displayOrigin, panelX + 5, panelY + 5);
         graphics.drawString(this.font, origin.getName(), panelX + 25, panelY + 9, 0xFFFFFF, true);
 
-        Impact impact = origin.getImpact();
-        int impactValue = impact.getImpactValue();
-        int wOffset = impactValue * 8;
-        for (int i = 0; i < 3; i++) {
-            if (i < impactValue) {
-                graphics.blit(WINDOW, panelX + RIGHT_PANEL_WIDTH - 35 + i * 10, panelY + 9, 176 + wOffset, 16, 8, 8);
-            } else {
-                graphics.blit(WINDOW, panelX + RIGHT_PANEL_WIDTH - 35 + i * 10, panelY + 9, 176, 16, 8, 8);
-            }
-        }
-        
-        if (mouseX >= panelX + RIGHT_PANEL_WIDTH - 35 && mouseX <= panelX + RIGHT_PANEL_WIDTH - 5 && mouseY >= panelY + 9 && mouseY <= panelY + 17) {
-            Component ttc = Component.translatable("origins.gui.impact.impact").append(": ").append(impact.getTextComponent());
-            graphics.renderTooltip(this.font, ttc, mouseX, mouseY);
-        }
+        renderAllowedSpellsBadges(graphics, panelX + RIGHT_PANEL_WIDTH - 5, panelY + 9, mouseX, mouseY, displayOrigin);
 
         graphics.enableScissor(panelX, panelY + RIGHT_PANEL_CONTENT_TOP_OFFSET, panelX + RIGHT_PANEL_WIDTH, panelY + panelHeight);
 
@@ -1668,6 +1835,81 @@ public class OtherworldOriginScreen extends Screen {
                 ((DrawContextAccessor)graphics).invokeDrawTooltip(this.font, rb.badge.getTooltipComponents(rb.powerType, widthLimit, this.time, this.font), mouseX, mouseY, BADGE_TOOLTIP_POSITIONER);
             }
         }
+
+        if (this.pendingAllowedSpellsTooltip != null) {
+            drawAllowedSpellsTooltip(graphics, this.pendingAllowedSpellsTooltip, mouseX, mouseY);
+            this.pendingAllowedSpellsTooltip = null;
+        }
+    }
+
+    private int allowedSpellsTooltipMaxScroll = 0;
+
+    private void drawAllowedSpellsTooltip(GuiGraphics graphics, java.util.List<Component> lines, int mouseX, int mouseY) {
+        int lineHeight = 10;
+        int padding = 4;
+        int margin = 8;
+
+        int maxLineWidth = Math.max(80, this.width / 2 - margin * 2 - padding * 2 - 5);
+        int contentW = 0;
+        for (Component line : lines) {
+            contentW = Math.max(contentW, Math.min(this.font.width(line), maxLineWidth));
+        }
+
+        java.util.List<FormattedCharSequence> wrapped = new java.util.ArrayList<>();
+        for (Component line : lines) {
+            wrapped.addAll(this.font.split(line, contentW));
+        }
+        int contentH = wrapped.size() * lineHeight;
+
+        int maxBoxH = this.height - margin * 2;
+        int boxH = Math.min(contentH + padding * 2, maxBoxH);
+        int boxW = contentW + padding * 2;
+
+        int viewportH = boxH - padding * 2;
+        int maxScroll = Math.max(0, contentH - viewportH);
+        this.allowedSpellsTooltipMaxScroll = maxScroll;
+        if (maxScroll > 0) {
+            boxW += 5;
+        }
+        this.allowedSpellsTooltipScroll = net.minecraft.util.Mth.clamp(this.allowedSpellsTooltipScroll, 0, maxScroll);
+
+        int x = mouseX + 12;
+        int y = mouseY - 12;
+        if (x + boxW > this.width - margin) x = mouseX - 12 - boxW;
+        if (x < margin) x = margin;
+        if (y + boxH > this.height - margin) y = this.height - margin - boxH;
+        if (y < margin) y = margin;
+
+        graphics.pose().pushPose();
+        graphics.pose().translate(0, 0, 400);
+
+        int bg = 0xF0100010;
+        int border = 0xFF5000FF;
+        graphics.fill(x, y, x + boxW, y + boxH, bg);
+        graphics.fill(x - 1, y, x, y + boxH, border);
+        graphics.fill(x + boxW, y, x + boxW + 1, y + boxH, border);
+        graphics.fill(x, y - 1, x + boxW, y, border);
+        graphics.fill(x, y + boxH, x + boxW, y + boxH + 1, border);
+
+        graphics.enableScissor(x + padding, y + padding, x + padding + contentW, y + padding + viewportH);
+        int cy = y + padding - this.allowedSpellsTooltipScroll;
+        for (FormattedCharSequence line : wrapped) {
+            graphics.drawString(this.font, line, x + padding, cy, 0xFFFFFFFF, false);
+            cy += lineHeight;
+        }
+        graphics.disableScissor();
+
+        if (maxScroll > 0) {
+            int trackX = x + boxW - 5;
+            int trackY = y + padding;
+            int trackH = viewportH;
+            graphics.fill(trackX, trackY, trackX + 3, trackY + trackH, 0x44FFFFFF);
+            int thumbH = Math.max(8, (int) ((float) viewportH / contentH * trackH));
+            int thumbY = trackY + (int) ((float) this.allowedSpellsTooltipScroll / maxScroll * (trackH - thumbH));
+            graphics.fill(trackX, thumbY, trackX + 3, thumbY + thumbH, 0xCCFFFFFF);
+        }
+
+        graphics.pose().popPose();
     }
 
     private void renderRightPanelScrollbar(GuiGraphics graphics, int mouseX, int mouseY) {
@@ -2064,6 +2306,16 @@ public class OtherworldOriginScreen extends Screen {
     
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scroll) {
+        if (this.allowedSpellsStripActive
+                && mouseX >= this.allowedSpellsStripX
+                && mouseX < this.allowedSpellsStripX + this.allowedSpellsStripW
+                && mouseY >= this.allowedSpellsStripY
+                && mouseY < this.allowedSpellsStripY + this.allowedSpellsStripH
+                && this.allowedSpellsTooltipMaxScroll > 0) {
+            int ns = this.allowedSpellsTooltipScroll - (int) scroll * 10;
+            this.allowedSpellsTooltipScroll = net.minecraft.util.Mth.clamp(ns, 0, this.allowedSpellsTooltipMaxScroll);
+            return true;
+        }
         Holder<Origin> displayOrigin = getRightPanelDisplayOrigin();
         boolean rightOpen = displayOrigin != null && displayOrigin.isBound();
         boolean rightConsumed = false;
