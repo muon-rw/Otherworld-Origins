@@ -53,6 +53,7 @@
 		{"id":"soulsweapons:moonknight","required":false},
 		{"id":"traveloptics:aqua_grandmaster","required":false},
 		{"id":"traveloptics:the_nightwarden","required":false},
-		{"id":"traveloptics:enraged_dead_king","required":false}
+		{"id":"traveloptics:enraged_dead_king","required":false},
+		{"id":"valoria:wicked_crystal","required":false}
 	]
 }
