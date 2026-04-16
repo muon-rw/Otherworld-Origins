@@ -2,6 +2,7 @@
 - Fix crash with Undead + newer versions of LSO
 - Patch for Hardcore Revival x Origins/Iron's
 - Fix desync of power container on death
+- Spell access badges
 
 ## 1.7.0
 - rest of the owl
