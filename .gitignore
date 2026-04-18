@@ -25,7 +25,5 @@ run-data
 .idea
 libs
 
-.cursor/rules
-.cursor/skills
-.claude/skills
-/.cursor/cli.json
+.cursor/
+.claude/
