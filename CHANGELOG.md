@@ -5,6 +5,7 @@
 - Alchemist artificer rework: brewing-stand potions you craft are now Artisan Brews — 50% longer duration on every effect, with the bonus carrying over to anyone who drinks them. Tooltip shows the boosted values in purple.
 - Chemical Mastery (Restoration/Negation) now further refines your Artisan Brews in their category: an additional +50% duration and +1 amplifier on matching effects (2.25× duration, +1 level total).
 - Fix `origins:prevent_death` (wildshape revert, Arcane Ward) being bypassed by Hardcore Revival's knockout — now runs before knockout triggers.
+- Nerf wildshape on-death-revert heal
 
 ## 1.7.1
 - Fix crash with Undead + newer versions of LSO
