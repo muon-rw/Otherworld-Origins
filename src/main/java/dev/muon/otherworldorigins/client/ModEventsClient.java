@@ -33,14 +33,16 @@ public class ModEventsClient {
 
     @SubscribeEvent
     public static void registerPlayerLayers(EntityRenderersEvent.AddLayers event) {
-        if (!ModList.get().isLoaded("goblins_tyranny")) {
-            return;
-        }
+        boolean goblinsTyrannyLoaded = ModList.get().isLoaded("goblins_tyranny");
         for (String skin : event.getSkins()) {
             PlayerRenderer renderer = event.getPlayerSkin(skin);
-            if (renderer != null) {
+            if (renderer == null) {
+                continue;
+            }
+            if (goblinsTyrannyLoaded) {
                 renderer.addLayer(new GoblinKinFakeEarsLayer(renderer));
             }
+            // More renderers here
         }
     }
 

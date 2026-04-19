@@ -3,6 +3,7 @@ package dev.muon.otherworldorigins.client.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.network.C2SRevertLayerOriginsMessage;
+import dev.muon.otherworldorigins.network.CheckLeveledLayersMessage;
 import dev.muon.otherworldorigins.util.ClientLayerScreenHelper;
 import dev.muon.otherworldorigins.util.ElementalDisciplineSpellDisplay;
 import dev.muon.otherworldorigins.network.RequestLayerValidationMessage;
@@ -358,6 +359,7 @@ public class OtherworldOriginScreen extends Screen {
 
         if (this.dynamicPromptMode) {
             Minecraft.getInstance().setScreen(null);
+            OtherworldOrigins.CHANNEL.sendToServer(new CheckLeveledLayersMessage());
             return;
         }
 

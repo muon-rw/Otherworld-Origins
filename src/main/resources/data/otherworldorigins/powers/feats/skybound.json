@@ -1,0 +1,100 @@
+{
+    "hidden": true,
+    "type": "origins:multiple",
+    "reduced_fall": {
+        "type": "apoli:modify_falling",
+        "modifier": {
+            "operation": "multiply_base",
+            "value": -0.85,
+            "name": "Skybound reduced gravity"
+        },
+        "condition": {
+            "type": "origins:using_item",
+            "item_condition": {
+                "type": "origins:or",
+                "conditions": [
+                    {
+                        "type": "origins:ingredient",
+                        "ingredient": {
+                            "tag": "otherworldorigins:bows"
+                        }
+                    },
+                    {
+                        "type": "otherworldorigins:is_bow"
+                    }
+                ]
+            }
+        }
+    },
+    "no_fall_damage": {
+        "type": "origins:modify_damage_taken",
+        "damage_condition": {
+            "type": "origins:in_tag",
+            "tag": "is_fall"
+        },
+        "modifier": {
+            "operation": "multiply_total_multiplicative",
+            "value": -1
+        },
+        "condition": {
+            "type": "origins:using_item",
+            "item_condition": {
+                "type": "origins:or",
+                "conditions": [
+                    {
+                        "type": "origins:ingredient",
+                        "ingredient": {
+                            "tag": "otherworldorigins:bows"
+                        }
+                    },
+                    {
+                        "type": "otherworldorigins:is_bow"
+                    }
+                ]
+            }
+        }
+    },
+    "arrest_fall": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "rising_action": {
+            "type": "origins:if_else",
+            "condition": {
+                "type": "origins:fall_distance",
+                "comparison": ">",
+                "compare_to": 0.5
+            },
+            "if_action": {
+                "type": "otherworldorigins:set_velocity",
+                "y": 0,
+                "set": true
+            }
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:using_item",
+                    "item_condition": {
+                        "type": "origins:or",
+                        "conditions": [
+                            {
+                                "type": "origins:ingredient",
+                                "ingredient": {
+                                    "tag": "otherworldorigins:bows"
+                                }
+                            },
+                            {
+                                "type": "otherworldorigins:is_bow"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "origins:on_block",
+                    "inverted": true
+                }
+            ]
+        }
+    }
+}

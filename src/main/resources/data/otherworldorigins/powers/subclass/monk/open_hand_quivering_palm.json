@@ -8,6 +8,14 @@
         "type": "origins:and",
         "conditions": [
             {
+                "type": "origins:actor_condition",
+                "condition": {
+                    "type": "otherworldorigins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                }
+            },
+            {
                 "type": "origins:target_condition",
                 "condition": {
                     "type": "origins:living"

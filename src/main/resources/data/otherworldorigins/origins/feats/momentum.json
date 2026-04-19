@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"otherworldorigins:feats/momentum"
+	],
+	"icon": {
+		"item": "minecraft:firework_rocket"
+	},
+	"impact": 1,
+	"order": 0
+}

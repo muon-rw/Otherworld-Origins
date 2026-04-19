@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"otherworldorigins:feats/hail_of_arrows"
+	],
+	"icon": {
+		"item": "minecraft:spectral_arrow"
+	},
+	"impact": 1,
+	"order": 0
+}

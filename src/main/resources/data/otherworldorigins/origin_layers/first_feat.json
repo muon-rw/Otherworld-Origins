@@ -275,6 +275,66 @@
         "conditions": [
           {
             "type": "origins:origin",
+            "origin": "otherworldorigins:feats/hail_of_arrows",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:feats/hail_of_arrows"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/skybound",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:feats/skybound"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "otherworldorigins:feats/momentum",
+            "inverted": true
+          },
+          {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "otherworldorigins:feats/momentum"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
             "origin": "otherworldorigins:feats/shield_master",
             "inverted": true
           },

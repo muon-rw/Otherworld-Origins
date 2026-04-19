@@ -10,6 +10,7 @@ import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.restrictions.EnchantmentRestrictions;
 import dev.muon.otherworldorigins.restrictions.SpellRestrictions;
 import dev.muon.otherworldorigins.skills.ModSkills;
+import dev.muon.otherworldorigins.util.ArtisanBrewNbt;
 import dev.muon.otherworldorigins.util.MasterworkAffixNbt;
 import dev.muon.otherworldorigins.util.SoulOfArtificeNbt;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
@@ -69,8 +70,23 @@ public class ItemStackMixin {
         otherworld$addReforgeTableTooltips(modifiedTooltips, stack, player);
         otherworld$addMasterworkLine(modifiedTooltips, stack);
         otherworld$addSoulOfArtificeLine(modifiedTooltips, stack);
+        otherworld$addArtisanBrewLine(modifiedTooltips, stack);
 
         return modifiedTooltips;
+    }
+
+    @Unique
+    private void otherworld$addArtisanBrewLine(List<Component> tooltips, ItemStack stack) {
+        if (!ArtisanBrewNbt.has(stack)) {
+            return;
+        }
+        Component line = Component.translatable("item.otherworldorigins.artisan_brew")
+                .withStyle(ChatFormatting.LIGHT_PURPLE);
+        if (tooltips.isEmpty()) {
+            tooltips.add(line);
+            return;
+        }
+        tooltips.add(1, line);
     }
 
     @Unique

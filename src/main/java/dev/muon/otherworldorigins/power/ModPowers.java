@@ -59,6 +59,13 @@ public class ModPowers {
     public static final RegistryObject<ActionOnSpellDamagePower> ACTION_ON_SPELL_DAMAGE = POWER_FACTORIES.register("action_on_spell_damage", ActionOnSpellDamagePower::new);
     public static final RegistryObject<PowerFactory<RecastSpellPower.Configuration>> RECAST_SPELL = POWER_FACTORIES.register("recast_spell", RecastSpellPower::new);
     public static final RegistryObject<ArcaneWardPreventDeathPower> ARCANE_WARD_PREVENT_DEATH = POWER_FACTORIES.register("arcane_ward_prevent_death", ArcaneWardPreventDeathPower::new);
+    public static final RegistryObject<ModifyProjectileVelocityPower> MODIFY_PROJECTILE_VELOCITY = POWER_FACTORIES.register("modify_projectile_velocity", ModifyProjectileVelocityPower::new);
+    public static final RegistryObject<ModifyProjectileAccuracyPower> MODIFY_PROJECTILE_ACCURACY = POWER_FACTORIES.register("modify_projectile_accuracy", ModifyProjectileAccuracyPower::new);
+    public static final RegistryObject<ModifyPierceLevelPower> MODIFY_PIERCE_LEVEL = POWER_FACTORIES.register("modify_pierce_level", ModifyPierceLevelPower::new);
+    public static final RegistryObject<MultishotPower> MULTISHOT = POWER_FACTORIES.register("multishot", MultishotPower::new);
+    public static final RegistryObject<MomentumPower> MOMENTUM = POWER_FACTORIES.register("momentum", MomentumPower::new);
+    public static final RegistryObject<PowerFactory<NoConfiguration>> PREVENT_ITEM_SLOWDOWN = POWER_FACTORIES.register("prevent_item_slowdown", PreventItemSlowdownPower::new);
+    public static final RegistryObject<PowerFactory<ModifyBrewedPotionPower.Configuration>> MODIFY_BREWED_POTION = POWER_FACTORIES.register("modify_brewed_potion", ModifyBrewedPotionPower::new);
 
 
     private static <T extends PowerFactory<?>> RegistryObject<T> registerConditional(String name, Supplier<T> factory, String modId) {

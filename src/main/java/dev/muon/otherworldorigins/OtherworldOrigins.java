@@ -6,6 +6,7 @@ import dev.muon.otherworldorigins.effect.ModEffects;
 import dev.muon.otherworldorigins.condition.ModConditions;
 import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import dev.muon.otherworldorigins.attribute.ModAttributes;
+import dev.muon.otherworldorigins.capability.BrewerTrackerCapability;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.item.ModItems;
 import dev.muon.otherworldorigins.network.*;
@@ -77,6 +78,7 @@ public class OtherworldOrigins {
         ModPassives.register(modEventBus);
         ModSkills.register(modEventBus);
 
+        BrewerTrackerCapability.register(modEventBus, MinecraftForge.EVENT_BUS);
 
         MinecraftForge.EVENT_BUS.register(this);
 
