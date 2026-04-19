@@ -38,6 +38,7 @@
     "compat.calio.S2CDynamicRegistryPlayPacketMixin",
     "compat.hardcorerevival.AbstractSpellKnockoutMixin",
     "compat.hardcorerevival.C2SUseActivePowersKnockoutMixin",
+    "compat.hardcorerevival.KnockoutHandlerPreventDeathMixin",
     "compat.irons_spellbooks.AbstractSpellMixin",
     "compat.irons_spellbooks.SpellHealEventMixin",
     "compat.irons_spellbooks.ServerPlayerEventsMixin",

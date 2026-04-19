@@ -122,7 +122,7 @@
             "actions": [
                 {
                     "type": "origins:heal",
-                    "amount": 1000
+                    "amount": 20
                 },
                 {
                     "type": "origins:execute_command",

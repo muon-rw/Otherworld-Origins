@@ -38,6 +38,7 @@ import java.util.UUID;
 public abstract class BrewingStandBlockEntityMixin {
 
     @WrapOperation(
+            // Ignore IDE complaint, do not set to remap = false
             method = "doBrew",
             at = @At(value = "INVOKE", target = "Lnet/minecraftforge/common/brewing/BrewingRecipeRegistry;brewPotions(Lnet/minecraft/core/NonNullList;Lnet/minecraft/world/item/ItemStack;[I)V")
     )
