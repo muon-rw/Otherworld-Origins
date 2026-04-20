@@ -259,6 +259,10 @@ dependencies {
     // Immersive Melodies
     modImplementation("curse.maven:immersive-melodies-904471:6744792")
 
+    // Perception - Debug arrow trails
+    modImplementation("curse.maven:perception-1112793:6451454")
+    modImplementation("curse.maven:octo-lib-916747:6274623")
+
     // Alex's
     modImplementation("curse.maven:alexs-mobs-426558:5160697")
 

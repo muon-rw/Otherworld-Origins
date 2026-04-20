@@ -1,3 +1,7 @@
+## 1.9.0
+- Patch vanilla bug with arrow velocity
+- Wildshape scaling buffs
+
 ## 1.8.0
 - Add 3 new Archery-focused feats; Momentum, Skybound, Hail of Arrows
 - Improved the Sharpshooter Feat, modified the Mobile feat

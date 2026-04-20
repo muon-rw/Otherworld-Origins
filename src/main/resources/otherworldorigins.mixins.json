@@ -67,6 +67,7 @@
     "ench_restrictions.ThrownTridentMixin",
     "network.ClientboundCustomPayloadPacketMixin",
     "network.ClientboundCustomQueryPacketMixin",
+    "network.ClientboundSetEntityMotionPacketMixin",
     "network.ServerboundCustomPayloadPacketMixin",
     "origins_patches.ChooseOriginScreenMixin",
     "origins_patches.OriginContainerMixin",
