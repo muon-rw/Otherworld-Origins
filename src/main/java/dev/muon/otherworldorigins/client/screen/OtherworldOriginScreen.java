@@ -1868,7 +1868,9 @@ public class OtherworldOriginScreen extends Screen {
         this.allowedSpellsStripActive = false;
         int stripRightX = panelX + RIGHT_PANEL_WIDTH - 5;
         int stripY = panelY + 9;
-        if (!renderAllowedSpellsBadges(graphics, stripRightX, stripY, mouseX, mouseY, displayOrigin)) {
+        boolean spellBadgesShown = OtherworldOriginsConfig.enableSpellRestrictions()
+                && renderAllowedSpellsBadges(graphics, stripRightX, stripY, mouseX, mouseY, displayOrigin);
+        if (!spellBadgesShown) {
             renderWildshapeScalingBadges(graphics, stripRightX, stripY, mouseX, mouseY, displayOrigin);
         }
 
