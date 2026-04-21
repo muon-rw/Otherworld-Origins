@@ -110,6 +110,7 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+    maven { url "https://maven.fzzyhmstrs.me/" }
     maven {
         url "https://maven.shadowsoffire.dev/releases"
         content {
@@ -209,6 +210,10 @@ dependencies {
     modRuntimeOnly("curse.maven:jei-238222:7391695")
     modRuntimeOnly("curse.maven:jade-324717:${jade_id}")
     modRuntimeOnly("me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}")
+
+    // FzzyConfig
+    implementation("me.fzzyhmstrs:fzzy_config:${fzzy_config}+forge")
+    modImplementation("curse.maven:kotlin-for-forge-351264:7291067")
 
     // Common Shared Deps
     modImplementation("dev.isxander:yet-another-config-lib:${project.yacl_version}")
