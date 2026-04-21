@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.restrictions;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import dev.muon.otherworldorigins.power.AllowedSpellsPower;
 import dev.muon.otherworldorigins.power.ModPowers;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
@@ -23,6 +24,9 @@ public class SpellRestrictions {
     }
 
     public static boolean isSpellAllowed(Player player, AbstractSpell spell) {
+        if (!OtherworldOriginsConfig.enableSpellRestrictions()) {
+            return true;
+        }
         ITagManager<AbstractSpell> tagManager = SpellRegistry.REGISTRY.get().tags();
         if (tagManager != null && tagManager.getTag(ModSpellTags.UNRESTRICTED).contains(spell)) {
             return true;

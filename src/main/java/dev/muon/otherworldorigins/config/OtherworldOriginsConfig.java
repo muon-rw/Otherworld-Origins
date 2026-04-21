@@ -31,6 +31,12 @@ public class OtherworldOriginsConfig extends Config {
         public ValidatedBoolean enabled = new ValidatedBoolean(true);
     }
 
+    public SpellRestrictionsSection spellRestrictions = new SpellRestrictionsSection();
+
+    public static class SpellRestrictionsSection extends ConfigSection {
+        public ValidatedBoolean enabled = new ValidatedBoolean(true);
+    }
+
     public DurabilityReworkSection durabilityRework = new DurabilityReworkSection();
 
     public static class DurabilityReworkSection extends ConfigSection {
@@ -83,6 +89,10 @@ public class OtherworldOriginsConfig extends Config {
 
     public static boolean enableEnchantmentRestrictions() {
         return INSTANCE != null && INSTANCE.enchantmentRestrictions.enabled.get();
+    }
+
+    public static boolean enableSpellRestrictions() {
+        return INSTANCE != null && INSTANCE.spellRestrictions.enabled.get();
     }
 
     public static boolean enableDurabilityRework() {
