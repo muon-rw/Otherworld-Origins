@@ -2180,7 +2180,7 @@ public class OtherworldOriginScreen extends Screen {
     }
 
     private MutableComponent appendEnchantmentAccess(MutableComponent desc, String className) {
-        if (!OtherworldOriginsConfig.ENABLE_ENCHANTMENT_RESTRICTIONS.get()) return desc;
+        if (!OtherworldOriginsConfig.enableEnchantmentRestrictions()) return desc;
 
         List<Enchantment> classEnchantments = EnchantmentRestrictions.getEnchantmentTextForClass(className);
         if (classEnchantments.isEmpty()) return desc;

@@ -35,7 +35,7 @@ public class EnchantmentRestrictions {
     }
 
     public static boolean isEnchantmentAllowed(Player player, Enchantment enchantment) {
-        if (!OtherworldOriginsConfig.ENABLE_ENCHANTMENT_RESTRICTIONS.get()) {
+        if (!OtherworldOriginsConfig.enableEnchantmentRestrictions()) {
             return true;
         }
         ResourceLocation enchantmentId = ForgeRegistries.ENCHANTMENTS.getKey(enchantment);

@@ -16,12 +16,12 @@ import dev.muon.otherworldorigins.skills.ModPassives;
 import dev.muon.otherworldorigins.skills.ModSkills;
 import dev.muon.otherworldorigins.sound.ModSounds;
 import dev.muon.otherworldorigins.spells.ModSpells;
+import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
+import me.fzzyhmstrs.fzzy_config.api.RegisterType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkDirection;
@@ -55,11 +55,10 @@ public class OtherworldOrigins {
     public OtherworldOrigins(FMLJavaModLoadingContext context) {
 
         OtherworldOrigins.LOGGER.info("Loading Otherworld Origins");
-        context.registerConfig(ModConfig.Type.COMMON, OtherworldOriginsConfig.SPEC);
+        OtherworldOriginsConfig.setInstance(
+                ConfigApiJava.registerAndLoadConfig(OtherworldOriginsConfig::new, RegisterType.BOTH));
 
         IEventBus modEventBus = context.getModEventBus();
-        modEventBus.addListener(this::onConfigLoad);
-        modEventBus.addListener(this::onConfigReload);
         modEventBus.addListener(this::commonSetup);
 
         ModAttributes.register(modEventBus);
@@ -83,11 +82,6 @@ public class OtherworldOrigins {
         MinecraftForge.EVENT_BUS.register(this);
 
         registerMessages();
-    }
-
-    private void onConfigLoad(final ModConfigEvent.Loading event) {
-    }
-    private void onConfigReload(final ModConfigEvent.Reloading event) {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

@@ -1,3 +1,7 @@
+## 2.0.0
+- Migrate to FzzyConfig
+- Patch Origins Power Container login/dim change Power Sync race condition
+
 ## 1.9.0
 - Patch vanilla bug with arrow velocity
 - Wildshape scaling buffs

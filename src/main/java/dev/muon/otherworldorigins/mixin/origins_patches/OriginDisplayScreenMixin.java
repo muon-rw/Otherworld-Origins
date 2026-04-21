@@ -65,7 +65,7 @@ public abstract class OriginDisplayScreenMixin {
 
     @Unique
     private MutableComponent appendEnchantmentAccess(MutableComponent desc, String className) {
-        if (!OtherworldOriginsConfig.ENABLE_ENCHANTMENT_RESTRICTIONS.get()) {
+        if (!OtherworldOriginsConfig.enableEnchantmentRestrictions()) {
             return desc;
         }
 

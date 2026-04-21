@@ -35,12 +35,12 @@ public class GiveStarterKitMessage {
             if (player == null) {
                 return;
             }
-            if (!OtherworldOriginsConfig.SPEC.isLoaded()) {
+            if (OtherworldOriginsConfig.getInstance() == null) {
                 LOGGER.warn("Config not loaded, cannot give starter kit");
                 return;
             }
 
-            StarterKitUtil.giveItemEntries(player, OtherworldOriginsConfig.STARTER_KIT_ITEMS.get());
+            StarterKitUtil.giveItemEntries(player, OtherworldOriginsConfig.starterKitItems());
 
             IOriginContainer originContainer = IOriginContainer.get(player).resolve().orElse(null);
             if (originContainer == null) {
@@ -59,7 +59,7 @@ public class GiveStarterKitMessage {
             }
 
             ResourceLocation resolvedClassOrigin = classOriginKey.location();
-            List<? extends String> classEntries = OtherworldOriginsConfig.CLASS_STARTER_KIT_ENTRIES.get();
+            List<? extends String> classEntries = OtherworldOriginsConfig.classStarterKitEntries();
             for (String row : classEntries) {
                 String[] parts = row.split("\\|", 4);
                 if (parts.length < 3) {
