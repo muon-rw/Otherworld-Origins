@@ -23,36 +23,9 @@
         "type": "origins:attribute",
         "modifiers": [
             {
-                "name": "Wildshape max health",
-                "attribute": "minecraft:generic.max_health",
-                "operation": "addition",
-                "value": 30
-            },
-            {
-                "attribute": "minecraft:generic.attack_damage",
-                "operation": "addition",
-                "value": 11
-            },
-            {
-                "attribute": "minecraft:generic.attack_speed",
-                "operation": "addition",
-                "value": -2.8,
-                "name": "Wildshape attack speed"
-            },
-            {
                 "attribute": "minecraft:generic.movement_speed",
                 "operation": "multiply_base",
                 "value": 0.1
-            },
-            {
-                "attribute": "minecraft:generic.armor",
-                "operation": "addition",
-                "value": 6
-            },
-            {
-                "attribute": "minecraft:generic.knockback_resistance",
-                "operation": "addition",
-                "value": 0.4
             },
             {
                 "attribute": "legendarysurvivaloverhaul:cold_resistance",
@@ -61,6 +34,90 @@
                 "name": "Wildshape cold resistance"
             }
         ]
+    },
+    "movement_speed_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.movement_speed",
+        "operation": "multiply_base",
+        "starting_value": 0.0,
+        "value_per_level": 0.015
+    },
+    "max_health_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 30.0,
+        "value_per_level": 3.2,
+        "update_health": false
+    },
+    "max_health_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 2.6,
+        "update_health": false,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_damage_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 11.0,
+        "value_per_level": 0.55
+    },
+    "attack_damage_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.8,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_speed_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": -2.8,
+        "value_per_level": 0.045
+    },
+    "attack_speed_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.055,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "armor_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "starting_value": 6.0,
+        "value_per_level": 0.3
+    },
+    "armor_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.3,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "kb_resist_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.knockback_resistance",
+        "operation": "addition",
+        "starting_value": 0.4,
+        "value_per_level": 0.02
+    },
+    "kb_resist_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.knockback_resistance",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.02,
+        "aptitude": "justlevelingfork:magic"
     },
     "antler_toss": {
         "type": "origins:action_on_hit",

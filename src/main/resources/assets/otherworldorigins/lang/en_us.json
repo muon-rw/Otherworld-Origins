@@ -2,13 +2,17 @@
   "otherworldorigins.action.cannot_use_while_casting": "You can not use this while casting a spell!",
   "otherworldorigins.restriction.not_attuned": "You are not attuned to this spell",
   "otherworldorigins.disconnect.validation_failed": "Failed to validate origin layers after multiple attempts. Please try reconnecting. If this happens repeatedly, please check your network connection.",
-
   "otherworldorigins.gui.allowed_spells.hint": "Allowed Spells (Hover)",
   "otherworldorigins.gui.allowed_spells.additional_header": "Additional Spells:",
   "otherworldorigins.gui.allowed_spells.category_header": "%s Spells:",
   "otherworldorigins.gui.allowed_spells.school_line": "- All %s spells",
   "otherworldorigins.gui.allowed_spells.entry": "- %s",
   "otherworldorigins.gui.allowed_spells.none": "You can not learn any spells, only cast those built in to your class or race abilities or cantrips (if any).",
+  "otherworldorigins.gui.scaling.hint": "Scaling Info (Hover)",
+  "otherworldorigins.gui.scaling.char_header": "Per Character Level:",
+  "otherworldorigins.gui.scaling.magic_header": "Per Magic Aptitude:",
+  "otherworldorigins.gui.scaling.line": "• %s: %s",
+  "otherworldorigins.gui.scaling.note": "Added to base stats on top of the shape's listed values. Character level and Magic aptitude scale independently.",
   "otherworldorigins.gui.enchantment_access": "Enchantments:",
   "otherworldorigins.gui.enchantment_restriction": "Only %s can make use of the %s enchantment",
   "otherworldorigins.gui.badge.cantrip": "Cantrips are low-level spells that have a short cooldown and low mana cost. \n\nThey have a separate keybind, bypass class restrictions, and do not use up a spell slot.",
@@ -51,7 +55,6 @@
   "passive.otherworldorigins.int_cooldown_reduction.description": "Reduces the time between spell casts.",
   "passive.otherworldorigins.health_per_level": "Constitution Modifier",
   "passive.otherworldorigins.health_per_level.description": "Gain an additional 1/2 heart per Character Level.",
-
   "otherworldorigins.tooltip.advanced_table_restricted": "Requires the Legendary Smith Skill and an Underdark subrace",
   "otherworldorigins.tooltip.basic_table_restricted": "Requires an Underdark subrace, or the Legendary Smith skill",
   "otherworldorigins.tooltip.repair_materials_hold_shift": "Repair Materials [Shift]",
@@ -86,14 +89,12 @@
   "otherworldorigins.gui.layer_origin": "%s: %s",
   "otherworldorigins.gui.choose_origin_double_click_hint": "Double-click to confirm, or press %s.",
   "otherworldorigins.gui.feats": "Feats:",
-
   "key.categories.otherworldorigins": "Otherworld Origins",
   "key.otherworldorigins.cantrip_race": "Cantrip/Ability (Race)",
   "key.otherworldorigins.cantrip_one": "Cantrip/Ability (Class) 1",
   "key.otherworldorigins.cantrip_two": "Cantrip/Ability (Class) 2",
   "key.otherworldorigins.cantrip_three": "Cantrip/Ability (Class) 3",
   "key.otherworldorigins.toggle_dark_vision": "Toggle Dark Vision",
-
   "effect.otherworldorigins.golem_timer": "Summoned Golem",
   "effect.otherworldorigins.golem_timer.description": "Displays the duration remaining on your summons, and their count",
   "effect.otherworldorigins.favored_foe": "Favored Foe",
@@ -112,7 +113,6 @@
   "effect.otherworldorigins.quivering_palm_lockout.description": "Recently struck by Quivering Palm; temporarily immune to another proc from the same monk.",
   "effect.otherworldorigins.beast_timer": "Summoned Beast",
   "effect.otherworldorigins.beast_timer.description": "Displays the duration remaining on your summons, and their count",
-
   "origin.origins.human.description": "-§l Notable Changes§r: \n§oNone§r\n\n A human's fate is more open than most - venture forth with no benefits or drawbacks.",
   "origin.otherworldorigins.race/human.name": "Human",
   "origin.otherworldorigins.race/human.description": "• Medium Size \n• +1 to All Stats§r\n• 10% Discount from Villagers§r\n\n§oVersatile and adaptable, perfectly prepared for the full spectrum of challenges one may face on an adventure.",
@@ -178,7 +178,6 @@
   "origin.otherworldorigins.subrace/dragonborn/white.description": "• Cold Breath Attack§r\n\n§oHardy as the frozen tundra, white dragonborn thrive where others shiver. Their frosty demeanor hides hearts as vast and deep as glaciers.",
   "origin.otherworldorigins.race/tiefling.name": "Tiefling",
   "origin.otherworldorigins.race/tiefling.description": "• Medium Size§r\n• +2 Charisma§r\n• +1 Intelligence§r\n• Darkvision§r\n• Hellish Resistance§r\n• Infernal Legacy§r\n\n§oA hint of brimstone in their wake and mischief in their eyes; Tieflings are devilishly clever.",
-
   "origin.otherworldorigins.race/undead.name": "Undead",
   "origin.otherworldorigins.race/undead.description": "§oNeither alive nor dead, cursed to walk this world until their creator's purpose is served.§r\n\n§nSubraces§r\nZombie\nSkeleton\nWither Skeleton",
   "origin.otherworldorigins.subrace/undead/zombie.name": "Zombie",
@@ -195,7 +194,6 @@
   "origin.otherworldorigins.subrace/other/hobgoblin.description": "• Medium Size§r\n• Gold Proficiency (Increased Gold Stats)§r\n• Heat Resistance§r\n• +1 Strength§r\n\n§oWarriors by nature, with an innate hot temper, though more conscientious and resilient than their goblin relatives.",
   "origin.otherworldorigins.subrace/other/goblin.name": "Goblin",
   "origin.otherworldorigins.subrace/other/goblin.description": "• Medium Size§r\n• Gold Proficiency (Increased Gold Stats)§r\n• Cold Resistance§r\n• +1 Dexterity§r\n\n§oSmall, green, and perpetually underestimated, goblins use their miniature form to great advantage. Keep an eye on your coin purse.",
-
   "origin.otherworldorigins.apts/one/str.name": "Strength",
   "origin.otherworldorigins.apts/one/str.description": "• +1 Strength",
   "origin.otherworldorigins.apts/two/str.name": "Strength",
@@ -228,7 +226,6 @@
   "origin.otherworldorigins.apts/one/lck.description": "• +1 Luck",
   "origin.otherworldorigins.apts/two/lck.name": "Luck",
   "origin.otherworldorigins.apts/two/lck.description": "• +2 Luck",
-
   "power.otherworldorigins.dark_vision.name": "Dark Vision",
   "power.otherworldorigins.dark_vision.description": "",
   "power.otherworldorigins.cantrip_desc.name": "Cantrip",
@@ -265,7 +262,6 @@
   "power.otherworldorigins.subrace/other/githyanki/throw_pearl.description": "§oYou can summon and throw an ender pearl to teleport. Once you reach level 11, you can directly teleport up to 50 blocks in the direction you are facing (with no line-of-sight required), without taking fall damage until you land.",
   "power.otherworldorigins.subrace/other/githyanki/water_vulnerability.name": "Water Vulnerability",
   "power.otherworldorigins.subrace/other/githyanki/water_vulnerability.description": "§oYou take damage from water and rain, but this can be offset with the Water Protection enchantment.",
-
   "origin.otherworldorigins.feats/chef.name": "Chef",
   "origin.otherworldorigins.feats/chef.description": "Your Hunger and Thirst drain 50% slower.",
   "origin.otherworldorigins.feats/defensive_duelist.name": "Defensive Duelist",
@@ -336,7 +332,6 @@
   "origin.otherworldorigins.feats/school_sound.description": "You become attuned to all Sound spells.",
   "origin.otherworldorigins.feats/school_geo.name": "Geomancer",
   "origin.otherworldorigins.feats/school_geo.description": "You become attuned to all Geomancy spells.",
-
   "origin.otherworldorigins.class/artificer.description": "• 8 Hearts + 3/Level\n• Repairing gear does not increase its enchantment cost. \n• At level 20, gain Soul of Artifice\n\n§nSubclasses§r\nAlchemist\nArmourer\nArtillerist\nBattle Smith",
   "origin.otherworldorigins.class/barbarian.description": "• 12 Hearts + 5/Level\n• Rage \n\n§nSubclasses§r\nWildheart\nBerserker\nWild Magic",
   "origin.otherworldorigins.class/bard.description": "• 8 Hearts + 3/Level\n• +1 Cantrip from the Bard spell list\n• Inspiration\n\n§nSubclasses§r\nCollege of Lore\nCollege of Valor\nCollege of Swords",
@@ -350,7 +345,6 @@
   "origin.otherworldorigins.class/sorcerer.description": "• 6 Hearts + 2/Level\n• +1 Magic\n• +20% Magic Damage\n• +1 Cantrip from the Sorcerer spell list\n\n§nSubclasses§r\nWild Magic\nDraconic Bloodline",
   "origin.otherworldorigins.class/warlock.description": "• 8 Hearts + 3/Level\n• +1 Magic\n• Eldritch Blast\n• +1 Cantrip from the Warlock spell list\n\n§nSubclasses§r\nThe Fiend\nThe Great Old One",
   "origin.otherworldorigins.class/wizard.description": "• 6 Hearts + 2/Level\n• +20% Magic Damage\n• +1 Magic\n• +1 Cantrip from the Wizard spell list\n\n§nSubclasses§r\nAbjuration\nEvocation\nNecromancy\nConjuration\nEnchanting\nTransmutation",
-
   "origin.otherworldorigins.class/artificer.name": "Artificer",
   "origin.otherworldorigins.subclass/artificer/alchemist.name": "Alchemist",
   "origin.otherworldorigins.subclass/artificer/alchemist.description": "• Potions you brew last 50% longer\n• Experimental Elixir\n• At level 15, choose a Chemical Mastery, enhancing your experimental elixir and further refining your brews.",
@@ -481,7 +475,6 @@
   "power.otherworldorigins.subclass/wizard/transmutation.name": "Details:",
   "power.otherworldorigins.subclass/wizard/transmutation.description": "",
   "otherworldorigins.gui.badge.transmutation_reforge": "Rarities, based on level:\n\nLevels 1–4: Common\nLevels 5–8: Uncommon\nLevels 9–12: Rare\nLevels 13–16: Epic\nLevels 17–19: Mythic\nLevel 20: Ancient",
-
   "power.otherworldorigins.class/warlock/eldritch_blast.name": "Eldritch Blast",
   "power.otherworldorigins.class/warlock/eldritch_blast.description": "Instantly cast Magic Missile (Level 5) for 10 Mana. Once you reach level 15, cast 3 missiles in sequence for no extra cost.",
   "power.otherworldorigins.class/fighter/second_wind.name": "Second Wind",
@@ -527,14 +520,12 @@
   "power.otherworldorigins.subclass/rogue/arcane_trickster.description": "• Activate to steal a spell on your next attack. If the target is channeling, steal that spell and cast it at the target immediately, cancelling their cast. If they are not channeling, steal their most recent spell instead, place it on cooldown, and drain 50 mana. You can do this once per day.",
   "power.otherworldorigins.subclass/rogue/thief.name": "Supreme Sneak",
   "power.otherworldorigins.subclass/rogue/thief.description": "• When you sneak in dark areas, you gain true invisibility with a small distance limit but no time limit. Damaging an enemy prevents this for 5 seconds.\n\n• At Level 20, you can do this even in full daylight.",
- 
   "power.otherworldorigins.class/ranger/favored_foe.name": "Favored Foe",
   "power.otherworldorigins.class/ranger/favored_foe.description": "Damaging an enemy marks them for 5 seconds, increasing all damage they take by a percent equal to your Character Level.",
   "power.otherworldorigins.class/ranger/goodberry.name": "Goodberry",
   "power.otherworldorigins.class/ranger/goodberry.description": "Conjure up to 10 magic berries (based on level) that each restore 4 hearts when eaten. Berries lose their magic after one day and no longer heal. Recharges on sleep.",
   "power.otherworldorigins.class/artificer/soul_of_artifice.name": "Soul of Artifice",
   "power.otherworldorigins.class/artificer/soul_of_artifice.description": "Starting at level 20, hold rare loot and activate to add an extra affix for the item's rarity. You can do this once per day. Reforging clears the infusion.",
-
   "otherworldorigins.soul_of_artifice.cannot_infuse": "You can't infuse this item with your Artificer's Soul.",
   "otherworldorigins.transmutation.cannot_reforge": "Hold reforgeable equipment in your main hand to transmute.",
   "otherworldorigins.experimental_elixir.cannot_brew": "You need an empty bottle, water bottle, or awkward potion to brew an experimental elixir.",
@@ -542,7 +533,6 @@
   "layer.otherworldorigins.chemical_mastery.name": "Chemical Mastery",
   "layer.otherworldorigins.magical_secrets.name": "Magical Secrets (Cantrip)",
   "layer.otherworldorigins.draconic_ancestry.name": "Draconic Ancestry",
-
   "origin.otherworldorigins.chemical_mastery/restoration.name": "Restoration",
   "origin.otherworldorigins.chemical_mastery/restoration.description": "Your experimental elixirs stay beneficial and become lingering potions. Beneficial potions you brew gain +1 amplifier and last an additional 50% longer.",
   "origin.otherworldorigins.chemical_mastery/negation.name": "Negation",
@@ -567,7 +557,6 @@
   "power.otherworldorigins.subclass/cleric/divine_intervention/life.description": "Fully heal and cleanse harmful effects from you and all nearby allies, then cast a powerful Fortification spell affecting allies directly around you. After a moment, bring down three powerful Sunbeams at nearby enemies, repeating targets if few are nearby.",
   "power.otherworldorigins.subclass/cleric/divine_intervention/trickery.name": "Divine Intervention - Hades",
   "power.otherworldorigins.subclass/cleric/divine_intervention/trickery.description": "Grant nearby friendlies True Invisibility for 30 seconds, then throw a chaotic frenzy of Fireworks and Creeper Heads at nearby enemies, repeating targets if few are nearby. When the volley is finished, turn yourself invisible.",
-
   "otherworldorigins.divine_intervention.fail": "Your prayers were not answered. Your faith is tested.",
   "otherworldorigins.divine_intervention.success": "Your prayers were answered. %s answers your call.",
   "otherworldorigins.divine_intervention.deity.apollo": "Apollo",
@@ -590,7 +579,6 @@
   "otherworldorigins.gui.badge.experimental_elixir_lv5": "Level 5+: \n• 2 uses per day. \n• Gain a chance for an additional effect, and a chance for a higher amplifier.",
   "otherworldorigins.gui.badge.experimental_elixir_lv10": "Level 10+: \n• 3 daily uses. \n• All elixirs have at least 2 effects with a chance for a third. \n• All new elixirs will be longer.",
   "otherworldorigins.gui.badge.experimental_elixir_lv15": "Level 15+: \n• 4 daily uses. \n• At least 2 effects, with a chance for up to 4 effects per elixir, plus the bonuses from your Chemical Mastery alignment.",
-
   "power.otherworldorigins.class/ranger/landstride.name": "Land's Stride",
   "power.otherworldorigins.class/ranger/landstride.description": "You are resistant to the Slowness effect and are not slowed by dense foliage or the Root spell.",
   "power.otherworldorigins.subclass/barbarian/wildheart.name": "Info:",
@@ -629,7 +617,6 @@
   "power.otherworldorigins.subclass/druid/primal_strikes.description": "Your attacks deal +1 to +4 bonus magic damage on hit at levels 5, 10, 15, and 20.",
   "power.otherworldorigins.subclass/druid/combat_wild_shapes.name": "Combat Wild Shape",
   "power.otherworldorigins.subclass/druid/combat_wild_shapes.description": "Starting at level 5, your attacks in wildshape deal additional magic damage. The rites of your circle grant you the ability to transform into more dangerous forms. Read the badge for details.",
-
   "power.otherworldorigins.subclass/wizard/necromancy.name": "Undead Summons:",
   "power.otherworldorigins.subclass/wizard/necromancy.description": "",
   "otherworldorigins.gui.badge.necromancy_bracket_1": "Levels 1-4: \n• Cast Raise Dead at level 3 (4 undead). \n• 50 mana, 10 minute duration.",
@@ -644,10 +631,8 @@
   "otherworldorigins.gui.badge.conjuration_bracket_3": "Level 10+: \n• Mythic Golem at level 5.",
   "otherworldorigins.gui.badge.conjuration_bracket_4": "Level 15+: \n• Mythic Golem at level 6.",
   "otherworldorigins.gui.badge.conjuration_bracket_5": "Level 20: \n• Instead cast Eternal Sentinel at level 4.",
-
   "power.otherworldorigins.subclass/paladin/ancients_elder_champion.name": "Elder Champion",
   "power.otherworldorigins.subclass/paladin/ancients_elder_champion.description": "When you would die, instead heal to full and gain Regeneration III and Resistance II for 30 seconds. Once per day.",
-
   "power.otherworldorigins.subclass/paladin/devotion.name": "Sacred Smite",
   "power.otherworldorigins.subclass/paladin/devotion.description": "On melee hit, automatically cast Divine Smite. 5 second cooldown. Spell level scales with your character level.",
   "otherworldorigins.gui.badge.devotion_sacred_smite_bracket_1": "Levels 5–9: \n• Level 1 Divine Smite",
@@ -655,10 +640,8 @@
   "otherworldorigins.gui.badge.devotion_sacred_smite_bracket_3": "Level 15+: \n• Level 5 Divine Smite",
   "power.otherworldorigins.subclass/paladin/devotion_holy_nimbus.name": "Holy Nimbus",
   "power.otherworldorigins.subclass/paladin/devotion_holy_nimbus.description": "+2 Armor. Your Sacred Smite is empowered to maximum level and heals you for 3 hearts on each strike.",
-
   "power.otherworldorigins.subclass/paladin/vengeance_avenging_angel.name": "Avenging Angel",
   "power.otherworldorigins.subclass/paladin/vengeance_avenging_angel.description": "Your attacks have a chance equal to your Strength to deal double damage.",
-
   "power.otherworldorigins.subclass/paladin/breaker.name": "Dark Blessing",
   "power.otherworldorigins.subclass/paladin/breaker.description": "Heal on every melee hit against living targets. Healing scales with your character level.",
   "otherworldorigins.gui.badge.breaker_dark_blessing_bracket_1": "Levels 5–9: \n• Heal 0.5 hearts per hit",
@@ -667,7 +650,6 @@
   "otherworldorigins.gui.badge.breaker_dark_blessing_bracket_4": "Level 20: \n• Heal 2 hearts per hit",
   "power.otherworldorigins.subclass/paladin/breaker_dread_lord.name": "Dread Lord",
   "power.otherworldorigins.subclass/paladin/breaker_dread_lord.description": "Your melee attacks apply Wither II for 3 seconds.",
-
   "power.otherworldorigins.subclass/wizard/evocation.name": "Key Info:",
   "power.otherworldorigins.subclass/wizard/evocation.description": "",
   "power.otherworldorigins.subclass/wizard/evocation_empowered_evocation.name": "Empowered Evocation",
@@ -697,7 +679,6 @@
   "power.otherworldorigins.subrace/dragonborn/silver.description": "",
   "power.otherworldorigins.subrace/dragonborn/white.name": "",
   "power.otherworldorigins.subrace/dragonborn/white.description": "",
-
   "origin.otherworldorigins.cantrips/acid_orb.name": "Acid Orb",
   "origin.otherworldorigins.cantrips/acid_orb.description": "Instantly cast Acid Orb (Level 4) for 10 mana",
   "origin.otherworldorigins.cantrips/icicle.name": "Icicle",
@@ -738,7 +719,6 @@
   "origin.otherworldorigins.cantrips/dragon_breath.description": "Channel Dragon Breath (Level 3) for 10 mana/s",
   "origin.otherworldorigins.cantrips/blaze_storm.name": "Blaze Storm",
   "origin.otherworldorigins.cantrips/blaze_storm.description": "Channel Blaze Storm (Level 3) for 10 mana/s",
-
   "origin.otherworldorigins.cantrips/two/acid_orb.name": "Acid Orb",
   "origin.otherworldorigins.cantrips/two/acid_orb.description": "Instantly cast Acid Orb (Level 4) for 10 mana",
   "origin.otherworldorigins.cantrips/two/icicle.name": "Icicle",
@@ -837,7 +817,6 @@
   "origin.otherworldorigins.cantrips/two/tremor_step.description": "Instantly cast Tremor Step (Level 2) for 10 mana",
   "origin.otherworldorigins.cantrips/two/dripstone_bolt.name": "Dripstone Bolt",
   "origin.otherworldorigins.cantrips/two/dripstone_bolt.description": "Instantly cast Dripstone Bolt (Level 4) for 10 mana",
-
   "origin.otherworldorigins.cantrips/magical_secrets/acid_orb.name": "Acid Orb",
   "origin.otherworldorigins.cantrips/magical_secrets/acid_orb.description": "Instantly cast Acid Orb (Level 4) for 10 mana",
   "origin.otherworldorigins.cantrips/magical_secrets/ashen_breath.name": "Ashen Breath",
@@ -934,7 +913,6 @@
   "origin.otherworldorigins.cantrips/magical_secrets/wisp.description": "Instantly cast Wisp (Level 3) for 10 mana",
   "origin.otherworldorigins.cantrips/magical_secrets/wither_skull.name": "Wither Skull",
   "origin.otherworldorigins.cantrips/magical_secrets/wither_skull.description": "Instantly cast Wither Skull (Level 3) for 10 mana",
-
   "power.otherworldorigins.cantrips/acid_orb.name": "",
   "power.otherworldorigins.cantrips/acid_orb.description": "",
   "power.otherworldorigins.cantrips/icicle.name": "",
@@ -975,7 +953,6 @@
   "power.otherworldorigins.cantrips/dragon_breath.description": "",
   "power.otherworldorigins.cantrips/blaze_storm.name": "",
   "power.otherworldorigins.cantrips/blaze_storm.description": "",
-
   "power.otherworldorigins.cantrips/two/acid_orb.name": "",
   "power.otherworldorigins.cantrips/two/acid_orb.description": "",
   "power.otherworldorigins.cantrips/two/icicle.name": "",
@@ -1074,7 +1051,6 @@
   "power.otherworldorigins.cantrips/two/tremor_step.description": "",
   "power.otherworldorigins.cantrips/two/dripstone_bolt.name": "",
   "power.otherworldorigins.cantrips/two/dripstone_bolt.description": "",
-
   "power.otherworldorigins.cantrips/magical_secrets/acid_orb.name": "",
   "power.otherworldorigins.cantrips/magical_secrets/acid_orb.description": "",
   "power.otherworldorigins.cantrips/magical_secrets/ashen_breath.name": "",
@@ -1171,11 +1147,9 @@
   "power.otherworldorigins.cantrips/magical_secrets/wisp.description": "",
   "power.otherworldorigins.cantrips/magical_secrets/wither_skull.name": "",
   "power.otherworldorigins.cantrips/magical_secrets/wither_skull.description": "",
-
   "otherworldorigins.gui.varies": "Varies",
   "tooltip.otherworldorigins.set_bonus": "Set Bonus:",
   "tooltip.otherworldorigins.water_protection": "Water Protection",
-
   "otherworldorigins.gui.final_confirm.title": "Confirm Your Selections",
   "otherworldorigins.gui.final_confirm.race_class_header": "Race and Class",
   "otherworldorigins.gui.final_confirm.feats_header": "Feats",
@@ -1208,50 +1182,46 @@
   "otherworldorigins.gui.final_confirm.aptitude_plus_two": "You have +2 to %s.",
   "otherworldorigins.gui.final_confirm.confirm": "Confirm",
   "otherworldorigins.gui.final_confirm.start_over": "Start Over",
-
   "message.otherworldorigins.shapeshift_tool_blocked": "You cannot wield weapons in this form",
   "message.otherworldorigins.shapeshift_spell_blocked": "You cannot cast spells in this form",
   "tooltip.otherworldorigins.equipment_prevented": "Cannot be worn in current form",
-
   "otherworldorigins.gui.wildshape_choose_title": "Choose Wild Shape Form:",
-
   "origin.otherworldorigins.wildshape/wolf.name": "Wolf",
-  "origin.otherworldorigins.wildshape/wolf.description": "• 6 Attack Damage\n• 2.4 Attack Speed\n• +3 Hearts\n• +20% Movement Speed\n• Cold resistant\n• §nPredator's Senses§r: nearby creatures glow through walls\n• §nHowl§r: rally allies with Speed; weaken enemies\n\n§oThe pack hunter. Tracks everything, buffs the group.§r",
+  "origin.otherworldorigins.wildshape/wolf.description": "§nAt Level 1:§r\n• 6 Attack Damage\n• 2.4 Attack Speed\n• +3 Hearts\n• +20% Movement Speed\n• Cold resistant\n• §nHowl§r: rally allies with Speed; weaken enemies\n\n§oWoof!§r",
   "origin.otherworldorigins.wildshape/cat.name": "Cat",
-  "origin.otherworldorigins.wildshape/cat.description": "• 3 Attack Damage\n• 3.1 Attack Speed\n• -5 Hearts\n• +30% Movement Speed\n• §nWall Climbing§r: spider-climb any surface\n• §nShadow Step§r: invisible while sneaking\n• §nAlways Lands on Its Feet§r: no fall damage\n\n§oThe ghost. Goes anywhere, seen by no one.§r",
+  "origin.otherworldorigins.wildshape/cat.description": "§nAt Level 1:§r\n• 3 Attack Damage\n• 3.1 Attack Speed\n• -5 Hearts\n• +30% Movement Speed\n• Wall Climbing\n• Increased jump height\n• Invisible while sneaking\n• §nFall damage immune\n\n§oMeow!§r",
   "origin.otherworldorigins.wildshape/snow_leopard.name": "Snow Leopard",
-  "origin.otherworldorigins.wildshape/snow_leopard.description": "• 4 Attack Damage\n• 3.1 Attack Speed\n• -5 Hearts\n• +40% Movement Speed\n• Cold resistant\n• §nPounce§r: sneak to charge then leap with 2x damage\n• §nLightfoot§r - Walk on Powder Snow\n\n§oThe ambush striker. Charges from stealth, hits hard, escapes clean.§r",
+  "origin.otherworldorigins.wildshape/snow_leopard.description": "§nAt Level 1:§r\n• 4 Attack Damage\n• 3.1 Attack Speed\n• -5 Hearts\n• +40% Movement Speed\n• Cold resistant\n• §nPounce§r: sneak to charge then leap with 2x damage\n• §nLightfoot§r - Walk on Powder Snow\n\n§oThe ambush striker. Charges from stealth, hits hard, escapes clean.§r",
   "origin.otherworldorigins.wildshape/maned_wolf.name": "Maned Wolf",
-  "origin.otherworldorigins.wildshape/maned_wolf.description": "• 4 Attack Damage\n• 2.75 Attack Speed\n• +30% Movement Speed\n• Cold resistant\n• Heat resistant\n• §nKeen Nose§r: permanent night vision; blind/darkness immune\n• §nEndurance Hunter§r: regeneration while sprinting\n\n§oThe ranger. Sees everything, outlasts everything.§r",
+  "origin.otherworldorigins.wildshape/maned_wolf.description": "§nAt Level 1:§r\n• 4 Attack Damage\n• 2.75 Attack Speed\n• +30% Movement Speed\n• Cold resistant\n• Heat resistant\n• §nKeen Nose§r: permanent night vision; blind/darkness immune\n• §nEndurance Hunter§r: regeneration while sprinting\n\n§oThe ranger. Sees everything, outlasts everything.§r",
   "origin.otherworldorigins.wildshape/dolphin.name": "Dolphin",
-  "origin.otherworldorigins.wildshape/dolphin.description": "• 5 Attack Damage\n• 2.4 Attack Speed\n• +3 Hearts\n• Cold immune\n• Fast Swimming\n• +20 Lung Capacity\n• §nEcholocation§r: entities glow while underwater\n• §nBreaching Leap§r: jet of steam propulsion\n\n§oThe ocean scout. Finds anything underwater, bursts to escape.§r",
+  "origin.otherworldorigins.wildshape/dolphin.description": "§nAt Level 1:§r\n• 5 Attack Damage\n• 2.4 Attack Speed\n• +3 Hearts\n• Cold immune\n• Fast Swimming\n• +20 Lung Capacity\n• §nEcholocation§r: entities glow while underwater\n• §nBreaching Leap§r: jet of steam propulsion\n\n§oThe ocean scout. Finds anything underwater, bursts to escape.§r",
   "origin.otherworldorigins.wildshape/grizzly_bear.name": "Grizzly Bear",
-  "origin.otherworldorigins.wildshape/grizzly_bear.description": "• 9 Attack Damage\n• 1.2 Attack Speed\n• +12 Hearts\n• +6 Armor\n• Cold resistant\n• §nTerrifying Roar§r: AoE: Slowness V + Weakness to enemies\n• §nThick Hide§r: 30% damage reduction below 30% HP\n\n§oThe enforcer. Roars them into submission, shrugs off killing blows.§r",
+  "origin.otherworldorigins.wildshape/grizzly_bear.description": "§nAt Level 1:§r\n• 9 Attack Damage\n• 1.2 Attack Speed\n• +12 Hearts\n• +6 Armor\n• Cold resistant\n• §nTerrifying Roar§r: AoE: Slowness V + Weakness to enemies\n• §nThick Hide§r: 30% damage reduction below 30% HP\n\n§oThe enforcer. Roars them into submission, shrugs off killing blows.§r",
   "origin.otherworldorigins.wildshape/tiger.name": "Tiger",
-  "origin.otherworldorigins.wildshape/tiger.description": "• 9 Attack Damage\n• 1.6 Attack Speed\n• +8 Hearts\n• +4 Armor\n• +15% Movement Speed\n• Cold resistant\n• §nAmbush Pounce§r: sneak-charge leap with 3x damage + bleed\n• §nPredator's Grace§r: Speed II on kill\n\n§oThe assassin. Stalks, pounces, kills, vanishes.§r",
+  "origin.otherworldorigins.wildshape/tiger.description": "§nAt Level 1:§r\n• 9 Attack Damage\n• 1.6 Attack Speed\n• +8 Hearts\n• +4 Armor\n• +15% Movement Speed\n• Cold resistant\n• §nAmbush Pounce§r: sneak-charge leap with 3x damage + bleed\n• §nPredator's Grace§r: Speed II on kill\n\n§oThe assassin. Stalks, pounces, kills, vanishes.§r",
   "origin.otherworldorigins.wildshape/crocodile.name": "Crocodile",
-  "origin.otherworldorigins.wildshape/crocodile.description": "• 9 Attack Damage\n• 1.6 Attack Speed\n• +12 Hearts\n• +10 Armor\n• -15% Movement Speed\n• Heat resistant\n• §nDeath Roll§r: tidal grasp that roots and crushes\n• §nAquatic Ambush§r: +50% damage while submerged\n\n§oThe ambush predator. Lurks in shallows, drags them under.§r",
+  "origin.otherworldorigins.wildshape/crocodile.description": "§nAt Level 1:§r\n• 9 Attack Damage\n• 1.6 Attack Speed\n• +12 Hearts\n• +10 Armor\n• -15% Movement Speed\n• Heat resistant\n• §nDeath Roll§r: tidal grasp that roots and crushes\n• §nAquatic Ambush§r: +50% damage while submerged\n\n§oThe ambush predator. Lurks in shallows, drags them under.§r",
   "origin.otherworldorigins.wildshape/gorilla.name": "Gorilla",
-  "origin.otherworldorigins.wildshape/gorilla.description": "• 7 Attack Damage\n• 1.2 Attack Speed\n• +4 Hearts\n• +4 Armor\n• Cold resistant\n• §nWall Climbing§r: scale any surface\n• §nMighty Leap§r: enhanced jump height\n• §nGround Pound§r: earth-shattering stomp\n\n§oThe explorer. Climbs anything, leaps over gaps, pounds the earth.§r",
+  "origin.otherworldorigins.wildshape/gorilla.description": "§nAt Level 1:§r\n• 7 Attack Damage\n• 1.2 Attack Speed\n• +4 Hearts\n• +4 Armor\n• Cold resistant\n• §nWall Climbing§r: scale any surface\n• §nMighty Leap§r: enhanced jump height\n• §nGround Pound§r: earth-shattering stomp\n\n§oThe explorer. Climbs anything, leaps over gaps, pounds the earth.§r",
   "origin.otherworldorigins.wildshape/moose.name": "Moose",
-  "origin.otherworldorigins.wildshape/moose.description": "• 12 Attack Damage\n• 1.2 Attack Speed\n• +15 Hearts\n• +6 Armor\n• +10% Movement Speed\n• Cold resistant\n• §nAntler Toss§r: launch enemies skyward on hit\n• §nTireless§r: reduced sprint hunger drain\n\n§oThe charger. Tosses foes like ragdolls, never tires.§r",
+  "origin.otherworldorigins.wildshape/moose.description": "§nAt Level 1:§r\n• 12 Attack Damage\n• 1.2 Attack Speed\n• +15 Hearts\n• +6 Armor\n• +10% Movement Speed\n• Cold resistant\n• §nAntler Toss§r: launch enemies skyward on hit\n• §nTireless§r: reduced sprint hunger drain\n\n§oThe charger. Tosses foes like ragdolls, never tires.§r",
   "origin.otherworldorigins.wildshape/bison.name": "Bison",
-  "origin.otherworldorigins.wildshape/bison.description": "• 11 Attack Damage\n• 1.2 Attack Speed\n• +22 Hearts\n• +10 Armor\n• Cold resistant\n• Heat resistant\n• §nIronhide§r: 40% damage reduction while standing still\n• §nUnyielding§r: near-total knockback immunity while sneaking\n\n§oThe wall. Plants its hooves and nothing moves it.§r",
+  "origin.otherworldorigins.wildshape/bison.description": "§nAt Level 1:§r\n• 11 Attack Damage\n• 1.2 Attack Speed\n• +22 Hearts\n• +10 Armor\n• Cold resistant\n• Heat resistant\n• §nIronhide§r: 40% damage reduction while standing still\n• §nUnyielding§r: near-total knockback immunity while sneaking\n\n§oThe wall. Plants its hooves and nothing moves it.§r",
   "origin.otherworldorigins.wildshape/rhinoceros.name": "Rhinoceros",
-  "origin.otherworldorigins.wildshape/rhinoceros.description": "• 12 Attack Damage\n• 1.6 Attack Speed\n• +21 Hearts\n• +10 Armor\n• -5% Movement Speed\n• Heat resistant\n• §nDevastating Charge§r: sneak-charge then hurtle forward with 2.5x damage\n• §nArmor Piercing§r: +4 flat bonus damage on all attacks\n\n§oThe battering ram. Charges through anything, armor included.§r",
+  "origin.otherworldorigins.wildshape/rhinoceros.description": "§nAt Level 1:§r\n• 12 Attack Damage\n• 1.6 Attack Speed\n• +21 Hearts\n• +10 Armor\n• -5% Movement Speed\n• Heat resistant\n• §nDevastating Charge§r: sneak-charge then hurtle forward with 2.5x damage\n• §nArmor Piercing§r: +4 flat bonus damage on all attacks\n\n§oThe battering ram. Charges through anything, armor included.§r",
   "origin.otherworldorigins.wildshape/elephant.name": "Elephant",
-  "origin.otherworldorigins.wildshape/elephant.description": "• 16 Attack Damage\n• 0.8 Attack Speed\n• +30 Hearts\n• +14 Armor\n• -10% Movement Speed\n• Heat resistant\n• §nEarthquake Stomp§r: tremor spike that devastates an area\n• §nSiege Body§r: massive knockback on hit\n\n§oThe siege engine. Stomps the earth, sends everything flying.§r",
+  "origin.otherworldorigins.wildshape/elephant.description": "§nAt Level 1:§r\n• 16 Attack Damage\n• 0.8 Attack Speed\n• +30 Hearts\n• +14 Armor\n• -10% Movement Speed\n• Heat resistant\n• §nEarthquake Stomp§r: tremor spike that devastates an area\n• §nSiege Body§r: massive knockback on hit\n\n§oThe siege engine. Stomps the earth, sends everything flying.§r",
   "origin.otherworldorigins.wildshape/anaconda.name": "Anaconda",
-  "origin.otherworldorigins.wildshape/anaconda.description": "• 5 Attack Damage\n• 1.2 Attack Speed\n• +3 Hearts\n• +2 Armor\n• Long Reach\n• Heat resistant\n• §nConstrict§r: root and crush a target\n• §nLow Profile§r: semi-transparent while sneaking\n\n§oThe infiltrator. Long reach, roots targets, slithers unseen.§r",
+  "origin.otherworldorigins.wildshape/anaconda.description": "§nAt Level 1:§r\n• 5 Attack Damage\n• 1.2 Attack Speed\n• +3 Hearts\n• +2 Armor\n• Long Reach\n• Heat resistant\n• §nConstrict§r: root and crush a target\n• §nLow Profile§r: semi-transparent while sneaking\n\n§oThe infiltrator. Long reach, roots targets, slithers unseen.§r",
   "origin.otherworldorigins.wildshape/bald_eagle.name": "Bald Eagle",
-  "origin.otherworldorigins.wildshape/bald_eagle.description": "• 5 Attack Damage\n• 2.4 Attack Speed\n• -6 Hearts\n• Cold resistant\n• True Flight\n• Fall damage immune\n• §nDive Bomb§r: auto-damages entities you fly through\n• §nEagle Eye§r: entities glow within 50 blocks\n\n§oThe raptor. Sees everything, strikes from the sky.§r",
+  "origin.otherworldorigins.wildshape/bald_eagle.description": "§nAt Level 1:§r\n• 5 Attack Damage\n• 2.4 Attack Speed\n• -6 Hearts\n• Cold resistant\n• True Flight\n• Fall damage immune\n• §nDive Bomb§r: auto-damages entities you fly through\n• §nEagle Eye§r: entities glow within 50 blocks\n\n§oThe raptor. Sees everything, strikes from the sky.§r",
   "origin.otherworldorigins.wildshape/orca.name": "Orca",
-  "origin.otherworldorigins.wildshape/orca.description": "• 13 Attack Damage\n• 1.2 Attack Speed\n• +24 Hearts\n• +10 Armor\n• Cold immune\n• Fast Swimming\n• +60 Lung Capacity\n• §nTidal Slam§r: unleash a devastating tsunami\n• §nApex Predator§r: +30% damage + slow aura in water\n\n§oThe apex. Rules the ocean. Everything else is prey.§r",
+  "origin.otherworldorigins.wildshape/orca.description": "§nAt Level 1:§r\n• 13 Attack Damage\n• 1.2 Attack Speed\n• +24 Hearts\n• +10 Armor\n• Cold immune\n• Fast Swimming\n• +60 Lung Capacity\n• §nTidal Slam§r: unleash a devastating tsunami\n• §nApex Predator§r: +30% damage + slow aura in water\n\n§oThe apex. Rules the ocean. Everything else is prey.§r",
   "origin.otherworldorigins.wildshape/fire_elemental.name": "Fire Elemental",
-  "origin.otherworldorigins.wildshape/fire_elemental.description": "• 11 Attack Damage\n• 1.2 Attack Speed\n• +22 Hearts\n• +10 Armor\n• +10% Movement Speed\n• +30% Fire Spell Power\n• Temperature immune\nMelee hits randomly cast a fire spell (3 second cooldown)\n\n§oA flying furnace: spell-strikes, hover mobility, and fire focus.§r",
+  "origin.otherworldorigins.wildshape/fire_elemental.description": "§nAt Level 1:§r\n• 11 Attack Damage\n• 1.2 Attack Speed\n• +22 Hearts\n• +10 Armor\n• +10% Movement Speed\n• +30% Fire Spell Power\n• Temperature immune\nMelee hits randomly cast a fire spell (3 second cooldown)\n\n§oA flying furnace: spell-strikes, hover mobility, and fire focus.§r",
   "origin.otherworldorigins.wildshape/frost_elemental.name": "Frost Elemental",
-  "origin.otherworldorigins.wildshape/frost_elemental.description": "• 11 Attack Damage\n• 1.2 Attack Speed\n• +22 Hearts\n• +14 Armor\n• +5% Movement Speed\n• +30% Ice Spell Power\n• Temperature immune\n\nMelee hits randomly cast an ice spell (3 second cooldown)\n\n§oA floating glacier: heavy armor, spell-strikes, and ice focus.§r",
-
+  "origin.otherworldorigins.wildshape/frost_elemental.description": "§nAt Level 1:§r\n• 11 Attack Damage\n• 1.2 Attack Speed\n• +22 Hearts\n• +14 Armor\n• +5% Movement Speed\n• +30% Ice Spell Power\n• Temperature immune\n\nMelee hits randomly cast an ice spell (3 second cooldown)\n\n§oA floating glacier: heavy armor, spell-strikes, and ice focus.§r",
   "origin.otherworldorigins.elemental_discipline_one/breath_of_winter.name": "Breath of Winter",
   "origin.otherworldorigins.elemental_discipline_one/breath_of_winter.description": "Channel Cone of Cold at spell level 3 for 2 Ki",
   "power.otherworldorigins.elemental_discipline_one/breath_of_winter.name": "",
@@ -1292,7 +1262,6 @@
   "origin.otherworldorigins.elemental_discipline_one/fangs_of_the_fire_snake.description": "Instantly cast Flaming Strike at spell level 2 for 2 Ki",
   "power.otherworldorigins.elemental_discipline_one/fangs_of_the_fire_snake.name": "",
   "power.otherworldorigins.elemental_discipline_one/fangs_of_the_fire_snake.description": "",
-
   "origin.otherworldorigins.elemental_discipline_two/breath_of_winter.name": "Breath of Winter",
   "origin.otherworldorigins.elemental_discipline_two/breath_of_winter.description": "Channel Cone of Cold at spell level 5 for 3 Ki",
   "power.otherworldorigins.elemental_discipline_two/breath_of_winter.name": "",
@@ -1333,7 +1302,6 @@
   "origin.otherworldorigins.elemental_discipline_two/fangs_of_the_fire_snake.description": "Instantly cast Flaming Strike at spell level 4 for 3 Ki",
   "power.otherworldorigins.elemental_discipline_two/fangs_of_the_fire_snake.name": "",
   "power.otherworldorigins.elemental_discipline_two/fangs_of_the_fire_snake.description": "",
-
   "origin.otherworldorigins.elemental_discipline_three/breath_of_winter.name": "Breath of Winter",
   "origin.otherworldorigins.elemental_discipline_three/breath_of_winter.description": "Channel Cone of Cold at spell level 8 for 4 Ki",
   "power.otherworldorigins.elemental_discipline_three/breath_of_winter.name": "",
@@ -1374,7 +1342,6 @@
   "origin.otherworldorigins.elemental_discipline_three/fangs_of_the_fire_snake.description": "Instantly cast Flaming Strike at spell level 7 for 4 Ki",
   "power.otherworldorigins.elemental_discipline_three/fangs_of_the_fire_snake.name": "",
   "power.otherworldorigins.elemental_discipline_three/fangs_of_the_fire_snake.description": "",
-
   "origin.otherworldorigins.elemental_discipline_four/breath_of_winter.name": "Breath of Winter",
   "origin.otherworldorigins.elemental_discipline_four/breath_of_winter.description": "Channel Cone of Cold at spell level 8 for 4 Ki",
   "power.otherworldorigins.elemental_discipline_four/breath_of_winter.name": "",
@@ -1415,10 +1382,8 @@
   "origin.otherworldorigins.elemental_discipline_four/fangs_of_the_fire_snake.description": "Instantly cast Flaming Strike at spell level 7 for 4 Ki",
   "power.otherworldorigins.elemental_discipline_four/fangs_of_the_fire_snake.name": "",
   "power.otherworldorigins.elemental_discipline_four/fangs_of_the_fire_snake.description": "",
-
   "power.otherworldorigins.class/druid/wildshape.name": "Wild Shape",
   "power.otherworldorigins.class/druid/wildshape.description": "You can magically assume the shape of a beast. Additional forms are unlocked on levels 4, 6, and 8. The number of transformations per day increases with level.",
-
   "subtitles.otherworldorigins.boost": "Boost",
   "subtitles.otherworldorigins.dash": "Dash",
   "subtitles.otherworldorigins.divine_smite": "Divine Smite",

@@ -58,7 +58,10 @@ import dev.muon.otherworldorigins.client.shapeshift.AnacondaMultipartHandler;
 import dev.muon.otherworldorigins.client.shapeshift.FakeEntityCache;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftRenderHelper;
 import dev.muon.otherworldorigins.power.AllowedSpellsPower;
+import dev.muon.otherworldorigins.power.LeveledAttributePower;
 import dev.muon.otherworldorigins.power.ShapeshiftPower;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
 import io.redspace.ironsspellbooks.api.spells.SchoolType;
 import net.minecraft.tags.TagKey;
@@ -1567,6 +1570,11 @@ public class OtherworldOriginScreen extends Screen {
     private static final ResourceLocation SCHOOL_BADGE_PLACEHOLDER =
             ResourceLocation.fromNamespaceAndPath("origins", "textures/gui/badge/star.png");
 
+    private static final ResourceLocation SCALING_LEVEL_BADGE =
+            ResourceLocation.fromNamespaceAndPath(OtherworldOrigins.MODID, "textures/gui/badge/scaling_level.png");
+    private static final ResourceLocation SCALING_MAGIC_BADGE =
+            ResourceLocation.fromNamespaceAndPath(OtherworldOrigins.MODID, "textures/gui/badge/scaling_magic.png");
+
     private record AllowedSpellBadge(ResourceLocation sprite, java.util.List<Component> tooltip) {}
 
     @Nullable
@@ -1577,9 +1585,7 @@ public class OtherworldOriginScreen extends Screen {
     private int allowedSpellsStripX, allowedSpellsStripY, allowedSpellsStripW, allowedSpellsStripH;
     private boolean allowedSpellsStripActive = false;
 
-    private void renderAllowedSpellsBadges(GuiGraphics graphics, int rightX, int y, int mouseX, int mouseY, Holder<Origin> originHolder) {
-        this.pendingAllowedSpellsTooltip = null;
-        this.allowedSpellsStripActive = false;
+    private boolean renderAllowedSpellsBadges(GuiGraphics graphics, int rightX, int y, int mouseX, int mouseY, Holder<Origin> originHolder) {
         java.util.List<AllowedSpellBadge> badges = collectAllowedSpellBadges(originHolder.value());
         boolean isSubclass = originHolder.unwrapKey()
                 .map(k -> k.location().getPath().startsWith("subclass/"))
@@ -1590,7 +1596,23 @@ public class OtherworldOriginScreen extends Screen {
                             .withStyle(ChatFormatting.GRAY)
             )));
         }
-        if (badges.isEmpty()) return;
+        return renderTopRightBadgeStrip(graphics, rightX, y, mouseX, mouseY, badges,
+                "otherworldorigins.gui.allowed_spells.hint");
+    }
+
+    private boolean renderWildshapeScalingBadges(GuiGraphics graphics, int rightX, int y, int mouseX, int mouseY, Holder<Origin> originHolder) {
+        boolean isWildshape = originHolder.unwrapKey()
+                .map(k -> k.location().getPath().startsWith("wildshape/"))
+                .orElse(false);
+        if (!isWildshape) return false;
+        java.util.List<AllowedSpellBadge> badges = buildWildshapeScalingBadges(originHolder.value());
+        return renderTopRightBadgeStrip(graphics, rightX, y, mouseX, mouseY, badges,
+                "otherworldorigins.gui.scaling.hint");
+    }
+
+    private boolean renderTopRightBadgeStrip(GuiGraphics graphics, int rightX, int y, int mouseX, int mouseY,
+                                             java.util.List<AllowedSpellBadge> badges, String hintKey) {
+        if (badges.isEmpty()) return false;
         int stride = 10;
         int n = badges.size();
         int startX = rightX - (n * stride - 2);
@@ -1633,7 +1655,7 @@ public class OtherworldOriginScreen extends Screen {
             graphics.fill(x0, y0, x0 + 1, y1, color);
             graphics.fill(x1 - 1, y0, x1, y1, color);
 
-            Component label = Component.translatable("otherworldorigins.gui.allowed_spells.hint");
+            Component label = Component.translatable(hintKey);
             int lw = this.font.width(label);
             int lx = startX + stripW - lw;
             int ly = y + 11;
@@ -1641,6 +1663,83 @@ public class OtherworldOriginScreen extends Screen {
             int textColor = (textAlpha << 24) | 0xFFFFFF;
             graphics.drawString(this.font, label.getVisualOrderText(), lx, ly, textColor, true);
         }
+        return true;
+    }
+
+    private java.util.List<AllowedSpellBadge> buildWildshapeScalingBadges(Origin origin) {
+        java.util.List<Component> charLines = new java.util.ArrayList<>();
+        java.util.List<Component> magicLines = new java.util.ArrayList<>();
+        for (Holder<ConfiguredPower<?, ?>> ph : origin.getValidPowers().toList()) {
+            if (!ph.isBound()) continue;
+            collectWildshapeScalingLines(ph.value(), charLines, magicLines);
+        }
+        if (charLines.isEmpty() && magicLines.isEmpty()) return java.util.List.of();
+
+        java.util.List<AllowedSpellBadge> out = new java.util.ArrayList<>(2);
+        Component note = Component.translatable("otherworldorigins.gui.scaling.note")
+                .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC);
+
+        java.util.List<Component> charTip = new java.util.ArrayList<>();
+        charTip.add(Component.translatable("otherworldorigins.gui.scaling.char_header").withStyle(ChatFormatting.GOLD));
+        charTip.addAll(charLines);
+        charTip.add(Component.empty());
+        charTip.add(note);
+        out.add(new AllowedSpellBadge(SCALING_LEVEL_BADGE, charTip));
+
+        java.util.List<Component> magicTip = new java.util.ArrayList<>();
+        magicTip.add(Component.translatable("otherworldorigins.gui.scaling.magic_header").withStyle(ChatFormatting.GOLD));
+        magicTip.addAll(magicLines);
+        magicTip.add(Component.empty());
+        magicTip.add(note);
+        out.add(new AllowedSpellBadge(SCALING_MAGIC_BADGE, magicTip));
+        return out;
+    }
+
+    private void collectWildshapeScalingLines(ConfiguredPower<?, ?> power,
+                                              java.util.List<Component> charLines,
+                                              java.util.List<Component> magicLines) {
+        if (power.getFactory() instanceof LeveledAttributePower &&
+                power.getConfiguration() instanceof LeveledAttributePower.Configuration cfg) {
+            if (cfg.valuePerLevel() != 0.0) {
+                Component line = formatScalingLine(cfg);
+                if (line != null) {
+                    if (cfg.aptitude().isPresent()) {
+                        magicLines.add(line);
+                    } else {
+                        charLines.add(line);
+                    }
+                }
+            }
+        }
+        for (Holder<ConfiguredPower<?, ?>> sub : power.getContainedPowers().values()) {
+            if (sub.isBound()) collectWildshapeScalingLines(sub.value(), charLines, magicLines);
+        }
+    }
+
+    @Nullable
+    private Component formatScalingLine(LeveledAttributePower.Configuration cfg) {
+        Attribute attr = cfg.attribute();
+        if (attr == null) return null;
+        double v = cfg.valuePerLevel();
+        String formatted;
+        if (cfg.operation() == AttributeModifier.Operation.ADDITION) {
+            formatted = (v >= 0 ? "+" : "") + formatScalingValue(v);
+        } else {
+            formatted = (v >= 0 ? "+" : "") + formatScalingValue(v * 100.0) + "%";
+        }
+        return Component.translatable("otherworldorigins.gui.scaling.line",
+                Component.translatable(attr.getDescriptionId()),
+                Component.literal(formatted)).withStyle(ChatFormatting.GRAY);
+    }
+
+    private static String formatScalingValue(double v) {
+        if (v == Math.floor(v) && !Double.isInfinite(v)) {
+            return String.format(java.util.Locale.ROOT, "%d", (long) v);
+        }
+        String s = String.format(java.util.Locale.ROOT, "%.3f", v);
+        while (s.endsWith("0")) s = s.substring(0, s.length() - 1);
+        if (s.endsWith(".")) s = s.substring(0, s.length() - 1);
+        return s;
     }
 
     private java.util.List<AllowedSpellBadge> collectAllowedSpellBadges(Origin origin) {
@@ -1765,7 +1864,13 @@ public class OtherworldOriginScreen extends Screen {
         renderIcon(graphics, displayOrigin, panelX + 5, panelY + 5);
         graphics.drawString(this.font, origin.getName(), panelX + 25, panelY + 9, 0xFFFFFF, true);
 
-        renderAllowedSpellsBadges(graphics, panelX + RIGHT_PANEL_WIDTH - 5, panelY + 9, mouseX, mouseY, displayOrigin);
+        this.pendingAllowedSpellsTooltip = null;
+        this.allowedSpellsStripActive = false;
+        int stripRightX = panelX + RIGHT_PANEL_WIDTH - 5;
+        int stripY = panelY + 9;
+        if (!renderAllowedSpellsBadges(graphics, stripRightX, stripY, mouseX, mouseY, displayOrigin)) {
+            renderWildshapeScalingBadges(graphics, stripRightX, stripY, mouseX, mouseY, displayOrigin);
+        }
 
         graphics.enableScissor(panelX, panelY + RIGHT_PANEL_CONTENT_TOP_OFFSET, panelX + RIGHT_PANEL_WIDTH, panelY + panelHeight);
 

@@ -24,34 +24,10 @@
         "type": "origins:attribute",
         "modifiers": [
             {
-                "name": "Wildshape max health",
-                "attribute": "minecraft:generic.max_health",
-                "operation": "addition",
-                "value": 24
-            },
-            {
-                "name": "Wildshape attack damage",
-                "attribute": "minecraft:generic.attack_damage",
-                "value": 8,
-                "operation": "addition"
-            },
-            {
-                "name": "Wildshape attack speed",
-                "attribute": "minecraft:generic.attack_speed",
-                "value": -2.4,
-                "operation": "addition"
-            },
-            {
                 "name": "Wildshape movement speed",
                 "attribute": "minecraft:generic.movement_speed",
                 "value": -0.15,
                 "operation": "multiply_base"
-            },
-            {
-                "name": "Wildshape armor",
-                "attribute": "minecraft:generic.armor",
-                "value": 10,
-                "operation": "addition"
             },
             {
                 "attribute": "legendarysurvivaloverhaul:heat_resistance",
@@ -60,6 +36,75 @@
                 "name": "Wildshape heat resistance"
             }
         ]
+    },
+    "movement_speed_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.movement_speed",
+        "operation": "multiply_base",
+        "starting_value": 0.0,
+        "value_per_level": 0.015
+    },
+    "max_health_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 24.0,
+        "value_per_level": 2.8,
+        "update_health": false
+    },
+    "max_health_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 2.2,
+        "update_health": false,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_damage_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 8.0,
+        "value_per_level": 0.5
+    },
+    "attack_damage_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.65,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_speed_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": -2.4,
+        "value_per_level": 0.04
+    },
+    "attack_speed_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.05,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "armor_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "starting_value": 10.0,
+        "value_per_level": 0.25
+    },
+    "armor_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.25,
+        "aptitude": "justlevelingfork:magic"
     },
     "extended_breath": {
         "type": "otherworldorigins:modify_max_air_supply",

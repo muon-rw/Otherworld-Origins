@@ -33,29 +33,66 @@
         "type": "origins:attribute",
         "modifiers": [
             {
-                "name": "Wildshape max health",
-                "attribute": "minecraft:generic.max_health",
-                "operation": "addition",
-                "value": -12
-            },
-            {
-                "attribute": "minecraft:generic.attack_damage",
-                "operation": "addition",
-                "value": 4
-            },
-            {
-                "attribute": "minecraft:generic.attack_speed",
-                "operation": "addition",
-                "value": -1.6,
-                "name": "Wildshape attack speed"
-            },
-            {
                 "attribute": "legendarysurvivaloverhaul:cold_resistance",
                 "operation": "addition",
                 "value": 8.0,
                 "name": "Wildshape cold resistance"
             }
         ]
+    },
+    "movement_speed_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.movement_speed",
+        "operation": "multiply_base",
+        "starting_value": 0.0,
+        "value_per_level": 0.015
+    },
+    "max_health_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": -12.0,
+        "value_per_level": 2.4,
+        "update_health": false
+    },
+    "max_health_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 1.8,
+        "update_health": false,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_damage_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 4.0,
+        "value_per_level": 0.45
+    },
+    "attack_damage_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.55,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_speed_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": -1.6,
+        "value_per_level": 0.03
+    },
+    "attack_speed_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.04,
+        "aptitude": "justlevelingfork:magic"
     },
     "walk_on_powder_snow": {
         "type": "otherworldorigins:walk_on_powder_snow"

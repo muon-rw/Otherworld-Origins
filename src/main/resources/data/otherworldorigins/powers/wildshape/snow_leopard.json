@@ -23,24 +23,6 @@
         "type": "origins:attribute",
         "modifiers": [
             {
-                "name": "Wildshape max health",
-                "attribute": "minecraft:generic.max_health",
-                "operation": "addition",
-                "value": -10
-            },
-            {
-                "name": "Wildshape attack damage",
-                "attribute": "minecraft:generic.attack_damage",
-                "value": 3,
-                "operation": "addition"
-            },
-            {
-                "name": "Wildshape attack speed",
-                "attribute": "minecraft:generic.attack_speed",
-                "value": -0.9,
-                "operation": "addition"
-            },
-            {
                 "name": "Wildshape movement speed",
                 "attribute": "minecraft:generic.movement_speed",
                 "value": 0.4,
@@ -54,48 +36,233 @@
             }
         ]
     },
+    "movement_speed_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.movement_speed",
+        "operation": "multiply_base",
+        "starting_value": 0.0,
+        "value_per_level": 0.015
+    },
+    "max_health_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": -10.0,
+        "value_per_level": 2.0,
+        "update_health": false
+    },
+    "max_health_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 1.4,
+        "update_health": false,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_damage_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 3.0,
+        "value_per_level": 0.4
+    },
+    "attack_damage_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.45,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_speed_char": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": -0.9,
+        "value_per_level": 0.03
+    },
+    "attack_speed_magic": {
+        "type": "otherworldorigins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.035,
+        "aptitude": "justlevelingfork:magic"
+    },
     "walk_on_powder_snow": {
         "type": "otherworldorigins:walk_on_powder_snow"
     },
-    "ability": {
-        "type": "origins:active_self",
-        "key": {
-            "key": "key.otherworldorigins.cantrip_three"
+    "pounce_jump": {
+        "type": "origins:modify_jump",
+        "modifier": {
+            "operation": "addition",
+            "value": 0.3
         },
-        "cooldown": 60,
+        "entity_action": {
+            "type": "origins:delay",
+            "ticks": 1,
+            "action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:execute_command",
+                        "command": "particle campfire_cosy_smoke ~ ~0.5 ~ 0.5 0.5 0.5 0 10"
+                    },
+                    {
+                        "type": "origins:add_velocity",
+                        "z": 1.6,
+                        "space": "local_horizontal_normalized"
+                    },
+                    {
+                        "type": "origins:play_sound",
+                        "sound": "otherworldorigins:dash",
+                        "pitch": 0.7,
+                        "category": "players"
+                    },
+                    {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_pounce_flag",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 1
+                        }
+                    },
+                    {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_pounce_meter",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 0
+                        }
+                    },
+                    {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_pounce_cooldown",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 30
+                        }
+                    }
+                ]
+            }
+        },
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_pounce_meter",
+            "comparison": ">=",
+            "compare_to": 38
+        }
+    },
+    "pounce_meter": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 40,
+        "start_value": 0,
         "hud_render": {
             "should_render": true,
             "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
-            "bar_index": 1
+            "bar_index": 15,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_pounce_meter",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        },
+        "max_action": {
+            "type": "origins:play_sound",
+            "sound": "minecraft:block.respawn_anchor.charge",
+            "volume": 0.1,
+            "pitch": 2
+        }
+    },
+    "pounce_cooldown": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 30,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 1,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_pounce_cooldown",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "pounce_tick_cooldown": {
+        "type": "origins:action_over_time",
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_pounce_cooldown",
+            "comparison": ">",
+            "compare_to": 0
         },
         "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_pounce_cooldown",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -1
+            }
+        },
+        "interval": 2
+    },
+    "pounce_charge_meter": {
+        "type": "origins:action_over_time",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_pounce_meter",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": 2
+            }
+        },
+        "interval": 1,
+        "condition": {
             "type": "origins:and",
-            "actions": [
+            "conditions": [
                 {
-                    "type": "origins:execute_command",
-                    "command": "particle campfire_cosy_smoke ~ ~0.5 ~ 0.5 0.5 0.5 0 10"
+                    "type": "origins:resource",
+                    "resource": "*:*_pounce_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
                 },
                 {
-                    "type": "origins:add_velocity",
-                    "z": 1.6,
-                    "y": 0.5,
-                    "space": "local_horizontal_normalized"
-                },
-                {
-                    "type": "origins:play_sound",
-                    "sound": "otherworldorigins:dash",
-                    "pitch": 0.7,
-                    "category": "players"
-                },
-                {
-                    "type": "origins:modify_resource",
-                    "resource": "*:*_pounce_flag",
-                    "modifier": {
-                        "operation": "set_total",
-                        "value": 1
-                    }
+                    "type": "origins:sneaking"
                 }
             ]
+        }
+    },
+    "pounce_drain_meter": {
+        "type": "origins:action_over_time",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_pounce_meter",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -1
+            }
+        },
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_pounce_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ],
+            "inverted": true
         }
     },
     "pounce_flag": {
