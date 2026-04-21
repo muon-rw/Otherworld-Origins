@@ -1,5 +1,6 @@
 package dev.muon.otherworldorigins.restrictions;
 
+import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.power.AllowedSpellsPower;
 import dev.muon.otherworldorigins.power.ModPowers;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
@@ -28,7 +29,18 @@ public class SpellRestrictions {
         }
 
         var container = IPowerContainer.get(player).resolve().orElse(null);
-        if (container == null) return false;
+        if (container == null) {
+            // Fail open on a transient capability miss (e.g. a desynced sync window around
+            // dimension change / respawn / login) so the player isn't hard-blocked from every
+            // spell. A persistent null here is still a bug worth surfacing in logs.
+            OtherworldOrigins.LOGGER.warn(
+                    "Power container unresolved for player {} (uuid={}, dim={}) when checking spell '{}'; allowing cast",
+                    player.getName().getString(),
+                    player.getUUID(),
+                    player.level().dimension().location(),
+                    spell.getSpellId());
+            return true;
+        }
 
         List<Holder<ConfiguredPower<AllowedSpellsPower.Configuration, ?>>> powers =
                 (List) container.getPowers(ModPowers.ALLOWED_SPELLS.get());
