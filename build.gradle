@@ -212,7 +212,7 @@ dependencies {
     modRuntimeOnly("me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}")
 
     // FzzyConfig
-    implementation("me.fzzyhmstrs:fzzy_config:${fzzy_config}+forge")
+    modImplementation("me.fzzyhmstrs:fzzy_config:${fzzy_config}+forge")
     modImplementation("curse.maven:kotlin-for-forge-351264:7291067")
 
     // Common Shared Deps
@@ -333,7 +333,8 @@ dependencies {
     modRuntimeOnly("curse.maven:lionfish-api-1001614:5922047")
 
     // GTBC Geomancy
-    modImplementation("curse.maven:gtbcs-geomancy-plus-1352485:7580390")
+    // Dedicated server Dev Env crash, so set to compileOnly
+    modCompileOnly("curse.maven:gtbcs-geomancy-plus-1352485:7580390")
     modImplementation("curse.maven:gtbcs-spelllib-1194714:7584987")
     modImplementation("curse.maven:mowzies-mobs-250498:6586086")
 

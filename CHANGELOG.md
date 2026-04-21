@@ -1,6 +1,8 @@
 ## 2.0.0
 - Migrate to FzzyConfig
-- Patch Origins Power Container login/dim change Power Sync race condition
+- Add global toggle to spell restrictions
+- Patch Origins Power Container login/dim change syncing race condition
+- Patch Origins origin/power registry login syncing race condition
 
 ## 1.9.0
 - Patch vanilla bug with arrow velocity

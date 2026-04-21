@@ -171,5 +171,17 @@ public class OtherworldOrigins {
                 .decoder(WildshapeCantripHeldMessage::decode)
                 .consumerMainThread(WildshapeCantripHeldMessage::handle)
                 .add();
+
+        CHANNEL.messageBuilder(RequestContainerSyncMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(RequestContainerSyncMessage::encode)
+                .decoder(RequestContainerSyncMessage::decode)
+                .consumerMainThread(RequestContainerSyncMessage::handle)
+                .add();
+
+        CHANNEL.messageBuilder(RequestFullSyncMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(RequestFullSyncMessage::encode)
+                .decoder(RequestFullSyncMessage::decode)
+                .consumerMainThread(RequestFullSyncMessage::handle)
+                .add();
     }
 }

@@ -41,7 +41,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.damagesource.DamageSource;
@@ -244,35 +243,8 @@ public class ForgeEvents {
             OriginsCommon.CHANNEL.send(target, new S2COpenOriginScreen(false));
             originContainer.synchronize();
         }
-
-        scheduleContainerResync(serverPlayer);
-    }
-
-    @SubscribeEvent
-    public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
-            scheduleContainerResync(serverPlayer);
-        }
-    }
-
-    /**
-     * Origins and Apoli both re-push their containers during login / dimension change via
-     * {@code TRACKING_ENTITY_AND_SELF} packets keyed on the player's entity id. If those packets
-     * land while the client is still mid-transition (new {@code LocalPlayer} not yet added to the
-     * new {@code ClientLevel}), the client-side {@code level.getEntity(id)} lookup returns null
-     * and the packet is silently dropped — leaving the client with an empty or stale power /
-     * origin container. Deferring an extra re-sync onto the server's next executor turn gives
-     * the client time to finish processing {@code ClientboundRespawnPacket} and register the
-     * new local player before our packet arrives.
-     */
-    private static void scheduleContainerResync(ServerPlayer serverPlayer) {
-        MinecraftServer server = serverPlayer.getServer();
-        if (server == null) return;
-        server.submitAsync(() -> {
-            if (server.getPlayerList().getPlayer(serverPlayer.getUUID()) != serverPlayer) return;
-            IOriginContainer.get(serverPlayer).ifPresent(IOriginContainer::synchronize);
-            ApoliAPI.synchronizePowerContainer(serverPlayer);
-        });
+        // Container + dynamic-registry re-sync is driven by the client via
+        // RequestContainerSyncMessage (ClientPlayerNetworkEvent.LoggingIn / Clone).
     }
 
     @SubscribeEvent

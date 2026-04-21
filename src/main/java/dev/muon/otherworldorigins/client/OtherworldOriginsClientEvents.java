@@ -3,6 +3,8 @@ package dev.muon.otherworldorigins.client;
 import com.google.common.collect.ImmutableList;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.client.screen.OtherworldOriginScreen;
+import dev.muon.otherworldorigins.network.RequestContainerSyncMessage;
+import dev.muon.otherworldorigins.network.RequestFullSyncMessage;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
 import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
@@ -10,6 +12,7 @@ import io.github.edwinmindcraft.origins.client.OriginsClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -36,6 +39,27 @@ public class OtherworldOriginsClientEvents {
             OtherworldOrigins.loc("elemental_discipline_three"),
             OtherworldOrigins.loc("elemental_discipline_four")
     );
+
+    /**
+     * On login, ask the server for a full re-sync (dynamic registries + per-player containers).
+     * On respawn / dimension change (both fire {@link ClientPlayerNetworkEvent.Clone}), ask for
+     * a container-only re-sync — the registries don't change between dimensions so there's no
+     * need to ship hundreds of KB of power / origin definitions again.
+     *
+     * <p>Both packets exist to sidestep the {@code TRACKING_ENTITY_AND_SELF} race where
+     * server-initiated syncs can arrive while the client's new {@code LocalPlayer} isn't yet
+     * registered in the new {@code ClientLevel}; see {@link RequestFullSyncMessage} and
+     * {@link RequestContainerSyncMessage} for the full rationale.</p>
+     */
+    @SubscribeEvent
+    public static void onClientPlayerLoggingIn(ClientPlayerNetworkEvent.LoggingIn event) {
+        OtherworldOrigins.CHANNEL.sendToServer(new RequestFullSyncMessage());
+    }
+
+    @SubscribeEvent
+    public static void onClientPlayerClone(ClientPlayerNetworkEvent.Clone event) {
+        OtherworldOrigins.CHANNEL.sendToServer(new RequestContainerSyncMessage());
+    }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onRenderTick(TickEvent.RenderTickEvent event) {
