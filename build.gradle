@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
     id "net.darkhax.curseforgegradle" version "1.0.7"
     id 'net.neoforged.moddev.legacyforge' version '2.0.126'
-    id 'dev.mixinmcp.decompile' version '0.8.0'
+    id 'dev.mixinmcp.decompile' version '0.9.0'
 }
 
 version = mod_version
