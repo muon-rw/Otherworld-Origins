@@ -116,7 +116,13 @@ public class ShapeshiftToolHandler {
         EntityType<?> type = BuiltInRegistries.ENTITY_TYPE.get(entityTypeId);
         if (type == null) return;
 
-        SoundEvent sound = ATTACK_SOUND_CACHE.computeIfAbsent(type, t -> resolveAmbientSound(player.level(), t));
+        SoundEvent sound;
+        if (ATTACK_SOUND_CACHE.containsKey(type)) {
+            sound = ATTACK_SOUND_CACHE.get(type);
+        } else {
+            sound = resolveAmbientSound(player.level(), type);
+            ATTACK_SOUND_CACHE.put(type, sound);
+        }
         if (sound != null) {
             player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
                     sound, SoundSource.PLAYERS, 1.0F, 0.9F + player.getRandom().nextFloat() * 0.2F);

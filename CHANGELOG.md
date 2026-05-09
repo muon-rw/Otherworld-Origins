@@ -3,6 +3,7 @@
 - Add global toggle to spell restrictions
 - Patch Origins Power Container login/dim change syncing race condition
 - Patch Origins origin/power registry login syncing race condition
+- Fix rare crash on attack for some wildshapes
 
 ## 1.9.0
 - Patch vanilla bug with arrow velocity
