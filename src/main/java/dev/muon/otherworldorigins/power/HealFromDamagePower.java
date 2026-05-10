@@ -19,9 +19,12 @@ import net.minecraft.world.entity.LivingEntity;
 
 /**
  * When incoming damage matches {@code damage_condition} (and optional {@code bientity_condition}),
- * that damage is negated and the entity is healed by the hit amount after optional {@code modifier}(s)
- * / {@code modifiers} (same shape as {@code origins:modify_damage_taken}).
- * Multiple active matching powers on one entity: only the first match applies per hit.
+ * the attack is cancelled outright and the entity is healed by the hit amount after optional
+ * {@code modifier}(s) / {@code modifiers} (same shape as {@code origins:modify_damage_taken}).
+ * Hooked at {@code LivingAttackEvent} so cancellation also suppresses the hurt sound, red flash,
+ * and damage-tilt camera shake — none of which can be cancelled from {@code LivingHurtEvent} or
+ * {@code LivingDamageEvent}. Multiple active matching powers on one entity: only the first
+ * match applies per hit.
  */
 public class HealFromDamagePower extends PowerFactory<HealFromDamagePower.Configuration> {
 
@@ -30,19 +33,18 @@ public class HealFromDamagePower extends PowerFactory<HealFromDamagePower.Config
     }
 
     /**
-     * @return remaining damage after converting matching damage into healing (typically 0 when matched)
+     * @return {@code true} if a power matched and the caller should cancel the attack
      */
-    public static float apply(Entity entity, DamageSource source, float amount) {
+    public static boolean apply(Entity entity, DamageSource source, float amount) {
         if (!(entity instanceof LivingEntity living) || entity.level().isClientSide() || amount <= 0f) {
-            return amount;
+            return false;
         }
         return IPowerContainer.get(entity)
                 .map(container -> apply(container, living, source, amount))
-                .orElse(amount);
+                .orElse(false);
     }
 
-    private static float apply(IPowerContainer container, LivingEntity living, DamageSource source, float amount) {
-        float incoming = amount;
+    private static boolean apply(IPowerContainer container, LivingEntity living, DamageSource source, float amount) {
         for (Holder<ConfiguredPower<Configuration, HealFromDamagePower>> holder : container.getPowers(ModPowers.HEAL_FROM_DAMAGE.get())) {
             if (!holder.isBound()) {
                 continue;
@@ -52,16 +54,16 @@ public class HealFromDamagePower extends PowerFactory<HealFromDamagePower.Config
                 continue;
             }
             Configuration cfg = power.getConfiguration();
-            if (!DamageTakenPowerConditions.matches(cfg.damageCondition(), cfg.biEntityCondition(), living, source, incoming)) {
+            if (!DamageTakenPowerConditions.matches(cfg.damageCondition(), cfg.biEntityCondition(), living, source, amount)) {
                 continue;
             }
-            double heal = ModifierUtil.applyModifiers(living, cfg.healModifier().getContent(), incoming);
+            double heal = ModifierUtil.applyModifiers(living, cfg.healModifier().getContent(), amount);
             if (heal > 0d) {
                 living.heal((float) heal);
             }
-            return 0f;
+            return true;
         }
-        return incoming;
+        return false;
     }
 
     public record Configuration(

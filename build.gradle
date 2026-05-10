@@ -229,6 +229,9 @@ dependencies {
     // Eidolon
     modImplementation("curse.maven:eidolon-repraised-870250:5877358")
 
+    // Appleskin
+    modImplementation("curse.maven:appleskin-248787:4770828")
+
     // FTB
     modImplementation("dev.ftb.mods:ftb-chunks-forge:${ftb_chunks_version}")
     modImplementation("dev.ftb.mods:ftb-quests-forge:${ftb_quests_version}")

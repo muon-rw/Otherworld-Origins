@@ -58,6 +58,7 @@ import net.minecraftforge.event.TagsUpdatedEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityLeaveLevelEvent;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -308,10 +309,20 @@ public class ForgeEvents {
         }
     }
 
+    /**
+     * Cancel the attack entirely when {@link HealFromDamagePower} matches, so hurt sound,
+     * red flash, and camera tilt are all suppressed alongside the damage.
+     */
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void healFromDamage(LivingAttackEvent event) {
+        if (HealFromDamagePower.apply(event.getEntity(), event.getSource(), event.getAmount())) {
+            event.setCanceled(true);
+        }
+    }
+
     @SubscribeEvent
     public static void modifyDamageTakenDirect(LivingDamageEvent event) {
-        float amount = HealFromDamagePower.apply(event.getEntity(), event.getSource(), event.getAmount());
-        amount = ModifyDamageTakenDirectPower.modify(event.getEntity(), event.getSource(), amount);
+        float amount = ModifyDamageTakenDirectPower.modify(event.getEntity(), event.getSource(), event.getAmount());
         // Favored Foe: +2% damage per effect level (level 10 = +20%)
         var favoredFoe = event.getEntity().getEffect(ModEffects.FAVORED_FOE.get());
         if (favoredFoe != null) {

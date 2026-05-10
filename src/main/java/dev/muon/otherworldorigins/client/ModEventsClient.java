@@ -8,6 +8,7 @@ import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.client.network.ShapeshiftSyncClient;
 import dev.muon.otherworldorigins.entity.ModEntities;
 import dev.muon.otherworldorigins.network.ShapeshiftSyncClientDispatch;
+import dev.muon.otherworldorigins.client.compat.appleskin.AppleSkinHungerImmunityCompat;
 import dev.muon.otherworldorigins.client.compat.goblinstyranny.GoblinKinFakeEarsLayer;
 import dev.muon.otherworldorigins.item.HeartsTooltipComponent;
 import net.minecraft.client.renderer.entity.IronGolemRenderer;
@@ -56,6 +57,10 @@ public class ModEventsClient {
                 100,
                 player -> new ModifierLayer<IAnimation>()
         );
+
+        if (ModList.get().isLoaded("appleskin")) {
+            AppleSkinHungerImmunityCompat.init();
+        }
     }
 
     @SubscribeEvent
