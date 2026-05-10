@@ -111,6 +111,9 @@
     {"id": "gtbcs_geomancy_plus:petrivise", "required": false},
     {"id": "gtbcs_geomancy_plus:weeping_cluster", "required": false},
     {"id": "gtbcs_geomancy_plus:solar_storm", "required": false},
-    {"id": "gtbcs_geomancy_plus:solar_beam", "required": false}
+    {"id": "gtbcs_geomancy_plus:solar_beam", "required": false},
+    {"id": "armor_of_remnants:pyrosanguine_storm", "required": false},
+    {"id": "armor_of_remnants:incandescent_slash", "required": false},
+    {"id": "armor_of_remnants:incandescent_spear", "required": false}
   ]
 }
