@@ -12,6 +12,7 @@ import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
 import io.github.edwinmindcraft.calio.api.network.CalioCodecHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -137,7 +138,9 @@ public class LeveledAttributePower extends PowerFactory<LeveledAttributePower.Co
             }
 
             float previousMaxHealth = living.getMaxHealth();
-            float previousHealthPercent = living.getHealth() / previousMaxHealth;
+            float previousHealthPercent = previousMaxHealth > 0
+                    ? Mth.clamp(living.getHealth() / previousMaxHealth, 0.0f, 1.0f)
+                    : 1.0f;
 
             int level = LeveledScaling.levelForScaling(living, this.aptitude());
             double value = this.startingValue + ((level - 1) * this.valuePerLevel);
@@ -170,7 +173,9 @@ public class LeveledAttributePower extends PowerFactory<LeveledAttributePower.Co
             }
 
             float previousMaxHealth = living.getMaxHealth();
-            float previousHealthPercent = living.getHealth() / previousMaxHealth;
+            float previousHealthPercent = previousMaxHealth > 0
+                    ? Mth.clamp(living.getHealth() / previousMaxHealth, 0.0f, 1.0f)
+                    : 1.0f;
 
             attributeInstance.removeModifier(this.modifierUuid);
 
@@ -195,7 +200,9 @@ public class LeveledAttributePower extends PowerFactory<LeveledAttributePower.Co
             }
 
             float previousMaxHealth = living.getMaxHealth();
-            float previousHealthPercent = living.getHealth() / previousMaxHealth;
+            float previousHealthPercent = previousMaxHealth > 0
+                    ? Mth.clamp(living.getHealth() / previousMaxHealth, 0.0f, 1.0f)
+                    : 1.0f;
 
             // Remove existing modifier
             attributeInstance.removeModifier(this.modifierUuid);

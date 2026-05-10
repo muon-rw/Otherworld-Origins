@@ -13,6 +13,7 @@
         {"id":"#irons_spellbooks:ice_magic","required":false},
         {"id":"#irons_spellbooks:lightning_magic","required":false},
         {"id":"#irons_spellbooks:nature_magic","required":false},
+        {"id":"otherworldorigins:poison","required":false},
         {"id":"ars_nouveau:spell","required":false},
         {"id":"ars_nouveau:frost","required":false},
         {"id":"ars_nouveau:flare","required":false},

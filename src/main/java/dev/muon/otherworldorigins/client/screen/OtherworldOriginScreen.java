@@ -1571,9 +1571,9 @@ public class OtherworldOriginScreen extends Screen {
             ResourceLocation.fromNamespaceAndPath("origins", "textures/gui/badge/star.png");
 
     private static final ResourceLocation SCALING_LEVEL_BADGE =
-            ResourceLocation.fromNamespaceAndPath(OtherworldOrigins.MODID, "textures/gui/badge/scaling_level.png");
+            ResourceLocation.fromNamespaceAndPath(OtherworldOrigins.MODID, "textures/gui/wildshape/scaling_level.png");
     private static final ResourceLocation SCALING_MAGIC_BADGE =
-            ResourceLocation.fromNamespaceAndPath(OtherworldOrigins.MODID, "textures/gui/badge/scaling_magic.png");
+            ResourceLocation.fromNamespaceAndPath(OtherworldOrigins.MODID, "textures/gui/wildshape/scaling_magic.png");
 
     private record AllowedSpellBadge(ResourceLocation sprite, java.util.List<Component> tooltip) {}
 

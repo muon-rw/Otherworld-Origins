@@ -17,27 +17,28 @@
                 {
                     "type": "origins:in_tag",
                     "tag": "c:is_poison"
+                },
+                {
+                    "type": "origins:in_tag",
+                    "tag": "irons_spellbooks:nature_magic"
                 }
             ]
         }
     },
-    "natures_ward_vitals": {
-        "type": "origins:multiple",
-        "hunger_immunity": {
-            "type": "otherworldorigins:hunger_immunity",
-            "condition": {
-                "type": "otherworldorigins:player_level",
-                "comparison": ">=",
-                "compare_to": 10
-            }
-        },
-        "thirst_immunity": {
-            "type": "otherworldorigins:thirst_immunity",
-            "condition": {
-                "type": "otherworldorigins:player_level",
-                "comparison": ">=",
-                "compare_to": 10
-            }
+    "hunger": {
+        "type": "otherworldorigins:hunger_immunity",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 10
+        }
+    },
+    "thirst": {
+        "type": "otherworldorigins:thirst_immunity",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 10
         }
     },
     "natural_strike_low": {

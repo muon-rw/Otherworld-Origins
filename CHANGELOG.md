@@ -4,6 +4,9 @@
 - Patch Origins Power Container login/dim change syncing race condition
 - Patch Origins origin/power registry login syncing race condition
 - Fix rare crash on attack for some wildshapes
+- Fix health-scaling race that could drop current HP on login
+- Update wild magic surge list
+- Wildshape scaling badge sprite condense
 
 ## 1.9.0
 - Patch vanilla bug with arrow velocity

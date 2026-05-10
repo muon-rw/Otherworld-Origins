@@ -21,6 +21,7 @@
     "ItemStackMixin",
     "LivingEntityMixin",
     "MobAccessor",
+    "MobEffectMixin",
     "MobMixin",
     "PlayerMixin",
     "PotionUtilsMixin",

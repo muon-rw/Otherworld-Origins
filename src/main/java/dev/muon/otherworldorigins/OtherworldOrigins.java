@@ -24,10 +24,15 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import org.slf4j.Logger;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @Mod(OtherworldOrigins.MODID)
 public class OtherworldOrigins {
@@ -55,6 +60,7 @@ public class OtherworldOrigins {
     public OtherworldOrigins(FMLJavaModLoadingContext context) {
 
         OtherworldOrigins.LOGGER.info("Loading Otherworld Origins");
+        deleteLegacyForgeConfig();
         OtherworldOriginsConfig.setInstance(
                 ConfigApiJava.registerAndLoadConfig(OtherworldOriginsConfig::new, RegisterType.BOTH));
 
@@ -85,6 +91,17 @@ public class OtherworldOrigins {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
+    }
+
+    private static void deleteLegacyForgeConfig() {
+        Path legacy = FMLPaths.CONFIGDIR.get().resolve("otherworldorigins-common.toml");
+        try {
+            if (Files.deleteIfExists(legacy)) {
+                LOGGER.info("Deleted legacy Forge config {} (replaced by FzzyConfig in 2.0.0)", legacy);
+            }
+        } catch (IOException e) {
+            LOGGER.warn("Failed to delete legacy Forge config {}: {}", legacy, e.toString());
+        }
     }
 
     private static int packetId = 0;

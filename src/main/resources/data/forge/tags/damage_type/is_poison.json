@@ -1,0 +1,7 @@
+{
+    "replace": false,
+    "values": [
+        {"id":"otherworldorigins:poison","required":false},
+        {"id":"irons_spellbooks:poison_cloud","required":false}
+    ]
+}

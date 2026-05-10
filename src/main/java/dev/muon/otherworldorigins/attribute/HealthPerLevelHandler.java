@@ -4,6 +4,7 @@ import dev.muon.otherworld.leveling.LevelingUtils;
 import dev.muon.otherworld.leveling.event.AptitudeChangedEvent;
 import dev.muon.otherworld.leveling.event.PassiveChangedEvent;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.player.Player;
@@ -91,25 +92,25 @@ public class HealthPerLevelHandler {
             return;
         }
 
-        // Store previous health state for percentage-based health preservation
         float previousMaxHealth = player.getMaxHealth();
-        float previousHealthPercent = previousMaxHealth > 0 ? player.getHealth() / previousMaxHealth : 1.0f;
+        // Clamp percent to [0,1]: if a prior step left health > maxHealth (vanilla does not
+        // auto-clamp on removeModifier), an unclamped >1.0 percent would chain into the next
+        // setHealth-based handler and cap the player at the new (smaller) max, dropping HP.
+        float previousHealthPercent = previousMaxHealth > 0
+                ? Mth.clamp(player.getHealth() / previousMaxHealth, 0.0f, 1.0f)
+                : 1.0f;
 
-        // Remove existing modifier
         maxHealthAttr.removeModifier(HEALTH_PER_LEVEL_MODIFIER_UUID);
 
-        // Calculate new modifier value
         int characterLevel = LevelingUtils.getPlayerLevel(player);
         double healthPerLevelValue = healthPerLevelAttr.getValue();
         double modifierValue = characterLevel * healthPerLevelValue;
 
-        // Update tracking maps
         lastKnownLevels.put(player, characterLevel);
         lastKnownAttributeValues.put(player, healthPerLevelValue);
 
         if (modifierValue > 0) {
-            // Apply new modifier using transient modifier for consistency with LeveledAttributePower
-            // (transient modifiers are automatically cleaned up on death/relog, preventing orphans)
+            // Transient modifier: auto-cleaned on death/relog, preventing orphans.
             AttributeModifier modifier = new AttributeModifier(
                     HEALTH_PER_LEVEL_MODIFIER_UUID,
                     "Health per Character Level",
@@ -117,13 +118,15 @@ public class HealthPerLevelHandler {
                     AttributeModifier.Operation.ADDITION
             );
             maxHealthAttr.addTransientModifier(modifier);
+        }
 
-            // Preserve health percentage: if you were at 50% health, stay at 50%
-            // This is neutral (no free healing) and consistent with LeveledAttributePower
-            float newMaxHealth = player.getMaxHealth();
-            if (newMaxHealth != previousMaxHealth && newMaxHealth > 0) {
-                player.setHealth(newMaxHealth * previousHealthPercent);
-            }
+        // Always reconcile health when max changed, even when no new modifier was added
+        // (e.g., modifier value dropped to 0). Without this, the player's stored health
+        // can exceed the new max, and the next handler that captures previousHealthPercent
+        // would see >1.0 and clamp the player to a much lower absolute HP.
+        float newMaxHealth = player.getMaxHealth();
+        if (newMaxHealth != previousMaxHealth && newMaxHealth > 0) {
+            player.setHealth(newMaxHealth * previousHealthPercent);
         }
     }
 }
