@@ -7,6 +7,9 @@
 - Fix health-scaling race that could drop current HP on login
 - Update wild magic surge list
 - Wildshape scaling badge sprite condense
+- Fix hunger immunity compat with appleskin
+- Fix some issues with the heal from damage power / poison immunity
+- Fix Land druid nature's ward barely working
 
 ## 1.9.0
 - Patch vanilla bug with arrow velocity
