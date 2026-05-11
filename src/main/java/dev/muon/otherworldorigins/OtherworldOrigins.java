@@ -200,5 +200,11 @@ public class OtherworldOrigins {
                 .decoder(RequestFullSyncMessage::decode)
                 .consumerMainThread(RequestFullSyncMessage::handle)
                 .add();
+
+        CHANNEL.messageBuilder(RequestServerStateDumpMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(RequestServerStateDumpMessage::encode)
+                .decoder(RequestServerStateDumpMessage::decode)
+                .consumerMainThread(RequestServerStateDumpMessage::handle)
+                .add();
     }
 }

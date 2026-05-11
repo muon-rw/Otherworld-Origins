@@ -3,6 +3,7 @@ package dev.muon.otherworldorigins.util;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.client.screen.FinalConfirmScreen;
 import dev.muon.otherworldorigins.client.screen.OtherworldOriginScreen;
+import dev.muon.otherworldorigins.network.RequestServerStateDumpMessage;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
 import net.minecraft.client.Minecraft;
@@ -33,6 +34,11 @@ public class ClientLayerScreenHelper {
 
             if (validationAttempts >= MAX_VALIDATION_ATTEMPTS) {
                 resetValidationAttempts();
+                // Dump client state to logs/ and ask the server to dump its parallel view
+                // BEFORE disconnecting, so we can cross-compare what each side saw.
+                OriginStateDumper.dump(minecraft.player, "CLIENT", null,
+                        "validation failed " + MAX_VALIDATION_ATTEMPTS + " times");
+                OtherworldOrigins.CHANNEL.sendToServer(new RequestServerStateDumpMessage());
                 minecraft.execute(() -> {
                     minecraft.player.connection.getConnection().disconnect(
                             Component.translatable("otherworldorigins.disconnect.validation_failed")

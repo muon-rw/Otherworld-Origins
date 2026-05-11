@@ -1,3 +1,6 @@
+## 2.0.1
+- State dump debug
+
 ## 2.0.0
 - Migrate to FzzyConfig
 - Add global toggle to spell restrictions
