@@ -1,0 +1,29 @@
+{
+    "type": "origins:action_on_callback",
+    "hidden": true,
+    "entity_action_gained": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "origins:modify_resource",
+                "resource": "otherworldorigins:class/druid/wildshape_wildshape_charges",
+                "modifier": {
+                    "operation": "add_base_early",
+                    "value": 1
+                }
+            },
+            {
+                "type": "origins:modify_resource",
+                "resource": "otherworldorigins:class/druid/wildshape_wildshape_gate",
+                "modifier": {
+                    "operation": "set_total",
+                    "value": 0
+                }
+            },
+            {
+                "type": "origins:execute_command",
+                "command": "origin set @s otherworldorigins:wildshape origins:empty"
+            }
+        ]
+    }
+}

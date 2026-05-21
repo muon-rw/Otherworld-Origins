@@ -6,7 +6,7 @@
     "entity_action": {
         "type": "otherworldorigins:cast_spell",
         "spell": "healing_circle",
-        "power_level": 2,
+        "power_level": 1,
         "mana_cost": 10,
         "cast_time": 0
     },
@@ -15,7 +15,7 @@
         "comparison": ">=",
         "compare_to": 10
     },
-    "cooldown": 50,
+    "cooldown": 80,
     "hud_render": {
         "should_render": true,
         "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",

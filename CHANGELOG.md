@@ -1,3 +1,10 @@
+## 2.1.0
+- Orb of Ancestry, Orb of Vocation
+- Rage cooldown 60s -> 6s
+- Momentum cooldown 1s -> 0.25s, force 0.9 -> 0.65
+- Healing circle cantrip nerf
+- Wild Shape: Cancel option to back out of the form menu
+
 ## 2.0.1
 - State dump debug
 

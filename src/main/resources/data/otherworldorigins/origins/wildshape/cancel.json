@@ -1,0 +1,7 @@
+{
+    "powers": [
+        "otherworldorigins:wildshape/cancel"
+    ],
+    "icon": "minecraft:barrier",
+    "order": 999
+}
