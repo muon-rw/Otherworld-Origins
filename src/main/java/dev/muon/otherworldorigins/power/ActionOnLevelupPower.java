@@ -2,7 +2,7 @@ package dev.muon.otherworldorigins.power;
 
 
 import dev.muon.otherworld.leveling.event.AptitudeChangedEvent;
-import dev.muon.otherworldorigins.util.LeveledLayerHandler;
+import dev.muon.otherworldorigins.selection.SelectionSessions;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.configuration.HolderConfiguration;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityAction;
@@ -38,7 +38,7 @@ public class ActionOnLevelupPower extends PowerFactory<HolderConfiguration<Confi
                 IPowerContainer.get(serverPlayer).ifPresent(container ->
                         execute((PowerContainer) container, serverPlayer, event.getNewLevel())
                 );
-                LeveledLayerHandler.checkForEmptyValidLayers(serverPlayer);
+                SelectionSessions.promptLevelGated(serverPlayer);
             }
         }
     }

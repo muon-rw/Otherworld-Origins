@@ -3,10 +3,9 @@ package dev.muon.otherworldorigins.client.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.network.C2SRevertLayerOriginsMessage;
-import dev.muon.otherworldorigins.network.CheckLeveledLayersMessage;
-import dev.muon.otherworldorigins.util.ClientLayerScreenHelper;
+import dev.muon.otherworldorigins.network.SelectionSessionFinishedMessage;
 import dev.muon.otherworldorigins.util.ElementalDisciplineSpellDisplay;
-import dev.muon.otherworldorigins.network.RequestLayerValidationMessage;
+import dev.muon.otherworldorigins.selection.SessionKind;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
 import io.github.edwinmindcraft.origins.api.origin.Origin;
@@ -117,7 +116,7 @@ public class OtherworldOriginScreen extends Screen {
     private float time = 0.0f;
 
     private List<FormattedCharSequence> sheetLines = new ArrayList<>();
-    private boolean dynamicPromptMode = false;
+    private final SessionKind kind;
 
     /** Queued during active-layer row render (under scissor); drawn in {@link #renderLeftPanel} after scissor ends. */
     private boolean pendingConfirmSelectionHint;
@@ -217,16 +216,12 @@ public class OtherworldOriginScreen extends Screen {
 
     private Button selectButton;
 
-    public OtherworldOriginScreen(List<Holder<OriginLayer>> layerList, int startLayerIndex, boolean showDirtBackground) {
-        this(layerList, startLayerIndex, showDirtBackground, false);
-    }
-
-    public OtherworldOriginScreen(List<Holder<OriginLayer>> layerList, int startLayerIndex, boolean showDirtBackground, boolean dynamicPrompt) {
+    public OtherworldOriginScreen(List<Holder<OriginLayer>> layerList, int startLayerIndex, boolean showDirtBackground, SessionKind kind) {
         super(Component.translatable("origins.screen.choose_origin"));
         this.layerList = layerList;
         this.currentLayerIndex = startLayerIndex;
         this.showDirtBackground = showDirtBackground;
-        this.dynamicPromptMode = dynamicPrompt;
+        this.kind = kind;
     }
 
     @Override
@@ -241,8 +236,8 @@ public class OtherworldOriginScreen extends Screen {
         this.selectButton.visible = false;
 
         evaluateCurrentLayer();
-        OtherworldOrigins.LOGGER.debug("[OWOriginScreen] init: {} layers, currentLayerIndex={}, dynamicPromptMode={}, confirmedSelections={}",
-                this.layerList.size(), this.currentLayerIndex, this.dynamicPromptMode, this.confirmedSelections.size());
+        OtherworldOrigins.LOGGER.debug("[OWOriginScreen] init: {} layers, currentLayerIndex={}, kind={}, confirmedSelections={}",
+                this.layerList.size(), this.currentLayerIndex, this.kind, this.confirmedSelections.size());
     }
 
     private void evaluateCurrentLayer() {
@@ -359,21 +354,8 @@ public class OtherworldOriginScreen extends Screen {
 
     private void finishSelection() {
         Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.ENCHANTMENT_TABLE_USE, 1.0F));
-
-        if (this.dynamicPromptMode) {
-            Minecraft.getInstance().setScreen(null);
-            OtherworldOrigins.CHANNEL.sendToServer(new CheckLeveledLayersMessage());
-            return;
-        }
-
-        Set<ResourceLocation> selectedLayerIds = new HashSet<>();
-        for (Holder<OriginLayer> layerHolder : this.layerList) {
-            layerHolder.unwrapKey().ifPresent(key -> selectedLayerIds.add(key.location()));
-        }
-        ClientLayerScreenHelper.addToSelectedLayers(selectedLayerIds);
-
         Minecraft.getInstance().setScreen(null);
-        OtherworldOrigins.CHANNEL.sendToServer(new RequestLayerValidationMessage());
+        OtherworldOrigins.CHANNEL.sendToServer(new SelectionSessionFinishedMessage());
     }
 
     private void updateButtonStates() {
@@ -526,7 +508,7 @@ public class OtherworldOriginScreen extends Screen {
         super.tick();
         updateAnimations();
 
-        if (this.dynamicPromptMode) {
+        if (this.kind != SessionKind.INITIAL_CREATION) {
             Holder<Origin> displayOrigin = getRightPanelDisplayOrigin();
             if (displayOrigin != null && displayOrigin.isBound()) {
                 ResourceLocation entityTypeId = getShapeshiftEntityType(displayOrigin);
@@ -1360,7 +1342,7 @@ public class OtherworldOriginScreen extends Screen {
     }
 
     private void renderCenterPanel(GuiGraphics graphics, int mouseX, int mouseY) {
-        if (this.dynamicPromptMode) {
+        if (this.kind != SessionKind.INITIAL_CREATION) {
             renderWildshapePreview(graphics);
             return;
         }

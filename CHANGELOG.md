@@ -4,6 +4,7 @@
 - Momentum cooldown 1s -> 0.25s, force 0.9 -> 0.65
 - Healing circle cantrip nerf
 - Wild Shape: Cancel option to back out of the form menu
+- Clean up layer selection type and reprompt logic, fixing an exploit related to relogging during dynamic layer selection
 
 ## 2.0.1
 - State dump debug

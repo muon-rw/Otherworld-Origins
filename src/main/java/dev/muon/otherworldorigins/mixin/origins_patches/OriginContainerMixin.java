@@ -1,6 +1,9 @@
 package dev.muon.otherworldorigins.mixin.origins_patches;
 
+import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.util.OriginStateDumper;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
+import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.origins.common.OriginsCommon;
 import io.github.edwinmindcraft.origins.common.capabilities.OriginContainer;
 import net.minecraft.server.MinecraftServer;
@@ -8,9 +11,14 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.PacketDistributor;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Origins queues origin sync on the player tick with a 20-tick cooldown. Nested {@code setOrigin}
@@ -34,6 +42,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = OriginContainer.class, remap = false)
 public abstract class OriginContainerMixin {
 
+    /** Players already warned about an empty power container; cleared once their container recovers. */
+    @Unique
+    private static final Set<UUID> otherworldorigins$powerLossAlarmed = ConcurrentHashMap.newKeySet();
+
     @Inject(method = "synchronize", at = @At("TAIL"), remap = false)
     private void otherworldorigins$flushOriginSyncNow(CallbackInfo ci) {
         Player owner = ((OriginContainer) (Object) this).getOwner();
@@ -50,5 +62,30 @@ public abstract class OriginContainerMixin {
                 self.getSynchronizationPacket());
         ApoliAPI.synchronizePowerContainer(owner);
         self.validateSynchronization();
+        otherworldorigins$checkForPowerLoss(self, serverPlayer);
+    }
+
+    /**
+     * Tripwire for the power-container desync: a player who has chosen all their origins but whose
+     * power container is empty has lost their powers server-side. Logged once per occurrence (until
+     * the container recovers) with the call path and a full {@link OriginStateDumper} state dump.
+     */
+    @Unique
+    private static void otherworldorigins$checkForPowerLoss(OriginContainer container, ServerPlayer player) {
+        boolean emptyPowers = IPowerContainer.get(player)
+                .map(powers -> powers.getPowerTypes(true).isEmpty())
+                .orElse(false);
+        if (container.hasAllOrigins() && emptyPowers) {
+            if (otherworldorigins$powerLossAlarmed.add(player.getUUID())) {
+                OtherworldOrigins.LOGGER.warn(
+                        "[PowerWipe] server power container for {} is EMPTY despite all origins chosen",
+                        player.getName().getString(),
+                        new Throwable("server power-container loss tripwire — call path"));
+                OriginStateDumper.dump(player, "SERVER", player.getServer(),
+                        "server power container empty while all origins chosen");
+            }
+        } else {
+            otherworldorigins$powerLossAlarmed.remove(player.getUUID());
+        }
     }
 }

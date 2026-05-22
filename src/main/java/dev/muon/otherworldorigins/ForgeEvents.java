@@ -5,7 +5,7 @@ import com.seniors.justlevelingfork.registry.skills.Skill;
 import dev.muon.otherworldorigins.effect.BattleHymnEffect;
 import dev.muon.otherworldorigins.effect.CuttingWordsEffect;
 import dev.muon.otherworldorigins.effect.ModEffects;
-import dev.muon.otherworldorigins.network.CloseCurrentScreenMessage;
+import dev.muon.otherworldorigins.selection.SelectionSessions;
 import dev.muon.otherworldorigins.power.DeflectProjectilePower;
 import dev.muon.otherworldorigins.power.HealFromDamagePower;
 import dev.muon.otherworldorigins.power.DirectionalTeleportPower;
@@ -24,24 +24,16 @@ import dev.shadowsoffire.apotheosis.Apotheosis;
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.component.IPowerDataCache;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
-import io.github.edwinmindcraft.origins.api.origin.Origin;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
-import io.github.edwinmindcraft.origins.common.OriginsCommon;
-import io.github.edwinmindcraft.origins.common.network.S2COpenOriginScreen;
 import io.redspace.ironsspellbooks.api.events.ModifySpellLevelEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.entity.spells.AbstractConeProjectile;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -70,7 +62,6 @@ import net.minecraftforge.event.server.ServerStoppingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.*;
 
@@ -216,36 +207,7 @@ public class ForgeEvents {
                     true);
         }
 
-        Registry<OriginLayer> layerRegistry = OriginsAPI.getLayersRegistry(player.level().getServer());
-
-        IOriginContainer originContainer = IOriginContainer.get(player).resolve().orElse(null);
-        if (originContainer == null) return;
-
-        List<Holder<OriginLayer>> missingOriginLayers = new ArrayList<>();
-
-        for (OriginLayer layer : layerRegistry) {
-            Holder<OriginLayer> layerHolder = layerRegistry.getHolderOrThrow(
-                    layerRegistry.getResourceKey(layer).orElseThrow()
-            );
-
-            ResourceKey<Origin> currentOrigin = originContainer.getOrigin(layerHolder);
-            if (currentOrigin.location().equals(ResourceLocation.fromNamespaceAndPath("origins", "empty"))) {
-                Set<Holder<Origin>> availableOrigins = layer.origins(player);
-                if (!availableOrigins.isEmpty()) {
-                    missingOriginLayers.add(layerHolder);
-                }
-            }
-        }
-
-        if (!missingOriginLayers.isEmpty()) {
-            PacketDistributor.PacketTarget target = PacketDistributor.PLAYER.with(() -> serverPlayer);
-            OtherworldOrigins.CHANNEL.send(target, new CloseCurrentScreenMessage());
-            OriginsCommon.CHANNEL.send(target, originContainer.getSynchronizationPacket());
-            OriginsCommon.CHANNEL.send(target, new S2COpenOriginScreen(false));
-            originContainer.synchronize();
-        }
-        // Container + dynamic-registry re-sync is driven by the client via
-        // RequestContainerSyncMessage (ClientPlayerNetworkEvent.LoggingIn / Clone).
+        SelectionSessions.reconcile(serverPlayer);
     }
 
     @SubscribeEvent
@@ -316,6 +278,22 @@ public class ForgeEvents {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void healFromDamage(LivingAttackEvent event) {
         if (HealFromDamagePower.apply(event.getEntity(), event.getSource(), event.getAmount())) {
+            event.setCanceled(true);
+        }
+    }
+
+    /**
+     * Selection invulnerability: a player with an open selection session can't be hurt while
+     * choosing. Replaces Origins' {@code SelectionInvulnerabilityMixin} (cancelled in
+     * {@link OtherworldOriginsMixinCanceller}), which keyed off "has an unchosen layer" — a state
+     * that could persist un-tracked; the session is the explicit, reconciled signal.
+     */
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void selectionInvulnerability(LivingAttackEvent event) {
+        if (event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            return;
+        }
+        if (event.getEntity() instanceof ServerPlayer player && SelectionSessions.get(player).isPresent()) {
             event.setCanceled(true);
         }
     }

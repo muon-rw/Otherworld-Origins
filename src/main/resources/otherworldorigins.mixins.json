@@ -70,11 +70,10 @@
     "network.ClientboundCustomQueryPacketMixin",
     "network.ClientboundSetEntityMotionPacketMixin",
     "network.ServerboundCustomPayloadPacketMixin",
-    "origins_patches.ChooseOriginScreenMixin",
+    "origins_patches.OrbOfOriginItemMixin",
     "origins_patches.OriginContainerMixin",
     "origins_patches.CooldownPowerFactoryActiveSelfMixin",
-    "origins_patches.PowerContainerMixin",
-    "origins_patches.WaitForNextLayerScreenMixin"
+    "origins_patches.PowerContainerMixin"
   ],
   "client": [
     "client.EntityRenderDispatcherMixin",
@@ -91,7 +90,6 @@
     "client.compat.alexsmobs.RenderTigerMixin",
     "client.compat.citadel.CitadelModelTransparencyMixin",
     "client.compat.legendarysurvivaloverhaul.RenderThirstGuiMixin",
-    "compat.altorigingui.ChooseOriginScreenMixinSquared",
     "compat.apotheosis.ApothEnchantScreenMixin",
     "compat.bettercombat.WeaponRegistryMixin",
     "compat.irons_spellbooks.ClientInputEventsMixin",
