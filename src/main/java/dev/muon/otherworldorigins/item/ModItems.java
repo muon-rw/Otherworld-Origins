@@ -1,7 +1,7 @@
 package dev.muon.otherworldorigins.item;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import dev.muon.otherworldorigins.util.LayerReselection;
+import dev.muon.otherworldorigins.selection.SelectionLayers;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -141,9 +141,9 @@ public class ModItems {
 
     /** Reselection Orbs */
     public static final RegistryObject<Item> ORB_OF_ANCESTRY = ITEMS.register("orb_of_ancestry",
-            () -> new ReselectionOrbItem(new Item.Properties().rarity(Rarity.UNCOMMON), LayerReselection.ANCESTRY_LAYERS));
+            () -> new ReselectionOrbItem(new Item.Properties().rarity(Rarity.UNCOMMON), SelectionLayers.ANCESTRY));
     public static final RegistryObject<Item> ORB_OF_VOCATION = ITEMS.register("orb_of_vocation",
-            () -> new ReselectionOrbItem(new Item.Properties().rarity(Rarity.UNCOMMON), LayerReselection.VOCATION_LAYERS));
+            () -> new ReselectionOrbItem(new Item.Properties().rarity(Rarity.UNCOMMON), SelectionLayers.VOCATION));
 
 
     public static void register(IEventBus eventBus) {

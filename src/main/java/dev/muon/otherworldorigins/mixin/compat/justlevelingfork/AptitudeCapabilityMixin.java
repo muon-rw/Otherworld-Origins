@@ -5,7 +5,7 @@ import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
 import com.seniors.justlevelingfork.registry.RegistryCapabilities;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
 import dev.muon.otherworldorigins.power.InnateAptitudeBonusPower;
-import dev.muon.otherworldorigins.util.LeveledLayerHandler;
+import dev.muon.otherworldorigins.selection.SelectionSessions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -44,7 +44,7 @@ public class AptitudeCapabilityMixin {
     @Inject(method = "addAptitudeLevel", at = @At("RETURN"))
     private void checkFeatEligibility(Aptitude aptitude, int addLvl, CallbackInfo ci) {
         if (otherworld$player instanceof ServerPlayer serverPlayer) {
-            LeveledLayerHandler.checkForEmptyValidLayers(serverPlayer);
+            SelectionSessions.promptLevelGated(serverPlayer);
         }
     }
 

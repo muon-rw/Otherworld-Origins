@@ -1,20 +1,22 @@
 package dev.muon.otherworldorigins.network;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import dev.muon.otherworldorigins.util.LeveledLayers;
-import io.github.edwinmindcraft.origins.api.OriginsAPI;
-import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
-import io.github.edwinmindcraft.origins.api.origin.Origin;
-import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
-import io.github.edwinmindcraft.origins.common.OriginsCommon;
-import net.minecraft.core.Holder;
+import dev.muon.otherworldorigins.selection.SelectionLayers;
+import dev.muon.otherworldorigins.selection.SelectionSessions;
+import dev.muon.otherworldorigins.selection.SessionKind;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.PacketDistributor;
 
 import java.util.function.Supplier;
 
+/**
+ * Client -&gt; server: clear the level-gated layers and re-prompt for them. Sent on aptitude respec
+ * (see {@code RespecAptitudesMessage}). Routes through {@link SelectionSessions#beginCleared} so the
+ * re-pick is a persisted, relog-safe {@code LEVEL_UP} session instead of a session-less clear — the
+ * latter left the player un-prompted until their next level-up and could mis-reconcile a post-respec
+ * relog into full character creation.
+ */
 public class ResetLeveledLayersMessage {
 
     public ResetLeveledLayersMessage() {}
@@ -29,18 +31,7 @@ public class ResetLeveledLayersMessage {
         ctx.get().enqueueWork(() -> {
             ServerPlayer player = ctx.get().getSender();
             if (player != null) {
-                IOriginContainer.get(player).ifPresent(container -> {
-                    for (Holder.Reference<OriginLayer> layerRef : OriginsAPI.getActiveLayers()) {
-                        layerRef.unwrapKey().ifPresent(key -> {
-                            if (LeveledLayers.IDS.contains(key.location())) {
-                                container.setOrigin(layerRef.get(), Origin.EMPTY);
-                            }
-                        });
-                    }
-                    PacketDistributor.PacketTarget target = PacketDistributor.PLAYER.with(() -> player);
-                    OriginsCommon.CHANNEL.send(target, container.getSynchronizationPacket());
-                    container.synchronize();
-                });
+                SelectionSessions.beginCleared(player, SelectionLayers.LEVEL_GATED, SessionKind.LEVEL_UP);
             }
         });
         ctx.get().setPacketHandled(true);

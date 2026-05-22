@@ -1,6 +1,7 @@
 package dev.muon.otherworldorigins.item;
 
-import dev.muon.otherworldorigins.util.LayerReselection;
+import dev.muon.otherworldorigins.selection.SelectionSessions;
+import dev.muon.otherworldorigins.selection.SessionKind;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
@@ -20,8 +21,6 @@ import java.util.List;
  * Right-click to clear and re-pick a set of origin layers (e.g. race/subrace or class/subclass and
  * everything gated on them). Backs the Orb of Ancestry and Orb of Vocation. Consumed on use unless
  * the player is in creative mode.
- *
- * @see LayerReselection
  */
 public class ReselectionOrbItem extends Item {
 
@@ -38,7 +37,8 @@ public class ReselectionOrbItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
         if (!level.isClientSide && player instanceof ServerPlayer serverPlayer) {
-            if (LayerReselection.begin(serverPlayer, layers) && !serverPlayer.getAbilities().instabuild) {
+            if (SelectionSessions.beginCleared(serverPlayer, layers, SessionKind.RESELECTION)
+                    && !serverPlayer.getAbilities().instabuild) {
                 stack.shrink(1);
             }
         }

@@ -19,6 +19,12 @@ public class OtherworldOriginsMixinCanceller implements MixinCanceller {
         if ("com.seniors.justlevelingfork.mixin.MixPlayer".equals(mixinClassName)) {
             return true;
         }
+        // Origins' SelectionInvulnerabilityMixin makes a player invulnerable whenever any layer
+        // is unchosen, an ambiguous derived state that can persist un-tracked. Replaced by
+        // session-keyed invulnerability in ForgeEvents (invulnerable iff a SelectionSession is open).
+        if ("io.github.apace100.origins.mixin.SelectionInvulnerabilityMixin".equals(mixinClassName)) {
+            return true;
+        }
         return false;
     }
 }

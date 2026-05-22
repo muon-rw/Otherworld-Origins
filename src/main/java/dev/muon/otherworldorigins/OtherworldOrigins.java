@@ -129,38 +129,11 @@ public class OtherworldOrigins {
                 .consumerMainThread(C2SRevertLayerOriginsMessage::handle)
                 .add();
 
-        CHANNEL.messageBuilder(CheckLeveledLayersMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
-                .encoder(CheckLeveledLayersMessage::encode)
-                .decoder(CheckLeveledLayersMessage::decode)
-                .consumerMainThread(CheckLeveledLayersMessage::handle)
-                .add();
         CHANNEL.messageBuilder(RespecAptitudesMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
                 .encoder(RespecAptitudesMessage::encode)
                 .decoder(RespecAptitudesMessage::decode)
                 .consumerMainThread(RespecAptitudesMessage::handle)
                 .add();
-        CHANNEL.messageBuilder(RequestLayerValidationMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
-                .encoder(RequestLayerValidationMessage::encode)
-                .decoder(RequestLayerValidationMessage::decode)
-                .consumerMainThread(RequestLayerValidationMessage::handle)
-                .add();
-
-        CHANNEL.messageBuilder(SendValidatedLayersMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
-                .encoder(SendValidatedLayersMessage::encode)
-                .decoder(SendValidatedLayersMessage::decode)
-                .consumerMainThread(SendValidatedLayersMessage::handle)
-                .add();
-        CHANNEL.messageBuilder(SendLeveledLayersMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
-                .encoder(SendLeveledLayersMessage::encode)
-                .decoder(SendLeveledLayersMessage::decode)
-                .consumerMainThread(SendLeveledLayersMessage::handle)
-                .add();
-        CHANNEL.messageBuilder(ResetValidationAttemptsMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
-                .encoder(ResetValidationAttemptsMessage::encode)
-                .decoder(ResetValidationAttemptsMessage::decode)
-                .consumerMainThread(ResetValidationAttemptsMessage::handle)
-                .add();
-        
         CHANNEL.messageBuilder(OpenFinalConfirmScreenMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(OpenFinalConfirmScreenMessage::encode)
                 .decoder(OpenFinalConfirmScreenMessage::decode)
@@ -205,6 +178,24 @@ public class OtherworldOrigins {
                 .encoder(RequestServerStateDumpMessage::encode)
                 .decoder(RequestServerStateDumpMessage::decode)
                 .consumerMainThread(RequestServerStateDumpMessage::handle)
+                .add();
+
+        CHANNEL.messageBuilder(SyncSelectionSessionMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(SyncSelectionSessionMessage::encode)
+                .decoder(SyncSelectionSessionMessage::decode)
+                .consumerMainThread(SyncSelectionSessionMessage::handle)
+                .add();
+
+        CHANNEL.messageBuilder(SelectionSessionFinishedMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(SelectionSessionFinishedMessage::encode)
+                .decoder(SelectionSessionFinishedMessage::decode)
+                .consumerMainThread(SelectionSessionFinishedMessage::handle)
+                .add();
+
+        CHANNEL.messageBuilder(BeginReselectionMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_SERVER)
+                .encoder(BeginReselectionMessage::encode)
+                .decoder(BeginReselectionMessage::decode)
+                .consumerMainThread(BeginReselectionMessage::handle)
                 .add();
     }
 }
