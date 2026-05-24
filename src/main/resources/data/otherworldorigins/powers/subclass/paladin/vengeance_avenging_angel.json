@@ -1,23 +1,311 @@
 {
-    "type": "origins:modify_damage_dealt",
-    "condition": {
-        "type": "origins:and",
-        "conditions": [
-            {
-                "type": "otherworldorigins:player_level",
-                "comparison": ">=",
-                "compare_to": 20
-            },
-            {
-                "type": "otherworldorigins:leveled_chance",
-                "base": 0.0,
-                "per_level": 0.01,
-                "aptitude": "justlevelingfork:strength"
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": {
+                "translate": "origins.gui.badge.active",
+                "with": [
+                    {
+                        "keybind": "key.otherworldorigins.cantrip_three"
+                    }
+                ]
             }
-        ]
+        }
+    ],
+    "invoke": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.otherworldorigins.cantrip_three"
+        },
+        "cooldown": 24000,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 20
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_timer",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 2400
+                    }
+                },
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "irons_spellbooks:angel_wing",
+                    "power_level": 5,
+                    "cast_time": 0,
+                    "interrupt_mode": "force_complete"
+                },
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "irons_spellbooks:haste",
+                    "power_level": 5,
+                    "cast_time": 0,
+                    "interrupt_mode": "force_complete"
+                },
+                {
+                    "type": "otherworldorigins:area_of_effect_sequential",
+                    "radius": 16,
+                    "include_self": false,
+                    "application_count": 5,
+                    "delay_ticks": 4,
+                    "bientity_condition": {
+                        "type": "origins:or",
+                        "inverted": true,
+                        "conditions": [
+                            {
+                                "type": "otherworldorigins:allied"
+                            },
+                            {
+                                "type": "origins:target_condition",
+                                "condition": {
+                                    "type": "otherworldorigins:is_friendly"
+                                }
+                            }
+                        ]
+                    },
+                    "bientity_action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "irons_spellbooks:guiding_bolt",
+                        "power_level": 5,
+                        "cast_time": 0,
+                        "interrupt_mode": "force_complete"
+                    }
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "otherworldorigins:valkyrie_land",
+                    "volume": 1.2,
+                    "category": "players"
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:end_rod ~ ~1.5 ~ 1.5 1 1.5 0.1 50"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:firework ~ ~2 ~ 1 1 1 0.1 30"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:cloud ~ ~1 ~ 1 0.5 1 0.05 25"
+                }
+            ]
+        },
+        "hud_render": {
+            "should_render": true,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_invoke",
+                "compare_to": 0,
+                "comparison": ">"
+            },
+            "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_02.png",
+            "bar_index": 9
+        }
     },
-    "modifier": {
-        "operation": "multiply_total",
-        "value": 1.0
+    "timer": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 2400,
+        "start_value": 0,
+        "min_action": {
+            "type": "otherworldorigins:action_bar_message",
+            "message": {
+                "translate": "otherworldorigins.avenging_angel.fade",
+                "color": "gray"
+            }
+        },
+        "hud_render": {
+            "should_render": true,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_timer",
+                "comparison": ">",
+                "compare_to": 0
+            },
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 5
+        }
+    },
+    "tick_timer": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_timer",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -20
+            }
+        }
+    },
+    "pulse_barrage": {
+        "type": "origins:action_over_time",
+        "interval": 25,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "otherworldorigins:area_of_effect_sequential",
+            "radius": 16,
+            "include_self": false,
+            "application_count": 4,
+            "delay_ticks": 4,
+            "bientity_condition": {
+                "type": "origins:or",
+                "inverted": true,
+                "conditions": [
+                    {
+                        "type": "otherworldorigins:allied"
+                    },
+                    {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "otherworldorigins:is_friendly"
+                        }
+                    }
+                ]
+            },
+            "bientity_action": {
+                "type": "otherworldorigins:cast_spell",
+                "spell": {
+                    "spells": [
+                        "irons_spellbooks:guiding_bolt",
+                        "irons_spellbooks:sunbeam",
+                        "irons_spellbooks:wisp",
+                        "gtbcs_geomancy_plus:solar_beam",
+                        "gtbcs_geomancy_plus:solar_storm"
+                    ],
+                    "power_level": 5
+                },
+                "cast_time": 0,
+                "interrupt_mode": "force_complete"
+            }
+        }
+    },
+    "pulse_sustain": {
+        "type": "origins:action_over_time",
+        "interval": 200,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "irons_spellbooks:angel_wing",
+                    "power_level": 5,
+                    "cast_time": 0,
+                    "interrupt_mode": "force_complete"
+                },
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "irons_spellbooks:haste",
+                    "power_level": 5,
+                    "cast_time": 0,
+                    "interrupt_mode": "force_complete"
+                }
+            ]
+        }
+    },
+    "self_speed": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "modifier": {
+            "attribute": "minecraft:generic.movement_speed",
+            "operation": "multiply_base",
+            "value": 0.3
+        }
+    },
+    "self_attack_speed": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "modifier": {
+            "attribute": "minecraft:generic.attack_speed",
+            "operation": "multiply_base",
+            "value": 0.3
+        }
+    },
+    "self_damage": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "modifier": {
+            "attribute": "minecraft:generic.attack_damage",
+            "operation": "addition",
+            "value": 6
+        }
+    },
+    "pulse_particles": {
+        "type": "origins:action_over_time",
+        "interval": 10,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:end_rod ~ ~1 ~ 1 1 1 0.05 4"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:cloud ~ ~ ~ 0.8 0.1 0.8 0.02 2"
+                }
+            ]
+        }
+    },
+    "sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_invoke",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
+            }
+        }
     }
 }

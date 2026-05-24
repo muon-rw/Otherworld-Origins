@@ -180,6 +180,12 @@ public class OtherworldOrigins {
                 .consumerMainThread(RequestServerStateDumpMessage::handle)
                 .add();
 
+        CHANNEL.messageBuilder(DumpClientStateMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(DumpClientStateMessage::encode)
+                .decoder(DumpClientStateMessage::decode)
+                .consumerMainThread(DumpClientStateMessage::handle)
+                .add();
+
         CHANNEL.messageBuilder(SyncSelectionSessionMessage.class, nextPacketId(), NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(SyncSelectionSessionMessage::encode)
                 .decoder(SyncSelectionSessionMessage::decode)

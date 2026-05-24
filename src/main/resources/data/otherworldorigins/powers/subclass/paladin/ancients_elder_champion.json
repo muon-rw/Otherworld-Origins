@@ -1,80 +1,397 @@
 {
     "type": "origins:multiple",
-    "cooldown": {
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": {
+                "translate": "origins.gui.badge.active",
+                "with": [
+                    {
+                        "keybind": "key.otherworldorigins.cantrip_three"
+                    }
+                ]
+            }
+        }
+    ],
+    "invoke": {
         "type": "origins:active_self",
-        "condition": {
-            "type": "origins:constant",
-            "value": false
-        },
-        "entity_action": {
-            "type": "origins:nothing"
+        "key": {
+            "key": "key.otherworldorigins.cantrip_three"
         },
         "cooldown": 24000,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 20
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_timer",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 2400
+                    }
+                },
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "irons_spellbooks:oakskin",
+                    "power_level": 5,
+                    "cast_time": 0,
+                    "interrupt_mode": "force_complete"
+                },
+                {
+                    "type": "origins:area_of_effect",
+                    "radius": 16,
+                    "include_self": true,
+                    "bientity_condition": {
+                        "type": "origins:or",
+                        "conditions": [
+                            {
+                                "type": "otherworldorigins:allied"
+                            },
+                            {
+                                "type": "origins:target_condition",
+                                "condition": {
+                                    "type": "otherworldorigins:is_friendly"
+                                }
+                            }
+                        ]
+                    },
+                    "bientity_action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:target_action",
+                                "action": {
+                                    "type": "origins:apply_effect",
+                                    "effect": {
+                                        "effect": "minecraft:regeneration",
+                                        "duration": 100,
+                                        "amplifier": 1,
+                                        "show_particles": true,
+                                        "show_icon": true
+                                    }
+                                }
+                            },
+                            {
+                                "type": "origins:target_action",
+                                "action": {
+                                    "type": "origins:apply_effect",
+                                    "effect": {
+                                        "effect": "minecraft:resistance",
+                                        "duration": 100,
+                                        "amplifier": 1,
+                                        "show_particles": true,
+                                        "show_icon": true
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "otherworldorigins:area_of_effect_sequential",
+                    "radius": 16,
+                    "include_self": false,
+                    "application_count": 4,
+                    "delay_ticks": 5,
+                    "bientity_condition": {
+                        "type": "origins:or",
+                        "inverted": true,
+                        "conditions": [
+                            {
+                                "type": "otherworldorigins:allied"
+                            },
+                            {
+                                "type": "origins:target_condition",
+                                "condition": {
+                                    "type": "otherworldorigins:is_friendly"
+                                }
+                            }
+                        ]
+                    },
+                    "bientity_action": {
+                        "type": "otherworldorigins:cast_spell",
+                        "spell": "irons_spellbooks:root",
+                        "power_level": 5,
+                        "cast_time": 0,
+                        "interrupt_mode": "force_complete"
+                    }
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "otherworldorigins:valkyrie_land",
+                    "volume": 1.2,
+                    "category": "players"
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:happy_villager ~ ~1 ~ 1.2 1.2 1.2 0.1 40"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:spore_blossom_air ~ ~1 ~ 1.5 1.5 1.5 0 25"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:composter ~ ~1 ~ 1 1 1 0.05 20"
+                }
+            ]
+        },
         "hud_render": {
-            "should_render": false
+            "should_render": true,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_invoke",
+                "compare_to": 0,
+                "comparison": ">"
+            },
+            "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_02.png",
+            "bar_index": 9
+        }
+    },
+    "timer": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 2400,
+        "start_value": 0,
+        "min_action": {
+            "type": "otherworldorigins:action_bar_message",
+            "message": {
+                "translate": "otherworldorigins.elder_champion.fade",
+                "color": "gray"
+            }
+        },
+        "hud_render": {
+            "should_render": true,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_timer",
+                "comparison": ">",
+                "compare_to": 0
+            },
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 5
+        }
+    },
+    "tick_timer": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_timer",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -20
+            }
+        }
+    },
+    "pulse_renewal": {
+        "type": "origins:action_over_time",
+        "interval": 40,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:area_of_effect",
+            "radius": 16,
+            "include_self": true,
+            "bientity_condition": {
+                "type": "origins:or",
+                "conditions": [
+                    {
+                        "type": "otherworldorigins:allied"
+                    },
+                    {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "otherworldorigins:is_friendly"
+                        }
+                    }
+                ]
+            },
+            "bientity_action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:target_action",
+                        "action": {
+                            "type": "origins:apply_effect",
+                            "effect": {
+                                "effect": "minecraft:regeneration",
+                                "duration": 60,
+                                "amplifier": 1,
+                                "show_particles": true,
+                                "show_icon": true
+                            }
+                        }
+                    },
+                    {
+                        "type": "origins:target_action",
+                        "action": {
+                            "type": "origins:apply_effect",
+                            "effect": {
+                                "effect": "minecraft:resistance",
+                                "duration": 60,
+                                "amplifier": 0,
+                                "show_particles": true,
+                                "show_icon": true
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "pulse_entangle": {
+        "type": "origins:action_over_time",
+        "interval": 60,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "otherworldorigins:area_of_effect_sequential",
+            "radius": 16,
+            "include_self": false,
+            "application_count": 3,
+            "delay_ticks": 8,
+            "bientity_condition": {
+                "type": "origins:or",
+                "inverted": true,
+                "conditions": [
+                    {
+                        "type": "otherworldorigins:allied"
+                    },
+                    {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "otherworldorigins:is_friendly"
+                        }
+                    }
+                ]
+            },
+            "bientity_action": {
+                "type": "otherworldorigins:cast_spell",
+                "spell": {
+                    "spells": [
+                        "irons_spellbooks:root",
+                        "irons_spellbooks:blight"
+                    ],
+                    "power_level": 5
+                },
+                "cast_time": 0,
+                "interrupt_mode": "force_complete"
+            }
+        }
+    },
+    "pulse_thorns": {
+        "type": "origins:action_over_time",
+        "interval": 35,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "otherworldorigins:area_of_effect_sequential",
+            "radius": 16,
+            "include_self": false,
+            "application_count": 3,
+            "delay_ticks": 6,
+            "bientity_condition": {
+                "type": "origins:or",
+                "inverted": true,
+                "conditions": [
+                    {
+                        "type": "otherworldorigins:allied"
+                    },
+                    {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "otherworldorigins:is_friendly"
+                        }
+                    }
+                ]
+            },
+            "bientity_action": {
+                "type": "otherworldorigins:cast_spell",
+                "spell": {
+                    "spells": [
+                        "irons_spellbooks:poison_splash",
+                        "irons_spellbooks:acid_orb",
+                        "irons_spellbooks:firefly_swarm"
+                    ],
+                    "power_level": 5
+                },
+                "cast_time": 0,
+                "interrupt_mode": "force_complete"
+            }
+        }
+    },
+    "self_health": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "modifier": {
+            "attribute": "minecraft:generic.max_health",
+            "operation": "addition",
+            "value": 20
+        }
+    },
+    "pulse_particles": {
+        "type": "origins:action_over_time",
+        "interval": 10,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:spore_blossom_air ~ ~1 ~ 0.8 0.8 0.8 0 3"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:happy_villager ~ ~0.5 ~ 0.6 0.6 0.6 0 2"
+                }
+            ]
         }
     },
     "sleep": {
         "type": "origins:action_on_wake_up",
         "entity_action": {
             "type": "origins:modify_resource",
-            "resource": "*:*_cooldown",
+            "resource": "*:*_invoke",
             "modifier": {
                 "operation": "set_total",
                 "value": 0
             }
-        }
-    },
-    "prevent_death": {
-        "type": "origins:prevent_death",
-        "condition": {
-            "type": "origins:and",
-            "conditions": [
-                {
-                    "type": "otherworldorigins:player_level",
-                    "comparison": ">=",
-                    "compare_to": 20
-                },
-                {
-                    "type": "origins:resource",
-                    "resource": "*:*_cooldown",
-                    "comparison": "==",
-                    "compare_to": 0
-                }
-            ]
-        },
-        "entity_action": {
-            "type": "origins:and",
-            "actions": [
-                {
-                    "type": "origins:heal",
-                    "amount": 1000000
-                },
-                {
-                    "type": "origins:apply_effect",
-                    "effect": {
-                        "effect": "minecraft:regeneration",
-                        "duration": 600,
-                        "amplifier": 2,
-                        "show_particles": true,
-                        "show_icon": true
-                    }
-                },
-                {
-                    "type": "origins:apply_effect",
-                    "effect": {
-                        "effect": "minecraft:resistance",
-                        "duration": 600,
-                        "amplifier": 1,
-                        "show_particles": true,
-                        "show_icon": true
-                    }
-                },
-                {
-                    "type": "origins:trigger_cooldown",
-                    "power": "otherworldorigins:subclass/paladin/ancients_elder_champion_cooldown"
-                }
-            ]
         }
     }
 }

@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.brigadier.CommandDispatcher;
 import dev.muon.otherworldorigins.OtherworldOrigins;
+import dev.muon.otherworldorigins.network.DumpClientStateMessage;
 import dev.muon.otherworldorigins.restrictions.ModSpellTags;
+import dev.muon.otherworldorigins.util.OriginStateDumper;
 import io.github.edwinmindcraft.origins.api.OriginsAPI;
 import io.github.edwinmindcraft.origins.api.capabilities.IOriginContainer;
 import io.github.edwinmindcraft.origins.api.origin.OriginLayer;
@@ -58,7 +60,39 @@ public class ModCommands {
                         .requires(source -> source.hasPermission(2))
                         .executes(context -> dumpSpells(context.getSource()))
                 )
+                .then(Commands.literal("dumpState")
+                        .requires(source -> source.hasPermission(2))
+                        .executes(context -> dumpState(context.getSource(), List.of(context.getSource().getPlayerOrException())))
+                        .then(Commands.argument("targets", EntityArgument.players())
+                                .executes(context -> dumpState(context.getSource(), EntityArgument.getPlayers(context, "targets").stream().toList()))
+                        )
+                )
         );
+    }
+
+    /**
+     * Dumps the origin/power state for each target player on both server and client to the
+     * respective {@code logs/} directories. Use when a discrepancy is suspected visually so
+     * the two snapshots can be compared. See {@link OriginStateDumper}.
+     */
+    private static int dumpState(CommandSourceStack source, List<ServerPlayer> targets) {
+        String requester = source.getTextName();
+        for (ServerPlayer target : targets) {
+            String reason = "manual /otherworldorigins dumpState (requested by " + requester + ")";
+            OriginStateDumper.dump(target, "SERVER", target.getServer(), reason);
+            OtherworldOrigins.CHANNEL.send(
+                    PacketDistributor.PLAYER.with(() -> target),
+                    new DumpClientStateMessage(reason)
+            );
+        }
+        if (targets.size() == 1) {
+            source.sendSuccess(() -> Component.literal(
+                    "Dumped state for " + targets.get(0).getDisplayName().getString() + " (server + client logs/)"), true);
+        } else {
+            source.sendSuccess(() -> Component.literal(
+                    "Dumped state for " + targets.size() + " players (server + client logs/)"), true);
+        }
+        return targets.size();
     }
 
     private static int openGui(CommandSourceStack source, List<ServerPlayer> targets) {

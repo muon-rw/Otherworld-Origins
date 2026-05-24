@@ -1,38 +1,383 @@
 {
-    "type": "otherworldorigins:action_on_attack",
-    "cooldown": 1,
-    "hud_render": {
-        "should_render": false
-    },
-    "bientity_condition": {
-        "type": "origins:and",
-        "conditions": [
-            {
-                "type": "origins:actor_condition",
-                "condition": {
-                    "type": "otherworldorigins:player_level",
-                    "comparison": ">=",
-                    "compare_to": 20
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/active.png",
+            "text": {
+                "translate": "origins.gui.badge.active",
+                "with": [
+                    {
+                        "keybind": "key.otherworldorigins.cantrip_three"
+                    }
+                ]
+            }
+        }
+    ],
+    "invoke": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.otherworldorigins.cantrip_three"
+        },
+        "cooldown": 24000,
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 20
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:*_timer",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 2400
+                    }
+                },
+                {
+                    "type": "otherworldorigins:cast_spell",
+                    "spell": "traveloptics:cursed_revenants",
+                    "power_level": 10,
+                    "cast_time": 0,
+                    "interrupt_mode": "force_complete"
+                },
+                {
+                    "type": "origins:area_of_effect",
+                    "radius": 16,
+                    "include_self": false,
+                    "bientity_condition": {
+                        "type": "origins:or",
+                        "inverted": true,
+                        "conditions": [
+                            {
+                                "type": "otherworldorigins:allied"
+                            },
+                            {
+                                "type": "origins:target_condition",
+                                "condition": {
+                                    "type": "otherworldorigins:is_friendly"
+                                }
+                            }
+                        ]
+                    },
+                    "bientity_action": {
+                        "type": "origins:target_action",
+                        "action": {
+                            "type": "origins:apply_effect",
+                            "effect": {
+                                "effect": "minecraft:wither",
+                                "duration": 100,
+                                "amplifier": 1,
+                                "show_particles": true,
+                                "show_icon": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "origins:area_of_effect",
+                    "radius": 16,
+                    "include_self": true,
+                    "bientity_condition": {
+                        "type": "origins:or",
+                        "conditions": [
+                            {
+                                "type": "otherworldorigins:allied"
+                            },
+                            {
+                                "type": "origins:target_condition",
+                                "condition": {
+                                    "type": "otherworldorigins:is_friendly"
+                                }
+                            }
+                        ]
+                    },
+                    "bientity_action": {
+                        "type": "origins:target_action",
+                        "action": {
+                            "type": "origins:apply_effect",
+                            "effect": {
+                                "effect": "minecraft:strength",
+                                "duration": 100,
+                                "amplifier": 0,
+                                "show_particles": true,
+                                "show_icon": true
+                            }
+                        }
+                    }
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "otherworldorigins:valkyrie_land",
+                    "volume": 1.2,
+                    "category": "players"
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:soul ~ ~1 ~ 1.5 1.5 1.5 0.05 30"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:soul_fire_flame ~ ~1 ~ 1 1 1 0.05 25"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:large_smoke ~ ~0.5 ~ 1 0.5 1 0.05 20"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:angry_villager ~ ~1.5 ~ 1 0.5 1 0.1 15"
                 }
+            ]
+        },
+        "hud_render": {
+            "should_render": true,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_invoke",
+                "compare_to": 0,
+                "comparison": ">"
             },
-            {
-                "type": "origins:target_condition",
-                "condition": {
-                    "type": "origins:living"
+            "sprite_location": "origins:textures/gui/community/spiderkolo/resource_bar_02.png",
+            "bar_index": 9
+        }
+    },
+    "timer": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 2400,
+        "start_value": 0,
+        "min_action": {
+            "type": "otherworldorigins:action_bar_message",
+            "message": {
+                "translate": "otherworldorigins.dread_lord.fade",
+                "color": "gray"
+            }
+        },
+        "hud_render": {
+            "should_render": true,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_timer",
+                "comparison": ">",
+                "compare_to": 0
+            },
+            "sprite_location": "origins:textures/gui/community/huang/resource_bar_02.png",
+            "bar_index": 5
+        }
+    },
+    "tick_timer": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_timer",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -20
+            }
+        }
+    },
+    "pulse_drain": {
+        "type": "origins:action_over_time",
+        "interval": 25,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "otherworldorigins:area_of_effect_sequential",
+            "radius": 16,
+            "include_self": false,
+            "application_count": 4,
+            "delay_ticks": 4,
+            "bientity_condition": {
+                "type": "origins:or",
+                "inverted": true,
+                "conditions": [
+                    {
+                        "type": "otherworldorigins:allied"
+                    },
+                    {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "otherworldorigins:is_friendly"
+                        }
+                    }
+                ]
+            },
+            "bientity_action": {
+                "type": "otherworldorigins:cast_spell",
+                "spell": {
+                    "spells": [
+                        "irons_spellbooks:blood_slash",
+                        "irons_spellbooks:acupuncture",
+                        "irons_spellbooks:blood_needles",
+                        "irons_spellbooks:wither_skull"
+                    ],
+                    "power_level": 5
+                },
+                "cast_time": 0,
+                "interrupt_mode": "force_complete"
+            }
+        }
+    },
+    "pulse_decay": {
+        "type": "origins:action_over_time",
+        "interval": 40,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:area_of_effect",
+            "radius": 16,
+            "include_self": false,
+            "bientity_condition": {
+                "type": "origins:or",
+                "inverted": true,
+                "conditions": [
+                    {
+                        "type": "otherworldorigins:allied"
+                    },
+                    {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "otherworldorigins:is_friendly"
+                        }
+                    }
+                ]
+            },
+            "bientity_action": {
+                "type": "origins:target_action",
+                "action": {
+                    "type": "origins:apply_effect",
+                    "effect": {
+                        "effect": "minecraft:wither",
+                        "duration": 60,
+                        "amplifier": 1,
+                        "show_particles": true,
+                        "show_icon": true
+                    }
                 }
             }
-        ]
+        }
     },
-    "bientity_action": {
-        "type": "origins:target_action",
-        "action": {
-            "type": "origins:apply_effect",
-            "effect": {
-                "effect": "minecraft:wither",
-                "duration": 60,
-                "amplifier": 1,
-                "show_particles": true,
-                "show_icon": true
+    "pulse_command": {
+        "type": "origins:action_over_time",
+        "interval": 60,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:area_of_effect",
+            "radius": 16,
+            "include_self": true,
+            "bientity_condition": {
+                "type": "origins:or",
+                "conditions": [
+                    {
+                        "type": "otherworldorigins:allied"
+                    },
+                    {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "otherworldorigins:is_friendly"
+                        }
+                    }
+                ]
+            },
+            "bientity_action": {
+                "type": "origins:target_action",
+                "action": {
+                    "type": "origins:apply_effect",
+                    "effect": {
+                        "effect": "minecraft:strength",
+                        "duration": 80,
+                        "amplifier": 0,
+                        "show_particles": true,
+                        "show_icon": true
+                    }
+                }
+            }
+        }
+    },
+    "self_damage": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "modifier": {
+            "attribute": "minecraft:generic.attack_damage",
+            "operation": "addition",
+            "value": 6
+        }
+    },
+    "self_health": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "modifier": {
+            "attribute": "minecraft:generic.max_health",
+            "operation": "addition",
+            "value": 20
+        }
+    },
+    "pulse_particles": {
+        "type": "origins:action_over_time",
+        "interval": 10,
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_timer",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:soul ~ ~0.8 ~ 0.6 0.8 0.6 0.02 3"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:large_smoke ~ ~0.3 ~ 0.8 0.3 0.8 0.01 2"
+                }
+            ]
+        }
+    },
+    "sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_invoke",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
             }
         }
     }

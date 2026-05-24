@@ -335,6 +335,12 @@ dependencies {
     modImplementation("curse.maven:lendercataclysm-551586:6906993")
     modRuntimeOnly("curse.maven:lionfish-api-1001614:5922047")
 
+    // Armory of Remnants
+    //modImplementation("curse.maven:armory-of-remnants-1508722:8090589")
+    //modImplementation("curse.maven:catalytic-lib-1506798:7933946")
+    modImplementation("curse.maven:soul-fire-d-662413:6248077")
+    modImplementation("curse.maven:cobweb-968456:6089406")
+
     // GTBC Geomancy
     // Dedicated server Dev Env crash, so set to compileOnly
     modCompileOnly("curse.maven:gtbcs-geomancy-plus-1352485:7580390")
