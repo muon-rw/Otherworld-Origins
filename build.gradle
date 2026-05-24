@@ -158,6 +158,11 @@ repositories {
     }
     maven { url = "https://maven.su5ed.dev/releases" }
     maven { url = "https://maven.fabricmc.net" }
+
+    maven {
+        name = "Obscuria"
+        url = "https://raw.githubusercontent.com/ObscuriaLithium/modding/main/maven/"
+    }
 }
 
 dependencies {
@@ -204,6 +209,12 @@ dependencies {
 
     // Alt Origin GUI
     modImplementation("curse.maven:altorigingui-873788:5633649")
+
+
+    // Ars Elixirum?
+    modImplementation("curse.maven:ars-elixirum-forge-620870:8041412")
+    modImplementation("dev.obscuria:fragmentum-forge:1.20.1-${fragmentum_version}")
+    modImplementation("dev.obscuria:archivist-forge:1.20.1-${archivist_version}")
 
     // Dev Env
     // modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
@@ -262,7 +273,7 @@ dependencies {
     modRuntimeOnly("curse.maven:fluffy-fur-1097456:6392791")
 
     // Legendary Monsters
-    modImplementation("curse.maven:legendary-monsters-944035:6776766")
+    modImplementation("curse.maven:legendary-monsters-944035:8131643")
 
     // Immersive Melodies
     modImplementation("curse.maven:immersive-melodies-904471:6744792")
@@ -336,8 +347,9 @@ dependencies {
     modRuntimeOnly("curse.maven:lionfish-api-1001614:5922047")
 
     // Armory of Remnants
-    //modImplementation("curse.maven:armory-of-remnants-1508722:8090589")
-    //modImplementation("curse.maven:catalytic-lib-1506798:7933946")
+    // Currently crashes in dev
+    // modImplementation("curse.maven:armory-of-remnants-1508722:8090589")
+    // modImplementation("curse.maven:catalytic-lib-1506798:7933946")
     modImplementation("curse.maven:soul-fire-d-662413:6248077")
     modImplementation("curse.maven:cobweb-968456:6089406")
 

@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.otherworld.power.PowerPresenceCache;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
-import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityCondition;
 import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
 import io.github.edwinmindcraft.calio.api.network.CalioCodecHelper;
@@ -17,6 +16,7 @@ import net.minecraft.world.entity.LivingEntity;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ShapeshiftPower extends PowerFactory<ShapeshiftPower.Configuration> {
 
@@ -27,13 +27,7 @@ public class ShapeshiftPower extends PowerFactory<ShapeshiftPower.Configuration>
     @Nullable
     public static Configuration getActiveShapeshiftConfig(LivingEntity entity) {
         if (entity == null) return null;
-        if (!PowerPresenceCache.hasPresence(entity, ModPowers.SHAPESHIFT.get())) return null;
-        IPowerContainer container = PowerPresenceCache.getContainer(entity);
-        if (container == null) return null;
-        return container.getPowers(ModPowers.SHAPESHIFT.get()).stream()
-                .map(holder -> holder.value().getConfiguration())
-                .findFirst()
-                .orElse(null);
+        return PowerPresenceCache.getFirstActiveConfiguration(entity, ModPowers.SHAPESHIFT.get());
     }
 
     @Nullable
@@ -81,6 +75,9 @@ public class ShapeshiftPower extends PowerFactory<ShapeshiftPower.Configuration>
             boolean autoSwimInWater
     ) implements IDynamicFeatureConfiguration {
 
+        /** Stable: ENTITY_TYPE registry is frozen at runtime, so containsKey results never change. */
+        private static final ConcurrentHashMap<ResourceLocation, Boolean> ENTITY_TYPE_PRESENT = new ConcurrentHashMap<>();
+
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 ResourceLocation.CODEC.fieldOf("entity_type").forGetter(Configuration::entityType),
                 CalioCodecHelper.optionalField(CalioCodecHelper.BOOL, "hide_hands", true).forGetter(Configuration::hideHands),
@@ -97,7 +94,8 @@ public class ShapeshiftPower extends PowerFactory<ShapeshiftPower.Configuration>
 
         @Override
         public boolean isConfigurationValid() {
-            if (entityType == null || !BuiltInRegistries.ENTITY_TYPE.containsKey(entityType)) {
+            if (entityType == null) return false;
+            if (!ENTITY_TYPE_PRESENT.computeIfAbsent(entityType, BuiltInRegistries.ENTITY_TYPE::containsKey)) {
                 return false;
             }
             boolean wSet = collisionWidth > 0.0F;

@@ -9,8 +9,8 @@ import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
 import dev.muon.otherworld.Otherworld;
 import dev.muon.otherworld.leveling.LevelSyncHandler;
 import dev.muon.otherworld.leveling.LevelingUtils;
+import dev.muon.otherworld.power.PowerPresenceCache;
 import dev.muon.otherworldorigins.OtherworldOrigins;
-import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.IDynamicFeatureConfiguration;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
@@ -20,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.Map;
+import java.util.Set;
 
 public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPower.Configuration> {
     public InnateAptitudeBonusPower() {
@@ -41,15 +42,36 @@ public class InnateAptitudeBonusPower extends PowerFactory<InnateAptitudeBonusPo
     }
 
     public static int getBonus(Entity entity, String aptitudeName) {
-        IPowerContainer powerContainer = ApoliAPI.getPowerContainer(entity);
-        if (powerContainer != null) {
-            var playerPowers = powerContainer.getPowers(ModPowers.INNATE_APTITUDE_BONUS.get());
-            return playerPowers.stream()
-                    .map(holder -> holder.value().getConfiguration())
-                    .mapToInt(config -> config.aptitudeBonuses().getOrDefault(aptitudeName, 0))
-                    .sum();
+        if (!PowerPresenceCache.hasPresence(entity, ModPowers.INNATE_APTITUDE_BONUS.get())) return 0;
+        IPowerContainer container = PowerPresenceCache.getContainer(entity);
+        if (container == null) return 0;
+
+        int sum = 0;
+        for (var holder : container.getPowers(ModPowers.INNATE_APTITUDE_BONUS.get())) {
+            Integer bonus = holder.value().getConfiguration().aptitudeBonuses().get(aptitudeName);
+            if (bonus != null) sum += bonus;
         }
-        return 0;
+        return sum;
+    }
+
+    /**
+     * Sums bonuses across all active INNATE_APTITUDE_BONUS powers for any aptitude in
+     * {@code aptitudeNames}. Equivalent to calling {@link #getBonus} for each name and
+     * adding the results, but iterates the power list once instead of N times.
+     */
+    public static int sumBonusesForAptitudes(Entity entity, Set<String> aptitudeNames) {
+        if (aptitudeNames.isEmpty()) return 0;
+        if (!PowerPresenceCache.hasPresence(entity, ModPowers.INNATE_APTITUDE_BONUS.get())) return 0;
+        IPowerContainer container = PowerPresenceCache.getContainer(entity);
+        if (container == null) return 0;
+
+        int sum = 0;
+        for (var holder : container.getPowers(ModPowers.INNATE_APTITUDE_BONUS.get())) {
+            for (Map.Entry<String, Integer> entry : holder.value().getConfiguration().aptitudeBonuses().entrySet()) {
+                if (aptitudeNames.contains(entry.getKey())) sum += entry.getValue();
+            }
+        }
+        return sum;
     }
 
 

@@ -5,8 +5,8 @@ import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
 import dev.muon.otherworld.leveling.LevelingUtils;
 import dev.muon.otherworldorigins.power.InnateAptitudeBonusPower;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.util.LazyOptional;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(value = LevelingUtils.class, remap = false)
@@ -18,15 +18,7 @@ public class LevelingUtilsMixin {
             require = 1
     )
     private static int subtractInnateFromGlobalLevel(int original, Player player) {
-        LazyOptional<AptitudeCapability> aptitudeCapability = player.getCapability(com.seniors.justlevelingfork.registry.RegistryCapabilities.APTITUDE);
-
-        int totalBonus = aptitudeCapability.map(cap ->
-                cap.aptitudeLevel.keySet().stream()
-                        .mapToInt(aptitudeName -> InnateAptitudeBonusPower.getBonus(player, aptitudeName))
-                        .sum()
-        ).orElse(0);
-
-        return Math.max(original - totalBonus, 0);
+        return Math.max(original - otherworld$innateBonusTotal(player), 0);
     }
 
     @ModifyExpressionValue(
@@ -35,15 +27,13 @@ public class LevelingUtilsMixin {
             require = 1
     )
     private static int subtractInnateFromGlobalProgress(int original, Player player) {
-        LazyOptional<AptitudeCapability> aptitudeCapability = player.getCapability(com.seniors.justlevelingfork.registry.RegistryCapabilities.APTITUDE);
-
-        int totalBonus = aptitudeCapability.map(cap ->
-                cap.aptitudeLevel.keySet().stream()
-                        .mapToInt(aptitudeName -> InnateAptitudeBonusPower.getBonus(player, aptitudeName))
-                        .sum()
-        ).orElse(0);
-
-        return Math.max(original - totalBonus, 0);
+        return Math.max(original - otherworld$innateBonusTotal(player), 0);
     }
 
+    @Unique
+    private static int otherworld$innateBonusTotal(Player player) {
+        AptitudeCapability cap = AptitudeCapability.get(player);
+        if (cap == null) return 0;
+        return InnateAptitudeBonusPower.sumBonusesForAptitudes(player, cap.aptitudeLevel.keySet());
+    }
 }
