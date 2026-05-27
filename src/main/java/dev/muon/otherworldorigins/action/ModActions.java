@@ -45,6 +45,8 @@ public class ModActions {
             ENTITY_ACTIONS.register("reforge_held_item", ReforgeHeldItemAction::new);
     public static final RegistryObject<SetVelocityAction> SET_VELOCITY =
             ENTITY_ACTIONS.register("set_velocity", SetVelocityAction::new);
+    public static final RegistryObject<DiscoverIngredientsAction> DISCOVER_INGREDIENTS =
+            ENTITY_ACTIONS.register("discover_ingredients", DiscoverIngredientsAction::new);
 
 
     public static final DeferredRegister<BiEntityAction<?>> BIENTITY_ACTIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_ACTION_KEY, OtherworldOrigins.MODID);

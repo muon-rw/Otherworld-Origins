@@ -4,11 +4,8 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.muon.otherworldorigins.capability.BrewerTrackerCapability;
-import dev.muon.otherworldorigins.power.ModPowers;
 import dev.muon.otherworldorigins.power.ModifyBrewedPotionPower;
 import dev.muon.otherworldorigins.util.ArtisanBrewNbt;
-import io.github.edwinmindcraft.apoli.api.ApoliAPI;
-import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
@@ -66,17 +63,13 @@ public abstract class BrewingStandBlockEntityMixin {
         ServerPlayer brewer = serverLevel.getServer().getPlayerList().getPlayer(brewerUuid);
         if (brewer == null) return;
 
-        IPowerContainer container = ApoliAPI.getPowerContainer(brewer);
-        if (container == null) return;
-
-        var holders = container.getPowers(ModPowers.MODIFY_BREWED_POTION.get());
-        if (holders.isEmpty()) return;
+        var configs = ModifyBrewedPotionPower.getActiveConfigs(brewer);
+        if (configs.isEmpty()) return;
 
         ArtisanBrewNbt.Bonus beneficial = ArtisanBrewNbt.Bonus.NONE;
         ArtisanBrewNbt.Bonus harmful = ArtisanBrewNbt.Bonus.NONE;
         ArtisanBrewNbt.Bonus neutral = ArtisanBrewNbt.Bonus.NONE;
-        for (var holder : holders) {
-            ModifyBrewedPotionPower.Configuration cfg = holder.value().getConfiguration();
+        for (ModifyBrewedPotionPower.Configuration cfg : configs) {
             ArtisanBrewNbt.Bonus b = new ArtisanBrewNbt.Bonus(cfg.durationMultiplier(), cfg.amplifierModifier());
             if (ModifyBrewedPotionPower.appliesTo(cfg, MobEffectCategory.BENEFICIAL)) beneficial = beneficial.combine(b);
             if (ModifyBrewedPotionPower.appliesTo(cfg, MobEffectCategory.HARMFUL)) harmful = harmful.combine(b);

@@ -26,6 +26,23 @@ public final class ExperimentalElixirConfiguration {
             }
     );
 
+    public enum OutputMode {
+        VANILLA_POTION,
+        ARS_ELIXIR;
+
+        public static final Codec<OutputMode> CODEC = Codec.STRING.comapFlatMap(
+                s -> switch (s.toLowerCase(Locale.ROOT)) {
+                    case "vanilla_potion" -> DataResult.success(VANILLA_POTION);
+                    case "ars_elixir" -> DataResult.success(ARS_ELIXIR);
+                    default -> DataResult.error(() -> "Unknown output_mode '" + s + "'; expected vanilla_potion or ars_elixir");
+                },
+                m -> switch (m) {
+                    case VANILLA_POTION -> "vanilla_potion";
+                    case ARS_ELIXIR -> "ars_elixir";
+                }
+        );
+    }
+
     public record Configuration(
             MobEffectCategory category,
             Optional<Integer> amplifierMin,
@@ -34,7 +51,9 @@ public final class ExperimentalElixirConfiguration {
             Optional<Integer> durationMax,
             boolean lingering,
             Optional<Integer> effectCountMin,
-            Optional<Integer> effectCountMax
+            Optional<Integer> effectCountMax,
+            OutputMode outputMode,
+            int masteryXp
     ) implements IDynamicFeatureConfiguration {
         public static final Codec<Configuration> CODEC = RecordCodecBuilder.create(instance -> instance.group(
                 CATEGORY_CODEC.fieldOf("category").forGetter(Configuration::category),
@@ -44,7 +63,9 @@ public final class ExperimentalElixirConfiguration {
                 Codec.INT.optionalFieldOf("duration_max").forGetter(Configuration::durationMax),
                 Codec.BOOL.optionalFieldOf("lingering", false).forGetter(Configuration::lingering),
                 Codec.INT.optionalFieldOf("effect_count_min").forGetter(Configuration::effectCountMin),
-                Codec.INT.optionalFieldOf("effect_count_max").forGetter(Configuration::effectCountMax)
+                Codec.INT.optionalFieldOf("effect_count_max").forGetter(Configuration::effectCountMax),
+                OutputMode.CODEC.optionalFieldOf("output_mode", OutputMode.VANILLA_POTION).forGetter(Configuration::outputMode),
+                Codec.INT.optionalFieldOf("mastery_xp", 0).forGetter(Configuration::masteryXp)
         ).apply(instance, Configuration::new));
 
         @Override
@@ -70,6 +91,9 @@ public final class ExperimentalElixirConfiguration {
                 if (ecMin < 1 || ecMin > ecMax) {
                     return false;
                 }
+            }
+            if (masteryXp < 0) {
+                return false;
             }
             return true;
         }

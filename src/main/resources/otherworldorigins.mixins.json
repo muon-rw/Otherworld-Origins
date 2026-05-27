@@ -9,6 +9,7 @@
   },
   "mixinextras": {"minVersion": "0.5.3"},
   "mixins": [
+    "AbstractArrowAccessor",
     "AbstractArrowMixin",
     "AbstractContainerMenuMixin",
     "AnvilMenuMixin",
@@ -29,6 +30,7 @@
     "ProjectileMixin",
     "TargetingConditionsMixin",
     "VillagerMixin",
+    "compat.ars_elixirum.ElixirScoopUpMixin",
     "compat.apotheosis.LootControllerMixin",
     "compat.apotheosis.ApothEnchantmentMenuAccessor",
     "compat.apotheosis.ApothEnchantmentMenuMixin",
@@ -37,6 +39,7 @@
     "compat.bettercombat.PlayerAttackHelperMixin",
     "compat.calio.S2CDynamicRegistryLoginPacketMixin",
     "compat.calio.S2CDynamicRegistryPlayPacketMixin",
+    "compat.cataclysm.PhantomArrowEntityMixin",
     "compat.hardcorerevival.AbstractSpellKnockoutMixin",
     "compat.hardcorerevival.C2SUseActivePowersKnockoutMixin",
     "compat.hardcorerevival.KnockoutHandlerPreventDeathMixin",

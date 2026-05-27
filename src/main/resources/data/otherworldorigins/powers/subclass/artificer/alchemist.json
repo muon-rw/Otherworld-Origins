@@ -228,6 +228,8 @@
                                 },
                                 {
                                     "type": "otherworldorigins:experimental_elixir_brew",
+                                    "output_mode": "ars_elixir",
+                                    "mastery_xp": 50,
                                     "category": "harmful",
                                     "effect_count_min": 2,
                                     "effect_count_max": 4,
@@ -252,6 +254,8 @@
                                 },
                                 {
                                     "type": "otherworldorigins:experimental_elixir_brew",
+                                    "output_mode": "ars_elixir",
+                                    "mastery_xp": 50,
                                     "category": "beneficial",
                                     "effect_count_min": 2,
                                     "effect_count_max": 4,
@@ -284,6 +288,8 @@
                             },
                             {
                                 "type": "otherworldorigins:experimental_elixir_brew",
+                                "output_mode": "ars_elixir",
+                                "mastery_xp": 30,
                                 "category": "beneficial",
                                 "effect_count_min": 2,
                                 "effect_count_max": 3,
@@ -314,6 +320,8 @@
                             },
                             {
                                 "type": "otherworldorigins:experimental_elixir_brew",
+                                "output_mode": "ars_elixir",
+                                "mastery_xp": 20,
                                 "category": "beneficial",
                                 "effect_count_min": 1,
                                 "effect_count_max": 2,
@@ -344,6 +352,8 @@
                             },
                             {
                                 "type": "otherworldorigins:experimental_elixir_brew",
+                                "output_mode": "ars_elixir",
+                                "mastery_xp": 10,
                                 "category": "beneficial",
                                 "effect_count_min": 1,
                                 "effect_count_max": 1,
@@ -397,6 +407,21 @@
         },
         "hud_render": {
             "should_render": false
+        }
+    },
+    "discover_on_levelup": {
+        "type": "otherworldorigins:action_on_levelup",
+        "entity_action": {
+            "type": "otherworldorigins:discover_ingredients",
+            "count": 2
+        }
+    },
+    "stable_brewing": {
+        "type": "otherworldorigins:suppress_elixir_risk",
+        "condition": {
+            "type": "otherworldorigins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
         }
     }
 }

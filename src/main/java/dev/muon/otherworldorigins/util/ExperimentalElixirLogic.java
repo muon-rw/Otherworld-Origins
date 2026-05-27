@@ -1,5 +1,10 @@
 package dev.muon.otherworldorigins.util;
 
+import dev.muon.otherworldorigins.compat.elixirum.ArsElixirHelper;
+import dev.obscuria.elixirum.common.alchemy.registry.EssenceHolder;
+import dev.obscuria.elixirum.common.alchemy.traits.Focus;
+import dev.obscuria.elixirum.common.alchemy.traits.Form;
+import dev.obscuria.elixirum.common.alchemy.traits.Risk;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -38,7 +43,9 @@ public final class ExperimentalElixirLogic {
     }
 
     /**
-     * Consumes one reagent from the main hand and gives one brewed potion. Safe to call from server-side entity actions.
+     * Consumes one reagent from the main hand and gives the player a brewed result. The
+     * concrete result depends on {@link ExperimentalElixirConfiguration.Configuration#outputMode()}:
+     * vanilla potion (default) or a quality-scaled Ars Elixirum elixir. Server-side only.
      */
     public static void brewForPlayer(Player player, ExperimentalElixirConfiguration.Configuration configuration, RandomSource random) {
         ItemStack stack = player.getItemInHand(InteractionHand.MAIN_HAND);
@@ -46,9 +53,55 @@ public final class ExperimentalElixirLogic {
             return;
         }
 
+        boolean produced = switch (configuration.outputMode()) {
+            case VANILLA_POTION -> brewVanillaPotion(player, configuration, random);
+            case ARS_ELIXIR -> brewArsElixir(player, configuration, random);
+        };
+
+        if (produced && configuration.masteryXp() > 0) {
+            ArsElixirHelper.grantMasteryXp(player, configuration.masteryXp());
+        }
+    }
+
+    /**
+     * Picks essence holders from the Ars codex matching the configured category, builds an
+     * elixir, and gives it to the player. If the codex has no matching essences (e.g. pack
+     * config strips a category), falls back to the vanilla potion path so the charge is never
+     * spent for nothing.
+     */
+    private static boolean brewArsElixir(Player player, ExperimentalElixirConfiguration.Configuration configuration, RandomSource random) {
+        int count = rollCount(configuration, random);
+        List<EssenceHolder> essences = ArsElixirHelper.pickEssencesForCategory(player.level(), configuration.category(), count, random);
+        if (essences.isEmpty()) {
+            return brewVanillaPotion(player, configuration, random);
+        }
+
+        int amplifier = configuration.amplifierMin().isPresent()
+                ? Mth.nextInt(random, configuration.amplifierMin().get(), configuration.amplifierMax().get())
+                : 0;
+        int duration = configuration.durationMin().isPresent()
+                ? Mth.nextInt(random, configuration.durationMin().get(), configuration.durationMax().get())
+                : 600;
+
+        ItemStack elixir = ArsElixirHelper.buildElixirStack(
+                player,
+                essences,
+                amplifier,
+                duration,
+                Risk.PERFECT,
+                Focus.BALANCED,
+                configuration.lingering() ? Form.LINGERING : Form.POTABLE
+        );
+
+        consumeReagent(player, stack(player));
+        giveOrDrop(player, elixir);
+        return true;
+    }
+
+    private static boolean brewVanillaPotion(Player player, ExperimentalElixirConfiguration.Configuration configuration, RandomSource random) {
         List<Potion> pool = potionsMatching(configuration.category());
         if (pool.isEmpty()) {
-            return;
+            return false;
         }
 
         List<MobEffectInstance> adjusted = buildAdjustedEffects(pool, configuration, random);
@@ -61,14 +114,32 @@ public final class ExperimentalElixirLogic {
         PotionUtils.setCustomEffects(elixir, adjusted);
         elixir.setHoverName(Component.translatable("item.otherworldorigins.experimental_elixir").withStyle(ChatFormatting.LIGHT_PURPLE));
 
+        consumeReagent(player, stack(player));
+        giveOrDrop(player, elixir);
+        return true;
+    }
+
+    private static ItemStack stack(Player player) {
+        return player.getItemInHand(InteractionHand.MAIN_HAND);
+    }
+
+    private static void consumeReagent(Player player, ItemStack stack) {
         stack.shrink(1);
         if (stack.isEmpty()) {
             player.setItemInHand(InteractionHand.MAIN_HAND, ItemStack.EMPTY);
         }
+    }
 
+    private static void giveOrDrop(Player player, ItemStack elixir) {
         if (!player.addItem(elixir)) {
             player.drop(elixir, false);
         }
+    }
+
+    private static int rollCount(ExperimentalElixirConfiguration.Configuration configuration, RandomSource random) {
+        int min = configuration.effectCountMin().orElse(1);
+        int max = configuration.effectCountMax().orElse(1);
+        return Mth.nextInt(random, min, max);
     }
 
     /**
@@ -80,9 +151,7 @@ public final class ExperimentalElixirLogic {
             ExperimentalElixirConfiguration.Configuration configuration,
             RandomSource random
     ) {
-        int min = configuration.effectCountMin().orElse(1);
-        int max = configuration.effectCountMax().orElse(1);
-        int count = Mth.nextInt(random, min, max);
+        int count = rollCount(configuration, random);
 
         List<Potion> usable = new ArrayList<>();
         for (Potion potion : pool) {

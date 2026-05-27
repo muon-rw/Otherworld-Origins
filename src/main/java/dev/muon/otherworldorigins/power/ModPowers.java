@@ -66,6 +66,7 @@ public class ModPowers {
     public static final RegistryObject<MomentumPower> MOMENTUM = POWER_FACTORIES.register("momentum", MomentumPower::new);
     public static final RegistryObject<PowerFactory<NoConfiguration>> PREVENT_ITEM_SLOWDOWN = POWER_FACTORIES.register("prevent_item_slowdown", PreventItemSlowdownPower::new);
     public static final RegistryObject<PowerFactory<ModifyBrewedPotionPower.Configuration>> MODIFY_BREWED_POTION = POWER_FACTORIES.register("modify_brewed_potion", ModifyBrewedPotionPower::new);
+    public static final RegistryObject<PowerFactory<NoConfiguration>> SUPPRESS_ELIXIR_RISK = POWER_FACTORIES.register("suppress_elixir_risk", SuppressElixirRiskPower::new);
 
 
     private static <T extends PowerFactory<?>> RegistryObject<T> registerConditional(String name, Supplier<T> factory, String modId) {
