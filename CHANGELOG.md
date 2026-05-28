@@ -1,5 +1,6 @@
 ## 2.1.0
 - Orb of Ancestry, Orb of Vocation
+- Ars Elixirum Compat
 - Rage cooldown 60s -> 6s
 - Momentum cooldown 1s -> 0.25s, force 0.9 -> 0.65
 - Healing circle cantrip nerf

@@ -49,137 +49,23 @@
     "restock_sleep": {
         "type": "origins:action_on_wake_up",
         "entity_action": {
-            "type": "origins:if_else_list",
-            "actions": [
-                {
-                    "condition": {
-                        "type": "otherworldorigins:player_level",
-                        "comparison": ">=",
-                        "compare_to": 15
-                    },
-                    "action": {
-                        "type": "origins:modify_resource",
-                        "resource": "*:*_elixir_charges",
-                        "modifier": {
-                            "operation": "set_total",
-                            "value": 4
-                        }
-                    }
-                },
-                {
-                    "condition": {
-                        "type": "otherworldorigins:player_level",
-                        "comparison": ">=",
-                        "compare_to": 10
-                    },
-                    "action": {
-                        "type": "origins:modify_resource",
-                        "resource": "*:*_elixir_charges",
-                        "modifier": {
-                            "operation": "set_total",
-                            "value": 3
-                        }
-                    }
-                },
-                {
-                    "condition": {
-                        "type": "otherworldorigins:player_level",
-                        "comparison": ">=",
-                        "compare_to": 5
-                    },
-                    "action": {
-                        "type": "origins:modify_resource",
-                        "resource": "*:*_elixir_charges",
-                        "modifier": {
-                            "operation": "set_total",
-                            "value": 2
-                        }
-                    }
-                },
-                {
-                    "condition": {
-                        "type": "otherworldorigins:player_level",
-                        "comparison": ">=",
-                        "compare_to": 0
-                    },
-                    "action": {
-                        "type": "origins:modify_resource",
-                        "resource": "*:*_elixir_charges",
-                        "modifier": {
-                            "operation": "set_total",
-                            "value": 1
-                        }
-                    }
-                }
-            ]
+            "type": "origins:modify_resource",
+            "resource": "*:*_elixir_charges",
+            "modifier": {
+                "operation": "set_total",
+                "value": 999
+            }
         }
     },
     "restock_gained": {
         "type": "origins:action_on_callback",
         "entity_action_gained": {
-            "type": "origins:if_else_list",
-            "actions": [
-                {
-                    "condition": {
-                        "type": "otherworldorigins:player_level",
-                        "comparison": ">=",
-                        "compare_to": 15
-                    },
-                    "action": {
-                        "type": "origins:modify_resource",
-                        "resource": "*:*_elixir_charges",
-                        "modifier": {
-                            "operation": "set_total",
-                            "value": 4
-                        }
-                    }
-                },
-                {
-                    "condition": {
-                        "type": "otherworldorigins:player_level",
-                        "comparison": ">=",
-                        "compare_to": 10
-                    },
-                    "action": {
-                        "type": "origins:modify_resource",
-                        "resource": "*:*_elixir_charges",
-                        "modifier": {
-                            "operation": "set_total",
-                            "value": 3
-                        }
-                    }
-                },
-                {
-                    "condition": {
-                        "type": "otherworldorigins:player_level",
-                        "comparison": ">=",
-                        "compare_to": 5
-                    },
-                    "action": {
-                        "type": "origins:modify_resource",
-                        "resource": "*:*_elixir_charges",
-                        "modifier": {
-                            "operation": "set_total",
-                            "value": 2
-                        }
-                    }
-                },
-                {
-                    "condition": {
-                        "type": "otherworldorigins:player_level",
-                        "comparison": ">=",
-                        "compare_to": 0
-                    },
-                    "action": {
-                        "type": "origins:modify_resource",
-                        "resource": "*:*_elixir_charges",
-                        "modifier": {
-                            "operation": "set_total",
-                            "value": 1
-                        }
-                    }
-                }
-            ]
+            "type": "origins:modify_resource",
+            "resource": "*:*_elixir_charges",
+            "modifier": {
+                "operation": "set_total",
+                "value": 999
+            }
         }
     },
     "brew": {
