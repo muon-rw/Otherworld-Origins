@@ -8,6 +8,7 @@ import dev.muon.otherworldorigins.config.OtherworldOriginsConfig;
 import dev.muon.otherworldorigins.attribute.ModAttributes;
 import dev.muon.otherworldorigins.capability.BrewerTrackerCapability;
 import dev.muon.otherworldorigins.entity.ModEntities;
+import dev.muon.otherworldorigins.item.ModCreativeTabs;
 import dev.muon.otherworldorigins.item.ModItems;
 import dev.muon.otherworldorigins.network.*;
 import dev.muon.otherworldorigins.power.ModPowers;
@@ -71,6 +72,7 @@ public class OtherworldOrigins {
         ModEntities.register(modEventBus);
         ModEffects.register(modEventBus);
         ModItems.register(modEventBus);
+        ModCreativeTabs.register(modEventBus);
         ModSounds.register(modEventBus);
 
         ModActions.register(modEventBus);

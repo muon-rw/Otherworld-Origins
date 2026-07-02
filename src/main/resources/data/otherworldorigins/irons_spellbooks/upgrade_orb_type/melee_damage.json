@@ -1,0 +1,9 @@
+{
+  "amount": 0.05,
+  "attribute": "minecraft:generic.attack_damage",
+  "containerItem": {
+    "Count": 1,
+    "id": "otherworldorigins:melee_upgrade_orb"
+  },
+  "operation": "MULTIPLY_BASE"
+}

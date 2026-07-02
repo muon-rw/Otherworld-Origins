@@ -2,6 +2,7 @@ package dev.muon.otherworldorigins.item;
 
 import dev.muon.otherworldorigins.OtherworldOrigins;
 import dev.muon.otherworldorigins.selection.SelectionLayers;
+import io.redspace.ironsspellbooks.item.UpgradeOrbItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -138,6 +139,12 @@ public class ModItems {
     public static final RegistryObject<Item> INT = ITEMS.register("apts/int", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CONST = ITEMS.register("apts/const", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> LCK = ITEMS.register("apts/lck", () -> new Item(new Item.Properties()));
+
+    /** Iron's Spellbooks Upgrade Orbs */
+    public static final RegistryObject<Item> MELEE_UPGRADE_ORB = ITEMS.register("melee_upgrade_orb",
+            () -> new UpgradeOrbItem(new Item.Properties().rarity(Rarity.UNCOMMON), ModUpgradeOrbTypes.MELEE_DAMAGE));
+    public static final RegistryObject<Item> ARCHERY_UPGRADE_ORB = ITEMS.register("archery_upgrade_orb",
+            () -> new UpgradeOrbItem(new Item.Properties().rarity(Rarity.UNCOMMON), ModUpgradeOrbTypes.ARROW_DAMAGE));
 
     /** Reselection Orbs */
     public static final RegistryObject<Item> ORB_OF_ANCESTRY = ITEMS.register("orb_of_ancestry",

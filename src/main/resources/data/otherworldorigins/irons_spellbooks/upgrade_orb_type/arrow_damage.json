@@ -1,0 +1,9 @@
+{
+  "amount": 0.05,
+  "attribute": "attributeslib:arrow_damage",
+  "containerItem": {
+    "Count": 1,
+    "id": "otherworldorigins:archery_upgrade_orb"
+  },
+  "operation": "MULTIPLY_BASE"
+}
