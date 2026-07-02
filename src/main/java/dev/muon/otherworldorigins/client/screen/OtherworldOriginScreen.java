@@ -86,7 +86,6 @@ public class OtherworldOriginScreen extends Screen {
 
     private final List<Holder<OriginLayer>> layerList;
     private int currentLayerIndex;
-    private final boolean showDirtBackground;
 
     private final Map<Integer, Holder<Origin>> confirmedSelections = new HashMap<>();
     private final Map<Integer, List<Holder<Origin>>> layerOriginCache = new HashMap<>();
@@ -216,11 +215,10 @@ public class OtherworldOriginScreen extends Screen {
 
     private Button selectButton;
 
-    public OtherworldOriginScreen(List<Holder<OriginLayer>> layerList, int startLayerIndex, boolean showDirtBackground, SessionKind kind) {
+    public OtherworldOriginScreen(List<Holder<OriginLayer>> layerList, int startLayerIndex, SessionKind kind) {
         super(Component.translatable("origins.screen.choose_origin"));
         this.layerList = layerList;
         this.currentLayerIndex = startLayerIndex;
-        this.showDirtBackground = showDirtBackground;
         this.kind = kind;
     }
 
@@ -840,15 +838,6 @@ public class OtherworldOriginScreen extends Screen {
             }
         }
         return null;
-    }
-
-    @Override
-    public void renderBackground(@NotNull GuiGraphics graphics) {
-        if (this.showDirtBackground) {
-            super.renderDirtBackground(graphics);
-        } else {
-            super.renderBackground(graphics);
-        }
     }
 
     private Component getTitleText() {

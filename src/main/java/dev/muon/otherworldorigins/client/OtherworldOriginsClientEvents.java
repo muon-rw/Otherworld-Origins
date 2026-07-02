@@ -84,9 +84,7 @@ public class OtherworldOriginsClientEvents {
         }
 
         if (!layers.isEmpty()) {
-            // Reselection orbs are used mid-game with a world behind the screen; never dirt there.
-            boolean showDirtBackground = kind != SessionKind.RESELECTION && OriginsClient.SHOW_DIRT_BACKGROUND;
-            instance.setScreen(new OtherworldOriginScreen(layers, 0, showDirtBackground, kind));
+            instance.setScreen(new OtherworldOriginScreen(layers, 0, kind));
             OriginsClient.AWAITING_DISPLAY.set(false);
         }
     }
