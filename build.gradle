@@ -308,7 +308,9 @@ dependencies {
 
     // Shoulder Surfing
     modImplementation("curse.maven:shoulder-surfing-reloaded-243190:7392767")
-    
+
+    // Punchy
+    modImplementation("curse.maven:punchy-1374153:8349449")
     
     // OW CORE ONLY, CAN REMOVE AFTER JL FORK:
     // Chipped

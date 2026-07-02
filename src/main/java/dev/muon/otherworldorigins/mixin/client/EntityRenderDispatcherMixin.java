@@ -10,6 +10,8 @@ import dev.muon.otherworldorigins.client.shapeshift.FakeEntityCache;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftClientState;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftCameraObstruction;
 import dev.muon.otherworldorigins.client.shapeshift.ShapeshiftRenderHelper;
+import dev.kosmx.playerAnim.api.firstPerson.FirstPersonMode;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -55,6 +57,19 @@ public abstract class EntityRenderDispatcherMixin {
         ResourceLocation shapeshiftType = ShapeshiftClientState.getShapeshiftType(entity.getId());
         if (shapeshiftType == null) {
             original.call(originalRenderer, entity, yaw, tickDelta, poseStack, bufferSource, light);
+            return;
+        }
+
+        // playerAnimator's first-person body pass (Better Combat attacks, Iron's casts, and any
+        // other FirstPersonMode.THIRD_PERSON_MODEL animation) renders the camera entity in first
+        // person and relies on PlayerRenderer/PlayerModel part-hiding to show only the configured
+        // arms/items. Delegating to the wildshape renderer bypasses that hiding and draws the full
+        // mob over the camera. Fall back to the vanilla player renderer for that pass, matching the
+        // hand policy in ItemInHandRendererMixin for hide_hands forms.
+        if (FirstPersonMode.isFirstPersonPass() && player == Minecraft.getInstance().getCameraEntity()) {
+            if (!ShapeshiftClientState.shouldHideHands(player.getId())) {
+                original.call(originalRenderer, entity, yaw, tickDelta, poseStack, bufferSource, light);
+            }
             return;
         }
 
