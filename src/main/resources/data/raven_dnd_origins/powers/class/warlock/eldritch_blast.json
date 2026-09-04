@@ -1,0 +1,108 @@
+{
+  "type": "origins:multiple",
+  "badges": [
+    {
+      "type": "origins:tooltip",
+      "sprite": "origins:textures/gui/badge/isaacfanta/active.png",
+      "text": {
+        "translate": "origins.gui.badge.active",
+        "with": [
+          {
+            "keybind": "key.raven_dnd_origins.cantrip_two"
+          }
+        ]
+      }
+    }
+  ],
+  "low": {
+    "type": "origins:active_self",
+    "key": "key.raven_dnd_origins.cantrip_two",
+    "condition": {
+      "type": "origins:and",
+      "conditions": [
+        {
+          "type": "raven_dnd_origins:player_level",
+          "comparison": "<",
+          "compare_to": 15
+        },
+        {
+          "type": "raven_dnd_origins:player_mana",
+          "comparison": ">=",
+          "compare_to": 10
+        }
+      ]
+    },
+    "cooldown": 20,
+    "hud_render": {
+      "should_render": true,
+      "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+      "bar_index": 0
+    },
+    "entity_action": {
+      "type": "raven_dnd_origins:cast_spell",
+      "spell": "magic_missile",
+      "power_level": 5,
+      "cast_time": 0,
+      "mana_cost": 10
+    }
+  },
+  "high": {
+    "type": "origins:active_self",
+    "key": "key.raven_dnd_origins.cantrip_two",
+    "condition": {
+      "type": "origins:and",
+      "conditions": [
+        {
+          "type": "raven_dnd_origins:player_level",
+          "comparison": ">=",
+          "compare_to": 15
+        },
+        {
+          "type": "raven_dnd_origins:player_mana",
+          "comparison": ">=",
+          "compare_to": 10
+        }
+      ]
+    },
+    "cooldown": 20,
+    "hud_render": {
+      "should_render": true,
+      "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+      "bar_index": 0
+    },
+    "entity_action": {
+      "type": "origins:and",
+      "actions": [
+        {
+          "type": "raven_dnd_origins:cast_spell",
+          "spell": "magic_missile",
+          "power_level": 5,
+          "cast_time": 0,
+          "mana_cost": 10
+        },
+        {
+          "type": "origins:delay",
+          "ticks": 5,
+          "action": {
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "magic_missile",
+            "power_level": 5,
+            "cast_time": 0,
+            "mana_cost": 0
+          }
+        },
+        {
+          "type": "origins:delay",
+          "ticks": 10,
+          "action": {
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "magic_missile",
+            "power_level": 5,
+            "cast_time": 0,
+            "mana_cost": 0
+          }
+        }
+      ]
+    }
+  }
+}

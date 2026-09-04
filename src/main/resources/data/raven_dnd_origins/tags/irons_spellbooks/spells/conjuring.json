@@ -1,0 +1,180 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:raise_dead",
+    "irons_spellbooks:sacrifice",
+    "irons_spellbooks:summon_polar_bear",
+    "irons_spellbooks:summon_swords",
+    "irons_spellbooks:summon_vex",
+    "raven_dnd_origins:summon_golem",
+    "raven_dnd_origins:summon_grizzly_bear",
+    {
+      "id": "alshanex_familiars:summon_shadows",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:archer_multiple",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:auto_turret",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:field_overseer",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:servant_gaze",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:tiro_volley",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:conjure_amethyst_crab",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:conjure_ignited_reinforcement",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:conjure_koboldiator",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:conjure_thralls",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:construct_prowler",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:construct_watchers",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:dos_swarm",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:rewire",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:summon_koboleton",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:surveillance_drone",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:thoths_witness",
+      "required": false
+    },
+    {
+      "id": "darkdoppelganger:summon_doppel_minion",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:conjure_forsaken_aid",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:conjure_gaoler",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:blood_domain",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:corpse_explosion",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:decaying_will",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:field_of_mourning",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:glacial_sculpting",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:homunculus_summon",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:lord_of_the_final_frost",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:maggot_burst",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:nightmare",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:place_standard",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:reaper",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:soulmaster_summon",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:summon_death_knight",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:summon_skulls",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:summon_vessel_skeleton",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:call_forth_terraprisma",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:collapsed_kingdoms_legion",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:fossilized_fury",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:release_riftwalker_predator",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:sentinel_saturation",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:summon_flameborn_knights",
+      "required": false
+    },
+    {
+      "id": "magic_realms:slime_rain",
+      "required": false
+    }
+  ]
+}

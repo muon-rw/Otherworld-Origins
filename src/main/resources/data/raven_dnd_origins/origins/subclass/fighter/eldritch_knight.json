@@ -1,0 +1,12 @@
+{
+    "powers": [
+        "raven_dnd_origins:cantrip_desc",
+        "raven_dnd_origins:subclass/fighter/eldritch_knight",
+        "raven_dnd_origins:subclass/fighter/eldritch_knight_war_magic",
+        "raven_dnd_origins:subclass/fighter/eldritch_knight_arcane_tempo",
+        "raven_dnd_origins:spell_access/fighter/eldritch_knight"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/fighter/eldritch_knight"
+    }
+}

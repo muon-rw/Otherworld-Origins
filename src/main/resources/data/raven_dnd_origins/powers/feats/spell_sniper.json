@@ -1,0 +1,12 @@
+{
+    "hidden": true,
+    "type": "origins:modify_damage_dealt",
+    "damage_condition": {
+        "type": "origins:in_tag",
+        "tag": "raven_dnd_origins:is_magic"
+    },
+    "modifier": {
+        "operation": "multiply_base",
+        "value": 0.1
+    }
+}

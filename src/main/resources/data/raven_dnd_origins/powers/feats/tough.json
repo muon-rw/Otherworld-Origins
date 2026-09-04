@@ -1,0 +1,9 @@
+{
+    "hidden": true,
+    "type": "origins:attribute",
+    "modifier": {
+        "attribute": "raven_dnd_origins:health_per_level",
+        "operation": "addition",
+        "value": 2
+    }
+}

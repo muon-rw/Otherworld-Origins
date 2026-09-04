@@ -1,0 +1,10 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/cleric/tempest",
+        "raven_dnd_origins:spell_access/cleric/tempest",
+        "raven_dnd_origins:subclass/cleric/divine_intervention/tempest"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/cleric/tempest"
+    }
+}

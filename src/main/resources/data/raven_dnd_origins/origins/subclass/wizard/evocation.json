@@ -1,0 +1,11 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/wizard/evocation",
+        "raven_dnd_origins:subclass/wizard/evocation_empowered_evocation",
+        "raven_dnd_origins:subclass/wizard/evocation_overchannel",
+        "raven_dnd_origins:spell_access/wizard/evocation"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/wizard/evocation"
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "hidden": true,
+    "type": "origins:multiple",
+    "melee": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.1
+        },
+        "condition": {
+            "type": "origins:equipped_item",
+            "item_condition": {
+                "type": "raven_dnd_origins:is_melee_weapon"
+            },
+            "equipment_slot": "mainhand"
+        }
+    },
+    "proj": {
+        "type": "origins:modify_projectile_damage",
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    }
+}

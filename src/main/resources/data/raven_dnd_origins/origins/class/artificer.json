@@ -1,0 +1,13 @@
+{
+	"powers": [
+		"raven_dnd_origins:class/artificer/attributes",
+		"raven_dnd_origins:class/artificer/prevent_repair_penalty",
+		"raven_dnd_origins:class/artificer/show_repair_tooltip",
+		"raven_dnd_origins:class/artificer/soul_of_artifice"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:class/artificer"
+	},
+	"impact": 3,
+	"order": 0
+}

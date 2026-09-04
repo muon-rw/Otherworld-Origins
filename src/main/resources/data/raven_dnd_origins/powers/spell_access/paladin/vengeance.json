@@ -1,0 +1,9 @@
+{
+    "hidden": true,
+    "type": "raven_dnd_origins:allowed_spells",
+    "entries": [
+        "#raven_dnd_origins:melee",
+        "#raven_dnd_origins:offensive",
+        "@irons_spellbooks:holy"
+    ]
+}

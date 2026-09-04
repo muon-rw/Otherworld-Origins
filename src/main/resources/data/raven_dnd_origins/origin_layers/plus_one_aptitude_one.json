@@ -1,0 +1,24 @@
+{
+  "order": 1,
+  "name": "First +1 Ability Score (Half-Elf)",
+  "hidden": false,
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:race/half_elf"
+      },
+      "origins": [
+        "raven_dnd_origins:apts/one/str",
+        "raven_dnd_origins:apts/one/const",
+        "raven_dnd_origins:apts/one/dex",
+        "raven_dnd_origins:apts/one/def",
+        "raven_dnd_origins:apts/one/int",
+        "raven_dnd_origins:apts/one/bld",
+        "raven_dnd_origins:apts/one/mag",
+        "raven_dnd_origins:apts/one/lck"
+      ]
+    }
+  ]
+}

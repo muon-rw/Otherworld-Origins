@@ -1,0 +1,30 @@
+{
+  "order": 31,
+  "name": "Draconic Ancestry",
+  "hidden": false,
+  "allow_random": false,
+  "gui_title": {
+    "choose_origin": "Choose a Draconic Ancestry:",
+    "view_origin": "Draconic Ancestry:"
+  },
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:subclass/sorcerer/draconic_bloodline"
+      },
+      "origins": [
+        "raven_dnd_origins:draconic_ancestry/black",
+        "raven_dnd_origins:draconic_ancestry/blue",
+        "raven_dnd_origins:draconic_ancestry/brass",
+        "raven_dnd_origins:draconic_ancestry/bronze",
+        "raven_dnd_origins:draconic_ancestry/copper",
+        "raven_dnd_origins:draconic_ancestry/gold",
+        "raven_dnd_origins:draconic_ancestry/red",
+        "raven_dnd_origins:draconic_ancestry/silver",
+        "raven_dnd_origins:draconic_ancestry/white"
+      ]
+    }
+  ]
+}

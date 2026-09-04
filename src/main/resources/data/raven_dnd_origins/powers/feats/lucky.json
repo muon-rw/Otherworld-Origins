@@ -1,0 +1,25 @@
+{
+    "type": "origins:active_self",
+    "key": "key.raven_dnd_origins.cantrip_two",
+    "entity_action": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "raven_dnd_origins:reset_enchantment_seed"
+            },
+            {
+                "type": "origins:play_sound",
+                "sound": "minecraft:entity.experience_orb.pickup",
+                "category": "players",
+                "volume": 0.6,
+                "pitch": 1
+            }
+        ]
+    },
+    "cooldown": 12000,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+        "bar_index": 1
+    }
+}

@@ -1,0 +1,12 @@
+{
+	"powers": [
+		"raven_dnd_origins:subrace/undead/skeleton/attributes",
+		"raven_dnd_origins:subrace/undead/skeleton/bow_damage",
+		"raven_dnd_origins:subrace/undead/skeleton/vulnerability"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/skeleton"
+	},
+	"impact": 3,
+	"order": 2
+}

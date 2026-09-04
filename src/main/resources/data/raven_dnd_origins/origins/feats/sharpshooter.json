@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:feats/sharpshooter"
+	],
+	"icon": {
+		"item": "minecraft:spectral_arrow"
+	},
+	"impact": 1,
+	"order": 0
+}

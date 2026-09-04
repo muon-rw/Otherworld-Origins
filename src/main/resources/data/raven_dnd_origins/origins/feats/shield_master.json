@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:feats/shield_master"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:feats/shield_master"
+	},
+	"impact": 1,
+	"order": 0
+}

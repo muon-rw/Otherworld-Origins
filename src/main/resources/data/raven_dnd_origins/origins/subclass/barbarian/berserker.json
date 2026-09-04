@@ -1,0 +1,8 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/barbarian/berserker"
+    ],
+    "icon": {
+        "item": "minecraft:iron_axe"
+    }
+}

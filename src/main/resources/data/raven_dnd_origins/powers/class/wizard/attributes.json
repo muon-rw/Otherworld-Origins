@@ -1,0 +1,28 @@
+{
+    "hidden": true,
+    "type": "origins:multiple",
+    "apts": {
+        "type": "raven_dnd_origins:innate_aptitude_bonus",
+        "aptitude_bonuses": {
+            "magic": 1
+        }
+    },
+    "dmg": {
+        "type": "origins:modify_damage_dealt",
+        "damage_condition": {
+            "type": "apoli:in_tag",
+            "tag": "raven_dnd_origins:is_magic"
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.2
+        }
+    },
+    "health": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "value_per_level": 4.0,
+        "starting_value": -12.0
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/ranger/beast_master",
+        "raven_dnd_origins:spell_access/ranger/beast_master"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/ranger/beast_master"
+    }
+}

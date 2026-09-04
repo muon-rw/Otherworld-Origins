@@ -1,0 +1,310 @@
+{
+    "type": "origins:multiple",
+    "hidden": true,
+    "shape": {
+        "type": "raven_dnd_origins:shapeshift",
+        "entity_type": "legendary_monsters:stratling",
+        "hide_hands": true,
+        "allow_tools": false,
+        "suppress_armor_modifiers": true,
+        "prevent_spell_casts": {
+            "inverted": true,
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 18
+        },
+        "attack_range": 2.5,
+        "attacks": [
+            { "hitbox": "VERTICAL_PLANE", "angle": 80, "damage_multiplier": 1.0, "upswing": 0.5, "animation": "upper_cut" },
+            { "hitbox": "HORIZONTAL_PLANE", "angle": 100, "damage_multiplier": 1.2, "upswing": 0.5, "animation": "slap" }
+        ]
+    },
+    "attributes": {
+        "type": "origins:attribute",
+        "modifiers": [
+            {
+                "attribute": "minecraft:generic.movement_speed",
+                "operation": "multiply_base",
+                "value": 0.05,
+                "name": "Wildshape speed bonus"
+            },
+            {
+                "attribute": "legendarysurvivaloverhaul:thermal_resistance",
+                "operation": "addition",
+                "value": 100.0,
+                "name": "Elemental temperature immunity"
+            }
+        ]
+    },
+    "movement_speed_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.movement_speed",
+        "operation": "multiply_base",
+        "starting_value": 0.0,
+        "value_per_level": 0.015
+    },
+    "max_health_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 44.0,
+        "value_per_level": 3.0,
+        "update_health": false
+    },
+    "max_health_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 3.2,
+        "update_health": false,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_damage_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 10.0,
+        "value_per_level": 0.5
+    },
+    "attack_damage_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.8,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_speed_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": -2.8,
+        "value_per_level": 0.02
+    },
+    "attack_speed_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.03,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "armor_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "starting_value": 14.0,
+        "value_per_level": 0.3
+    },
+    "armor_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.3,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "gravity_static": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.gravity",
+        "operation": "multiply_base",
+        "starting_value": -0.625,
+        "value_per_level": 0.0
+    },
+    "max_mana_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "irons_spellbooks:max_mana",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 15.0
+    },
+    "max_mana_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "irons_spellbooks:max_mana",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 22.0,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "mana_regen_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "irons_spellbooks:mana_regen",
+        "operation": "multiply_base",
+        "starting_value": 0.0,
+        "value_per_level": 0.025
+    },
+    "mana_regen_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "irons_spellbooks:mana_regen",
+        "operation": "multiply_base",
+        "starting_value": 0.0,
+        "value_per_level": 0.03,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "ice_spell_power_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "irons_spellbooks:ice_spell_power",
+        "operation": "multiply_base",
+        "starting_value": 0.3,
+        "value_per_level": 0.03
+    },
+    "ice_spell_power_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "irons_spellbooks:ice_spell_power",
+        "operation": "multiply_base",
+        "starting_value": 0.0,
+        "value_per_level": 0.12,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "always_jump": {
+        "type": "origins:grounded"
+    },
+    "jump_cooldown": {
+        "type": "raven_dnd_origins:jump_cooldown",
+        "cooldown": 15
+    },
+    "no_fall_damage": {
+        "type": "origins:modify_damage_taken",
+        "damage_condition": {
+            "type": "origins:in_tag",
+            "tag": "is_fall"
+        },
+        "modifier": {
+            "operation": "multiply_total_multiplicative",
+            "value": -1
+        }
+    },
+    "freeze_resistance": {
+        "type": "origins:modify_damage_taken",
+        "damage_condition": {
+            "type": "origins:name",
+            "name": "freeze"
+        },
+        "modifier": {
+            "operation": "set_total",
+            "value": 0
+        }
+    },
+    "spell_attack": {
+        "type": "raven_dnd_origins:action_on_attack",
+        "bientity_action": {
+            "type": "origins:actor_action",
+            "action": {
+                "type": "origins:choice",
+                "actions": [
+                    { "weight": 1, "element": { "type": "raven_dnd_origins:cast_spell", "spell": "irons_spellbooks:ice_block", "power_level": 5, "cast_time": 0 } },
+                    { "weight": 1, "element": { "type": "raven_dnd_origins:cast_spell", "spell": "irons_spellbooks:cone_of_cold", "power_level": 5 } },
+                    { "weight": 1, "element": { "type": "raven_dnd_origins:cast_spell", "spell": "irons_spellbooks:ray_of_frost", "power_level": 5, "cast_time": 0 } },
+                    { "weight": 1, "element": { "type": "raven_dnd_origins:cast_spell", "spell": "irons_spellbooks:icicle", "power_level": 5, "cast_time": 0 } },
+                    { "weight": 1, "element": { "type": "raven_dnd_origins:cast_spell", "spell": "irons_spellbooks:frostwave", "power_level": 5, "cast_time": 0 } },
+                    { "weight": 1, "element": { "type": "raven_dnd_origins:cast_spell", "spell": "irons_spellbooks:ice_spikes", "power_level": 5, "cast_time": 0 } }
+                ]
+            }
+        },
+        "cooldown": 60,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 9,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_spell_attack",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "prevent_death": {
+        "type": "origins:prevent_death",
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:heal",
+                    "amount": 20
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "origin set @s raven_dnd_origins:wildshape origins:empty"
+                }
+            ]
+        }
+    },
+    "timer": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 6000,
+        "start_value": 6000,
+        "min_action": {
+            "type": "origins:execute_command",
+            "command": "origin set @s raven_dnd_origins:wildshape origins:empty"
+        },
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 7,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_timer",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "tick_timer": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_timer",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -20
+            }
+        }
+    },
+    "charge_callback": {
+        "type": "origins:action_on_callback",
+        "entity_action_gained": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.evoker.prepare_summon",
+                    "pitch": 0.7
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "legendary_monsters:cloud_golem_ambient"
+                },
+                {
+                    "type": "origins:heal",
+                    "amount": 1000
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_charges",
+                    "modifier": {
+                        "operation": "add_base_early",
+                        "value": -1
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    }
+}

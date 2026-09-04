@@ -1,0 +1,14 @@
+{
+	"powers": [
+                "raven_dnd_origins:race/tiefling/attributes",
+                "raven_dnd_origins:race/tiefling/hellish_resistance",
+                "raven_dnd_origins:race/tiefling/infernal_legacy",
+                "raven_dnd_origins:race/tiefling/charisma",
+                "raven_dnd_origins:dark_vision"
+	],
+        "icon": {
+                "item": "raven_dnd_origins:portrait/tiefling"
+	},
+	"impact": 2,
+        "order": 6
+}

@@ -1,0 +1,13 @@
+{
+	"powers": [
+                "raven_dnd_origins:race/dragonborn/attributes",
+                "raven_dnd_origins:race/dragonborn/draconic_ancestry",
+                "raven_dnd_origins:race/dragonborn/resistance",
+                "raven_dnd_origins:race/dragonborn/charisma"
+	],
+        "icon": {
+                "item": "raven_dnd_origins:portrait/dragonborn"
+	},
+        "impact": 1,
+        "order": 7
+}

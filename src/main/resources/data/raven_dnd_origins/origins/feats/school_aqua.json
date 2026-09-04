@@ -1,0 +1,6 @@
+{
+    "powers": ["raven_dnd_origins:feats/school_aqua"],
+    "icon": {"item": "hazennstuff:hydro_upgrade_orb"},
+    "impact": 1,
+    "order": 109
+}

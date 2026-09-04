@@ -1,0 +1,6 @@
+{
+    "powers": ["raven_dnd_origins:feats/school_lightning"],
+    "icon": {"item": "irons_spellbooks:lightning_upgrade_orb"},
+    "impact": 1,
+    "order": 102
+}

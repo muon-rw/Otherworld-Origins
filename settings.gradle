@@ -6,15 +6,15 @@ pluginManagement {
             url = 'https://maven.muon.rip/releases'
         }
         maven {
-            name = 'MinecraftForge'
-            url = 'https://maven.minecraftforge.net'
+            name = 'NeoForged'
+            url = 'https://maven.neoforged.net/releases'
         }
         maven {
             name = 'ParchmentMC'
             url = 'https://maven.parchmentmc.org'
         }
         maven {
-            name = 'SpongePowered'
+            name =  'SpongePowered'
             url = 'https://repo.spongepowered.org/repository/maven-public/'
         }
     }

@@ -1,0 +1,9 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/sorcerer/draconic_bloodline",
+        "raven_dnd_origins:spell_access/sorcerer/draconic_bloodline"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/sorcerer/draconic_bloodline"
+    }
+}

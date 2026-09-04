@@ -1,44 +1,34 @@
 plugins {
-    id 'eclipse'
     id 'idea'
+    id 'eclipse'
+    id 'java-library'
     id 'maven-publish'
-    id "net.darkhax.curseforgegradle" version "1.0.7"
-    id 'net.neoforged.moddev.legacyforge' version '2.0.126'
-    id 'dev.mixinmcp.decompile' version '0.9.0'
+    id 'net.neoforged.moddev' version '2.0.144'
+    id 'me.modmuss50.mod-publish-plugin' version '2.2.0'
+    id 'dev.mixinmcp.decompile' version '1.4.0'
 }
-
-version = mod_version
-group = mod_group_id
 
 base {
-    archivesName = mod_id
+    archivesName = fileName
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+group = project.properties.modGroup
+version = "${project.properties.version}+${project.properties.mc_version}"
 
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+java.toolchain.languageVersion = JavaLanguageVersion.of(project.properties.javaVersion)
 
-mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
-    config "${mod_id}.mixins.json"
-}
+neoForge {
+    version = project.neo_version
 
-
-legacyForge {
-    // Develop against MinecraftForge version 47.3.0 for 1.20.1 (the versions can be found at https://files.minecraftforge.net/)
-    version = "${minecraft_version}-${forge_version}"
     parchment {
-        minecraftVersion = "1.20.1"
-        mappingsVersion = "2023.09.03"
+        minecraftVersion = project.mc_version
+        mappingsVersion = project.parchment_version
     }
-    // Validate AT files and raise errors when they have invalid targets
-    // This option is false by default, but turning it on is recommended
     validateAccessTransformers = true
 
     runs {
         configureEach {
-            systemProperty 'forge.logging.console.level', 'debug'
-            systemProperty 'forge.logging.file.level', 'info'
+            logLevel = org.slf4j.event.Level.DEBUG
             jvmArgument '-Xmx6G'
             jvmArgument '-Xms2G'
             jvmArgument '-XX:+UseG1GC'
@@ -46,50 +36,122 @@ legacyForge {
         }
         client {
             client()
-            setGameDirectory(project.file('run/client'))
+            gameDirectory = project.file('run/client')
         }
 
         clientExtra {
             client()
-            setGameDirectory(project.file('run/client2'))
+            gameDirectory = project.file('run/client2')
             programArguments.addAll('--username', 'Dev2')
         }
 
         server {
             server()
-            setGameDirectory(project.file('run/server'))
+            gameDirectory = project.file('run/server')
             programArgument '--nogui'
         }
+
         data {
             data()
+            gameDirectory = project.file('run/data')
+            programArguments.addAll('--mod', modid, '--all', '--output', file('src/generated/resources/').absolutePath, '--existing', file('src/main/resources/').absolutePath)
         }
     }
 
     mods {
-        testproject {
+        "${modid}" {
             sourceSet sourceSets.main
         }
     }
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources {
+    srcDir 'src/generated/resources'
+}
+
+// Loom provides `localRuntime` out of the box; MDG does not, so wire it up here.
+// Deps in `localRuntime` are on the dev runtime classpath but aren't exposed in
+// `runtimeElements`, so they don't propagate transitively to maven consumers.
+configurations {
+    localRuntime
+    runtimeClasspath.extendsFrom(localRuntime)
+    testRuntimeClasspath.extendsFrom(localRuntime)
+}
 
 repositories {
-
+    mavenCentral()
+    mavenLocal()
+    flatDir {
+        dir 'libs'
+        content { includeGroup 'local' }
+    }
+    flatDir {
+        // Dev runtime purpose: RHF's spell addons, resolved from the modpack instance so
+        // we have the same spell pool here that the pack does (for spell dump and tag validation)
+        name = "RavenPackMods"
+        dir "C:\\Users\\renpi\\curseforge\\minecraft\\Instances\\Raven's High Fantasy\\mods"
+        content { includeGroup 'pack' }
+    }
     maven {
-        name = "Greenhouse"
-        url = 'https://maven.greenhouse.lgbt/releases/'
+        name = "CurseMaven"
+        url = "https://www.cursemaven.com"
         content {
-            includeGroup "io.github.edwinmindcraft"
-            includeGroup "de.dafuqs"
+            includeGroup "curse.maven"
         }
     }
-
     maven {
-        url = uri("https://maven.ftb.dev/snapshots")
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
         content {
-            includeGroup("dev.latvian.mods")
-            includeGroup("dev.ftb.mods")
+            includeGroup "maven.modrinth"
+        }
+    }
+    maven {
+        // Curios, Caelus
+        url "https://maven.theillusivec4.top"
+        content {
+            includeGroupByRegex "top\\.theillusivec4.*"
+            includeGroupByRegex "com\\.illusivesoulworks.*"
+        }
+    }
+    maven {
+        // JEI, Bookshelf, Patchouli
+        url "https://maven.blamejared.com"
+        content {
+            includeGroup "vazkii.patchouli"
+            includeGroupByRegex "net\\.darkhax.*"
+            includeGroupByRegex "com\\.blamejared.*"
+            includeGroup "org.openzen.zencode"
+            includeGroup "mezz.jei"
+        }
+    }
+    maven {
+        // Shadows of Fire
+        url "https://maven.shadowsoffire.dev/releases"
+        content {
+            includeGroup "dev.shadowsoffire"
+        }
+    }
+    maven { url 'https://maven.shedaniel.me/' }            // Cloth Config, Architectury
+    maven { url 'https://maven.kosmx.dev/' }               // Player Animator
+    maven { url = "https://maven.isxander.dev/releases" }  // YACL
+    maven { url = "https://maven.bawnorton.com/releases" } // MixinSquared
+    maven {
+        // Kotlin for Forge. The maven artifact carries the Kotlin stdlib as a compile dependency;
+        // the CurseForge jar nests it, which leaves javac unable to compile against FzzyConfig.
+        name = "Kotlin for Forge"
+        url = "https://thedarkcolour.github.io/KotlinForForge/"
+        content { includeGroup "thedarkcolour" }
+    }
+    maven { url = "https://maven.muon.rip/releases" }      // Dynamic Difficulty, Raven Core
+    maven { url = "https://code.redspace.io/releases" }
+    maven { url = "https://code.redspace.io/snapshots" }
+    maven {
+        name = 'GeckoLib'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        content {
+            includeGroupByRegex("software\\.bernie.*")
+            includeGroup("com.eliotlash.mclib")
         }
     }
     maven {
@@ -99,328 +161,242 @@ repositories {
             includeGroup("dev.ftb.mods")
         }
     }
-
-    maven { url = "https://maven.bawnorton.com/releases" }
-    // MixinSquared Backup
-    // maven { url = "https://maven.enjarai.dev/mirrors" }
     maven {
-        name = "Modrinth"
-        url = "https://api.modrinth.com/maven"
+        url = uri("https://maven.ftb.dev/snapshots")
         content {
-            includeGroup "maven.modrinth"
+            includeGroup("dev.latvian.mods")
+            includeGroup("dev.ftb.mods")
         }
-    }
-    maven { url "https://maven.fzzyhmstrs.me/" }
-    maven {
-        url "https://maven.shadowsoffire.dev/releases"
-        content {
-            includeGroup "dev.shadowsoffire"
-        }
-    }
-    maven { url 'https://maven.kosmx.dev/' }
-    maven { url 'https://maven.shedaniel.me/' }
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'}
-    maven { url "https://code.redspace.io/releases" }
-    maven { url "https://code.redspace.io/snapshots" }
-    maven { url "https://maven.blamejared.com" }
-    maven { url "https://maven.ladysnake.org/releases" }
-
-    maven { url "https://www.cursemaven.com"
-        content {
-            includeGroup "curse.maven" }
-    }
-
-    maven {
-        url = "https://jm.gserv.me/repository/maven-public/"
-    }
-    maven { url = 'https://maven.theillusivec4.top' }
-    maven { url "https://maven.isxander.dev/releases" }
-    maven { url = "https://modmaven.dev"
-        content {
-            excludeGroup "com.teamresourceful.resourcefulconfig"}
-    }
-    maven { url = "https://nexus.resourcefulbees.com/repository/maven-public/" }
-
-    maven {
-        url = "https://jitpack.io"
-        content {
-            includeGroup("com.github.Virtuoel")
-        }
-    }
-    mavenCentral()
-    mavenLocal()
-    maven {
-        name = "Muon"
-        url = "https://maven.muon.rip/releases"
-        content {
-            includeGroup "dev.muon"
-        }
-    }
-    maven { url = "https://maven.su5ed.dev/releases" }
-    maven { url = "https://maven.fabricmc.net" }
-
-    maven {
-        name = "Obscuria"
-        url = "https://raw.githubusercontent.com/ObscuriaLithium/modding/main/maven/"
     }
 }
 
 dependencies {
-
-    // Origins
-    modImplementation("io.github.edwinmindcraft:calio-forge:${minecraft_version}-${calio_version}")
-    modImplementation("io.github.edwinmindcraft:apoli-forge:${minecraft_version}-${apoli_version}")
-    modImplementation("io.github.edwinmindcraft:origins-forge:${minecraft_version}-${origins_version}")
-    modImplementation("top.theillusivec4.caelus:caelus-forge:${caelus_version}")
-    modImplementation("de.dafuqs:additionalentityattributes-forge:${aea_forge_version}") {
-        exclude group: 'net.minecraftforge'
-        exclude group: 'com.github.llamalad.mixinextras'
-    }
-
-    // EMF - wildshape compat testing
-    modCompileOnly("curse.maven:entity-model-features-844662:5646339")
-    modCompileOnly("curse.maven:entity-texture-features-fabric-568563:5982136")
-
-    // Pehkui
-    modCompileOnly("com.github.Virtuoel:Pehkui:${pehkui_version}-${minecraft_version}-forge")
-
-    // Mixin
+    // MixinSquared's annotationProcessor MUST be registered before Mixin's one.
+    // NeoForge bundles fabric-mixin and mixinextras, so neither is declared here.
     compileOnly(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${mixin_squared_version}"))
-    implementation(jarJar("com.github.bawnorton.mixinsquared:mixinsquared-forge:${mixin_squared_version}")) {
-        version {
-            strictly '[0.2.0, 1.0)'
-            prefer '0.3.7-beta.1'
-        }
+    jarJar(implementation("com.github.bawnorton.mixinsquared:mixinsquared-neoforge:${mixin_squared_version}")) {
+        version { strictly '[0.3.5-beta.1,)'; prefer "${mixin_squared_version}" }
     }
-    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:${mixin_extras_version}"))
-    implementation(jarJar("io.github.llamalad7:mixinextras-forge:${mixin_extras_version}")) {
-        version {
-            strictly '[0.5.0, 1.0)'
-            prefer '0.5.3'
-        }
-    }
-    annotationProcessor("net.fabricmc:sponge-mixin:${fabric_mixin_version}")
-    implementation "org.sinytra.mixinbooster:mixin-booster:0.1.3+1.20.1"
 
-    // Core
+    // Dev env
+    localRuntime("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
+    localRuntime("maven.modrinth:jade:${jade_version}")
+    localRuntime("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}") // raven_core's config
+    localRuntime("dev.isxander:yet-another-config-lib:${yacl_version}")
 
-    modImplementation("dev.muon:otherworld:${otherworld_core_version}+1.20.1")
-    modImplementation("curse.maven:ydms-mobhealthbar-mod-559894:4818965")
+    // Raven Core. Non-transitive so its dev runtime doesn't leak into here; its mods.toml requires
+    // only aether_villages and legendary_monsters. Aether Villages needs Architectury (already on
+    // the FTB line below) and thankfully not The Aether itself, so no Aether in this runtime. If
+    // it needs to be added, its bundled accessories needs to be bumped as well.
+    implementation("dev.muon:raven_core:${raven_core_version}") { transitive = false }
+    localRuntime("curse.maven:aether-villages-1073197:5895490")
+    localRuntime("curse.maven:legendary-monsters-944035:8715533")
+    // need this to use the obsidian mirror without crashing
+    localRuntime("curse.maven:dark-doppelganger-1110803:8472789")
+    // raven_core jarJars AEA; compile-visible for the shapeshift width/height attributes.
+    compileOnly("maven.modrinth:AdditionalEntityAttributes:${additional_entity_attributes_version}")
 
-    // Alt Origin GUI
-    modImplementation("curse.maven:altorigingui-873788:5633649")
+    // Origins (Overgrown's fork)
+    implementation("curse.maven:apoli-1631826:${apoli_file}")
+    implementation("curse.maven:o-origins-1636345:${origins_file}")
 
+    // Shared libs
+    localRuntime("top.theillusivec4.curios:curios-neoforge:${curios_version}")
+    compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}:api")
+    localRuntime("com.illusivesoulworks.caelus:caelus-neoforge:${caelus_version}")
+    implementation("dev.kosmx.player-anim:player-animation-lib-forge:${player_anim_version}")
+    implementation("software.bernie.geckolib:geckolib-neoforge-${mc_version}:${geckolib_version}")
+    localRuntime("curse.maven:attributefix-280510:7115922")
+    localRuntime("curse.maven:prickle-1023259:6961457")   // required by attributefix
+    localRuntime("curse.maven:bookshelf-228525:7606240")  // required by attributefix
 
-    // Ars Elixirum?
-    modImplementation("curse.maven:ars-elixirum-forge-620870:8041412")
-    modImplementation("dev.obscuria:fragmentum-forge:1.20.1-${fragmentum_version}")
-    modImplementation("dev.obscuria:archivist-forge:1.20.1-${archivist_version}")
+    // Config
+    implementation("curse.maven:fzzy-config-1005914:7568897")
+    implementation("thedarkcolour:kotlinforforge-neoforge:${kotlin_for_forge_version}")
 
-    // Dev Env
-    // modRuntimeOnly("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
-    modRuntimeOnly("curse.maven:jei-238222:7391695")
-    modRuntimeOnly("curse.maven:jade-324717:${jade_id}")
-    modRuntimeOnly("me.shedaniel.cloth:cloth-config-forge:${project.cloth_config_version}")
-
-    // FzzyConfig
-    modImplementation("me.fzzyhmstrs:fzzy_config:${fzzy_config}+forge")
-    modImplementation("curse.maven:kotlin-for-forge-351264:7291067")
-
-    // Common Shared Deps
-    modImplementation("dev.isxander:yet-another-config-lib:${project.yacl_version}")
-    modCompileOnly("top.theillusivec4.curios:curios-forge:${curios_version}:api")
-    modRuntimeOnly("top.theillusivec4.curios:curios-forge:${curios_version}")
-    modImplementation("curse.maven:citadel-331936:7476570")
+    // Leveling. Dynamic Difficulty replaces Auto Leveling; raven_core reports the JLF level to it.
+    implementation("curse.maven:justleveling-fork-1073400:8555544")
+    implementation("dev.muon.dynamic_difficulty:dynamic_difficulty-neoforge:${dynamic_difficulty_version}")
 
     // Iron's Spells n Spellbooks
-    modImplementation("io.redspace:irons_spellbooks:${irons_version}")
-    modImplementation("software.bernie.geckolib:geckolib-forge-${geckolib_version}")
-    modImplementation("dev.kosmx.player-anim:player-animation-lib-forge:${player_animator_version}")
+    implementation("io.redspace:irons_spellbooks:${irons_version}")
+    implementation("io.redspace:irons_lib:${irons_lib_version}")
 
-    // Eidolon
-    modImplementation("curse.maven:eidolon-repraised-870250:5877358")
+    // Apotheosis. 1.21.1 moved enchanting into Apothic Enchanting.
+    implementation("dev.shadowsoffire:Placebo:${mc_version}-${placebo_version}")
+    implementation("dev.shadowsoffire:ApothicAttributes:${mc_version}-${attributeslib_version}")
+    implementation("dev.shadowsoffire:Apotheosis:${mc_version}-${apotheosis_version}")
+    implementation("dev.shadowsoffire:ApothicEnchanting:${mc_version}-${apothic_enchanting_version}")
+    // Apotheosis 8.7 registers apotheosis:sigil_of_withdrawal through Apothic Spawners.
+    localRuntime("dev.shadowsoffire:ApothicSpawners:${mc_version}-${apothic_spawners_version}")
 
-    // Appleskin
-    modImplementation("curse.maven:appleskin-248787:4770828")
+    // Survival / social
+    implementation("curse.maven:legendary-survival-overhaul-840254:8597620")
+    implementation("maven.modrinth:thief:${thief_version}")
+    implementation("maven.modrinth:hardcore-revival:${hardcore_revival_version}")
+    localRuntime("curse.maven:balm-531761:8645517")
+    implementation("maven.modrinth:appleskin:${appleskin_version}")
+
+    // Combat / camera / storage
+    implementation("maven.modrinth:better-combat:${better_combat_version}")
+    implementation("curse.maven:shoulder-surfing-reloaded-243190:8725628")
+    implementation("curse.maven:sophisticated-backpacks-422301:8687841")
+    implementation("curse.maven:sophisticated-core-618298:8705083")
+
+    // Mobs: wildshape forms, familiars, spell targets
+    implementation("curse.maven:naturalist-627986:8663845")
+    implementation("maven.modrinth:hybrid-aquatic:${hybrid_aquatic_version}")
+    localRuntime("maven.modrinth:biolith:${biolith_version}")             // hybrid_aquatic requires it
+    localRuntime("maven.modrinth:lithostitched:${lithostitched_version}") // hybrid_aquatic requires it
+    implementation("maven.modrinth:luminous-beasts:${luminous_beasts_version}")
+    implementation("curse.maven:lendercataclysm-551586:8706841")
+    implementation("curse.maven:lionfish-api-1001614:8345326")
+    localRuntime("curse.maven:mowzies-mobs-250498:7760267")
+    localRuntime("curse.maven:iceandfire-ce-1040076:8683031")
+    compileOnly("curse.maven:iceandfire-ce-1040076:8683031")
+    localRuntime("curse.maven:uranus-1010827:8587525")
+    compileOnly("curse.maven:uranus-1010827:8587525")
+    localRuntime("curse.maven:jupiter-1072905:7738312")
+    compileOnly("curse.maven:jupiter-1072905:7738312")
+    localRuntime("curse.maven:alshanexs-familiars-1171602:8675568")
+    localRuntime("curse.maven:familiarslib-1316458:8059464")
+
+    // Dragonborn wings, utilizing O-Apoli's built-in Icarus compat (apoli:wings)
+    implementation("maven.modrinth:icarus:${icarus_version}")
+    localRuntime("maven.modrinth:common-network:${common_network_version}")
+    localRuntime("maven.modrinth:sparkweave:${sparkweave_version}")
+    localRuntime("maven.modrinth:resourceful-config:${resourceful_config_version}")
+
+    // Bard instruments
+    implementation("maven.modrinth:immersive-melodies:${immersive_melodies_version}")
+
+    // Raven's High Fantasy's Iron's Spellbooks addons, dev runtime only
+    // (flatDir "RavenPackMods")
+    // Important: Spell dump and spell tags need to see the whole pool.
+    localRuntime("pack:gtbcs_geomancy_plus:1.1.0-1.21.1")
+    localRuntime("pack:gtbcs_spell_lib:2.1.0-1.21.1")
+    localRuntime("pack:discerning_the_eldritch:1.4.3-1.21")
+    localRuntime("pack:aces_spell_utils:1.2.7.1-1.21.1")
+    localRuntime("pack:azurelib-neo:1.21.1-3.1.11")
+    localRuntime("pack:prometheus-neoforge:1.21-1.2.5")
+    localRuntime("pack:soul-fire-d-neoforge:1.21-6.1.0")
+    localRuntime("pack:cobweb-neoforge:1.21-1.4.0")
+    localRuntime("pack:hazennstuff:1.4.0.14")
+    localRuntime("pack:hazentouvelib:1.0.9")
+    localRuntime("pack:tunes_n_tomes:1.1.0-HOTFIX")
+    localRuntime("pack:apprentice_codex:0.9.7.1+mc1.21.1")
+    localRuntime("pack:cataclysm_spellbooks:1.1.12-1.21")
+    localRuntime("pack:legendary_spellbooks:1.21.1+neo-0.3.2")
+    localRuntime("pack:ess_requiem:0.1.7")
+    localRuntime("pack:elemental_synergies:1.1.1")
+    localRuntime("pack:magic_realms:1.2")
+    localRuntime("pack:aero_additions:1.2.8")
+    localRuntime("pack:irons_apothic:2.2.1")
+    localRuntime("pack:irons_jewelry:1.21.1-2.0.2")
+    localRuntime("pack:mythsandlegends:0.0.8.6")
+    localRuntime("pack:ender_trigon_unofficial:1.0.0-1.21.1")
+    localRuntime("pack:atlas_api:1.21.1-1.2.0")                    // required by irons_jewelry
+    localRuntime("vazkii.patchouli:Patchouli:1.21.1-93-NEOFORGE")  // apprentice_codex needs 93+; Apotheosis pulls 87
 
     // FTB
-    modImplementation("dev.ftb.mods:ftb-chunks-forge:${ftb_chunks_version}")
-    modImplementation("dev.ftb.mods:ftb-quests-forge:${ftb_quests_version}")
-    modImplementation("dev.ftb.mods:ftb-library-forge:${ftb_library_version}")
-    modImplementation("dev.ftb.mods:ftb-teams-forge:${ftb_teams_version}")
-    modImplementation("dev.architectury:architectury-forge:${architectury_version}")
-
-    // Goblin's Tyranny
-    modImplementation("curse.maven:goblins-tyranny-1020500:5651594")
-
-    // Identity?
-    // Maybe not
-    // modImplementation("curse.maven:identity-fix-morph-1238155:7777032")
-
-    // Sophisticated
-    modImplementation("curse.maven:sophisticated-backpacks-422301:7645913")
-    modImplementation("curse.maven:sophisticated-core-618298:7645911")
-
-    // Hardcore Revival
-    modImplementation("curse.maven:hardcore-revival-274036:7658890")
-    modImplementation("curse.maven:balm-531761:7420617")
-
-    // Valoria
-    // Aether incompat with dev environment, using old version for now
-    // modImplementation("maven.modrinth:valoria:1.0.2.9")
-    // modRuntimeOnly("curse.maven:tridot-1239146:7561888")
-    modImplementation("maven.modrinth:valoria:0.6.4.35")
-    modRuntimeOnly("curse.maven:fluffy-fur-1097456:6392791")
-
-    // Legendary Monsters
-    modImplementation("curse.maven:legendary-monsters-944035:8131643")
-
-    // Immersive Melodies
-    modImplementation("curse.maven:immersive-melodies-904471:6744792")
-
-    // Perception - Debug arrow trails
-    modImplementation("curse.maven:perception-1112793:6451454")
-    modImplementation("curse.maven:octo-lib-916747:6274623")
-
-    // Alex's
-    modImplementation("curse.maven:alexs-mobs-426558:5160697")
-
-    // Just Leveling
-    modImplementation("curse.maven:justleveling-fork-1073400:5824051")
-
-    // Apoth
-    modImplementation("dev.shadowsoffire:Placebo:${minecraft_version}-${placebo_version}")
-    modImplementation("dev.shadowsoffire:ApothicAttributes:${minecraft_version}-${attributeslib_version}")
-    modImplementation("dev.shadowsoffire:Apotheosis:${minecraft_version}-${apotheosis_version}")
-
-    // Legendary Survival Overhaul
-    modImplementation("curse.maven:legendary-survival-overhaul-840254:7603852")
-
-    // Monobank (Thief)
-    modImplementation("curse.maven:thief-839159:6845226")
-
-    // betta combat
-    modImplementation("curse.maven:better-combat-by-daedelus-639842:5625757")
-
-    // Backpacked
-    modImplementation("curse.maven:backpacked-352835:5813547")
-    modRuntimeOnly("curse.maven:framework-549225:5811593")
-
-    // Shoulder Surfing
-    modImplementation("curse.maven:shoulder-surfing-reloaded-243190:7392767")
-
-    // Punchy
-    modImplementation("curse.maven:punchy-1374153:8349449")
-    
-    // OW CORE ONLY, CAN REMOVE AFTER JL FORK:
-    // Chipped
-    // modRuntimeOnly("curse.maven:chipped-456956:5813138")
-    // modRuntimeOnly("curse.maven:resourceful-lib-570073:5659871")
-    // modRuntimeOnly("curse.maven:stitch-841890:5176879")
-
-    // Aether + Addons
-    modImplementation("curse.maven:aether-255308:6134920")
-    modImplementation("curse.maven:aether-villages-1073197:5707985")
-
-    modCompileOnly("curse.maven:aether-lost-content-318602:4927038")
-    modRuntimeOnly("curse.maven:aeroblender-879879:4789008")
-    modRuntimeOnly("curse.maven:structure-gel-api-378802:5278429")
-    modRuntimeOnly("curse.maven:terrablender-563928:6290448")
-
-    modImplementation("curse.maven:ancient-aether-886751:6400544")
-
-    // BOMD
-    modImplementation("curse.maven:bosses-of-mass-destruction-forge-941573:5067728")
-    modRuntimeOnly("curse.maven:cerbons-api-955605:5050080")
-
-    // IAF
-    modImplementation("curse.maven:ice-and-fire-dragons-264231:5633453")
-
-    // Doppel
-    modImplementation("curse.maven:dark-doppelganger-1110803:6619700")
-
-    // Autolvl
-    modImplementation("curse.maven:auto-leveling-616126:4899526")
-
-    // Traveloptics
-    modImplementation("curse.maven:to-tweaks-irons-spells-1046916:7424522")
-    modImplementation("curse.maven:alexs-caves-924854:5848216")
-    modImplementation("curse.maven:lendercataclysm-551586:6906993")
-    modRuntimeOnly("curse.maven:lionfish-api-1001614:8094506")
-
-    // Armory of Remnants
-    // Currently crashes in dev
-    // modImplementation("curse.maven:armory-of-remnants-1508722:8090589")
-    // modImplementation("curse.maven:catalytic-lib-1506798:7933946")
-    modImplementation("curse.maven:soul-fire-d-662413:6248077")
-    modImplementation("curse.maven:cobweb-968456:6089406")
-
-    // GTBC Geomancy
-    // Dedicated server Dev Env crash, so set to compileOnly
-    modCompileOnly("curse.maven:gtbcs-geomancy-plus-1352485:7580390")
-    modImplementation("curse.maven:gtbcs-spelllib-1194714:7584987")
-    modImplementation("curse.maven:mowzies-mobs-250498:6586086")
-
-    // Alshanex
-    modImplementation("curse.maven:alshanexs-familiars-1171602:7481428")
-    modImplementation("curse.maven:familiarslib-1316458:7696453")
-    // Dummy
-    modImplementation("curse.maven:mmmmmmmmmmmm-225738:6860192")
-    modImplementation("curse.maven:selene-499980:7191950")
-    // END OW CORE DEPS
+    implementation("dev.ftb.mods:ftb-teams-neoforge:${ftb_teams_version}")
+    implementation("dev.ftb.mods:ftb-library-neoforge:${ftb_library_version}")
+    implementation("dev.architectury:architectury-neoforge:${architectury_version}")
 }
 
-// Define expanded props 
-tasks.withType(ProcessResources).configureEach {
-    var replaceProperties = [
-            minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
-            forge_version         : forge_version, forge_version_range: forge_version_range,
-            loader_version_range: loader_version_range,
-            mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
-            mod_authors         : mod_authors, mod_description: mod_description, pack_format_number: pack_format_number,
+tasks.named('processResources', ProcessResources).configure {
+    def replaceProperties = [
+            modGroup       : modGroup,
+            modid          : modid,
+            version        : version,
+            modName        : modName,
+            author         : author,
+            desc           : desc,
+            mcVersion      : mc_version,
+            mcVersionRange : mc_version_range,
+            javaVersion    : javaVersion,
+            neoVersion     : neo_version,
+            neoVersionRange: neo_version_range,
+            loaderRange    : loader_version_range
     ]
+
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
-        expand replaceProperties + [project: project]
+    filesMatching(['META-INF/neoforge.mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties
     }
 }
 
 tasks.named('jar', Jar).configure {
     manifest {
         attributes([
-                'Specification-Title'     : mod_id,
-                'Specification-Vendor'    : mod_authors,
-                'Specification-Version'   : '1', // We are version 1 of ourselves
-                'Implementation-Title'    : project.name,
-                'Implementation-Version'  : project.jar.archiveVersion,
-                'Implementation-Vendor'   : mod_authors,
-                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                "Specification-Title"     : project.modName,
+                "Specification-Vendor"    : project.author,
+                "Specification-Version"   : archiveVersion,
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : archiveVersion,
+                "Implementation-Vendor"   : project.author,
+                "Built-On-Minecraft"      : project.mc_version
         ])
     }
-    finalizedBy 'reobfJar'
 }
 
-// Create sources jar task
-tasks.register('sourcesJar', Jar) {
-    from sourceSets.main.allSource
-    archiveClassifier = 'sources'
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
-// Create javadoc jar task
-tasks.register('javadocJar', Jar) {
-    from tasks.javadoc
-    archiveClassifier = 'javadoc'
-    dependsOn tasks.javadoc
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('javadoc', Javadoc).configure {
+    failOnError = false
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+tasks.withType(GenerateModuleMetadata) {
+    enabled = false
+}
+
+tasks.register('sendToModpack', Copy) {
+    group = 'publishing'
+    dependsOn 'jar'
+    from tasks.jar.archiveFile
+    into "C:\\Users\\renpi\\curseforge\\minecraft\\Instances\\Raven's High Fantasy\\mods"
+    rename { String fileName ->
+        fileName.replace(project.version.toString(), "dev")
+    }
+    doLast {
+        println "Mod JAR sent to modpack folder: ${tasks.jar.archiveFileName.get()}"
+    }
+}
+
+publishMods {
+    file = tasks.jar.archiveFile
+    modLoaders.add("neoforge")
+    changelog = new File("$project.rootDir/CHANGELOG.md").getText('UTF-8')
+    version = "${project.version}"
+    type = STABLE
+    displayName = "NeoForge-${project.properties.version}+${mc_version}"
+
+    curseforge {
+        projectId = "${curseforge_project}"
+        accessToken = System.getenv("CF_TOKEN")
+
+        minecraftVersions.add("${mc_version}")
+        javaVersions.add(JavaVersion.VERSION_21)
+
+        client = true
+        server = true
+    }
 }
 
 publishing {
     publications {
-        register('mavenJava', MavenPublication) {
+        create("mavenJava", MavenPublication) {
             artifactId = base.archivesName.get()
-            // Use reobfJar as the main artifact (reobfuscated jar)
-            artifact(tasks.named('reobfJar', Jar))
-            // Include sources and javadoc jars
+            artifact(tasks.named('jar'))
             artifact(tasks.named('sourcesJar', Jar))
             artifact(tasks.named('javadocJar', Jar))
         }
@@ -434,7 +410,7 @@ publishing {
                 password = System.getenv("MAVEN_PASSWORD")
             }
             authentication {
-                create(BasicAuthentication.class)
+                create(BasicAuthentication)
             }
         }
         maven {
@@ -444,57 +420,10 @@ publishing {
     }
 }
 
-jar {
-    manifest.attributes([
-            "MixinConfigs": "${mod_id}.mixins.json"
-    ])
-}
-
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
-}
-
-
-tasks.register('sendToModpack', Copy) {
-    group = 'publishing'
-    dependsOn 'reobfJar'
-    from tasks.reobfJar.archiveFile
-    //wtf is a renpi
-    into 'C:\\Users\\renpi\\curseforge\\minecraft\\Instances\\Otherworld\\mods'
-    rename { String fileName ->
-        fileName.replace(project.version.toString(), "dev")
+// IDEA no longer automatically downloads sources/javadoc jars for dependencies.
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
     }
-    doLast {
-        println "Mod JAR sent to modpack folder: ${tasks.reobfJar.archiveFileName.get()}"
-    }
-}
-
-task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
-    group = 'publishing'
-    apiToken = System.getenv("CF_TOKEN")
-    def mainFile = upload(1127963, reobfJar)
-    mainFile.displayName = "v${rootProject.version}"
-    mainFile.releaseType = "release"
-    mainFile.changelog = new File("$project.rootDir/CHANGELOG.md").getText('UTF-8')
-    mainFile.changelogType = "markdown"
-    mainFile.addModLoader("Forge")
-    mainFile.addGameVersion("1.20.1")
-
-    // Hard integrations
-    mainFile.addRequirement("origins-forge")
-    mainFile.addRequirement("pehkui")
-    mainFile.addRequirement("otherworld-core")
-    mainFile.addRequirement("justleveling-fork")
-    mainFile.addRequirement("irons-spells-n-spellbooks")
-    mainFile.addRequirement("altorigingui")
-
-    // Could maybe be made optional
-    mainFile.addRequirement("legendary-survival-overhaul")
-    mainFile.addRequirement("ydms-mobhealthbar-mod")
-    mainFile.addRequirement("thief")
-    mainFile.addRequirement("apotheosis")
-    mainFile.addRequirement("alexs-mobs")
-
-    mainFile.addRequirement("valoria")
-    mainFile.addRequirement("ars-elixirum-forge")
 }

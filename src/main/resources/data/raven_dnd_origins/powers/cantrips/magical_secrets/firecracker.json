@@ -1,0 +1,24 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.raven_dnd_origins.cantrip_two"
+    },
+    "entity_action": {
+        "type": "raven_dnd_origins:cast_spell",
+        "spell": "firecracker",
+        "power_level": 3,
+        "mana_cost": 10,
+        "cast_time": 0
+    },
+    "condition": {
+        "type": "raven_dnd_origins:player_mana",
+        "comparison": ">=",
+        "compare_to": 10
+    },
+    "cooldown": 20,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+        "bar_index": 5
+    }
+}

@@ -1,0 +1,188 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:angel_wing",
+    "irons_spellbooks:ascension",
+    "irons_spellbooks:blood_step",
+    "irons_spellbooks:frost_step",
+    "irons_spellbooks:gluttony",
+    "irons_spellbooks:invisibility",
+    "irons_spellbooks:planar_sight",
+    "irons_spellbooks:pocket_dimension",
+    "irons_spellbooks:portal",
+    "irons_spellbooks:recall",
+    "irons_spellbooks:spectral_hammer",
+    "irons_spellbooks:summon_ender_chest",
+    "irons_spellbooks:summon_horse",
+    "irons_spellbooks:teleport",
+    "irons_spellbooks:touch_dig",
+    {
+      "id": "aero_additions:airstep",
+      "required": false
+    },
+    {
+      "id": "aero_additions:dash",
+      "required": false
+    },
+    {
+      "id": "aero_additions:feather_fall",
+      "required": false
+    },
+    {
+      "id": "alshanex_familiars:switcheroo",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:assist_wings",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:auto_magnet",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:call_broom",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:companion_trunk",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:deep_sensor",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:demicreator_wings",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:earth_forge",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:extract",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:feather_rush",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:harvest_moon",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:linear_build",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:mage_light",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:mana_mending",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:mana_transcription",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:manifestation_grimoire",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:otherworld_lens",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:personal_shelf",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:precision_jack",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:remote_eye",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:rift_hole",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:search_beacon",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:sense_evil",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:spectral_wing",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:tamers_pocket",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:terra_resonance",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:treasure_divination",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:wizardlamp",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:gear_shift",
+      "required": false
+    },
+    {
+      "id": "darkdoppelganger:doppel_portal",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:call_ascended_one",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:rift_walker",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:disappearing_act",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:seismic_surf",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:cinderous_step",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:prismatic_shift",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:possessed_wing",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:dal_segno",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:swift_melody",
+      "required": false
+    }
+  ]
+}

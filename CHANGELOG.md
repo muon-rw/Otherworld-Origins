@@ -1,3 +1,16 @@
+## 3.0.0
+- Rename to Raven DnD Origins (mod id and datapack namespace `raven_dnd_origins`)
+- Ported to Minecraft 1.21.1 / NeoForge 21.1 on Overgrown's Apoli and Origins. 
+- Now requires Raven Core, Overgrown Apoli and Origins, Iron's Spells 'n Spellbooks 3.16, JustLevelingFork, Apotheosis and Apothic Enchanting. Auto Leveling replaced with dynamic difficulty
+- Alchemist: pre-Elixirum Experimental Elixir and Chemical Mastery (Restoration / Negation) reverted to vanilla potions
+- Wild Shape no longer strips armor on transform. Instead, attribute modifiers from armor are disabled, and other non-attribute effects continue to work.
+- Wild Shape forms migrated from Alex's Mobs to Naturalist, Hybrid Aquatic and Luminous Beasts. 
+- Dragonborn now grow dragon wings (Icarus) at level 5 (will probably increase), coloured by draconic ancestry.
+- Spell categories, class spell access and school feats rebuilt from the new spell pool (461 spells, 14 addons). Tidecaller now covers the Hydro school, Cantor covers Melody, Swords Bard and Eldritch Knight gain the Blade school. Wild Magic surge pool is now 243 spells.
+- Migrated Pehkui scales to vanilla/AdditionalEntityAttributes attrs
+- Migrate origin icons that used sprites from Valoria, Minecells and Alex's Mobs to custom items (not yet textured)
+- Removed due to mods not being on this version: Elixirum alchemist compat, Goblin's Tyranny kin, Traveloptics spells and schools, Backpacked repairman restriction, Pehkui functions, Forge packet size mixins
+
 ## 2.1.0
 - Orb of Ancestry, Orb of Vocation
 - Ars Elixirum Compat
@@ -150,10 +163,10 @@
 - Fixed a softlock where the server repeatedly tried to prompt clients to select an Origin, while the client thought none were available
 - Fixed Warlock's Eldritch Blast ability not upgrading at level 15
 - Fixed Conjuration subclass' Golem not being summonable
-- Added a few default spell categorizations (regenerating the otherworldorigins-commmon config is recommended)
+- Added a few default spell categorizations (regenerating the raven_dnd_origins-commmon config is recommended)
 
 ## 0.6.0
-- Refactored Casting restrictions. Check the otherworldorigins-common config for more info
+- Refactored Casting restrictions. Check the raven_dnd_origins-common config for more info
 
 ## 0.5.1
 - Nerfed Spell Power passive ability

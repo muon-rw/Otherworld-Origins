@@ -1,0 +1,10 @@
+{
+    "powers": [
+        "raven_dnd_origins:class/ranger/landstride",
+        "raven_dnd_origins:subclass/druid/land",
+        "raven_dnd_origins:spell_access/druid/land"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/druid/land"
+    }
+}

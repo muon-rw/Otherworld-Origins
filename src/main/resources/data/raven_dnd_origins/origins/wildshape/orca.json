@@ -1,0 +1,8 @@
+{
+    "powers": [
+        "raven_dnd_origins:wildshape/orca"
+    ],
+    "icon": {
+        "item": "hybrid_aquatic:orca_spawn_egg"
+    }
+}

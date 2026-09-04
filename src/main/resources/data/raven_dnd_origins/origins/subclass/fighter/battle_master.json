@@ -1,0 +1,8 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/fighter/battle_master"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/fighter/battle_master"
+    }
+}

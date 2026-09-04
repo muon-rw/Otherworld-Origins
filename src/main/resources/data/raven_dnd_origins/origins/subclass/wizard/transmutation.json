@@ -1,0 +1,9 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/wizard/transmutation",
+        "raven_dnd_origins:spell_access/wizard/transmutation"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/wizard/transmutation"
+    }
+}

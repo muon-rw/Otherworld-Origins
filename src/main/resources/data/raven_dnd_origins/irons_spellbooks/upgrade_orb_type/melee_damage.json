@@ -1,0 +1,6 @@
+{
+  "amount": 0.05,
+  "attribute": "minecraft:generic.attack_damage",
+  "containerItem": "raven_dnd_origins:melee_upgrade_orb",
+  "operation": "add_multiplied_base"
+}

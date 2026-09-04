@@ -1,0 +1,403 @@
+{
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/info.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.experimental_elixir_lv5"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/info.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.experimental_elixir_lv10"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/info.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.experimental_elixir_lv15"
+            }
+        }
+    ],
+    "brewed_potions": {
+        "type": "raven_dnd_origins:modify_brewed_potion",
+        "affect_beneficial": true,
+        "affect_harmful": true,
+        "affect_neutral": true,
+        "duration_multiplier": 1.5,
+        "amplifier_modifier": 0
+    },
+    "elixir_charges": {
+        "type": "raven_dnd_origins:leveled_resource",
+        "min": 0,
+        "stepped_max": {
+            "start": 1,
+            "increment": 1,
+            "gap": 5,
+            "max_steps": 3
+        },
+        "restore_on_levelup": true,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_01.png",
+            "bar_index": 19
+        }
+    },
+    "restock_sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 15
+                    },
+                    "action": {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_elixir_charges",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 4
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 10
+                    },
+                    "action": {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_elixir_charges",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 3
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 5
+                    },
+                    "action": {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_elixir_charges",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 2
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 0
+                    },
+                    "action": {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_elixir_charges",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 1
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "restock_gained": {
+        "type": "origins:action_on_callback",
+        "entity_action_gained": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 15
+                    },
+                    "action": {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_elixir_charges",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 4
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 10
+                    },
+                    "action": {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_elixir_charges",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 3
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 5
+                    },
+                    "action": {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_elixir_charges",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 2
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 0
+                    },
+                    "action": {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_elixir_charges",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 1
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "brew": {
+        "type": "origins:active_self",
+        "key": "key.raven_dnd_origins.cantrip_two",
+        "cooldown": 20,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_elixir_charges",
+                    "compare_to": 0,
+                    "comparison": ">"
+                },
+                {
+                    "type": "raven_dnd_origins:holding_experimental_elixir_reagent"
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 15
+                    },
+                    "action": {
+                        "type": "origins:if_else",
+                        "condition": {
+                            "type": "origins:origin",
+                            "origin": "raven_dnd_origins:chemical_mastery/negation"
+                        },
+                        "if_action": {
+                            "type": "origins:and",
+                            "actions": [
+                                {
+                                    "type": "origins:modify_resource",
+                                    "resource": "*:*_elixir_charges",
+                                    "modifier": {
+                                        "operation": "add_base_early",
+                                        "value": -1
+                                    }
+                                },
+                                {
+                                    "type": "raven_dnd_origins:experimental_elixir_brew",
+                                    "category": "harmful",
+                                    "effect_count_min": 2,
+                                    "effect_count_max": 4,
+                                    "amplifier_min": 1,
+                                    "amplifier_max": 1,
+                                    "duration_min": 1200,
+                                    "duration_max": 1200,
+                                    "lingering": true
+                                }
+                            ]
+                        },
+                        "else_action": {
+                            "type": "origins:and",
+                            "actions": [
+                                {
+                                    "type": "origins:modify_resource",
+                                    "resource": "*:*_elixir_charges",
+                                    "modifier": {
+                                        "operation": "add_base_early",
+                                        "value": -1
+                                    }
+                                },
+                                {
+                                    "type": "raven_dnd_origins:experimental_elixir_brew",
+                                    "category": "beneficial",
+                                    "effect_count_min": 2,
+                                    "effect_count_max": 4,
+                                    "amplifier_min": 1,
+                                    "amplifier_max": 1,
+                                    "duration_min": 1200,
+                                    "duration_max": 1200,
+                                    "lingering": true
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 10
+                    },
+                    "action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:modify_resource",
+                                "resource": "*:*_elixir_charges",
+                                "modifier": {
+                                    "operation": "add_base_early",
+                                    "value": -1
+                                }
+                            },
+                            {
+                                "type": "raven_dnd_origins:experimental_elixir_brew",
+                                "category": "beneficial",
+                                "effect_count_min": 2,
+                                "effect_count_max": 3,
+                                "amplifier_min": 0,
+                                "amplifier_max": 1,
+                                "duration_min": 600,
+                                "duration_max": 1200
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 5
+                    },
+                    "action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:modify_resource",
+                                "resource": "*:*_elixir_charges",
+                                "modifier": {
+                                    "operation": "add_base_early",
+                                    "value": -1
+                                }
+                            },
+                            {
+                                "type": "raven_dnd_origins:experimental_elixir_brew",
+                                "category": "beneficial",
+                                "effect_count_min": 1,
+                                "effect_count_max": 2,
+                                "amplifier_min": 0,
+                                "amplifier_max": 1,
+                                "duration_min": 300,
+                                "duration_max": 600
+                            }
+                        ]
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 0
+                    },
+                    "action": {
+                        "type": "origins:and",
+                        "actions": [
+                            {
+                                "type": "origins:modify_resource",
+                                "resource": "*:*_elixir_charges",
+                                "modifier": {
+                                    "operation": "add_base_early",
+                                    "value": -1
+                                }
+                            },
+                            {
+                                "type": "raven_dnd_origins:experimental_elixir_brew",
+                                "category": "beneficial",
+                                "effect_count_min": 1,
+                                "effect_count_max": 1,
+                                "amplifier_min": 0,
+                                "amplifier_max": 0,
+                                "duration_min": 300,
+                                "duration_max": 600
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "hud_render": {
+            "should_render": true,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_brew",
+                "compare_to": 0,
+                "comparison": ">"
+            },
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 1
+        }
+    },
+    "brew_feedback": {
+        "type": "origins:active_self",
+        "key": "key.raven_dnd_origins.cantrip_two",
+        "cooldown": 0,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_elixir_charges",
+                    "compare_to": 0,
+                    "comparison": ">"
+                },
+                {
+                    "type": "raven_dnd_origins:holding_experimental_elixir_reagent",
+                    "inverted": true
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "raven_dnd_origins:action_bar_message",
+            "message": {
+                "translate": "raven_dnd_origins.experimental_elixir.cannot_brew",
+                "color": "red"
+            }
+        },
+        "hud_render": {
+            "should_render": false
+        }
+    }
+}

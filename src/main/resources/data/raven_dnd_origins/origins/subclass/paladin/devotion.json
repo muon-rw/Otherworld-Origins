@@ -1,0 +1,10 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/paladin/devotion",
+        "raven_dnd_origins:subclass/paladin/devotion_holy_nimbus",
+        "raven_dnd_origins:spell_access/paladin/devotion"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/paladin/devotion"
+    }
+}

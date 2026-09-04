@@ -1,0 +1,33 @@
+{
+    "order": 299,
+    "name": "Chemical Mastery",
+    "auto_choose": true,
+    "hidden": false,
+    "gui_title": {
+        "choose_origin": "Choose your Chemical Mastery:",
+        "view_origin": "Chemical Mastery:"
+    },
+    "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+    "origins": [
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:origin",
+                        "origin": "raven_dnd_origins:subclass/artificer/alchemist"
+                    },
+                    {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 15
+                    }
+                ]
+            },
+            "origins": [
+                "raven_dnd_origins:chemical_mastery/restoration",
+                "raven_dnd_origins:chemical_mastery/negation"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/paladin/ancients",
+        "raven_dnd_origins:subclass/paladin/ancients_elder_champion",
+        "raven_dnd_origins:spell_access/paladin/ancients"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/paladin/ancients"
+    }
+}

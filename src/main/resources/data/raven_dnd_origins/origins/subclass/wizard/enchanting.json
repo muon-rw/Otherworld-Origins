@@ -1,0 +1,9 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/wizard/enchanting",
+        "raven_dnd_origins:spell_access/wizard/enchanting"
+    ],
+    "icon": {
+        "item": "minecraft:enchanting_table"
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "type": "origins:simple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/info.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.four_elements_info_ki"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/arrow_up.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.four_elements_info_scaling"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/active.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.four_elements_keys",
+                "with": [
+                    {
+                        "keybind": "key.raven_dnd_origins.cantrip_two"
+                    },
+                    {
+                        "keybind": "key.raven_dnd_origins.cantrip_three"
+                    }
+                ]
+            }
+        }
+    ]
+}

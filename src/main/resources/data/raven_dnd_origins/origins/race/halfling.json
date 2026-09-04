@@ -1,0 +1,12 @@
+{
+	"powers": [
+                "raven_dnd_origins:race/halfling/attributes",
+                "raven_dnd_origins:race/halfling/speed",
+                "raven_dnd_origins:race/halfling/size"
+	],
+        "icon": {
+                "item": "raven_dnd_origins:portrait/halfling"
+	},
+        "impact": 1,
+        "order": 4
+}

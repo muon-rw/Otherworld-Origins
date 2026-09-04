@@ -1,0 +1,15 @@
+{
+    "hidden": true,
+    "type": "origins:multiple",
+    "hunger": {
+        "type": "origins:modify_exhaustion",
+        "modifier": {
+            "operation": "multiply_base",
+            "value": -0.5
+        }
+    },
+    "thirst": {
+        "type": "raven_dnd_origins:modify_thirst_exhaustion",
+        "amount": -0.5
+    }
+}

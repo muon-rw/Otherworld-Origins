@@ -1,0 +1,10 @@
+{
+    "powers": [
+        "raven_dnd_origins:cantrip_desc",
+        "raven_dnd_origins:subclass/rogue/arcane_trickster",
+        "raven_dnd_origins:spell_access/rogue/arcane_trickster"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/rogue/arcane_trickster"
+    }
+}

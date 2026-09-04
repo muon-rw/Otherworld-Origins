@@ -1,0 +1,10 @@
+{
+  "powers": [
+    "raven_dnd_origins:draconic_ancestry/gold"
+  ],
+  "icon": {
+    "item": "iceandfire:dragonegg_electric"
+  },
+  "impact": 1,
+  "order": 5
+}

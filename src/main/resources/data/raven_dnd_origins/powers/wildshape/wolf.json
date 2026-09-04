@@ -1,0 +1,268 @@
+{
+    "type": "origins:multiple",
+    "hidden": true,
+    "shape": {
+        "type": "raven_dnd_origins:shapeshift",
+        "entity_type": "minecraft:wolf",
+        "hide_hands": true,
+        "allow_tools": false,
+        "suppress_armor_modifiers": true,
+        "prevent_spell_casts": {
+            "inverted": true,
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 18
+        },
+        "attack_range": 2.0,
+        "attacks": [
+            { "hitbox": "FORWARD_BOX", "angle": 50, "damage_multiplier": 1.0, "upswing": 0.3 },
+            { "hitbox": "FORWARD_BOX", "angle": 60, "damage_multiplier": 1.1, "upswing": 0.3 }
+        ]
+    },
+    "attributes": {
+        "type": "origins:attribute",
+        "modifiers": [
+            {
+                "name": "Wildshape movement speed",
+                "attribute": "minecraft:generic.movement_speed",
+                "value": 0.2,
+                "operation": "multiply_base"
+            },
+            {
+                "attribute": "legendarysurvivaloverhaul:cold_resistance",
+                "operation": "addition",
+                "value": 8.0,
+                "name": "Wildshape cold resistance"
+            }
+        ]
+    },
+    "movement_speed_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.movement_speed",
+        "operation": "multiply_base",
+        "starting_value": 0.0,
+        "value_per_level": 0.015
+    },
+    "max_health_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 6.0,
+        "value_per_level": 1.8,
+        "update_health": false
+    },
+    "max_health_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 1.2,
+        "update_health": false,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_damage_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 5.0,
+        "value_per_level": 0.35
+    },
+    "attack_damage_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.4,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_speed_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": -1.6,
+        "value_per_level": 0.025
+    },
+    "attack_speed_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.035,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "ability": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.raven_dnd_origins.cantrip_three"
+        },
+        "cooldown": 600,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 1
+        },
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.wolf.howl",
+                    "volume": 1.5,
+                    "pitch": 0.8,
+                    "category": "players"
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "particle minecraft:note ~ ~1.5 ~ 0.5 0.5 0.5 1 8"
+                },
+                {
+                    "type": "origins:area_of_effect",
+                    "radius": 16,
+                    "bientity_action": {
+                        "type": "origins:target_action",
+                        "action": {
+                            "type": "origins:apply_effect",
+                            "effect": {
+                                "effect": "minecraft:speed",
+                                "duration": 200,
+                                "amplifier": 0,
+                                "show_particles": true
+                            }
+                        }
+                    },
+                    "bientity_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:target_condition",
+                                "condition": { "type": "origins:living" }
+                            },
+                            {
+                                "type": "origins:invert",
+                                "condition": { "type": "origins:attack_target" }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "origins:area_of_effect",
+                    "radius": 16,
+                    "bientity_action": {
+                        "type": "origins:target_action",
+                        "action": {
+                            "type": "origins:apply_effect",
+                            "effect": {
+                                "effect": "minecraft:weakness",
+                                "duration": 200,
+                                "amplifier": 0,
+                                "show_particles": true
+                            }
+                        }
+                    },
+                    "bientity_condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:target_condition",
+                                "condition": { "type": "origins:living" }
+                            },
+                            { "type": "origins:attack_target" }
+                        ]
+                    }
+                }
+            ]
+        }
+    },
+    "prevent_death": {
+        "type": "origins:prevent_death",
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:heal",
+                    "amount": 20
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "origin set @s raven_dnd_origins:wildshape origins:empty"
+                }
+            ]
+        }
+    },
+    "timer": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 6000,
+        "start_value": 6000,
+        "min_action": {
+            "type": "origins:execute_command",
+            "command": "origin set @s raven_dnd_origins:wildshape origins:empty"
+        },
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 7,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_timer",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "tick_timer": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_timer",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -20
+            }
+        }
+    },
+    "charge_callback": {
+        "type": "origins:action_on_callback",
+        "entity_action_gained": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.evoker.prepare_summon",
+                    "pitch": 0.7
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.wolf.ambient"
+                },
+                {
+                    "type": "origins:heal",
+                    "amount": 1000
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_charges",
+                    "modifier": {
+                        "operation": "add_base_early",
+                        "value": -1
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    }
+}

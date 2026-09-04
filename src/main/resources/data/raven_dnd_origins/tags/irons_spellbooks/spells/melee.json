@@ -1,0 +1,163 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:burning_dash",
+    "irons_spellbooks:devour",
+    "irons_spellbooks:divine_smite",
+    "irons_spellbooks:echoing_strikes",
+    "irons_spellbooks:flaming_strike",
+    "irons_spellbooks:raise_hell",
+    "irons_spellbooks:shadow_slash",
+    "irons_spellbooks:stomp",
+    "irons_spellbooks:throw",
+    "irons_spellbooks:volt_strike",
+    {
+      "id": "alshanex_familiars:fire_fist",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:bound_sword",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:fujin",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:grind_runner",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:higanbana",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:mantis_leap",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:moon_light",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:phalanx_charge",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:shiden",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:slash_blade",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:abyssal_slash",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:cursed_rush",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:disabling_swipe",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:tidal_grab",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:crystalline_carver",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:esoteric_edge",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:esoteric_strike",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:glacial_edge",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:soul_slice",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:vein_ripper",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:cleave",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:dismantle",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:overwhelming_force",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:pale_flame",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:quick_slice",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:rip_and_tear",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:slam",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:slash",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:twilight_assault",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:uppercut",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:tremor_step",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:ionic_slash",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:nights_edge_strike",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:scorching_slash",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:soul_flaming_strike",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:cumulo_charge",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:flameborn_drift",
+      "required": false
+    }
+  ]
+}

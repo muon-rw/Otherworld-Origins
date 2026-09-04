@@ -1,0 +1,79 @@
+{
+    "type": "origins:multiple",
+    "draw_speed_5": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 5
+        },
+        "modifier": {
+            "attribute": "apothic_attributes:draw_speed",
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    },
+    "draw_speed_10": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 10
+        },
+        "modifier": {
+            "attribute": "apothic_attributes:draw_speed",
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    },
+    "draw_speed_15": {
+        "type": "origins:conditioned_attribute",
+        "tick_rate": 20,
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "modifier": {
+            "attribute": "apothic_attributes:draw_speed",
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    },
+    "ranged_damage": {
+        "type": "origins:modify_projectile_damage",
+        "modifier": {
+            "operation": "addition",
+            "value": 3
+        }
+    },
+    "volley": {
+        "type": "origins:action_on_hit",
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 10
+        },
+        "damage_condition": {
+            "type": "origins:projectile",
+            "projectile_condition": {
+                "type": "origins:entity_type",
+                "entity_type": "minecraft:arrow"
+            }
+        },
+        "cooldown": 200,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 6
+        },
+        "bientity_action": {
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "irons_spellbooks:arrow_volley",
+            "power_level": 5,
+            "cast_time": 0
+        }
+    }
+}

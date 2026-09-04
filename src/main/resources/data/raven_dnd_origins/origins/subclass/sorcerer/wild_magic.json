@@ -1,0 +1,9 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/sorcerer/wild_magic",
+        "raven_dnd_origins:spell_access/sorcerer/wild_magic"
+    ],
+    "icon": {
+        "item": "irons_spellbooks:lightning_upgrade_orb"
+    }
+}

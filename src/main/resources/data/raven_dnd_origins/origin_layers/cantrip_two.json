@@ -1,0 +1,163 @@
+{
+  "order": 40,
+  "name": "Cantrip (Class)",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:class/wizard"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:class/sorcerer"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:class/bard"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:class/cleric"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:class/druid"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:class/warlock"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:subclass/rogue/arcane_trickster"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:subclass/fighter/eldritch_knight"
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:cantrips/two/fortify",
+        "raven_dnd_origins:cantrips/two/gust",
+        "raven_dnd_origins:cantrips/two/magic_missile"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/druid"
+      },
+      "origins": [
+        "raven_dnd_origins:cantrips/two/acid_orb",
+        "raven_dnd_origins:cantrips/two/firefly_swarm",
+        "raven_dnd_origins:cantrips/two/oakskin",
+        "raven_dnd_origins:cantrips/two/poison_arrow",
+        "raven_dnd_origins:cantrips/two/poison_breath",
+        "raven_dnd_origins:cantrips/two/root"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/cleric"
+      },
+      "origins": [
+        "raven_dnd_origins:cantrips/two/guiding_bolt",
+        "raven_dnd_origins:cantrips/two/blessing_of_life",
+        "raven_dnd_origins:cantrips/two/divine_smite",
+        "raven_dnd_origins:cantrips/two/wisp",
+        "raven_dnd_origins:cantrips/two/healing_circle"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:class/wizard"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:class/sorcerer"
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:cantrips/two/acid_orb",
+        "raven_dnd_origins:cantrips/two/ball_lightning",
+        "raven_dnd_origins:cantrips/two/blaze_storm",
+        "raven_dnd_origins:cantrips/two/chain_lightning",
+        "raven_dnd_origins:cantrips/two/cone_of_cold",
+        "raven_dnd_origins:cantrips/two/dragon_breath",
+        "raven_dnd_origins:cantrips/two/electrocute",
+        "raven_dnd_origins:cantrips/two/fire_breath",
+        "raven_dnd_origins:cantrips/two/firebolt",
+        "raven_dnd_origins:cantrips/two/frostwave",
+        "raven_dnd_origins:cantrips/two/heat_surge",
+        "raven_dnd_origins:cantrips/two/ice_spikes",
+        "raven_dnd_origins:cantrips/two/icicle",
+        "raven_dnd_origins:cantrips/two/poison_arrow",
+        "raven_dnd_origins:cantrips/two/ray_of_frost",
+        "raven_dnd_origins:cantrips/two/shockwave"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/bard"
+      },
+      "origins": [
+        "raven_dnd_origins:cantrips/two/music_bolt",
+        "raven_dnd_origins:cantrips/two/firecracker",
+        "raven_dnd_origins:cantrips/two/fang_strike",
+        "raven_dnd_origins:cantrips/two/hydroshot",
+        "raven_dnd_origins:cantrips/two/fang_ward",
+        "raven_dnd_origins:cantrips/two/lob_creeper"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/warlock"
+      },
+      "origins": [
+        "raven_dnd_origins:cantrips/two/ray_of_siphoning",
+        "raven_dnd_origins:cantrips/two/wither_skull",
+        "raven_dnd_origins:cantrips/two/blood_step",
+        "raven_dnd_origins:cantrips/two/ashen_breath",
+        "raven_dnd_origins:cantrips/two/nocturnal_swarm",
+        "raven_dnd_origins:cantrips/two/blood_needles",
+        "raven_dnd_origins:cantrips/two/devour"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:subclass/fighter/eldritch_knight"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:subclass/rogue/arcane_trickster"
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:cantrips/two/shadow_slash",
+        "raven_dnd_origins:cantrips/two/burning_dash",
+        "raven_dnd_origins:cantrips/two/volt_strike",
+        "raven_dnd_origins:cantrips/two/shield",
+        "raven_dnd_origins:cantrips/two/flaming_strike",
+        "raven_dnd_origins:cantrips/two/tremor_step",
+        "raven_dnd_origins:cantrips/two/dripstone_bolt"
+      ]
+    }
+  ]
+}

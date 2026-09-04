@@ -1,0 +1,8 @@
+{
+    "powers": [
+        "raven_dnd_origins:wildshape/grizzly_bear"
+    ],
+    "icon": {
+        "item": "naturalist:bear_spawn_egg"
+    }
+}

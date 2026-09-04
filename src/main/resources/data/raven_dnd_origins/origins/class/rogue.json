@@ -1,0 +1,12 @@
+{
+	"powers": [
+		"raven_dnd_origins:class/rogue/attributes",
+		"raven_dnd_origins:class/rogue/sneak_attack",
+		"raven_dnd_origins:class/rogue/uncanny_dodge"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:class/rogue"
+	},
+	"impact": 3,
+	"order": 0
+}

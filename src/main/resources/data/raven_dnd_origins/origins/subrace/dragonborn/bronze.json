@@ -1,0 +1,11 @@
+{
+	"powers": [
+		"raven_dnd_origins:subrace/dragonborn/bronze",
+		"raven_dnd_origins:subrace/dragonborn/bronze_wings"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/bronze"
+	},
+	"impact": 1,
+	"order": 0
+}

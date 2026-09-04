@@ -1,0 +1,6 @@
+{
+    "powers": ["raven_dnd_origins:feats/school_ice"],
+    "icon": {"item": "irons_spellbooks:ice_upgrade_orb"},
+    "impact": 1,
+    "order": 101
+}

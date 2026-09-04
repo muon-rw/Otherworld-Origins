@@ -1,0 +1,12 @@
+{
+	"powers": [
+		"raven_dnd_origins:cantrip_desc",
+		"raven_dnd_origins:class/warlock/attributes",
+		"raven_dnd_origins:class/warlock/eldritch_blast"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:class/warlock"
+	},
+	"impact": 3,
+	"order": 0
+}

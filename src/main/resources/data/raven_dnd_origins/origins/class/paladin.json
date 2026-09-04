@@ -1,0 +1,11 @@
+{
+	"powers": [
+		"raven_dnd_origins:class/paladin/attributes",
+		"raven_dnd_origins:class/paladin/lay_on_hands"
+	],
+	"icon": {
+		"item": "irons_spellbooks:priest_helmet"
+	},
+	"impact": 3,
+	"order": 0
+}

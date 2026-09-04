@@ -1,0 +1,11 @@
+{
+	"powers": [
+		"raven_dnd_origins:race/human/attributes",
+		"raven_dnd_origins:race/human/discount"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/human"
+	},
+	"impact": 1,
+	"order": 0
+}

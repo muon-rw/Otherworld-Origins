@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:feats/mage_slayer"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:feats/mage_slayer"
+	},
+	"impact": 1,
+	"order": 0
+}

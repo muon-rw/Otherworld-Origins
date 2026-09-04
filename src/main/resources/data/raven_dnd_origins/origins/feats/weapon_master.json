@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:feats/weapon_master"
+	],
+	"icon": {
+		"item": "minecraft:golden_sword"
+	},
+	"impact": 1,
+	"order": 0
+}

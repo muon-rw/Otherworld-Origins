@@ -1,0 +1,10 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/monk/open_hand",
+        "raven_dnd_origins:spell_access/monk/open_hand",
+        "raven_dnd_origins:subclass/monk/open_hand_quivering_palm"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/monk/open_hand"
+    }
+}

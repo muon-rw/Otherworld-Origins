@@ -1,0 +1,13 @@
+{
+	"powers": [
+		"raven_dnd_origins:class/monk/attributes",
+		"raven_dnd_origins:class/monk/ki",
+		"raven_dnd_origins:class/monk/step",
+		"raven_dnd_origins:class/monk/deflect_missiles"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:class/monk"
+	},
+	"impact": 3,
+	"order": 0
+}

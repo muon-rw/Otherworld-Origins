@@ -1,0 +1,11 @@
+{
+        "powers": [
+                "raven_dnd_origins:race/elf/attributes",
+                "raven_dnd_origins:dark_vision"
+        ],
+        "icon": {
+                "item": "raven_dnd_origins:portrait/elf"
+        },
+        "impact": 1,
+        "order": 2
+}

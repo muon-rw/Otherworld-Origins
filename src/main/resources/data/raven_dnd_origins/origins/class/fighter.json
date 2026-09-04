@@ -1,0 +1,11 @@
+{
+	"powers": [
+		"raven_dnd_origins:class/fighter/attributes",
+		"raven_dnd_origins:class/fighter/second_wind"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:class/fighter"
+	},
+	"impact": 3,
+	"order": 0
+}

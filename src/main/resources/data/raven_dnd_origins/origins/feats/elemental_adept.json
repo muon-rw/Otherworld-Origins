@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:feats/elemental_adept"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:feats/elemental_adept"
+	},
+	"impact": 1,
+	"order": 0
+}

@@ -1,0 +1,16 @@
+{
+    "powers": [
+        "raven_dnd_origins:chemical_mastery/negation"
+    ],
+    "icon": {
+        "item": "minecraft:splash_potion",
+        "components": {
+            "minecraft:potion_contents": {
+                "potion": "minecraft:poison",
+                "custom_color": 65280
+            }
+        }
+    },
+    "impact": 1,
+    "order": 1
+}

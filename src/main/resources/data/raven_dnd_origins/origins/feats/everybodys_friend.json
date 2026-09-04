@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:feats/everybodys_friend"
+	],
+	"icon": {
+		"item": "minecraft:emerald"
+	},
+	"impact": 1,
+	"order": 0
+}

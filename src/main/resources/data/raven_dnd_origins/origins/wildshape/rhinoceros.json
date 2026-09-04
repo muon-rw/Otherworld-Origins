@@ -1,0 +1,8 @@
+{
+    "powers": [
+        "raven_dnd_origins:wildshape/rhinoceros"
+    ],
+    "icon": {
+        "item": "naturalist:rhino_spawn_egg"
+    }
+}

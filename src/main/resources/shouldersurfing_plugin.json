@@ -1,3 +1,5 @@
 {
-  "entrypoint": "dev.muon.otherworldorigins.client.compat.ShoulderSurfingPlugin"
+  "entrypoints": [
+    "dev.muon.raven_dnd_origins.client.compat.ShoulderSurfingPlugin"
+  ]
 }

@@ -1,0 +1,21 @@
+package dev.muon.raven_dnd_origins.mixin.ench_restrictions;
+
+import dev.muon.raven_dnd_origins.restrictions.EnchantmentRestrictions;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.ExperienceOrb;
+import net.minecraft.world.item.enchantment.Enchantments;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+@Mixin(ExperienceOrb.class)
+public class ExperienceOrbMixin {
+
+    @Inject(method = "repairPlayerItems", at = @At("HEAD"), cancellable = true)
+    private void raven_dnd_origins$restrictMendingEnchantment(ServerPlayer player, int repairAmount, CallbackInfoReturnable<Integer> cir) {
+        if (!EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.MENDING)) {
+            cir.setReturnValue(repairAmount);
+        }
+    }
+}

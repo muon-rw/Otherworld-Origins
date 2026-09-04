@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:apts/two/mag"
+	],
+	"icon": {
+		"item": "irons_spellbooks:pyromancer_helmet"
+	},
+	"impact": 3,
+	"order": 0
+}

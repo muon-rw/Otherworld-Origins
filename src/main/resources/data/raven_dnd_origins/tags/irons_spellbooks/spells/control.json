@@ -1,0 +1,183 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:arcane_shackle",
+    "irons_spellbooks:black_hole",
+    "irons_spellbooks:blight",
+    "irons_spellbooks:blizzard",
+    "irons_spellbooks:earthquake",
+    "irons_spellbooks:frostwave",
+    "irons_spellbooks:gravity_fissure",
+    "irons_spellbooks:gust",
+    "irons_spellbooks:ray_of_frost",
+    "irons_spellbooks:root",
+    "irons_spellbooks:slow",
+    "irons_spellbooks:telekinesis",
+    "irons_spellbooks:wall_of_fire",
+    "irons_spellbooks:wololo",
+    {
+      "id": "aero_additions:airblast",
+      "required": false
+    },
+    {
+      "id": "aero_additions:flush",
+      "required": false
+    },
+    {
+      "id": "aero_additions:updraft",
+      "required": false
+    },
+    {
+      "id": "alshanex_familiars:ice_age",
+      "required": false
+    },
+    {
+      "id": "alshanex_familiars:ice_chamber",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:frost_rune",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:heavenly_fist",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:totem_of_permafrost",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:ddos",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:dimensional_rift",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:emp_blast",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:flash_bang",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:gravitation_pull",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:gravity_storm",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:lock_on",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:pilfer",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:sandstorm",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:shutdown",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:tectonic_tremble",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:boogie_woogie",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:guardians_gaze",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:ravenous_revenant",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:silence",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:eternal_battlefield",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:switcharoo",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:petrivise",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:pillar_of_the_resounding_earth",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:tremor_spike",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:golden_shower",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:shadow_reaver",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:annihilation_geyser",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:glacier_ringburst",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:overgrown_shockwave",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:quad_tornado",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:tornado",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:clamor_note",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:crescendo",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:encore",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:fortissimo",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:serenade",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:slumber_note",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+    "hidden": true,
+    "type": "raven_dnd_origins:allowed_spells",
+    "entries": [
+        "#raven_dnd_origins:defensive",
+        "#raven_dnd_origins:control",
+        "#raven_dnd_origins:utility"
+    ]
+}

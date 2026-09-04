@@ -1,0 +1,7 @@
+{
+    "powers": [
+        "raven_dnd_origins:wildshape/cancel"
+    ],
+    "icon": "minecraft:barrier",
+    "order": 999
+}

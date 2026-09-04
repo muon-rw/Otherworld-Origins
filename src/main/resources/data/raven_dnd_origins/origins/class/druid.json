@@ -1,0 +1,12 @@
+{
+	"powers": [
+		"raven_dnd_origins:cantrip_desc",
+		"raven_dnd_origins:class/druid/attributes",
+		"raven_dnd_origins:class/druid/wildshape"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:class/druid"
+	},
+	"impact": 3,
+	"order": 0
+}

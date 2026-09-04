@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:subrace/elf/wood"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/wood"
+	},
+	"impact": 1,
+	"order": 0
+}

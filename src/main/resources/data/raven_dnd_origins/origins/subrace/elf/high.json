@@ -1,0 +1,11 @@
+{
+	"powers": [
+		"raven_dnd_origins:cantrip_desc",
+		"raven_dnd_origins:subrace/elf/high"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/high"
+	},
+	"impact": 1,
+	"order": 0
+}

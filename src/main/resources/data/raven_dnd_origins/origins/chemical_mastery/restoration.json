@@ -1,0 +1,16 @@
+{
+    "powers": [
+        "raven_dnd_origins:chemical_mastery/restoration"
+    ],
+    "icon": {
+        "item": "minecraft:splash_potion",
+        "components": {
+            "minecraft:potion_contents": {
+                "potion": "minecraft:healing",
+                "custom_color": 16711680
+            }
+        }
+    },
+    "impact": 1,
+    "order": 0
+}

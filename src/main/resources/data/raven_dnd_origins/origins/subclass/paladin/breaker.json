@@ -1,0 +1,10 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/paladin/breaker",
+        "raven_dnd_origins:subclass/paladin/breaker_dread_lord",
+        "raven_dnd_origins:spell_access/paladin/breaker"
+    ],
+    "icon": {
+        "item": "irons_spellbooks:blood_upgrade_orb"
+    }
+}

@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:apts/one/int"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:apts/int"
+	},
+	"impact": 3,
+	"order": 0
+}

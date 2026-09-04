@@ -1,0 +1,447 @@
+{
+    "type": "origins:multiple",
+    "hidden": true,
+    "shape": {
+        "type": "raven_dnd_origins:shapeshift",
+        "entity_type": "naturalist:tiger",
+        "hide_hands": true,
+        "allow_tools": false,
+        "suppress_armor_modifiers": true,
+        "prevent_spell_casts": {
+            "inverted": true,
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 18
+        },
+        "attack_range": 2.5,
+        "attacks": [
+            { "hitbox": "HORIZONTAL_PLANE", "angle": 90, "damage_multiplier": 1.0, "upswing": 0.4, "animation": "attack" },
+            { "hitbox": "HORIZONTAL_PLANE", "angle": 90, "damage_multiplier": 1.0, "upswing": 0.4, "animation": "attack" },
+            { "hitbox": "FORWARD_BOX", "angle": 50, "damage_multiplier": 1.3, "upswing": 0.3, "animation": "attack" }
+        ]
+    },
+    "attributes": {
+        "type": "origins:attribute",
+        "modifiers": [
+            {
+                "name": "Wildshape movement speed",
+                "attribute": "minecraft:generic.movement_speed",
+                "value": 0.15,
+                "operation": "multiply_base"
+            },
+            {
+                "attribute": "legendarysurvivaloverhaul:cold_resistance",
+                "operation": "addition",
+                "value": 8.0,
+                "name": "Wildshape cold resistance"
+            }
+        ]
+    },
+    "movement_speed_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.movement_speed",
+        "operation": "multiply_base",
+        "starting_value": 0.0,
+        "value_per_level": 0.015
+    },
+    "max_health_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 16.0,
+        "value_per_level": 2.4,
+        "update_health": false
+    },
+    "max_health_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 1.8,
+        "update_health": false,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_damage_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 8.0,
+        "value_per_level": 0.45
+    },
+    "attack_damage_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.55,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_speed_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": -2.4,
+        "value_per_level": 0.035
+    },
+    "attack_speed_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.045,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "armor_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "starting_value": 4.0,
+        "value_per_level": 0.2
+    },
+    "armor_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.2,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "ambush_pounce_jump": {
+        "type": "origins:modify_jump",
+        "modifier": {
+            "operation": "addition",
+            "value": 0.3
+        },
+        "entity_action": {
+            "type": "origins:delay",
+            "ticks": 1,
+            "action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:execute_command",
+                        "command": "particle campfire_cosy_smoke ~ ~0.5 ~ 0.5 0.5 0.5 0 10"
+                    },
+                    {
+                        "type": "origins:add_velocity",
+                        "z": 1.8,
+                        "space": "local_horizontal_normalized"
+                    },
+                    {
+                        "type": "origins:play_sound",
+                        "sound": "raven_dnd_origins:dash",
+                        "pitch": 0.5,
+                        "category": "players"
+                    },
+                    {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_ambush_pounce_flag",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 1
+                        }
+                    },
+                    {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_ambush_pounce_meter",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 0
+                        }
+                    },
+                    {
+                        "type": "origins:modify_resource",
+                        "resource": "*:*_ambush_pounce_cooldown",
+                        "modifier": {
+                            "operation": "set_total",
+                            "value": 50
+                        }
+                    }
+                ]
+            }
+        },
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_ambush_pounce_meter",
+            "comparison": ">=",
+            "compare_to": 38
+        }
+    },
+    "ambush_pounce_meter": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 40,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 15,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_ambush_pounce_meter",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        },
+        "max_action": {
+            "type": "origins:play_sound",
+            "sound": "minecraft:block.respawn_anchor.charge",
+            "volume": 0.1,
+            "pitch": 2
+        }
+    },
+    "ambush_pounce_cooldown": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 50,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 1,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_ambush_pounce_cooldown",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "ambush_pounce_tick_cooldown": {
+        "type": "origins:action_over_time",
+        "condition": {
+            "type": "origins:resource",
+            "resource": "*:*_ambush_pounce_cooldown",
+            "comparison": ">",
+            "compare_to": 0
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_ambush_pounce_cooldown",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -1
+            }
+        },
+        "interval": 2
+    },
+    "ambush_pounce_charge_meter": {
+        "type": "origins:action_over_time",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_ambush_pounce_meter",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": 2
+            }
+        },
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_ambush_pounce_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ]
+        }
+    },
+    "ambush_pounce_drain_meter": {
+        "type": "origins:action_over_time",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_ambush_pounce_meter",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -1
+            }
+        },
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_ambush_pounce_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:sneaking"
+                }
+            ],
+            "inverted": true
+        }
+    },
+    "ambush_pounce_flag": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 1,
+        "start_value": 0,
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "ambush_pounce_bonus": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "operation": "multiply_total",
+            "value": 2.0
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:on_block",
+                    "inverted": true
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_ambush_pounce_flag",
+                    "comparison": ">=",
+                    "compare_to": 1
+                }
+            ]
+        },
+        "self_action": {
+            "type": "origins:play_sound",
+            "sound": "minecraft:entity.player.attack.crit",
+            "category": "players"
+        },
+        "bientity_action": {
+            "type": "origins:target_action",
+            "action": {
+                "type": "origins:apply_effect",
+                "effect": {
+                    "effect": "minecraft:wither",
+                    "duration": 60,
+                    "amplifier": 1,
+                    "show_particles": true
+                }
+            }
+        }
+    },
+    "ambush_pounce_land_reset": {
+        "type": "origins:action_over_time",
+        "interval": 1,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:on_block"
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_ambush_pounce_flag",
+                    "comparison": ">=",
+                    "compare_to": 1
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_ambush_pounce_flag",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
+            }
+        }
+    },
+    "prevent_death": {
+        "type": "origins:prevent_death",
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:heal",
+                    "amount": 20
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "origin set @s raven_dnd_origins:wildshape origins:empty"
+                }
+            ]
+        }
+    },
+    "timer": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 6000,
+        "start_value": 6000,
+        "min_action": {
+            "type": "origins:execute_command",
+            "command": "origin set @s raven_dnd_origins:wildshape origins:empty"
+        },
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 7,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_timer",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "tick_timer": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_timer",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -20
+            }
+        }
+    },
+    "charge_callback": {
+        "type": "origins:action_on_callback",
+        "entity_action_gained": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.evoker.prepare_summon",
+                    "pitch": 0.7
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "naturalist:entity.tiger.ambient"
+                },
+                {
+                    "type": "origins:heal",
+                    "amount": 1000
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_charges",
+                    "modifier": {
+                        "operation": "add_base_early",
+                        "value": -1
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    }
+}

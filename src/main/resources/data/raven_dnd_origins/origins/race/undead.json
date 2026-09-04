@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:race/undead/undead"
+	],
+        "icon": {
+                "item": "raven_dnd_origins:portrait/undead"
+	},
+	"impact": 3,
+        "order": 8
+}

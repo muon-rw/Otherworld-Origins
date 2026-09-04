@@ -1,0 +1,23 @@
+{
+  "order": 0,
+  "name": "Race",
+  "gui_title": {
+    "choose_origin": "You were born a:",
+    "view_origin": "You were born a:"
+  },
+  "missing_name": "None",
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    "raven_dnd_origins:race/human",
+    "raven_dnd_origins:race/human_variant",
+    "raven_dnd_origins:race/dwarf",
+    "raven_dnd_origins:race/elf",
+    "raven_dnd_origins:race/half_elf",
+    "raven_dnd_origins:race/gnome",
+    "raven_dnd_origins:race/halfling",
+    "raven_dnd_origins:race/tiefling",
+    "raven_dnd_origins:race/undead",
+    "raven_dnd_origins:race/dragonborn",
+    "raven_dnd_origins:race/other"
+  ]
+}

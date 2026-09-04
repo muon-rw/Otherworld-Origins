@@ -1,0 +1,25 @@
+{
+    "type": "origins:multiple",
+    "aptitudes": {
+        "type": "raven_dnd_origins:innate_aptitude_bonus",
+        "aptitude_bonuses": {
+            "dexterity": 1
+        }
+    },
+    "speed": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.movement_speed",
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    },
+    "charisma": {
+        "type": "raven_dnd_origins:charisma",
+        "amount": 0.25
+    },
+    "trade_discount": {
+        "type": "raven_dnd_origins:trade_discount",
+        "amount": 0.05
+    }
+}

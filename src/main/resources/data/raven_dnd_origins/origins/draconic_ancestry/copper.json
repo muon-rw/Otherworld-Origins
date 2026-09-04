@@ -1,0 +1,10 @@
+{
+  "powers": [
+    "raven_dnd_origins:draconic_ancestry/copper"
+  ],
+  "icon": {
+    "item": "iceandfire:dragonegg_copper"
+  },
+  "impact": 1,
+  "order": 4
+}

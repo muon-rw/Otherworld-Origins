@@ -1,9 +1,0 @@
-{
-    "hidden": true,
-    "type": "otherworldorigins:modify_brewed_potion",
-    "affect_beneficial": true,
-    "affect_harmful": false,
-    "affect_neutral": false,
-    "duration_multiplier": 1.5,
-    "amplifier_modifier": 1
-}

@@ -1,0 +1,26 @@
+{
+    "hidden": true,
+    "type": "origins:action_on_hit",
+    "bientity_action": {
+        "type": "origins:add_velocity",
+        "z": 1.3
+    },
+    "condition": {
+        "type": "origins:equipped_item",
+        "equipment_slot": "mainhand",
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:is_staff"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "raven_dnd_origins:staffs"
+                    }
+                }
+            ]
+        }
+    }
+}

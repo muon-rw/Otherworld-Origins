@@ -1,0 +1,16 @@
+{
+    "type": "origins:multiple",
+    "group": {
+        "type": "origins:entity_group",
+        "group": "undead"
+    },
+    "air": {
+        "type": "raven_dnd_origins:suffocation_immunity"
+    },
+    "thirst": {
+        "type": "raven_dnd_origins:thirst_immunity"
+    },
+    "food": {
+        "type": "raven_dnd_origins:hunger_immunity"
+    }
+}

@@ -1,0 +1,104 @@
+{
+    "order": 10,
+    "name": "Subrace",
+    "gui_title": {
+        "choose_origin": "Your variant:",
+        "view_origin": "Your variant:"
+    },
+    "missing_description": "None.",
+    "origins": [
+        {
+            "condition": {
+                "type": "origins:origin",
+                "origin": "raven_dnd_origins:race/elf"
+            },
+            "origins": [
+                "raven_dnd_origins:subrace/elf/high",
+                "raven_dnd_origins:subrace/elf/wood",
+                "raven_dnd_origins:subrace/elf/drow"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:origin",
+                "origin": "raven_dnd_origins:race/half_elf"
+            },
+            "origins": [
+                "raven_dnd_origins:subrace/half_elf/high",
+                "raven_dnd_origins:subrace/half_elf/wood",
+                "raven_dnd_origins:subrace/half_elf/drow"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:origin",
+                "origin": "raven_dnd_origins:race/dwarf"
+            },
+            "origins": [
+                "raven_dnd_origins:subrace/dwarf/hill",
+                "raven_dnd_origins:subrace/dwarf/mountain",
+                "raven_dnd_origins:subrace/dwarf/duergar"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:origin",
+                "origin": "raven_dnd_origins:race/gnome"
+            },
+            "origins": [
+                "raven_dnd_origins:subrace/gnome/rock",
+                "raven_dnd_origins:subrace/gnome/forest",
+                "raven_dnd_origins:subrace/gnome/deep"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:origin",
+                "origin": "raven_dnd_origins:race/halfling"
+            },
+            "origins": [
+                "raven_dnd_origins:subrace/halfling/lightfoot",
+                "raven_dnd_origins:subrace/halfling/stout"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:origin",
+                "origin": "raven_dnd_origins:race/dragonborn"
+            },
+            "origins": [
+                "raven_dnd_origins:subrace/dragonborn/black",
+                "raven_dnd_origins:subrace/dragonborn/blue",
+                "raven_dnd_origins:subrace/dragonborn/brass",
+                "raven_dnd_origins:subrace/dragonborn/bronze",
+                "raven_dnd_origins:subrace/dragonborn/copper",
+                "raven_dnd_origins:subrace/dragonborn/gold",
+                "raven_dnd_origins:subrace/dragonborn/red",
+                "raven_dnd_origins:subrace/dragonborn/silver",
+                "raven_dnd_origins:subrace/dragonborn/white"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:origin",
+                "origin": "raven_dnd_origins:race/undead"
+            },
+            "origins": [
+                "raven_dnd_origins:subrace/undead/zombie",
+                "raven_dnd_origins:subrace/undead/skeleton",
+                "raven_dnd_origins:subrace/undead/wither_skeleton"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:origin",
+                "origin": "raven_dnd_origins:race/other"
+            },
+            "origins": [
+                "raven_dnd_origins:subrace/other/githyanki",
+                "raven_dnd_origins:subrace/other/hobgoblin",
+                "raven_dnd_origins:subrace/other/goblin"
+            ]
+        }
+    ]
+}

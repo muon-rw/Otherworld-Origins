@@ -1,0 +1,17 @@
+{
+    "hidden": true,
+    "type": "origins:multiple",
+    "attributes": {
+        "type": "raven_dnd_origins:innate_aptitude_bonus",
+        "aptitude_bonuses": {
+            "building": 1
+        }
+    },
+    "health_bonus": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "value_per_level": 2.0,
+        "starting_value": 0.0
+    }
+}

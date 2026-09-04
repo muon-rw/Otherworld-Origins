@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    {"id":"#raven_dnd_origins:golden_tools","required":false},
+    {"id":"#raven_dnd_origins:golden_armor","required":false},
+    {"id":"#raven_dnd_origins:golden_weapons","required":false}
+  ]
+}

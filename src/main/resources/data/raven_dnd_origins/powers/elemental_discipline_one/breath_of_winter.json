@@ -1,0 +1,39 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.raven_dnd_origins.cantrip_two"
+    },
+    "condition": {
+        "type": "origins:resource",
+        "resource": "*:class/monk/ki_pool",
+        "comparison": ">=",
+        "compare_to": 2
+    },
+    "entity_action": {
+        "type": "origins:and",
+        "actions": [
+            {
+                "type": "origins:modify_resource",
+                "resource": "*:class/monk/ki_pool",
+                "modifier": {
+                    "operation": "add_base_early",
+                    "value": -2
+                }
+            },
+            {
+                "type": "raven_dnd_origins:cast_spell",
+                "spell": "cone_of_cold",
+                "power_level": 3,
+                "mana_cost": 0,
+                "continuous_cost": true,
+                "cost_interval": 10
+            }
+        ]
+    },
+    "cooldown": 100,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+        "bar_index": 9
+    }
+}

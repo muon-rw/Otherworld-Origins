@@ -1,0 +1,10 @@
+{
+    "hidden": true,
+    "type": "origins:self_action_on_kill",
+    "cooldown": 1,
+    "entity_action": {
+        "type": "raven_dnd_origins:grant_absorption_hearts",
+        "base_hearts": 0,
+        "per_level_hearts": 1
+    }
+}

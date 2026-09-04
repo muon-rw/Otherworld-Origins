@@ -1,0 +1,12 @@
+{
+	"powers": [
+                "raven_dnd_origins:race/half_elf/attributes",
+                "raven_dnd_origins:race/half_elf/charisma",
+                "raven_dnd_origins:dark_vision"
+	],
+        "icon": {
+                "item": "raven_dnd_origins:portrait/half_elf"
+	},
+        "impact": 1,
+        "order": 3
+}

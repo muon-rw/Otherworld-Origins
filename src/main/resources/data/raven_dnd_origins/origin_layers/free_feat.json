@@ -1,0 +1,53 @@
+{
+  "order": 13,
+  "name": "Free Feat (Variant Human)",
+  "gui_title": {
+    "choose_origin": "Choose a Free Feat:",
+    "view_origin": "Your Free Feat:"
+  },
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:race/human_variant"
+      },
+      "origins": [
+        "raven_dnd_origins:feats/chef",
+        "raven_dnd_origins:feats/defensive_duelist",
+        "raven_dnd_origins:feats/dual_wielder",
+        "raven_dnd_origins:feats/elemental_adept",
+        "raven_dnd_origins:feats/everybodys_friend",
+        "raven_dnd_origins:feats/lucky",
+        "raven_dnd_origins:feats/mage_slayer",
+        "raven_dnd_origins:feats/martial_adept",
+        "raven_dnd_origins:feats/mobile",
+        "raven_dnd_origins:feats/polearm_master",
+        "raven_dnd_origins:feats/resilient",
+        "raven_dnd_origins:feats/savage_attacker",
+        "raven_dnd_origins:feats/sharpshooter",
+        "raven_dnd_origins:feats/hail_of_arrows",
+        "raven_dnd_origins:feats/skybound",
+        "raven_dnd_origins:feats/momentum",
+        "raven_dnd_origins:feats/shield_master",
+        "raven_dnd_origins:feats/spell_sniper",
+        "raven_dnd_origins:feats/skilled",
+        "raven_dnd_origins:feats/tough",
+        "raven_dnd_origins:feats/two_handed",
+        "raven_dnd_origins:feats/weapon_master",
+        "raven_dnd_origins:feats/school_fire",
+        "raven_dnd_origins:feats/school_ice",
+        "raven_dnd_origins:feats/school_lightning",
+        "raven_dnd_origins:feats/school_holy",
+        "raven_dnd_origins:feats/school_ender",
+        "raven_dnd_origins:feats/school_blood",
+        "raven_dnd_origins:feats/school_evocation",
+        "raven_dnd_origins:feats/school_nature",
+        "raven_dnd_origins:feats/school_eldritch",
+        "raven_dnd_origins:feats/school_aqua",
+        "raven_dnd_origins:feats/school_sound",
+        "raven_dnd_origins:feats/school_geo"
+      ]
+    }
+  ]
+}

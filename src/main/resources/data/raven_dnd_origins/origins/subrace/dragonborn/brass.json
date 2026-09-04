@@ -1,0 +1,11 @@
+{
+	"powers": [
+		"raven_dnd_origins:subrace/dragonborn/brass",
+		"raven_dnd_origins:subrace/dragonborn/brass_wings"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/brass"
+	},
+	"impact": 1,
+	"order": 0
+}

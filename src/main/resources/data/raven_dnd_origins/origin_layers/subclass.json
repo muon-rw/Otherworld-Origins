@@ -1,0 +1,155 @@
+{
+  "order": 30,
+  "name": "Subclass",
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/artificer"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/artificer/alchemist",
+        "raven_dnd_origins:subclass/artificer/armorer",
+        "raven_dnd_origins:subclass/artificer/artillerist",
+        "raven_dnd_origins:subclass/artificer/battle_smith"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/barbarian"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/barbarian/wildheart",
+        "raven_dnd_origins:subclass/barbarian/berserker",
+        "raven_dnd_origins:subclass/barbarian/wild_magic"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/bard"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/bard/lore",
+        "raven_dnd_origins:subclass/bard/valor",
+        "raven_dnd_origins:subclass/bard/swords"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/cleric"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/cleric/life",
+        "raven_dnd_origins:subclass/cleric/trickery",
+        "raven_dnd_origins:subclass/cleric/knowledge",
+        "raven_dnd_origins:subclass/cleric/tempest",
+        "raven_dnd_origins:subclass/cleric/war"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/druid"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/druid/land",
+        "raven_dnd_origins:subclass/druid/moon",
+        "raven_dnd_origins:subclass/druid/spores"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/fighter"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/fighter/battle_master",
+        "raven_dnd_origins:subclass/fighter/eldritch_knight",
+        "raven_dnd_origins:subclass/fighter/champion"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/monk"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/monk/four_elements",
+        "raven_dnd_origins:subclass/monk/open_hand",
+        "raven_dnd_origins:subclass/monk/shadow"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/paladin"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/paladin/ancients",
+        "raven_dnd_origins:subclass/paladin/devotion",
+        "raven_dnd_origins:subclass/paladin/vengeance",
+        "raven_dnd_origins:subclass/paladin/breaker"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/ranger"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/ranger/beast_master",
+        "raven_dnd_origins:subclass/ranger/gloom_stalker",
+        "raven_dnd_origins:subclass/ranger/hunter"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/rogue"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/rogue/thief",
+        "raven_dnd_origins:subclass/rogue/arcane_trickster",
+        "raven_dnd_origins:subclass/rogue/assassin"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/sorcerer"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/sorcerer/wild_magic",
+        "raven_dnd_origins:subclass/sorcerer/draconic_bloodline"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/warlock"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/warlock/fiend",
+        "raven_dnd_origins:subclass/warlock/great_old_one"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:class/wizard"
+      },
+      "origins": [
+        "raven_dnd_origins:subclass/wizard/abjuration",
+        "raven_dnd_origins:subclass/wizard/evocation",
+        "raven_dnd_origins:subclass/wizard/necromancy",
+        "raven_dnd_origins:subclass/wizard/conjuration",
+        "raven_dnd_origins:subclass/wizard/enchanting",
+        "raven_dnd_origins:subclass/wizard/transmutation"
+      ]
+    }
+  ]
+}

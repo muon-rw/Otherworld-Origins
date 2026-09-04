@@ -1,0 +1,9 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/wizard/necromancy",
+        "raven_dnd_origins:spell_access/wizard/necromancy"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/wizard/necromancy"
+    }
+}

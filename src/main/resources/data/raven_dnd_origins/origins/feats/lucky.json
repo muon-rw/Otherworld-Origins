@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:feats/lucky"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:feats/lucky"
+	},
+	"impact": 1,
+	"order": 0
+}

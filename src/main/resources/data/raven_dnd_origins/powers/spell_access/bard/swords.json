@@ -1,0 +1,11 @@
+{
+    "hidden": true,
+    "type": "raven_dnd_origins:allowed_spells",
+    "entries": [
+        "#raven_dnd_origins:melee",
+        "#raven_dnd_origins:offensive",
+        "#raven_dnd_origins:support",
+        "@tunes_n_tomes:melody",
+        "@ess_requiem:blade"
+    ]
+}

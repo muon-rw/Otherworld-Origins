@@ -1,0 +1,25 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.raven_dnd_origins.cantrip_race"
+    },
+    "entity_action": {
+        "type": "raven_dnd_origins:cast_spell",
+        "spell": "fire_breath",
+        "power_level": 3,
+        "mana_cost": 5,
+        "continuous_cost": true,
+        "cost_interval": 10
+    },
+    "condition": {
+        "type": "raven_dnd_origins:player_mana",
+        "comparison": ">=",
+        "compare_to": 5
+    },
+    "cooldown": 100,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+        "bar_index": 15
+    }
+}

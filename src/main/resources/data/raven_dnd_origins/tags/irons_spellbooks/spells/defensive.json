@@ -1,0 +1,90 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:abyssal_shroud",
+    "irons_spellbooks:counterspell",
+    "irons_spellbooks:evasion",
+    "irons_spellbooks:fang_ward",
+    "irons_spellbooks:heartstop",
+    "irons_spellbooks:ice_tomb",
+    "irons_spellbooks:oakskin",
+    "irons_spellbooks:scapegoat",
+    "irons_spellbooks:shield",
+    {
+      "id": "aero_additions:wind_shield",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:force_field",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:mirage_avoidance",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:mist_form",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:mystic_shield",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:intrusion_prevention_system",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:void_bulwark",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:abracadabra",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:otherworldly_presence",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:bastion_of_light",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:cursed_immortality",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:ebony_armor",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:ebony_cataphract",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:protection_of_the_fallen",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:sword_stance",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:undying_dread",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:counterspell_spider_lily",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:parry",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:ambush_thorns",
+      "required": false
+    }
+  ]
+}

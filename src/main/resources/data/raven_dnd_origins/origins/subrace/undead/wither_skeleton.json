@@ -1,0 +1,13 @@
+{
+	"powers": [
+		"raven_dnd_origins:subrace/undead/wither_skeleton/attributes",
+		"raven_dnd_origins:subrace/undead/wither_skeleton/sword_damage",
+		"raven_dnd_origins:subrace/undead/wither_skeleton/vulnerability",
+		"raven_dnd_origins:subrace/undead/wither_skeleton/size"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/wither"
+	},
+	"impact": 3,
+	"order": 0
+}

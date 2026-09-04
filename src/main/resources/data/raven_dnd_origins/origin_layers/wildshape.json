@@ -1,0 +1,216 @@
+{
+    "order": 300,
+    "name": "Wild Shape",
+    "origins": [
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 2
+                    }
+                ]
+            },
+            "origins": [
+                "raven_dnd_origins:wildshape/wolf",
+                "raven_dnd_origins:wildshape/cat"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 4
+                    }
+                ]
+            },
+            "origins": [
+                "raven_dnd_origins:wildshape/lion",
+                "raven_dnd_origins:wildshape/deer"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 6
+                    }
+                ]
+            },
+            "origins": [
+                "raven_dnd_origins:wildshape/dolphin",
+                "raven_dnd_origins:wildshape/yeti",
+                "raven_dnd_origins:wildshape/snake"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 8
+                    }
+                ]
+            },
+            "origins": [
+                "raven_dnd_origins:wildshape/bird"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "origins:origin",
+                        "origin": "raven_dnd_origins:subclass/druid/moon",
+                        "layer": "raven_dnd_origins:subclass"
+                    },
+                    {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 4
+                    }
+                ]
+            },
+            "origins": [
+                "raven_dnd_origins:wildshape/grizzly_bear",
+                "raven_dnd_origins:wildshape/tiger"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "origins:origin",
+                        "origin": "raven_dnd_origins:subclass/druid/moon",
+                        "layer": "raven_dnd_origins:subclass"
+                    },
+                    {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 6
+                    }
+                ]
+            },
+            "origins": [
+                "raven_dnd_origins:wildshape/alligator",
+                "raven_dnd_origins:wildshape/hippo",
+                "raven_dnd_origins:wildshape/rhinoceros"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "origins:origin",
+                        "origin": "raven_dnd_origins:subclass/druid/moon",
+                        "layer": "raven_dnd_origins:subclass"
+                    },
+                    {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 8
+                    }
+                ]
+            },
+            "origins": [
+                "raven_dnd_origins:wildshape/mammoth",
+                "raven_dnd_origins:wildshape/elephant",
+                "raven_dnd_origins:wildshape/orca"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:resource",
+                        "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                        "comparison": ">",
+                        "compare_to": 0
+                    },
+                    {
+                        "type": "origins:origin",
+                        "origin": "raven_dnd_origins:subclass/druid/moon",
+                        "layer": "raven_dnd_origins:subclass"
+                    },
+                    {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 10
+                    }
+                ]
+            },
+            "origins": [
+                "raven_dnd_origins:wildshape/fire_elemental",
+                "raven_dnd_origins:wildshape/frost_elemental",
+                "raven_dnd_origins:wildshape/baby_phoenix"
+            ]
+        },
+        {
+            "condition": {
+                "type": "origins:resource",
+                "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                "comparison": ">",
+                "compare_to": 0
+            },
+            "origins": [
+                "raven_dnd_origins:wildshape/cancel"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:feats/spell_sniper"
+	],
+	"icon": {
+		"item": "irons_spellbooks:hither_thither_wand"
+	},
+	"impact": 1,
+	"order": 0
+}

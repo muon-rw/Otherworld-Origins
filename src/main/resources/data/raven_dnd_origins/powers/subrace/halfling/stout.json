@@ -1,0 +1,30 @@
+{
+    "hidden": true,
+    "type": "origins:multiple",
+    "apts": {
+        "type": "raven_dnd_origins:innate_aptitude_bonus",
+        "aptitude_bonuses": {
+            "constitution": 1
+        }
+    },
+    "resistance": {
+        "type": "origins:modify_damage_taken",
+        "damage_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "origins:in_tag",
+                    "tag": "neoforge:is_poison"
+                },
+                {
+                    "type": "origins:in_tag",
+                    "tag": "c:is_poison"
+                }
+            ]
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -1.0
+        }
+    }
+}

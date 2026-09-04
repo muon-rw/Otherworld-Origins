@@ -1,0 +1,9 @@
+{
+    "hidden": true,
+    "type": "raven_dnd_origins:allowed_spells",
+    "entries": [
+        "#raven_dnd_origins:support",
+        "#raven_dnd_origins:utility",
+        "@irons_spellbooks:nature"
+    ]
+}

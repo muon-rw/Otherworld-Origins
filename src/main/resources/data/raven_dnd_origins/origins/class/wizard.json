@@ -1,0 +1,11 @@
+{
+	"powers": [
+		"raven_dnd_origins:cantrip_desc",
+		"raven_dnd_origins:class/wizard/attributes"
+	],
+	"icon": {
+		"item": "irons_spellbooks:graybeard_staff"
+	},
+	"impact": 3,
+	"order": 0
+}

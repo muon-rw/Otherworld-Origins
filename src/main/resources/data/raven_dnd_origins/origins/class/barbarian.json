@@ -1,0 +1,11 @@
+{
+	"powers": [
+		"raven_dnd_origins:class/barbarian/attributes",
+		"raven_dnd_origins:class/barbarian/rage"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:class/barbarian"
+	},
+	"impact": 3,
+	"order": 0
+}

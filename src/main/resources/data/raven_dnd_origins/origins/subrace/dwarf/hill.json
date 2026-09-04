@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:subrace/dwarf/hill"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/hill"
+	},
+	"impact": 1,
+	"order": 0
+}

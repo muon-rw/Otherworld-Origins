@@ -1,0 +1,107 @@
+{
+    "hidden": true,
+    "type": "origins:multiple",
+    "melee_damage": {
+        "type": "origins:attribute",
+        "modifier": {
+            "attribute": "minecraft:generic.attack_damage",
+            "value": 3,
+            "operation": "addition"
+        }
+    },
+    "mw_i": {
+        "type": "raven_dnd_origins:enhanced_repair",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 5
+                },
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": "<",
+                    "compare_to": 10
+                }
+            ]
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:is_melee_weapon"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "raven_dnd_origins:melee_weapons"
+                    }
+                }
+            ]
+        },
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "multiply_total",
+        "value": 0.1
+    },
+    "mw_ii": {
+        "type": "raven_dnd_origins:enhanced_repair",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": "<",
+                    "compare_to": 15
+                }
+            ]
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:is_melee_weapon"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "raven_dnd_origins:melee_weapons"
+                    }
+                }
+            ]
+        },
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "multiply_total",
+        "value": 0.15
+    },
+    "mw_iii": {
+        "type": "raven_dnd_origins:enhanced_repair",
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:is_melee_weapon"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "raven_dnd_origins:melee_weapons"
+                    }
+                }
+            ]
+        },
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "multiply_total",
+        "value": 0.2
+    }
+}

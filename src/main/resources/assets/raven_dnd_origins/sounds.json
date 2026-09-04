@@ -1,0 +1,55 @@
+{
+    "boost": {
+        "subtitle": "subtitles.raven_dnd_origins.boost",
+        "sounds": [
+            "raven_dnd_origins:boost",
+            "raven_dnd_origins:boost_2",
+            "raven_dnd_origins:boost_3",
+            "raven_dnd_origins:boost_4"
+        ]
+    },
+    "dash": {
+        "subtitle": "subtitles.raven_dnd_origins.dash",
+        "sounds": [
+            "raven_dnd_origins:dash",
+            "raven_dnd_origins:dash_2"
+        ]
+    },
+    "divine_smite": {
+        "subtitle": "subtitles.raven_dnd_origins.divine_smite",
+        "sounds": [
+            "raven_dnd_origins:divine_smite"
+        ]
+    },
+    "flourish": {
+        "subtitle": "subtitles.raven_dnd_origins.flourish",
+        "sounds": [
+            "raven_dnd_origins:flourish",
+            "raven_dnd_origins:flourish_2",
+            "raven_dnd_origins:flourish_3",
+            "raven_dnd_origins:flourish_4"
+        ]
+    },
+    "jump": {
+        "subtitle": "subtitles.raven_dnd_origins.jump",
+        "sounds": [
+            "raven_dnd_origins:jump_1",
+            "raven_dnd_origins:jump_2",
+            "raven_dnd_origins:jump_3",
+            "raven_dnd_origins:jump_4",
+            "raven_dnd_origins:jump_5"
+        ]
+    },
+    "valkyrie_land": {
+        "subtitle": "subtitles.raven_dnd_origins.valkyrie_land",
+        "sounds": [
+            "raven_dnd_origins:valkyrie_land"
+        ]
+    },
+    "zhh_woo_voop_early": {
+        "subtitle": "subtitles.raven_dnd_origins.zhh_woo_voop_early",
+        "sounds": [
+            "raven_dnd_origins:zhh_woo_voop_early"
+        ]
+    }
+}

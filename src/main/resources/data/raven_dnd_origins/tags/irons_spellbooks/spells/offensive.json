@@ -1,0 +1,524 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:acid_orb",
+    "irons_spellbooks:acupuncture",
+    "irons_spellbooks:arrow_volley",
+    "irons_spellbooks:ball_lightning",
+    "irons_spellbooks:blaze_storm",
+    "irons_spellbooks:blood_needles",
+    "irons_spellbooks:blood_slash",
+    "irons_spellbooks:chain_creeper",
+    "irons_spellbooks:chain_lightning",
+    "irons_spellbooks:cone_of_cold",
+    "irons_spellbooks:dragon_breath",
+    "irons_spellbooks:eldritch_blast",
+    "irons_spellbooks:electrocute",
+    "irons_spellbooks:fang_strike",
+    "irons_spellbooks:fang_swirl",
+    "irons_spellbooks:fire_arrow",
+    "irons_spellbooks:fire_breath",
+    "irons_spellbooks:fireball",
+    "irons_spellbooks:firebolt",
+    "irons_spellbooks:firecracker",
+    "irons_spellbooks:firefly_swarm",
+    "irons_spellbooks:flaming_barrage",
+    "irons_spellbooks:guiding_bolt",
+    "irons_spellbooks:heat_surge",
+    "irons_spellbooks:ice_block",
+    "irons_spellbooks:ice_spikes",
+    "irons_spellbooks:icicle",
+    "irons_spellbooks:lightning_bolt",
+    "irons_spellbooks:lightning_lance",
+    "irons_spellbooks:lob_creeper",
+    "irons_spellbooks:magic_arrow",
+    "irons_spellbooks:magic_missile",
+    "irons_spellbooks:magma_bomb",
+    "irons_spellbooks:poison_arrow",
+    "irons_spellbooks:poison_breath",
+    "irons_spellbooks:poison_splash",
+    "irons_spellbooks:ray_of_siphoning",
+    "irons_spellbooks:scorch",
+    "irons_spellbooks:sculk_tentacles",
+    "irons_spellbooks:shockwave",
+    "irons_spellbooks:snowball",
+    "irons_spellbooks:sonic_boom",
+    "irons_spellbooks:starfall",
+    "irons_spellbooks:sunbeam",
+    "irons_spellbooks:thunderstorm",
+    "irons_spellbooks:wisp",
+    "irons_spellbooks:wither_skull",
+    {
+      "id": "aero_additions:asphyxiate",
+      "required": false
+    },
+    {
+      "id": "aero_additions:wind_blade",
+      "required": false
+    },
+    {
+      "id": "aero_additions:wind_charge",
+      "required": false
+    },
+    {
+      "id": "alshanex_familiars:end_mayhem",
+      "required": false
+    },
+    {
+      "id": "alshanex_familiars:megido",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:arcane_beam",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:arcane_blast",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:artisan_smash",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:blood_brand",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:bound_bow",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:breaching_enemy",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:bullet_stream",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:catch_flame",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:combustion_jet",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:commence_fire",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:compound_phial",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:dual_acrobat",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:fly_swatter",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:inscribe_ice",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:lethal_assault",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:magic_spear",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:quick_arms",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:shock",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:silent_assassin",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:sky_edge",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:thermal_process",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:tiny_lumberjack",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:world_flatter",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:abyss_fireball",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:abyssal_blast",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:aerial_assault",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:amethyst_puncture",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:ashen_breath",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:atomic_laser",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:bone_storm",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:depth_charge",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:desert_winds",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:hellish_blade",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:incineration",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:infernal_strike",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:laserbolt",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:malevolent_battlefield",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:missile_launch",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:monolith_crash",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:piercing_bone",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:void_beam",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:void_rune",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:blades_of_rancor",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:libras_judgement",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:soul_set_ablaze",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:zealous_harbinger",
+      "required": false
+    },
+    {
+      "id": "elemental_synergies:brimflame_bolt",
+      "required": false
+    },
+    {
+      "id": "elemental_synergies:brimstone_hellblast",
+      "required": false
+    },
+    {
+      "id": "elemental_synergies:holy_blast",
+      "required": false
+    },
+    {
+      "id": "elemental_synergies:spears_of_acropolis",
+      "required": false
+    },
+    {
+      "id": "elemental_synergies:tidal_wave",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:boiling_blood",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:damnation",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:finality_of_decay",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:forever_dreaming",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:necrotic_burst",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:nights_cover",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:overwhelming_light",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:spikes_of_agony",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:tentacle_whip",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:wretch",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:chunker",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:dripstone_bolt",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:eroding_boulder",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:fissure",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:solar_beam",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:solar_storm",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:arcane_cards",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:bone_bolt",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:cosmic_bolt",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:dazzling_obliteration",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:death_sentence",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:endraconic_meteor",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:energy_burst",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:evercomet_barrage",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:fiery_dagger",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:hailstorm",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:horn_shell",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:hydrobullet",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:ice_arrow",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:razorblade_typhoon",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:shard_sword",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:shooting_star",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:soul_flame_bolt",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:soul_seekers",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:spectral_axe",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:syringe_barrage",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:terraprismic_barrage",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:thorn_chakram",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:trident_jetstream",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:umbrashift_barrage",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:violent_regurgitation",
+      "required": false
+    },
+    {
+      "id": "hazennstuff:water_bolt",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:annihilation_arrow",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:annihilation_beam",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:annihilation_bomb",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:annihilation_shockwave",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:cloud_rail",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:cloud_ring",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:energy_beam",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:flame_eater",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:flame_sector",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:glacier_eruption",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:hematite_trishula",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:nimbus_array",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:possessed_soul_blade",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:thunder_fanburst",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:triple_nimbus_array",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:chord_blast",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:grand_finale",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:harmonic_aria",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:piercing_solo",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:sonata",
+      "required": false
+    }
+  ]
+}

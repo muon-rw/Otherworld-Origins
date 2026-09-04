@@ -1,0 +1,6 @@
+{
+    "powers": ["raven_dnd_origins:feats/school_eldritch"],
+    "icon": {"item": "discerning_the_eldritch:eldritch_upgrade_orb"},
+    "impact": 1,
+    "order": 108
+}

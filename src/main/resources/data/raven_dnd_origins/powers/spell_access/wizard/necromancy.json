@@ -1,0 +1,11 @@
+{
+    "hidden": true,
+    "type": "raven_dnd_origins:allowed_spells",
+    "entries": [
+        "#raven_dnd_origins:conjuring",
+        "#raven_dnd_origins:control",
+        "#raven_dnd_origins:offensive",
+        "@irons_spellbooks:blood",
+        "@discerning_the_eldritch:ritual"
+    ]
+}

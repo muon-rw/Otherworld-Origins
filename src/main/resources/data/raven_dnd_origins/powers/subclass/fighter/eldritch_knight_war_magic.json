@@ -1,0 +1,25 @@
+{
+    "type": "raven_dnd_origins:action_on_spell_damage",
+    "condition": {
+        "type": "raven_dnd_origins:player_level",
+        "comparison": ">=",
+        "compare_to": 10
+    },
+    "cooldown": 40,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_02.png",
+        "bar_index": 3
+    },
+    "bientity_condition": {
+        "type": "origins:target_condition",
+        "condition": {
+            "type": "origins:living"
+        }
+    },
+    "bientity_action": {
+        "type": "raven_dnd_origins:attack",
+        "bypasses_attack_speed": true,
+        "attack_strength": 1.0
+    }
+}

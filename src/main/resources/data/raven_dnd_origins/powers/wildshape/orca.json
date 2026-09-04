@@ -1,0 +1,394 @@
+{
+    "type": "origins:multiple",
+    "hidden": true,
+    "shape": {
+        "type": "raven_dnd_origins:shapeshift",
+        "entity_type": "hybrid_aquatic:orca",
+        "auto_swim_in_water": true,
+        "hide_hands": true,
+        "allow_tools": false,
+        "suppress_armor_modifiers": true,
+        "prevent_spell_casts": {
+            "inverted": true,
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 18
+        },
+        "attack_range": 5.0,
+        "attacks": [
+            { "hitbox": "FORWARD_BOX", "angle": 80, "damage_multiplier": 1.0, "upswing": 0.4 },
+            { "hitbox": "HORIZONTAL_PLANE", "angle": 120, "damage_multiplier": 1.3, "upswing": 0.5 }
+        ]
+    },
+    "attributes": {
+        "type": "origins:attribute",
+        "modifiers": [
+            {
+                "attribute": "legendarysurvivaloverhaul:cold_resistance",
+                "operation": "addition",
+                "value": 100.0,
+                "name": "Wildshape cold immunity"
+            }
+        ]
+    },
+    "movement_speed_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.movement_speed",
+        "operation": "multiply_base",
+        "starting_value": 0.0,
+        "value_per_level": 0.015
+    },
+    "max_health_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 48.0,
+        "value_per_level": 3.2,
+        "update_health": false
+    },
+    "max_health_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.max_health",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 2.6,
+        "update_health": false,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_damage_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 12.0,
+        "value_per_level": 0.55
+    },
+    "attack_damage_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_damage",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.8,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "attack_speed_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": -2.8,
+        "value_per_level": 0.045
+    },
+    "attack_speed_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.attack_speed",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.055,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "armor_char": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "starting_value": 10.0,
+        "value_per_level": 0.3
+    },
+    "armor_magic": {
+        "type": "raven_dnd_origins:leveled_attribute",
+        "attribute": "minecraft:generic.armor",
+        "operation": "addition",
+        "starting_value": 0.0,
+        "value_per_level": 0.3,
+        "aptitude": "justlevelingfork:magic"
+    },
+    "extended_breath": {
+        "type": "raven_dnd_origins:modify_max_air_supply",
+        "bonus": 1200
+    },
+    "rapid_air_recovery": {
+        "type": "origins:action_over_time",
+        "interval": 5,
+        "condition": {
+            "inverted": true,
+            "type": "origins:submerged_in",
+            "fluid": "minecraft:water"
+        },
+        "entity_action": {
+            "type": "origins:gain_air",
+            "value": 50
+        }
+    },
+    "ability": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.raven_dnd_origins.cantrip_three"
+        },
+        "cooldown": 400,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 1
+        },
+        "entity_action": {
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "hazennstuff:razorblade_typhoon",
+            "level": 3,
+            "cast_time": 0
+        }
+    },
+    "apex_predator_damage": {
+        "type": "origins:modify_damage_dealt",
+        "modifier": {
+            "operation": "multiply_total",
+            "value": 0.3
+        },
+        "condition": {
+            "type": "origins:submerged_in",
+            "fluid": "minecraft:water"
+        }
+    },
+    "apex_predator_slow_aura": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "condition": {
+            "type": "origins:submerged_in",
+            "fluid": "minecraft:water"
+        },
+        "entity_action": {
+            "type": "origins:area_of_effect",
+            "radius": 8,
+            "bientity_action": {
+                "type": "origins:target_action",
+                "action": {
+                    "type": "origins:apply_effect",
+                    "effect": {
+                        "effect": "minecraft:slowness",
+                        "duration": 40,
+                        "amplifier": 1,
+                        "is_ambient": true,
+                        "show_particles": false,
+                        "show_icon": false
+                    }
+                }
+            },
+            "bientity_condition": {
+                "type": "origins:and",
+                "conditions": [
+                    {
+                        "type": "origins:target_condition",
+                        "condition": {
+                            "type": "origins:living"
+                        }
+                    },
+                    {
+                        "type": "origins:attack_target"
+                    }
+                ]
+            }
+        }
+    },
+    "dolphins_grace": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "origins:submerged_in",
+                    "fluid": "minecraft:water"
+                },
+                {
+                    "type": "origins:in_block_anywhere",
+                    "comparison": ">=",
+                    "compare_to": 1,
+                    "block_condition": {
+                        "type": "origins:fluid",
+                        "fluid_condition": {
+                            "type": "origins:in_tag",
+                            "tag": "minecraft:water"
+                        }
+                    }
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:apply_effect",
+            "effect": {
+                "effect": "minecraft:dolphins_grace",
+                "duration": 250,
+                "amplifier": 0,
+                "is_ambient": true,
+                "show_particles": false,
+                "show_icon": false
+            }
+        },
+        "falling_action": {
+            "type": "origins:if_else",
+            "condition": {
+                "type": "origins:status_effect",
+                "effect": "minecraft:dolphins_grace",
+                "max_duration": 250
+            },
+            "if_action": {
+                "type": "origins:clear_effect",
+                "effect": "minecraft:dolphins_grace"
+            }
+        }
+    },
+    "land_slowness": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "condition": {
+            "inverted": true,
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "origins:submerged_in",
+                    "fluid": "minecraft:water"
+                },
+                {
+                    "type": "origins:in_block_anywhere",
+                    "comparison": ">=",
+                    "compare_to": 1,
+                    "block_condition": {
+                        "type": "origins:fluid",
+                        "fluid_condition": {
+                            "type": "origins:in_tag",
+                            "tag": "minecraft:water"
+                        }
+                    }
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "origins:apply_effect",
+            "effect": {
+                "effect": "minecraft:slowness",
+                "duration": 250,
+                "amplifier": 9,
+                "is_ambient": true,
+                "show_particles": false,
+                "show_icon": false
+            }
+        },
+        "falling_action": {
+            "type": "origins:if_else",
+            "condition": {
+                "type": "origins:status_effect",
+                "effect": "minecraft:slowness",
+                "max_duration": 250
+            },
+            "if_action": {
+                "type": "origins:clear_effect",
+                "effect": "minecraft:slowness"
+            }
+        }
+    },
+    "cleanup_effects": {
+        "type": "origins:action_on_callback",
+        "entity_action_lost": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:clear_effect",
+                    "effect": "minecraft:dolphins_grace"
+                },
+                {
+                    "type": "origins:clear_effect",
+                    "effect": "minecraft:slowness"
+                }
+            ]
+        }
+    },
+    "prevent_death": {
+        "type": "origins:prevent_death",
+        "entity_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:heal",
+                    "amount": 20
+                },
+                {
+                    "type": "origins:execute_command",
+                    "command": "origin set @s raven_dnd_origins:wildshape origins:empty"
+                }
+            ]
+        }
+    },
+    "timer": {
+        "type": "origins:resource",
+        "min": 0,
+        "max": 6000,
+        "start_value": 6000,
+        "min_action": {
+            "type": "origins:execute_command",
+            "command": "origin set @s raven_dnd_origins:wildshape origins:empty"
+        },
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 7,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_timer",
+                "comparison": ">",
+                "compare_to": 0
+            }
+        }
+    },
+    "tick_timer": {
+        "type": "origins:action_over_time",
+        "interval": 20,
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_timer",
+            "modifier": {
+                "operation": "add_base_early",
+                "value": -20
+            }
+        }
+    },
+    "charge_callback": {
+        "type": "origins:action_on_callback",
+        "entity_action_gained": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.evoker.prepare_summon",
+                    "pitch": 0.7
+                },
+                {
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:flash",
+                    "count": 1,
+                    "force": true
+                },
+                {
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.dolphin.ambient"
+                },
+                {
+                    "type": "origins:heal",
+                    "amount": 1000
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_charges",
+                    "modifier": {
+                        "operation": "add_base_early",
+                        "value": -1
+                    }
+                },
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "raven_dnd_origins:class/druid/wildshape_wildshape_gate",
+                    "modifier": {
+                        "operation": "set_total",
+                        "value": 0
+                    }
+                }
+            ]
+        }
+    }
+}

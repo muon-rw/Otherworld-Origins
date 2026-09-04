@@ -1,0 +1,48 @@
+{
+    "type": "origins:multiple",
+    "summon": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.raven_dnd_origins.cantrip_two"
+        },
+        "entity_action": {
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "raven_dnd_origins:summon_grizzly_bear",
+            "power_level": 5,
+            "mana_cost": 50
+        },
+        "cooldown": 600,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 7
+        },
+        "condition": {
+            "type": "raven_dnd_origins:player_mana",
+            "comparison": ">=",
+            "compare_to": 50
+        }
+    },
+    "night_res": {
+        "type": "origins:modify_damage_taken",
+        "condition": {
+            "type": "origins:daytime",
+            "inverted": true
+        },
+        "modifier": {
+            "operation": "multiply_total",
+            "value": -0.1
+        }
+    },
+    "night_dmg": {
+        "type": "origins:modify_damage_dealt",
+        "condition": {
+            "type": "origins:daytime",
+            "inverted": true
+        },
+        "modifier": {
+            "operation": "multiply_base",
+            "value": 0.1
+        }
+    }
+}

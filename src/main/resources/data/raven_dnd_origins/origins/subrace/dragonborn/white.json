@@ -1,0 +1,11 @@
+{
+	"powers": [
+		"raven_dnd_origins:subrace/dragonborn/white",
+		"raven_dnd_origins:subrace/dragonborn/white_wings"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/white"
+	},
+	"impact": 1,
+	"order": 0
+}

@@ -1,0 +1,42 @@
+{
+  "order": 19,
+  "name": "Cantrip (Race)",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:or",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:subrace/half_elf/high"
+          },
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:subrace/elf/high"
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:cantrips/acid_orb",
+        "raven_dnd_origins:cantrips/ball_lightning",
+        "raven_dnd_origins:cantrips/blaze_storm",
+        "raven_dnd_origins:cantrips/chain_lightning",
+        "raven_dnd_origins:cantrips/cone_of_cold",
+        "raven_dnd_origins:cantrips/dragon_breath",
+        "raven_dnd_origins:cantrips/electrocute",
+        "raven_dnd_origins:cantrips/fire_breath",
+        "raven_dnd_origins:cantrips/firebolt",
+        "raven_dnd_origins:cantrips/fortify",
+        "raven_dnd_origins:cantrips/frostwave",
+        "raven_dnd_origins:cantrips/gust",
+        "raven_dnd_origins:cantrips/heat_surge",
+        "raven_dnd_origins:cantrips/ice_spikes",
+        "raven_dnd_origins:cantrips/icicle",
+        "raven_dnd_origins:cantrips/magic_missile",
+        "raven_dnd_origins:cantrips/poison_arrow",
+        "raven_dnd_origins:cantrips/ray_of_frost",
+        "raven_dnd_origins:cantrips/shockwave"
+      ]
+    }
+  ]
+}

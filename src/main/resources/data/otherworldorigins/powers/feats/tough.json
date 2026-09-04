@@ -1,9 +1,0 @@
-{
-    "hidden": true,
-    "type": "origins:attribute",
-    "modifier": {
-        "attribute": "otherworldorigins:health_per_level",
-        "operation": "addition",
-        "value": 2
-    }
-}

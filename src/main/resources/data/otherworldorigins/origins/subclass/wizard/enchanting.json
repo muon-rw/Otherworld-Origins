@@ -1,9 +1,0 @@
-{
-    "powers": [
-        "otherworldorigins:subclass/wizard/enchanting",
-        "otherworldorigins:spell_access/wizard/enchanting"
-    ],
-    "icon": {
-        "item": "minecraft:enchanting_table"
-    }
-}

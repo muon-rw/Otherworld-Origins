@@ -1,0 +1,9 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/artificer/alchemist",
+        "raven_dnd_origins:spell_access/artificer/alchemist"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/artificer/alchemist"
+    }
+}

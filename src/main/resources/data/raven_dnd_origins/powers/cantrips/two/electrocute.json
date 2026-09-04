@@ -1,0 +1,25 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.raven_dnd_origins.cantrip_one"
+    },
+    "entity_action": {
+        "type": "raven_dnd_origins:cast_spell",
+        "spell": "electrocute",
+        "power_level": 3,
+        "mana_cost": 5,
+        "continuous_cost": true,
+        "cost_interval": 10
+    },
+    "condition": {
+        "type": "raven_dnd_origins:player_mana",
+        "comparison": ">=",
+        "compare_to": 5
+    },
+    "cooldown": 100,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "apoli:textures/gui/resource_bar.png",
+        "bar_index": 2
+    }
+}

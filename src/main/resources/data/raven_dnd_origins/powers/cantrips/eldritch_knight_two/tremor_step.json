@@ -1,0 +1,24 @@
+{
+    "type": "origins:active_self",
+    "key": {
+        "key": "key.raven_dnd_origins.cantrip_three"
+    },
+    "entity_action": {
+        "type": "raven_dnd_origins:cast_spell",
+        "spell": "gtbcs_geomancy_plus:tremor_step",
+        "power_level": 2,
+        "mana_cost": 10,
+        "cast_time": 0
+    },
+    "condition": {
+        "type": "raven_dnd_origins:player_mana",
+        "comparison": ">=",
+        "compare_to": 10
+    },
+    "cooldown": 40,
+    "hud_render": {
+        "should_render": true,
+        "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+        "bar_index": 13
+    }
+}

@@ -1,0 +1,11 @@
+{
+	"powers": [
+		"raven_dnd_origins:cantrip_desc",
+		"raven_dnd_origins:class/cleric/attributes"
+	],
+	"icon": {
+		"item": "irons_spellbooks:villager_spell_book"
+	},
+	"impact": 3,
+	"order": 0
+}

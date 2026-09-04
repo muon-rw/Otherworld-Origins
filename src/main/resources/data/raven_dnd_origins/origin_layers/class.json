@@ -1,0 +1,24 @@
+{
+  "order": 20,
+  "name": "Class",
+  "gui_title": {
+    "choose_origin": "Choose your class:",
+    "view_origin": "Your class:"
+  },
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    "raven_dnd_origins:class/artificer",
+    "raven_dnd_origins:class/barbarian",
+    "raven_dnd_origins:class/bard",
+    "raven_dnd_origins:class/cleric",
+    "raven_dnd_origins:class/druid",
+    "raven_dnd_origins:class/fighter",
+    "raven_dnd_origins:class/monk",
+    "raven_dnd_origins:class/paladin",
+    "raven_dnd_origins:class/ranger",
+    "raven_dnd_origins:class/rogue",
+    "raven_dnd_origins:class/sorcerer",
+    "raven_dnd_origins:class/warlock",
+    "raven_dnd_origins:class/wizard"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+    "hidden": true,
+    "type": "origins:attribute",
+    "modifiers": [
+        {
+            "attribute": "minecraft:generic.scale",
+            "operation": "multiply_base",
+            "value": 0.3
+        },
+        {
+            "attribute": "additionalentityattributes:generic.width",
+            "operation": "multiply_base",
+            "value": -0.1462
+        }
+    ]
+}

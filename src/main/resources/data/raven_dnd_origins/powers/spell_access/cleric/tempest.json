@@ -1,0 +1,11 @@
+{
+    "hidden": true,
+    "type": "raven_dnd_origins:allowed_spells",
+    "entries": [
+        "#raven_dnd_origins:offensive",
+        "#raven_dnd_origins:control",
+        "@irons_spellbooks:lightning",
+        "@irons_spellbooks:ice",
+        "@aces_spell_utils:hydro"
+    ]
+}

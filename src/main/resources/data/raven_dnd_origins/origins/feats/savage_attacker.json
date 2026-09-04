@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:feats/savage_attacker"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:feats/savage_attacker"
+	},
+	"impact": 1,
+	"order": 0
+}

@@ -1,0 +1,7 @@
+{
+    "replace": false,
+    "values": [
+        {"id":"raven_dnd_origins:ebonbreath","required":false},
+        {"id":"raven_dnd_origins:blazenbreath","required":false}
+    ]
+}

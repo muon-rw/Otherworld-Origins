@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:subrace/halfling/stout"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/stout"
+	},
+	"impact": 1,
+	"order": 0
+}

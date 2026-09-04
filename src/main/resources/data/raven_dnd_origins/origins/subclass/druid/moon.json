@@ -1,0 +1,11 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/druid/moon",
+        "raven_dnd_origins:subclass/druid/combat_wild_shapes",
+        "raven_dnd_origins:subclass/druid/primal_strikes",
+        "raven_dnd_origins:spell_access/druid/moon"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/druid/moon"
+    }
+}

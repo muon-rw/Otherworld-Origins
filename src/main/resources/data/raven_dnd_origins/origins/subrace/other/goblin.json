@@ -1,0 +1,14 @@
+{
+	"powers": [
+		"raven_dnd_origins:subrace/other/goblin/attributes",
+		"raven_dnd_origins:subrace/other/goblin/size",
+		"raven_dnd_origins:subrace/other/goblin/cold_resistance",
+		"raven_dnd_origins:subrace/other/goblin/gold_proficiency",
+		"raven_dnd_origins:subrace/other/goblin/gold_durability"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/goblin"
+	},
+	"impact": 1,
+	"order": 0
+}

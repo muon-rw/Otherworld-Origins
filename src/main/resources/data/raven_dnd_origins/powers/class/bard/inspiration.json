@@ -1,0 +1,20 @@
+{
+  "type": "raven_dnd_origins:inspiration",
+  "heal_amount": 1.0,
+  "radius": 32.0,
+  "interval": 20,
+  "bientity_condition": {
+    "type": "origins:or",
+    "conditions": [
+      {
+        "type": "raven_dnd_origins:allied"
+      },
+      {
+        "type": "origins:target_condition",
+        "condition": {
+          "type": "raven_dnd_origins:is_friendly"
+        }
+      }
+    ]
+  }
+}

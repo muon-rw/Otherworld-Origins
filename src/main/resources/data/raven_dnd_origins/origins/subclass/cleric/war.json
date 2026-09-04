@@ -1,0 +1,10 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/cleric/war",
+        "raven_dnd_origins:spell_access/cleric/war",
+        "raven_dnd_origins:subclass/cleric/divine_intervention/war"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/cleric/war"
+    }
+}

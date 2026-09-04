@@ -1,0 +1,93 @@
+{
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/active.png",
+            "text": {
+                "translate": "origins.gui.badge.active",
+                "with": [
+                    {
+                        "keybind": "key.raven_dnd_origins.cantrip_race"
+                    }
+                ]
+            }
+        }
+    ],
+    "low": {
+        "type": "origins:active_self",
+        "key": "key.raven_dnd_origins.cantrip_race",
+        "cooldown": 20,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 15
+        },
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": "<=",
+            "compare_to": 6
+        },
+        "entity_action": {
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "firebolt",
+            "power_level": 4,
+            "cast_time": 0,
+            "mana_cost": 10
+        }
+    },
+    "med": {
+        "type": "origins:active_self",
+        "key": "key.raven_dnd_origins.cantrip_race",
+        "cooldown": 20,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 15
+        },
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 7
+                },
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": "<=",
+                    "compare_to": 13
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "fireball",
+            "power_level": 2,
+            "cast_time": 0,
+            "mana_cost": 10
+        }
+    },
+    "high": {
+        "type": "origins:active_self",
+        "key": "key.raven_dnd_origins.cantrip_race",
+        "cooldown": 20,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 15
+        },
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 14
+        },
+        "entity_action": {
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "magma_bomb",
+            "power_level": 6,
+            "cast_time": 0,
+            "mana_cost": 20
+        }
+    }
+}

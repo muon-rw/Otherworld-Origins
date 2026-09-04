@@ -1,0 +1,10 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/paladin/vengeance",
+        "raven_dnd_origins:subclass/paladin/vengeance_avenging_angel",
+        "raven_dnd_origins:spell_access/paladin/vengeance"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/paladin/vengeance"
+    }
+}

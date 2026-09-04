@@ -1,0 +1,14 @@
+{
+	"powers": [
+                "raven_dnd_origins:race/dwarf/attributes",
+                "raven_dnd_origins:race/dwarf/dwarven_resilience",
+                "raven_dnd_origins:race/dwarf/speed",
+                "raven_dnd_origins:race/dwarf/size",
+                "raven_dnd_origins:dark_vision"
+	],
+        "icon": {
+                "item": "raven_dnd_origins:portrait/dwarf"
+        },
+	"impact": 1,
+        "order": 5
+}

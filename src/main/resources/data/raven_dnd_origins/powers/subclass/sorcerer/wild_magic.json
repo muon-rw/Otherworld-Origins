@@ -1,0 +1,171 @@
+{
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/info.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.wild_magic_sorcerer_surge_bracket_1"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/info.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.wild_magic_sorcerer_surge_bracket_2"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/info.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.wild_magic_sorcerer_surge_bracket_3"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/info.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.wild_magic_sorcerer_surge_bracket_4"
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/arrow_up.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.wild_magic_sorcerer_free_recast"
+            }
+        }
+    ],
+    "wild_magic_surge": {
+        "type": "raven_dnd_origins:action_on_spell_cast",
+        "cast_conditions": {
+            "cast_sources": [
+                "spellbook",
+                "scroll",
+                "sword",
+                "mob",
+                "command",
+                "none"
+            ]
+        },
+        "condition": {
+            "type": "raven_dnd_origins:leveled_chance",
+            "base": 0.01,
+            "per_level": 0.01,
+            "aptitude": "justlevelingfork:luck"
+        },
+        "entity_action": {
+            "type": "origins:if_else_list",
+            "actions": [
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 15
+                    },
+                    "action": {
+                        "type": "raven_dnd_origins:cast_spell",
+                        "spell": {
+                            "spell_tag": "raven_dnd_origins:wild_magic_surge",
+                            "min_rarity": "rare",
+                            "max_rarity": "legendary",
+                            "level_mode": "random",
+                            "power_level": 1
+                        },
+                        "cast_time": 0
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 10
+                    },
+                    "action": {
+                        "type": "raven_dnd_origins:cast_spell",
+                        "spell": {
+                            "spell_tag": "raven_dnd_origins:wild_magic_surge",
+                            "min_rarity": "uncommon",
+                            "max_rarity": "epic",
+                            "level_mode": "random",
+                            "power_level": 1
+                        },
+                        "cast_time": 0
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 5
+                    },
+                    "action": {
+                        "type": "raven_dnd_origins:cast_spell",
+                        "spell": {
+                            "spell_tag": "raven_dnd_origins:wild_magic_surge",
+                            "min_rarity": "uncommon",
+                            "max_rarity": "rare",
+                            "level_mode": "random",
+                            "power_level": 1
+                        },
+                        "cast_time": 0
+                    }
+                },
+                {
+                    "condition": {
+                        "type": "raven_dnd_origins:player_level",
+                        "comparison": ">=",
+                        "compare_to": 0
+                    },
+                    "action": {
+                        "type": "raven_dnd_origins:cast_spell",
+                        "spell": {
+                            "spell_tag": "raven_dnd_origins:wild_magic_surge",
+                            "min_rarity": "common",
+                            "max_rarity": "common",
+                            "level_mode": "random",
+                            "power_level": 1
+                        },
+                        "cast_time": 0
+                    }
+                }
+            ]
+        }
+    },
+    "wild_magic_free_recast": {
+        "type": "raven_dnd_origins:recast_spell",
+        "cast_conditions": {
+            "cast_sources": [
+                "spellbook",
+                "scroll",
+                "sword",
+                "mob",
+                "command",
+                "none"
+            ],
+            "cast_types": [
+                "none",
+                "instant",
+                "long"
+            ]
+        },
+        "delay_ticks": 10,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 20
+                },
+                {
+                    "type": "raven_dnd_origins:leveled_chance",
+                    "base": 0.1,
+                    "per_level": 0
+                }
+            ]
+        },
+        "cast_time": 0
+    }
+}

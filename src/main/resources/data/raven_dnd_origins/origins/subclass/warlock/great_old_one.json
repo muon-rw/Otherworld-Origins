@@ -1,0 +1,9 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/warlock/great_old_one",
+        "raven_dnd_origins:spell_access/warlock/great_old_one"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/warlock/great_old_one"
+    }
+}

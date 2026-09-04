@@ -1,0 +1,24 @@
+{
+  "order": 11,
+  "name": "First +2 Ability Score (Variant Human)",
+  "hidden": false,
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:origin",
+        "origin": "raven_dnd_origins:race/human_variant"
+      },
+      "origins": [
+        "raven_dnd_origins:apts/two/str",
+        "raven_dnd_origins:apts/two/const",
+        "raven_dnd_origins:apts/two/dex",
+        "raven_dnd_origins:apts/two/def",
+        "raven_dnd_origins:apts/two/int",
+        "raven_dnd_origins:apts/two/bld",
+        "raven_dnd_origins:apts/two/mag",
+        "raven_dnd_origins:apts/two/lck"
+      ]
+    }
+  ]
+}

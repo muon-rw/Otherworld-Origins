@@ -1,0 +1,99 @@
+{
+    "type": "origins:multiple",
+    "badges": [
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/active.png",
+            "text": {
+                "translate": "origins.gui.badge.active",
+                "with": [
+                    {
+                        "keybind": "key.raven_dnd_origins.cantrip_two"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "origins:tooltip",
+            "sprite": "origins:textures/gui/badge/isaacfanta/arrow_up.png",
+            "text": {
+                "translate": "raven_dnd_origins.gui.badge.transmutation_reforge"
+            }
+        }
+    ],
+    "reforge": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.raven_dnd_origins.cantrip_two"
+        },
+        "condition": {
+            "type": "origins:equipped_item",
+            "equipment_slot": "mainhand",
+            "item_condition": {
+                "type": "raven_dnd_origins:reforge_eligible"
+            }
+        },
+        "entity_action": {
+            "type": "raven_dnd_origins:reforge_held_item"
+        },
+        "cooldown": 24000,
+        "hud_render": {
+            "should_render": true,
+            "condition": {
+                "type": "origins:resource",
+                "resource": "*:*_reforge",
+                "compare_to": 0,
+                "comparison": ">"
+            },
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_02.png",
+            "bar_index": 9
+        }
+    },
+    "reforge_feedback": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.raven_dnd_origins.cantrip_two"
+        },
+        "cooldown": 0,
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_reforge",
+                    "comparison": "==",
+                    "compare_to": 0
+                },
+                {
+                    "type": "origins:equipped_item",
+                    "equipment_slot": "mainhand",
+                    "item_condition": {
+                        "type": "raven_dnd_origins:reforge_eligible",
+                        "inverted": true
+                    }
+                }
+            ]
+        },
+        "entity_action": {
+            "type": "raven_dnd_origins:action_bar_message",
+            "message": {
+                "translate": "raven_dnd_origins.transmutation.cannot_reforge",
+                "color": "red"
+            }
+        },
+        "hud_render": {
+            "should_render": false
+        }
+    },
+    "sleep": {
+        "type": "origins:action_on_wake_up",
+        "entity_action": {
+            "type": "origins:modify_resource",
+            "resource": "*:*_reforge",
+            "modifier": {
+                "operation": "set_total",
+                "value": 0
+            }
+        }
+    }
+}

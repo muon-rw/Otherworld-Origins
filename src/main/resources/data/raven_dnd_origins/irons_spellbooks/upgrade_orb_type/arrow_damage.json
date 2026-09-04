@@ -1,0 +1,6 @@
+{
+  "amount": 0.05,
+  "attribute": "apothic_attributes:arrow_damage",
+  "containerItem": "raven_dnd_origins:archery_upgrade_orb",
+  "operation": "add_multiplied_base"
+}

@@ -1,0 +1,9 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/bard/valor",
+        "raven_dnd_origins:spell_access/bard/valor"
+    ],
+    "icon": {
+        "item": "raven_dnd_origins:subclass/bard/valor"
+    }
+}

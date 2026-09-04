@@ -1,0 +1,13 @@
+{
+    "type": "origins:active_self",
+    "entity_action": {
+        "type": "origins:nothing"
+    },
+    "key": {
+        "key": "key.raven_dnd_origins.cantrip_race"
+    },
+    "cooldown": 100,
+    "hud_render": {
+        "should_render": false
+    }
+}

@@ -1,9 +1,0 @@
-{
-    "hidden": true,
-    "type": "otherworldorigins:allowed_spells",
-    "entries": [
-        "#otherworldorigins:conjuring",
-        "#otherworldorigins:support",
-        "@irons_spellbooks:nature"
-    ]
-}

@@ -1,0 +1,12 @@
+{
+	"hidden": true,
+    "type": "origins:multiple",
+    "charisma": {
+        "type": "raven_dnd_origins:charisma",
+        "amount": 0.25
+    },
+    "trade_discount": {
+        "type": "raven_dnd_origins:trade_discount",
+        "amount": 0.05
+    }
+}

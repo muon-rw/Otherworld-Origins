@@ -1,0 +1,8 @@
+{
+    "powers": [
+        "raven_dnd_origins:wildshape/deer"
+    ],
+    "icon": {
+        "item": "naturalist:deer_spawn_egg"
+    }
+}

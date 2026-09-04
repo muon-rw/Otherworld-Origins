@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:race/human_variant/dummy"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/variant"
+	},
+	"impact": 1,
+	"order": 10
+}

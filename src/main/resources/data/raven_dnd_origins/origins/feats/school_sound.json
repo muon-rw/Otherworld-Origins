@@ -1,0 +1,6 @@
+{
+    "powers": ["raven_dnd_origins:feats/school_sound"],
+    "icon": {"item": "tunes_n_tomes:melody_upgrade_orb"},
+    "impact": 1,
+    "order": 110
+}

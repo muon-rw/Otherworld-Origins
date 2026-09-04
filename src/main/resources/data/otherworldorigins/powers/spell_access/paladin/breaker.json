@@ -1,9 +1,0 @@
-{
-    "hidden": true,
-    "type": "otherworldorigins:allowed_spells",
-    "entries": [
-        "#otherworldorigins:melee",
-        "#otherworldorigins:offensive",
-        "#otherworldorigins:control"
-    ]
-}

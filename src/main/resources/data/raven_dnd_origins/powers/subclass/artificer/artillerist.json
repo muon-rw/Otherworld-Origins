@@ -1,0 +1,210 @@
+{
+    "hidden": true,
+    "type": "origins:multiple",
+    "projectile": {
+        "type": "origins:modify_projectile_damage",
+        "modifier": {
+            "operation": "addition",
+            "value": 4
+        }
+    },
+    "mws_i": {
+        "type": "raven_dnd_origins:enhanced_repair",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 5
+                },
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": "<",
+                    "compare_to": 10
+                }
+            ]
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:is_staff"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "raven_dnd_origins:staffs"
+                    }
+                }
+            ]
+        },
+        "attribute": "irons_spellbooks:spell_power",
+        "operation": "multiply_total",
+        "value": 0.1
+    },
+    "mws_ii": {
+        "type": "raven_dnd_origins:enhanced_repair",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": "<",
+                    "compare_to": 15
+                }
+            ]
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:is_staff"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "raven_dnd_origins:staffs"
+                    }
+                }
+            ]
+        },
+        "attribute": "irons_spellbooks:spell_power",
+        "operation": "multiply_total",
+        "value": 0.15
+    },
+    "mws_iii": {
+        "type": "raven_dnd_origins:enhanced_repair",
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:is_staff"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "raven_dnd_origins:staffs"
+                    }
+                }
+            ]
+        },
+        "attribute": "irons_spellbooks:spell_power",
+        "operation": "multiply_total",
+        "value": 0.2
+    },
+    "mwb_i": {
+        "type": "raven_dnd_origins:enhanced_repair",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 5
+                },
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": "<",
+                    "compare_to": 10
+                }
+            ]
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:is_bow"
+                },
+                {
+                    "type": "raven_dnd_origins:is_crossbow"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "raven_dnd_origins:bows"
+                    }
+                }
+            ]
+        },
+        "attribute": "apothic_attributes:arrow_damage",
+        "operation": "multiply_total",
+        "value": 0.1
+    },
+    "mwb_ii": {
+        "type": "raven_dnd_origins:enhanced_repair",
+        "condition": {
+            "type": "origins:and",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": ">=",
+                    "compare_to": 10
+                },
+                {
+                    "type": "raven_dnd_origins:player_level",
+                    "comparison": "<",
+                    "compare_to": 15
+                }
+            ]
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:is_bow"
+                },
+                {
+                    "type": "raven_dnd_origins:is_crossbow"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "raven_dnd_origins:bows"
+                    }
+                }
+            ]
+        },
+        "attribute": "apothic_attributes:arrow_damage",
+        "operation": "multiply_total",
+        "value": 0.15
+    },
+    "mwb_iii": {
+        "type": "raven_dnd_origins:enhanced_repair",
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 15
+        },
+        "item_condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:is_bow"
+                },
+                {
+                    "type": "raven_dnd_origins:is_crossbow"
+                },
+                {
+                    "type": "origins:ingredient",
+                    "ingredient": {
+                        "tag": "raven_dnd_origins:bows"
+                    }
+                }
+            ]
+        },
+        "attribute": "apothic_attributes:arrow_damage",
+        "operation": "multiply_total",
+        "value": 0.2
+    }
+}

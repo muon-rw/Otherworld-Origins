@@ -1,0 +1,9 @@
+{
+    "powers": [
+        "raven_dnd_origins:subclass/bard/swords",
+        "raven_dnd_origins:spell_access/bard/swords"
+    ],
+    "icon": {
+        "item": "minecraft:netherite_sword"
+    }
+}

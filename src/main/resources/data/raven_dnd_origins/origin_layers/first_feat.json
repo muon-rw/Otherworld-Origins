@@ -1,0 +1,669 @@
+{
+  "order": 100,
+  "name": "First Feat (Level 4)",
+  "auto_choose": true,
+  "hidden": false,
+  "gui_title": {
+    "choose_origin": "Choose a Feat:",
+    "view_origin": "Your Feat:"
+  },
+  "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",
+  "origins": [
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/chef",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/chef"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/polearm_master",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/polearm_master"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/defensive_duelist",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/defensive_duelist"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/dual_wielder",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/dual_wielder"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/elemental_adept",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/elemental_adept"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/everybodys_friend",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/everybodys_friend"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/lucky",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/lucky"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/mage_slayer",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/mage_slayer"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/martial_adept",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/martial_adept"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/mobile",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/mobile"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/resilient",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/resilient"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/savage_attacker",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/savage_attacker"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/sharpshooter",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/sharpshooter"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/hail_of_arrows",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/hail_of_arrows"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/skybound",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/skybound"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/momentum",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/momentum"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/shield_master",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/shield_master"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/spell_sniper",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/spell_sniper"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/skilled",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/skilled"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/tough",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/tough"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/weapon_master",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/weapon_master"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:feats/two_handed",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:feats/two_handed"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:fire",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_fire"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:ice",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_ice"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:lightning",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_lightning"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:holy",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_holy"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:ender",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_ender"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:blood",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_blood"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:evocation",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_evocation"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:nature",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_nature"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:eldritch",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_eldritch"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "aces_spell_utils:hydro",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_aqua"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "tunes_n_tomes:melody",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_sound"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "gtbcs_geomancy_plus:geo",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_geo"]
+    }
+  ]
+}

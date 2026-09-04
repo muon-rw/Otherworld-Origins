@@ -1,0 +1,85 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:counterspell",
+    "raven_dnd_origins:black_dragon_breath",
+    "raven_dnd_origins:blue_dragon_breath",
+    "raven_dnd_origins:brass_dragon_breath",
+    "raven_dnd_origins:bronze_dragon_breath",
+    "raven_dnd_origins:copper_dragon_breath",
+    "raven_dnd_origins:gold_dragon_breath",
+    "raven_dnd_origins:green_dragon_breath",
+    "raven_dnd_origins:red_dragon_breath",
+    "raven_dnd_origins:silver_dragon_breath",
+    "raven_dnd_origins:summon_grizzly_bear",
+    "raven_dnd_origins:white_dragon_breath",
+    {
+      "id": "apprenticecodex:anchor_blink",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:divine_possession",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:echo_cast",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:edge_dancer",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:illuminate_stellar",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:long_stride",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:mana_slash",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:palette_shift",
+      "required": false
+    },
+    {
+      "id": "apprenticecodex:unite_luna",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:arm_of_decay_insta_raise_strong",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:arm_of_decay_insta_raise_weak",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:cataphract_heal",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:cataphract_slam",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:cataphract_tackle",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:gild_summon",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:nightmare_scream",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:slashing_ability",
+      "required": false
+    }
+  ]
+}

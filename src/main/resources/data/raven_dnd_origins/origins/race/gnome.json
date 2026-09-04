@@ -1,0 +1,13 @@
+{
+	"powers": [
+                "raven_dnd_origins:race/gnome/attributes",
+                "raven_dnd_origins:race/gnome/speed",
+                "raven_dnd_origins:race/gnome/size",
+                "raven_dnd_origins:dark_vision"
+	],
+        "icon": {
+                "item": "raven_dnd_origins:portrait/gnome"
+	},
+        "impact": 1,
+        "order": 8
+}

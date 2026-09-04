@@ -1,0 +1,30 @@
+{
+    "hidden": true,
+    "type": "origins:conditioned_attribute",
+    "modifiers": [
+        {
+            "operation": "multiply_base",
+            "value": 0.1,
+            "attribute": "minecraft:generic.attack_damage"
+        }
+    ],
+    "condition": {
+        "type": "origins:and",
+        "conditions": [
+            {
+                "type": "origins:equipped_item",
+                "equipment_slot": "offhand",
+                "item_condition": {
+                    "type": "raven_dnd_origins:is_melee_weapon"
+                }
+            },
+            {
+                "type": "origins:equipped_item",
+                "equipment_slot": "mainhand",
+                "item_condition": {
+                    "type": "raven_dnd_origins:is_melee_weapon"
+                }
+            }
+        ]
+    }
+}

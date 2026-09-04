@@ -1,0 +1,10 @@
+{
+	"powers": [
+		"raven_dnd_origins:subrace/gnome/rock"
+	],
+	"icon": {
+		"item": "raven_dnd_origins:portrait/rock"
+	},
+	"impact": 1,
+	"order": 0
+}

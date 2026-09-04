@@ -1,0 +1,7 @@
+{
+    "hidden": true,
+    "type": "raven_dnd_origins:innate_aptitude_bonus",
+    "aptitude_bonuses": {
+        "strength": 1
+    }
+}
