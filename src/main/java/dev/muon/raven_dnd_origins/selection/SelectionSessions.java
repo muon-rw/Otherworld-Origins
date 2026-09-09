@@ -104,9 +104,15 @@ public final class SelectionSessions {
         reconcile(player);
     }
 
-    /** Wipes every enabled layer and re-runs full character creation: orb, Start Over, gui commands. */
+    /** Wipes every layer and re-runs full character creation: orb, Start Over, gui commands. */
     public static boolean beginFullCreation(ServerPlayer player) {
-        return beginCleared(player, activeLayerIds(), SessionKind.INITIAL_CREATION);
+        List<ResourceLocation> layers = activeLayerIds();
+        if (layers.isEmpty()) {
+            return false;
+        }
+        OriginManager.clearAllLayers(player);
+        beginOrMerge(player, layers, SessionKind.INITIAL_CREATION);
+        return true;
     }
 
     /**
@@ -172,6 +178,16 @@ public final class SelectionSessions {
 
     private static ResourceLocation layerPowerSource(ResourceLocation layerId) {
         return ResourceLocation.fromNamespaceAndPath(layerId.getNamespace(), "layer/" + layerId.getPath());
+    }
+
+    /** Prompts for every enabled layer still unchosen, without clearing anything. */
+    public static boolean promptUnchosen(ServerPlayer player) {
+        List<ResourceLocation> empties = emptyValidLayers(player, activeLayerIds());
+        if (empties.isEmpty()) {
+            return false;
+        }
+        beginOrMerge(player, empties, SessionKind.INITIAL_CREATION);
+        return true;
     }
 
     /** On level-up: prompt for any level-gated layer that is now unlocked but still unchosen. */

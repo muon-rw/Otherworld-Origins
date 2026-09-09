@@ -72,7 +72,6 @@
     "client.GuiMixin",
     "client.ItemInHandRendererMixin",
     "client.LivingEntityRendererMixin",
-    "client.LocalPlayerItemSlowdownMixin",
     "client.ModelPartShapeshiftObstructionMixin",
     "client.RenderTypeShapeshiftMixin",
     "client.WalkAnimationStateAccessor",

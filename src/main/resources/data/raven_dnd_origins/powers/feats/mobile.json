@@ -1,4 +1,8 @@
 {
     "hidden": true,
-    "type": "raven_dnd_origins:prevent_item_slowdown"
+    "type": "apoli:modify_use_slowdown",
+    "modifier": {
+        "operation": "set_total",
+        "value": 1.0
+    }
 }

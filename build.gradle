@@ -275,8 +275,8 @@ dependencies {
     // Important: Spell dump and spell tags need to see the whole pool.
     localRuntime("pack:gtbcs_geomancy_plus:1.1.0-1.21.1")
     localRuntime("pack:gtbcs_spell_lib:2.1.0-1.21.1")
-    localRuntime("pack:discerning_the_eldritch:1.4.3-1.21")
-    localRuntime("pack:aces_spell_utils:1.2.7.1-1.21.1")
+    localRuntime("pack:discerning_the_eldritch:1.4.4-1.21")
+    localRuntime("pack:aces_spell_utils:1.2.7.2-1.21.1")
     localRuntime("pack:azurelib-neo:1.21.1-3.1.11")
     localRuntime("pack:prometheus-neoforge:1.21-1.2.5")
     localRuntime("pack:soul-fire-d-neoforge:1.21-6.1.0")
@@ -293,7 +293,7 @@ dependencies {
     localRuntime("pack:aero_additions:1.2.8")
     localRuntime("pack:irons_apothic:2.2.1")
     localRuntime("pack:irons_jewelry:1.21.1-2.0.2")
-    localRuntime("pack:mythsandlegends:0.0.8.6")
+    // localRuntime("pack:mythsandlegends:1.0.2")
     localRuntime("pack:ender_trigon_unofficial:1.0.0-1.21.1")
     localRuntime("pack:atlas_api:1.21.1-1.2.0")                    // required by irons_jewelry
     localRuntime("vazkii.patchouli:Patchouli:1.21.1-93-NEOFORGE")  // apprentice_codex needs 93+; Apotheosis pulls 87

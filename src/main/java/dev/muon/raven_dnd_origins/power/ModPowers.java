@@ -51,7 +51,6 @@ public class ModPowers {
     public static final ResourceLocation MODIFY_PIERCE_LEVEL = RavenDndOrigins.loc("modify_pierce_level");
     public static final ResourceLocation MULTISHOT = RavenDndOrigins.loc("multishot");
     public static final ResourceLocation MOMENTUM = RavenDndOrigins.loc("momentum");
-    public static final ResourceLocation PREVENT_ITEM_SLOWDOWN = RavenDndOrigins.loc("prevent_item_slowdown");
     public static final ResourceLocation MODIFY_BREWED_POTION = RavenDndOrigins.loc("modify_brewed_potion");
 
     public static void register() {
@@ -101,7 +100,6 @@ public class ModPowers {
         PowerTypeRegistry.register(MODIFY_PIERCE_LEVEL, new ModifyPierceLevelPower());
         PowerTypeRegistry.register(MULTISHOT, new MultishotPower());
         PowerTypeRegistry.register(MOMENTUM, new MomentumPower());
-        PowerTypeRegistry.register(PREVENT_ITEM_SLOWDOWN, new PreventItemSlowdownPower());
         PowerTypeRegistry.register(MODIFY_BREWED_POTION, new ModifyBrewedPotionPower());
     }
 }

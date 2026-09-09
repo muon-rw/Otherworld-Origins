@@ -2,11 +2,8 @@ package dev.muon.raven_dnd_origins.mixin.origins_patches;
 
 import com.mojang.brigadier.context.CommandContext;
 import dev.muon.raven_dnd_origins.selection.SelectionSessions;
-import dev.muon.raven_dnd_origins.selection.SessionKind;
 import dev.overgrown.origins.command.OriginCommands;
-import dev.overgrown.origins.origin.OriginLayer;
 import dev.overgrown.origins.origin.OriginLayers;
-import dev.overgrown.origins.origin.OriginManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
@@ -18,14 +15,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Routes {@code /origin gui} through {@link SelectionSessions}. Overgrown's executor only pushes its
  * single-layer choose screen with no persisted state, which the client swaps for a session-less copy
- * of ours: nothing survives a relog and no confirm screen follows. Upstream Origins wiped every
- * layer here, so the no-layer form is full character creation, like {@code /raven_dnd_origins gui};
- * with a layer it is a scoped re-pick of that layer.
+ * of ours: nothing survives a relog and no confirm screen follows. The {@code reset} flag is what
+ * Origins 1.28+ passes for the plain and targeted forms (wipe, then reopen); {@code /origin gui
+ * unchosen} passes false and only prompts for layers still empty.
  */
 @Mixin(value = OriginCommands.class, remap = false)
 public abstract class OriginCommandsMixin {
@@ -34,30 +30,29 @@ public abstract class OriginCommandsMixin {
     private static void raven_dnd_origins$routeGuiThroughSession(CommandContext<CommandSourceStack> ctx,
                                                                  Collection<ServerPlayer> targets,
                                                                  ResourceLocation layerId,
+                                                                 boolean reset,
                                                                  CallbackInfoReturnable<Integer> cir) {
         CommandSourceStack source = ctx.getSource();
-        OriginLayer layer = layerId == null ? null : OriginLayers.get(layerId);
-        if (layerId != null && layer == null) {
+        if (layerId != null && OriginLayers.get(layerId) == null) {
             source.sendFailure(Component.literal("Unknown origin layer " + layerId));
             cir.setReturnValue(0);
             return;
         }
         int opened = 0;
         for (ServerPlayer player : targets) {
-            if (layer == null) {
-                SelectionSessions.beginFullCreation(player);
+            boolean started = reset
+                    ? SelectionSessions.beginFullCreation(player)
+                    : SelectionSessions.promptUnchosen(player);
+            if (started) {
                 opened++;
-                continue;
             }
-            // A layer the player cannot currently pick from would be cleared and then completed
-            // immediately, leaving it empty behind a confirm screen.
-            if (!OriginLayers.enabledFor(player).contains(layer) || !OriginManager.hasChoosableOrigins(player, layer)) {
-                source.sendFailure(Component.literal(player.getGameProfile().getName() + " has no choosable origins on " + layerId)
-                        .withStyle(ChatFormatting.RED));
-                continue;
-            }
-            SelectionSessions.beginCleared(player, List.of(layerId), SessionKind.RESELECTION);
-            opened++;
+        }
+        if (opened == 0) {
+            source.sendFailure(Component.literal(reset
+                    ? "No origin layer is enabled for those players."
+                    : "Those players have already chosen an origin on every layer.").withStyle(ChatFormatting.RED));
+            cir.setReturnValue(0);
+            return;
         }
         int finalOpened = opened;
         source.sendSuccess(() -> Component.literal("Opened origin selection for " + finalOpened + " player(s)"), true);
