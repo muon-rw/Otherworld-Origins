@@ -4,7 +4,7 @@
 		"raven_dnd_origins:class/paladin/lay_on_hands"
 	],
 	"icon": {
-		"item": "irons_spellbooks:priest_helmet"
+		"item": "raven_dnd_origins:class/paladin"
 	},
 	"impact": 3,
 	"order": 0

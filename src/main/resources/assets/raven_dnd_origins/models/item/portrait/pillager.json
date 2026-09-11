@@ -1,6 +1,0 @@
-{
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "raven_dnd_origins:item/origin_portrait_pillager"
-    }
-}

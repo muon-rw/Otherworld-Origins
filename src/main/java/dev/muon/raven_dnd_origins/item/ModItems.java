@@ -16,7 +16,6 @@ public class ModItems {
 
 
     /** Races + Subraces */
-    public static final DeferredItem<Item> BASE_PORTRAIT = ITEMS.register("portrait/base", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> BLACK_PORTRAIT = ITEMS.register("portrait/black", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> BLUE_PORTRAIT = ITEMS.register("portrait/blue", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> BRASS_PORTRAIT = ITEMS.register("portrait/brass", () -> new Item(new Item.Properties()));
@@ -28,7 +27,6 @@ public class ModItems {
     public static final DeferredItem<Item> DUERGAR_PORTRAIT = ITEMS.register("portrait/duergar", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> DWARF_PORTRAIT = ITEMS.register("portrait/dwarf", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> ELF_PORTRAIT = ITEMS.register("portrait/elf", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> ENDERMAN_PORTRAIT = ITEMS.register("portrait/enderman", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> FOREST_PORTRAIT = ITEMS.register("portrait/forest", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> GOBLIN_PORTRAIT = ITEMS.register("portrait/goblin", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> HOBGOBLIN_PORTRAIT = ITEMS.register("portrait/hobgoblin", () -> new Item(new Item.Properties()));
@@ -41,10 +39,6 @@ public class ModItems {
     public static final DeferredItem<Item> HILL_PORTRAIT = ITEMS.register("portrait/hill", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> HUMAN_PORTRAIT = ITEMS.register("portrait/human", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> LIGHTFOOT_PORTRAIT = ITEMS.register("portrait/lightfoot", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> OTHER_PORTRAIT = ITEMS.register("portrait/other", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> MOUNTAIN_PORTRAIT = ITEMS.register("portrait/mountain", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> PIGLIN_PORTRAIT = ITEMS.register("portrait/piglin", () -> new Item(new Item.Properties()));
-    public static final DeferredItem<Item> PILLAGER_PORTRAIT = ITEMS.register("portrait/pillager", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> RED_PORTRAIT = ITEMS.register("portrait/red", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> ROCK_PORTRAIT = ITEMS.register("portrait/rock", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> SILVER_PORTRAIT = ITEMS.register("portrait/silver", () -> new Item(new Item.Properties()));
@@ -65,6 +59,7 @@ public class ModItems {
     public static final DeferredItem<Item> BARD = ITEMS.register("class/bard", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> DRUID = ITEMS.register("class/druid", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> FIGHTER = ITEMS.register("class/fighter", () -> new Item(new Item.Properties()));
+    public static final DeferredItem<Item> PALADIN = ITEMS.register("class/paladin", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> MONK = ITEMS.register("class/monk", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> RANGER = ITEMS.register("class/ranger", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> ROGUE = ITEMS.register("class/rogue", () -> new Item(new Item.Properties()));
