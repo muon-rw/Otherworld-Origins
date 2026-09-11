@@ -100,7 +100,8 @@ public class InnateAptitudeBonusPower extends PowerType<InnateAptitudeBonusPower
         aptitudeBonuses.forEach((aptitudeName, bonus) -> {
             Aptitude aptitude = RegistryAptitudes.getAptitude(aptitudeName);
             if (aptitude != null) {
-                cap.setAptitudeLevel(aptitude, cap.getAptitudeLevel(aptitude) + bonus);
+                // Baseline shift, not a level-up: writes the map directly so no AptitudeChangedEvent fires.
+                cap.aptitudeLevel.put(aptitude.getName(), cap.getAptitudeLevel(aptitude) + bonus);
             } else {
                 RavenDndOrigins.LOGGER.warn("Aptitude not found: {}", aptitudeName);
             }
@@ -117,7 +118,7 @@ public class InnateAptitudeBonusPower extends PowerType<InnateAptitudeBonusPower
         aptitudeBonuses.forEach((aptitudeName, bonus) -> {
             Aptitude aptitude = RegistryAptitudes.getAptitude(aptitudeName);
             if (aptitude != null) {
-                cap.setAptitudeLevel(aptitude, Math.max(cap.getAptitudeLevel(aptitude) - bonus, 1));
+                cap.aptitudeLevel.put(aptitude.getName(), Math.max(cap.getAptitudeLevel(aptitude) - bonus, 1));
             } else {
                 RavenDndOrigins.LOGGER.warn("Aptitude not found: {}", aptitudeName);
             }
