@@ -62,7 +62,7 @@ public class JustLevelingScreenRespecMixin {
 
     @ModifyExpressionValue(
             method = "drawSkills",
-            at = @At(value = "FIELD", target = "Lcom/seniors/justlevelingfork/handler/HandlerCommonConfig;playersMaxGlobalLevel:I", opcode = Opcodes.GETFIELD, ordinal = 0)
+            at = @At(value = "FIELD", target = "Lcom/seniors/justlevelingfork/handler/HandlerCommonConfig;playersMaxGlobalLevel:I", opcode = Opcodes.GETFIELD)
     )
     private int raiseGlobalMaxLevel(int maxLevel) {
         Player player = Minecraft.getInstance().player;

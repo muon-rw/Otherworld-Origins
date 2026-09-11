@@ -48,6 +48,7 @@
     "compat.irons_spellbooks.UtilsSpellImmunityMixin",
     "compat.irons_spellbooks.accessor.SyncedSpellDataAccessor",
     "compat.justlevelingfork.AptitudeCapabilityBonusMixin",
+    "compat.justlevelingfork.AptitudeLevelUpSPMixin",
     "compat.justlevelingfork.PlayerMaxAirSupplyMixin",
     "compat.justlevelingfork.RegistryGameplayEventsMixin",
     "compat.justlevelingfork.RegistryPassivesMixin",

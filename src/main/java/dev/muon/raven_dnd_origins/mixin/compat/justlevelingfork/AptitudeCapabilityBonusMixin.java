@@ -1,6 +1,9 @@
 package dev.muon.raven_dnd_origins.mixin.compat.justlevelingfork;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
@@ -41,5 +44,18 @@ public class AptitudeCapabilityBonusMixin {
         if (owner.get() instanceof ServerPlayer serverPlayer) {
             SelectionSessions.promptLevelGated(serverPlayer);
         }
+    }
+
+    // Runs on save load and on every client sync; without it an aptitude raised past the cap by an
+    // innate bonus is cut back to the cap and the bonus is silently lost.
+    @WrapOperation(
+            method = "deserializeNBT(Lnet/minecraft/nbt/CompoundTag;)V",
+            at = @At(value = "INVOKE", target = "Lcom/seniors/justlevelingfork/common/capability/AptitudeCapability;clampAptitudeLevel(I)I")
+    )
+    private int raiseClampByInnateBonus(int level, Operation<Integer> original, @Local Aptitude aptitude) {
+        int clamped = original.call(level);
+        Player owner = ((AptitudeCapabilityOwner) (Object) this).raven_core$owner();
+        if (owner == null || level <= clamped) return clamped;
+        return Math.min(level, clamped + InnateAptitudeBonusPower.getBonus(owner, aptitude.getName()));
     }
 }
