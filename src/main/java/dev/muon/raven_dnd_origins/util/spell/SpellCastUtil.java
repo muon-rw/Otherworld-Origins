@@ -22,9 +22,8 @@ import io.redspace.ironsspellbooks.network.casting.OnClientCastPacket;
 import io.redspace.ironsspellbooks.network.casting.SyncTargetingDataPacket;
 import io.redspace.ironsspellbooks.network.casting.UpdateCastingStatePacket;
 import io.redspace.ironsspellbooks.spells.TargetedTargetAreaCastData;
+import dev.muon.raven_core.util.PassthroughRaycast;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerLevel;
@@ -32,15 +31,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.entity.PartEntity;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -363,7 +358,7 @@ public final class SpellCastUtil {
         Vec3 lookVec = caster.getLookAngle();
         Vec3 endPos = eyePos.add(lookVec.scale(distance));
 
-        HitResult blockHit = clipIgnoringPassableBlocks(caster.level(), eyePos, endPos);
+        HitResult blockHit = PassthroughRaycast.clipIgnoringPassableBlocks(caster.level(), eyePos, endPos);
 
         double searchDist = blockHit.getType() != HitResult.Type.MISS
                 ? blockHit.getLocation().distanceTo(eyePos)
@@ -391,35 +386,6 @@ public final class SpellCastUtil {
         }
 
         return null;
-    }
-
-    private static HitResult clipIgnoringPassableBlocks(BlockGetter level, Vec3 start, Vec3 end) {
-        return BlockGetter.traverseBlocks(start, end, level, (blockGetter, blockPos) -> {
-            BlockState blockState = blockGetter.getBlockState(blockPos);
-
-            if (isPassableBlock(blockGetter, blockPos, blockState)) {
-                return null;
-            }
-
-            VoxelShape shape = blockState.getCollisionShape(blockGetter, blockPos);
-            if (shape.isEmpty()) {
-                return null;
-            }
-
-            return shape.clip(start, end, blockPos);
-        }, (blockGetter) -> {
-            Vec3 direction = start.subtract(end);
-            return BlockHitResult.miss(end,
-                    Direction.getNearest(direction.x, direction.y, direction.z),
-                    BlockPos.containing(end));
-        });
-    }
-
-    private static boolean isPassableBlock(BlockGetter level, BlockPos pos, BlockState state) {
-        if (state.getCollisionShape(level, pos).isEmpty()) {
-            return true;
-        }
-        return state.getDestroySpeed(level, pos) == 0.0F;
     }
 
     @Nullable

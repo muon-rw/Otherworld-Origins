@@ -1,6 +1,6 @@
 package dev.muon.raven_dnd_origins.util.spell;
 
-import net.minecraft.util.Mth;
+import dev.muon.raven_core.util.ViewRotation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec2;
@@ -72,19 +72,9 @@ public final class BientitySpellCastAim {
                 delta = target.position().subtract(caster.position());
             }
             Vec3 look = delta.lengthSqr() < 1e-8 ? new Vec3(0.0, 0.0, 1.0) : delta.normalize();
-            float xRot = pitchFromDirection(look);
-            float yRot = yawFromDirection(look);
+            float xRot = ViewRotation.pitchOf(look);
+            float yRot = ViewRotation.yawOf(look);
             return new Frame(caster.getUUID(), look, xRot, yRot, new Vec2(xRot, yRot));
-        }
-
-        // Inverse of Entity.calculateViewVector so getLookAngle() and derived yaw/pitch stay aligned.
-        private static float pitchFromDirection(Vec3 n) {
-            return (float) (Mth.RAD_TO_DEG * Math.asin(Mth.clamp(-n.y, -1.0, 1.0)));
-        }
-
-        private static float yawFromDirection(Vec3 n) {
-            float xzLenSq = (float) (n.x * n.x + n.z * n.z);
-            return xzLenSq < 1.0E-8F ? 0.0F : (float) (Mth.RAD_TO_DEG * Mth.atan2(-(float) n.x, (float) n.z));
         }
     }
 }

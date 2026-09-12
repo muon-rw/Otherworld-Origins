@@ -284,7 +284,7 @@ dependencies {
     localRuntime("pack:hazennstuff:1.4.0.14")
     localRuntime("pack:hazentouvelib:1.0.9")
     localRuntime("pack:tunes_n_tomes:1.1.0-HOTFIX")
-    localRuntime("pack:apprentice_codex:0.9.7.1+mc1.21.1")
+    // localRuntime("pack:apprentice_codex:0.9.7.1+mc1.21.1")
     localRuntime("pack:cataclysm_spellbooks:1.1.12-1.21")
     localRuntime("pack:legendary_spellbooks:1.21.1+neo-0.3.2")
     localRuntime("pack:ess_requiem:0.1.7")
