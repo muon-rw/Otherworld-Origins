@@ -33,7 +33,7 @@ public class ProjectileWeaponItemMixin {
     ) {
         int used = original.call(level, weapon, ammo, count);
         if (used < count && shooter instanceof Player player
-                && !EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.INFINITY)) {
+                && !EnchantmentRestrictions.isEnchantmentAllowed(player, weapon, Enchantments.INFINITY)) {
             return count;
         }
         return used;

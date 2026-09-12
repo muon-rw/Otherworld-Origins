@@ -139,7 +139,7 @@ public class ItemStackMixin {
                 if (!line.getString().contains(fullName)) {
                     continue;
                 }
-                if (EnchantmentRestrictions.isEnchantmentAllowed(player, enchantment)) {
+                if (EnchantmentRestrictions.isEnchantmentAllowed(player, stack, enchantment)) {
                     continue;
                 }
                 tooltips.set(i, Component.literal("").append(line)

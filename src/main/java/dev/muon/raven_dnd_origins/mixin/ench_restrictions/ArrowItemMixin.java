@@ -6,6 +6,7 @@ import dev.muon.raven_dnd_origins.restrictions.EnchantmentRestrictions;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArrowItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,8 +15,10 @@ import org.spongepowered.asm.mixin.injection.At;
 public class ArrowItemMixin {
 
     @ModifyReturnValue(method = "isInfinite", at = @At("RETURN"))
-    private boolean raven_dnd_origins$restrictInfinityEnchantment(boolean original, @Local(argsOnly = true) LivingEntity shooter) {
-        if (original && shooter instanceof Player player && !EnchantmentRestrictions.isEnchantmentAllowed(player, Enchantments.INFINITY)) {
+    private boolean raven_dnd_origins$restrictInfinityEnchantment(
+            boolean original, @Local(argsOnly = true, ordinal = 1) ItemStack bow, @Local(argsOnly = true) LivingEntity shooter
+    ) {
+        if (original && shooter instanceof Player player && !EnchantmentRestrictions.isEnchantmentAllowed(player, bow, Enchantments.INFINITY)) {
             return false;
         }
         return original;

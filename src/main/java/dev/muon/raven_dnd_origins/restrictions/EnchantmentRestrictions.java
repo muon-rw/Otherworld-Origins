@@ -11,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +35,11 @@ public class EnchantmentRestrictions {
         ENCHANTMENT_CLASS_MAP.put(ResourceLocation.fromNamespaceAndPath("apothic_enchanting", "endless_quiver"), "ranger");
     }
 
-    public static boolean isEnchantmentAllowed(Player player, @Nullable ResourceLocation enchantmentId) {
+    /**
+     * Whether {@code player} gets the effect of {@code enchantmentId} on {@code stack}. The stack is the item
+     * carrying the enchantment; add-ons (Raven Apoth attunement) hook this to exempt individual items.
+     */
+    public static boolean isEnchantmentAllowed(Player player, ItemStack stack, @Nullable ResourceLocation enchantmentId) {
         if (!RavenDndOriginsConfig.enableEnchantmentRestrictions() || enchantmentId == null) {
             return true;
         }
@@ -53,12 +58,12 @@ public class EnchantmentRestrictions {
         return origins.getOrigin(classLayer).equals(RavenDndOrigins.loc("class/" + requiredClass));
     }
 
-    public static boolean isEnchantmentAllowed(Player player, @Nullable ResourceKey<Enchantment> key) {
-        return isEnchantmentAllowed(player, key == null ? null : key.location());
+    public static boolean isEnchantmentAllowed(Player player, ItemStack stack, @Nullable ResourceKey<Enchantment> key) {
+        return isEnchantmentAllowed(player, stack, key == null ? null : key.location());
     }
 
-    public static boolean isEnchantmentAllowed(Player player, @Nullable Holder<Enchantment> enchantment) {
-        return isEnchantmentAllowed(player, idOf(enchantment));
+    public static boolean isEnchantmentAllowed(Player player, ItemStack stack, @Nullable Holder<Enchantment> enchantment) {
+        return isEnchantmentAllowed(player, stack, idOf(enchantment));
     }
 
     @Nullable

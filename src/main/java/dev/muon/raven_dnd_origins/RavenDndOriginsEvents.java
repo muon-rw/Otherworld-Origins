@@ -352,7 +352,7 @@ public class RavenDndOriginsEvents {
     private static float restrictedEnchantmentDamage(ServerLevel level, Player player, ItemStack weapon,
                                                      ResourceKey<Enchantment> key, LivingEntity victim,
                                                      DamageSource source) {
-        if (EnchantmentRestrictions.isEnchantmentAllowed(player, key)) {
+        if (EnchantmentRestrictions.isEnchantmentAllowed(player, weapon, key)) {
             return 0;
         }
         Holder<Enchantment> enchantment = level.registryAccess()
