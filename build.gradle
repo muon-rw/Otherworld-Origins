@@ -293,7 +293,7 @@ dependencies {
     localRuntime("pack:aero_additions:1.2.8")
     localRuntime("pack:irons_apothic:2.2.1")
     localRuntime("pack:irons_jewelry:1.21.1-2.0.2")
-    // localRuntime("pack:mythsandlegends:1.0.2")
+    // localRuntime("pack:mythsandlegends:1.0.4")
     localRuntime("pack:ender_trigon_unofficial:1.0.0-1.21.1")
     localRuntime("pack:atlas_api:1.21.1-1.2.0")                    // required by irons_jewelry
     localRuntime("vazkii.patchouli:Patchouli:1.21.1-93-NEOFORGE")  // apprentice_codex needs 93+; Apotheosis pulls 87
