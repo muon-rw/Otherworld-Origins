@@ -5,7 +5,7 @@ plugins {
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.144'
     id 'me.modmuss50.mod-publish-plugin' version '2.2.0'
-    id 'dev.mixinmcp.decompile' version '1.4.0'
+    id 'dev.mixinmcp.decompile' version '1.5.0'
 }
 
 base {
@@ -188,7 +188,7 @@ dependencies {
     // only aether_villages and legendary_monsters. Aether Villages needs Architectury (already on
     // the FTB line below) and thankfully not The Aether itself, so no Aether in this runtime. If
     // it needs to be added, its bundled accessories needs to be bumped as well.
-    implementation("dev.muon:raven_core:${raven_core_version}") { transitive = false }
+    implementation("dev.muon:raven-core:${raven_core_version}") { transitive = false }
     localRuntime("curse.maven:aether-villages-1073197:5895490")
     localRuntime("curse.maven:legendary-monsters-944035:8715533")
     // need this to use the obsidian mirror without crashing
@@ -197,8 +197,8 @@ dependencies {
     compileOnly("maven.modrinth:AdditionalEntityAttributes:${additional_entity_attributes_version}")
 
     // Origins (Overgrown's fork)
-    implementation("curse.maven:apoli-1631826:${apoli_file}")
-    implementation("curse.maven:o-origins-1636345:${origins_file}")
+    implementation("maven.modrinth:opoli:${apoli_version}-neoforge,1.21.1")
+    implementation("maven.modrinth:overgrowns-origins:${origins_version}-neoforge,1.21.1")
 
     // Shared libs
     localRuntime("top.theillusivec4.curios:curios-neoforge:${curios_version}")
@@ -291,7 +291,7 @@ dependencies {
     localRuntime("pack:elemental_synergies:1.1.1")
     localRuntime("pack:magic_realms:1.2")
     localRuntime("pack:aero_additions:1.2.8")
-    localRuntime("pack:irons_apothic:2.2.1")
+    localRuntime("pack:irons_apothic:2.2.2")
     localRuntime("pack:irons_jewelry:1.21.1-2.0.2")
     // localRuntime("pack:mythsandlegends:1.0.4")
     localRuntime("pack:ender_trigon_unofficial:1.0.0-1.21.1")
@@ -378,7 +378,7 @@ publishMods {
     changelog = new File("$project.rootDir/CHANGELOG.md").getText('UTF-8')
     version = "${project.version}"
     type = STABLE
-    displayName = "NeoForge-${project.properties.version}+${mc_version}"
+    displayName = "NeoForge-${project.version}"
 
     curseforge {
         projectId = "${curseforge_project}"
@@ -389,13 +389,28 @@ publishMods {
 
         client = true
         server = true
+
+        requires("raven-core")
+        requires("apoli")
+        requires("o-origins")
+        requires("irons-spells-n-spellbooks")
+        requires("justleveling-fork")
+        requires("apotheosis")
+        requires("apothic-enchanting")
     }
+}
+
+tasks.named('publishMods') {
+    dependsOn 'publishAllPublicationsToMuonRepository'
+}
+tasks.withType(me.modmuss50.mpp.PublishModTask).configureEach {
+    mustRunAfter 'publishAllPublicationsToMuonRepository'
 }
 
 publishing {
     publications {
         create("mavenJava", MavenPublication) {
-            artifactId = base.archivesName.get()
+            artifactId = 'raven-dnd-origins'
             artifact(tasks.named('jar'))
             artifact(tasks.named('sourcesJar', Jar))
             artifact(tasks.named('javadocJar', Jar))
@@ -404,7 +419,7 @@ publishing {
     repositories {
         maven {
             name = "Muon"
-            url = uri("https://maven.muon.rip/releases")
+            url = uri(System.getenv("MAVEN_URL") ?: "https://maven.muon.rip/releases")
             credentials {
                 username = System.getenv("MAVEN_USERNAME")
                 password = System.getenv("MAVEN_PASSWORD")
