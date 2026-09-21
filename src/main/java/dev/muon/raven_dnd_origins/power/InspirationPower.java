@@ -3,6 +3,7 @@ package dev.muon.raven_dnd_origins.power;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import dev.muon.raven_dnd_origins.util.LivePerformanceTracker;
 import dev.overgrown.apoli.action.BiEntityAction;
 import dev.overgrown.apoli.codec.LoggedOptionalField;
 import dev.overgrown.apoli.condition.BiEntityCondition;
@@ -23,7 +24,7 @@ import net.minecraft.world.phys.AABB;
 import java.util.Optional;
 
 /**
- * While holding an Immersive Melodies instrument that is actively playing,
+ * While holding an Immersive Melodies instrument that is playing a melody or being played live,
  * heals living entities within {@code radius} every {@code interval} ticks.
  */
 public class InspirationPower extends PowerType<InspirationPower.Configuration> {
@@ -55,7 +56,7 @@ public class InspirationPower extends PowerType<InspirationPower.Configuration> 
         if (!conditionHolds(powerId, musician, level)) {
             return;
         }
-        if (!isHoldingPlayingInstrument(musician)) {
+        if (!isPerforming(musician)) {
             return;
         }
 
@@ -83,13 +84,22 @@ public class InspirationPower extends PowerType<InspirationPower.Configuration> 
                 || power.condition().get().test(new EntityCtx(musician, level));
     }
 
-    private static boolean isHoldingPlayingInstrument(LivingEntity entity) {
-        for (ItemStack stack : entity.getHandSlots()) {
-            if (stack.getItem() instanceof InstrumentItem instrument && instrument.isPlaying(stack)) {
-                return true;
+    private static boolean isPerforming(LivingEntity musician) {
+        boolean holdingInstrument = false;
+        for (ItemStack stack : musician.getHandSlots()) {
+            if (stack.getItem() instanceof InstrumentItem instrument) {
+                if (instrument.isPlaying(stack)) {
+                    return true;
+                }
+                holdingInstrument = true;
             }
         }
-        return false;
+        if (!holdingInstrument) {
+            // A note-off lost to a paused client would otherwise leave a tone held forever.
+            LivePerformanceTracker.stop(musician);
+            return false;
+        }
+        return LivePerformanceTracker.isPerforming(musician);
     }
 
     public record Configuration(
