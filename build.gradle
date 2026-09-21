@@ -245,9 +245,9 @@ dependencies {
 
     // RPGDO + AttributeSetter
     compileOnly "curse.maven:rpgdamageoverhaul-1293843:8777705"
-    localRuntime "curse.maven:rpgdamageoverhaul-1293843:8777705"
+    // shelved: localRuntime "curse.maven:rpgdamageoverhaul-1293843:8777705"
     compileOnly "curse.maven:attribute-setter-1064034:8777532"
-    localRuntime "curse.maven:attribute-setter-1064034:8777532"
+    // shelved: localRuntime "curse.maven:attribute-setter-1064034:8777532"
 
     // Mobs: wildshape forms, familiars, spell targets
     implementation("curse.maven:naturalist-627986:8663845")

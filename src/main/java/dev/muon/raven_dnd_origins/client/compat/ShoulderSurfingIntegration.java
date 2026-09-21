@@ -4,8 +4,6 @@ import com.github.exopandora.shouldersurfing.api.client.IShoulderSurfing;
 import dev.muon.raven_core.compat.shouldersurfing.CrosshairTarget;
 import dev.muon.raven_dnd_origins.util.shapeshift.ShapeshiftCollisionHelper;
 import dev.muon.raven_dnd_origins.util.shapeshift.ShapeshiftCollisionShape;
-import io.redspace.ironsspellbooks.api.spells.CastType;
-import io.redspace.ironsspellbooks.player.ClientMagicData;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -21,7 +19,6 @@ import dev.muon.raven_dnd_origins.power.ShapeshiftPower;
 
 /**
  * Client-side integration with Shoulder Surfing Reloaded.
- * Makes the player look at the crosshair target when casting spells.
  */
 public class ShoulderSurfingIntegration {
     private static final String SHOULDER_SURFING_MOD_ID = "shouldersurfing";
@@ -136,10 +133,6 @@ public class ShoulderSurfingIntegration {
         return lift > 0.0F ? scaled.add(0.0, lift, 0.0) : scaled;
     }
 
-    public static boolean shouldAimAtTarget() {
-        return isCastingContinuousSpell();
-    }
-
     /**
      * When Shoulder Surfing is present, reuse its "adjust player transparency" config for shapeshift obstruction.
      */
@@ -149,9 +142,5 @@ public class ShoulderSurfingIntegration {
             return true;
         }
         return instance.getClientConfig().getPlayerConfig().isPlayerTransparencyEnabled();
-    }
-
-    private static boolean isCastingContinuousSpell() {
-        return ClientMagicData.isCasting() && ClientMagicData.getCastType() == CastType.CONTINUOUS;
     }
 }
