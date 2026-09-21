@@ -389,8 +389,10 @@
                         "type": "origins:delay",
                         "ticks": 2,
                         "action": {
-                            "type": "origins:execute_command",
-                            "command": "playsound raven_dnd_origins:dash player @s ~ ~ ~ 1.0 1.3"
+                            "type": "origins:play_sound",
+                            "sound": "raven_dnd_origins:dash",
+                            "category": "players",
+                            "pitch": 1.3
                         }
                     }
                 },

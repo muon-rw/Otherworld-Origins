@@ -65,12 +65,16 @@
             "type": "origins:and",
             "actions": [
                 {
-                    "type": "origins:execute_command",
-                    "command": "playsound minecraft:entity.enderman.teleport ambient @a ~ ~ ~ 1 1"
+                    "type": "origins:play_sound",
+                    "sound": "minecraft:entity.enderman.teleport",
+                    "category": "ambient"
                 },
                 {
-                    "type": "origins:execute_command",
-                    "command": "particle minecraft:end_rod ~ ~1.5 ~ .4 .4 .4 0 15 normal"
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:end_rod",
+                    "count": 15,
+                    "spread": 0.4,
+                    "offset_y": 1.5
                 }
             ]
         }

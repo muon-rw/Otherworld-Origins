@@ -112,8 +112,12 @@
                     "category": "players"
                 },
                 {
-                    "type": "origins:execute_command",
-                    "command": "particle minecraft:note ~ ~1.5 ~ 0.5 0.5 0.5 1 8"
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:note",
+                    "count": 8,
+                    "speed": 1,
+                    "spread": 0.5,
+                    "offset_y": 1.5
                 },
                 {
                     "type": "origins:area_of_effect",

@@ -31,8 +31,14 @@
                     "amount": 8
                 },
                 {
-                    "type": "origins:execute_command",
-                    "command": "particle minecraft:heart ^ ^1 ^ 0.3 0.3 0.3 1 10 force"
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:heart",
+                    "count": 10,
+                    "speed": 1,
+                    "force": true,
+                    "spread": 0.3,
+                    "offset_y": 1,
+                    "space": "local"
                 }
             ]
         },
@@ -49,8 +55,14 @@
                     "amount": 8
                 },
                 {
-                    "type": "origins:execute_command",
-                    "command": "particle minecraft:heart ^ ^1 ^ 0.3 0.3 0.3 1 10 force"
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:heart",
+                    "count": 10,
+                    "speed": 1,
+                    "force": true,
+                    "spread": 0.3,
+                    "offset_y": 1,
+                    "space": "local"
                 }
             ]
         }

@@ -122,8 +122,12 @@
                     "category": "players"
                 },
                 {
-                    "type": "origins:execute_command",
-                    "command": "particle minecraft:angry_villager ~ ~1.5 ~ 1 0.5 1 0.1 12"
+                    "type": "origins:spawn_particles",
+                    "particle": "minecraft:angry_villager",
+                    "count": 12,
+                    "speed": 0.1,
+                    "spread": {"x": 1, "y": 0.5, "z": 1},
+                    "offset_y": 1.5
                 },
                 {
                     "type": "origins:area_of_effect",
