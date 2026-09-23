@@ -1,0 +1,27 @@
+{
+    "type": "origins:multiple",
+    "grounded": {
+        "type": "origins:prevent_elytra_flight",
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": "<",
+            "compare_to": 8
+        }
+    },
+    "no_boost": {
+        "type": "raven_dnd_origins:prevent_wing_boost",
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": "<",
+            "compare_to": 15
+        }
+    },
+    "unburdened": {
+        "type": "raven_dnd_origins:bypass_armor_weight",
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 20
+        }
+    }
+}

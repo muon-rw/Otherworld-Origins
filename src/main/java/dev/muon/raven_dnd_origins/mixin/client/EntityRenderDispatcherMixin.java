@@ -68,11 +68,19 @@ public abstract class EntityRenderDispatcherMixin {
         // arms/items. Delegating to the wildshape renderer bypasses that hiding and draws the full
         // mob over the camera. Fall back to the vanilla player renderer for that pass, matching the
         // hand policy in ItemInHandRendererMixin for hide_hands forms.
-        if (FirstPersonMode.isFirstPersonPass() && player == Minecraft.getInstance().getCameraEntity()) {
-            if (!ShapeshiftClientState.shouldHideHands(player.getId())) {
-                original.call(originalRenderer, entity, yaw, tickDelta, poseStack, bufferSource, light);
+        Minecraft mc = Minecraft.getInstance();
+        if (player == mc.getCameraEntity()) {
+            if (FirstPersonMode.isFirstPersonPass()) {
+                if (!ShapeshiftClientState.shouldHideHands(player.getId())) {
+                    original.call(originalRenderer, entity, yaw, tickDelta, poseStack, bufferSource, light);
+                }
+                return;
             }
-            return;
+            // Any other world-render draw of the camera entity in first person (camera-shake
+            // or body-render mods) would put the whole form over the view.
+            if (ShapeshiftRenderHelper.isRenderingLevel() && mc.options.getCameraType().isFirstPerson()) {
+                return;
+            }
         }
 
         Entity fakeEntity = FakeEntityCache.getOrCreate(entity.getId(), shapeshiftType);

@@ -3,7 +3,8 @@
                 "raven_dnd_origins:race/dragonborn/attributes",
                 "raven_dnd_origins:race/dragonborn/draconic_ancestry",
                 "raven_dnd_origins:race/dragonborn/resistance",
-                "raven_dnd_origins:race/dragonborn/charisma"
+                "raven_dnd_origins:race/dragonborn/charisma",
+                "raven_dnd_origins:race/dragonborn/wing_training"
 	],
         "icon": {
                 "item": "raven_dnd_origins:portrait/dragonborn"

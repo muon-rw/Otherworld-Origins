@@ -52,6 +52,8 @@ public class ModPowers {
     public static final ResourceLocation MULTISHOT = RavenDndOrigins.loc("multishot");
     public static final ResourceLocation MOMENTUM = RavenDndOrigins.loc("momentum");
     public static final ResourceLocation MODIFY_BREWED_POTION = RavenDndOrigins.loc("modify_brewed_potion");
+    public static final ResourceLocation PREVENT_WING_BOOST = RavenDndOrigins.loc("prevent_wing_boost");
+    public static final ResourceLocation BYPASS_ARMOR_WEIGHT = RavenDndOrigins.loc("bypass_armor_weight");
 
     public static void register() {
         PowerTypeRegistry.register(INNATE_APTITUDE_BONUS, new InnateAptitudeBonusPower());
@@ -101,5 +103,7 @@ public class ModPowers {
         PowerTypeRegistry.register(MULTISHOT, new MultishotPower());
         PowerTypeRegistry.register(MOMENTUM, new MomentumPower());
         PowerTypeRegistry.register(MODIFY_BREWED_POTION, new ModifyBrewedPotionPower());
+        PowerTypeRegistry.register(PREVENT_WING_BOOST, new PreventWingBoostPower());
+        PowerTypeRegistry.register(BYPASS_ARMOR_WEIGHT, new BypassArmorWeightPower());
     }
 }

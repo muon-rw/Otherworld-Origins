@@ -5,7 +5,7 @@
 - Alchemist: pre-Elixirum Experimental Elixir and Chemical Mastery (Restoration / Negation) reverted to vanilla potions
 - Wild Shape no longer strips armor on transform. Instead, attribute modifiers from armor are disabled, and other non-attribute effects continue to work.
 - Wild Shape forms migrated from Alex's Mobs to Naturalist, Hybrid Aquatic and Luminous Beasts. 
-- Dragonborn now grow dragon wings (Icarus) at level 5 (will probably increase), coloured by draconic ancestry.
+- Dragonborn now grow dragon wings (Icarus), and can fly with them at level 8, gaining additional flight boosts later.
 - Spell categories, class spell access and school feats rebuilt from the new spell pool (461 spells, 14 addons). Tidecaller now covers the Hydro school, Cantor covers Melody, Swords Bard and Eldritch Knight gain the Blade school. Wild Magic surge pool is now 243 spells.
 - Migrated Pehkui scales to vanilla/AdditionalEntityAttributes attrs
 - Migrate origin icons that used sprites from Valoria, Minecells and Alex's Mobs to custom items (not yet textured)

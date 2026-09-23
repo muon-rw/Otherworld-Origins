@@ -204,6 +204,7 @@ dependencies {
     localRuntime("top.theillusivec4.curios:curios-neoforge:${curios_version}")
     compileOnly("top.theillusivec4.curios:curios-neoforge:${curios_version}:api")
     localRuntime("com.illusivesoulworks.caelus:caelus-neoforge:${caelus_version}")
+    compileOnly("com.illusivesoulworks.caelus:caelus-neoforge:${caelus_version}")
     implementation("dev.kosmx.player-anim:player-animation-lib-forge:${player_anim_version}")
     implementation("software.bernie.geckolib:geckolib-neoforge-${mc_version}:${geckolib_version}")
     localRuntime("curse.maven:attributefix-280510:7115922")
@@ -274,6 +275,9 @@ dependencies {
     localRuntime("maven.modrinth:common-network:${common_network_version}")
     localRuntime("maven.modrinth:sparkweave:${sparkweave_version}")
     localRuntime("maven.modrinth:resourceful-config:${resourceful_config_version}")
+
+    compileOnly "curse.maven:icarus-rewinged-1584283:8516781"
+    localRuntime "curse.maven:icarus-rewinged-1584283:8516781"
 
     // Bard instruments
     implementation("maven.modrinth:immersive-melodies:${immersive_melodies_version}")

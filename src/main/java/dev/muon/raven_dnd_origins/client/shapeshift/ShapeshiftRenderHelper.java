@@ -42,6 +42,7 @@ public class ShapeshiftRenderHelper {
     private static final List<FormAnimationSync> FORM_ANIMATION_SYNCS = new CopyOnWriteArrayList<>();
 
     private static boolean renderingShapeshiftBody = false;
+    private static boolean renderingLevel = false;
     /**
      * Camera obstruction fade for the current delegated shapeshift draw.
      * Mirrors shoulder-surfing's per-vertex alpha when the camera sits inside the wildshape bounds.
@@ -67,6 +68,14 @@ public class ShapeshiftRenderHelper {
 
     public static void setRenderingShapeshiftBody(boolean rendering) {
         renderingShapeshiftBody = rendering;
+    }
+
+    public static boolean isRenderingLevel() {
+        return renderingLevel;
+    }
+
+    public static void setRenderingLevel(boolean rendering) {
+        renderingLevel = rendering;
     }
 
     public static float getShapeshiftBodyObstructionAlpha() {

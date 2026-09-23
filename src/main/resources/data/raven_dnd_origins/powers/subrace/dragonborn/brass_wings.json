@@ -1,10 +1,5 @@
 {
     "hidden": true,
     "type": "apoli:wings",
-    "condition": {
-        "type": "raven_dnd_origins:player_level",
-        "comparison": ">=",
-        "compare_to": 5
-    },
-    "wings_type": "icarus:orange_dragon_wings"
+    "wings_type": "icarusrewinged:membrane_steampunk_wings"
 }
