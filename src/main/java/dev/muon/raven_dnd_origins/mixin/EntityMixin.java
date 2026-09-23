@@ -63,7 +63,7 @@ public class EntityMixin {
             return false;
         }
         var config = ShapeshiftPower.getActiveShapeshiftConfig(player);
-        return config != null && config.autoSwimInWater();
+        return config != null && config.autoSwimInWater() && player.isInWater();
     }
 
 }
