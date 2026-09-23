@@ -79,6 +79,8 @@
     "client.WalkAnimationStateAccessor",
     "client.compat.apoli.ApoliKeyHandlerActivationMixin",
     "client.compat.apoli.PowerHudRendererMixin",
+    "client.compat.apoli.RadialMenuAccessor",
+    "client.compat.apoli.RadialMenuScreenAccessor",
     "client.compat.legendarysurvivaloverhaul.RenderThirstGuiMixin",
     "compat.apothic_enchanting.ApothEnchantmentScreenMixin",
     "compat.bettercombat.WeaponRegistryMixin",

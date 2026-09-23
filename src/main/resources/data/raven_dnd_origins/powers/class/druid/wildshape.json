@@ -92,7 +92,6 @@
         "key": {
             "key": "key.raven_dnd_origins.cantrip_three"
         },
-        "cooldown": 20,
         "hud_render": {
             "should_render": false
         },
@@ -113,19 +112,518 @@
             ]
         },
         "entity_action": {
-            "type": "origins:and",
-            "actions": [
+            "type": "apoli:radial_menu",
+            "entries": [
                 {
-                    "type": "origins:modify_resource",
-                    "resource": "*:*_wildshape_gate",
-                    "modifier": {
-                        "operation": "set_total",
-                        "value": 1
+                    "item": {
+                        "item": "minecraft:wolf_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/wolf.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/wolf"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 2
+                            }
+                        ]
                     }
                 },
                 {
-                    "type": "raven_dnd_origins:prompt_layer_selection",
-                    "layers": ["raven_dnd_origins:wildshape"]
+                    "item": {
+                        "item": "minecraft:cat_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/cat.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/cat"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 2
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "naturalist:lion_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/lion.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/lion"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 4
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "naturalist:deer_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/deer.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/deer"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 4
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "minecraft:dolphin_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/dolphin.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/dolphin"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 6
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "luminous_beasts:yeti_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/yeti.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/yeti"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 6
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "naturalist:snake_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/snake.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/snake"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 6
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "naturalist:bird_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/bird.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/bird"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 8
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "naturalist:bear_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/grizzly_bear.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/grizzly_bear"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:origin",
+                                "origin": "raven_dnd_origins:subclass/druid/moon",
+                                "layer": "raven_dnd_origins:subclass"
+                            },
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 4
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "naturalist:tiger_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/tiger.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/tiger"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:origin",
+                                "origin": "raven_dnd_origins:subclass/druid/moon",
+                                "layer": "raven_dnd_origins:subclass"
+                            },
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 4
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "naturalist:alligator_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/alligator.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/alligator"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:origin",
+                                "origin": "raven_dnd_origins:subclass/druid/moon",
+                                "layer": "raven_dnd_origins:subclass"
+                            },
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 6
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "naturalist:hippo_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/hippo.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/hippo"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:origin",
+                                "origin": "raven_dnd_origins:subclass/druid/moon",
+                                "layer": "raven_dnd_origins:subclass"
+                            },
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 6
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "naturalist:rhino_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/rhinoceros.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/rhinoceros"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:origin",
+                                "origin": "raven_dnd_origins:subclass/druid/moon",
+                                "layer": "raven_dnd_origins:subclass"
+                            },
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 6
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "naturalist:mammoth_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/mammoth.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/mammoth"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:origin",
+                                "origin": "raven_dnd_origins:subclass/druid/moon",
+                                "layer": "raven_dnd_origins:subclass"
+                            },
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 8
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "naturalist:elephant_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/elephant.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/elephant"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:origin",
+                                "origin": "raven_dnd_origins:subclass/druid/moon",
+                                "layer": "raven_dnd_origins:subclass"
+                            },
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 8
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "hybrid_aquatic:orca_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/orca.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/orca"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:origin",
+                                "origin": "raven_dnd_origins:subclass/druid/moon",
+                                "layer": "raven_dnd_origins:subclass"
+                            },
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 8
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "minecraft:blaze_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/fire_elemental.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/fire_elemental"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:origin",
+                                "origin": "raven_dnd_origins:subclass/druid/moon",
+                                "layer": "raven_dnd_origins:subclass"
+                            },
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 10
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "legendary_monsters:stratling_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/frost_elemental.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/frost_elemental"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:origin",
+                                "origin": "raven_dnd_origins:subclass/druid/moon",
+                                "layer": "raven_dnd_origins:subclass"
+                            },
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 10
+                            }
+                        ]
+                    }
+                },
+                {
+                    "item": {
+                        "item": "luminous_beasts:baby_phoenix_spawn_egg"
+                    },
+                    "tooltip": {
+                        "translate": "origin.raven_dnd_origins.wildshape/baby_phoenix.name"
+                    },
+                    "button_width": 20,
+                    "button_height": 20,
+                    "entity_action": {
+                        "type": "origins:execute_command",
+                        "command": "origin set @s raven_dnd_origins:wildshape raven_dnd_origins:wildshape/baby_phoenix"
+                    },
+                    "condition": {
+                        "type": "origins:and",
+                        "conditions": [
+                            {
+                                "type": "origins:origin",
+                                "origin": "raven_dnd_origins:subclass/druid/moon",
+                                "layer": "raven_dnd_origins:subclass"
+                            },
+                            {
+                                "type": "raven_dnd_origins:player_level",
+                                "comparison": ">=",
+                                "compare_to": 10
+                            }
+                        ]
+                    }
                 }
             ]
         }
