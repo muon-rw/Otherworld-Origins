@@ -1,6 +1,12 @@
 {
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "ranged_weapon_api"
+    }
+  ],
   "amount": 0.05,
-  "attribute": "apothic_attributes:arrow_damage",
+  "attribute": "ranged_weapon:damage",
   "containerItem": "raven_dnd_origins:archery_upgrade_orb",
   "operation": "add_multiplied_base"
 }

@@ -137,7 +137,7 @@
                 }
             ]
         },
-        "attribute": "apothic_attributes:arrow_damage",
+        "attribute": "ranged_weapon:damage",
         "operation": "multiply_total",
         "value": 0.1
     },
@@ -175,7 +175,7 @@
                 }
             ]
         },
-        "attribute": "apothic_attributes:arrow_damage",
+        "attribute": "ranged_weapon:damage",
         "operation": "multiply_total",
         "value": 0.15
     },
@@ -203,7 +203,7 @@
                 }
             ]
         },
-        "attribute": "apothic_attributes:arrow_damage",
+        "attribute": "ranged_weapon:damage",
         "operation": "multiply_total",
         "value": 0.2
     }
