@@ -1,4 +1,9 @@
 {
   "replace": false,
-  "values": []
+  "values": [
+    {
+      "id": "#forcemaster_rpg:fist_weapons",
+      "required": false
+    }
+  ]
 }
