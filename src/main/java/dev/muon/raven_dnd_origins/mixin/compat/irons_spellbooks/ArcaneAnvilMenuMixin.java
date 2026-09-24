@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.muon.raven_dnd_origins.item.ModUpgradeOrbTypes;
 import dev.muon.raven_dnd_origins.util.RangedWeapons;
+import io.redspace.ironsspellbooks.config.ServerConfigs;
 import io.redspace.ironsspellbooks.gui.arcane_anvil.ArcaneAnvilMenu;
 import io.redspace.ironsspellbooks.registries.ComponentRegistry;
 import net.minecraft.world.item.ItemStack;
@@ -24,7 +25,8 @@ public class ArcaneAnvilMenuMixin {
     private boolean raven_dnd_origins$allowArcheryOrbOnRangedWeapons(ItemStack baseItemStack, Operation<Boolean> original,
                                                                      @Local(ordinal = 2) ItemStack modifierItemStack) {
         return original.call(baseItemStack)
-                || ModUpgradeOrbTypes.ARROW_DAMAGE.equals(modifierItemStack.get(ComponentRegistry.UPGRADE_ORB_TYPE))
+                || !ServerConfigs.UPGRADE_BLACKLIST_ITEMS.contains(baseItemStack.getItem())
+                && ModUpgradeOrbTypes.ARROW_DAMAGE.equals(modifierItemStack.get(ComponentRegistry.UPGRADE_ORB_TYPE))
                 && RangedWeapons.hasRangedWeaponProperties(baseItemStack);
     }
 }
