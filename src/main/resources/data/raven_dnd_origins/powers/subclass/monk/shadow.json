@@ -284,24 +284,19 @@
             ]
         },
         "entity_action": {
-            "type": "origins:and",
-            "actions": [
-                {
-                    "type": "origins:modify_resource",
-                    "resource": "*:class/monk/ki_pool",
-                    "modifier": {
-                        "operation": "add_base_early",
-                        "value": -1
-                    }
-                },
-                {
-                    "type": "raven_dnd_origins:cast_spell",
-                    "spell": "shadow_slash",
-                    "power_level": 3,
-                    "mana_cost": 0,
-                    "cast_time": 0
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "shadow_slash",
+            "power_level": 3,
+            "mana_cost": 0,
+            "cast_time": 0,
+            "success_action": {
+                "type": "origins:modify_resource",
+                "resource": "*:class/monk/ki_pool",
+                "modifier": {
+                    "operation": "add_base_early",
+                    "value": -1
                 }
-            ]
+            }
         },
         "cooldown": 25,
         "hud_render": {
@@ -332,24 +327,19 @@
             ]
         },
         "entity_action": {
-            "type": "origins:and",
-            "actions": [
-                {
-                    "type": "origins:modify_resource",
-                    "resource": "*:class/monk/ki_pool",
-                    "modifier": {
-                        "operation": "add_base_early",
-                        "value": -2
-                    }
-                },
-                {
-                    "type": "raven_dnd_origins:cast_spell",
-                    "spell": "hazennstuff:prismatic_shift",
-                    "power_level": 3,
-                    "mana_cost": 0,
-                    "cast_time": 0
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "hazennstuff:prismatic_shift",
+            "power_level": 3,
+            "mana_cost": 0,
+            "cast_time": 0,
+            "success_action": {
+                "type": "origins:modify_resource",
+                "resource": "*:class/monk/ki_pool",
+                "modifier": {
+                    "operation": "add_base_early",
+                    "value": -2
                 }
-            ]
+            }
         },
         "cooldown": 25,
         "hud_render": {

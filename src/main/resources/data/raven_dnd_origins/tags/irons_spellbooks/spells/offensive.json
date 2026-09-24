@@ -57,11 +57,15 @@
       "required": false
     },
     {
-      "id": "aero_additions:wind_charge",
+      "id": "alshanex_familiars:end_mayhem",
       "required": false
     },
     {
-      "id": "alshanex_familiars:end_mayhem",
+      "id": "alshanex_familiars:fire_fist",
+      "required": false
+    },
+    {
+      "id": "alshanex_familiars:ice_age",
       "required": false
     },
     {
@@ -217,6 +221,10 @@
       "required": false
     },
     {
+      "id": "cataclysm_spellbooks:meteor_spew",
+      "required": false
+    },
+    {
       "id": "cataclysm_spellbooks:missile_launch",
       "required": false
     },
@@ -225,7 +233,23 @@
       "required": false
     },
     {
+      "id": "cataclysm_spellbooks:phantasmal_blade",
+      "required": false
+    },
+    {
       "id": "cataclysm_spellbooks:piercing_bone",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:sandstorm",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:tectonic_tremble",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:tidal_grab",
       "required": false
     },
     {
@@ -241,11 +265,15 @@
       "required": false
     },
     {
-      "id": "discerning_the_eldritch:libras_judgement",
+      "id": "discerning_the_eldritch:glacial_edge",
       "required": false
     },
     {
-      "id": "discerning_the_eldritch:soul_set_ablaze",
+      "id": "discerning_the_eldritch:guardians_gaze",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:libras_judgement",
       "required": false
     },
     {
@@ -285,10 +313,6 @@
       "required": false
     },
     {
-      "id": "ess_requiem:forever_dreaming",
-      "required": false
-    },
-    {
       "id": "ess_requiem:necrotic_burst",
       "required": false
     },
@@ -306,6 +330,10 @@
     },
     {
       "id": "ess_requiem:tentacle_whip",
+      "required": false
+    },
+    {
+      "id": "ess_requiem:twilight_assault",
       "required": false
     },
     {
@@ -329,11 +357,23 @@
       "required": false
     },
     {
+      "id": "gtbcs_geomancy_plus:petrivise",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:pillar_of_the_resounding_earth",
+      "required": false
+    },
+    {
       "id": "gtbcs_geomancy_plus:solar_beam",
       "required": false
     },
     {
       "id": "gtbcs_geomancy_plus:solar_storm",
+      "required": false
+    },
+    {
+      "id": "gtbcs_geomancy_plus:tremor_spike",
       "required": false
     },
     {
@@ -373,6 +413,10 @@
       "required": false
     },
     {
+      "id": "hazennstuff:golden_shower",
+      "required": false
+    },
+    {
       "id": "hazennstuff:hailstorm",
       "required": false
     },
@@ -393,7 +437,7 @@
       "required": false
     },
     {
-      "id": "hazennstuff:shard_sword",
+      "id": "hazennstuff:shadow_reaver",
       "required": false
     },
     {
@@ -453,6 +497,10 @@
       "required": false
     },
     {
+      "id": "legendary_spellbooks:annihilation_geyser",
+      "required": false
+    },
+    {
       "id": "legendary_spellbooks:annihilation_shockwave",
       "required": false
     },
@@ -462,6 +510,10 @@
     },
     {
       "id": "legendary_spellbooks:cloud_ring",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:cumulo_charge",
       "required": false
     },
     {
@@ -481,6 +533,10 @@
       "required": false
     },
     {
+      "id": "legendary_spellbooks:glacier_ringburst",
+      "required": false
+    },
+    {
       "id": "legendary_spellbooks:hematite_trishula",
       "required": false
     },
@@ -489,7 +545,15 @@
       "required": false
     },
     {
+      "id": "legendary_spellbooks:overgrown_shockwave",
+      "required": false
+    },
+    {
       "id": "legendary_spellbooks:possessed_soul_blade",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:sentinel_saturation",
       "required": false
     },
     {
@@ -502,6 +566,14 @@
     },
     {
       "id": "tunes_n_tomes:chord_blast",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:clamor_note",
+      "required": false
+    },
+    {
+      "id": "tunes_n_tomes:crescendo",
       "required": false
     },
     {

@@ -1,0 +1,6 @@
+{
+    "powers": ["raven_dnd_origins:feats/school_wind"],
+    "icon": {"item": "aero_additions:wind_upgrade_orb"},
+    "impact": 1,
+    "order": 112
+}

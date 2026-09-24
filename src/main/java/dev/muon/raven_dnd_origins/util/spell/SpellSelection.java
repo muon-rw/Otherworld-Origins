@@ -14,7 +14,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.Nullable;
@@ -246,7 +245,8 @@ public final class SpellSelection {
         }
 
         Candidate picked = viable.get(random.nextInt(viable.size()));
-        int level = Mth.clamp(picked.baseLevel + levelBonus, picked.spell.getMinLevel(), picked.spell.getMaxLevel());
+        // No upper clamp: like Iron's own spell level bonuses, origin casts may exceed a spell's configured max.
+        int level = Math.max(picked.baseLevel + levelBonus, picked.spell.getMinLevel());
         return new ResolvedSpell(picked.spell, level);
     }
 

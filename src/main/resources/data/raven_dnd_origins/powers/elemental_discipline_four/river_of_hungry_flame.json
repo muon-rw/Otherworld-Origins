@@ -1,38 +1,69 @@
 {
-    "type": "origins:active_self",
-    "key": {
-        "key": "key.raven_dnd_origins.cantrip_three"
+    "type": "origins:multiple",
+    "cooldown": {
+        "type": "origins:cooldown",
+        "cooldown": 50,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "bar_index": 9
+        }
     },
-    "condition": {
-        "type": "origins:resource",
-        "resource": "*:class/monk/ki_pool",
-        "comparison": ">=",
-        "compare_to": 4
-    },
-    "entity_action": {
-        "type": "origins:and",
-        "actions": [
-            {
-                "type": "origins:modify_resource",
-                "resource": "*:class/monk/ki_pool",
-                "modifier": {
-                    "operation": "add_base_early",
-                    "value": -4
+    "cast": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.raven_dnd_origins.cantrip_three"
+        },
+        "condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:has_spell_recast",
+                    "spell": "irons_spellbooks:wall_of_fire"
+                },
+                {
+                    "type": "origins:and",
+                    "conditions": [
+                        {
+                            "type": "origins:resource",
+                            "resource": "*:class/monk/ki_pool",
+                            "comparison": ">=",
+                            "compare_to": 4
+                        },
+                        {
+                            "type": "origins:resource",
+                            "resource": "*:*_cooldown",
+                            "comparison": "==",
+                            "compare_to": 0
+                        }
+                    ]
                 }
-            },
-            {
-                "type": "raven_dnd_origins:cast_spell",
-                "spell": "wall_of_fire",
-                "power_level": 8,
-                "mana_cost": 0,
-                "cast_time": 0
+            ]
+        },
+        "entity_action": {
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "irons_spellbooks:wall_of_fire",
+            "power_level": 8,
+            "mana_cost": 0,
+            "cast_time": 0,
+            "success_action": {
+                "type": "origins:and",
+                "actions": [
+                    {
+                        "type": "origins:modify_resource",
+                        "resource": "*:class/monk/ki_pool",
+                        "modifier": {
+                            "operation": "add_base_early",
+                            "value": -4
+                        }
+                    },
+                    {
+                        "type": "origins:trigger_cooldown",
+                        "power": "*:*_cooldown"
+                    }
+                ]
             }
-        ]
-    },
-    "cooldown": 50,
-    "hud_render": {
-        "should_render": true,
-        "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-        "bar_index": 9
+        },
+        "cooldown": 5
     }
 }

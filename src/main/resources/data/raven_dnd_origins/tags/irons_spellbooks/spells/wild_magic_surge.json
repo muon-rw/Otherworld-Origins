@@ -87,15 +87,7 @@
     "raven_dnd_origins:silver_dragon_breath",
     "raven_dnd_origins:white_dragon_breath",
     {
-      "id": "aero_additions:airblast",
-      "required": false
-    },
-    {
       "id": "aero_additions:asphyxiate",
-      "required": false
-    },
-    {
-      "id": "aero_additions:flush",
       "required": false
     },
     {
@@ -136,6 +128,10 @@
     },
     {
       "id": "cataclysm_spellbooks:abyssal_blast",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:abyssal_predator",
       "required": false
     },
     {
@@ -195,11 +191,19 @@
       "required": false
     },
     {
+      "id": "cataclysm_spellbooks:forgone_rage",
+      "required": false
+    },
+    {
       "id": "cataclysm_spellbooks:gravitation_pull",
       "required": false
     },
     {
       "id": "cataclysm_spellbooks:gravity_storm",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:hardware_update",
       "required": false
     },
     {
@@ -215,11 +219,35 @@
       "required": false
     },
     {
+      "id": "cataclysm_spellbooks:laserbolt",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:lock_on",
+      "required": false
+    },
+    {
       "id": "cataclysm_spellbooks:malevolent_battlefield",
       "required": false
     },
     {
+      "id": "cataclysm_spellbooks:meteor_spew",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:missile_launch",
+      "required": false
+    },
+    {
       "id": "cataclysm_spellbooks:monolith_crash",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:phantasmal_blade",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:pharaohs_wrath",
       "required": false
     },
     {
@@ -231,11 +259,19 @@
       "required": false
     },
     {
+      "id": "cataclysm_spellbooks:reboot",
+      "required": false
+    },
+    {
       "id": "cataclysm_spellbooks:sandstorm",
       "required": false
     },
     {
       "id": "cataclysm_spellbooks:shutdown",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:software_update",
       "required": false
     },
     {
@@ -255,11 +291,11 @@
       "required": false
     },
     {
-      "id": "discerning_the_eldritch:blades_of_rancor",
+      "id": "discerning_the_eldritch:abracadabra",
       "required": false
     },
     {
-      "id": "discerning_the_eldritch:crystalline_carver",
+      "id": "discerning_the_eldritch:blades_of_rancor",
       "required": false
     },
     {
@@ -283,11 +319,11 @@
       "required": false
     },
     {
-      "id": "discerning_the_eldritch:ravenous_revenant",
+      "id": "discerning_the_eldritch:mend_flesh",
       "required": false
     },
     {
-      "id": "discerning_the_eldritch:silence",
+      "id": "discerning_the_eldritch:ravenous_revenant",
       "required": false
     },
     {
@@ -327,6 +363,10 @@
       "required": false
     },
     {
+      "id": "ess_requiem:adrenaline_rush",
+      "required": false
+    },
+    {
       "id": "ess_requiem:boiling_blood",
       "required": false
     },
@@ -343,11 +383,11 @@
       "required": false
     },
     {
-      "id": "ess_requiem:eternal_battlefield",
+      "id": "ess_requiem:finality_of_decay",
       "required": false
     },
     {
-      "id": "ess_requiem:forever_dreaming",
+      "id": "ess_requiem:hone_edge",
       "required": false
     },
     {
@@ -359,19 +399,11 @@
       "required": false
     },
     {
-      "id": "ess_requiem:overwhelming_light",
-      "required": false
-    },
-    {
       "id": "ess_requiem:pale_flame",
       "required": false
     },
     {
       "id": "ess_requiem:quick_slice",
-      "required": false
-    },
-    {
-      "id": "ess_requiem:rip_and_tear",
       "required": false
     },
     {
@@ -551,6 +583,10 @@
       "required": false
     },
     {
+      "id": "hazennstuff:terraprismic_barrage",
+      "required": false
+    },
+    {
       "id": "hazennstuff:thorn_chakram",
       "required": false
     },
@@ -571,6 +607,14 @@
       "required": false
     },
     {
+      "id": "ironsable:maelstrom",
+      "required": false
+    },
+    {
+      "id": "ironsable:tempests_grasp",
+      "required": false
+    },
+    {
       "id": "legendary_spellbooks:annihilation_arrow",
       "required": false
     },
@@ -583,7 +627,7 @@
       "required": false
     },
     {
-      "id": "legendary_spellbooks:annihilation_geyser",
+      "id": "legendary_spellbooks:annihilation_resonance",
       "required": false
     },
     {
@@ -600,10 +644,6 @@
     },
     {
       "id": "legendary_spellbooks:cumulo_charge",
-      "required": false
-    },
-    {
-      "id": "legendary_spellbooks:energy_beam",
       "required": false
     },
     {
@@ -647,6 +687,10 @@
       "required": false
     },
     {
+      "id": "legendary_spellbooks:sentinel_saturation",
+      "required": false
+    },
+    {
       "id": "legendary_spellbooks:thunder_fanburst",
       "required": false
     },
@@ -668,10 +712,6 @@
     },
     {
       "id": "tunes_n_tomes:crescendo",
-      "required": false
-    },
-    {
-      "id": "tunes_n_tomes:encore",
       "required": false
     },
     {
@@ -700,6 +740,22 @@
     },
     {
       "id": "tunes_n_tomes:sonata",
+      "required": false
+    },
+    {
+      "id": "wind_spellbooks:aeropic",
+      "required": false
+    },
+    {
+      "id": "wind_spellbooks:almighty_push",
+      "required": false
+    },
+    {
+      "id": "wind_spellbooks:iron_slash",
+      "required": false
+    },
+    {
+      "id": "wind_spellbooks:tornado",
       "required": false
     }
   ]

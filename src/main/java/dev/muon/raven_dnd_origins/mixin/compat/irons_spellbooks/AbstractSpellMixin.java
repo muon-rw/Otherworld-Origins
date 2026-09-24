@@ -14,19 +14,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value = AbstractSpell.class, remap = false)
 public class AbstractSpellMixin {
-
-    @Inject(method = "onServerCastTick", at = @At("HEAD"))
-    private void onSpellTick(Level level, int spellLevel, LivingEntity entity, MagicData playerMagicData, CallbackInfo ci) {
-        if (entity instanceof ServerPlayer serverPlayer) {
-            SpellCastUtil.onSpellTick(serverPlayer, playerMagicData);
-        }
-    }
 
     @WrapMethod(method = "onServerCastComplete")
     private void raven_dnd_origins$wrapOnServerCastComplete(

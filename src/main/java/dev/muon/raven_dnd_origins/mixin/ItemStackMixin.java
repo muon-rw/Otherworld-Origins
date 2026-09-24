@@ -179,7 +179,7 @@ public class ItemStackMixin {
                 if (!line.getString().contains(spell.getDisplayName(null).getString())) {
                     continue;
                 }
-                if (!SpellRestrictions.isSpellRestrictedForDisplay(player, spell)) {
+                if (!SpellRestrictions.isSpellRestrictedForDisplay(player, stack, spell)) {
                     continue;
                 }
                 tooltips.set(i, Component.literal("").append(line)

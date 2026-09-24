@@ -108,7 +108,7 @@
                     "action": {
                         "type": "raven_dnd_origins:cast_spell",
                         "spell": "ess_requiem:field_of_mourning",
-                        "power_level": 5,
+                        "power_level": 1,
                         "mana_cost": 50
                     }
                 },

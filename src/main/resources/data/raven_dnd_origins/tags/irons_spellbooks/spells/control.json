@@ -16,19 +16,11 @@
     "irons_spellbooks:wall_of_fire",
     "irons_spellbooks:wololo",
     {
-      "id": "aero_additions:airblast",
-      "required": false
-    },
-    {
-      "id": "aero_additions:flush",
-      "required": false
-    },
-    {
       "id": "aero_additions:updraft",
       "required": false
     },
     {
-      "id": "alshanex_familiars:ice_age",
+      "id": "aero_additions:wind_charge",
       "required": false
     },
     {
@@ -80,15 +72,7 @@
       "required": false
     },
     {
-      "id": "cataclysm_spellbooks:sandstorm",
-      "required": false
-    },
-    {
       "id": "cataclysm_spellbooks:shutdown",
-      "required": false
-    },
-    {
-      "id": "cataclysm_spellbooks:tectonic_tremble",
       "required": false
     },
     {
@@ -96,55 +80,19 @@
       "required": false
     },
     {
-      "id": "discerning_the_eldritch:guardians_gaze",
-      "required": false
-    },
-    {
-      "id": "discerning_the_eldritch:ravenous_revenant",
-      "required": false
-    },
-    {
       "id": "discerning_the_eldritch:silence",
       "required": false
     },
     {
-      "id": "ess_requiem:eternal_battlefield",
+      "id": "ess_requiem:forever_dreaming",
       "required": false
     },
     {
-      "id": "ess_requiem:switcharoo",
+      "id": "ironsable:maelstrom",
       "required": false
     },
     {
-      "id": "gtbcs_geomancy_plus:petrivise",
-      "required": false
-    },
-    {
-      "id": "gtbcs_geomancy_plus:pillar_of_the_resounding_earth",
-      "required": false
-    },
-    {
-      "id": "gtbcs_geomancy_plus:tremor_spike",
-      "required": false
-    },
-    {
-      "id": "hazennstuff:golden_shower",
-      "required": false
-    },
-    {
-      "id": "hazennstuff:shadow_reaver",
-      "required": false
-    },
-    {
-      "id": "legendary_spellbooks:annihilation_geyser",
-      "required": false
-    },
-    {
-      "id": "legendary_spellbooks:glacier_ringburst",
-      "required": false
-    },
-    {
-      "id": "legendary_spellbooks:overgrown_shockwave",
+      "id": "ironsable:tempests_grasp",
       "required": false
     },
     {
@@ -157,10 +105,6 @@
     },
     {
       "id": "tunes_n_tomes:clamor_note",
-      "required": false
-    },
-    {
-      "id": "tunes_n_tomes:crescendo",
       "required": false
     },
     {
@@ -177,6 +121,14 @@
     },
     {
       "id": "tunes_n_tomes:slumber_note",
+      "required": false
+    },
+    {
+      "id": "wind_spellbooks:almighty_push",
+      "required": false
+    },
+    {
+      "id": "wind_spellbooks:tornado",
       "required": false
     }
   ]

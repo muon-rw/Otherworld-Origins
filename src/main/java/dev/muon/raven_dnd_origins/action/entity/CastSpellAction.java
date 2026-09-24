@@ -9,6 +9,8 @@ import dev.muon.raven_dnd_origins.util.spell.SpellCastInterruptMode;
 import dev.muon.raven_dnd_origins.util.spell.SpellCastUtil;
 import dev.muon.raven_dnd_origins.util.spell.SpellSelection;
 import dev.overgrown.apoli.action.ActionType;
+import dev.overgrown.apoli.action.EntityAction;
+import dev.overgrown.apoli.codec.LoggedOptionalField;
 import dev.overgrown.apoli.condition.context.EntityCtx;
 import io.redspace.ironsspellbooks.api.entity.IMagicEntity;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -33,7 +35,8 @@ public final class CastSpellAction implements ActionType<EntityCtx, CastSpellAct
             Codec.BOOL.optionalFieldOf("continuous_cost", false).forGetter(Configuration::continuousCost),
             Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval),
             Codec.DOUBLE.optionalFieldOf("raycast_distance").forGetter(Configuration::raycastDistance),
-            SpellCastInterruptMode.CODEC.optionalFieldOf("interrupt_mode", SpellCastInterruptMode.CANCEL).forGetter(Configuration::interruptMode)
+            SpellCastInterruptMode.CODEC.optionalFieldOf("interrupt_mode", SpellCastInterruptMode.CANCEL).forGetter(Configuration::interruptMode),
+            LoggedOptionalField.of("success_action", EntityAction.CODEC).forGetter(Configuration::successAction)
     ).apply(instance, Configuration::create));
 
     @Override
@@ -67,8 +70,11 @@ public final class CastSpellAction implements ActionType<EntityCtx, CastSpellAct
 
         LivingEntity raycastTarget = SpellCastUtil.findTarget(livingEntity, configuration.raycastDistance().orElse(SpellCastUtil.DEFAULT_RAYCAST_DISTANCE));
 
+        boolean cast;
+        boolean consumesRecast = false;
         if (livingEntity instanceof ServerPlayer serverPlayer) {
-            SpellCastUtil.castSpellForPlayer(
+            consumesRecast = magicData.getPlayerRecasts().hasRecastForSpell(spell.getSpellId());
+            cast = SpellCastUtil.castSpellForPlayer(
                     spell,
                     powerLevel,
                     serverPlayer,
@@ -82,10 +88,19 @@ public final class CastSpellAction implements ActionType<EntityCtx, CastSpellAct
             );
         } else if (livingEntity instanceof IMagicEntity magicEntity) {
             magicEntity.initiateCastSpell(spell, powerLevel);
+            cast = true;
         } else if (spell.checkPreCastConditions(world, powerLevel, livingEntity, magicData)) {
             SpellCastUtil.maybeUpdateTargetData(livingEntity, raycastTarget, magicData, spell);
             spell.onCast(world, powerLevel, livingEntity, CastSource.COMMAND, magicData);
             spell.onServerCastComplete(world, powerLevel, livingEntity, magicData, false);
+            cast = true;
+        } else {
+            cast = false;
+        }
+
+        // Recasts are free, matching Iron's, which never charges mana for them.
+        if (cast && !consumesRecast) {
+            configuration.successAction().ifPresent(action -> action.run(new EntityCtx(livingEntity, world)));
         }
     }
 
@@ -96,7 +111,8 @@ public final class CastSpellAction implements ActionType<EntityCtx, CastSpellAct
             boolean continuousCost,
             int costInterval,
             Optional<Double> raycastDistance,
-            SpellCastInterruptMode interruptMode
+            SpellCastInterruptMode interruptMode,
+            Optional<EntityAction> successAction
     ) {
         private static Configuration create(
                 Either<ResourceLocation, SpellSelection> spellField,
@@ -106,13 +122,14 @@ public final class CastSpellAction implements ActionType<EntityCtx, CastSpellAct
                 boolean continuousCost,
                 int costInterval,
                 Optional<Double> raycastDistance,
-                SpellCastInterruptMode interruptMode
+                SpellCastInterruptMode interruptMode,
+                Optional<EntityAction> successAction
         ) {
             SpellSelection selection = spellField.map(
                     rl -> SpellSelection.fromLegacyStringForm(rl, legacyPowerLevel.orElse(1)),
                     s -> s
             );
-            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval, raycastDistance, interruptMode);
+            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval, raycastDistance, interruptMode, successAction);
         }
 
         private Either<ResourceLocation, SpellSelection> spellFieldForCodec() {

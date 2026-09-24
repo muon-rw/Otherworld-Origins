@@ -11,6 +11,10 @@
     "irons_spellbooks:scapegoat",
     "irons_spellbooks:shield",
     {
+      "id": "aero_additions:airblast",
+      "required": false
+    },
+    {
       "id": "aero_additions:wind_shield",
       "required": false
     },

@@ -10,6 +10,8 @@ import dev.muon.raven_dnd_origins.util.spell.SpellCastInterruptMode;
 import dev.muon.raven_dnd_origins.util.spell.SpellCastUtil;
 import dev.muon.raven_dnd_origins.util.spell.SpellSelection;
 import dev.overgrown.apoli.action.ActionType;
+import dev.overgrown.apoli.action.BiEntityAction;
+import dev.overgrown.apoli.codec.LoggedOptionalField;
 import dev.overgrown.apoli.condition.context.BiEntityCtx;
 import io.redspace.ironsspellbooks.api.entity.IMagicEntity;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
@@ -38,7 +40,8 @@ public final class CastSpellBientityAction implements ActionType<BiEntityCtx, Ca
             Codec.INT.optionalFieldOf("mana_cost").forGetter(Configuration::manaCost),
             Codec.BOOL.optionalFieldOf("continuous_cost", false).forGetter(Configuration::continuousCost),
             Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval),
-            SpellCastInterruptMode.CODEC.optionalFieldOf("interrupt_mode", SpellCastInterruptMode.CANCEL).forGetter(Configuration::interruptMode)
+            SpellCastInterruptMode.CODEC.optionalFieldOf("interrupt_mode", SpellCastInterruptMode.CANCEL).forGetter(Configuration::interruptMode),
+            LoggedOptionalField.of("success_action", BiEntityAction.CODEC).forGetter(Configuration::successAction)
     ).apply(instance, Configuration::create));
 
     @Override
@@ -74,8 +77,11 @@ public final class CastSpellBientityAction implements ActionType<BiEntityCtx, Ca
             return;
         }
 
+        boolean cast;
+        boolean consumesRecast = false;
         if (caster instanceof ServerPlayer serverPlayer) {
-            SpellCastUtil.castSpellForPlayerWithBientityTarget(
+            consumesRecast = magicData.getPlayerRecasts().hasRecastForSpell(spell.getSpellId());
+            cast = SpellCastUtil.castSpellForPlayerWithBientityTarget(
                     spell,
                     powerLevel,
                     serverPlayer,
@@ -89,10 +95,12 @@ public final class CastSpellBientityAction implements ActionType<BiEntityCtx, Ca
             );
         } else if (caster instanceof IMagicEntity magicEntity) {
             magicEntity.initiateCastSpell(spell, powerLevel);
+            cast = true;
         } else {
             BientitySpellCastAim.push(caster, livingTarget);
             try {
-                if (spell.checkPreCastConditions(world, powerLevel, caster, magicData)) {
+                cast = spell.checkPreCastConditions(world, powerLevel, caster, magicData);
+                if (cast) {
                     SpellCastUtil.maybeApplyBientityProvidedTarget(caster, livingTarget, magicData, spell);
                     spell.onCast(world, powerLevel, caster, CastSource.COMMAND, magicData);
                     spell.onServerCastComplete(world, powerLevel, caster, magicData, false);
@@ -100,6 +108,11 @@ public final class CastSpellBientityAction implements ActionType<BiEntityCtx, Ca
             } finally {
                 BientitySpellCastAim.pop();
             }
+        }
+
+        // Recasts are free, matching Iron's, which never charges mana for them.
+        if (cast && !consumesRecast) {
+            configuration.successAction().ifPresent(action -> action.run(new BiEntityCtx(caster, livingTarget, world)));
         }
     }
 
@@ -109,7 +122,8 @@ public final class CastSpellBientityAction implements ActionType<BiEntityCtx, Ca
             Optional<Integer> manaCost,
             boolean continuousCost,
             int costInterval,
-            SpellCastInterruptMode interruptMode
+            SpellCastInterruptMode interruptMode,
+            Optional<BiEntityAction> successAction
     ) {
         private static Configuration create(
                 Either<ResourceLocation, SpellSelection> spellField,
@@ -118,13 +132,14 @@ public final class CastSpellBientityAction implements ActionType<BiEntityCtx, Ca
                 Optional<Integer> manaCost,
                 boolean continuousCost,
                 int costInterval,
-                SpellCastInterruptMode interruptMode
+                SpellCastInterruptMode interruptMode,
+                Optional<BiEntityAction> successAction
         ) {
             SpellSelection selection = spellField.map(
                     rl -> SpellSelection.fromLegacyStringForm(rl, legacyPowerLevel.orElse(1)),
                     s -> s
             );
-            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval, interruptMode);
+            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval, interruptMode, successAction);
         }
 
         private Either<ResourceLocation, SpellSelection> spellFieldForCodec() {

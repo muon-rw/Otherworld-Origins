@@ -5,6 +5,7 @@ import dev.muon.raven_dnd_origins.RavenDndOrigins;
 import dev.muon.raven_dnd_origins.condition.block.PlantableBlockCondition;
 import dev.muon.raven_dnd_origins.condition.entity.AnyOnLayerCondition;
 import dev.muon.raven_dnd_origins.condition.entity.HasSchoolAccessCondition;
+import dev.muon.raven_dnd_origins.condition.entity.HasSpellRecastCondition;
 import dev.muon.raven_dnd_origins.condition.entity.HasSkillCondition;
 import dev.muon.raven_dnd_origins.condition.entity.LeveledChanceCondition;
 import dev.muon.raven_dnd_origins.condition.entity.ManaCondition;
@@ -55,6 +56,7 @@ public class ModConditions {
     public static final ResourceLocation PLAYER_MANA = RavenDndOrigins.loc("player_mana");
     public static final ResourceLocation HAS_SKILL = RavenDndOrigins.loc("has_skill");
     public static final ResourceLocation HAS_SCHOOL_ACCESS = RavenDndOrigins.loc("has_school_access");
+    public static final ResourceLocation HAS_SPELL_RECAST = RavenDndOrigins.loc("has_spell_recast");
     public static final ResourceLocation LEVELED_CHANCE = RavenDndOrigins.loc("leveled_chance");
     public static final ResourceLocation VELOCITY = RavenDndOrigins.loc("velocity");
     /** True when the entity is held by Iron's Spellbooks {@link RootEntity} (nature Root spell). */
@@ -96,6 +98,7 @@ public class ModConditions {
         ConditionTypes.ENTITY.register(PLAYER_MANA, new ManaCondition());
         ConditionTypes.ENTITY.register(HAS_SKILL, new HasSkillCondition());
         ConditionTypes.ENTITY.register(HAS_SCHOOL_ACCESS, new HasSchoolAccessCondition());
+        ConditionTypes.ENTITY.register(HAS_SPELL_RECAST, new HasSpellRecastCondition());
         ConditionTypes.ENTITY.register(LEVELED_CHANCE, new LeveledChanceCondition());
         ConditionTypes.ENTITY.register(VELOCITY, new VelocityCondition());
         ConditionTypes.ENTITY.register(IS_ROOTED, new IsRootedCondition());

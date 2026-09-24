@@ -8,10 +8,13 @@ import dev.overgrown.apoli.power.PowerContainer;
 import dev.overgrown.apoli.power.PowerLookup;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
+import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,6 +36,45 @@ public class SpellRestrictions {
      */
     public static boolean isSpellRestrictedForDisplay(Player player, AbstractSpell spell) {
         return PowerContainer.of(player) != null && !isSpellAllowed(player, spell);
+    }
+
+    public static boolean isSpellRestrictedForDisplay(Player player, ItemStack source, AbstractSpell spell) {
+        return PowerContainer.of(player) != null && !isSpellAllowed(player, source, spell);
+    }
+
+    /**
+     * Whether {@code player} may cast {@code spell} from {@code source}, the item holding it. The base rules ignore
+     * the item; add-ons (Raven Apoth) hook this to exempt individual items.
+     */
+    public static boolean isSpellAllowed(Player player, ItemStack source, AbstractSpell spell) {
+        return isSpellAllowed(player, spell);
+    }
+
+    /**
+     * Iron's casts carry no source item, and the spell wheel merges copies of a spell from different items. An
+     * equipped item holding the spell at the cast's level or higher therefore counts as its source.
+     */
+    public static boolean isSpellCastAllowed(Player player, AbstractSpell spell, int castLevel) {
+        if (isSpellAllowed(player, spell)) {
+            return true;
+        }
+        for (EquipmentSlot slot : EquipmentSlot.values()) {
+            ItemStack stack = player.getItemBySlot(slot);
+            if (!ISpellContainer.isSpellContainer(stack)) {
+                continue;
+            }
+            ISpellContainer container = ISpellContainer.get(stack);
+            if (container.mustEquip() && slot.getType() == EquipmentSlot.Type.HAND) {
+                continue;
+            }
+            int index = container.getIndexForSpell(spell);
+            if (index >= 0
+                    && spell.getLevelFor(container.getSpellAtIndex(index).getLevel(), player) >= castLevel
+                    && isSpellAllowed(player, stack, spell)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean isSpellAllowed(Player player, AbstractSpell spell) {

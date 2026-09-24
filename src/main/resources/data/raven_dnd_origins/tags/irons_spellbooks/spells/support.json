@@ -65,6 +65,10 @@
       "required": false
     },
     {
+      "id": "ess_requiem:eternal_battlefield",
+      "required": false
+    },
+    {
       "id": "ess_requiem:hone_edge",
       "required": false
     },
@@ -77,15 +81,15 @@
       "required": false
     },
     {
+      "id": "ess_requiem:switcharoo",
+      "required": false
+    },
+    {
       "id": "gtbcs_geomancy_plus:geo_conductor",
       "required": false
     },
     {
       "id": "hazennstuff:moonkissed",
-      "required": false
-    },
-    {
-      "id": "legendary_spellbooks:annihilation_resonance",
       "required": false
     },
     {

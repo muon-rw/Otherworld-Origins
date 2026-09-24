@@ -39,7 +39,7 @@
                 {
                     "type": "raven_dnd_origins:cast_spell",
                     "spell": "ess_requiem:summon_death_knight",
-                    "power_level": 10,
+                    "power_level": 2,
                     "cast_time": 0,
                     "interrupt_mode": "force_complete"
                 },

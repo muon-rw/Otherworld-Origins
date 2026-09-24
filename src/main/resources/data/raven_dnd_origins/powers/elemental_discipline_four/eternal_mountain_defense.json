@@ -10,24 +10,34 @@
         "compare_to": 4
     },
     "entity_action": {
-        "type": "origins:and",
-        "actions": [
-            {
-                "type": "origins:modify_resource",
-                "resource": "*:class/monk/ki_pool",
-                "modifier": {
-                    "operation": "add_base_early",
-                    "value": -4
+        "type": "raven_dnd_origins:cast_spell",
+        "spell": "oakskin",
+        "power_level": 7,
+        "mana_cost": 0,
+        "cast_time": 0,
+        "success_action": {
+            "type": "origins:and",
+            "actions": [
+                {
+                    "type": "origins:modify_resource",
+                    "resource": "*:class/monk/ki_pool",
+                    "modifier": {
+                        "operation": "add_base_early",
+                        "value": -4
+                    }
+                },
+                {
+                    "type": "origins:apply_effect",
+                    "effect": {
+                        "effect": "irons_spellbooks:oakskin",
+                        "duration": 760,
+                        "amplifier": 6,
+                        "show_particles": true,
+                        "show_icon": true
+                    }
                 }
-            },
-            {
-                "type": "raven_dnd_origins:cast_spell",
-                "spell": "oakskin",
-                "power_level": 7,
-                "mana_cost": 0,
-                "cast_time": 0
-            }
-        ]
+            ]
+        }
     },
     "cooldown": 60,
     "hud_render": {

@@ -29,6 +29,10 @@
       "required": false
     },
     {
+      "id": "aero_additions:flush",
+      "required": false
+    },
+    {
       "id": "alshanex_familiars:switcheroo",
       "required": false
     },
@@ -173,6 +177,26 @@
       "required": false
     },
     {
+      "id": "ironsable:downburst",
+      "required": false
+    },
+    {
+      "id": "ironsable:elastic_tether",
+      "required": false
+    },
+    {
+      "id": "ironsable:gyroscopic_spin",
+      "required": false
+    },
+    {
+      "id": "ironsable:kinetic_barrier",
+      "required": false
+    },
+    {
+      "id": "ironsable:stasis_lock",
+      "required": false
+    },
+    {
       "id": "legendary_spellbooks:possessed_wing",
       "required": false
     },
@@ -182,6 +206,14 @@
     },
     {
       "id": "tunes_n_tomes:swift_melody",
+      "required": false
+    },
+    {
+      "id": "wind_spellbooks:tailwind",
+      "required": false
+    },
+    {
+      "id": "wind_spellbooks:wind_jump",
       "required": false
     }
   ]

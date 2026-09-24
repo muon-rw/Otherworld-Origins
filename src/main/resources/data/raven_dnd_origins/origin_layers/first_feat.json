@@ -664,6 +664,24 @@
         ]
       },
       "origins": ["raven_dnd_origins:feats/school_geo"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "aero_additions:wind",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 4
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_wind"]
     }
   ]
 }

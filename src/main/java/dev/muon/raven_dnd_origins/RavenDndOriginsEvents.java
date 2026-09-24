@@ -19,10 +19,12 @@ import dev.muon.raven_dnd_origins.skills.ModSkills;
 import dev.muon.raven_dnd_origins.util.EnhancedRepairLogic;
 import dev.muon.raven_dnd_origins.util.RepairMaterialDescription;
 import dev.muon.raven_dnd_origins.util.spell.RecentSpellCastCache;
+import dev.muon.raven_dnd_origins.util.spell.SpellCastUtil;
 import dev.overgrown.apoli.power.PowerLookup;
 import io.redspace.ironsspellbooks.api.events.ModifySpellLevelEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
+import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.entity.spells.AbstractConeProjectile;
 import net.minecraft.ChatFormatting;
@@ -138,7 +140,8 @@ public class RavenDndOriginsEvents {
         if (event.getCastSource() == CastSource.COMMAND || event.getCastSource() == CastSource.SCROLL) {
             return;
         }
-        if (!SpellRestrictions.isSpellAllowed(event.getEntity(), SpellRegistry.getSpell(event.getSpellId()))) {
+        AbstractSpell spell = SpellRegistry.getSpell(event.getSpellId());
+        if (!SpellRestrictions.isSpellCastAllowed(event.getEntity(), spell, event.getSpellLevel())) {
             event.setCanceled(true);
             event.getEntity().displayClientMessage(
                     Component.literal("You are not attuned to this type of magic!")
@@ -206,6 +209,13 @@ public class RavenDndOriginsEvents {
         }
         event.setCanceled(true);
         player.resetFallDistance();
+    }
+
+    @SubscribeEvent
+    public static void onContinuousCastCost(PlayerTickEvent.Post event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            SpellCastUtil.tickContinuousCost(player);
+        }
     }
 
     @SubscribeEvent

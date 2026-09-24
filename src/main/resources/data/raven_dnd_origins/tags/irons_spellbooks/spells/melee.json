@@ -12,10 +12,6 @@
     "irons_spellbooks:throw",
     "irons_spellbooks:volt_strike",
     {
-      "id": "alshanex_familiars:fire_fist",
-      "required": false
-    },
-    {
       "id": "apprenticecodex:bound_sword",
       "required": false
     },
@@ -64,7 +60,11 @@
       "required": false
     },
     {
-      "id": "cataclysm_spellbooks:tidal_grab",
+      "id": "cataclysm_spellbooks:phantasmal_blade",
+      "required": false
+    },
+    {
+      "id": "cataclysm_spellbooks:tectonic_tremble",
       "required": false
     },
     {
@@ -80,7 +80,11 @@
       "required": false
     },
     {
-      "id": "discerning_the_eldritch:glacial_edge",
+      "id": "discerning_the_eldritch:ravenous_revenant",
+      "required": false
+    },
+    {
+      "id": "discerning_the_eldritch:soul_set_ablaze",
       "required": false
     },
     {
@@ -124,10 +128,6 @@
       "required": false
     },
     {
-      "id": "ess_requiem:twilight_assault",
-      "required": false
-    },
-    {
       "id": "ess_requiem:uppercut",
       "required": false
     },
@@ -148,15 +148,31 @@
       "required": false
     },
     {
+      "id": "hazennstuff:shard_sword",
+      "required": false
+    },
+    {
       "id": "hazennstuff:soul_flaming_strike",
       "required": false
     },
     {
-      "id": "legendary_spellbooks:cumulo_charge",
+      "id": "legendary_spellbooks:annihilation_resonance",
+      "required": false
+    },
+    {
+      "id": "legendary_spellbooks:annihilation_shockwave",
       "required": false
     },
     {
       "id": "legendary_spellbooks:flameborn_drift",
+      "required": false
+    },
+    {
+      "id": "wind_spellbooks:aeropic",
+      "required": false
+    },
+    {
+      "id": "wind_spellbooks:iron_slash",
       "required": false
     }
   ]

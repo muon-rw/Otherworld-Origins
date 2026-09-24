@@ -1,6 +1,7 @@
 package dev.muon.raven_dnd_origins.mixin.compat.irons_spellbooks;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import dev.muon.raven_dnd_origins.util.spell.SpellCastUtil;
 import dev.muon.raven_dnd_origins.util.spell.SyncedSpellDataOwner;
 import dev.muon.raven_dnd_origins.mixin.compat.irons_spellbooks.accessor.SyncedSpellDataAccessor;
 import dev.muon.raven_dnd_origins.power.EldritchKnowledgePower;
@@ -20,9 +21,9 @@ import org.spongepowered.asm.mixin.injection.At;
 public class SyncedSpellDataMixin {
 
     @ModifyReturnValue(method = "isSpellLearned", at = @At("RETURN"))
-    private boolean raven_dnd_origins$eldritchKnowledge(boolean original, AbstractSpell spell) {
-        if (original) {
-            return original;
+    private boolean raven_dnd_origins$treatAsLearned(boolean original, AbstractSpell spell) {
+        if (original || SpellCastUtil.isIgnoringLearning()) {
+            return true;
         }
         SchoolType school = spell.getSchoolType();
         if (school == null || !SchoolRegistry.ELDRITCH_RESOURCE.equals(school.getId())) {

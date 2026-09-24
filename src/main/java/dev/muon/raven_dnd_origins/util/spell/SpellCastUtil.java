@@ -18,7 +18,6 @@ import io.redspace.ironsspellbooks.entity.spells.target_area.TargetedAreaEntity;
 import io.redspace.ironsspellbooks.network.SyncManaPacket;
 import io.redspace.ironsspellbooks.network.casting.CastErrorPacket;
 import io.redspace.ironsspellbooks.network.casting.OnCastStartedPacket;
-import io.redspace.ironsspellbooks.network.casting.OnClientCastPacket;
 import io.redspace.ironsspellbooks.network.casting.SyncTargetingDataPacket;
 import io.redspace.ironsspellbooks.network.casting.UpdateCastingStatePacket;
 import io.redspace.ironsspellbooks.spells.TargetedTargetAreaCastData;
@@ -65,7 +64,17 @@ public final class SpellCastUtil {
 
     private static final Map<UUID, ContinuousCastData> CONTINUOUS_CASTS = new HashMap<>();
 
+    private static final ThreadLocal<Boolean> IGNORING_LEARNING = ThreadLocal.withInitial(() -> false);
+
     private SpellCastUtil() {
+    }
+
+    /**
+     * True during an origin cast; origin powers grant spells directly, so Iron's learning requirement does not
+     * apply to them.
+     */
+    public static boolean isIgnoringLearning() {
+        return IGNORING_LEARNING.get();
     }
 
     /**
@@ -189,6 +198,28 @@ public final class SpellCastUtil {
             int costInterval,
             TargetBindMode targetBindMode
     ) {
+        IGNORING_LEARNING.set(true);
+        try {
+            return runCastPipeline(spell, powerLevel, serverPlayer, magicData, world, targetOrRaycast,
+                    castTimeOpt, manaCostOpt, continuousCost, costInterval, targetBindMode);
+        } finally {
+            IGNORING_LEARNING.set(false);
+        }
+    }
+
+    private static boolean runCastPipeline(
+            AbstractSpell spell,
+            int powerLevel,
+            ServerPlayer serverPlayer,
+            MagicData magicData,
+            Level world,
+            @Nullable LivingEntity targetOrRaycast,
+            Optional<Integer> castTimeOpt,
+            Optional<Integer> manaCostOpt,
+            boolean continuousCost,
+            int costInterval,
+            TargetBindMode targetBindMode
+    ) {
         if (targetBindMode == TargetBindMode.BIENTITY_PROVIDED && targetOrRaycast == null) {
             return false;
         }
@@ -264,9 +295,8 @@ public final class SpellCastUtil {
             }
 
             if (effectiveCastTime == 0) {
-                spell.onCast(world, powerLevel, serverPlayer, CastSource.COMMAND, magicData);
-                PacketDistributor.sendToPlayer(serverPlayer,
-                        new OnClientCastPacket(spell.getSpellId(), powerLevel, CastSource.COMMAND, magicData.getAdditionalCastData()));
+                // castSpell rather than onCast: it posts SpellOnCastEvent and consumes pending recasts.
+                spell.castSpell(world, powerLevel, serverPlayer, CastSource.COMMAND, false);
                 spell.onServerCastComplete(world, powerLevel, serverPlayer, magicData, false);
             }
             return true;
@@ -278,7 +308,7 @@ public final class SpellCastUtil {
     }
 
     /**
-     * If the caster was already casting, force-complete that spell (onCast + onServerCastComplete) and reset state.
+     * If the caster was already casting, force-complete that spell (as Iron's completes it) and reset state.
      * Used for {@link SpellCastInterruptMode#FORCE_COMPLETE} and for non-player casters when interrupting with
      * {@link SpellCastInterruptMode#CANCEL} (no dedicated cancel helper).
      */
@@ -289,8 +319,13 @@ public final class SpellCastUtil {
         }
         RavenDndOrigins.LOGGER.debug("SpellCastUtil: force-completing cast {}", magicData.getCastingSpellId());
         AbstractSpell oldSpell = magicData.getCastingSpell().getSpell();
-        oldSpell.onCast(world, magicData.getCastingSpellLevel(), caster, magicData.getCastSource(), magicData);
-        oldSpell.onServerCastComplete(world, magicData.getCastingSpellLevel(), caster, magicData, false);
+        int level = magicData.getCastingSpellLevel();
+        if (caster instanceof ServerPlayer serverPlayer) {
+            oldSpell.castSpell(world, level, serverPlayer, magicData.getCastSource(), true);
+        } else {
+            oldSpell.onCast(world, level, caster, magicData.getCastSource(), magicData);
+        }
+        oldSpell.onServerCastComplete(world, level, caster, magicData, false);
         magicData.resetCastingState();
     }
 
@@ -487,10 +522,18 @@ public final class SpellCastUtil {
         }
     }
 
-    public static void onSpellTick(ServerPlayer player, MagicData magicData) {
+    /**
+     * Driven by the player tick rather than {@link AbstractSpell#onServerCastTick}, which spells such as Blaze Storm
+     * override without calling super.
+     */
+    public static void tickContinuousCost(ServerPlayer player) {
         UUID playerId = player.getUUID();
         ContinuousCastData data = CONTINUOUS_CASTS.get(playerId);
         if (data == null) {
+            return;
+        }
+        MagicData magicData = MagicData.getPlayerMagicData(player);
+        if (!magicData.isCasting()) {
             return;
         }
         data.ticksElapsed++;
