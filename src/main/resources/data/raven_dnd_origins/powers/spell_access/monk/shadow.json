@@ -4,7 +4,7 @@
     "entries": [
         "#raven_dnd_origins:control",
         "#raven_dnd_origins:utility",
-        "@irons_spellbooks:ender",
-        "@hazentouvelib:shadow"
+        "#raven_dnd_origins:melee",
+        "@irons_spellbooks:ender"
     ]
 }
