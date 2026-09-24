@@ -3,6 +3,8 @@
     "type": "raven_dnd_origins:allowed_spells",
     "entries": [
         "#raven_dnd_origins:offensive",
-        "#raven_dnd_origins:control"
+        "#raven_dnd_origins:control",
+        "@raven_dnd_origins:martial",
+        "@raven_dnd_origins:archery"
     ]
 }

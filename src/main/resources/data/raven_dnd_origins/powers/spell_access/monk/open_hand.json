@@ -3,6 +3,7 @@
     "type": "raven_dnd_origins:allowed_spells",
     "entries": [
         "#raven_dnd_origins:melee",
-        "#raven_dnd_origins:defensive"
+        "#raven_dnd_origins:defensive",
+        "@raven_dnd_origins:martial"
     ]
 }

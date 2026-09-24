@@ -1,6 +1,7 @@
 {
     "powers": [
-        "raven_dnd_origins:subclass/barbarian/wildheart"
+        "raven_dnd_origins:subclass/barbarian/wildheart",
+        "raven_dnd_origins:spell_access/barbarian/wildheart"
     ],
     "icon": {
         "item": "raven_dnd_origins:subclass/barbarian/wildheart"

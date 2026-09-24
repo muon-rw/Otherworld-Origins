@@ -4,6 +4,8 @@
     "entries": [
         "#raven_dnd_origins:conjuring",
         "#raven_dnd_origins:support",
-        "@irons_spellbooks:nature"
+        "@irons_spellbooks:nature",
+        "@raven_dnd_origins:martial",
+        "@raven_dnd_origins:archery"
     ]
 }

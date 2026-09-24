@@ -5,6 +5,7 @@
         "#raven_dnd_origins:offensive",
         "#raven_dnd_origins:support",
         "#raven_dnd_origins:defensive",
-        "@tunes_n_tomes:melody"
+        "@tunes_n_tomes:melody",
+        "@raven_dnd_origins:martial"
     ]
 }

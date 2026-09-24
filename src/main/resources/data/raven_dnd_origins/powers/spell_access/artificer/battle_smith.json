@@ -4,6 +4,7 @@
     "entries": [
         "#raven_dnd_origins:conjuring",
         "#raven_dnd_origins:melee",
-        "@aces_spell_utils:technomancy"
+        "@aces_spell_utils:technomancy",
+        "@raven_dnd_origins:martial"
     ]
 }

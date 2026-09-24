@@ -1,6 +1,7 @@
 {
     "powers": [
-        "raven_dnd_origins:subclass/barbarian/wild_magic"
+        "raven_dnd_origins:subclass/barbarian/wild_magic",
+        "raven_dnd_origins:spell_access/barbarian/wild_magic"
     ],
     "icon": {
         "item": "raven_dnd_origins:subclass/barbarian/wild_magic"

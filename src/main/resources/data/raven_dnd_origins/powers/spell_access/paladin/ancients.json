@@ -5,6 +5,7 @@
         "#raven_dnd_origins:melee",
         "#raven_dnd_origins:defensive",
         "#raven_dnd_origins:support",
-        "@irons_spellbooks:nature"
+        "@irons_spellbooks:nature",
+        "@raven_dnd_origins:martial"
     ]
 }

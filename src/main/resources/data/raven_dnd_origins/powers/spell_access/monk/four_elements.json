@@ -8,6 +8,7 @@
         "@irons_spellbooks:nature",
         "@aces_spell_utils:hydro",
         "@aero_additions:wind",
-        "@gtbcs_geomancy_plus:geo"
+        "@gtbcs_geomancy_plus:geo",
+        "@raven_dnd_origins:martial"
     ]
 }

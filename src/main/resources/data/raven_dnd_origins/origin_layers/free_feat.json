@@ -47,7 +47,9 @@
         "raven_dnd_origins:feats/school_aqua",
         "raven_dnd_origins:feats/school_sound",
         "raven_dnd_origins:feats/school_geo",
-        "raven_dnd_origins:feats/school_wind"
+        "raven_dnd_origins:feats/school_wind",
+        "raven_dnd_origins:feats/school_martial",
+        "raven_dnd_origins:feats/school_archery"
       ]
     }
   ]

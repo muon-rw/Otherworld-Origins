@@ -1,6 +1,7 @@
 {
     "powers": [
-        "raven_dnd_origins:subclass/barbarian/berserker"
+        "raven_dnd_origins:subclass/barbarian/berserker",
+        "raven_dnd_origins:spell_access/barbarian/berserker"
     ],
     "icon": {
         "item": "minecraft:iron_axe"

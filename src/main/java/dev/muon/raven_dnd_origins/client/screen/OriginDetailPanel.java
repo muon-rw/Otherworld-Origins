@@ -5,6 +5,7 @@ import dev.muon.raven_dnd_origins.config.RavenDndOriginsConfig;
 import dev.muon.raven_dnd_origins.power.AllowedSpellsPower;
 import dev.muon.raven_dnd_origins.power.LeveledAttributePower;
 import dev.muon.raven_dnd_origins.restrictions.EnchantmentRestrictions;
+import dev.muon.raven_dnd_origins.school.ModSchools;
 import dev.muon.raven_dnd_origins.util.ElementalDisciplineSpellDisplay;
 import dev.overgrown.apoli.client.ApoliKeyMappings;
 import dev.overgrown.apoli.client.IconRenderer;
@@ -46,6 +47,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -113,6 +115,10 @@ public final class OriginDetailPanel {
 
     private static final ResourceLocation SCHOOL_BADGE_PLACEHOLDER =
             ResourceLocation.fromNamespaceAndPath("origins", "textures/gui/badge/isaacfanta/star.png");
+
+    private static final Map<ResourceLocation, ResourceLocation> SCHOOL_BADGES = Map.of(
+            ModSchools.MARTIAL_RESOURCE, RavenDndOrigins.loc("textures/gui/spell_school/martial.png"),
+            ModSchools.ARCHERY_RESOURCE, RavenDndOrigins.loc("textures/gui/spell_school/archery.png"));
 
     private static final ResourceLocation SCALING_LEVEL_BADGE =
             RavenDndOrigins.loc("textures/gui/wildshape/scaling_level.png");
@@ -315,8 +321,13 @@ public final class OriginDetailPanel {
                     AllowedSpellBadge b = makeCategoryBadge(entry.substring(1));
                     if (b != null) categoryBadges.add(b);
                 } else if (entry.startsWith("@")) {
-                    Component line = makeSchoolLine(entry.substring(1));
-                    if (line != null) additionalLines.add(line);
+                    AllowedSpellBadge schoolBadge = makeSchoolBadge(entry.substring(1));
+                    if (schoolBadge != null) {
+                        categoryBadges.add(schoolBadge);
+                    } else {
+                        Component line = makeSchoolLine(entry.substring(1));
+                        if (line != null) additionalLines.add(line);
+                    }
                 } else {
                     ResourceLocation loc = parseAllowedSpellsLoc(entry);
                     if (loc == null) continue;
@@ -350,6 +361,22 @@ public final class OriginDetailPanel {
                     Component.translatable(spell.value().getComponentId())).withStyle(ChatFormatting.GRAY));
         }
         ResourceLocation sprite = RavenDndOrigins.loc("textures/gui/spell_category/" + loc.getPath() + ".png");
+        return new AllowedSpellBadge(sprite, tt);
+    }
+
+    @Nullable
+    private AllowedSpellBadge makeSchoolBadge(String schoolId) {
+        ResourceLocation loc = parseAllowedSpellsLoc(schoolId);
+        ResourceLocation sprite = loc == null ? null : SCHOOL_BADGES.get(loc);
+        SchoolType school = sprite == null ? null : SchoolRegistry.REGISTRY.get(loc);
+        if (school == null) return null;
+        List<Component> tt = new ArrayList<>();
+        tt.add(Component.translatable("raven_dnd_origins.gui.allowed_spells.category_header",
+                school.getDisplayName().getString()).withStyle(ChatFormatting.GOLD));
+        for (AbstractSpell spell : SpellRegistry.getSpellsForSchool(school)) {
+            tt.add(Component.translatable("raven_dnd_origins.gui.allowed_spells.entry",
+                    Component.translatable(spell.getComponentId())).withStyle(ChatFormatting.GRAY));
+        }
         return new AllowedSpellBadge(sprite, tt);
     }
 

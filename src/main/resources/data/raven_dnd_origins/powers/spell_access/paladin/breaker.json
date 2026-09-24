@@ -5,6 +5,7 @@
         "#raven_dnd_origins:melee",
         "#raven_dnd_origins:offensive",
         "#raven_dnd_origins:control",
-        "@irons_spellbooks:blood"
+        "@irons_spellbooks:blood",
+        "@raven_dnd_origins:martial"
     ]
 }

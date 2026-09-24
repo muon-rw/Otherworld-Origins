@@ -682,6 +682,42 @@
         ]
       },
       "origins": ["raven_dnd_origins:feats/school_wind"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "raven_dnd_origins:martial",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_martial"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "raven_dnd_origins:archery",
+            "inverted": true
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_archery"]
     }
   ]
 }

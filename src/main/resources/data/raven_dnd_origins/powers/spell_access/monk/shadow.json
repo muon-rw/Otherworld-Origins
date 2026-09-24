@@ -5,6 +5,7 @@
         "#raven_dnd_origins:control",
         "#raven_dnd_origins:utility",
         "#raven_dnd_origins:melee",
-        "@irons_spellbooks:ender"
+        "@irons_spellbooks:ender",
+        "@raven_dnd_origins:martial"
     ]
 }

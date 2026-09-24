@@ -1,6 +1,7 @@
 {
     "powers": [
-        "raven_dnd_origins:subclass/fighter/champion"
+        "raven_dnd_origins:subclass/fighter/champion",
+        "raven_dnd_origins:spell_access/fighter/champion"
     ],
     "icon": {
         "item": "raven_dnd_origins:subclass/fighter/champion"

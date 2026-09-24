@@ -2,8 +2,6 @@
     "hidden": true,
     "type": "raven_dnd_origins:allowed_spells",
     "entries": [
-        "#raven_dnd_origins:utility",
-        "#raven_dnd_origins:defensive",
         "@raven_dnd_origins:martial",
         "@raven_dnd_origins:archery"
     ]

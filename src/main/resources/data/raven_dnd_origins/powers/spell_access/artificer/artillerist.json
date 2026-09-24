@@ -4,6 +4,7 @@
     "entries": [
         "#raven_dnd_origins:offensive",
         "#raven_dnd_origins:control",
-        "@aces_spell_utils:technomancy"
+        "@aces_spell_utils:technomancy",
+        "@raven_dnd_origins:archery"
     ]
 }

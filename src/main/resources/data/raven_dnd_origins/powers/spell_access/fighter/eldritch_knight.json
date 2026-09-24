@@ -8,6 +8,8 @@
         "@irons_spellbooks:ice",
         "@irons_spellbooks:lightning",
         "@irons_spellbooks:evocation",
-        "@ess_requiem:blade"
+        "@ess_requiem:blade",
+        "@raven_dnd_origins:martial",
+        "@raven_dnd_origins:archery"
     ]
 }

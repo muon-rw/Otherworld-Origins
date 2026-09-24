@@ -1,0 +1,6 @@
+{
+    "powers": ["raven_dnd_origins:feats/school_archery"],
+    "icon": {"item": "raven_dnd_origins:archery_upgrade_orb"},
+    "impact": 1,
+    "order": 114
+}

@@ -5,6 +5,7 @@
         "#raven_dnd_origins:melee",
         "#raven_dnd_origins:offensive",
         "#raven_dnd_origins:support",
-        "@irons_spellbooks:holy"
+        "@irons_spellbooks:holy",
+        "@raven_dnd_origins:martial"
     ]
 }

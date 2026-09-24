@@ -1,0 +1,6 @@
+{
+    "powers": ["raven_dnd_origins:feats/school_martial"],
+    "icon": {"item": "raven_dnd_origins:melee_upgrade_orb"},
+    "impact": 1,
+    "order": 113
+}
