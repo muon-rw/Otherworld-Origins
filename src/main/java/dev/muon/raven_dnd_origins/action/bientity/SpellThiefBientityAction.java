@@ -12,7 +12,6 @@ import dev.overgrown.apoli.condition.context.BiEntityCtx;
 import io.redspace.ironsspellbooks.api.entity.IMagicEntity;
 import io.redspace.ironsspellbooks.api.events.CounterSpellEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
-import io.redspace.ironsspellbooks.api.magic.MagicHelper;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
@@ -154,7 +153,7 @@ public final class SpellThiefBientityAction implements ActionType<BiEntityCtx, S
      */
     private static void refreshVictimSpellCooldown(LivingEntity victim, AbstractSpell spell) {
         if (victim instanceof ServerPlayer serverPlayer) {
-            MagicHelper.MAGIC_MANAGER.addCooldown(serverPlayer, spell, CastSource.COMMAND);
+            SpellCastUtil.addCommandCooldown(serverPlayer, spell);
         } else {
             int ticks = effectiveSpellCooldownTicks(victim, spell);
             if (ticks > 0) {

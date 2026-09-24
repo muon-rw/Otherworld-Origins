@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.raven_dnd_origins.RavenDndOrigins;
+import dev.muon.raven_dnd_origins.util.spell.CastFinishCallbacks;
 import dev.muon.raven_dnd_origins.util.spell.SpellCastInterruptMode;
 import dev.muon.raven_dnd_origins.util.spell.SpellCastUtil;
 import dev.muon.raven_dnd_origins.util.spell.SpellSelection;
@@ -36,7 +37,8 @@ public final class CastSpellAction implements ActionType<EntityCtx, CastSpellAct
             Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval),
             Codec.DOUBLE.optionalFieldOf("raycast_distance").forGetter(Configuration::raycastDistance),
             SpellCastInterruptMode.CODEC.optionalFieldOf("interrupt_mode", SpellCastInterruptMode.CANCEL).forGetter(Configuration::interruptMode),
-            LoggedOptionalField.of("success_action", EntityAction.CODEC).forGetter(Configuration::successAction)
+            LoggedOptionalField.of("success_action", EntityAction.CODEC).forGetter(Configuration::successAction),
+            LoggedOptionalField.of("finish_action", EntityAction.CODEC).forGetter(Configuration::finishAction)
     ).apply(instance, Configuration::create));
 
     @Override
@@ -99,9 +101,18 @@ public final class CastSpellAction implements ActionType<EntityCtx, CastSpellAct
         }
 
         // Recasts are free, matching Iron's, which never charges mana for them.
-        if (cast && !consumesRecast) {
-            configuration.successAction().ifPresent(action -> action.run(new EntityCtx(livingEntity, world)));
+        if (!cast || consumesRecast) {
+            return;
         }
+        EntityCtx actionCtx = new EntityCtx(livingEntity, world);
+        configuration.successAction().ifPresent(action -> action.run(actionCtx));
+        configuration.finishAction().ifPresent(action -> {
+            if (livingEntity instanceof ServerPlayer serverPlayer) {
+                CastFinishCallbacks.runWhenFinished(serverPlayer, spell, player -> action.run(new EntityCtx(player, player.level())));
+            } else {
+                action.run(actionCtx);
+            }
+        });
     }
 
     public record Configuration(
@@ -112,7 +123,8 @@ public final class CastSpellAction implements ActionType<EntityCtx, CastSpellAct
             int costInterval,
             Optional<Double> raycastDistance,
             SpellCastInterruptMode interruptMode,
-            Optional<EntityAction> successAction
+            Optional<EntityAction> successAction,
+            Optional<EntityAction> finishAction
     ) {
         private static Configuration create(
                 Either<ResourceLocation, SpellSelection> spellField,
@@ -123,13 +135,14 @@ public final class CastSpellAction implements ActionType<EntityCtx, CastSpellAct
                 int costInterval,
                 Optional<Double> raycastDistance,
                 SpellCastInterruptMode interruptMode,
-                Optional<EntityAction> successAction
+                Optional<EntityAction> successAction,
+                Optional<EntityAction> finishAction
         ) {
             SpellSelection selection = spellField.map(
                     rl -> SpellSelection.fromLegacyStringForm(rl, legacyPowerLevel.orElse(1)),
                     s -> s
             );
-            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval, raycastDistance, interruptMode, successAction);
+            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval, raycastDistance, interruptMode, successAction, finishAction);
         }
 
         private Either<ResourceLocation, SpellSelection> spellFieldForCodec() {

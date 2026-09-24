@@ -18,10 +18,12 @@ import dev.muon.raven_dnd_origins.selection.SelectionSessions;
 import dev.muon.raven_dnd_origins.skills.ModSkills;
 import dev.muon.raven_dnd_origins.util.EnhancedRepairLogic;
 import dev.muon.raven_dnd_origins.util.RepairMaterialDescription;
+import dev.muon.raven_dnd_origins.util.spell.CastFinishCallbacks;
 import dev.muon.raven_dnd_origins.util.spell.RecentSpellCastCache;
 import dev.muon.raven_dnd_origins.util.spell.SpellCastUtil;
 import dev.overgrown.apoli.power.PowerLookup;
 import io.redspace.ironsspellbooks.api.events.ModifySpellLevelEvent;
+import io.redspace.ironsspellbooks.api.events.SpellCooldownAddedEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
@@ -99,6 +101,9 @@ public class RavenDndOriginsEvents {
     @SubscribeEvent
     public static void onPlayerLoggedOutSpellCache(PlayerEvent.PlayerLoggedOutEvent event) {
         RecentSpellCastCache.remove(event.getEntity().getUUID());
+        if (event.getEntity() instanceof ServerPlayer player) {
+            CastFinishCallbacks.runAllPending(player);
+        }
     }
 
     @SubscribeEvent
@@ -148,6 +153,15 @@ public class RavenDndOriginsEvents {
                             .withStyle(ChatFormatting.RED),
                     true
             );
+        }
+    }
+
+    // Origin powers own their cooldowns. Iron's would also lock the player's spellbook copy of the spell, and stop
+    // spells such as Tremor Spike from opening recasts on the next origin cast.
+    @SubscribeEvent
+    public static void onSpellCooldownAdded(SpellCooldownAddedEvent.Pre event) {
+        if (event.getCastSource() == CastSource.COMMAND && !SpellCastUtil.isCommandCooldownAllowed()) {
+            event.setCanceled(true);
         }
     }
 

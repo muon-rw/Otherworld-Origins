@@ -1,24 +1,55 @@
 {
-    "type": "origins:active_self",
-    "key": {
-        "key": "key.raven_dnd_origins.cantrip_one"
+    "type": "origins:multiple",
+    "cooldown": {
+        "type": "origins:cooldown",
+        "cooldown": 20,
+        "hud_render": {
+            "should_render": true,
+            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_03.png",
+            "bar_index": 13
+        }
     },
-    "entity_action": {
-        "type": "raven_dnd_origins:cast_spell",
-        "spell": "tunes_n_tomes:chord_blast",
-        "power_level": 3,
-        "mana_cost": 10,
-        "cast_time": 0
-    },
-    "condition": {
-        "type": "raven_dnd_origins:player_mana",
-        "comparison": ">=",
-        "compare_to": 10
-    },
-    "cooldown": 20,
-    "hud_render": {
-        "should_render": true,
-        "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_03.png",
-        "bar_index": 13
+    "cast": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.raven_dnd_origins.cantrip_one"
+        },
+        "entity_action": {
+            "type": "raven_dnd_origins:cast_spell",
+            "spell": "tunes_n_tomes:chord_blast",
+            "power_level": 3,
+            "mana_cost": 10,
+            "cast_time": 0,
+            "finish_action": {
+                "type": "origins:trigger_cooldown",
+                "power": "*:*_cooldown"
+            }
+        },
+        "condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:has_spell_recast",
+                    "spell": "tunes_n_tomes:chord_blast"
+                },
+                {
+                    "type": "origins:and",
+                    "conditions": [
+                        {
+                            "type": "raven_dnd_origins:player_mana",
+                            "comparison": ">=",
+                            "compare_to": 10
+                        },
+                        {
+                            "type": "origins:resource",
+                            "resource": "*:*_cooldown",
+                            "comparison": "==",
+                            "compare_to": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        "cooldown": 5
     }
 }

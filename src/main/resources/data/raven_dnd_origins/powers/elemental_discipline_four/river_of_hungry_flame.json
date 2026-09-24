@@ -47,21 +47,16 @@
             "mana_cost": 0,
             "cast_time": 0,
             "success_action": {
-                "type": "origins:and",
-                "actions": [
-                    {
-                        "type": "origins:modify_resource",
-                        "resource": "*:class/monk/ki_pool",
-                        "modifier": {
-                            "operation": "add_base_early",
-                            "value": -4
-                        }
-                    },
-                    {
-                        "type": "origins:trigger_cooldown",
-                        "power": "*:*_cooldown"
-                    }
-                ]
+                "type": "origins:modify_resource",
+                "resource": "*:class/monk/ki_pool",
+                "modifier": {
+                    "operation": "add_base_early",
+                    "value": -4
+                }
+            },
+            "finish_action": {
+                "type": "origins:trigger_cooldown",
+                "power": "*:*_cooldown"
             }
         },
         "cooldown": 5

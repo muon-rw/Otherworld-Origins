@@ -4,6 +4,7 @@ import dev.muon.raven_dnd_origins.RavenDndOrigins;
 import io.redspace.ironsspellbooks.api.events.ChangeManaEvent;
 import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.magic.MagicHelper;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.CastResult;
@@ -66,6 +67,8 @@ public final class SpellCastUtil {
 
     private static final ThreadLocal<Boolean> IGNORING_LEARNING = ThreadLocal.withInitial(() -> false);
 
+    private static final ThreadLocal<Boolean> ALLOWING_COMMAND_COOLDOWN = ThreadLocal.withInitial(() -> false);
+
     private SpellCastUtil() {
     }
 
@@ -75,6 +78,23 @@ public final class SpellCastUtil {
      */
     public static boolean isIgnoringLearning() {
         return IGNORING_LEARNING.get();
+    }
+
+    /**
+     * Origin powers own their cooldowns, so Iron's per-spell cooldown is suppressed for COMMAND casts; this adds
+     * one deliberately.
+     */
+    public static void addCommandCooldown(ServerPlayer player, AbstractSpell spell) {
+        ALLOWING_COMMAND_COOLDOWN.set(true);
+        try {
+            MagicHelper.MAGIC_MANAGER.addCooldown(player, spell, CastSource.COMMAND);
+        } finally {
+            ALLOWING_COMMAND_COOLDOWN.set(false);
+        }
+    }
+
+    public static boolean isCommandCooldownAllowed() {
+        return ALLOWING_COMMAND_COOLDOWN.get();
     }
 
     /**
@@ -245,7 +265,9 @@ public final class SpellCastUtil {
                 return false;
             }
 
-            if (manaCostOpt.isPresent() && !serverPlayer.getAbilities().instabuild) {
+            // Recasts are free, as in Iron's.
+            if (manaCostOpt.isPresent() && !serverPlayer.getAbilities().instabuild
+                    && !magicData.getPlayerRecasts().hasRecastForSpell(spell.getSpellId())) {
                 int manaCost = manaCostOpt.get();
                 if (magicData.getMana() < manaCost) {
                     PacketDistributor.sendToPlayer(serverPlayer, new CastErrorPacket(CastErrorPacket.ErrorType.MANA, spell));

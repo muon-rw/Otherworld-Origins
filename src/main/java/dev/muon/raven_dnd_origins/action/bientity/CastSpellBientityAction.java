@@ -6,6 +6,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.muon.raven_dnd_origins.RavenDndOrigins;
 import dev.muon.raven_dnd_origins.util.spell.BientitySpellCastAim;
+import dev.muon.raven_dnd_origins.util.spell.CastFinishCallbacks;
 import dev.muon.raven_dnd_origins.util.spell.SpellCastInterruptMode;
 import dev.muon.raven_dnd_origins.util.spell.SpellCastUtil;
 import dev.muon.raven_dnd_origins.util.spell.SpellSelection;
@@ -41,7 +42,8 @@ public final class CastSpellBientityAction implements ActionType<BiEntityCtx, Ca
             Codec.BOOL.optionalFieldOf("continuous_cost", false).forGetter(Configuration::continuousCost),
             Codec.INT.optionalFieldOf("cost_interval", 20).forGetter(Configuration::costInterval),
             SpellCastInterruptMode.CODEC.optionalFieldOf("interrupt_mode", SpellCastInterruptMode.CANCEL).forGetter(Configuration::interruptMode),
-            LoggedOptionalField.of("success_action", BiEntityAction.CODEC).forGetter(Configuration::successAction)
+            LoggedOptionalField.of("success_action", BiEntityAction.CODEC).forGetter(Configuration::successAction),
+            LoggedOptionalField.of("finish_action", BiEntityAction.CODEC).forGetter(Configuration::finishAction)
     ).apply(instance, Configuration::create));
 
     @Override
@@ -111,9 +113,20 @@ public final class CastSpellBientityAction implements ActionType<BiEntityCtx, Ca
         }
 
         // Recasts are free, matching Iron's, which never charges mana for them.
-        if (cast && !consumesRecast) {
-            configuration.successAction().ifPresent(action -> action.run(new BiEntityCtx(caster, livingTarget, world)));
+        if (!cast || consumesRecast) {
+            return;
         }
+        BiEntityCtx actionCtx = new BiEntityCtx(caster, livingTarget, world);
+        configuration.successAction().ifPresent(action -> action.run(actionCtx));
+        configuration.finishAction().ifPresent(action -> {
+            if (caster instanceof ServerPlayer serverPlayer) {
+                LivingEntity finishTarget = livingTarget;
+                CastFinishCallbacks.runWhenFinished(serverPlayer, spell, player -> action.run(
+                        new BiEntityCtx(player, finishTarget == serverPlayer ? player : finishTarget, player.level())));
+            } else {
+                action.run(actionCtx);
+            }
+        });
     }
 
     public record Configuration(
@@ -123,7 +136,8 @@ public final class CastSpellBientityAction implements ActionType<BiEntityCtx, Ca
             boolean continuousCost,
             int costInterval,
             SpellCastInterruptMode interruptMode,
-            Optional<BiEntityAction> successAction
+            Optional<BiEntityAction> successAction,
+            Optional<BiEntityAction> finishAction
     ) {
         private static Configuration create(
                 Either<ResourceLocation, SpellSelection> spellField,
@@ -133,13 +147,14 @@ public final class CastSpellBientityAction implements ActionType<BiEntityCtx, Ca
                 boolean continuousCost,
                 int costInterval,
                 SpellCastInterruptMode interruptMode,
-                Optional<BiEntityAction> successAction
+                Optional<BiEntityAction> successAction,
+                Optional<BiEntityAction> finishAction
         ) {
             SpellSelection selection = spellField.map(
                     rl -> SpellSelection.fromLegacyStringForm(rl, legacyPowerLevel.orElse(1)),
                     s -> s
             );
-            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval, interruptMode, successAction);
+            return new Configuration(selection, castTime, manaCost, continuousCost, costInterval, interruptMode, successAction, finishAction);
         }
 
         private Either<ResourceLocation, SpellSelection> spellFieldForCodec() {

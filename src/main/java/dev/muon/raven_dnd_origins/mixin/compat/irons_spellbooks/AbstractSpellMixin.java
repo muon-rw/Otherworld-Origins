@@ -2,6 +2,7 @@ package dev.muon.raven_dnd_origins.mixin.compat.irons_spellbooks;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import dev.muon.raven_dnd_origins.util.spell.CastFinishCallbacks;
 import dev.muon.raven_dnd_origins.util.spell.RecentSpellCastCache;
 import dev.muon.raven_dnd_origins.util.spell.SpellCastUtil;
 import dev.muon.raven_dnd_origins.power.ActionOnSpellCastPower;
@@ -34,6 +35,7 @@ public class AbstractSpellMixin {
         RecentSpellCastCache.recordCompletedCast(level, entity, self, spellLevel, cancelled);
         if (entity instanceof ServerPlayer serverPlayer) {
             SpellCastUtil.onSpellEnd(serverPlayer);
+            CastFinishCallbacks.onCastComplete(serverPlayer, self);
         }
         ActionOnSpellCastPower.handleSpellCastComplete(self, entity, spellLevel, castSource, castType);
         RecastSpellPower.handleSpellCastComplete(self, entity, spellLevel, castSource, castType);

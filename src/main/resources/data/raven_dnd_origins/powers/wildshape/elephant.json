@@ -120,16 +120,38 @@
         "value_per_level": 0.02,
         "aptitude": "justlevelingfork:magic"
     },
-    "ability": {
-        "type": "origins:active_self",
-        "key": {
-            "key": "key.raven_dnd_origins.cantrip_three"
-        },
+    "ability_cooldown": {
+        "type": "origins:cooldown",
         "cooldown": 300,
         "hud_render": {
             "should_render": true,
             "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
             "bar_index": 1
+        }
+    },
+    "ability": {
+        "type": "origins:active_self",
+        "key": {
+            "key": "key.raven_dnd_origins.cantrip_three"
+        },
+        "condition": {
+            "type": "origins:or",
+            "conditions": [
+                {
+                    "type": "raven_dnd_origins:has_spell_recast",
+                    "spell": "gtbcs_geomancy_plus:tremor_spike"
+                },
+                {
+                    "type": "origins:resource",
+                    "resource": "*:*_ability_cooldown",
+                    "comparison": "==",
+                    "compare_to": 0
+                }
+            ]
+        },
+        "cooldown": 5,
+        "hud_render": {
+            "should_render": false
         },
         "entity_action": {
             "type": "origins:and",
@@ -137,8 +159,12 @@
                 {
                     "type": "raven_dnd_origins:cast_spell",
                     "spell": "gtbcs_geomancy_plus:tremor_spike",
-                    "level": 5,
-                    "cast_time": 0
+                    "power_level": 5,
+                    "cast_time": 0,
+                    "finish_action": {
+                        "type": "origins:trigger_cooldown",
+                        "power": "*:*_ability_cooldown"
+                    }
                 },
                 {
                     "type": "origins:play_sound",
