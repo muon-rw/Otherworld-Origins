@@ -24,14 +24,7 @@
         }
     },
     "lockout": {
-        "type": "origins:active_self",
-        "condition": {
-            "type": "origins:constant",
-            "value": false
-        },
-        "entity_action": {
-            "type": "origins:nothing"
-        },
+        "type": "origins:cooldown",
         "cooldown": 600,
         "hud_render": {
             "should_render": false

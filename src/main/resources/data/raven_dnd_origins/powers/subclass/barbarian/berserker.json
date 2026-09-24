@@ -85,14 +85,7 @@
         }
     },
     "death_save_cooldown": {
-        "type": "origins:active_self",
-        "condition": {
-            "type": "origins:constant",
-            "value": false
-        },
-        "entity_action": {
-            "type": "origins:nothing"
-        },
+        "type": "origins:cooldown",
         "cooldown": 24000,
         "hud_render": {
             "should_render": false
