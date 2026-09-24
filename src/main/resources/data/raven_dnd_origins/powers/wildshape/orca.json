@@ -131,7 +131,7 @@
         "entity_action": {
             "type": "raven_dnd_origins:cast_spell",
             "spell": "hazennstuff:razorblade_typhoon",
-            "level": 3,
+            "power_level": 3,
             "cast_time": 0
         }
     },

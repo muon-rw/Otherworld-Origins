@@ -140,7 +140,7 @@
                 {
                     "type": "raven_dnd_origins:cast_spell",
                     "spell": "aero_additions:dash",
-                    "level": 1,
+                    "power_level": 1,
                     "cast_time": 0
                 },
                 {

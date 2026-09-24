@@ -137,7 +137,7 @@
         "entity_action": {
             "type": "raven_dnd_origins:cast_spell",
             "spell": "cataclysm_spellbooks:tidal_grab",
-            "level": 3,
+            "power_level": 3,
             "cast_time": 0
         }
     },
