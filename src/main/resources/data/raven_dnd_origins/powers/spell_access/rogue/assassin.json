@@ -3,7 +3,6 @@
     "type": "raven_dnd_origins:allowed_spells",
     "entries": [
         "#raven_dnd_origins:offensive",
-        "#raven_dnd_origins:control",
-        "@hazentouvelib:shadow"
+        "#raven_dnd_origins:control"
     ]
 }

@@ -11,7 +11,7 @@
     },
     "entity_action": {
         "type": "raven_dnd_origins:cast_spell",
-        "spell": "blaze_storm",
+        "spell": "fire_breath",
         "power_level": 5,
         "mana_cost": 0,
         "success_action": {

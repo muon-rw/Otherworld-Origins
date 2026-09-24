@@ -198,6 +198,63 @@
       "origins": [
         "raven_dnd_origins:elemental_discipline_one/fangs_of_the_fire_snake"
       ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:subclass/monk/four_elements"
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:elemental_discipline_one/clench_of_the_north_wind"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:subclass/monk/four_elements"
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:elemental_discipline_one/fist_of_unbroken_air"
+      ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:subclass/monk/four_elements"
+          },
+          {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": "<",
+            "compare_to": 20
+          }
+        ]
+      },
+      "origins": [
+        "raven_dnd_origins:elemental_discipline_one/ride_the_wind"
+      ]
     }
   ]
 }

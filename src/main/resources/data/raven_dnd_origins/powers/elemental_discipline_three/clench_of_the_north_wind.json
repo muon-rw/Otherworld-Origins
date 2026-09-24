@@ -7,19 +7,19 @@
         "type": "origins:resource",
         "resource": "*:class/monk/ki_pool",
         "comparison": ">=",
-        "compare_to": 2
+        "compare_to": 4
     },
     "entity_action": {
         "type": "raven_dnd_origins:cast_spell",
-        "spell": "fire_breath",
-        "power_level": 3,
+        "spell": "discerning_the_eldritch:glacial_edge",
+        "power_level": 8,
         "mana_cost": 0,
         "success_action": {
             "type": "origins:modify_resource",
             "resource": "*:class/monk/ki_pool",
             "modifier": {
                 "operation": "add_base_early",
-                "value": -2
+                "value": -4
             }
         }
     },

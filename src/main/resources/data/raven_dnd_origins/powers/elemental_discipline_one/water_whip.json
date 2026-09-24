@@ -12,7 +12,7 @@
     "entity_action": {
         "type": "raven_dnd_origins:cast_spell",
         "spell": "cataclysm_spellbooks:tidal_grab",
-        "power_level": 2,
+        "power_level": 3,
         "mana_cost": 0,
         "cast_time": 0,
         "success_action": {

@@ -11,9 +11,10 @@
     },
     "entity_action": {
         "type": "raven_dnd_origins:cast_spell",
-        "spell": "fire_breath",
-        "power_level": 3,
+        "spell": "aero_additions:wind_blade",
+        "power_level": 4,
         "mana_cost": 0,
+        "cast_time": 0,
         "success_action": {
             "type": "origins:modify_resource",
             "resource": "*:class/monk/ki_pool",
@@ -23,7 +24,7 @@
             }
         }
     },
-    "cooldown": 100,
+    "cooldown": 25,
     "hud_render": {
         "should_render": true,
         "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",

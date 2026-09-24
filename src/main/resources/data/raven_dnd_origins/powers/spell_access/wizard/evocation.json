@@ -5,7 +5,6 @@
         "#raven_dnd_origins:offensive",
         "#raven_dnd_origins:melee",
         "#raven_dnd_origins:control",
-        "@irons_spellbooks:evocation",
-        "@legendary_spellbooks:annihilation"
+        "@irons_spellbooks:evocation"
     ]
 }

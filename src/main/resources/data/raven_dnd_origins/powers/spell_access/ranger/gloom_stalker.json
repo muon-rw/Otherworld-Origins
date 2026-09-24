@@ -5,7 +5,6 @@
         "#raven_dnd_origins:offensive",
         "#raven_dnd_origins:control",
         "#raven_dnd_origins:utility",
-        "@irons_spellbooks:ender",
-        "@hazentouvelib:shadow"
+        "@irons_spellbooks:ender"
     ]
 }

@@ -4,7 +4,6 @@
     "entries": [
         "#raven_dnd_origins:offensive",
         "#raven_dnd_origins:control",
-        "#raven_dnd_origins:conjuring",
-        "@elemental_synergies:brimstone"
+        "#raven_dnd_origins:conjuring"
     ]
 }

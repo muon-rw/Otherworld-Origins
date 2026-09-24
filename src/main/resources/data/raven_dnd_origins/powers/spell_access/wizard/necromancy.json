@@ -5,7 +5,6 @@
         "#raven_dnd_origins:conjuring",
         "#raven_dnd_origins:control",
         "#raven_dnd_origins:offensive",
-        "@irons_spellbooks:blood",
-        "@discerning_the_eldritch:ritual"
+        "@irons_spellbooks:blood"
     ]
 }

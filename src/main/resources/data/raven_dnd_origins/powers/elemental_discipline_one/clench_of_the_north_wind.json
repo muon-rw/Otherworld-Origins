@@ -11,7 +11,7 @@
     },
     "entity_action": {
         "type": "raven_dnd_origins:cast_spell",
-        "spell": "fire_breath",
+        "spell": "discerning_the_eldritch:glacial_edge",
         "power_level": 3,
         "mana_cost": 0,
         "success_action": {

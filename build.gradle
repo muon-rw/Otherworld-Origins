@@ -310,8 +310,8 @@ dependencies {
     // Clockwork
     compileOnly("pack:clockwork-neoforge:1.21.1-1.1.5")
     localRuntime("pack:clockwork-neoforge:1.21.1-1.1.5")
-    compileOnly("pack:knightlib-neoforge:1.21.1-2.0.2")            // required by clockwork
-    localRuntime("pack:knightlib-neoforge:1.21.1-2.0.2")
+    compileOnly("pack:knightlib-neoforge:1.21.1-2.0.3")            // required by clockwork
+    localRuntime("pack:knightlib-neoforge:1.21.1-2.0.3")
 
     // FTB
     implementation("dev.ftb.mods:ftb-teams-neoforge:${ftb_teams_version}")

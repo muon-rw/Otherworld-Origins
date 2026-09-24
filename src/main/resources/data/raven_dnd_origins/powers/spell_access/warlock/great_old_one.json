@@ -6,6 +6,6 @@
         "#raven_dnd_origins:utility",
         "#raven_dnd_origins:defensive",
         "@irons_spellbooks:eldritch",
-        "@cataclysm_spellbooks:abyssal"
+        "@aces_spell_utils:hydro"
     ]
 }

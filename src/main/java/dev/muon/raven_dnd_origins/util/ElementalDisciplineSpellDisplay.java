@@ -22,12 +22,15 @@ public final class ElementalDisciplineSpellDisplay {
             Map.entry("flames_of_the_phoenix", "fireball"),
             Map.entry("river_of_hungry_flame", "wall_of_fire"),
             Map.entry("rush_of_the_gale_spirits", "gust"),
-            Map.entry("sweeping_cinder_strike", "blaze_storm"),
+            Map.entry("sweeping_cinder_strike", "fire_breath"),
             Map.entry("water_whip", "cataclysm_spellbooks:tidal_grab"),
             Map.entry("eternal_mountain_defense", "oakskin"),
             Map.entry("fist_of_four_thunders", "shockwave"),
             Map.entry("shape_the_flowing_river", "aero_additions:flush"),
-            Map.entry("fangs_of_the_fire_snake", "flaming_strike")
+            Map.entry("fangs_of_the_fire_snake", "flaming_strike"),
+            Map.entry("clench_of_the_north_wind", "discerning_the_eldritch:glacial_edge"),
+            Map.entry("fist_of_unbroken_air", "aero_additions:wind_blade"),
+            Map.entry("ride_the_wind", "aero_additions:feather_fall")
     );
 
     private ElementalDisciplineSpellDisplay() {
