@@ -1,9 +1,17 @@
 {
-    "type": "origins:prevent_block_use",
+    "type": "origins:action_on_block_use",
     "block_condition": {
         "type": "origins:in_tag",
         "tag": "raven_dnd_origins:advanced_tables"
     },
+    "entity_action": {
+        "type": "raven_dnd_origins:action_bar_message",
+        "message": {
+            "translate": "raven_dnd_origins.reforge_restricted",
+            "color": "red"
+        }
+    },
+    "action_result": "fail",
     "condition": {
         "inverted": true,
         "type": "origins:and",

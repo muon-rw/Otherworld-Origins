@@ -5,8 +5,6 @@
     "powers": [
         "raven_dnd_origins:reforging_restrict_lower",
         "raven_dnd_origins:reforging_restrict_upper",
-        "raven_dnd_origins:reforging_msg_lower",
-        "raven_dnd_origins:reforging_msg_upper",
         "raven_dnd_origins:level"
     ]
 }
