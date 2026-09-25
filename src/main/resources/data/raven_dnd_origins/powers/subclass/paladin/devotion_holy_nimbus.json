@@ -272,7 +272,6 @@
     },
     "self_armor": {
         "type": "origins:conditioned_attribute",
-        "tick_rate": 20,
         "condition": {
             "type": "origins:resource",
             "resource": "*:*_timer",

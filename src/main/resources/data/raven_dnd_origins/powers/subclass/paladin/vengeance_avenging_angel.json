@@ -243,7 +243,6 @@
     },
     "self_speed": {
         "type": "origins:conditioned_attribute",
-        "tick_rate": 20,
         "condition": {
             "type": "origins:resource",
             "resource": "*:*_timer",
@@ -258,7 +257,6 @@
     },
     "self_attack_speed": {
         "type": "origins:conditioned_attribute",
-        "tick_rate": 20,
         "condition": {
             "type": "origins:resource",
             "resource": "*:*_timer",
@@ -273,7 +271,6 @@
     },
     "self_damage": {
         "type": "origins:conditioned_attribute",
-        "tick_rate": 20,
         "condition": {
             "type": "origins:resource",
             "resource": "*:*_timer",

@@ -1,6 +1,5 @@
 {
   "replace": true,
-  "loading_priority": 5,
   "enabled": false,
   "hidden": true,
   "name": "Error",

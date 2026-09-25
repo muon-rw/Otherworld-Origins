@@ -2,7 +2,6 @@
     "type": "origins:multiple",
     "draw_speed_5": {
         "type": "origins:conditioned_attribute",
-        "tick_rate": 20,
         "condition": {
             "type": "raven_dnd_origins:player_level",
             "comparison": ">=",
@@ -16,7 +15,6 @@
     },
     "draw_speed_10": {
         "type": "origins:conditioned_attribute",
-        "tick_rate": 20,
         "condition": {
             "type": "raven_dnd_origins:player_level",
             "comparison": ">=",
@@ -30,7 +28,6 @@
     },
     "draw_speed_15": {
         "type": "origins:conditioned_attribute",
-        "tick_rate": 20,
         "condition": {
             "type": "raven_dnd_origins:player_level",
             "comparison": ">=",

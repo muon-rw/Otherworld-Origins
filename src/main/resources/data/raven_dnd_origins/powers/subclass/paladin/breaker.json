@@ -40,7 +40,6 @@
     },
     "aura_of_hate": {
         "type": "origins:conditioned_attribute",
-        "tick_rate": 20,
         "condition": {
             "type": "raven_dnd_origins:player_level",
             "comparison": ">=",
