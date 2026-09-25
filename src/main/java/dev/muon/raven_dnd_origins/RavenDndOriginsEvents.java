@@ -29,10 +29,8 @@ import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.entity.spells.AbstractConeProjectile;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -148,11 +146,7 @@ public class RavenDndOriginsEvents {
         AbstractSpell spell = SpellRegistry.getSpell(event.getSpellId());
         if (!SpellRestrictions.isSpellCastAllowed(event.getEntity(), spell, event.getSpellLevel())) {
             event.setCanceled(true);
-            event.getEntity().displayClientMessage(
-                    Component.literal("You are not attuned to this type of magic!")
-                            .withStyle(ChatFormatting.RED),
-                    true
-            );
+            event.getEntity().displayClientMessage(SpellRestrictions.getBlockedCastMessage(spell), true);
         }
     }
 

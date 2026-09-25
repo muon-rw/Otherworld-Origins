@@ -16,6 +16,7 @@ import io.redspace.ironsspellbooks.capabilities.magic.CooldownInstance;
 import io.redspace.ironsspellbooks.capabilities.magic.PlayerCooldowns;
 import io.redspace.ironsspellbooks.capabilities.magic.TargetEntityCastData;
 import io.redspace.ironsspellbooks.entity.spells.target_area.TargetedAreaEntity;
+import io.redspace.ironsspellbooks.item.Scroll;
 import io.redspace.ironsspellbooks.network.SyncManaPacket;
 import io.redspace.ironsspellbooks.network.casting.CastErrorPacket;
 import io.redspace.ironsspellbooks.network.casting.OnCastStartedPacket;
@@ -344,6 +345,9 @@ public final class SpellCastUtil {
         int level = magicData.getCastingSpellLevel();
         if (caster instanceof ServerPlayer serverPlayer) {
             oldSpell.castSpell(world, level, serverPlayer, magicData.getCastSource(), true);
+            if (magicData.getCastSource() == CastSource.SCROLL) {
+                Scroll.attemptRemoveScrollAfterCast(serverPlayer);
+            }
         } else {
             oldSpell.onCast(world, level, caster, magicData.getCastSource(), magicData);
         }

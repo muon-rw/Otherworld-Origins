@@ -371,7 +371,7 @@ public final class OriginDetailPanel {
         SchoolType school = sprite == null ? null : SchoolRegistry.REGISTRY.get(loc);
         if (school == null) return null;
         List<Component> tt = new ArrayList<>();
-        tt.add(Component.translatable("raven_dnd_origins.gui.allowed_spells.category_header",
+        tt.add(Component.translatable("raven_dnd_origins.gui.allowed_spells.technique_header",
                 school.getDisplayName().getString()).withStyle(ChatFormatting.GOLD));
         for (AbstractSpell spell : SpellRegistry.getSpellsForSchool(school)) {
             tt.add(Component.translatable("raven_dnd_origins.gui.allowed_spells.entry",

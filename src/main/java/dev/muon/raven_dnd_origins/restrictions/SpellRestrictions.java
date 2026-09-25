@@ -4,6 +4,7 @@ import dev.muon.raven_dnd_origins.RavenDndOrigins;
 import dev.muon.raven_dnd_origins.config.RavenDndOriginsConfig;
 import dev.muon.raven_dnd_origins.power.AllowedSpellsPower;
 import dev.muon.raven_dnd_origins.power.ModPowers;
+import dev.muon.raven_dnd_origins.school.ModSchools;
 import dev.overgrown.apoli.power.PowerContainer;
 import dev.overgrown.apoli.power.PowerLookup;
 import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
@@ -12,6 +13,7 @@ import io.redspace.ironsspellbooks.api.spells.ISpellContainer;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -22,8 +24,18 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SpellRestrictions {
 
     public static Component getRestrictionMessage(Player player, AbstractSpell spell) {
-        return Component.translatable("raven_dnd_origins.restriction.not_attuned")
+        return Component.translatable(isTechnique(spell) ? "raven_dnd_origins.restriction.untrained" : "raven_dnd_origins.restriction.not_attuned")
                 .withStyle(ChatFormatting.DARK_GRAY);
+    }
+
+    public static Component getBlockedCastMessage(AbstractSpell spell) {
+        return Component.translatable(isTechnique(spell) ? "raven_dnd_origins.restriction.untrained_cast" : "raven_dnd_origins.restriction.not_attuned_cast")
+                .withStyle(ChatFormatting.RED);
+    }
+
+    public static boolean isTechnique(AbstractSpell spell) {
+        ResourceLocation school = spell.getSchoolType().getId();
+        return school.equals(ModSchools.MARTIAL_RESOURCE) || school.equals(ModSchools.ARCHERY_RESOURCE);
     }
 
     private static final long UNRESOLVED_WARN_INTERVAL_MS = 10_000L;
