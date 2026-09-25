@@ -1,6 +1,7 @@
 package dev.muon.raven_dnd_origins.condition;
 
 import com.mojang.serialization.MapCodec;
+import dev.muon.raven_core.weapon.FistWeapons;
 import dev.muon.raven_dnd_origins.RavenDndOrigins;
 import dev.muon.raven_dnd_origins.condition.block.PlantableBlockCondition;
 import dev.muon.raven_dnd_origins.condition.entity.AnyOnLayerCondition;
@@ -363,10 +364,7 @@ public class ModConditions {
 
         @Override
         public boolean test(EmptyCfg cfg, ItemCtx ctx) {
-            ItemStack stack = ctx.stack();
-            String path = pathOf(stack);
-            return (stack.getItem() instanceof SwordItem || stack.is(ItemTags.SHARP_WEAPON_ENCHANTABLE))
-                    && (path.contains("fist") || path.contains("claw") || path.contains("gauntlet"));
+            return FistWeapons.isNamedFistWeapon(ctx.stack());
         }
     }
 
