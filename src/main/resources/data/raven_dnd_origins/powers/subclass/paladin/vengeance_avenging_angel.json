@@ -53,7 +53,7 @@
                 {
                     "type": "raven_dnd_origins:area_of_effect_sequential",
                     "radius": 16,
-                    "include_self": false,
+                    "include_actor": false,
                     "application_count": 5,
                     "delay_ticks": 4,
                     "bientity_condition": {
@@ -177,7 +177,7 @@
         "entity_action": {
             "type": "raven_dnd_origins:area_of_effect_sequential",
             "radius": 16,
-            "include_self": false,
+            "include_actor": false,
             "application_count": 4,
             "delay_ticks": 4,
             "bientity_condition": {

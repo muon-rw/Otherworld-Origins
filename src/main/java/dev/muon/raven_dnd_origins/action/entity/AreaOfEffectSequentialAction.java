@@ -7,6 +7,7 @@ import dev.muon.raven_dnd_origins.RavenDndOrigins;
 import dev.overgrown.apoli.action.ActionType;
 import dev.overgrown.apoli.action.BiEntityAction;
 import dev.overgrown.apoli.action.DelayedActionQueue;
+import dev.overgrown.apoli.alias.AliasingMapCodec;
 import dev.overgrown.apoli.condition.BiEntityCondition;
 import dev.overgrown.apoli.condition.context.BiEntityCtx;
 import dev.overgrown.apoli.condition.context.EntityCtx;
@@ -21,12 +22,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
 /**
  * Like Apoli {@code area_of_effect}: gathers entities in a radius, optional {@code bientity_condition},
- * {@code include_self} (when {@code false}, the actor is not a candidate), and {@code shape} in the codec
+ * {@code include_actor} (when {@code false}, the actor is not a candidate), and {@code shape} in the codec
  * for datapack parity (shape is not otherwise applied, matching the original implementation).
  * <p>
  * Differs by sorting targets by distance to the actor (nearest first), then running {@code bientity_action}
@@ -44,22 +46,24 @@ public final class AreaOfEffectSequentialAction implements ActionType<EntityCtx,
             BiEntityAction bientityAction,
             Optional<BiEntityCondition> bientityCondition,
             Shape shape,
-            boolean includeSelf,
+            boolean includeActor,
             int delayTicks,
             int applicationCount
     ) {}
 
+    private static final MapCodec<Cfg> INNER = RecordCodecBuilder.mapCodec(i -> i.group(
+            Codec.DOUBLE.optionalFieldOf("radius", 16.0).forGetter(Cfg::radius),
+            BiEntityAction.CODEC.fieldOf("bientity_action").forGetter(Cfg::bientityAction),
+            BiEntityCondition.CODEC.optionalFieldOf("bientity_condition").forGetter(Cfg::bientityCondition),
+            Shape.CODEC.optionalFieldOf("shape", Shape.CUBE).forGetter(Cfg::shape),
+            Codec.BOOL.optionalFieldOf("include_actor", false).forGetter(Cfg::includeActor),
+            Codec.INT.optionalFieldOf("delay_ticks", 0).forGetter(Cfg::delayTicks),
+            Codec.INT.optionalFieldOf("application_count", 1).forGetter(Cfg::applicationCount)
+    ).apply(i, Cfg::new));
+
     @Override
     public MapCodec<Cfg> codec() {
-        return RecordCodecBuilder.mapCodec(i -> i.group(
-                Codec.DOUBLE.optionalFieldOf("radius", 16.0).forGetter(Cfg::radius),
-                BiEntityAction.CODEC.fieldOf("bientity_action").forGetter(Cfg::bientityAction),
-                BiEntityCondition.CODEC.optionalFieldOf("bientity_condition").forGetter(Cfg::bientityCondition),
-                Shape.CODEC.optionalFieldOf("shape", Shape.CUBE).forGetter(Cfg::shape),
-                Codec.BOOL.optionalFieldOf("include_self", false).forGetter(Cfg::includeSelf),
-                Codec.INT.optionalFieldOf("delay_ticks", 0).forGetter(Cfg::delayTicks),
-                Codec.INT.optionalFieldOf("application_count", 1).forGetter(Cfg::applicationCount)
-        ).apply(i, Cfg::new));
+        return AliasingMapCodec.wrap(INNER, Map.of("include_target", "include_actor"));
     }
 
     @Override
@@ -71,7 +75,7 @@ public final class AreaOfEffectSequentialAction implements ActionType<EntityCtx,
         int applications = Math.max(1, cfg.applicationCount());
         int delayTicks = Math.max(0, cfg.delayTicks());
         RavenDndOrigins.LOGGER.debug(
-                "{}: execute start actor={} ({}) dim={} pos=({}, {}, {}) radius={} includeSelf={} applicationCount={} delayTicks={}",
+                "{}: execute start actor={} ({}) dim={} pos=({}, {}, {}) radius={} includeActor={} applicationCount={} delayTicks={}",
                 LOG_PREFIX,
                 entity.getUUID(),
                 entity.getType().getDescription().getString(),
@@ -80,7 +84,7 @@ public final class AreaOfEffectSequentialAction implements ActionType<EntityCtx,
                 entity.getY(),
                 entity.getZ(),
                 cfg.radius(),
-                cfg.includeSelf(),
+                cfg.includeActor(),
                 applications,
                 delayTicks
         );
@@ -182,7 +186,7 @@ public final class AreaOfEffectSequentialAction implements ActionType<EntityCtx,
         int outsideSphere = 0;
         for (Entity check : entity.level().getEntitiesOfClass(Entity.class, AABB.ofSize(entity.getPosition(1.0F), diameter, diameter, diameter))) {
             scanned++;
-            if (check == entity && !cfg.includeSelf()) {
+            if (check == entity && !cfg.includeActor()) {
                 skippedSelf++;
                 continue;
             }

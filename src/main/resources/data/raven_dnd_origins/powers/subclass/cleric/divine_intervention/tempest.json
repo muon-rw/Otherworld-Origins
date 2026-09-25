@@ -78,7 +78,7 @@
                     {
                         "type": "raven_dnd_origins:area_of_effect_sequential",
                         "radius": 16,
-                        "include_self": false,
+                        "include_actor": false,
                         "application_count": 20,
                         "delay_ticks": 3,
                         "bientity_condition": {
