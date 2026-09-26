@@ -3,9 +3,12 @@ package dev.muon.raven_dnd_origins.mixin.compat.bettercombat;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.muon.raven_dnd_origins.power.ShapeshiftPower;
 import dev.muon.raven_dnd_origins.util.shapeshift.ShapeshiftWeaponAttributes;
+import net.bettercombat.BetterCombatMod;
 import net.bettercombat.api.AttackHand;
+import net.bettercombat.logic.EntityAttributeHelper;
 import net.bettercombat.logic.PlayerAttackHelper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -45,5 +48,16 @@ public class PlayerAttackHelperMixin {
         if (!original) return false;
         ShapeshiftPower.Configuration config = ShapeshiftPower.getActiveShapeshiftConfig(player);
         return config == null || config.allowTools();
+    }
+
+    // Feeds Player#entityInteractionRange, the server's hit gate, which must match the client's scaled form reach
+    @ModifyReturnValue(method = "getRangeWithWeapon(Lnet/minecraft/world/entity/player/Player;D)D", at = @At("RETURN"))
+    private static double raven_dnd_origins$shapeshiftReach(double original, Player player, double interactionRangeValue) {
+        ShapeshiftPower.Configuration config = ShapeshiftPower.getActiveShapeshiftConfig(player);
+        if (config == null || config.allowTools()) return original;
+        ItemStack held = player.getMainHandItem();
+        if (ShapeshiftToolHandler.isWeaponOrTool(held) || EntityAttributeHelper.itemHasRangeAttribute(held)) return original;
+        double formReach = PlayerAttackHelper.combineAttackRange(ShapeshiftWeaponAttributes.getOrBuild(config), interactionRangeValue);
+        return formReach * Math.max(1.0F, BetterCombatMod.config.getAttackRangeMultiplierForScale(player.getScale()));
     }
 }

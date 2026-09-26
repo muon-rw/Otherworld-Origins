@@ -37,8 +37,11 @@ public class WeaponRegistryMixin {
             require = 1
     )
     private static WeaponAttributes raven_dnd_origins$shapeshiftAttributes(WeaponAttributes original, ItemStack itemStack) {
-        Player player = Minecraft.getInstance().player;
-        if (player == null) return original;
+        // The integrated server shares this class and must resolve items as a dedicated server would
+        Minecraft minecraft = Minecraft.getInstance();
+        if (!minecraft.isSameThread()) return original;
+        Player player = minecraft.player;
+        if (player == null || itemStack == null) return original;
 
         var config = raven_dnd_origins$activeConfigThisTick(player);
         if (config == null || config.allowTools()) return original;
