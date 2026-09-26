@@ -11,21 +11,7 @@
             "type": "origins:equipped_item",
             "equipment_slot": "mainhand",
             "item_condition": {
-                "type": "origins:or",
-                "conditions": [
-                    {
-                        "type": "origins:empty"
-                    },
-                    {
-                        "type": "origins:ingredient",
-                        "ingredient": {
-                            "tag": "raven_dnd_origins:fist_weapons"
-                        }
-                    },
-                    {
-                        "type": "raven_dnd_origins:is_fist_weapon"
-                    }
-                ]
+                "type": "raven_dnd_origins:is_fist_weapon"
             }
         }
     },

@@ -364,7 +364,7 @@ public class ModConditions {
 
         @Override
         public boolean test(EmptyCfg cfg, ItemCtx ctx) {
-            return FistWeapons.isNamedFistWeapon(ctx.stack());
+            return FistWeapons.isFistWeapon(ctx.stack());
         }
     }
 
