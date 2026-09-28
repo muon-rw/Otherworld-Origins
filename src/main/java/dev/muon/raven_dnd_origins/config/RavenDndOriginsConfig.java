@@ -5,6 +5,7 @@ import me.fzzyhmstrs.fzzy_config.config.ConfigSection;
 import me.fzzyhmstrs.fzzy_config.validation.collection.ValidatedList;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedBoolean;
 import me.fzzyhmstrs.fzzy_config.validation.misc.ValidatedString;
+import me.fzzyhmstrs.fzzy_config.validation.number.ValidatedDouble;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
@@ -69,6 +70,14 @@ public class RavenDndOriginsConfig extends Config {
         );
     }
 
+    public WeaponSchoolsSection weaponSchools = new WeaponSchoolsSection();
+
+    public static class WeaponSchoolsSection extends ConfigSection {
+        public ValidatedDouble weaponWeight = new ValidatedDouble(0.5, 1.0, 0.0);
+        public ValidatedDouble martialReferenceDamage = new ValidatedDouble(6.0, 100.0, 1.0);
+        public ValidatedDouble archeryReferenceDamage = new ValidatedDouble(6.0, 100.0, 1.0);
+    }
+
     public ShoulderSurfingSection shoulderSurfing = new ShoulderSurfingSection();
 
     public static class ShoulderSurfingSection extends ConfigSection {
@@ -97,6 +106,18 @@ public class RavenDndOriginsConfig extends Config {
 
     public static boolean enableDurabilityRework() {
         return INSTANCE != null && INSTANCE.durabilityRework.enabled.get();
+    }
+
+    public static double weaponSchoolWeight() {
+        return INSTANCE == null ? 0.5 : INSTANCE.weaponSchools.weaponWeight.get();
+    }
+
+    public static double martialReferenceDamage() {
+        return INSTANCE == null ? 6.0 : INSTANCE.weaponSchools.martialReferenceDamage.get();
+    }
+
+    public static double archeryReferenceDamage() {
+        return INSTANCE == null ? 6.0 : INSTANCE.weaponSchools.archeryReferenceDamage.get();
     }
 
     public static List<String> starterKitItems() {
