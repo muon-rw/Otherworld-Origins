@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(value = AptitudeLevelUpSP.class, remap = false)
 public class AptitudeLevelUpSPMixin {
@@ -28,5 +29,13 @@ public class AptitudeLevelUpSPMixin {
     )
     private int raiseGlobalMaxLevelByInnateBonus(int maxLevel, ServerPlayer sender, @Local AptitudeCapability capability) {
         return maxLevel + InnateAptitudeBonusPower.sumBonusesForAptitudes(sender, capability.aptitudeLevel.keySet());
+    }
+
+    @ModifyArg(
+            method = "handle(Lnet/minecraft/server/level/ServerPlayer;)V",
+            at = @At(value = "INVOKE", target = "Lcom/seniors/justlevelingfork/network/packet/common/AptitudeLevelUpSP;requiredPoints(I)I")
+    )
+    private int priceLevelUpWithoutInnateBonus(int aptitudeLevel, @Local(argsOnly = true) ServerPlayer sender, @Local Aptitude aptitude) {
+        return Math.max(aptitudeLevel - InnateAptitudeBonusPower.getBonus(sender, aptitude.getName()), 1);
     }
 }

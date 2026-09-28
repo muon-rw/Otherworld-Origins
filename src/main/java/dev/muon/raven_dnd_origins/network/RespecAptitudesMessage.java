@@ -74,9 +74,9 @@ public record RespecAptitudesMessage() implements CustomPacketPayload {
             String aptitudeName = aptitude.getName();
             int currentLevel = capability.getAptitudeLevel(aptitude);
             int innateBonus = InnateAptitudeBonusPower.getBonus(player, aptitudeName);
-            int investedLevels = Math.max(currentLevel - innateBonus, 0);
+            int levelWithoutInnate = currentLevel - innateBonus;
 
-            for (int i = 1; i <= investedLevels; i++) {
+            for (int i = 1; i < levelWithoutInnate; i++) {
                 xpCost += AptitudeLevelUpSP.requiredPoints(i);
             }
         }

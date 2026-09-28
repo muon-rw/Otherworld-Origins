@@ -2,6 +2,7 @@ package dev.muon.raven_dnd_origins.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import dev.muon.raven_dnd_origins.RavenDndOrigins;
+import dev.muon.raven_dnd_origins.kit.KitCommand;
 import dev.muon.raven_dnd_origins.network.DumpClientStateMessage;
 import dev.muon.raven_dnd_origins.selection.SelectionSessions;
 import dev.muon.raven_dnd_origins.util.OriginStateDumper;
@@ -38,6 +39,7 @@ public class ModCommands {
                         .requires(source -> source.hasPermission(2))
                         .executes(context -> dumpSpells(context.getSource()))
                 )
+                .then(KitCommand.build())
                 .then(Commands.literal("dumpState")
                         .requires(source -> source.hasPermission(2))
                         .executes(context -> dumpState(context.getSource(), List.of(context.getSource().getPlayerOrException())))

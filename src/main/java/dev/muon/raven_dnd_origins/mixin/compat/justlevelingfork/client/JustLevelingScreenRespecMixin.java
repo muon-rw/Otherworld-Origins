@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -58,6 +59,22 @@ public class JustLevelingScreenRespecMixin {
     )
     private int raiseMaxLevelOnSkillsPage(int maxLevel, @Local(name = "aptitude") Aptitude aptitude) {
         return maxLevel + raven_dnd_origins$innateBonus(aptitude);
+    }
+
+    @ModifyArg(
+            method = "drawSkills",
+            at = @At(value = "INVOKE", target = "Lcom/seniors/justlevelingfork/network/packet/common/AptitudeLevelUpSP;requiredExperienceLevels(I)I")
+    )
+    private int showLevelUpLevelsWithoutInnateBonus(int aptitudeLevel, @Local(name = "aptitude") Aptitude aptitude) {
+        return Math.max(aptitudeLevel - raven_dnd_origins$innateBonus(aptitude), 1);
+    }
+
+    @ModifyArg(
+            method = "drawSkills",
+            at = @At(value = "INVOKE", target = "Lcom/seniors/justlevelingfork/network/packet/common/AptitudeLevelUpSP;requiredPoints(I)I")
+    )
+    private int showLevelUpPointsWithoutInnateBonus(int aptitudeLevel, @Local(name = "aptitude") Aptitude aptitude) {
+        return Math.max(aptitudeLevel - raven_dnd_origins$innateBonus(aptitude), 1);
     }
 
     @ModifyExpressionValue(

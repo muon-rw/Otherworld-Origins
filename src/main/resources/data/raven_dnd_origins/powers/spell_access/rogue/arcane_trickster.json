@@ -6,7 +6,6 @@
         "#raven_dnd_origins:utility",
         "@irons_spellbooks:ender",
         "@irons_spellbooks:eldritch",
-        "@raven_dnd_origins:martial",
-        "@raven_dnd_origins:archery"
+        "@raven_dnd_origins:martial"
     ]
 }
