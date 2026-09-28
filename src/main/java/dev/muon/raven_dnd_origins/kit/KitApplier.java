@@ -6,10 +6,12 @@ import dev.muon.raven_core.leveling.LevelingUtils;
 import dev.muon.raven_dnd_origins.RavenDndOrigins;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.network.EquipmentChangedPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,5 +107,7 @@ public final class KitApplier {
         magic.setMana((float) player.getAttributeValue(AttributeRegistry.MAX_MANA));
         magic.getPlayerCooldowns().clearCooldowns();
         magic.getPlayerCooldowns().syncToPlayer(player);
+        // Accessories syncs curio stacks after Iron's reacts to the change, so the client built its spell list from the old book
+        PacketDistributor.sendToPlayer(player, new EquipmentChangedPacket());
     }
 }
