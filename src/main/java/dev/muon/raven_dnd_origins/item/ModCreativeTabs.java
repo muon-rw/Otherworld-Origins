@@ -20,8 +20,9 @@ public class ModCreativeTabs {
                     .icon(() -> new ItemStack(ModItems.ORB_OF_VOCATION.get()))
                     .displayItems((params, output) ->
                             ModItems.ITEMS.getEntries().stream()
-                                    // Icon-only items; keeping them out of every creative tab also hides them from JEI
-                                    .filter(entry -> !entry.getId().getPath().startsWith("portrait/"))
+                                    // Icon-only and power-only items; keeping them out of every creative tab also hides them from JEI
+                                    .filter(entry -> !entry.getId().getPath().startsWith("portrait/")
+                                            && !entry.getId().getPath().startsWith("wings/"))
                                     .forEach(entry -> output.accept(entry.get())))
                     .build());
 

@@ -52,6 +52,12 @@ public class ModItems {
     public static final DeferredItem<Item> WOOD_PORTRAIT = ITEMS.register("portrait/wood", () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> ZOMBIE_PORTRAIT = ITEMS.register("portrait/zombie", () -> new Item(new Item.Properties()));
 
+    public static final DeferredItem<Item> BLUE_WINGS = ITEMS.register("wings/blue", () -> new DragonbornWingsItem("blue_wings"));
+    public static final DeferredItem<Item> BRASS_WINGS = ITEMS.register("wings/brass", () -> new DragonbornWingsItem("brass_wings"));
+    public static final DeferredItem<Item> BRONZE_WINGS = ITEMS.register("wings/bronze", () -> new DragonbornWingsItem("bronze_wings"));
+    public static final DeferredItem<Item> GOLD_WINGS = ITEMS.register("wings/gold", () -> new DragonbornWingsItem("gold_wings"));
+    public static final DeferredItem<Item> SILVER_WINGS = ITEMS.register("wings/silver", () -> new DragonbornWingsItem("silver_wings"));
+
 
     /** Classes */
     public static final DeferredItem<Item> ARTIFICER = ITEMS.register("class/artificer", () -> new Item(new Item.Properties()));

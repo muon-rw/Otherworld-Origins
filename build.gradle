@@ -192,7 +192,7 @@ dependencies {
     localRuntime("curse.maven:aether-villages-1073197:5895490")
     localRuntime("curse.maven:legendary-monsters-944035:8715533")
     // need this to use the obsidian mirror without crashing
-    localRuntime("curse.maven:dark-doppelganger-1110803:8472789")
+    localRuntime("curse.maven:dark-doppelganger-1110803:9004718")
     // raven_core jarJars AEA; compile-visible for the shapeshift width/height attributes.
     compileOnly("maven.modrinth:AdditionalEntityAttributes:${additional_entity_attributes_version}")
 
@@ -277,8 +277,7 @@ dependencies {
     localRuntime("maven.modrinth:sparkweave:${sparkweave_version}")
     localRuntime("maven.modrinth:resourceful-config:${resourceful_config_version}")
 
-    compileOnly "curse.maven:icarus-rewinged-1584283:8516781"
-    localRuntime "curse.maven:icarus-rewinged-1584283:8516781"
+    implementation("curse.maven:icarus-rewinged-1584283:8516781")
 
     // Bard instruments
     implementation("maven.modrinth:immersive-melodies:${immersive_melodies_version}")

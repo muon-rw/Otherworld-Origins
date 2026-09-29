@@ -1,5 +1,23 @@
 {
     "hidden": true,
-    "type": "apoli:wings",
-    "wings_type": "icarusrewinged:membrane_scaly_wings"
+    "type": "origins:action_over_time",
+    "interval": 20,
+    "entity_action": {
+        "type": "origins:if_else",
+        "condition": {
+            "type": "raven_dnd_origins:player_level",
+            "comparison": ">=",
+            "compare_to": 8
+        },
+        "if_action": {
+            "type": "origins:grant_power",
+            "power": "raven_dnd_origins:subrace/dragonborn/wings/blue",
+            "source": "raven_dnd_origins:subrace/dragonborn/blue_wings"
+        },
+        "else_action": {
+            "type": "origins:revoke_power",
+            "power": "raven_dnd_origins:subrace/dragonborn/wings/blue",
+            "source": "raven_dnd_origins:subrace/dragonborn/blue_wings"
+        }
+    }
 }

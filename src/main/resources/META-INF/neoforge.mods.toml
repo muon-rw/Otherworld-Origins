@@ -78,6 +78,20 @@ file="META-INF/accesstransformer.cfg"
     ordering="AFTER"
     side="BOTH"
 
+[[dependencies.${modid}]]
+    modId="icarus"
+    type="required"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
+[[dependencies.${modid}]]
+    modId="icarusrewinged"
+    type="required"
+    versionRange="*"
+    ordering="AFTER"
+    side="BOTH"
+
 # Optional integrations. AFTER ordering so the mixin plugin's ModList check sees them.
 [[dependencies.${modid}]]
     modId="dynamic_difficulty"
@@ -137,13 +151,6 @@ file="META-INF/accesstransformer.cfg"
 
 [[dependencies.${modid}]]
     modId="cataclysm"
-    type="optional"
-    versionRange="*"
-    ordering="AFTER"
-    side="BOTH"
-
-[[dependencies.${modid}]]
-    modId="icarus"
     type="optional"
     versionRange="*"
     ordering="AFTER"
