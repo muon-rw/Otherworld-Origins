@@ -34,23 +34,263 @@
         "raven_dnd_origins:feats/skilled",
         "raven_dnd_origins:feats/tough",
         "raven_dnd_origins:feats/two_handed",
-        "raven_dnd_origins:feats/weapon_master",
-        "raven_dnd_origins:feats/school_fire",
-        "raven_dnd_origins:feats/school_ice",
-        "raven_dnd_origins:feats/school_lightning",
-        "raven_dnd_origins:feats/school_holy",
-        "raven_dnd_origins:feats/school_ender",
-        "raven_dnd_origins:feats/school_blood",
-        "raven_dnd_origins:feats/school_evocation",
-        "raven_dnd_origins:feats/school_nature",
-        "raven_dnd_origins:feats/school_eldritch",
-        "raven_dnd_origins:feats/school_aqua",
-        "raven_dnd_origins:feats/school_sound",
-        "raven_dnd_origins:feats/school_geo",
-        "raven_dnd_origins:feats/school_wind",
-        "raven_dnd_origins:feats/school_martial",
-        "raven_dnd_origins:feats/school_archery"
+        "raven_dnd_origins:feats/weapon_master"
       ]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:fire",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_fire"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:ice",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_ice"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:lightning",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_lightning"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:holy",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_holy"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:ender",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_ender"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:blood",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_blood"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:evocation",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_evocation"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:nature",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_nature"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "irons_spellbooks:eldritch",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_eldritch"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "aces_spell_utils:hydro",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_aqua"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "tunes_n_tomes:melody",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_sound"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "gtbcs_geomancy_plus:geo",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_geo"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "aero_additions:wind",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_wind"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "raven_dnd_origins:martial",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_martial"]
+    },
+    {
+      "condition": {
+        "type": "origins:and",
+        "conditions": [
+          {
+            "type": "origins:origin",
+            "origin": "raven_dnd_origins:race/human_variant"
+          },
+          {
+            "type": "raven_dnd_origins:has_school_access",
+            "school": "raven_dnd_origins:archery",
+            "inverted": true
+          }
+        ]
+      },
+      "origins": ["raven_dnd_origins:feats/school_archery"]
     }
   ]
 }
