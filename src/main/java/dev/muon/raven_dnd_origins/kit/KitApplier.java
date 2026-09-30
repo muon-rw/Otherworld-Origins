@@ -62,6 +62,7 @@ public final class KitApplier {
         if (KitItems.present(kit)) {
             KitItems.clear(player);
             KitItems.give(player, kit, problems);
+            KitSpells.learnContained(player);
         }
         PENDING_REFRESH.put(player.getUUID(), REFRESH_DELAY_TICKS);
         return problems;
