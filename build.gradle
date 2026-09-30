@@ -1,3 +1,8 @@
+import java.nio.file.FileSystemException
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.StandardCopyOption
+
 plugins {
     id 'idea'
     id 'eclipse'
@@ -375,16 +380,24 @@ tasks.withType(GenerateModuleMetadata) {
     enabled = false
 }
 
-tasks.register('sendToModpack', Copy) {
+tasks.register('sendToModpack') {
     group = 'publishing'
     dependsOn 'jar'
-    from tasks.jar.archiveFile
-    into "C:\\Users\\renpi\\curseforge\\minecraft\\Instances\\Raven's High Fantasy\\mods"
-    rename { String fileName ->
-        fileName.replace(project.version.toString(), "dev")
-    }
+    def builtJar = tasks.jar.archiveFile
+    def deployedJar = Path.of("C:\\Users\\renpi\\curseforge\\minecraft\\Instances\\Raven's High Fantasy\\mods",
+            tasks.jar.archiveFileName.get().replace(project.version.toString(), "dev"))
+    // Writing into the deployed jar corrupts a running pack's open handle; replacing the file leaves the pack on the old one.
     doLast {
-        println "Mod JAR sent to modpack folder: ${tasks.jar.archiveFileName.get()}"
+        def staged = deployedJar.resolveSibling("${deployedJar.fileName}.staged".toString())
+        Files.copy(builtJar.get().asFile.toPath(), staged, StandardCopyOption.REPLACE_EXISTING)
+        try {
+            Files.deleteIfExists(deployedJar)
+        } catch (FileSystemException e) {
+            Files.delete(staged)
+            throw new GradleException("${deployedJar.fileName} is held open by a running pack; close it and rerun", e)
+        }
+        Files.move(staged, deployedJar)
+        println "Mod JAR sent to modpack folder: ${deployedJar.fileName}"
     }
 }
 
