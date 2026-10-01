@@ -162,8 +162,8 @@
                 "compare_to": 0,
                 "comparison": ">"
             },
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_02.png",
-            "bar_index": 9
+            "sprite_location": "origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png",
+            "bar_index": 14
         }
     },
     "timer": {
@@ -186,8 +186,9 @@
                 "comparison": ">",
                 "compare_to": 0
             },
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-            "bar_index": 5
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png",
+            "bar_index": 6,
+            "icon_index": 1
         }
     },
     "tick_timer": {

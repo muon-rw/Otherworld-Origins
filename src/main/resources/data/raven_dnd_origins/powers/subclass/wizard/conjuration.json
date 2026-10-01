@@ -169,8 +169,9 @@
         "cooldown": 600,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_02.png",
-            "bar_index": 6
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_01.png",
+            "bar_index": 2,
+            "icon_index": 1
         },
         "condition": {
             "type": "raven_dnd_origins:player_mana",

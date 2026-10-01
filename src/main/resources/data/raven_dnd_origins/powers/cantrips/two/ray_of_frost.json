@@ -18,7 +18,7 @@
     "cooldown": 20,
     "hud_render": {
         "should_render": true,
-        "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-        "bar_index": 9
+        "sprite_location": "origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png",
+        "bar_index": 8
     }
 }

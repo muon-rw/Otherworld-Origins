@@ -22,7 +22,7 @@
         "start_value": 160,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "sprite_location": "origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png",
             "bar_index": 17,
             "condition": {
                 "type": "origins:and",
@@ -49,7 +49,7 @@
         "start_value": 0,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "sprite_location": "origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png",
             "bar_index": 1,
             "condition": {
                 "type": "origins:and",

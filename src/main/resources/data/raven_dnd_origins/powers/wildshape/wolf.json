@@ -98,8 +98,8 @@
         "cooldown": 600,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-            "bar_index": 1
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_02.png",
+            "bar_index": 8
         },
         "entity_action": {
             "type": "origins:and",
@@ -204,8 +204,8 @@
         },
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-            "bar_index": 7,
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png",
+            "bar_index": 5,
             "condition": {
                 "type": "origins:resource",
                 "resource": "*:*_timer",

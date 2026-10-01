@@ -12,7 +12,7 @@
                 "compare_to": 0,
                 "comparison": ">"
             },
-			"sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+			"sprite_location": "origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png",
 			"bar_index": 1
         }
     },
@@ -31,8 +31,8 @@
         },
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-            "bar_index": 12,
+            "sprite_location": "origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png",
+            "bar_index": 23,
             "condition": {
                 "type": "origins:resource",
                 "resource": "*:*_state",

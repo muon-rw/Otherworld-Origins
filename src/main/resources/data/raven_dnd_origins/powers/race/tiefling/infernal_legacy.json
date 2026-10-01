@@ -20,8 +20,9 @@
         "cooldown": 20,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-            "bar_index": 15
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_01.png",
+            "bar_index": 24,
+            "icon_index": 1
         },
         "condition": {
             "type": "raven_dnd_origins:player_level",
@@ -42,8 +43,9 @@
         "cooldown": 20,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-            "bar_index": 15
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_01.png",
+            "bar_index": 24,
+            "icon_index": 1
         },
         "condition": {
             "type": "origins:and",
@@ -74,8 +76,9 @@
         "cooldown": 20,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-            "bar_index": 15
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_01.png",
+            "bar_index": 24,
+            "icon_index": 1
         },
         "condition": {
             "type": "raven_dnd_origins:player_level",

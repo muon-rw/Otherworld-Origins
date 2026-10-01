@@ -18,7 +18,8 @@
     "cooldown": 40,
     "hud_render": {
         "should_render": true,
-        "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-        "bar_index": 13
+        "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_02.png",
+        "bar_index": 13,
+        "icon_index": 1
     }
 }

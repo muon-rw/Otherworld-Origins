@@ -169,8 +169,9 @@
         "cooldown": 600,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_01.png",
-            "bar_index": 5
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_02.png",
+            "bar_index": 14,
+            "icon_index": 2
         },
         "condition": {
             "type": "raven_dnd_origins:player_mana",

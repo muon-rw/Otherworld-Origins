@@ -60,8 +60,8 @@
         "restore_on_levelup": true,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_03.png",
-            "bar_index": 6
+            "sprite_location": "origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png",
+            "bar_index": 7
         }
     },
     "charge_regen": {
@@ -644,7 +644,7 @@
         "start_value": 0,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_03.png",
+            "sprite_location": "origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png",
             "bar_index": 9,
             "condition": {
                 "type": "origins:resource",

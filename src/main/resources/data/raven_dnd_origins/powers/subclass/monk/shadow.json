@@ -47,7 +47,7 @@
         "start_value": 160,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "sprite_location": "origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png",
             "bar_index": 17,
             "condition": {
                 "type": "origins:resource",
@@ -64,7 +64,7 @@
         "start_value": 0,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
+            "sprite_location": "origins:textures/gui/sprites/hud_render/huang/resource_bar_02.png",
             "bar_index": 1,
             "condition": {
                 "type": "origins:resource",
@@ -301,8 +301,9 @@
         "cooldown": 25,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-            "bar_index": 9
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png",
+            "bar_index": 6,
+            "icon_index": 1
         }
     },
     "blink": {
@@ -344,8 +345,8 @@
         "cooldown": 25,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-            "bar_index": 10
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png",
+            "bar_index": 6
         }
     }
 }

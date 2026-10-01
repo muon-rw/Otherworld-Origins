@@ -36,8 +36,8 @@
         "cooldown": 100,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "apoli:textures/gui/resource_bar.png",
-            "bar_index": 2
+            "sprite_location": "origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png",
+            "bar_index": 1
         },
         "bientity_condition": {
             "type": "origins:and",

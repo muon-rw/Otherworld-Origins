@@ -75,7 +75,7 @@
             "compare_to": 0,
             "comparison": ">"
         },
-        "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_02.png",
+        "sprite_location": "origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_02.png",
         "bar_index": 9
     }
 }

@@ -127,8 +127,9 @@
                 "compare_to": 0,
                 "comparison": ">"
             },
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_02.png",
-            "bar_index": 9
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png",
+            "bar_index": 19,
+            "icon_index": 1
         }
     },
     "sleep": {

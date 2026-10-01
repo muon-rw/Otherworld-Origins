@@ -22,8 +22,8 @@
         "cooldown": 100,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_02.png",
-            "bar_index": 10
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png",
+            "bar_index": 0
         },
         "condition": {
             "type": "raven_dnd_origins:player_level",
@@ -47,8 +47,8 @@
         "cooldown": 100,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_02.png",
-            "bar_index": 10
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png",
+            "bar_index": 0
         },
         "condition": {
             "type": "origins:and",
@@ -82,8 +82,8 @@
         "cooldown": 100,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/spiderkolo_02.png",
-            "bar_index": 10
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png",
+            "bar_index": 0
         },
         "condition": {
             "type": "raven_dnd_origins:player_level",

@@ -43,8 +43,9 @@
         "restore_on_levelup": true,
         "hud_render": {
             "should_render": true,
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_01.png",
-            "bar_index": 19
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png",
+            "bar_index": 2,
+            "icon_index": 2
         }
     },
     "restock_sleep": {
@@ -366,8 +367,8 @@
                 "compare_to": 0,
                 "comparison": ">"
             },
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_02.png",
-            "bar_index": 1
+            "sprite_location": "origins:textures/gui/sprites/hud_render/vevekhi/resource_bar_03.png",
+            "bar_index": 2
         }
     },
     "brew_feedback": {

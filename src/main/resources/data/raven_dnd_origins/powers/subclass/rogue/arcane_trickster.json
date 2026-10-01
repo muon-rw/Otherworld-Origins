@@ -76,8 +76,8 @@
                 "compare_to": 0,
                 "comparison": ">"
             },
-            "sprite_location": "raven_dnd_origins:textures/gui/resource_bar/huang_01.png",
-            "bar_index": 0
+            "sprite_location": "origins:textures/gui/sprites/hud_render/spiderkolo/resource_bar_03.png",
+            "bar_index": 14
         }
     },
     "sleep": {
