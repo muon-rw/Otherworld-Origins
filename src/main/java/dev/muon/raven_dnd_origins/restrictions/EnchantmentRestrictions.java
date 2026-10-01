@@ -10,6 +10,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class EnchantmentRestrictions {
     private static final Map<ResourceLocation, String> ENCHANTMENT_CLASS_MAP = new HashMap<>();
@@ -33,6 +35,24 @@ public class EnchantmentRestrictions {
         ENCHANTMENT_CLASS_MAP.put(ResourceLocation.withDefaultNamespace("power"), "rogue");
         ENCHANTMENT_CLASS_MAP.put(ResourceLocation.withDefaultNamespace("infinity"), "ranger");
         ENCHANTMENT_CLASS_MAP.put(ResourceLocation.fromNamespaceAndPath("apothic_enchanting", "endless_quiver"), "ranger");
+    }
+
+    // Item-only enchantment effects (damage, attributes) carry no entity, so callers that know the user publish it here
+    private static final ThreadLocal<Player> ITEM_USER = new ThreadLocal<>();
+
+    public static <T> T asItemUser(@Nullable Entity user, Supplier<T> action) {
+        Player previous = ITEM_USER.get();
+        ITEM_USER.set(user instanceof Player player ? player : null);
+        try {
+            return action.get();
+        } finally {
+            ITEM_USER.set(previous);
+        }
+    }
+
+    public static boolean isAllowedForItemUser(ItemStack stack, Holder<Enchantment> enchantment) {
+        Player user = ITEM_USER.get();
+        return user == null || isEnchantmentAllowed(user, stack, enchantment);
     }
 
     /**

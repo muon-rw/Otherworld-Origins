@@ -67,6 +67,7 @@
     "ench_restrictions.ArrowItemMixin",
     "ench_restrictions.EnchantmentHelperMixin",
     "ench_restrictions.ExperienceOrbMixin",
+    "ench_restrictions.LivingEntityMixin",
     "ench_restrictions.ProjectileWeaponItemMixin",
     "network.ClientboundSetEntityMotionPacketMixin",
     "origins_patches.OrbOfOriginItemMixin",
