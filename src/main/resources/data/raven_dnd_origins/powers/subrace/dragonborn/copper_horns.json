@@ -1,0 +1,9 @@
+{
+    "hidden": true,
+    "type": "apoli:custom_model_render",
+    "mode": "geometry",
+    "model_location": "raven_dnd_origins:dragonborn/horns",
+    "texture_location": "raven_dnd_origins:textures/entity/dragonborn/copper_horns.png",
+    "render_as_overlay": true,
+    "render_type": "cutout_no_cull"
+}

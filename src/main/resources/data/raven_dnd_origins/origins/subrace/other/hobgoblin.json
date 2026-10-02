@@ -3,7 +3,8 @@
 		"raven_dnd_origins:subrace/other/hobgoblin/attributes",
 		"raven_dnd_origins:subrace/other/hobgoblin/heat_resistance",
 		"raven_dnd_origins:subrace/other/hobgoblin/gold_proficiency",
-		"raven_dnd_origins:subrace/other/hobgoblin/gold_durability"
+		"raven_dnd_origins:subrace/other/hobgoblin/gold_durability",
+		"raven_dnd_origins:subrace/other/hobgoblin/ears"
 	],
 	"icon": {
 		"item": "raven_dnd_origins:portrait/hobgoblin"

@@ -1,6 +1,7 @@
 {
 	"powers": [
-		"raven_dnd_origins:subrace/elf/wood"
+		"raven_dnd_origins:subrace/elf/wood",
+		"raven_dnd_origins:subrace/elf/wood_ears"
 	],
 	"icon": {
 		"item": "raven_dnd_origins:portrait/wood"

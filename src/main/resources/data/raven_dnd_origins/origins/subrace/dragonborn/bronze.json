@@ -1,7 +1,8 @@
 {
 	"powers": [
 		"raven_dnd_origins:subrace/dragonborn/bronze",
-		"raven_dnd_origins:subrace/dragonborn/bronze_wings"
+		"raven_dnd_origins:subrace/dragonborn/bronze_wings",
+		"raven_dnd_origins:subrace/dragonborn/bronze_horns"
 	],
 	"icon": {
 		"item": "raven_dnd_origins:portrait/bronze"

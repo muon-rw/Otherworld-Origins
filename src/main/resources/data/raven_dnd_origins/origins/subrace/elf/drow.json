@@ -1,6 +1,7 @@
 {
 	"powers": [
-		"raven_dnd_origins:subrace/elf/drow"
+		"raven_dnd_origins:subrace/elf/drow",
+		"raven_dnd_origins:subrace/elf/drow_ears"
 	],
 	"icon": {
 		"item": "raven_dnd_origins:portrait/drow"

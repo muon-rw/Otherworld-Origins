@@ -3,7 +3,8 @@
 		"raven_dnd_origins:subrace/other/githyanki/attributes",
 		"raven_dnd_origins:subrace/other/githyanki/size",
 		"raven_dnd_origins:subrace/other/githyanki/throw_pearl",
-		"raven_dnd_origins:subrace/other/githyanki/water_vulnerability"
+		"raven_dnd_origins:subrace/other/githyanki/water_vulnerability",
+		"raven_dnd_origins:subrace/other/githyanki/ears"
 	],
 	"icon": {
 		"item": "raven_dnd_origins:portrait/githyanki"
