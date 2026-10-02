@@ -8,6 +8,7 @@ import com.seniors.justlevelingfork.network.packet.client.SyncAptitudeCapability
 import com.seniors.justlevelingfork.registry.RegistryAptitudes;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
 import dev.muon.raven_dnd_origins.RavenDndOrigins;
+import dev.overgrown.apoli.Apoli;
 import dev.overgrown.apoli.power.ApoliPowers;
 import dev.overgrown.apoli.power.Power;
 import dev.overgrown.apoli.power.PowerContainer;
@@ -127,6 +128,9 @@ public class InnateAptitudeBonusPower extends PowerType<InnateAptitudeBonusPower
     }
 
     private static void syncLevel(ServerPlayer player) {
+        // Apoli syncs powers on server tick, which the pausing selection screen halts in singleplayer;
+        // without this the client sees the shifted aptitudes but not the power that offsets them.
+        Apoli.sendEntitySync(player);
         SyncAptitudeCapabilityCP.send(player);
         if (ModList.get().isLoaded("dynamic_difficulty")) {
             dev.muon.dynamic_difficulty.api.PlayerLevelProvider.requestPlayerLevelUpdate(player);

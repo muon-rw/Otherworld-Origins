@@ -297,7 +297,7 @@ dependencies {
     localRuntime("pack:tunes_n_tomes:1.1.0-HOTFIX")
     localRuntime("pack:cataclysm_spellbooks:1.1.14-1.21")
     localRuntime("pack:legendary_spellbooks:1.21.1+neo-0.3.2")
-    localRuntime("pack:ess_requiem:0.1.7a")
+    localRuntime("pack:ess_requiem:0.1.7b")
     localRuntime("pack:elemental_synergies:1.1.1")
     localRuntime("pack:magic_realms:1.4")
     localRuntime("pack:rpg_dialogue:neoforge-1.21.1-1.0.6")
@@ -310,8 +310,8 @@ dependencies {
     // Clockwork
     compileOnly("pack:clockwork-neoforge:1.21.1-1.1.5")
     localRuntime("pack:clockwork-neoforge:1.21.1-1.1.5")
-    compileOnly("pack:knightlib-neoforge:1.21.1-2.0.3")            // required by clockwork
-    localRuntime("pack:knightlib-neoforge:1.21.1-2.0.3")
+    compileOnly("pack:knightlib-neoforge:1.21.1-2.0.4")            // required by clockwork
+    localRuntime("pack:knightlib-neoforge:1.21.1-2.0.4")
 
     // FTB
     implementation("dev.ftb.mods:ftb-teams-neoforge:${ftb_teams_version}")
