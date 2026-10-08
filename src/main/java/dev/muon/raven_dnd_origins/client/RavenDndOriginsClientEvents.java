@@ -8,9 +8,11 @@ import dev.muon.raven_dnd_origins.selection.ClientSelectionState;
 import dev.muon.raven_dnd_origins.selection.SelectionSession;
 import dev.muon.raven_dnd_origins.selection.SessionKind;
 import dev.overgrown.origins.client.screen.ChooseOriginScreen;
+import dev.overgrown.origins.client.screen.ViewOriginScreen;
 import dev.overgrown.origins.origin.OriginLayer;
 import dev.overgrown.origins.origin.OriginLayers;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
@@ -92,6 +94,13 @@ public class RavenDndOriginsClientEvents {
      */
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onScreenOpening(ScreenEvent.Opening event) {
+        if (event.getNewScreen() instanceof ViewOriginScreen) {
+            LocalPlayer player = Minecraft.getInstance().player;
+            if (player != null) {
+                event.setNewScreen(RavenDndOriginScreen.forViewing(player));
+            }
+            return;
+        }
         if (!(event.getNewScreen() instanceof ChooseOriginScreen)) {
             return;
         }

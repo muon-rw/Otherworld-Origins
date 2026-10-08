@@ -98,8 +98,7 @@
     "compat.justlevelingfork.client.AptitudeMixin",
     "compat.justlevelingfork.client.JustLevelingScreenRespecMixin",
     "compat.shouldersurfing.ApoliKeyHandlerMixin",
-    "origins_patches.OriginDisplayScreenMixin",
-    "origins_patches.ViewOriginScreenMixin"
+    "origins_patches.OriginDisplayScreenMixin"
   ],
   "minVersion": "0.8"
 }

@@ -10,6 +10,7 @@ import dev.overgrown.origins.client.OriginsClientState;
 import dev.overgrown.origins.network.OriginsClientNetwork;
 import dev.overgrown.origins.origin.Origin;
 import dev.overgrown.origins.origin.OriginLayer;
+import dev.overgrown.origins.origin.OriginLayers;
 import dev.overgrown.origins.origin.OriginManager;
 import dev.overgrown.origins.origin.OriginRegistry;
 import net.minecraft.ChatFormatting;
@@ -133,16 +134,53 @@ public class RavenDndOriginScreen extends Screen {
     private Button selectButton;
     private final OriginDetailPanel detailPanel = new OriginDetailPanel();
 
+    private final boolean readOnly;
+
     public RavenDndOriginScreen(List<OriginLayer> layerList, int startLayerIndex, SessionKind kind) {
         super(Component.translatable("origins.screen.choose_origin"));
-        this.layerList = layerList;
+        this.layerList = new ArrayList<>(layerList);
         this.currentLayerIndex = startLayerIndex;
         this.kind = kind;
+        this.readOnly = false;
+    }
+
+    private RavenDndOriginScreen(List<OriginLayer> layerList, Map<Integer, Origin> picks) {
+        super(Component.translatable("origins.screen.view_origin"));
+        this.layerList = layerList;
+        this.currentLayerIndex = layerList.size();
+        this.kind = SessionKind.INITIAL_CREATION;
+        this.readOnly = true;
+        this.confirmedSelections.putAll(picks);
+        this.selectedOrigin = picks.get(0);
+    }
+
+    /** Shows every chosen origin in the creation layout, with completed slots selecting instead of reverting. */
+    public static RavenDndOriginScreen forViewing(Player player) {
+        Map<ResourceLocation, ResourceLocation> picks = OriginsClientState.get(player.getUUID());
+        Map<ResourceLocation, ResourceLocation> swaps = OriginsClientState.getSwaps(player.getUUID());
+        List<OriginLayer> layers = new ArrayList<>();
+        Map<Integer, Origin> chosen = new HashMap<>();
+        for (OriginLayer layer : OriginLayers.enabledOrdered()) {
+            if (layer.hidden() || layer.swappable()) continue;
+            ResourceLocation originId = swaps.getOrDefault(layer.id(),
+                    picks.getOrDefault(layer.id(), OriginRegistry.EMPTY_ID));
+            if (originId.equals(OriginRegistry.EMPTY_ID)) continue;
+            Origin origin = OriginRegistry.get(originId);
+            if (origin == null) continue;
+            chosen.put(layers.size(), origin);
+            layers.add(layer);
+        }
+        return new RavenDndOriginScreen(layers, chosen);
     }
 
     @Override
     protected void init() {
         super.init();
+
+        if (this.readOnly) {
+            rebuildCharacterSheetText();
+            return;
+        }
 
         int rightPanelX = this.width - RIGHT_PANEL_WIDTH - 10;
         this.selectButton = this.addRenderableWidget(Button.builder(
@@ -161,13 +199,13 @@ public class RavenDndOriginScreen extends Screen {
     }
 
     private void evaluateCurrentLayer() {
-        if (this.currentLayerIndex >= this.layerList.size()) {
+        Player player = Minecraft.getInstance().player;
+        if (player == null) return;
+
+        if (this.currentLayerIndex >= this.layerList.size() && !appendUnlockedLayers(player)) {
             finishSelection();
             return;
         }
-
-        Player player = Minecraft.getInstance().player;
-        if (player == null) return;
 
         OriginLayer currentLayer = this.layerList.get(this.currentLayerIndex);
 
@@ -209,6 +247,25 @@ public class RavenDndOriginScreen extends Screen {
         rebuildCharacterSheetText();
     }
 
+    /**
+     * Appends empty layers that this session's picks unlocked, e.g. Resilient's ability score after a
+     * level-up feat pick; the session only lists layers that were valid when it opened.
+     */
+    private boolean appendUnlockedLayers(Player player) {
+        Map<ResourceLocation, ResourceLocation> picks = OriginsClientState.get(player.getUUID());
+        boolean appended = false;
+        for (OriginLayer layer : OriginLayers.enabledOrdered()) {
+            if (this.layerList.stream().anyMatch(l -> l.id().equals(layer.id()))) continue;
+            ResourceLocation existing = picks.get(layer.id());
+            if (existing != null && !existing.equals(OriginRegistry.EMPTY_ID)) continue;
+            if (OriginManager.hasChoosableOrigins(player, layer)) {
+                this.layerList.add(layer);
+                appended = true;
+            }
+        }
+        return appended;
+    }
+
     /** Mirrors the server-side pick locally so the next layer's conditions see it before the sync lands. */
     private static void setClientPick(Player player, ResourceLocation layerId, ResourceLocation originId) {
         Map<ResourceLocation, ResourceLocation> picks =
@@ -233,6 +290,16 @@ public class RavenDndOriginScreen extends Screen {
 
         this.currentLayerIndex++;
         evaluateCurrentLayer();
+    }
+
+    private void clickCompletedSlot(int index) {
+        if (this.readOnly) {
+            this.selectedOrigin = this.confirmedSelections.get(index);
+            this.detailPanel.resetScroll();
+            Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+        } else {
+            revertToLayer(index);
+        }
     }
 
     private void revertToLayer(int index) {
@@ -726,13 +793,20 @@ public class RavenDndOriginScreen extends Screen {
         this.detailPanel.render(graphics, getRightPanelDisplayOrigin(), this.width - RIGHT_PANEL_WIDTH - 10,
                 RIGHT_PANEL_WIDTH, mouseX, mouseY, this.time);
 
-        boolean hasInfoPanel = getRightPanelDisplayOrigin() != null;
-        this.selectButton.visible = hasInfoPanel;
-        this.selectButton.active = this.selectedOrigin != null;
+        if (this.selectButton != null) {
+            this.selectButton.visible = getRightPanelDisplayOrigin() != null;
+            this.selectButton.active = this.selectedOrigin != null;
+        }
 
         // Widgets only: Screen#render would repaint the background over the panels drawn above.
         for (Renderable renderable : this.renderables) {
             renderable.render(graphics, mouseX, mouseY, delta);
+        }
+
+        if (this.readOnly && this.hoveredCompletedLayerIndex != null) {
+            Component layerName = this.layerList.get(this.hoveredCompletedLayerIndex).name();
+            graphics.renderTooltip(this.font, List.of(layerName.getVisualOrderText()),
+                    this.confirmHintTooltipPositioner, mouseX, mouseY);
         }
     }
 
@@ -987,6 +1061,8 @@ public class RavenDndOriginScreen extends Screen {
 
     private void renderCompletedSlot(GuiGraphics graphics, OriginLayer layer, Origin origin, int drawX, int y, int slotWidth, int rowHeight, float expandProgress, int nameYOff, boolean bright) {
         int iconW = getCompletedCollapsedWidth(layer);
+        boolean selected = this.readOnly && sameOrigin(this.selectedOrigin, origin);
+        bright |= selected;
         if (isPortraitLayer(layer)) {
             ResourceLocation texture = getPortraitTexture(origin.icon());
             if (!bright) RenderSystem.setShaderColor(0.6f, 0.6f, 0.6f, 1.0f);
@@ -994,6 +1070,9 @@ public class RavenDndOriginScreen extends Screen {
             if (!bright) RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         } else {
             OriginDetailPanel.renderIcon(graphics, origin, drawX, y);
+        }
+        if (selected) {
+            renderCompletedSelectionOutline(graphics, layer, drawX, y, slotWidth, rowHeight, expandProgress);
         }
         int textAvail = slotWidth - iconW - COMPLETED_NAME_GAP;
         if (textAvail > 0 && expandProgress > 0.02f) {
@@ -1003,6 +1082,29 @@ public class RavenDndOriginScreen extends Screen {
             graphics.drawString(this.font, origin.name(), textX, y + nameYOff, textColor, true);
             graphics.disableScissor();
         }
+    }
+
+    private static final float OUTLINE_SETTLE_PROGRESS = 0.25f;
+
+    /** Blends from the hover box to the icon's resting outline over the tail of the collapse. */
+    private void renderCompletedSelectionOutline(GuiGraphics graphics, OriginLayer layer, int drawX, int y, int slotWidth, int rowHeight, float expandProgress) {
+        int restLeft, restTop, restBottom;
+        if (isPortraitLayer(layer)) {
+            restLeft = drawX;
+            restTop = y;
+            restBottom = y + CARD_HEIGHT;
+        } else {
+            restLeft = drawX - ICON_GRID_HOVER_PAD;
+            restTop = y - ICON_GRID_HOVER_PAD;
+            restBottom = restTop + ICON_GRID_HOVER_BOX;
+        }
+        float t = Mth.clamp(expandProgress / OUTLINE_SETTLE_PROGRESS, 0.0f, 1.0f);
+        t = t * t * (3.0f - 2.0f * t);
+        int left = Math.round(Mth.lerp(t, restLeft, drawX - 2));
+        int top = Math.round(Mth.lerp(t, restTop, y - 2));
+        int bottom = Math.round(Mth.lerp(t, restBottom, y + rowHeight));
+        int right = drawX + slotWidth;
+        fillInnerBorder1px(graphics, left, top, right - left, bottom - top, 0xFFFFFFFF);
     }
 
     /** 1px border along the inside edge of a rectangular sprite (top/bottom full width; sides omit corner pixels). */
@@ -1291,11 +1393,11 @@ public class RavenDndOriginScreen extends Screen {
                             int lx = x;
                             int rx = lx + wL + COMPLETED_ROW_GAP;
                             if (mouseX >= lx && mouseX < lx + wL && mouseYInt >= y && mouseYInt < y + rowH) {
-                                revertToLayer(leftIdx);
+                                clickCompletedSlot(leftIdx);
                                 return true;
                             }
                             if (mouseX >= rx && mouseX < rx + wR && mouseYInt >= y && mouseYInt < y + rowH) {
-                                revertToLayer(rightIdx);
+                                clickCompletedSlot(rightIdx);
                                 return true;
                             }
                         } else {
@@ -1303,7 +1405,7 @@ public class RavenDndOriginScreen extends Screen {
                             float p = this.completedCardExpandProgress.getOrDefault(i, 0.0f);
                             int slotW = getCompletedSlotWidth(layer, origin, p);
                             if (mouseX >= x && mouseX < x + slotW && mouseYInt >= y && mouseYInt < y + rowH) {
-                                revertToLayer(i);
+                                clickCompletedSlot(i);
                                 return true;
                             }
                         }
@@ -1342,15 +1444,15 @@ public class RavenDndOriginScreen extends Screen {
 
         if (mouseY < y || mouseY >= y + rowH) return false;
         if (mouseX >= lx && mouseX < lx + wL) {
-            revertToLayer(leftIdx);
+            clickCompletedSlot(leftIdx);
             return true;
         }
         if (mouseX >= mx && mouseX < mx + wM) {
-            revertToLayer(midIdx);
+            clickCompletedSlot(midIdx);
             return true;
         }
         if (mouseX >= rx && mouseX < rx + wR) {
-            revertToLayer(rightIdx);
+            clickCompletedSlot(rightIdx);
             return true;
         }
         return false;
@@ -1392,6 +1494,6 @@ public class RavenDndOriginScreen extends Screen {
 
     @Override
     public boolean shouldCloseOnEsc() {
-        return false;
+        return this.readOnly;
     }
 }
