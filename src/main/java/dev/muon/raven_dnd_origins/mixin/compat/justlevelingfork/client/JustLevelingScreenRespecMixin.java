@@ -1,9 +1,12 @@
 package dev.muon.raven_dnd_origins.mixin.compat.justlevelingfork.client;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.seniors.justlevelingfork.client.core.Utils;
 import com.seniors.justlevelingfork.client.screen.JustLevelingScreen;
+import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
 import com.seniors.justlevelingfork.registry.RegistryAptitudes;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
 import dev.muon.raven_dnd_origins.RavenDndOrigins;
@@ -14,6 +17,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -44,6 +48,8 @@ public class JustLevelingScreenRespecMixin {
     private boolean raven_dnd_origins$confirmRespec = false;
     @Unique
     private boolean raven_dnd_origins$respecButtonHovered = false;
+    @Unique
+    private int raven_dnd_origins$configGlobalMaxLevel;
 
     @ModifyExpressionValue(
             method = "drawAptitudes",
@@ -82,12 +88,48 @@ public class JustLevelingScreenRespecMixin {
             at = @At(value = "FIELD", target = "Lcom/seniors/justlevelingfork/handler/HandlerCommonConfig;playersMaxGlobalLevel:I", opcode = Opcodes.GETFIELD)
     )
     private int raiseGlobalMaxLevel(int maxLevel) {
+        raven_dnd_origins$configGlobalMaxLevel = maxLevel;
         Player player = Minecraft.getInstance().player;
         if (player == null) return maxLevel;
         int totalBonus = RegistryAptitudes.APTITUDES_REGISTRY.get().getValues().stream()
                 .mapToInt(aptitude -> InnateAptitudeBonusPower.getBonus(player, aptitude.getName()))
                 .sum();
         return maxLevel + totalBonus;
+    }
+
+    @WrapOperation(
+            method = "drawSkills",
+            at = @At(value = "INVOKE", target = "Lcom/seniors/justlevelingfork/client/core/Utils;drawToolTip(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/network/chat/Component;II)V")
+    )
+    private void showGlobalLevelsAsPurchased(GuiGraphics graphics, Component tooltip, int mouseX, int mouseY, Operation<Void> original) {
+        Player player = Minecraft.getInstance().player;
+        AptitudeCapability capability = player == null ? null : AptitudeCapability.get(player);
+        if (capability == null || !(tooltip.getContents() instanceof TranslatableContents contents)) {
+            original.call(graphics, tooltip, mouseX, mouseY);
+            return;
+        }
+
+        int starting = capability.aptitudeLevel.size();
+        int innate = InnateAptitudeBonusPower.sumBonusesForAptitudes(player, capability.aptitudeLevel.keySet());
+        int purchased = capability.getGlobalLevel() - starting - innate;
+        int budget = raven_dnd_origins$configGlobalMaxLevel - starting;
+
+        List<Component> lines = new ArrayList<>();
+        switch (contents.getKey()) {
+            case "tooltip.aptitude.global_max_level" -> {
+                lines.add(Component.translatable("tooltip.raven_dnd_origins.global_max_level", purchased, budget).withStyle(ChatFormatting.RED));
+                lines.add(Component.translatable("tooltip.raven_dnd_origins.global_free_levels", starting, innate).withStyle(ChatFormatting.GRAY));
+            }
+            case "tooltip.aptitude.level_up" -> {
+                lines.add(tooltip);
+                lines.add(Component.translatable("tooltip.raven_dnd_origins.global_levels_purchased", purchased, budget).withStyle(ChatFormatting.DARK_GRAY));
+            }
+            default -> {
+                original.call(graphics, tooltip, mouseX, mouseY);
+                return;
+            }
+        }
+        Utils.drawToolTipList(graphics, lines, mouseX, mouseY);
     }
 
     @Unique
