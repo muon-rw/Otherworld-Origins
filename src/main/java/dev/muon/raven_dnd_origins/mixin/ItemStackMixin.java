@@ -142,7 +142,8 @@ public class ItemStackMixin {
                 if (EnchantmentRestrictions.isEnchantmentAllowed(player, stack, enchantment)) {
                     continue;
                 }
-                tooltips.set(i, Component.literal("").append(line)
+                // Resource packs embed legacy color codes in enchant names, which reset strikethrough mid-line
+                tooltips.set(i, Component.literal(ChatFormatting.stripFormatting(line.getString()))
                         .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.STRIKETHROUGH));
 
                 String requiredClass = EnchantmentRestrictions.getRequiredClass(enchantment);

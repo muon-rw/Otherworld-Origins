@@ -158,7 +158,7 @@ file="META-INF/accesstransformer.cfg"
 
 [[dependencies.${modid}]]
     modId="naturalist"
-    type="optional"
+    type="required"
     versionRange="*"
     ordering="AFTER"
     side="BOTH"
