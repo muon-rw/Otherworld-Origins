@@ -181,6 +181,7 @@ dependencies {
     localRuntime("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
     localRuntime("maven.modrinth:jade:${jade_version}")
     localRuntime("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}") // raven_core's config
+    compileOnly("dev.isxander:yet-another-config-lib:${yacl_version}") // JL's config handler
     localRuntime("dev.isxander:yet-another-config-lib:${yacl_version}")
 
     // Raven Core. Non-transitive so its dev runtime doesn't leak into here; its mods.toml requires

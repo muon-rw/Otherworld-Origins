@@ -7,6 +7,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.seniors.justlevelingfork.client.core.Utils;
 import com.seniors.justlevelingfork.client.screen.JustLevelingScreen;
 import com.seniors.justlevelingfork.common.capability.AptitudeCapability;
+import com.seniors.justlevelingfork.handler.HandlerCommonConfig;
 import com.seniors.justlevelingfork.registry.RegistryAptitudes;
 import com.seniors.justlevelingfork.registry.aptitude.Aptitude;
 import dev.muon.raven_dnd_origins.RavenDndOrigins;
@@ -48,8 +49,6 @@ public class JustLevelingScreenRespecMixin {
     private boolean raven_dnd_origins$confirmRespec = false;
     @Unique
     private boolean raven_dnd_origins$respecButtonHovered = false;
-    @Unique
-    private int raven_dnd_origins$configGlobalMaxLevel;
 
     @ModifyExpressionValue(
             method = "drawAptitudes",
@@ -88,7 +87,6 @@ public class JustLevelingScreenRespecMixin {
             at = @At(value = "FIELD", target = "Lcom/seniors/justlevelingfork/handler/HandlerCommonConfig;playersMaxGlobalLevel:I", opcode = Opcodes.GETFIELD)
     )
     private int raiseGlobalMaxLevel(int maxLevel) {
-        raven_dnd_origins$configGlobalMaxLevel = maxLevel;
         Player player = Minecraft.getInstance().player;
         if (player == null) return maxLevel;
         int totalBonus = RegistryAptitudes.APTITUDES_REGISTRY.get().getValues().stream()
@@ -112,7 +110,7 @@ public class JustLevelingScreenRespecMixin {
         int starting = capability.aptitudeLevel.size();
         int innate = InnateAptitudeBonusPower.sumBonusesForAptitudes(player, capability.aptitudeLevel.keySet());
         int purchased = capability.getGlobalLevel() - starting - innate;
-        int budget = raven_dnd_origins$configGlobalMaxLevel - starting;
+        int budget = HandlerCommonConfig.HANDLER.instance().playersMaxGlobalLevel - starting;
 
         List<Component> lines = new ArrayList<>();
         switch (contents.getKey()) {
