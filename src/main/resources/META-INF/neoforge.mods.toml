@@ -108,7 +108,7 @@ file="META-INF/accesstransformer.cfg"
     side="BOTH"
 
 [[dependencies.${modid}]]
-    modId="thief"
+    modId="rpg_villagers"
     type="optional"
     versionRange="*"
     ordering="AFTER"

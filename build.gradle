@@ -233,7 +233,8 @@ dependencies {
 
     // Survival / social
     implementation("curse.maven:legendary-survival-overhaul-840254:8597620")
-    implementation("maven.modrinth:thief:${thief_version}")
+    compileOnly("pack:rpg_villagers:neoforge-1.21.1-1.1.1")   // not published on Modrinth's API
+    localRuntime("pack:rpg_villagers:neoforge-1.21.1-1.1.1")
     implementation("maven.modrinth:hardcore-revival:${hardcore_revival_version}")
     localRuntime("curse.maven:balm-531761:8645517")
     implementation("maven.modrinth:appleskin:${appleskin_version}")
@@ -301,7 +302,7 @@ dependencies {
     localRuntime("pack:ess_requiem:0.1.7b")
     localRuntime("pack:elemental_synergies:1.1.1")
     localRuntime("pack:magic_realms:1.5_HF")
-    localRuntime("pack:rpg_dialogue:neoforge-1.21.1-1.0.9")
+    localRuntime("pack:rpg_dialogue:neoforge-1.21.1-1.0.14")      // required by rpg_villagers
     localRuntime("pack:aero_additions:1.2.8")
     localRuntime("pack:irons_apothic:2.2.6")
     localRuntime("pack:irons_jewelry:1.21.1-2.0.2")
