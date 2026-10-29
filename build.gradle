@@ -309,10 +309,10 @@ dependencies {
     localRuntime("vazkii.patchouli:Patchouli:1.21.1-93-NEOFORGE")  // apprentice_codex needs 93+; Apotheosis pulls 87
 
     // Clockwork
-    compileOnly("pack:clockwork-neoforge:1.21.1-1.1.5")
-    localRuntime("pack:clockwork-neoforge:1.21.1-1.1.5")
-    compileOnly("pack:knightlib-neoforge:1.21.1-2.0.4")            // required by clockwork
-    localRuntime("pack:knightlib-neoforge:1.21.1-2.0.4")
+    compileOnly("pack:clockwork-neoforge:1.21.1-1.1.6")
+    localRuntime("pack:clockwork-neoforge:1.21.1-1.1.6")
+    compileOnly("pack:knightlib-neoforge:1.21.1-2.0.5")            // required by clockwork
+    localRuntime("pack:knightlib-neoforge:1.21.1-2.0.5")
 
     // FTB
     implementation("dev.ftb.mods:ftb-teams-neoforge:${ftb_teams_version}")
@@ -414,7 +414,7 @@ publishMods {
         client = true
         server = true
 
-        requires("raven-core")
+        requires("otherworld-core")
         requires("apoli")
         requires("o-origins")
         requires("irons-spells-n-spellbooks")
