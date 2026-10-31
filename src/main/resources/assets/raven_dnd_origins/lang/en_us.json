@@ -433,7 +433,7 @@
   "origin.raven_dnd_origins.subclass/monk/four_elements.name": "Way of the Four Elements",
   "origin.raven_dnd_origins.subclass/monk/four_elements.description": "• You master an Elemental Discipline. Starting at level 10, you master two Elemental Disciplines.",
   "origin.raven_dnd_origins.subclass/monk/open_hand.name": "Way of the Open Hand",
-  "origin.raven_dnd_origins.subclass/monk/open_hand.description": "• +5 Damage with Fists or Gauntlets\n• At level 5, gain Wholeness of Body\n• At level 20, gain Quivering Palm",
+  "origin.raven_dnd_origins.subclass/monk/open_hand.description": "• +5 Damage with Fists or Gauntlets\n• Wholeness of Body\n• At level 20, gain Quivering Palm",
   "origin.raven_dnd_origins.subclass/monk/shadow.name": "Way of Shadow",
   "origin.raven_dnd_origins.subclass/monk/shadow.description": "• +5 Damage in dark areas\n• You become truly invisible while sneaking in dark areas.\n• At level 10, you can cast Shadow Slash for 1 ki\n• At level 15, you can cast Blink for 2 ki\n• At level 20, sneaking makes you truly invisible anywhere",
   "origin.raven_dnd_origins.class/paladin.name": "Paladin",

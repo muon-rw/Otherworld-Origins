@@ -53,20 +53,60 @@ public class RavenDndOriginsConfig extends Config {
                 "legendarysurvivaloverhaul:bandage|6|"
         );
 
-        public ValidatedList<String> classEntries = new ValidatedString().toList(
-                "raven_dnd_origins:class/artificer|minecraft:iron_pickaxe|1|",
-                "raven_dnd_origins:class/barbarian|minecraft:stone_axe|1|",
+        public ValidatedList<String> originEntries = new ValidatedString().toList(
+                "raven_dnd_origins:subclass/artificer/alchemist|raven_core:potion_of_healing|3|",
+                "raven_dnd_origins:subclass/artificer/alchemist|minecraft:brewing_stand|1|",
+                "raven_dnd_origins:subclass/artificer/armorer|minecraft:iron_chestplate|1|",
+                "raven_dnd_origins:subclass/artificer/artillerist|minecraft:crossbow|1|",
+                "raven_dnd_origins:subclass/artificer/artillerist|minecraft:arrow|16|",
+                "raven_dnd_origins:subclass/artificer/battle_smith|betterend:iron_hammer|1|",
+                "raven_dnd_origins:class/barbarian|berserker_rpg:stone_berserker_axe|1|",
+                "raven_dnd_origins:subclass/barbarian/wildheart|raven_core:potion_of_mana|3|",
                 "raven_dnd_origins:class/bard|immersive_melodies:lute|1|",
-                "raven_dnd_origins:class/cleric|minecraft:book|1|",
-                "raven_dnd_origins:class/druid|minecraft:wooden_hoe|1|",
+                "raven_dnd_origins:subclass/bard/lore|raven_core:potion_of_mana|3|",
+                "raven_dnd_origins:subclass/bard/valor|minecraft:shield|1|",
+                "raven_dnd_origins:subclass/bard/swords|valoria:iron_rapier|1|",
+                "raven_dnd_origins:class/cleric|minecraft:shield|1|",
+                "raven_dnd_origins:subclass/cleric/life|raven_core:potion_of_healing|3|",
+                "raven_dnd_origins:subclass/cleric/trickery|minecraft:potion|1|{\"minecraft:potion_contents\":{potion:\"minecraft:invisibility\"}}",
+                "raven_dnd_origins:subclass/cleric/knowledge|minecraft:lapis_lazuli|16|",
+                "raven_dnd_origins:subclass/cleric/tempest|raven_core:potion_of_mana|3|",
+                "raven_dnd_origins:subclass/cleric/war|betterend:iron_hammer|1|",
+                "raven_dnd_origins:class/druid|rogues:iron_sickle|1|",
+                "raven_dnd_origins:class/druid|raven_core:potion_of_mana|3|",
                 "raven_dnd_origins:class/fighter|minecraft:iron_sword|1|",
-                "raven_dnd_origins:class/monk|minecraft:stick|1|",
-                "raven_dnd_origins:class/paladin|minecraft:shield|1|",
+                "raven_dnd_origins:subclass/fighter/battle_master|minecraft:shield|1|",
+                "raven_dnd_origins:subclass/fighter/champion|raven_core:potion_of_healing|3|",
+                "raven_dnd_origins:subclass/fighter/eldritch_knight|raven_core:potion_of_mana|3|",
+                "raven_dnd_origins:class/monk|forcemaster_rpg:stone_knuckle|1|",
+                "raven_dnd_origins:subclass/monk/open_hand|raven_core:potion_of_healing|3|",
+                "raven_dnd_origins:subclass/monk/four_elements|raven_core:potion_of_mana|3|",
+                "raven_dnd_origins:subclass/monk/shadow|minecraft:potion|1|{\"minecraft:potion_contents\":{potion:\"minecraft:night_vision\"}}",
+                "raven_dnd_origins:subclass/paladin/ancients|archers:iron_spear|1|",
+                "raven_dnd_origins:subclass/paladin/ancients|raven_core:potion_of_healing|3|",
+                "raven_dnd_origins:subclass/paladin/devotion|minecraft:iron_sword|1|",
+                "raven_dnd_origins:subclass/paladin/devotion|minecraft:shield|1|",
+                "raven_dnd_origins:subclass/paladin/vengeance|rogues:iron_double_axe|1|",
+                "raven_dnd_origins:subclass/paladin/breaker|minecraft:iron_axe|1|",
+                "raven_dnd_origins:subclass/paladin/breaker|minecraft:shield|1|",
                 "raven_dnd_origins:class/ranger|minecraft:bow|1|",
-                "raven_dnd_origins:class/rogue|minecraft:crossbow|1|",
-                "raven_dnd_origins:class/sorcerer|minecraft:blaze_powder|1|",
-                "raven_dnd_origins:class/warlock|minecraft:ender_pearl|1|",
-                "raven_dnd_origins:class/wizard|minecraft:writable_book|1|"
+                "raven_dnd_origins:class/ranger|minecraft:arrow|16|",
+                "raven_dnd_origins:class/rogue|rogues:iron_dagger|1|",
+                "raven_dnd_origins:subclass/rogue/thief|minecraft:potion|1|{\"minecraft:potion_contents\":{potion:\"minecraft:invisibility\"}}",
+                "raven_dnd_origins:subclass/rogue/arcane_trickster|raven_core:potion_of_mana|3|",
+                "raven_dnd_origins:subclass/rogue/assassin|rogues:flint_dagger|1|",
+                "raven_dnd_origins:class/sorcerer|irons_spellbooks:copper_spell_book|1|",
+                "raven_dnd_origins:class/sorcerer|raven_core:potion_of_mana|3|",
+                "raven_dnd_origins:class/warlock|raven_core:potion_of_mana|3|",
+                "raven_dnd_origins:subclass/warlock/fiend|ess_requiem:rotten_sickle|1|",
+                "raven_dnd_origins:subclass/warlock/great_old_one|irons_spellbooks:copper_spell_book|1|",
+                "raven_dnd_origins:class/wizard|irons_spellbooks:copper_spell_book|1|",
+                "raven_dnd_origins:subclass/wizard/abjuration|raven_core:potion_of_mana|3|",
+                "raven_dnd_origins:subclass/wizard/evocation|raven_core:potion_of_mana|3|",
+                "raven_dnd_origins:subclass/wizard/necromancy|raven_core:potion_of_mana|3|",
+                "raven_dnd_origins:subclass/wizard/conjuration|raven_core:potion_of_mana|3|",
+                "raven_dnd_origins:subclass/wizard/enchanting|minecraft:lapis_lazuli|16|",
+                "raven_dnd_origins:subclass/wizard/transmutation|raven_core:potion_of_mana|3|"
         );
     }
 
@@ -124,8 +164,8 @@ public class RavenDndOriginsConfig extends Config {
         return INSTANCE == null ? List.of() : INSTANCE.starterKit.items;
     }
 
-    public static List<String> classStarterKitEntries() {
-        return INSTANCE == null ? List.of() : INSTANCE.starterKit.classEntries;
+    public static List<String> originStarterKitEntries() {
+        return INSTANCE == null ? List.of() : INSTANCE.starterKit.originEntries;
     }
 
     public static boolean isPowerRotationBlacklisted(String powerId) {

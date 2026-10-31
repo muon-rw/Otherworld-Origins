@@ -79,11 +79,6 @@
             "type": "origins:and",
             "conditions": [
                 {
-                    "type": "raven_dnd_origins:player_level",
-                    "comparison": ">=",
-                    "compare_to": 5
-                },
-                {
                     "type": "origins:resource",
                     "resource": "*:*_wholeness_pool",
                     "compare_to": 0,

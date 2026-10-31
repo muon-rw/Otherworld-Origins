@@ -415,7 +415,7 @@ publishMods {
         client = true
         server = true
 
-        requires("otherworld-core")
+        requires("raven-core")
         requires("apoli")
         requires("o-origins")
         requires("irons-spells-n-spellbooks")
