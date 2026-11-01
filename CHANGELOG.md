@@ -1,3 +1,6 @@
+## 0.1.3
+- Fix cantrip list
+
 ## 0.1.2
 - Update starter kit format/defaults
 
