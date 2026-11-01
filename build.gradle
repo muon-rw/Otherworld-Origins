@@ -233,8 +233,8 @@ dependencies {
 
     // Survival / social
     implementation("curse.maven:legendary-survival-overhaul-840254:8597620")
-    compileOnly("pack:rpg_villagers:neoforge-1.21.1-1.1.1")   // not published on Modrinth's API
-    localRuntime("pack:rpg_villagers:neoforge-1.21.1-1.1.1")
+    compileOnly("pack:rpg_villagers:neoforge-1.21.1-1.2.0")   // not published on Modrinth's API
+    localRuntime("pack:rpg_villagers:neoforge-1.21.1-1.2.0")
     implementation("maven.modrinth:hardcore-revival:${hardcore_revival_version}")
     localRuntime("curse.maven:balm-531761:8645517")
     implementation("maven.modrinth:appleskin:${appleskin_version}")

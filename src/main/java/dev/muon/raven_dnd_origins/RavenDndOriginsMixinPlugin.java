@@ -15,7 +15,7 @@ import java.util.Set;
 
 public class RavenDndOriginsMixinPlugin implements IMixinConfigPlugin {
 
-    private static final Logger LOGGER = LogManager.getLogger("Otherworld-Origins-Mixin");
+    private static final Logger LOGGER = LogManager.getLogger("Raven-Origins-Mixin");
 
 
     @Override

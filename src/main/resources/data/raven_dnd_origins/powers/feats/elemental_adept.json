@@ -3,7 +3,7 @@
     "type": "origins:attribute",
     "modifier": {
         "attribute": "legendarysurvivaloverhaul:thermal_resistance",
-        "value": 100.0,
+        "value": 1000.0,
         "operation": "addition"
     }
 }
