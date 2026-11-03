@@ -181,8 +181,9 @@ dependencies {
     localRuntime("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
     localRuntime("maven.modrinth:jade:${jade_version}")
     localRuntime("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}") // raven_core's config
-    compileOnly("dev.isxander:yet-another-config-lib:${yacl_version}") // JL's config handler
-    localRuntime("dev.isxander:yet-another-config-lib:${yacl_version}")
+    // isxander's maven has no 3.8.2 build for 1.21.1, so YACL comes from CurseForge
+    compileOnly("curse.maven:yacl-667299:7437845") // JL's config handler
+    localRuntime("curse.maven:yacl-667299:7437845")
 
     // Raven Core. Non-transitive so its dev runtime doesn't leak into here; its mods.toml requires
     // only aether_villages and legendary_monsters. Aether Villages needs Architectury (already on
@@ -190,9 +191,9 @@ dependencies {
     // it needs to be added, its bundled accessories needs to be bumped as well.
     implementation("dev.muon:raven-core:${raven_core_version}") { transitive = false }
     localRuntime("curse.maven:aether-villages-1073197:5895490")
-    localRuntime("curse.maven:legendary-monsters-944035:8715533")
+    localRuntime("curse.maven:legendary-monsters-944035:9301784")
     // need this to use the obsidian mirror without crashing
-    localRuntime("curse.maven:dark-doppelganger-1110803:9004718")
+    localRuntime("curse.maven:dark-doppelganger-1110803:9326331")
     // raven_core jarJars AEA; compile-visible for the shapeshift width/height attributes.
     compileOnly("maven.modrinth:AdditionalEntityAttributes:${additional_entity_attributes_version}")
 
@@ -212,7 +213,7 @@ dependencies {
     localRuntime("curse.maven:bookshelf-228525:7606240")  // required by attributefix
 
     // Config
-    implementation("curse.maven:fzzy-config-1005914:7568897")
+    implementation("curse.maven:fzzy-config-1005914:9326327")
     implementation("thedarkcolour:kotlinforforge-neoforge:${kotlin_for_forge_version}")
 
     // Leveling. Dynamic Difficulty replaces Auto Leveling; raven_core reports the JLF level to it.
@@ -236,15 +237,15 @@ dependencies {
     compileOnly("pack:rpg_villagers:neoforge-1.21.1-1.2.0")   // not published on Modrinth's API
     localRuntime("pack:rpg_villagers:neoforge-1.21.1-1.2.0")
     implementation("maven.modrinth:hardcore-revival:${hardcore_revival_version}")
-    localRuntime("curse.maven:balm-531761:8645517")
+    localRuntime("curse.maven:balm-531761:9406246")
     implementation("maven.modrinth:appleskin:${appleskin_version}")
 
     // Combat / camera / storage
     implementation("maven.modrinth:better-combat:${better_combat_version}")
     compileOnly("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}")
-    implementation("curse.maven:shoulder-surfing-reloaded-243190:8725628")
-    implementation("curse.maven:sophisticated-backpacks-422301:8687841")
-    implementation("curse.maven:sophisticated-core-618298:8705083")
+    implementation("curse.maven:shoulder-surfing-reloaded-243190:8950385")
+    implementation("curse.maven:sophisticated-backpacks-422301:9385446")
+    implementation("curse.maven:sophisticated-core-618298:9409247")
 
     // RPGDO + AttributeSetter
     compileOnly "curse.maven:rpgdamageoverhaul-1293843:8777705"
@@ -253,24 +254,24 @@ dependencies {
     // shelved: localRuntime "curse.maven:attribute-setter-1064034:8777532"
 
     // Mobs: wildshape forms, familiars, spell targets
-    implementation("curse.maven:naturalist-627986:8663845")
+    implementation("curse.maven:naturalist-627986:9004373")
     implementation("maven.modrinth:hybrid-aquatic:${hybrid_aquatic_version}")
     localRuntime("maven.modrinth:biolith:${biolith_version}")             // hybrid_aquatic requires it
     localRuntime("maven.modrinth:lithostitched:${lithostitched_version}") // hybrid_aquatic requires it
     implementation("maven.modrinth:luminous-beasts:${luminous_beasts_version}")
-    implementation("curse.maven:lendercataclysm-551586:8706841")
+    implementation("curse.maven:lendercataclysm-551586:8931182")
     implementation("curse.maven:lionfish-api-1001614:8345326")
     localRuntime("curse.maven:mowzies-mobs-250498:7760267")
-    localRuntime("curse.maven:iceandfire-ce-1040076:8683031")
-    compileOnly("curse.maven:iceandfire-ce-1040076:8683031")
-    localRuntime("curse.maven:uranus-1010827:8587525")
-    compileOnly("curse.maven:uranus-1010827:8587525")
+    localRuntime("curse.maven:iceandfire-ce-1040076:8929517")
+    compileOnly("curse.maven:iceandfire-ce-1040076:8929517")
+    localRuntime("curse.maven:uranus-1010827:8682870")
+    compileOnly("curse.maven:uranus-1010827:8682870")
     localRuntime("curse.maven:jupiter-1072905:7738312")
     compileOnly("curse.maven:jupiter-1072905:7738312")
-    localRuntime("curse.maven:alshanexs-familiars-1171602:8966342")
-    localRuntime("curse.maven:familiarslib-1316458:8966334")
+    localRuntime("curse.maven:alshanexs-familiars-1171602:9276628")
+    localRuntime("curse.maven:familiarslib-1316458:9276592")
     localRuntime("curse.maven:dummmmmmy-225738:8903254")
-    localRuntime("curse.maven:selene-499980:8941470") // Moonlight Lib, required by dummmmmmy
+    localRuntime("curse.maven:selene-499980:9122548") // Moonlight Lib, required by dummmmmmy
 
     // Dragonborn wings, utilizing O-Apoli's built-in Icarus compat (apoli:wings)
     implementation("maven.modrinth:icarus:${icarus_version}")
@@ -290,21 +291,21 @@ dependencies {
     localRuntime("pack:gtbcs_spell_lib:2.2.0-1.21.1")
     localRuntime("pack:discerning_the_eldritch:1.4.4-1.21")
     localRuntime("pack:aces_spell_utils:1.2.7.2-1.21.1")
-    localRuntime("pack:azurelib-neo:1.21.1-3.1.17")
-    localRuntime("pack:prometheus-neoforge:1.21-1.2.5")
+    localRuntime("pack:azurelib-neo:1.21.1-3.1.23-alpha.2")
+    localRuntime("pack:prometheus-neoforge:1.21.1-1.2.5")
     localRuntime("pack:soul-fire-d-neoforge:1.21-6.1.0")
     localRuntime("pack:cobweb-neoforge:1.21-1.4.0")
     localRuntime("pack:hazennstuff:1.4.0.14")
     localRuntime("pack:hazentouvelib:1.0.11")
     localRuntime("pack:tunes_n_tomes:1.1.0-HOTFIX")
-    localRuntime("pack:cataclysm_spellbooks:1.1.14-1.21")
+    localRuntime("pack:cataclysm_spellbooks:1.1.15-1.21")
     localRuntime("pack:legendary_spellbooks:1.21.1+neo-0.3.2")
     localRuntime("pack:ess_requiem:0.1.7b")
     localRuntime("pack:elemental_synergies:1.1.1")
     localRuntime("pack:magic_realms:1.5_HF")
     localRuntime("pack:rpg_dialogue:neoforge-1.21.1-1.0.14")      // required by rpg_villagers
     localRuntime("pack:aero_additions:1.2.8")
-    localRuntime("pack:irons_apothic:2.2.6")
+    localRuntime("pack:irons_apothic:2.2.8")
     localRuntime("pack:irons_jewelry:1.21.1-2.0.2")
     localRuntime("pack:atlas_api:1.21.1-1.2.0")                    // required by irons_jewelry
     localRuntime("vazkii.patchouli:Patchouli:1.21.1-93-NEOFORGE")  // apprentice_codex needs 93+; Apotheosis pulls 87
