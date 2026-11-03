@@ -128,6 +128,7 @@ repositories {
             includeGroupByRegex "com\\.blamejared.*"
             includeGroup "org.openzen.zencode"
             includeGroup "mezz.jei"
+            includeGroup "net.mezzdev.config"
         }
     }
     maven {
@@ -179,6 +180,7 @@ dependencies {
 
     // Dev env
     localRuntime("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
+    localRuntime("net.mezzdev.config:mezz_config-${mc_version}-neoforge:${mezz_config_version}") // required by JEI 19.6x
     localRuntime("maven.modrinth:jade:${jade_version}")
     localRuntime("me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}") // raven_core's config
     // isxander's maven has no 3.8.2 build for 1.21.1, so YACL comes from CurseForge
@@ -192,6 +194,8 @@ dependencies {
     implementation("dev.muon:raven-core:${raven_core_version}") { transitive = false }
     localRuntime("curse.maven:aether-villages-1073197:5895490")
     localRuntime("curse.maven:legendary-monsters-944035:9301784")
+    // raven_core 0.1.2 subscribes to Champions events without declaring the dependency, so it crashes without it
+    localRuntime("curse.maven:champions-1074990:8809363")
     // need this to use the obsidian mirror without crashing
     localRuntime("curse.maven:dark-doppelganger-1110803:9326331")
     // raven_core jarJars AEA; compile-visible for the shapeshift width/height attributes.
@@ -218,7 +222,10 @@ dependencies {
 
     // Leveling. Dynamic Difficulty replaces Auto Leveling; raven_core reports the JLF level to it.
     implementation("curse.maven:justleveling-fork-1073400:8555544")
-    implementation("dev.muon.dynamic_difficulty:dynamic_difficulty-neoforge:${dynamic_difficulty_version}")
+    // Its POM points at a fzzy_config build no repository here serves; CurseMaven supplies it above.
+    implementation("dev.muon.dynamic_difficulty:dynamic_difficulty-neoforge:${dynamic_difficulty_version}") {
+        exclude group: "me.fzzyhmstrs"
+    }
 
     // Iron's Spells n Spellbooks
     implementation("io.redspace:irons_spellbooks:${irons_version}")

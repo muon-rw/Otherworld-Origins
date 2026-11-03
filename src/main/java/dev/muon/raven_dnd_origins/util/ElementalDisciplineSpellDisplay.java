@@ -7,6 +7,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -33,7 +34,20 @@ public final class ElementalDisciplineSpellDisplay {
             Map.entry("ride_the_wind", "aero_additions:feather_fall")
     );
 
+    // Cantrip origin files must be named after the spell path they cast, since the icon and guide text are looked up by it.
+    private static final List<String> CANTRIP_PREFIXES = List.of("cantrips/two/", "cantrips/magical_secrets/", "cantrips/");
+
     private ElementalDisciplineSpellDisplay() {
+    }
+
+    public static Optional<ResourceLocation> spellIdForCantripOriginPath(String originPath) {
+        for (String prefix : CANTRIP_PREFIXES) {
+            if (originPath.startsWith(prefix)) {
+                String slug = originPath.substring(prefix.length());
+                return Optional.of(ResourceLocation.fromNamespaceAndPath(resolveSpellNamespace(slug), slug));
+            }
+        }
+        return Optional.empty();
     }
 
     /**
@@ -72,12 +86,17 @@ public final class ElementalDisciplineSpellDisplay {
         return desc;
     }
 
+    /** Spell icons and guide text are keyed by path only, and our screens look them up every frame, so we memoize the registry scan. */
+    private static final java.util.Map<String, String> SPELL_NAMESPACES = new java.util.concurrent.ConcurrentHashMap<>();
+
     public static String resolveSpellNamespace(String spellPath) {
-        for (AbstractSpell spell : SpellRegistry.REGISTRY) {
-            if (spell.getSpellResource().getPath().equals(spellPath)) {
-                return spell.getSpellResource().getNamespace();
+        return SPELL_NAMESPACES.computeIfAbsent(spellPath, path -> {
+            for (AbstractSpell spell : SpellRegistry.REGISTRY) {
+                if (spell.getSpellResource().getPath().equals(path)) {
+                    return spell.getSpellResource().getNamespace();
+                }
             }
-        }
-        return IronsSpellbooks.MODID;
+            return IronsSpellbooks.MODID;
+        });
     }
 }

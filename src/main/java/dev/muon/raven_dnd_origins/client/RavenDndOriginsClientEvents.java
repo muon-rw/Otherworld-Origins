@@ -31,12 +31,16 @@ import java.util.List;
 public class RavenDndOriginsClientEvents {
 
     /**
-     * The session instance a screen was last opened for. Compared by identity, so a re-issued prompt
-     * (a fresh packet, hence a fresh record) re-opens the screen while the current one does not
-     * re-open it every tick, nor between {@code finishSelection} and the server clearing the session.
+     * The session the player last finished. Compared by identity, so the screen reopens for any session the
+     * player hasn't finished (after a death screen or another mod replaced it, or a re-issued prompt) but not
+     * between {@code finishSelection} and the server clearing that session.
      */
     @Nullable
-    private static SelectionSession displayedSession;
+    private static SelectionSession finishedSession;
+
+    public static void markSessionFinished() {
+        finishedSession = ClientSelectionState.get();
+    }
 
     /**
      * On login, ask the server for a full re-sync (dynamic registries + per-player containers).
@@ -52,7 +56,7 @@ public class RavenDndOriginsClientEvents {
         // Fired from handleLogin, before any play-phase payload of this connection is handled, so a
         // session left over from a previous world can never outlive the join it belonged to.
         ClientSelectionState.clear();
-        displayedSession = null;
+        finishedSession = null;
         PacketDistributor.sendToServer(new RequestFullSyncMessage());
     }
 
@@ -70,18 +74,17 @@ public class RavenDndOriginsClientEvents {
     public static void onClientTick(ClientTickEvent.Post event) {
         SelectionSession session = ClientSelectionState.get();
         if (session == null || session.isEmpty()) {
-            displayedSession = null;
+            finishedSession = null;
             return;
         }
 
         Minecraft instance = Minecraft.getInstance();
-        if (session == displayedSession || instance.player == null || instance.screen != null) {
+        if (session == finishedSession || instance.player == null || instance.screen != null) {
             return;
         }
 
         List<OriginLayer> layers = resolve(session.layers());
         if (!layers.isEmpty()) {
-            displayedSession = session;
             instance.setScreen(new RavenDndOriginScreen(layers, 0, session.kind()));
         }
     }

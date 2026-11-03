@@ -29,7 +29,6 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -57,30 +56,25 @@ public final class OriginDetailPanel {
 
     private final Font font = Minecraft.getInstance().font;
     private int x;
+    private int y;
     private int width;
+    private int height;
     private int screenWidth;
     private int screenHeight;
     private float time;
 
-    /**
-     * Top of the scrollable description area (below icon/name/impact); matches stock Origins scissor.
-     */
-    private static final int CONTENT_TOP_OFFSET = 28;
-    /**
-     * Track/thumb widths and thumb height from stock {@code OriginDisplayScreen} (sprite used only as a ruler).
-     */
+    private static final int CONTENT_TOP_OFFSET = 40;
+    /** Keeps text and the scrollbar clear of the stitching and brass corners. */
+    private static final int CONTENT_INSET = 7;
     private static final int SCROLLBAR_TRACK_W = 8;
-    private static final int SCROLLBAR_THUMB_W = 6;
+    private static final int SCROLLBAR_THUMB_W = 3;
     private static final int SCROLLBAR_THUMB_H = 27;
-    private static final int SCROLLBAR_TRACK_ARGB = 0x44FFFFFF;
-    private static final int SCROLLBAR_THUMB_ARGB = 0x77FFFFFF;
-    private static final int SCROLLBAR_THUMB_ACTIVE_ARGB = 0xAAFFFFFF;
+    private static final int ENCHANTMENT_ACCESS_COLOR = 0x5B2A86;
 
     /**
-     * Power badges in the right panel sit next to the screen edge. Vanilla/default tooltip
-     * placement grows to the right of the cursor, and Origins line-wrap width uses
-     * {@code screenWidth - mouseX}, which collapses there. This positioner keeps the tooltip
-     * opening to the left (outer right edge near the cursor, with the same 12px gap vanilla uses).
+     * Power badges in the right panel sit next to the screen edge. Vanilla places tooltips to the right of
+     * the cursor, and Origins wraps them at {@code screenWidth - mouseX}, which collapses there, so we open
+     * them to the left instead, keeping vanilla's 12px gap from the cursor.
      */
     private static final ClientTooltipPositioner BADGE_TOOLTIP_POSITIONER = (screenWidth, screenHeight, mouseX, mouseY, tooltipWidth, tooltipHeight) -> {
         Vector2i pos = new Vector2i(mouseX - 12 - tooltipWidth, mouseY - 12);
@@ -97,21 +91,14 @@ public final class OriginDetailPanel {
         return pos;
     };
 
-    /**
-     * Virtual scroll in the right description pane: ranges from 0 through top/bottom overscroll
-     * padding plus content overflow. Effective content offset is
-     * {@code clamp(virtual - overscroll, 0, contentMaxScroll)}.
-     */
     private int scrollPos = 0;
-    /** Pixels of description content that extend past the scissor (updated each render). */
     private int contentMaxScroll = 0;
-    private static final int SCROLL_OVERSCROLL_PX = 24;
     @Nullable
     private Origin displayed;
 
     private boolean scrollbarDragging;
     private double scrollbarDragStartMouseY;
-    private int scrollbarDragStartEffScroll;
+    private int scrollbarDragStartScroll;
 
     private static final ResourceLocation SCHOOL_BADGE_PLACEHOLDER =
             ResourceLocation.fromNamespaceAndPath("origins", "textures/gui/badge/isaacfanta/star.png");
@@ -134,9 +121,15 @@ public final class OriginDetailPanel {
     private int allowedSpellsLastHoveredIdx = -1;
     private int allowedSpellsStripX, allowedSpellsStripY, allowedSpellsStripW, allowedSpellsStripH;
     private boolean allowedSpellsStripActive = false;
+    @Nullable
+    private Component pendingTitleTooltip;
+    @Nullable
+    private TextLayout textLayout;
+    private final Map<ResourceLocation, List<AllowedSpellBadge>> spellBadgeCache = new java.util.HashMap<>();
+    private final Map<ResourceLocation, List<AllowedSpellBadge>> scalingBadgeCache = new java.util.HashMap<>();
 
     private boolean renderAllowedSpellsBadges(GuiGraphics graphics, int rightX, int y, int mouseX, int mouseY, Origin origin) {
-        List<AllowedSpellBadge> badges = collectAllowedSpellBadges(origin);
+        List<AllowedSpellBadge> badges = this.spellBadgeCache.computeIfAbsent(origin.id(), id -> collectAllowedSpellBadges(origin));
         boolean isSubclass = origin.id().getPath().startsWith("subclass/");
         if (badges.isEmpty() && isSubclass) {
             badges = List.of(new AllowedSpellBadge(SCHOOL_BADGE_PLACEHOLDER, List.of(
@@ -144,19 +137,19 @@ public final class OriginDetailPanel {
                             .withStyle(ChatFormatting.GRAY)
             )));
         }
-        return renderTopRightBadgeStrip(graphics, rightX, y, mouseX, mouseY, badges,
-                "raven_dnd_origins.gui.allowed_spells.hint");
+        return renderTopRightBadgeStrip(graphics, rightX, y, mouseX, mouseY, badges
+        );
     }
 
     private boolean renderWildshapeScalingBadges(GuiGraphics graphics, int rightX, int y, int mouseX, int mouseY, Origin origin) {
         if (!origin.id().getPath().startsWith("wildshape/")) return false;
-        List<AllowedSpellBadge> badges = buildWildshapeScalingBadges(origin);
-        return renderTopRightBadgeStrip(graphics, rightX, y, mouseX, mouseY, badges,
-                "raven_dnd_origins.gui.scaling.hint");
+        List<AllowedSpellBadge> badges = this.scalingBadgeCache.computeIfAbsent(origin.id(), id -> buildWildshapeScalingBadges(origin));
+        return renderTopRightBadgeStrip(graphics, rightX, y, mouseX, mouseY, badges
+        );
     }
 
     private boolean renderTopRightBadgeStrip(GuiGraphics graphics, int rightX, int y, int mouseX, int mouseY,
-                                             List<AllowedSpellBadge> badges, String hintKey) {
+                                             List<AllowedSpellBadge> badges) {
         if (badges.isEmpty()) return false;
         int stride = 10;
         int n = badges.size();
@@ -190,7 +183,7 @@ public final class OriginDetailPanel {
         if (!this.allowedSpellsEverHovered) {
             float pulse = 0.5f + 0.5f * Mth.sin(this.time * 0.18f);
             int alpha = (int) (0x55 + pulse * 0xAA);
-            int color = (alpha << 24) | 0xFFFFFF;
+            int color = (alpha << 24) | (DeskStyle.PAGE_RUBRIC & 0xFFFFFF);
             int x0 = startX - 1;
             int y0 = y - 1;
             int x1 = startX + stripW + 1;
@@ -199,14 +192,6 @@ public final class OriginDetailPanel {
             graphics.fill(x0, y1 - 1, x1, y1, color);
             graphics.fill(x0, y0, x0 + 1, y1, color);
             graphics.fill(x1 - 1, y0, x1, y1, color);
-
-            Component label = Component.translatable(hintKey);
-            int lw = this.font.width(label);
-            int lx = startX + stripW - lw;
-            int ly = y + 11;
-            int textAlpha = (int) (0xAA + pulse * 0x55);
-            int textColor = (textAlpha << 24) | 0xFFFFFF;
-            graphics.drawString(this.font, label.getVisualOrderText(), lx, ly, textColor, true);
         }
         return true;
     }
@@ -222,7 +207,7 @@ public final class OriginDetailPanel {
 
         List<AllowedSpellBadge> out = new ArrayList<>(2);
         Component note = Component.translatable("raven_dnd_origins.gui.scaling.note")
-                .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC);
+                .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC);
 
         List<Component> charTip = new ArrayList<>();
         charTip.add(Component.translatable("raven_dnd_origins.gui.scaling.char_header").withStyle(ChatFormatting.GOLD));
@@ -409,10 +394,57 @@ public final class OriginDetailPanel {
         return sb.toString();
     }
 
-    public void render(GuiGraphics graphics, @Nullable Origin displayOrigin, int x, int width,
-                       int mouseX, int mouseY, float time) {
-        this.x = x;
-        this.width = width;
+    private record PowerLayout(ResourceLocation powerId, List<FormattedCharSequence> name, List<FormattedCharSequence> description) {}
+
+    private record TextLayout(ResourceLocation originId, int width, List<FormattedCharSequence> description, List<PowerLayout> powers) {}
+
+    /** Wrapped text for the displayed origin, rebuilt only when the origin or the page width changes. */
+    private TextLayout textLayout(Origin origin, int textWidth) {
+        TextLayout cached = this.textLayout;
+        if (cached != null && cached.originId().equals(origin.id()) && cached.width() == textWidth) {
+            return cached;
+        }
+        List<FormattedCharSequence> description = this.font.split(appendExtraInfo(origin.description(), origin), textWidth);
+        List<PowerLayout> powers = new ArrayList<>();
+        Player viewer = Minecraft.getInstance().player;
+        for (ResourceLocation powerId : viewer != null ? origin.powersFor(viewer) : origin.powers()) {
+            Power power = ApoliPowers.get(powerId);
+            if (power == null || power.hidden()) continue;
+            powers.add(new PowerLayout(powerId,
+                    this.font.split(power.displayName(powerId), textWidth - 18),
+                    this.font.split(power.displayDescription(powerId), textWidth - 2)));
+        }
+        this.textLayout = new TextLayout(origin.id(), textWidth, description, powers);
+        return this.textLayout;
+    }
+
+    public void scrollBy(int pixels) {
+        this.scrollPos = Mth.clamp(this.scrollPos + pixels, 0, this.contentMaxScroll);
+    }
+
+    public int pageHeight() {
+        return Math.max(12, this.height - CONTENT_TOP_OFFSET - CONTENT_INSET - 12);
+    }
+
+    public void renderPlaceholder(GuiGraphics graphics, OriginScreenLayout.Rect bounds, Component hint) {
+        this.displayed = null;
+        DeskStyle.page(graphics, bounds.x(), bounds.y(), bounds.width(), bounds.height());
+        int textWidth = bounds.width() - 2 * CONTENT_INSET - 8;
+        int y = bounds.y() + bounds.height() / 3;
+        for (FormattedCharSequence line : this.font.split(hint.copy().withStyle(ChatFormatting.ITALIC), textWidth)) {
+            graphics.drawString(this.font, line, bounds.x() + (bounds.width() - this.font.width(line)) / 2, y,
+                    DeskStyle.PAGE_SEPIA, false);
+            y += 11;
+        }
+        DeskStyle.diamondRule(graphics, bounds.x() + 20, bounds.right() - 20, y + 6);
+    }
+
+    public void render(GuiGraphics graphics, @Nullable Origin displayOrigin, OriginScreenLayout.Rect bounds,
+                       @Nullable Component subtitle, int mouseX, int mouseY, float time) {
+        this.x = bounds.x();
+        this.y = bounds.y();
+        this.width = bounds.width();
+        this.height = bounds.height();
         this.screenWidth = graphics.guiWidth();
         this.screenHeight = graphics.guiHeight();
         this.time = time;
@@ -426,57 +458,78 @@ public final class OriginDetailPanel {
         this.displayed = displayOrigin;
 
         int panelX = this.x;
-        int panelY = 20;
-        int panelHeight = this.screenHeight - 60;
-        int textWidth = this.width - 16;
+        int panelY = this.y;
+        int panelHeight = this.height;
+        int textX = panelX + CONTENT_INSET + 2;
+        int textWidth = this.width - 2 * CONTENT_INSET - SCROLLBAR_TRACK_W;
 
-        graphics.fill(panelX, panelY, panelX + this.width, panelY + panelHeight, 0x88000000);
+        DeskStyle.page(graphics, panelX, panelY, this.width, panelHeight);
 
-        renderIcon(graphics, displayOrigin, panelX + 5, panelY + 5);
-        graphics.drawString(this.font, displayOrigin.name(), panelX + 25, panelY + 9, 0xFFFFFF, true);
+        graphics.blitSprite(DeskStyle.INITIAL, panelX + 7, panelY + 7, 24, 24);
+        renderIcon(graphics, displayOrigin, panelX + 11, panelY + 11);
 
+        int nameX = panelX + 36;
+
+        // Badges share the subtitle line so the origin's name keeps the full header width.
         this.pendingAllowedSpellsTooltip = null;
         this.allowedSpellsStripActive = false;
-        int stripRightX = panelX + this.width - 5;
-        int stripY = panelY + 9;
-        boolean spellBadgesShown = RavenDndOriginsConfig.enableSpellRestrictions()
-                && renderAllowedSpellsBadges(graphics, stripRightX, stripY, mouseX, mouseY, displayOrigin);
-        if (!spellBadgesShown) {
-            renderWildshapeScalingBadges(graphics, stripRightX, stripY, mouseX, mouseY, displayOrigin);
+        int stripRightX = panelX + this.width - 9;
+        int stripY = panelY + 21;
+        int stripLeft = stripRightX + 4;
+        if (RavenDndOriginsConfig.enableSpellRestrictions()
+                && renderAllowedSpellsBadges(graphics, stripRightX, stripY, mouseX, mouseY, displayOrigin)) {
+            stripLeft = this.allowedSpellsStripX;
+        } else if (renderWildshapeScalingBadges(graphics, stripRightX, stripY, mouseX, mouseY, displayOrigin)) {
+            stripLeft = this.allowedSpellsStripX;
         }
 
-        graphics.enableScissor(panelX, panelY + CONTENT_TOP_OFFSET, panelX + this.width, panelY + panelHeight);
+        int nameRoom = panelX + this.width - 9 - nameX;
+        DeskStyle.scrollingString(graphics, this.font, displayOrigin.name(), nameX, panelY + 10, nameRoom, DeskStyle.PAGE_RUBRIC);
+        boolean nameOverflows = this.font.width(displayOrigin.name()) > nameRoom;
+        if (subtitle != null) {
+            graphics.drawString(this.font, ellipsize(subtitle, stripLeft - 4 - nameX), nameX, panelY + 21, DeskStyle.PAGE_SEPIA, false);
+        }
+        DeskStyle.diamondRule(graphics, panelX + 10, panelX + this.width - 10, panelY + CONTENT_TOP_OFFSET - 4);
 
-        int startY = panelY + CONTENT_TOP_OFFSET + 2;
-        int o = SCROLL_OVERSCROLL_PX;
-        int effScroll = this.contentMaxScroll <= 0
-                ? 0
-                : Mth.clamp(this.scrollPos - o, 0, this.contentMaxScroll);
+        graphics.enableScissor(panelX + CONTENT_INSET, panelY + CONTENT_TOP_OFFSET,
+                panelX + this.width - CONTENT_INSET, panelY + panelHeight - CONTENT_INSET);
+
+        int startY = panelY + CONTENT_TOP_OFFSET + 3;
+        int scroll = Mth.clamp(this.scrollPos, 0, this.contentMaxScroll);
 
         this.renderedBadges.clear();
 
-        int y = startY - effScroll;
+        int y = startY - scroll;
 
-        Component orgDesc = appendExtraInfo(displayOrigin.description(), displayOrigin);
-        for (FormattedCharSequence line : this.font.split(orgDesc, textWidth)) {
-            graphics.drawString(this.font, line, panelX + 5, y, 0xCCCCCC, false);
-            y += 12;
+        TextLayout text = textLayout(displayOrigin, textWidth);
+        if (nameOverflows && mouseX >= nameX && mouseX < nameX + nameRoom && mouseY >= panelY + 9 && mouseY < panelY + 19) {
+            this.pendingTitleTooltip = displayOrigin.name();
         }
 
-        y += 14;
+        for (FormattedCharSequence line : text.description()) {
+            graphics.drawString(this.font, line, textX, y, DeskStyle.PAGE_INK, false);
+            y += 11;
+        }
 
-        Player viewer = Minecraft.getInstance().player;
-        List<ResourceLocation> shownPowers = viewer != null ? displayOrigin.powersFor(viewer) : displayOrigin.powers();
-        for (ResourceLocation powerId : shownPowers) {
-            Power power = ApoliPowers.get(powerId);
-            if (power == null || power.hidden()) continue;
+        y += 6;
+        DeskStyle.diamondRule(graphics, textX, textX + textWidth, y);
+        y += 7;
 
-            MutableComponent underlined = power.displayName(powerId).copy().withStyle(ChatFormatting.UNDERLINE);
-            FormattedCharSequence name = Language.getInstance().getVisualOrder(this.font.substrByWidth(underlined, textWidth));
-            graphics.drawString(this.font, name, panelX + 5, y, 0xFFFFFF, false);
-
-            int tw = this.font.width(name);
-            int badgeX = panelX + 5 + tw + 4;
+        for (PowerLayout powerText : text.powers()) {
+            ResourceLocation powerId = powerText.powerId();
+            List<FormattedCharSequence> nameLines = powerText.name();
+            int tw = 0;
+            int powerNameX = textX;
+            if (!nameLines.isEmpty() && this.font.width(nameLines.get(0)) > 0) {
+                DeskStyle.rubricMarker(graphics, textX, y);
+                powerNameX += 6;
+                for (int i = 0; i < nameLines.size(); i++) {
+                    if (i > 0) y += 10;
+                    graphics.drawString(this.font, nameLines.get(i), powerNameX, y, DeskStyle.PAGE_RUBRIC, false);
+                }
+                tw = this.font.width(nameLines.get(nameLines.size() - 1));
+            }
+            int badgeX = tw > 0 ? powerNameX + tw + 4 : textX;
             int bi = 0;
             for (Badge badge : BadgeClientState.get(powerId)) {
                 int bx = badgeX + 10 * bi;
@@ -486,24 +539,21 @@ public final class OriginDetailPanel {
                 bi++;
             }
 
-            for (FormattedCharSequence line : this.font.split(power.displayDescription(powerId), textWidth)) {
-                y += 12;
-                graphics.drawString(this.font, line, panelX + 5 + 2, y, 0xCCCCCC, false);
+            for (FormattedCharSequence line : powerText.description()) {
+                y += 11;
+                graphics.drawString(this.font, line, textX + 2, y, DeskStyle.PAGE_BODY, false);
             }
-            y += 14;
+            y += 16;
         }
 
+        int viewBottom = panelY + panelHeight - CONTENT_INSET;
+        if (scroll < this.contentMaxScroll) {
+            DeskStyle.continuationFade(graphics, panelX + CONTENT_INSET, panelX + this.width - CONTENT_INSET, viewBottom);
+        }
         graphics.disableScissor();
 
-        this.contentMaxScroll = Math.max(0, y + effScroll - (panelY + panelHeight));
-        int virtualMax = this.contentMaxScroll <= 0
-                ? 0
-                : o + this.contentMaxScroll + o;
-        if (virtualMax <= 0) {
-            this.scrollPos = 0;
-        } else {
-            this.scrollPos = Mth.clamp(this.scrollPos, 0, virtualMax);
-        }
+        this.contentMaxScroll = Math.max(0, y + scroll - viewBottom);
+        this.scrollPos = Mth.clamp(this.scrollPos, 0, this.contentMaxScroll);
 
         renderScrollbar(graphics, mouseX, mouseY);
 
@@ -516,6 +566,10 @@ public final class OriginDetailPanel {
         if (this.pendingAllowedSpellsTooltip != null) {
             drawAllowedSpellsTooltip(graphics, this.pendingAllowedSpellsTooltip, mouseX, mouseY);
             this.pendingAllowedSpellsTooltip = null;
+        }
+        if (this.pendingTitleTooltip != null) {
+            graphics.renderTooltip(this.font, this.pendingTitleTooltip, mouseX, mouseY);
+            this.pendingTitleTooltip = null;
         }
     }
 
@@ -592,8 +646,8 @@ public final class OriginDetailPanel {
         graphics.pose().pushPose();
         graphics.pose().translate(0, 0, 400);
 
-        int bg = 0xF0100010;
-        int border = 0xFF5000FF;
+        int bg = DeskStyle.TOOLTIP_BG;
+        int border = DeskStyle.BRASS;
         graphics.fill(x, y, x + boxW, y + boxH, bg);
         graphics.fill(x - 1, y, x, y + boxH, border);
         graphics.fill(x + boxW, y, x + boxW + 1, y + boxH, border);
@@ -603,7 +657,7 @@ public final class OriginDetailPanel {
         graphics.enableScissor(x + padding, y + padding, x + padding + contentW, y + padding + viewportH);
         int cy = y + padding - this.allowedSpellsTooltipScroll;
         for (FormattedCharSequence line : wrapped) {
-            graphics.drawString(this.font, line, x + padding, cy, 0xFFFFFFFF, false);
+            graphics.drawString(this.font, line, x + padding, cy, DeskStyle.HOVER_TEXT, false);
             cy += lineHeight;
         }
         graphics.disableScissor();
@@ -612,102 +666,95 @@ public final class OriginDetailPanel {
             int trackX = x + boxW - 5;
             int trackY = y + padding;
             int trackH = viewportH;
-            graphics.fill(trackX, trackY, trackX + 3, trackY + trackH, 0x44FFFFFF);
+            graphics.fill(trackX, trackY, trackX + 3, trackY + trackH, DeskStyle.withAlpha(DeskStyle.CREAM, 0x44));
             int thumbH = Math.max(8, (int) ((float) viewportH / contentH * trackH));
             int thumbY = trackY + (int) ((float) this.allowedSpellsTooltipScroll / maxScroll * (trackH - thumbH));
-            graphics.fill(trackX, thumbY, trackX + 3, thumbY + thumbH, 0xCCFFFFFF);
+            graphics.fill(trackX, thumbY, trackX + 3, thumbY + thumbH, DeskStyle.withAlpha(DeskStyle.CREAM, 0xCC));
         }
 
         graphics.pose().popPose();
     }
 
-    private void renderScrollbar(GuiGraphics graphics, int mouseX, int mouseY) {
-        if (this.contentMaxScroll <= 0) {
-            return;
-        }
-        int panelX = this.x;
-        int panelY = 20;
-        int panelHeight = this.screenHeight - 60;
-        int contentTop = panelY + CONTENT_TOP_OFFSET;
-        int viewportH = panelHeight - CONTENT_TOP_OFFSET;
-        if (viewportH <= SCROLLBAR_THUMB_H) {
-            return;
-        }
-        int trackX = panelX + this.width - SCROLLBAR_TRACK_W;
-        graphics.fill(
-                trackX,
-                contentTop,
-                trackX + SCROLLBAR_TRACK_W,
-                contentTop + viewportH,
-                SCROLLBAR_TRACK_ARGB);
+    private int scrollbarTrackX() {
+        return this.x + this.width - CONTENT_INSET - SCROLLBAR_TRACK_W;
+    }
 
-        int thumbX = trackX + (SCROLLBAR_TRACK_W - SCROLLBAR_THUMB_W) / 2;
+    private int scrollbarTop() {
+        return this.y + CONTENT_TOP_OFFSET;
+    }
+
+    private int scrollbarViewportHeight() {
+        return this.height - CONTENT_TOP_OFFSET - CONTENT_INSET;
+    }
+
+    private int scrollbarThumbX() {
+        return scrollbarTrackX() + (SCROLLBAR_TRACK_W - SCROLLBAR_THUMB_W) / 2;
+    }
+
+    private void renderScrollbar(GuiGraphics graphics, int mouseX, int mouseY) {
+        int viewportH = scrollbarViewportHeight();
+        if (this.contentMaxScroll <= 0 || viewportH <= SCROLLBAR_THUMB_H) {
+            return;
+        }
+        int contentTop = scrollbarTop();
+        int thumbX = scrollbarThumbX();
+        graphics.fill(thumbX, contentTop, thumbX + SCROLLBAR_THUMB_W, contentTop + viewportH, DeskStyle.PAGE_TRACK);
+
         int thumbY = computeScrollbarThumbY(contentTop, viewportH);
         boolean hover = !this.scrollbarDragging
-                && mouseX >= thumbX
-                && mouseX < thumbX + SCROLLBAR_THUMB_W
+                && mouseX >= scrollbarTrackX()
+                && mouseX < scrollbarTrackX() + SCROLLBAR_TRACK_W
                 && mouseY >= thumbY
                 && mouseY < thumbY + SCROLLBAR_THUMB_H;
-        int thumbArgb = (this.scrollbarDragging || hover)
-                ? SCROLLBAR_THUMB_ACTIVE_ARGB
-                : SCROLLBAR_THUMB_ARGB;
-        graphics.fill(
-                thumbX,
-                thumbY,
-                thumbX + SCROLLBAR_THUMB_W,
-                thumbY + SCROLLBAR_THUMB_H,
-                thumbArgb);
+        boolean lit = this.scrollbarDragging || hover;
+        graphics.fill(thumbX, thumbY, thumbX + SCROLLBAR_THUMB_W, thumbY + SCROLLBAR_THUMB_H,
+                lit ? DeskStyle.RUBRIC_LIGHT : DeskStyle.PAGE_RUBRIC);
+        graphics.fill(thumbX, thumbY + SCROLLBAR_THUMB_H - 1, thumbX + SCROLLBAR_THUMB_W, thumbY + SCROLLBAR_THUMB_H,
+                DeskStyle.RUBRIC_DARK);
     }
 
     private int computeScrollbarThumbY(int contentTop, int viewportH) {
-        int o = SCROLL_OVERSCROLL_PX;
-        int eff = Mth.clamp(this.scrollPos - o, 0, this.contentMaxScroll);
-        float part = this.contentMaxScroll <= 0 ? 0.0f : eff / (float) this.contentMaxScroll;
+        int scroll = Mth.clamp(this.scrollPos, 0, this.contentMaxScroll);
+        float part = this.contentMaxScroll <= 0 ? 0.0f : scroll / (float) this.contentMaxScroll;
         int thumbTravel = viewportH - SCROLLBAR_THUMB_H;
         return contentTop + (int) (thumbTravel * part + 0.5f);
     }
 
     private boolean tryBeginScrollbarDrag(double mouseX, double mouseY) {
-        if (this.displayed == null || this.contentMaxScroll <= 0) {
+        int viewportH = scrollbarViewportHeight();
+        if (this.displayed == null || this.contentMaxScroll <= 0 || viewportH <= SCROLLBAR_THUMB_H) {
             return false;
         }
-        int panelX = this.x;
-        int panelY = 20;
-        int panelHeight = this.screenHeight - 60;
-        int contentTop = panelY + CONTENT_TOP_OFFSET;
-        int viewportH = panelHeight - CONTENT_TOP_OFFSET;
-        if (viewportH <= SCROLLBAR_THUMB_H) {
-            return false;
-        }
-        int trackX = panelX + this.width - SCROLLBAR_TRACK_W;
-        int thumbX = trackX + (SCROLLBAR_TRACK_W - SCROLLBAR_THUMB_W) / 2;
-        int thumbY = computeScrollbarThumbY(contentTop, viewportH);
-        if (mouseX >= thumbX
-                && mouseX < thumbX + SCROLLBAR_THUMB_W
+        int thumbY = computeScrollbarThumbY(scrollbarTop(), viewportH);
+        if (mouseX >= scrollbarTrackX()
+                && mouseX < scrollbarTrackX() + SCROLLBAR_TRACK_W
                 && mouseY >= thumbY
                 && mouseY < thumbY + SCROLLBAR_THUMB_H) {
             this.scrollbarDragging = true;
             this.scrollbarDragStartMouseY = mouseY;
-            int o = SCROLL_OVERSCROLL_PX;
-            this.scrollbarDragStartEffScroll =
-                    Mth.clamp(this.scrollPos - o, 0, this.contentMaxScroll);
+            this.scrollbarDragStartScroll = Mth.clamp(this.scrollPos, 0, this.contentMaxScroll);
             return true;
         }
         return false;
     }
 
     private void applyScrollbarDrag(double mouseY) {
-        int panelHeight = this.screenHeight - 60;
-        int viewportH = panelHeight - CONTENT_TOP_OFFSET;
-        int thumbTravel = viewportH - SCROLLBAR_THUMB_H;
+        int thumbTravel = scrollbarViewportHeight() - SCROLLBAR_THUMB_H;
         if (thumbTravel <= 0 || this.contentMaxScroll <= 0) {
             return;
         }
         double deltaY = mouseY - this.scrollbarDragStartMouseY;
-        int deltaEff = (int) Math.round(deltaY / thumbTravel * this.contentMaxScroll);
-        int newEff = Mth.clamp(this.scrollbarDragStartEffScroll + deltaEff, 0, this.contentMaxScroll);
-        int o = SCROLL_OVERSCROLL_PX;
-        this.scrollPos = newEff + o;
+        int deltaScroll = (int) Math.round(deltaY / thumbTravel * this.contentMaxScroll);
+        this.scrollPos = Mth.clamp(this.scrollbarDragStartScroll + deltaScroll, 0, this.contentMaxScroll);
+    }
+
+    private Component ellipsize(Component text, int maxWidth) {
+        if (this.font.width(text) <= maxWidth) {
+            return text;
+        }
+        String ellipsis = "...";
+        String cut = this.font.plainSubstrByWidth(text.getString(), Math.max(0, maxWidth - this.font.width(ellipsis)));
+        return Component.literal(cut + ellipsis).withStyle(text.getStyle());
     }
 
     private final LinkedList<RenderedBadge> renderedBadges = new LinkedList<>();
@@ -716,25 +763,10 @@ public final class OriginDetailPanel {
 
     public static void renderIcon(GuiGraphics graphics, Origin origin, int x, int y) {
         String originPath = origin.id().getPath();
-        String spellName = null;
-        if (originPath.startsWith("cantrips/two/")) {
-            spellName = originPath.substring("cantrips/two/".length());
-        } else if (originPath.startsWith("cantrips/magical_secrets/")) {
-            spellName = originPath.substring("cantrips/magical_secrets/".length());
-        } else if (originPath.startsWith("cantrips/")) {
-            spellName = originPath.substring("cantrips/".length());
-        }
-
-        if (spellName != null) {
-            String namespace = resolveSpellNamespace(spellName);
-            ResourceLocation iconTexture = ResourceLocation.fromNamespaceAndPath(namespace, "textures/gui/spell_icons/" + spellName + ".png");
-            graphics.blit(iconTexture, x, y, 0, 0, 16, 16, 16, 16);
-            return;
-        }
-
-        Optional<ResourceLocation> disciplineSpell = ElementalDisciplineSpellDisplay.spellIdForDisciplineOriginPath(originPath);
-        if (disciplineSpell.isPresent()) {
-            ResourceLocation id = disciplineSpell.get();
+        Optional<ResourceLocation> spell = ElementalDisciplineSpellDisplay.spellIdForCantripOriginPath(originPath)
+                .or(() -> ElementalDisciplineSpellDisplay.spellIdForDisciplineOriginPath(originPath));
+        if (spell.isPresent()) {
+            ResourceLocation id = spell.get();
             ResourceLocation iconTexture = ResourceLocation.fromNamespaceAndPath(
                     id.getNamespace(), "textures/gui/spell_icons/" + id.getPath() + ".png");
             graphics.blit(iconTexture, x, y, 0, 0, 16, 16, 16, 16);
@@ -750,16 +782,11 @@ public final class OriginDetailPanel {
 
         if (originPath.startsWith("class/")) {
             modifiedDesc = appendEnchantmentAccess(modifiedDesc, originPath.substring("class/".length()));
-        } else if (originPath.startsWith("cantrips/two/")) {
-            modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/two/".length()));
-        } else if (originPath.startsWith("cantrips/magical_secrets/")) {
-            modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/magical_secrets/".length()));
-        } else if (originPath.startsWith("cantrips/")) {
-            modifiedDesc = appendCantripDesc(modifiedDesc, originPath.substring("cantrips/".length()));
         } else {
-            Optional<ResourceLocation> disciplineSpell = ElementalDisciplineSpellDisplay.spellIdForDisciplineOriginPath(originPath);
-            if (disciplineSpell.isPresent()) {
-                modifiedDesc = ElementalDisciplineSpellDisplay.appendSpellGuide(modifiedDesc, disciplineSpell.get());
+            Optional<ResourceLocation> spell = ElementalDisciplineSpellDisplay.spellIdForCantripOriginPath(originPath)
+                    .or(() -> ElementalDisciplineSpellDisplay.spellIdForDisciplineOriginPath(originPath));
+            if (spell.isPresent()) {
+                modifiedDesc = ElementalDisciplineSpellDisplay.appendSpellGuide(modifiedDesc, spell.get());
             }
         }
 
@@ -772,37 +799,20 @@ public final class OriginDetailPanel {
         List<Component> classEnchantments = EnchantmentRestrictions.getEnchantmentTextForClass(className);
         if (classEnchantments.isEmpty()) return desc;
 
-        desc.append("\n\n").append(Component.translatable("raven_dnd_origins.gui.enchantment_access").withStyle(style -> style.withUnderlined(true).withColor(16738047)));
+        desc.append("\n\n").append(Component.translatable("raven_dnd_origins.gui.enchantment_access").withStyle(style -> style.withUnderlined(true).withColor(ENCHANTMENT_ACCESS_COLOR)));
 
-        String formattedClass = className.substring(0, 1).toUpperCase() + className.substring(1).toLowerCase() + "s";
+        Component formattedClass = Component.translatableWithFallback("raven_dnd_origins.gui.class_plural." + className,
+                className.substring(0, 1).toUpperCase() + className.substring(1).toLowerCase() + "s");
         for (Component enchantmentName : classEnchantments) {
-            Component fullMessage = Component.translatable("raven_dnd_origins.gui.enchantment_restriction", formattedClass, enchantmentName).withStyle(style -> style.withColor(16738047));
+            Component fullMessage = Component.translatable("raven_dnd_origins.gui.enchantment_restriction", formattedClass, enchantmentName).withStyle(style -> style.withColor(ENCHANTMENT_ACCESS_COLOR));
             desc.append("\n").append(Component.literal("• ")).append(fullMessage);
         }
 
         return desc;
     }
 
-    /** Spell icons and guide text are keyed by path only, so the namespace is recovered from the ISS registry. */
-    private static String resolveSpellNamespace(String spellName) {
-        for (AbstractSpell spell : SpellRegistry.REGISTRY) {
-            if (spell.getSpellResource().getPath().equals(spellName)) {
-                return spell.getSpellResource().getNamespace();
-            }
-        }
-        return IronsSpellbooks.MODID;
-    }
-
-    private MutableComponent appendCantripDesc(MutableComponent desc, String spellName) {
-        String namespace = resolveSpellNamespace(spellName);
-        ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(namespace, spellName);
-        Component spellDesc = Component.translatable("spell." + spellId.getNamespace() + "." + spellId.getPath() + ".guide").withStyle(style -> style.withItalic(true));
-        desc.append("\n\n").append(spellDesc);
-        return desc;
-    }
-
     public void resetScroll() {
-        this.scrollPos = SCROLL_OVERSCROLL_PX;
+        this.scrollPos = 0;
         this.contentMaxScroll = 0;
     }
 
@@ -811,6 +821,16 @@ public final class OriginDetailPanel {
     }
 
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollY) {
+        boolean overPage = mouseX >= this.x && mouseX < this.x + this.width && mouseY >= this.y && mouseY < this.y + this.height;
+        return scroll(mouseX, mouseY, scrollY, overPage);
+    }
+
+    /** The radial menu's page sits beside the ring rather than under the cursor, so any wheel input scrolls it. */
+    public boolean mouseScrolledAnywhere(double mouseX, double mouseY, double scrollY) {
+        return scroll(mouseX, mouseY, scrollY, true);
+    }
+
+    private boolean scroll(double mouseX, double mouseY, double scrollY, boolean scrollDescription) {
         if (this.allowedSpellsStripActive
                 && mouseX >= this.allowedSpellsStripX
                 && mouseX < this.allowedSpellsStripX + this.allowedSpellsStripW
@@ -821,18 +841,16 @@ public final class OriginDetailPanel {
             this.allowedSpellsTooltipScroll = Mth.clamp(ns, 0, this.allowedSpellsTooltipMaxScroll);
             return true;
         }
-        int o = SCROLL_OVERSCROLL_PX;
-        int virtualMax = this.contentMaxScroll <= 0 ? 0 : o + this.contentMaxScroll + o;
-        if (this.displayed == null || virtualMax <= 0) {
+        if (!scrollDescription || this.displayed == null || this.contentMaxScroll <= 0) {
             return false;
         }
         boolean canScroll = scrollY > 0
                 ? this.scrollPos > 0
-                : scrollY < 0 && this.scrollPos < virtualMax;
+                : scrollY < 0 && this.scrollPos < this.contentMaxScroll;
         if (!canScroll) {
             return false;
         }
-        this.scrollPos = Mth.clamp(this.scrollPos - (int) scrollY * 12, 0, virtualMax);
+        this.scrollPos = Mth.clamp(this.scrollPos - (int) scrollY * 12, 0, this.contentMaxScroll);
         return true;
     }
 

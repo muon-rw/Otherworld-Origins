@@ -1,8 +1,8 @@
 package dev.muon.raven_dnd_origins.selection;
 
 import dev.muon.raven_dnd_origins.RavenDndOrigins;
+import dev.muon.raven_dnd_origins.util.StarterKitUtil;
 import dev.muon.raven_dnd_origins.network.CloseCurrentScreenMessage;
-import dev.muon.raven_dnd_origins.network.OpenFinalConfirmScreenMessage;
 import dev.muon.raven_dnd_origins.network.SyncSelectionSessionMessage;
 import dev.muon.raven_dnd_origins.util.OriginStateDumper;
 import dev.overgrown.apoli.PowerContainerAttachment;
@@ -159,6 +159,56 @@ public final class SelectionSessions {
         return cleared;
     }
 
+    /**
+     * Clears the requested layers that belong to the player's open session, then any other requested layer whose
+     * held origin stopped being available because of them. That covers a layer our screen appended mid-session,
+     * like a subclass under a class being reverted, without letting a client clear picks that are still valid.
+     *
+     * @return the layers that were cleared
+     */
+    public static List<ResourceLocation> revertWithinSession(ServerPlayer player, List<ResourceLocation> requested) {
+        PlayerOriginsImpl state = PlayerOriginsAttachment.get(player);
+        Optional<SelectionSession> session = get(player);
+        if (state == null || session.isEmpty()) {
+            return List.of();
+        }
+        List<ResourceLocation> cleared = new ArrayList<>();
+        List<ResourceLocation> outsideSession = new ArrayList<>();
+        for (ResourceLocation id : requested) {
+            OriginLayer layer = OriginLayers.get(id);
+            if (layer == null) continue;
+            if (session.get().layers().contains(id)) {
+                clearWithoutReconcile(player, state, layer);
+                cleared.add(id);
+            } else {
+                outsideSession.add(id);
+            }
+        }
+        boolean progressed = true;
+        while (progressed && !outsideSession.isEmpty()) {
+            progressed = false;
+            for (java.util.Iterator<ResourceLocation> it = outsideSession.iterator(); it.hasNext(); ) {
+                ResourceLocation id = it.next();
+                OriginLayer layer = OriginLayers.get(id);
+                ResourceLocation held = state.getOrigin(id);
+                if (held == null || !layer.availableOrigins(player).contains(held)) {
+                    clearWithoutReconcile(player, state, layer);
+                    cleared.add(id);
+                    it.remove();
+                    progressed = true;
+                }
+            }
+        }
+        if (!outsideSession.isEmpty()) {
+            RavenDndOrigins.LOGGER.warn("[SelectionSession] {} asked to revert layers {} that are outside their session and still valid",
+                    player.getName().getString(), outsideSession);
+        }
+        if (!cleared.isEmpty()) {
+            OriginManager.reconcileLayers(player);
+        }
+        return cleared;
+    }
+
     private static void clearWithoutReconcile(ServerPlayer player, PlayerOriginsImpl state, OriginLayer layer) {
         ResourceLocation id = layer.id();
         if (layer.swappable()) {
@@ -186,7 +236,8 @@ public final class SelectionSessions {
         if (empties.isEmpty()) {
             return false;
         }
-        beginOrMerge(player, empties, SessionKind.INITIAL_CREATION);
+        // Filling gaps on an existing character is not a new character: no review step, no second starter kit.
+        beginOrMerge(player, empties, SessionKind.LEVEL_UP);
         return true;
     }
 
@@ -265,9 +316,9 @@ public final class SelectionSessions {
             OriginsServerNetwork.broadcastPlayerOrigins(player.getServer(), player);
         }
         PacketDistributor.sendToPlayer(player, new SyncSelectionSessionMessage(null));
-        if (session.kind() == SessionKind.INITIAL_CREATION || session.kind() == SessionKind.RESELECTION) {
-            PacketDistributor.sendToPlayer(player,
-                    new OpenFinalConfirmScreenMessage(session.kind(), session.layers()));
+        // Granted here rather than on a client request, so a client can neither repeat it nor lose it by disconnecting.
+        if (session.kind() == SessionKind.INITIAL_CREATION) {
+            StarterKitUtil.giveStarterKit(player);
         }
     }
 

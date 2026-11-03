@@ -57,6 +57,10 @@ public final class ShapeshiftFormPreview {
         living.calculateEntityAnimation(living instanceof FlyingAnimal);
     }
 
+    public static boolean canPreview(Origin origin) {
+        return previewEntity(origin) != null;
+    }
+
     public static void render(GuiGraphics graphics, Origin origin, int centerX, int centerY, int size, float time) {
         LivingEntity living = previewEntity(origin);
         if (living == null) return;

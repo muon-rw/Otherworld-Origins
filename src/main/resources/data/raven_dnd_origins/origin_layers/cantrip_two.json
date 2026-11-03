@@ -112,10 +112,10 @@
         "origin": "raven_dnd_origins:class/bard"
       },
       "origins": [
-        "raven_dnd_origins:cantrips/two/music_bolt",
+        "raven_dnd_origins:cantrips/two/chord_blast",
         "raven_dnd_origins:cantrips/two/firecracker",
         "raven_dnd_origins:cantrips/two/fang_strike",
-        "raven_dnd_origins:cantrips/two/hydroshot",
+        "raven_dnd_origins:cantrips/two/hydrobullet",
         "raven_dnd_origins:cantrips/two/fang_ward",
         "raven_dnd_origins:cantrips/two/lob_creeper"
       ]

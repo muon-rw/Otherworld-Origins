@@ -2,6 +2,7 @@ package dev.muon.raven_dnd_origins.client;
 
 import dev.muon.raven_dnd_origins.RavenDndOrigins;
 import dev.muon.raven_dnd_origins.client.screen.OriginDetailPanel;
+import dev.muon.raven_dnd_origins.client.screen.OriginScreenLayout;
 import dev.muon.raven_dnd_origins.client.screen.ShapeshiftFormPreview;
 import dev.muon.raven_dnd_origins.mixin.client.compat.apoli.RadialMenuAccessor;
 import dev.muon.raven_dnd_origins.mixin.client.compat.apoli.RadialMenuScreenAccessor;
@@ -160,8 +161,9 @@ public final class OriginRadialMenuOverlay {
         int guiWidth = graphics.guiWidth();
         int x = Math.max(guiWidth - OriginDetailPanel.DEFAULT_WIDTH - PANEL_EDGE_MARGIN,
                 ringRightEdge(s.menu, guiWidth, graphics.guiHeight()) + PANEL_RING_GAP);
-        s.panel.render(graphics, s.shown, x, guiWidth - PANEL_EDGE_MARGIN - x,
-                event.getMouseX(), event.getMouseY(), s.time);
+        OriginScreenLayout.Rect bounds = new OriginScreenLayout.Rect(x, 20, guiWidth - PANEL_EDGE_MARGIN - x,
+                graphics.guiHeight() - 60);
+        s.panel.render(graphics, s.shown, bounds, null, event.getMouseX(), event.getMouseY(), s.time);
     }
 
     /**
@@ -222,7 +224,7 @@ public final class OriginRadialMenuOverlay {
     @SubscribeEvent
     public static void onMouseScrolled(ScreenEvent.MouseScrolled.Pre event) {
         Session s = track(event.getScreen());
-        if (s != null && s.panel.mouseScrolled(event.getMouseX(), event.getMouseY(), event.getScrollDeltaY())) {
+        if (s != null && s.panel.mouseScrolledAnywhere(event.getMouseX(), event.getMouseY(), event.getScrollDeltaY())) {
             event.setCanceled(true);
         }
     }

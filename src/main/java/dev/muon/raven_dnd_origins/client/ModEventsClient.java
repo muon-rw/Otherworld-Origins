@@ -21,7 +21,7 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 
-@EventBusSubscriber(value = Dist.CLIENT, modid = RavenDndOrigins.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(value = Dist.CLIENT, modid = RavenDndOrigins.MODID)
 @OnlyIn(Dist.CLIENT)
 public class ModEventsClient {
 

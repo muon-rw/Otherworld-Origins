@@ -1,6 +1,9 @@
 package dev.muon.raven_dnd_origins.util;
 
 import com.mojang.serialization.Dynamic;
+import dev.muon.raven_dnd_origins.config.RavenDndOriginsConfig;
+import dev.overgrown.origins.component.PlayerOriginsAttachment;
+import dev.overgrown.origins.component.PlayerOriginsImpl;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPatch;
@@ -20,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Parses {@code item_id|count|nbt} entries and gives stacks to a player. The third field is applied as
@@ -117,6 +121,47 @@ public final class StarterKitUtil {
         } catch (Exception e) {
             LOGGER.warn("Failed to convert legacy NBT for starter kit item {}: {}", itemIdStr, e.getMessage());
             return Optional.empty();
+        }
+    }
+
+    public static void giveStarterKit(ServerPlayer player) {
+        if (RavenDndOriginsConfig.getInstance() == null) {
+            LOGGER.warn("Config not loaded, cannot give starter kit");
+            return;
+        }
+
+        giveItemEntries(player, RavenDndOriginsConfig.starterKitItems());
+
+        PlayerOriginsImpl state = PlayerOriginsAttachment.get(player);
+        if (state == null) {
+            LOGGER.warn("No origin state for player {}, skipping origin starter kit entries", player.getName().getString());
+            return;
+        }
+
+        // Entries can be keyed by any chosen origin, so a class entry and a subclass entry both apply.
+        Set<ResourceLocation> chosenOrigins = Set.copyOf(state.snapshot().values());
+        List<? extends String> originEntries = RavenDndOriginsConfig.originStarterKitEntries();
+        for (String row : originEntries) {
+            String[] parts = row.split("\\|", 4);
+            if (parts.length < 3) {
+                LOGGER.warn("Invalid origin starter kit entry (need at least origin|item|count): {}", row);
+                continue;
+            }
+            ResourceLocation entryOriginId;
+            try {
+                entryOriginId = ResourceLocation.parse(parts[0].trim());
+            } catch (Exception e) {
+                LOGGER.warn("Invalid origin id in origin starter kit entry: {}", row);
+                continue;
+            }
+            if (!chosenOrigins.contains(entryOriginId)) {
+                continue;
+            }
+            String itemPart = parts[1].trim() + "|" + parts[2].trim() + "|";
+            if (parts.length > 3) {
+                itemPart += parts[3];
+            }
+            giveSingleItemEntry(player, itemPart);
         }
     }
 }

@@ -1,6 +1,7 @@
 package dev.muon.raven_dnd_origins.network;
 
 import dev.muon.raven_dnd_origins.RavenDndOrigins;
+import dev.muon.raven_dnd_origins.selection.SelectionSession;
 import dev.muon.raven_dnd_origins.selection.SelectionSessions;
 import dev.overgrown.origins.network.OriginsServerNetwork;
 import net.minecraft.network.FriendlyByteBuf;
@@ -38,9 +39,8 @@ public record C2SRevertLayerOriginsMessage(List<ResourceLocation> layersToRevert
             return;
         }
         ctx.enqueueWork(() -> {
-            if (SelectionSessions.clearLayers(player, message.layersToRevert).isEmpty()) {
-                return;
-            }
+            SelectionSessions.revertWithinSession(player, message.layersToRevert);
+            // Always resync, so a client that cleared more than the server allowed snaps back to the real picks.
             MinecraftServer server = player.getServer();
             if (server != null) {
                 OriginsServerNetwork.broadcastPlayerOrigins(server, player);

@@ -2,8 +2,8 @@
   "order": 0,
   "name": "Race",
   "gui_title": {
-    "choose_origin": "You were born a:",
-    "view_origin": "You were born a:"
+    "choose_origin": "Choose your race",
+    "view_origin": "Your race"
   },
   "missing_name": "None",
   "missing_description": "Something has gone wrong, you shouldn't be seeing this. Try reconnecting.",

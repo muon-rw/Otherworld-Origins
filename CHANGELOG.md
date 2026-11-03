@@ -1,3 +1,7 @@
+## 0.2.0
+- New screen. idk why this had to happen today
+- Fix music bolt and hydrobullet cantrip icons/descriptions
+
 ## 0.1.4
 - slight tweaks to elemental adept 
 
