@@ -28,9 +28,11 @@ import java.lang.ref.WeakReference;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.OptionalInt;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * A resource whose maximum scales with character level (or a Just Leveling aptitude tier). The mod's
@@ -44,11 +46,13 @@ public class LeveledResourcePower extends ResourcePower {
     private static final String CHARACTER_LEVEL_VAR = "raven_character_level";
     private static final Set<ResourceLocation> REGISTERED_APTITUDE_VARS = Collections.synchronizedSet(new HashSet<>());
 
-    // ResourcePower.Cfg has no field to carry restore_on_levelup, so it is tracked beside the decoded config.
+    // We compile the legacy fields into an expression-backed ResourcePower.Cfg, which can't be decoded back into
+    // them and has no slot for restore_on_levelup. Apoli re-encodes every power to sync it to clients, so we keep
+    // the decoded fields beside each Cfg and encode those instead.
     // Keys are weak and compared by identity: every reload and every client power sync decodes a fresh Cfg that
-    // is equal to, but distinct from, the previous one, so value keys would strand the flag on a dead instance.
+    // is equal to, but distinct from, the previous one, so value keys would strand the fields on a dead instance.
     private static final ReferenceQueue<ResourcePower.Cfg> COLLECTED_CFGS = new ReferenceQueue<>();
-    private static final Set<CfgIdentity> RESTORE_ON_LEVELUP = Collections.synchronizedSet(new HashSet<>());
+    private static final Map<CfgIdentity, Fields> DECODED_FIELDS = new ConcurrentHashMap<>();
 
     static {
         ExprVars.register(CHARACTER_LEVEL_VAR, (entity, container, level, value) ->
@@ -154,15 +158,15 @@ public class LeveledResourcePower extends ResourcePower {
                 fields.maxAction(),
                 true,
                 1);
-        if (fields.restoreOnLevelup()) {
-            markRestoresOnLevelup(cfg);
-        }
+        rememberFields(cfg, fields);
         return DataResult.success(cfg);
     }
 
     private static DataResult<Fields> toFields(ResourcePower.Cfg cfg) {
-        return DataResult.success(new Fields(cfg.hudRender(), Optional.empty(), 0, Optional.empty(), Optional.empty(),
-                Optional.empty(), Optional.empty(), false, cfg.minAction(), cfg.maxAction(), Optional.empty()));
+        Fields fields = DECODED_FIELDS.get(new CfgIdentity(cfg, null));
+        return fields != null
+                ? DataResult.success(fields)
+                : DataResult.error(() -> "Resource config was not decoded from leveled_resource fields, so it can't be re-encoded");
     }
 
     @SubscribeEvent
@@ -183,18 +187,19 @@ public class LeveledResourcePower extends ResourcePower {
         }
     }
 
-    private static void markRestoresOnLevelup(ResourcePower.Cfg cfg) {
+    private static void rememberFields(ResourcePower.Cfg cfg, Fields fields) {
         dropCollectedCfgs();
-        RESTORE_ON_LEVELUP.add(new CfgIdentity(cfg, COLLECTED_CFGS));
+        DECODED_FIELDS.put(new CfgIdentity(cfg, COLLECTED_CFGS), fields);
     }
 
     private static boolean restoresOnLevelup(ResourcePower.Cfg cfg) {
-        return RESTORE_ON_LEVELUP.contains(new CfgIdentity(cfg, null));
+        Fields fields = DECODED_FIELDS.get(new CfgIdentity(cfg, null));
+        return fields != null && fields.restoreOnLevelup();
     }
 
     private static void dropCollectedCfgs() {
         for (Reference<? extends ResourcePower.Cfg> collected; (collected = COLLECTED_CFGS.poll()) != null; ) {
-            RESTORE_ON_LEVELUP.remove((CfgIdentity) collected);
+            DECODED_FIELDS.remove((CfgIdentity) collected);
         }
     }
 

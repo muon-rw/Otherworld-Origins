@@ -1,3 +1,6 @@
+## 0.2.1
+- Fix leveled resource power desync on dedicated servers
+
 ## 0.2.0
 - New screen. idk why this had to happen today
 - Fix music bolt and hydrobullet cantrip icons/descriptions
