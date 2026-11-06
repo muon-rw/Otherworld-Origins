@@ -1,3 +1,6 @@
+## 0.2.2
+- Updates for naturalist
+
 ## 0.2.1
 - Fix leveled resource power desync on dedicated servers
 

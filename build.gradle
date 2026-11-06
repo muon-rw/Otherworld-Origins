@@ -261,7 +261,7 @@ dependencies {
     // shelved: localRuntime "curse.maven:attribute-setter-1064034:8777532"
 
     // Mobs: wildshape forms, familiars, spell targets
-    implementation("curse.maven:naturalist-627986:9004373")
+    implementation("curse.maven:naturalist-627986:9280587")
     implementation("maven.modrinth:hybrid-aquatic:${hybrid_aquatic_version}")
     localRuntime("maven.modrinth:biolith:${biolith_version}")             // hybrid_aquatic requires it
     localRuntime("maven.modrinth:lithostitched:${lithostitched_version}") // hybrid_aquatic requires it
@@ -318,8 +318,8 @@ dependencies {
     localRuntime("vazkii.patchouli:Patchouli:1.21.1-93-NEOFORGE")  // apprentice_codex needs 93+; Apotheosis pulls 87
 
     // Clockwork
-    compileOnly("pack:clockwork-neoforge:1.21.1-1.1.6")
-    localRuntime("pack:clockwork-neoforge:1.21.1-1.1.6")
+    compileOnly("pack:clockwork-neoforge:1.21.1-1.1.7")
+    localRuntime("pack:clockwork-neoforge:1.21.1-1.1.7")
     compileOnly("pack:knightlib-neoforge:1.21.1-2.0.5")            // required by clockwork
     localRuntime("pack:knightlib-neoforge:1.21.1-2.0.5")
 
@@ -388,8 +388,10 @@ tasks.register('sendToModpack') {
     group = 'publishing'
     dependsOn 'jar'
     def builtJar = tasks.jar.archiveFile
+    def builtName = tasks.jar.archiveFileName.get()
+    def versionedPrefix = builtName.substring(0, builtName.indexOf(project.version.toString()))
     def deployedJar = Path.of("C:\\Users\\renpi\\curseforge\\minecraft\\Instances\\Raven's High Fantasy\\mods",
-            tasks.jar.archiveFileName.get().replace(project.version.toString(), "dev"))
+            builtName.replace(project.version.toString(), "dev"))
     // Writing into the deployed jar corrupts a running pack's open handle; replacing the file leaves the pack on the old one.
     doLast {
         def staged = deployedJar.resolveSibling("${deployedJar.fileName}.staged".toString())
@@ -402,6 +404,15 @@ tasks.register('sendToModpack') {
         }
         Files.move(staged, deployedJar)
         println "Mod JAR sent to modpack folder: ${deployedJar.fileName}"
+
+        // FML picks the published jar over the dev jar, so we disable the published one while testing.
+        Files.list(deployedJar.parent).withCloseable { files ->
+            files.toList().findAll { it.fileName.toString().startsWith(versionedPrefix) && it.fileName.toString().endsWith('.jar') && it != deployedJar }
+                    .each { versioned ->
+                        Files.move(versioned, versioned.resolveSibling("${versioned.fileName}.disabled".toString()), StandardCopyOption.REPLACE_EXISTING)
+                        println "Disabled published jar: ${versioned.fileName}"
+                    }
+        }
     }
 }
 

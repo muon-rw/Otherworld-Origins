@@ -1,6 +1,6 @@
 package dev.muon.raven_dnd_origins.entity.summons;
 
-import com.crispytwig.naturalist.server.entity.mob.Bear;
+import com.crispytwig.naturalist.world.entity.animal.bear.Bear;
 import dev.muon.raven_dnd_origins.entity.ModEntities;
 import dev.muon.raven_dnd_origins.spells.ModSpells;
 import io.redspace.ironsspellbooks.api.util.Utils;
@@ -80,6 +80,14 @@ public class SummonedGrizzlyBear extends Bear implements IMagicSummon {
             pPlayer.setXRot(this.getXRot());
             pPlayer.startRiding(this);
         }
+    }
+
+    @Override
+    public void aiStep() {
+        // Naturalist's MobMixin only calls updateSwingTime() for entities in the "naturalist" namespace,
+        // so we call it here to clear swinging after a melee attack.
+        this.updateSwingTime();
+        super.aiStep();
     }
 
     @Override

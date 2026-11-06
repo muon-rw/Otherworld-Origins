@@ -1,6 +1,6 @@
 package dev.muon.raven_dnd_origins.client;
 
-import com.crispytwig.naturalist.client.renderer.BearRenderer;
+import com.crispytwig.naturalist.client.renderer.entity.BearRenderer;
 import dev.kosmx.playerAnim.api.layered.IAnimation;
 import dev.kosmx.playerAnim.api.layered.ModifierLayer;
 import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
